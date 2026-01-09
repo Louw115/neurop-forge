@@ -1,0 +1,148 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f07784e6d5c9060ffd2396929f6e60aa604ba0032eeadcb30bff00f21e71f21a",
+    "semantic_fingerprint": "abc1a894f16e70d59ce0195828ac5af04d446bc1188c00b7c8d8ce6fb5ee3f06",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get a nested value from a document using path parts.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter data",
+        "name": "data",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter path_parts",
+        "name": "path_parts",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter default",
+        "name": "default",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Return value of get_nested_value",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_nested_value(v0: dict, v1: list, v2):\n    v3 = v0\n    for v4 in v1:\n        if isinstance(v3, dict) and v4 in v3:\n            v3 = v3[v4]\n        elif isinstance(v3, list) and isinstance(v4, int) and (0 <= v4 < len(v3)):\n            v3 = v3[v4]\n        else:\n            return v2\n    return v3",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-09T23:10:43.697763+00:00",
+    "description": "Get a nested value from a document using path parts.",
+    "intent": "Get a nested value from a document using path parts.",
+    "language": "python",
+    "name": "get_nested_value",
+    "source_file": "neurop_forge/sources/nosql_helpers.py",
+    "source_line_end": 396,
+    "source_line_start": 386,
+    "tags": [
+      "data",
+      "default",
+      "filtering",
+      "get",
+      "nested",
+      "path_parts",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:43.697788+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(data) == dict",
+      "data is not None",
+      "type(path_parts) == list",
+      "path_parts is not None",
+      "default is not None"
+    ],
+    "invariants": [],
+    "output_validators": [],
+    "postconditions": [],
+    "preconditions": [
+      "type(data) == dict",
+      "data is not None",
+      "type(path_parts) == list",
+      "path_parts is not None",
+      "default is not None"
+    ]
+  }
+}

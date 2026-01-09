@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "810f5dd8f59dda454bd1f3b63a42d5e44a9aaa07c737747ad9d1cff486d0f585",
+    "semantic_fingerprint": "18fca01df0dc8b830ee3ea8620375c273838a9a479061a6843ccbb832d89614e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate jobs per second throughput.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter completed_count",
+        "name": "completed_count",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter time_window_seconds",
+        "name": "time_window_seconds",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_throughput",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_throughput(v0: int, v1: int) -> float:\n    if v1 <= 0:\n        return 0.0\n    return v0 / v1",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T23:10:44.346575+00:00",
+    "description": "Calculate jobs per second throughput.",
+    "intent": "Calculate jobs per second throughput.",
+    "language": "python",
+    "name": "calculate_throughput",
+    "source_file": "neurop_forge/sources/job_scheduling.py",
+    "source_line_end": 219,
+    "source_line_start": 215,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "completed_count",
+      "throughput",
+      "time_window_seconds"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:44.346591+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(completed_count) == integer",
+      "completed_count is not None",
+      "type(time_window_seconds) == integer",
+      "time_window_seconds is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(completed_count) == integer",
+      "completed_count is not None",
+      "type(time_window_seconds) == integer",
+      "time_window_seconds is not None"
+    ]
+  }
+}

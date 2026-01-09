@@ -1,0 +1,166 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a7dad4f30843a8f033d9493ec3ddd53d8e8dc1fde90d515ccf8b4a5adf75b014",
+    "semantic_fingerprint": "551d94690aa2ead0719d13bd3b514d86c144bc02c525f2d2fe41bc720fc144e9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build pagination link URLs.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter base_url",
+        "name": "base_url",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter page",
+        "name": "page",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter per_page",
+        "name": "per_page",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter total",
+        "name": "total",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_pagination_links",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_pagination_links(v0: str, v1: int, v2: int, v3: int) -> dict:\n    v4 = (v3 + v2 - 1) // v2 if v2 > 0 else 0\n    v5 = {'self': f'{v0}?page={v1}&per_page={v2}', 'first': f'{v0}?page=1&per_page={v2}', 'last': f'{v0}?page={v4}&per_page={v2}'}\n    if v1 > 1:\n        v5['prev'] = f'{v0}?page={v1 - 1}&per_page={v2}'\n    if v1 < v4:\n        v5['next'] = f'{v0}?page={v1 + 1}&per_page={v2}'\n    return v5",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-09T23:10:43.910959+00:00",
+    "description": "Build pagination link URLs.",
+    "intent": "Build pagination link URLs.",
+    "language": "python",
+    "name": "build_pagination_links",
+    "source_file": "neurop_forge/sources/api_patterns.py",
+    "source_line_end": 93,
+    "source_line_start": 81,
+    "tags": [
+      "base_url",
+      "build",
+      "dict_operation",
+      "links",
+      "page",
+      "pagination",
+      "per_page",
+      "total"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:43.911004+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(base_url) == string",
+      "base_url is not None",
+      "type(page) == integer",
+      "page is not None",
+      "type(per_page) == integer",
+      "per_page is not None",
+      "type(total) == integer",
+      "total is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(base_url) == string",
+      "base_url is not None",
+      "type(page) == integer",
+      "page is not None",
+      "type(per_page) == integer",
+      "per_page is not None",
+      "type(total) == integer",
+      "total is not None"
+    ]
+  }
+}

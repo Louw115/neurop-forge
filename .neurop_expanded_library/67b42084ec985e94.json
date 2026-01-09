@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "67b42084ec985e94391897bd3389a1212c9375cc322cadf5e91b2882da871e14",
+    "semantic_fingerprint": "b9980b358df720b490124f42eb00618bbd920432ed57b61bb3b61dbad0f99c24",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Apply a state transition (returns new machine state).",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter machine",
+        "name": "machine",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter to_state",
+        "name": "to_state",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of apply_transition",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def apply_transition(v0: dict, v1: str) -> dict:\n    v2 = v3(v0)\n    if not v4(v0, v2, v1):\n        return v0\n    v5 = dict(v0)\n    v5['current_state'] = v1\n    v5['previous_state'] = v2\n    return v5",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-09T23:10:44.376085+00:00",
+    "description": "Apply a state transition (returns new machine state).",
+    "intent": "Apply a state transition (returns new machine state).",
+    "language": "python",
+    "name": "apply_transition",
+    "source_file": "neurop_forge/sources/state_machine.py",
+    "source_line_end": 46,
+    "source_line_start": 38,
+    "tags": [
+      "apply",
+      "dict_operation",
+      "machine",
+      "to_state",
+      "transition"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:44.376109+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(machine) == dict",
+      "machine is not None",
+      "type(to_state) == string",
+      "to_state is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(machine) == dict",
+      "machine is not None",
+      "type(to_state) == string",
+      "to_state is not None"
+    ]
+  }
+}

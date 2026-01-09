@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "17f9a6fc7d1a62c07cba0d786248bb3baf1a610610d1631e1a6f0e9e842a018e",
+    "semantic_fingerprint": "18644e08c35c9304028fa09f5f83d162e3c0339995632fc9cc912d8153d7bebc",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format operation type to standard form.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter operation",
+        "name": "operation",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_operation_type",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_operation_type(v0: str) -> str:\n    v1 = {'insert': 'INSERT', 'create': 'INSERT', 'update': 'UPDATE', 'modify': 'UPDATE', 'delete': 'DELETE', 'remove': 'DELETE', 'select': 'SELECT', 'read': 'SELECT'}\n    return v1.get(v0.lower(), v0.upper())",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T23:10:43.841909+00:00",
+    "description": "Format operation type to standard form.",
+    "intent": "Format operation type to standard form.",
+    "language": "python",
+    "name": "format_operation_type",
+    "source_file": "neurop_forge/sources/audit_logging.py",
+    "source_line_end": 51,
+    "source_line_start": 39,
+    "tags": [
+      "format",
+      "operation",
+      "string_manipulation",
+      "type"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:43.841925+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(operation) == string",
+      "operation is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(operation) == string",
+      "operation is not None"
+    ]
+  }
+}

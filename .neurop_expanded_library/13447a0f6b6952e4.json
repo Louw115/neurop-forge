@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "13447a0f6b6952e43365669072ecb467d0b2cc8329ec79dd46ed83bede68a879",
+    "semantic_fingerprint": "ee3c2bb24a96727c1b2f7a3bfa2a3551f4a64c6705f5166ea4e8a411dc779ad8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if a SQL type is numeric.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter sql_type",
+        "name": "sql_type",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_numeric_type",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_numeric_type(v0: str) -> bool:\n    v1 = {'INTEGER', 'INT', 'SMALLINT', 'BIGINT', 'TINYINT', 'DECIMAL', 'NUMERIC', 'REAL', 'FLOAT', 'DOUBLE', 'DOUBLE PRECISION', 'SERIAL', 'BIGSERIAL', 'SMALLSERIAL'}\n    return v0.upper().split('(')[0] in v1",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-09T23:10:43.324844+00:00",
+    "description": "Check if a SQL type is numeric.",
+    "intent": "Check if a SQL type is numeric.",
+    "language": "python",
+    "name": "is_numeric_type",
+    "source_file": "neurop_forge/sources/sql_types.py",
+    "source_line_end": 71,
+    "source_line_start": 64,
+    "tags": [
+      "numeric",
+      "sql_type",
+      "type",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:43.324859+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(sql_type) == string",
+      "sql_type is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(sql_type) == string",
+      "sql_type is not None"
+    ]
+  }
+}

@@ -386,6 +386,28 @@ def demonstrate_expanded_library():
         ("neurop_forge/sources/money_utilities.py", "Money Utilities"),
         ("neurop_forge/sources/phone_utilities.py", "Phone Utilities"),
         ("neurop_forge/sources/markdown_utilities.py", "Markdown Utilities"),
+        ("neurop_forge/sources/sql_building.py", "SQL Building"),
+        ("neurop_forge/sources/sql_types.py", "SQL Types"),
+        ("neurop_forge/sources/query_helpers.py", "Query Helpers"),
+        ("neurop_forge/sources/migration_helpers.py", "Migration Helpers"),
+        ("neurop_forge/sources/transaction_helpers.py", "Transaction Helpers"),
+        ("neurop_forge/sources/data_integrity.py", "Data Integrity"),
+        ("neurop_forge/sources/nosql_helpers.py", "NoSQL Helpers"),
+        ("neurop_forge/sources/orm_patterns.py", "ORM Patterns"),
+        ("neurop_forge/sources/connection_pool.py", "Connection Pool"),
+        ("neurop_forge/sources/batch_operations.py", "Batch Operations"),
+        ("neurop_forge/sources/audit_logging.py", "Audit Logging"),
+        ("neurop_forge/sources/api_patterns.py", "API Patterns"),
+        ("neurop_forge/sources/auth_patterns.py", "Auth Patterns"),
+        ("neurop_forge/sources/webhook_patterns.py", "Webhook Patterns"),
+        ("neurop_forge/sources/request_validation.py", "Request Validation"),
+        ("neurop_forge/sources/response_formatting.py", "Response Formatting"),
+        ("neurop_forge/sources/error_handling.py", "Error Handling"),
+        ("neurop_forge/sources/middleware_patterns.py", "Middleware Patterns"),
+        ("neurop_forge/sources/job_scheduling.py", "Job Scheduling"),
+        ("neurop_forge/sources/state_machine.py", "State Machine"),
+        ("neurop_forge/sources/event_sourcing.py", "Event Sourcing"),
+        ("neurop_forge/sources/queue_patterns.py", "Queue Patterns"),
     ]
 
     print("STEP 1: Initialize Neurop Block Forge")
@@ -553,6 +575,28 @@ def demonstrate_expanded_library():
     print("  - Money utilities (currency formatting, tax, interest)")
     print("  - Phone utilities (parsing, formatting, validation)")
     print("  - Markdown utilities (formatting, parsing, TOC generation)")
+    print("  - SQL building (query construction, escaping, DDL)")
+    print("  - SQL types (type mapping, validation, casting)")
+    print("  - Query helpers (analysis, manipulation, pagination)")
+    print("  - Migration helpers (schema changes, versioning)")
+    print("  - Transaction helpers (isolation, locking, retries)")
+    print("  - Data integrity (validation, constraints, checksums)")
+    print("  - NoSQL helpers (MongoDB, Redis, DynamoDB patterns)")
+    print("  - ORM patterns (model mapping, relationships, scopes)")
+    print("  - Connection pool (sizing, health, metrics)")
+    print("  - Batch operations (bulk insert, parallel processing)")
+    print("  - Audit logging (change tracking, compliance)")
+    print("  - API patterns (REST endpoints, versioning, HATEOAS)")
+    print("  - Auth patterns (JWT, OAuth, sessions, API keys)")
+    print("  - Webhook patterns (signatures, retries, delivery)")
+    print("  - Request validation (fields, formats, constraints)")
+    print("  - Response formatting (pagination, errors, JSONAPI)")
+    print("  - Error handling (categorization, retry, circuit breaker)")
+    print("  - Middleware patterns (logging, tracing, security)")
+    print("  - Job scheduling (cron, queues, retries, workers)")
+    print("  - State machines (transitions, sagas, workflows)")
+    print("  - Event sourcing (events, snapshots, projections)")
+    print("  - Queue patterns (routing, acknowledgments, DLQ)")
     print()
     print("AI can now compose block graphs across all these domains.")
     print("This is the foundation for building anything - from validated blocks.")

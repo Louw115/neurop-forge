@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "720ff0370a4346ed2afa00f55247af82ff55cd684cac8cd70e76f2798712edb0",
+    "semantic_fingerprint": "7b8554b51d88570256fecbb323e8c1c033b2685efe723d19d95f1e382b019816",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract relationship includes from query parameter.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter include_string",
+        "name": "include_string",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of extract_include_param",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def extract_include_param(v0: str) -> list:\n    if not v0:\n        return []\n    return [v1.strip() for v1 in v0.split(',')]",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-09T23:10:43.955933+00:00",
+    "description": "Extract relationship includes from query parameter.",
+    "intent": "Extract relationship includes from query parameter.",
+    "language": "python",
+    "name": "extract_include_param",
+    "source_file": "neurop_forge/sources/api_patterns.py",
+    "source_line_end": 310,
+    "source_line_start": 306,
+    "tags": [
+      "extract",
+      "filtering",
+      "include",
+      "include_string",
+      "param"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:43.955967+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(include_string) == string",
+      "include_string is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(include_string) == string",
+      "include_string is not None"
+    ]
+  }
+}

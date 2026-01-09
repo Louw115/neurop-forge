@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3ce284ad7c7da1275c9936915da637c7f7f78e74f80292bdf124d45551f7a44f",
+    "semantic_fingerprint": "54bb90c34e0775ec05d2bcaafa55bdbed66502e447e4ab248c32338ea8a72a4c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse user agent string (basic parsing).",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter user_agent",
+        "name": "user_agent",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of parse_user_agent",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_user_agent(v0: str) -> dict:\n    import re\n    v1 = {'browser': '', 'version': '', 'os': '', 'device': 'desktop'}\n    if 'Mobile' in v0:\n        v1['device'] = 'mobile'\n    elif 'Tablet' in v0:\n        v1['device'] = 'tablet'\n    v2 = [('Chrome', 'Chrome/(\\\\d+)'), ('Firefox', 'Firefox/(\\\\d+)'), ('Safari', 'Version/(\\\\d+).*Safari'), ('Edge', 'Edg/(\\\\d+)'), ('MSIE', 'MSIE (\\\\d+)')]\n    for v3, v4 in v2:\n        v5 = v6.search(v4, v0)\n        if v5:\n            v1['browser'] = v3\n            v1['version'] = v5.group(1)\n            break\n    if 'Windows' in v0:\n        v1['os'] = 'Windows'\n    elif 'Mac' in v0:\n        v1['os'] = 'macOS'\n    elif 'Linux' in v0:\n        v1['os'] = 'Linux'\n    elif 'Android' in v0:\n        v1['os'] = 'Android'\n    elif 'iOS' in v0 or 'iPhone' in v0:\n        v1['os'] = 'iOS'\n    return v1",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-09T23:10:44.263942+00:00",
+    "description": "Parse user agent string (basic parsing).",
+    "intent": "Parse user agent string (basic parsing).",
+    "language": "python",
+    "name": "parse_user_agent",
+    "source_file": "neurop_forge/sources/middleware_patterns.py",
+    "source_line_end": 95,
+    "source_line_start": 64,
+    "tags": [
+      "agent",
+      "parse",
+      "transformation",
+      "user",
+      "user_agent"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:44.263967+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(user_agent) == string",
+      "user_agent is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(user_agent) == string",
+      "user_agent is not None"
+    ]
+  }
+}

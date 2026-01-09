@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e721bd1f1460bdc376244a9304e6d37aa1db67284cd5da46a13883a772e0ac14",
+    "semantic_fingerprint": "68aa3b05464234703f8e5a6519ad3fb291935db7a9e0152821f2b05bc26ed590",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract the main table name from a simple SQL query.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter query",
+        "name": "query",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of extract_table_name",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def extract_table_name(v0: str) -> str:\n    v1 = v0.upper()\n    if 'FROM' in v1:\n        v2 = v0.split()\n        try:\n            v3 = [v4.upper() for v4 in v2].index('FROM')\n            if v3 + 1 < len(v2):\n                v5 = v2[v3 + 1]\n                return v5.strip('\"').strip(\"'\").strip()\n        except v6:\n            pass\n    if 'INTO' in v1:\n        v2 = v0.split()\n        try:\n            v7 = [v4.upper() for v4 in v2].index('INTO')\n            if v7 + 1 < len(v2):\n                v5 = v2[v7 + 1]\n                return v5.strip('\"').strip(\"'\").strip()\n        except v6:\n            pass\n    return ''",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-09T23:10:43.294896+00:00",
+    "description": "Extract the main table name from a simple SQL query.",
+    "intent": "Extract the main table name from a simple SQL query.",
+    "language": "python",
+    "name": "extract_table_name",
+    "source_file": "neurop_forge/sources/sql_building.py",
+    "source_line_end": 429,
+    "source_line_start": 408,
+    "tags": [
+      "extract",
+      "filtering",
+      "name",
+      "query",
+      "table"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:43.294914+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(query) == string",
+      "query is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(query) == string",
+      "query is not None"
+    ]
+  }
+}

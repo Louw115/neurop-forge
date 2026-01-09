@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3e57326f0d6a032fe6154a3fddf637d3659b50da22acb52a18d2b7105f464f31",
+    "semantic_fingerprint": "08fa51beda35113bb1d1855fbc3c6f4d7752bed59094a6c597e6573bff9aa4c8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate pool configuration parameters.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter config",
+        "name": "config",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of validate_pool_config",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_pool_config(v0: dict) -> dict:\n    v1 = []\n    if v0.get('min_size', 0) < 0:\n        v1.append('min_size must be non-negative')\n    if v0.get('max_size', 0) < v0.get('min_size', 0):\n        v1.append('max_size must be >= min_size')\n    if v0.get('connection_timeout_ms', 0) < 0:\n        v1.append('connection_timeout_ms must be non-negative')\n    if v0.get('idle_timeout_seconds', 0) < 0:\n        v1.append('idle_timeout_seconds must be non-negative')\n    return {'valid': len(v1) == 0, 'errors': v1}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-09T23:10:43.807653+00:00",
+    "description": "Validate pool configuration parameters.",
+    "intent": "Validate pool configuration parameters.",
+    "language": "python",
+    "name": "validate_pool_config",
+    "source_file": "neurop_forge/sources/connection_pool.py",
+    "source_line_end": 262,
+    "source_line_start": 251,
+    "tags": [
+      "config",
+      "pool",
+      "validate",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:43.807672+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(config) == dict",
+      "config is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(config) == dict",
+      "config is not None"
+    ]
+  }
+}

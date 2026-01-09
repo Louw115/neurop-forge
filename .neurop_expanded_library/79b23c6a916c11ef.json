@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "79b23c6a916c11ef9ddb332e333852319f47888ea75fea8829bd9ae6c2f05b90",
+    "semantic_fingerprint": "4ed5b2f3b434caba223e341f6eb0d44cbff0010eaca029e5e61de9ff7005bf4a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if a query is read-only (SELECT without FOR UPDATE).",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter query",
+        "name": "query",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_read_only_query",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_read_only_query(v0: str) -> bool:\n    v1 = v2(v0)\n    if v1 != 'SELECT':\n        return False\n    import re\n    return not bool(v3.search('\\\\bFOR\\\\s+(UPDATE|SHARE)\\\\b', v0, v3.IGNORECASE))",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-09T23:10:43.413316+00:00",
+    "description": "Check if a query is read-only (SELECT without FOR UPDATE).",
+    "intent": "Check if a query is read-only (SELECT without FOR UPDATE).",
+    "language": "python",
+    "name": "is_read_only_query",
+    "source_file": "neurop_forge/sources/query_helpers.py",
+    "source_line_end": 313,
+    "source_line_start": 307,
+    "tags": [
+      "only",
+      "query",
+      "read",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:43.413336+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(query) == string",
+      "query is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(query) == string",
+      "query is not None"
+    ]
+  }
+}

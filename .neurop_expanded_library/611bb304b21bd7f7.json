@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "611bb304b21bd7f749480111052a344ab23235d31f271588570284782f3008f1",
+    "semantic_fingerprint": "1ee57bc2d8900d0f31fdf6fbed941a5880c9e13f71135b3d90d0ef003fc6d854",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract event data from webhook payload.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter payload",
+        "name": "payload",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of extract_event_data",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def extract_event_data(v0: dict) -> dict:\n    return v0.get('data', {})",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-09T23:10:44.059608+00:00",
+    "description": "Extract event data from webhook payload.",
+    "intent": "Extract event data from webhook payload.",
+    "language": "python",
+    "name": "extract_event_data",
+    "source_file": "neurop_forge/sources/webhook_patterns.py",
+    "source_line_end": 93,
+    "source_line_start": 91,
+    "tags": [
+      "data",
+      "event",
+      "extract",
+      "filtering",
+      "payload"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:44.059621+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(payload) == dict",
+      "payload is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(payload) == dict",
+      "payload is not None"
+    ]
+  }
+}

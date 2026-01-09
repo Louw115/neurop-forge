@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "028314df3e51235779e075942562bbf0653cadeaef7ccdf9115f1f802d0a4abd",
+    "semantic_fingerprint": "64bc01f7f6bf0471c731d017428d328c5255db52271ae7715b768e406375a564",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate a nested object against a schema.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter data",
+        "name": "data",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter schema",
+        "name": "schema",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter prefix",
+        "name": "prefix",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of validate_nested_object",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_nested_object(v0: dict, v1: dict, v2: str) -> dict:\n    v3 = []\n    for v4, v5 in v1.items():\n        v6 = f'{v2}.{v4}' if v2 else v4\n        v7 = v8(v4, v0)\n        if v5.get('required') and v7 is None:\n            v3.append(f'{v6} is required')\n            continue\n        if v7 is not None:\n            if 'type' in v5:\n                v9 = v10({v4: v7}, {v4: v5['type']})\n                if not v9['valid']:\n                    v3.extend([f'{v6}: {v11}' for v11 in v9['errors']])\n            if 'min_length' in v5 and isinstance(v7, str):\n                if len(v7) < v5['min_length']:\n                    v3.append(f\"{v6} must be at least {v5['min_length']} characters\")\n            if 'max_length' in v5 and isinstance(v7, str):\n                if len(v7) > v5['max_length']:\n                    v3.append(f\"{v6} must be at most {v5['max_length']} characters\")\n    return {'valid': len(v3) == 0, 'errors': v3}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-09T23:10:44.143335+00:00",
+    "description": "Validate a nested object against a schema.",
+    "intent": "Validate a nested object against a schema.",
+    "language": "python",
+    "name": "validate_nested_object",
+    "source_file": "neurop_forge/sources/request_validation.py",
+    "source_line_end": 342,
+    "source_line_start": 322,
+    "tags": [
+      "data",
+      "nested",
+      "object",
+      "prefix",
+      "schema",
+      "validate",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:44.143354+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(data) == dict",
+      "data is not None",
+      "type(schema) == dict",
+      "schema is not None",
+      "type(prefix) == string",
+      "prefix is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(data) == dict",
+      "data is not None",
+      "type(schema) == dict",
+      "schema is not None",
+      "type(prefix) == string",
+      "prefix is not None"
+    ]
+  }
+}

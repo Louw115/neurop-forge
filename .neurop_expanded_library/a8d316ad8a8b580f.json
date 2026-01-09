@@ -1,0 +1,131 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a8d316ad8a8b580f459810a2b9d17983bdbaf488b85440b9cf8d2822fb671c3b",
+    "semantic_fingerprint": "6e923575762bb87189a5349d4466943a804029d80b1e6ce5025dd7387816ad6c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get a default value literal for a SQL type.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter sql_type",
+        "name": "sql_type",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_default_value_literal",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_default_value_literal(v0: str) -> str:\n    if v1(v0):\n        return '0'\n    if v2(v0):\n        return \"''\"\n    if v3(v0):\n        return 'FALSE'\n    if v4(v0):\n        return \"'{}'\"\n    if v0.upper() == 'DATE':\n        return 'CURRENT_DATE'\n    if 'TIMESTAMP' in v0.upper():\n        return 'CURRENT_TIMESTAMP'\n    if v0.upper() == 'TIME':\n        return 'CURRENT_TIME'\n    if v5(v0):\n        return 'gen_random_uuid()'\n    return 'NULL'",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-09T23:10:43.341189+00:00",
+    "description": "Get a default value literal for a SQL type.",
+    "intent": "Get a default value literal for a SQL type.",
+    "language": "python",
+    "name": "get_default_value_literal",
+    "source_file": "neurop_forge/sources/sql_types.py",
+    "source_line_end": 196,
+    "source_line_start": 178,
+    "tags": [
+      "default",
+      "filtering",
+      "get",
+      "literal",
+      "sql_type",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:43.341204+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(sql_type) == string",
+      "sql_type is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(sql_type) == string",
+      "sql_type is not None"
+    ]
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception",
+      "IndexError"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7a5a8e8981ec09c840cce36ee967a30d97881cb29c77b89f7dbced1d8359e055",
+    "semantic_fingerprint": "bdef8db4086ac34156cb48d9e43777280c8f2108798b13816e32d7949c9688fb",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate DROP INDEX CONCURRENTLY SQL.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter index_name",
+        "name": "index_name",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_drop_concurrent_index_sql",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_drop_concurrent_index_sql(v0: str) -> str:\n    from neurop_forge.sources.sql_building import escape_sql_identifier\n    return f'DROP INDEX CONCURRENTLY {v1(v0)}'",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T23:10:43.492190+00:00",
+    "description": "Generate DROP INDEX CONCURRENTLY SQL.",
+    "intent": "Generate DROP INDEX CONCURRENTLY SQL.",
+    "language": "python",
+    "name": "generate_drop_concurrent_index_sql",
+    "source_file": "neurop_forge/sources/migration_helpers.py",
+    "source_line_end": 297,
+    "source_line_start": 294,
+    "tags": [
+      "concurrent",
+      "drop",
+      "generate",
+      "index",
+      "index_name",
+      "sql",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:43.492206+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(index_name) == string",
+      "index_name is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(index_name) == string",
+      "index_name is not None"
+    ]
+  }
+}

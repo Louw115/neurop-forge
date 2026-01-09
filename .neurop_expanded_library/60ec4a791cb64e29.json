@@ -1,0 +1,131 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "60ec4a791cb64e29dc2bef3033be1567e7be9a7e9540d75d3a8bf70f251bcbf0",
+    "semantic_fingerprint": "cc8b72296977c0d269bf5b995e22f706b3320acb09e8dadf109bcb7fc23b96ee",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build filter query string from conditions.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter filters",
+        "name": "filters",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_filter_query_string",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_filter_query_string(v0: list) -> str:\n    v1 = []\n    for v2 in v0:\n        v3 = v2.get('field', '')\n        v4 = v2.get('operator', 'eq')\n        v5 = v2.get('value', '')\n        if v4 == 'eq':\n            v1.append(f'filter[{v3}]={v5}')\n        else:\n            v1.append(f'filter[{v3}__{v4}]={v5}')\n    return '&'.join(v1)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T23:10:43.949524+00:00",
+    "description": "Build filter query string from conditions.",
+    "intent": "Build filter query string from conditions.",
+    "language": "python",
+    "name": "build_filter_query_string",
+    "source_file": "neurop_forge/sources/api_patterns.py",
+    "source_line_end": 287,
+    "source_line_start": 276,
+    "tags": [
+      "build",
+      "filter",
+      "filters",
+      "query",
+      "string",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:43.949549+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(filters) == list",
+      "filters is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(filters) == list",
+      "filters is not None"
+    ]
+  }
+}

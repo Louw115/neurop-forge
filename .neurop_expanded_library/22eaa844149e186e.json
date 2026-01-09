@@ -1,0 +1,166 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "22eaa844149e186e99e14f859a34cf66aaf69ff54ed3027a8252c64806793680",
+    "semantic_fingerprint": "7b7249ce17987cc9d84a49da7c3b726275ee866c022f425fc5ee5028115434b1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a standard webhook payload.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter event_type",
+        "name": "event_type",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter event_id",
+        "name": "event_id",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter timestamp",
+        "name": "timestamp",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter data",
+        "name": "data",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_webhook_payload",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_webhook_payload(v0: str, v1: str, v2: str, v3: dict) -> dict:\n    return {'id': v1, 'type': v0, 'created': v2, 'data': v3}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-09T23:10:44.057282+00:00",
+    "description": "Build a standard webhook payload.",
+    "intent": "Build a standard webhook payload.",
+    "language": "python",
+    "name": "build_webhook_payload",
+    "source_file": "neurop_forge/sources/webhook_patterns.py",
+    "source_line_end": 67,
+    "source_line_start": 60,
+    "tags": [
+      "build",
+      "data",
+      "dict_operation",
+      "event_id",
+      "event_type",
+      "payload",
+      "timestamp",
+      "webhook"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:44.057297+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(event_type) == string",
+      "event_type is not None",
+      "type(event_id) == string",
+      "event_id is not None",
+      "type(timestamp) == string",
+      "timestamp is not None",
+      "type(data) == dict",
+      "data is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(event_type) == string",
+      "event_type is not None",
+      "type(event_id) == string",
+      "event_id is not None",
+      "type(timestamp) == string",
+      "timestamp is not None",
+      "type(data) == dict",
+      "data is not None"
+    ]
+  }
+}

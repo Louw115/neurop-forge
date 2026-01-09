@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "270f0f8eb1c32e2c82b008b02574fb5223bfc7e59939d8d9ea1b5847dde774ea",
+    "semantic_fingerprint": "a6e0899d7742b8960ec9598e3b958cce0835c7a7de76cefd7c71a5d24a3d0642",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract request ID from headers.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter headers",
+        "name": "headers",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter header_names",
+        "name": "header_names",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of extract_request_id",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def extract_request_id(v0: dict, v1: list) -> str:\n    for v2 in v1:\n        if v2 in v0:\n            return v0[v2]\n        if v2.lower() in v0:\n            return v0[v2.lower()]\n    return ''",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-09T23:10:44.252018+00:00",
+    "description": "Extract request ID from headers.",
+    "intent": "Extract request ID from headers.",
+    "language": "python",
+    "name": "extract_request_id",
+    "source_file": "neurop_forge/sources/middleware_patterns.py",
+    "source_line_end": 13,
+    "source_line_start": 6,
+    "tags": [
+      "extract",
+      "filtering",
+      "header_names",
+      "headers",
+      "request"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:44.252038+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(headers) == dict",
+      "headers is not None",
+      "type(header_names) == list",
+      "header_names is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(headers) == dict",
+      "headers is not None",
+      "type(header_names) == list",
+      "header_names is not None"
+    ]
+  }
+}

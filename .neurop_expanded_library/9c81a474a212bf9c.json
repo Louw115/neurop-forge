@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9c81a474a212bf9cf26a0089dd3dbffd81a8692c398130e61342fd838a74e2a6",
+    "semantic_fingerprint": "6d7e83ef049b45fad5c9460b6caca7efdc598387f5eae8bdb9ce6990c06bd80b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get the audience (aud) from a JWT.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter token",
+        "name": "token",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of get_jwt_audience",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_jwt_audience(v0: str) -> list:\n    v1 = v2(v0)\n    v3 = v1.get('aud', [])\n    if isinstance(v3, str):\n        return [v3]\n    return list(v3)",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-09T23:10:44.014143+00:00",
+    "description": "Get the audience (aud) from a JWT.",
+    "intent": "Get the audience (aud) from a JWT.",
+    "language": "python",
+    "name": "get_jwt_audience",
+    "source_file": "neurop_forge/sources/auth_patterns.py",
+    "source_line_end": 121,
+    "source_line_start": 115,
+    "tags": [
+      "audience",
+      "filtering",
+      "get",
+      "jwt",
+      "token"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:44.014158+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(token) == string",
+      "token is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(token) == string",
+      "token is not None"
+    ]
+  }
+}

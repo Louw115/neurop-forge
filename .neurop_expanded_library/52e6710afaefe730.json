@@ -1,0 +1,113 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "52e6710afaefe730145b2cbca6ffb17503e0b3770ba8814d472a0c12a5972990",
+    "semantic_fingerprint": "3d963a790f5316ce5247550ca187b90afd048a4604eeaccb825faa2cecdc0620",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a typical payment processing state machine.",
+    "inputs": [],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_payment_state_machine",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_payment_state_machine() -> dict:\n    return v0(initial_state='pending', states=['pending', 'authorized', 'captured', 'refunded', 'failed', 'cancelled'], transitions={'pending': ['authorized', 'failed', 'cancelled'], 'authorized': ['captured', 'cancelled'], 'captured': ['refunded'], 'refunded': [], 'failed': ['pending'], 'cancelled': []})",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-09T23:10:44.394091+00:00",
+    "description": "Build a typical payment processing state machine.",
+    "intent": "Build a typical payment processing state machine.",
+    "language": "python",
+    "name": "build_payment_state_machine",
+    "source_file": "neurop_forge/sources/state_machine.py",
+    "source_line_end": 168,
+    "source_line_start": 155,
+    "tags": [
+      "build",
+      "dict_operation",
+      "machine",
+      "payment",
+      "state"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:44.394112+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": []
+  }
+}

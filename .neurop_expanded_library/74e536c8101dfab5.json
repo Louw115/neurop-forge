@@ -1,0 +1,166 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "74e536c8101dfab5717a8e1294eba64e6d5b74f6130bc3dce35718c32c095e6d",
+    "semantic_fingerprint": "1b230a72aecd9f924b2c00900fe353364088ca27d694f9aab8b21bfc923419d1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Determine if pool should grow based on demand.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_size",
+        "name": "current_size",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_size",
+        "name": "max_size",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter waiting_requests",
+        "name": "waiting_requests",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter threshold",
+        "name": "threshold",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of should_grow_pool",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def should_grow_pool(v0: int, v1: int, v2: int, v3: int) -> bool:\n    return v0 < v1 and v2 > v3",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-09T23:10:43.773506+00:00",
+    "description": "Determine if pool should grow based on demand.",
+    "intent": "Determine if pool should grow based on demand.",
+    "language": "python",
+    "name": "should_grow_pool",
+    "source_file": "neurop_forge/sources/connection_pool.py",
+    "source_line_end": 20,
+    "source_line_start": 18,
+    "tags": [
+      "current_size",
+      "grow",
+      "max_size",
+      "pool",
+      "should",
+      "threshold",
+      "validation",
+      "waiting_requests"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:43.773523+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(current_size) == integer",
+      "current_size is not None",
+      "type(max_size) == integer",
+      "max_size is not None",
+      "type(waiting_requests) == integer",
+      "waiting_requests is not None",
+      "type(threshold) == integer",
+      "threshold is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(current_size) == integer",
+      "current_size is not None",
+      "type(max_size) == integer",
+      "max_size is not None",
+      "type(waiting_requests) == integer",
+      "waiting_requests is not None",
+      "type(threshold) == integer",
+      "threshold is not None"
+    ]
+  }
+}

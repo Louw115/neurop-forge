@@ -1,0 +1,155 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d7172744f526cc24494f25ed58b962d04f217712ae5c0f747ce3315233dc5570",
+    "semantic_fingerprint": "a74153530d1e7a7d66f22169a52e27ea594af6cff0caced863b83e2f3065dad9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a dead letter queue message.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter original",
+        "name": "original",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter reason",
+        "name": "reason",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter timestamp",
+        "name": "timestamp",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_dead_letter_message",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_dead_letter_message(v0: dict, v1: str, v2: str) -> dict:\n    return {'original_message': v0, 'reason': v1, 'moved_at': v2, 'original_queue': v0.get('queue_name', '')}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-09T23:10:44.505095+00:00",
+    "description": "Build a dead letter queue message.",
+    "intent": "Build a dead letter queue message.",
+    "language": "python",
+    "name": "build_dead_letter_message",
+    "source_file": "neurop_forge/sources/queue_patterns.py",
+    "source_line_end": 119,
+    "source_line_start": 112,
+    "tags": [
+      "build",
+      "dead",
+      "dict_operation",
+      "letter",
+      "message",
+      "original",
+      "reason",
+      "timestamp"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:44.505113+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(original) == dict",
+      "original is not None",
+      "type(reason) == string",
+      "reason is not None",
+      "type(timestamp) == string",
+      "timestamp is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(original) == dict",
+      "original is not None",
+      "type(reason) == string",
+      "reason is not None",
+      "type(timestamp) == string",
+      "timestamp is not None"
+    ]
+  }
+}

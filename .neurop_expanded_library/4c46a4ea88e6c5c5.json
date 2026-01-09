@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4c46a4ea88e6c5c53d77143652ec7e00c9161909d458f5cbffdfe418e6c4ae48",
+    "semantic_fingerprint": "2245a74945d6a5851da7219caf18a1d831b7d0c163b9aade8a9554b1d8fbf9a2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if a transaction is considered long-running.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter duration_ms",
+        "name": "duration_ms",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter threshold_ms",
+        "name": "threshold_ms",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_long_running_transaction",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_long_running_transaction(v0: int, v1: int) -> bool:\n    return v0 > v1",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-09T23:10:43.543710+00:00",
+    "description": "Check if a transaction is considered long-running.",
+    "intent": "Check if a transaction is considered long-running.",
+    "language": "python",
+    "name": "is_long_running_transaction",
+    "source_file": "neurop_forge/sources/transaction_helpers.py",
+    "source_line_end": 254,
+    "source_line_start": 252,
+    "tags": [
+      "duration_ms",
+      "long",
+      "running",
+      "threshold_ms",
+      "transaction",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:43.543725+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(duration_ms) == integer",
+      "duration_ms is not None",
+      "type(threshold_ms) == integer",
+      "threshold_ms is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(duration_ms) == integer",
+      "duration_ms is not None",
+      "type(threshold_ms) == integer",
+      "threshold_ms is not None"
+    ]
+  }
+}

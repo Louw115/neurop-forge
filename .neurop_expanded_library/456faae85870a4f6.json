@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "456faae85870a4f64911c2c7dbd1cbf9c8ff7ee99001db4aab23bdf943432fa1",
+    "semantic_fingerprint": "92918398e72338bb0b812dcc9b3767f879ddb4997712ebdf0dcd43e12b3db9c3",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Determine if request should be throttled.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter priority",
+        "name": "priority",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter current_load",
+        "name": "current_load",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter threshold",
+        "name": "threshold",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of should_throttle_request",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def should_throttle_request(v0: int, v1: float, v2: float) -> bool:\n    if v0 <= 1:\n        return False\n    return v1 > v2",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-09T23:10:44.305002+00:00",
+    "description": "Determine if request should be throttled.",
+    "intent": "Determine if request should be throttled.",
+    "language": "python",
+    "name": "should_throttle_request",
+    "source_file": "neurop_forge/sources/middleware_patterns.py",
+    "source_line_end": 326,
+    "source_line_start": 322,
+    "tags": [
+      "current_load",
+      "priority",
+      "request",
+      "should",
+      "threshold",
+      "throttle",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:44.305031+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(priority) == integer",
+      "priority is not None",
+      "type(current_load) == float",
+      "current_load is not None",
+      "type(threshold) == float",
+      "threshold is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(priority) == integer",
+      "priority is not None",
+      "type(current_load) == float",
+      "current_load is not None",
+      "type(threshold) == float",
+      "threshold is not None"
+    ]
+  }
+}

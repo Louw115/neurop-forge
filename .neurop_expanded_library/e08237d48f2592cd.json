@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e08237d48f2592cd6a5f8442e82af9fa5b7c798e31e4ce0be65819a306551ec2",
+    "semantic_fingerprint": "9f6a0a4c0bfbc14fa051b221af7b0eee0a82c5cdd86f6fc497ce08dca978ef33",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build maintenance mode response.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter message",
+        "name": "message",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter retry_after",
+        "name": "retry_after",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_maintenance_response",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_maintenance_response(v0: str, v1: int) -> dict:\n    return {'success': False, 'error': {'code': 503, 'message': v0 or 'Service temporarily unavailable for maintenance', 'retry_after': v1}}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-09T23:10:44.289037+00:00",
+    "description": "Build maintenance mode response.",
+    "intent": "Build maintenance mode response.",
+    "language": "python",
+    "name": "build_maintenance_response",
+    "source_file": "neurop_forge/sources/middleware_patterns.py",
+    "source_line_end": 233,
+    "source_line_start": 224,
+    "tags": [
+      "build",
+      "dict_operation",
+      "maintenance",
+      "message",
+      "response",
+      "retry_after"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:44.289062+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(message) == string",
+      "message is not None",
+      "type(retry_after) == integer",
+      "retry_after is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(message) == string",
+      "message is not None",
+      "type(retry_after) == integer",
+      "retry_after is not None"
+    ]
+  }
+}

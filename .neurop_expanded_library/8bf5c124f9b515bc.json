@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8bf5c124f9b515bc11105a530e6b88b14029d4cab7eab431c6aaab7a42d11768",
+    "semantic_fingerprint": "d47990dd64fc33e771231978e5f02b0fab8ae2156f770d53dd06180302454d3f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get the minimum value for an integer SQL type.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter sql_type",
+        "name": "sql_type",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of get_min_value",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_min_value(v0: str) -> int:\n    v1 = {'TINYINT': -128, 'SMALLINT': -32768, 'SMALLSERIAL': 1, 'INTEGER': -2147483648, 'INT': -2147483648, 'SERIAL': 1, 'BIGINT': -9223372036854775808, 'BIGSERIAL': 1}\n    return v1.get(v0.upper(), 0)",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-09T23:10:43.352683+00:00",
+    "description": "Get the minimum value for an integer SQL type.",
+    "intent": "Get the minimum value for an integer SQL type.",
+    "language": "python",
+    "name": "get_min_value",
+    "source_file": "neurop_forge/sources/sql_types.py",
+    "source_line_end": 288,
+    "source_line_start": 276,
+    "tags": [
+      "filtering",
+      "get",
+      "min",
+      "sql_type",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:43.352697+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(sql_type) == string",
+      "sql_type is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(sql_type) == string",
+      "sql_type is not None"
+    ]
+  }
+}

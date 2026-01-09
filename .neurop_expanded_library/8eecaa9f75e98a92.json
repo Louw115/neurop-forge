@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8eecaa9f75e98a92f781ee411a12abd3491b04cec41fe6685de4d0297be38ec8",
+    "semantic_fingerprint": "1c9a7894f63602415105f83200fd7a3955653c57815c5d831cf4e253b9e0b6f9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate CREATE TYPE ... AS ENUM SQL.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter type_name",
+        "name": "type_name",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter values",
+        "name": "values",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_enum_type_sql",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_enum_type_sql(v0: str, v1: list) -> str:\n    from neurop_forge.sources.sql_building import escape_sql_identifier, escape_sql_string\n    v2 = ', '.join((f\"'{v3(v4)}'\" for v4 in v1))\n    return f'CREATE TYPE {v5(v0)} AS ENUM ({v2})'",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T23:10:43.496519+00:00",
+    "description": "Generate CREATE TYPE ... AS ENUM SQL.",
+    "intent": "Generate CREATE TYPE ... AS ENUM SQL.",
+    "language": "python",
+    "name": "generate_enum_type_sql",
+    "source_file": "neurop_forge/sources/migration_helpers.py",
+    "source_line_end": 345,
+    "source_line_start": 341,
+    "tags": [
+      "enum",
+      "generate",
+      "sql",
+      "string_manipulation",
+      "type",
+      "type_name",
+      "values"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:43.496536+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(type_name) == string",
+      "type_name is not None",
+      "type(values) == list",
+      "values is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(type_name) == string",
+      "type_name is not None",
+      "type(values) == list",
+      "values is not None"
+    ]
+  }
+}

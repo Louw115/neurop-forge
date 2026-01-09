@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a53bf312726001e0b2a9051afbb201c88b0f424bf6d843fbc025d818dc42ab52",
+    "semantic_fingerprint": "8b1ec1374e7b6a495ad67854eeb1f76d00ef4b1e1eb7322b6bdc3f8cdd268164",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if a value is not null.",
+    "inputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter field_name",
+        "name": "field_name",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of check_not_null",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def check_not_null(v0, v1: str) -> dict:\n    if v0 is None:\n        return {'valid': False, 'error': f'{v1} cannot be null'}\n    return {'valid': True, 'error': None}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-09T23:10:43.561615+00:00",
+    "description": "Check if a value is not null.",
+    "intent": "Check if a value is not null.",
+    "language": "python",
+    "name": "check_not_null",
+    "source_file": "neurop_forge/sources/data_integrity.py",
+    "source_line_end": 10,
+    "source_line_start": 6,
+    "tags": [
+      "check",
+      "field_name",
+      "not",
+      "null",
+      "validation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:43.561634+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "value is not None",
+      "type(field_name) == string",
+      "field_name is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "value is not None",
+      "type(field_name) == string",
+      "field_name is not None"
+    ]
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1c1d268f670490175a98d214ac4ea36543871aaf34c08e41c43a3f7c7864cb58",
+    "semantic_fingerprint": "45c3cc6457f807853f39474f4f72f87474dc5bba20bee3d7ecfe18105f71757c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Exclude specified fields from response.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter data",
+        "name": "data",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter excluded",
+        "name": "excluded",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of exclude_response_fields",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def exclude_response_fields(v0: dict, v1: list) -> dict:\n    return {v2: v3 for v2, v3 in v0.items() if v2 not in v1}",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-09T23:10:44.175169+00:00",
+    "description": "Exclude specified fields from response.",
+    "intent": "Exclude specified fields from response.",
+    "language": "python",
+    "name": "exclude_response_fields",
+    "source_file": "neurop_forge/sources/response_formatting.py",
+    "source_line_end": 247,
+    "source_line_start": 245,
+    "tags": [
+      "data",
+      "exclude",
+      "excluded",
+      "fields",
+      "filtering",
+      "response"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:44.175186+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(data) == dict",
+      "data is not None",
+      "type(excluded) == list",
+      "excluded is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(data) == dict",
+      "data is not None",
+      "type(excluded) == list",
+      "excluded is not None"
+    ]
+  }
+}

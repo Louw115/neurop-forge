@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "01256107ea8b8d36298f89f4c66c6ed96d7b6573b57a23f3bbe9eaa7f6052eeb",
+    "semantic_fingerprint": "01bf89ccf25a65f4b0c34120c3586d50d8c687fe929876fe99f51440eac31614",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate a CHECK constraint for email format.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter column",
+        "name": "column",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_email_check",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_email_check(v0: str) -> str:\n    from neurop_forge.sources.sql_building import escape_sql_identifier\n    return f\"CHECK ({v1(v0)} ~ '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\\\.[a-zA-Z]{{2,}}$')\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T23:10:43.610705+00:00",
+    "description": "Generate a CHECK constraint for email format.",
+    "intent": "Generate a CHECK constraint for email format.",
+    "language": "python",
+    "name": "generate_email_check",
+    "source_file": "neurop_forge/sources/data_integrity.py",
+    "source_line_end": 281,
+    "source_line_start": 278,
+    "tags": [
+      "check",
+      "column",
+      "email",
+      "generate",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:43.610721+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(column) == string",
+      "column is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(column) == string",
+      "column is not None"
+    ]
+  }
+}

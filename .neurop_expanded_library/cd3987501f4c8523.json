@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "cd3987501f4c8523ef4671013886cf24c13ba71c9d04ddad2a342402a314d3ad",
+    "semantic_fingerprint": "237334a88ca04a4c32ee62288ef2b76c9be24c5880df5792d3da6aa8dd3536f6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a list of retry delays.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_attempts",
+        "name": "max_attempts",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter base_delay",
+        "name": "base_delay",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of build_retry_schedule",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_retry_schedule(v0: int, v1: int) -> list:\n    v2 = []\n    for v3 in range(v0):\n        v4 = v5(v3, v1, 86400)\n        v2.append({'attempt': v3 + 1, 'delay_seconds': v4})\n    return v2",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-09T23:10:44.078014+00:00",
+    "description": "Build a list of retry delays.",
+    "intent": "Build a list of retry delays.",
+    "language": "python",
+    "name": "build_retry_schedule",
+    "source_file": "neurop_forge/sources/webhook_patterns.py",
+    "source_line_end": 242,
+    "source_line_start": 236,
+    "tags": [
+      "base_delay",
+      "build",
+      "list_operation",
+      "max_attempts",
+      "retry",
+      "schedule"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:44.078031+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(max_attempts) == integer",
+      "max_attempts is not None",
+      "type(base_delay) == integer",
+      "base_delay is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(max_attempts) == integer",
+      "max_attempts is not None",
+      "type(base_delay) == integer",
+      "base_delay is not None"
+    ]
+  }
+}

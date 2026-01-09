@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0c254d1583812f7f209d670f8f56e175816bb4406e1d76c35d4f94c8999aeb9c",
+    "semantic_fingerprint": "2e6f80f42408ce7f8cb6cf01732597f44e54a73ce9a5bf603c56f2c97f72fa87",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate ETag for response data.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter data",
+        "name": "data",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of calculate_response_etag",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_response_etag(v0: dict) -> str:\n    import hashlib\n    import json\n    v1 = v2.dumps(v0, sort_keys=True)\n    return v3.md5(v1.encode()).hexdigest()",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T23:10:44.191034+00:00",
+    "description": "Calculate ETag for response data.",
+    "intent": "Calculate ETag for response data.",
+    "language": "python",
+    "name": "calculate_response_etag",
+    "source_file": "neurop_forge/sources/response_formatting.py",
+    "source_line_end": 361,
+    "source_line_start": 356,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "data",
+      "etag",
+      "response"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:44.191058+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(data) == dict",
+      "data is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(data) == dict",
+      "data is not None"
+    ]
+  }
+}

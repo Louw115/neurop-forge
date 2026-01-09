@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "66c50fbf80bfcba284ee2e7d22bc2483d7dd2832cb78e5638e058fe742f79e54",
+    "semantic_fingerprint": "855f5ae0f9435609b6edb04b868c0dff224c7a36c6507b32e72490490ea00c97",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if an event is a test/ping event.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter event_type",
+        "name": "event_type",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_test_event",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_test_event(v0: str) -> bool:\n    v1 = ['test', 'ping', 'webhook.test', 'webhook.ping']\n    return v0.lower() in v1",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-09T23:10:44.060527+00:00",
+    "description": "Check if an event is a test/ping event.",
+    "intent": "Check if an event is a test/ping event.",
+    "language": "python",
+    "name": "is_test_event",
+    "source_file": "neurop_forge/sources/webhook_patterns.py",
+    "source_line_end": 115,
+    "source_line_start": 112,
+    "tags": [
+      "event",
+      "event_type",
+      "test",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:44.060540+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(event_type) == string",
+      "event_type is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(event_type) == string",
+      "event_type is not None"
+    ]
+  }
+}

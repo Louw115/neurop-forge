@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "fa108eb9b79a8a4623988a9f62d897758508181bf4cdf4f3fee31c0fb3e8b851",
+    "semantic_fingerprint": "de25c605cfbd8520ed1384fccf9a22d1663f88c3d21a0c686cbac6b68950827d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get events that occurred after a snapshot.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter events",
+        "name": "events",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter snapshot_sequence",
+        "name": "snapshot_sequence",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of get_events_since_snapshot",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_events_since_snapshot(v0: list, v1: int) -> list:\n    return [v2 for v2 in v0 if v2.get('sequence', 0) > v1]",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-09T23:10:44.439116+00:00",
+    "description": "Get events that occurred after a snapshot.",
+    "intent": "Get events that occurred after a snapshot.",
+    "language": "python",
+    "name": "get_events_since_snapshot",
+    "source_file": "neurop_forge/sources/event_sourcing.py",
+    "source_line_end": 113,
+    "source_line_start": 111,
+    "tags": [
+      "events",
+      "filtering",
+      "get",
+      "since",
+      "snapshot",
+      "snapshot_sequence"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:44.439131+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(events) == list",
+      "events is not None",
+      "type(snapshot_sequence) == integer",
+      "snapshot_sequence is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(events) == list",
+      "events is not None",
+      "type(snapshot_sequence) == integer",
+      "snapshot_sequence is not None"
+    ]
+  }
+}

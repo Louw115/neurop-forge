@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "72e28dfa07745ca05a478baa934ccd62743edfe688647c771a43ab3d9a8290f2",
+    "semantic_fingerprint": "d6651ddcb32f2aba81e956c8a8a1e8d7c19d7f52c2c041f3cbe7fd4bd7dfad30",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if projection should handle an event.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter projection",
+        "name": "projection",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter event",
+        "name": "event",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of should_projection_handle_event",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def should_projection_handle_event(v0: dict, v1: dict) -> bool:\n    v2 = v0.get('event_types', [])\n    if not v2:\n        return True\n    return v1.get('type') in v2",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-09T23:10:44.451505+00:00",
+    "description": "Check if projection should handle an event.",
+    "intent": "Check if projection should handle an event.",
+    "language": "python",
+    "name": "should_projection_handle_event",
+    "source_file": "neurop_forge/sources/event_sourcing.py",
+    "source_line_end": 201,
+    "source_line_start": 196,
+    "tags": [
+      "event",
+      "handle",
+      "projection",
+      "should",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:44.451523+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(projection) == dict",
+      "projection is not None",
+      "type(event) == dict",
+      "event is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(projection) == dict",
+      "projection is not None",
+      "type(event) == dict",
+      "event is not None"
+    ]
+  }
+}

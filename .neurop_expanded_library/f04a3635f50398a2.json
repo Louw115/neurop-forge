@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f04a3635f50398a258641eb494c62e2db4d89fce8b9406a1a7f67dcd6057b4c9",
+    "semantic_fingerprint": "9a35db65ea6dfc0e2d74809c92cc0a7c515f3cec9d74575c485391e86a6f7111",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract sparse fieldsets from query parameter.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter fields_string",
+        "name": "fields_string",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter resource_type",
+        "name": "resource_type",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of extract_fields_param",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def extract_fields_param(v0: str, v1: str) -> list:\n    if not v0:\n        return []\n    return [v2.strip() for v2 in v0.split(',')]",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-09T23:10:43.951899+00:00",
+    "description": "Extract sparse fieldsets from query parameter.",
+    "intent": "Extract sparse fieldsets from query parameter.",
+    "language": "python",
+    "name": "extract_fields_param",
+    "source_file": "neurop_forge/sources/api_patterns.py",
+    "source_line_end": 294,
+    "source_line_start": 290,
+    "tags": [
+      "extract",
+      "fields",
+      "fields_string",
+      "filtering",
+      "param",
+      "resource_type"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:43.951925+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(fields_string) == string",
+      "fields_string is not None",
+      "type(resource_type) == string",
+      "resource_type is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(fields_string) == string",
+      "fields_string is not None",
+      "type(resource_type) == string",
+      "resource_type is not None"
+    ]
+  }
+}

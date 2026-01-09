@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9ce0b1f45351a8584ee8fd71bd2641459ea31d93d687c73fd50c7586fb982839",
+    "semantic_fingerprint": "bfa8c9199a897578d442c91ade8216022b5e784785e59da1ba17afe43ef53661",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format an error response.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter code",
+        "name": "code",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter message",
+        "name": "message",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter details",
+        "name": "details",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of format_error_response",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_error_response(v0: int, v1: str, v2: list) -> dict:\n    v3 = {'success': False, 'error': {'code': v0, 'message': v1}}\n    if v2:\n        v3['error']['details'] = v2\n    return v3",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T23:10:44.154664+00:00",
+    "description": "Format an error response.",
+    "intent": "Format an error response.",
+    "language": "python",
+    "name": "format_error_response",
+    "source_file": "neurop_forge/sources/response_formatting.py",
+    "source_line_end": 27,
+    "source_line_start": 16,
+    "tags": [
+      "code",
+      "details",
+      "error",
+      "format",
+      "message",
+      "response",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:44.154680+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(code) == integer",
+      "code is not None",
+      "type(message) == string",
+      "message is not None",
+      "type(details) == list",
+      "details is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(code) == integer",
+      "code is not None",
+      "type(message) == string",
+      "message is not None",
+      "type(details) == list",
+      "details is not None"
+    ]
+  }
+}

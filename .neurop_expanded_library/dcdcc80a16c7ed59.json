@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "dcdcc80a16c7ed59fe987f212bf307cbf789398ecc5a623d86443737a9172e2a",
+    "semantic_fingerprint": "09f1c04630792348b7c87cae75902d7d69d4b6c1fd2d672d60f586733c361970",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate ALTER TABLE DROP CONSTRAINT SQL.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter table",
+        "name": "table",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter constraint_name",
+        "name": "constraint_name",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_drop_constraint_sql",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_drop_constraint_sql(v0: str, v1: str) -> str:\n    from neurop_forge.sources.sql_building import escape_sql_identifier\n    return f'ALTER TABLE {v2(v0)} DROP CONSTRAINT {v2(v1)}'",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T23:10:43.475941+00:00",
+    "description": "Generate ALTER TABLE DROP CONSTRAINT SQL.",
+    "intent": "Generate ALTER TABLE DROP CONSTRAINT SQL.",
+    "language": "python",
+    "name": "generate_drop_constraint_sql",
+    "source_file": "neurop_forge/sources/migration_helpers.py",
+    "source_line_end": 163,
+    "source_line_start": 160,
+    "tags": [
+      "constraint",
+      "constraint_name",
+      "drop",
+      "generate",
+      "sql",
+      "string_manipulation",
+      "table"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:43.475966+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(table) == string",
+      "table is not None",
+      "type(constraint_name) == string",
+      "constraint_name is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(table) == string",
+      "table is not None",
+      "type(constraint_name) == string",
+      "constraint_name is not None"
+    ]
+  }
+}

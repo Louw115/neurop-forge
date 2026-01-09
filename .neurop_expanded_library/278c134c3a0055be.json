@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "278c134c3a0055be8afcb6b058384d5cca462af3904ce5fa76742477b4d3f59b",
+    "semantic_fingerprint": "56a6935e1fb7edc90cebd615e6da656692221928526143fe98487be361ba4f40",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Determine if a request should be logged.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter path",
+        "name": "path",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter excluded_paths",
+        "name": "excluded_paths",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of should_log_request",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def should_log_request(v0: str, v1: list) -> bool:\n    for v2 in v1:\n        if v0.startswith(v2):\n            return False\n    return True",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-09T23:10:44.267459+00:00",
+    "description": "Determine if a request should be logged.",
+    "intent": "Determine if a request should be logged.",
+    "language": "python",
+    "name": "should_log_request",
+    "source_file": "neurop_forge/sources/middleware_patterns.py",
+    "source_line_end": 113,
+    "source_line_start": 108,
+    "tags": [
+      "excluded_paths",
+      "log",
+      "path",
+      "request",
+      "should",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:44.267477+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(path) == string",
+      "path is not None",
+      "type(excluded_paths) == list",
+      "excluded_paths is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(path) == string",
+      "path is not None",
+      "type(excluded_paths) == list",
+      "excluded_paths is not None"
+    ]
+  }
+}

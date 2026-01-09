@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "088f7b109bd3c00ee813526e6f8faf93eea66af73838ef77f1e06ec6253029fd",
+    "semantic_fingerprint": "e2afe45e7d68208e75d77f19b51b60cb4419b4b4dd8a88255e7dc5c863fc1d3f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if acknowledgment is reject.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter ack",
+        "name": "ack",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_reject",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_reject(v0: dict) -> bool:\n    return v0.get('status') == 'reject'",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-09T23:10:44.525380+00:00",
+    "description": "Check if acknowledgment is reject.",
+    "intent": "Check if acknowledgment is reject.",
+    "language": "python",
+    "name": "is_reject",
+    "source_file": "neurop_forge/sources/queue_patterns.py",
+    "source_line_end": 250,
+    "source_line_start": 248,
+    "tags": [
+      "ack",
+      "reject",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:44.525404+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(ack) == dict",
+      "ack is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(ack) == dict",
+      "ack is not None"
+    ]
+  }
+}

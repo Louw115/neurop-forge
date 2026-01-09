@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b3dc4af7d6d5154be31fffda13f9db32ce85ff67f612e368ed2cfba18acd6610",
+    "semantic_fingerprint": "ecda9eae2ffcc87b9422feafad0d1939a1295d0a3ff19242014a9b43a0c69325",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate that all required fields are present.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter data",
+        "name": "data",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter required",
+        "name": "required",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of validate_required_fields",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_required_fields(v0: dict, v1: list) -> dict:\n    v2 = [v3 for v3 in v1 if v3 not in v0 or v0[v3] is None]\n    return {'valid': len(v2) == 0, 'missing_fields': v2, 'error': f\"Missing required fields: {', '.join(v2)}\" if v2 else None}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-09T23:10:44.099473+00:00",
+    "description": "Validate that all required fields are present.",
+    "intent": "Validate that all required fields are present.",
+    "language": "python",
+    "name": "validate_required_fields",
+    "source_file": "neurop_forge/sources/request_validation.py",
+    "source_line_end": 13,
+    "source_line_start": 6,
+    "tags": [
+      "data",
+      "fields",
+      "required",
+      "validate",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:44.099492+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(data) == dict",
+      "data is not None",
+      "type(required) == list",
+      "required is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(data) == dict",
+      "data is not None",
+      "type(required) == list",
+      "required is not None"
+    ]
+  }
+}

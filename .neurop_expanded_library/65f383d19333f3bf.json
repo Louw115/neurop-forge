@@ -1,0 +1,155 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "65f383d19333f3bfc21eb7ab57079e88c2a5cd7922993e2bcabc6d2ffa33d164",
+    "semantic_fingerprint": "270ee025d94cd9e7adbf449a6d9425063a30f4d9709962735fea5c96e0deb217",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate SQL to copy data between tables.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter from_table",
+        "name": "from_table",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter to_table",
+        "name": "to_table",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter columns",
+        "name": "columns",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_data_copy_sql",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_data_copy_sql(v0: str, v1: str, v2: list) -> str:\n    from neurop_forge.sources.sql_building import escape_sql_identifier, build_column_list\n    v3 = v4(v2)\n    return f'INSERT INTO {v5(v1)} ({v3}) SELECT {v3} FROM {v5(v0)}'",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T23:10:43.488466+00:00",
+    "description": "Generate SQL to copy data between tables.",
+    "intent": "Generate SQL to copy data between tables.",
+    "language": "python",
+    "name": "generate_data_copy_sql",
+    "source_file": "neurop_forge/sources/migration_helpers.py",
+    "source_line_end": 278,
+    "source_line_start": 274,
+    "tags": [
+      "columns",
+      "copy",
+      "data",
+      "from_table",
+      "generate",
+      "sql",
+      "string_manipulation",
+      "to_table"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:43.488483+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(from_table) == string",
+      "from_table is not None",
+      "type(to_table) == string",
+      "to_table is not None",
+      "type(columns) == list",
+      "columns is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(from_table) == string",
+      "from_table is not None",
+      "type(to_table) == string",
+      "to_table is not None",
+      "type(columns) == list",
+      "columns is not None"
+    ]
+  }
+}

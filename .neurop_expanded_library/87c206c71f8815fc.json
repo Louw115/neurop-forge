@@ -1,0 +1,163 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "87c206c71f8815fcf226ee26cff69be5633c384c5f213d627abaea69361bb62c",
+    "semantic_fingerprint": "edb84f50206bc0b03315772f9119378d07087d0b24e5987443011e22589425b9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format a job status response.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter status",
+        "name": "status",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter progress",
+        "name": "progress",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter message",
+        "name": "message",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter result",
+        "name": "result",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of format_status_response",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_status_response(v0: str, v1: int, v2: str, v3) -> dict:\n    v4 = {'success': True, 'data': {'status': v0, 'progress': v1, 'message': v2}}\n    if v3 is not None:\n        v4['data']['result'] = v3\n    return v4",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T23:10:44.162066+00:00",
+    "description": "Format a job status response.",
+    "intent": "Format a job status response.",
+    "language": "python",
+    "name": "format_status_response",
+    "source_file": "neurop_forge/sources/response_formatting.py",
+    "source_line_end": 121,
+    "source_line_start": 109,
+    "tags": [
+      "format",
+      "message",
+      "progress",
+      "response",
+      "result",
+      "status",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:44.162082+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(status) == string",
+      "status is not None",
+      "type(progress) == integer",
+      "progress is not None",
+      "type(message) == string",
+      "message is not None",
+      "result is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(status) == string",
+      "status is not None",
+      "type(progress) == integer",
+      "progress is not None",
+      "type(message) == string",
+      "message is not None",
+      "result is not None"
+    ]
+  }
+}

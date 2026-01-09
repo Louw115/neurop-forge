@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0493198741001728b2525d24481a0fe338bb6fa05c030bcc516025523d3b22bb",
+    "semantic_fingerprint": "dbbe6e7275ea7b2a3f0bbb6c5350e4b93caf4121d27b7e28dc524b1b049121a3",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a MongoDB sort specification.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter field",
+        "name": "field",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter direction",
+        "name": "direction",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of build_mongodb_sort",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_mongodb_sort(v0: str, v1: str) -> list:\n    v2 = 1 if v1.lower() == 'asc' else -1\n    return [(v0, v2)]",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-09T23:10:43.640237+00:00",
+    "description": "Build a MongoDB sort specification.",
+    "intent": "Build a MongoDB sort specification.",
+    "language": "python",
+    "name": "build_mongodb_sort",
+    "source_file": "neurop_forge/sources/nosql_helpers.py",
+    "source_line_end": 62,
+    "source_line_start": 59,
+    "tags": [
+      "build",
+      "direction",
+      "field",
+      "list_operation",
+      "mongodb",
+      "sort"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:43.640262+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(field) == string",
+      "field is not None",
+      "type(direction) == string",
+      "direction is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(field) == string",
+      "field is not None",
+      "type(direction) == string",
+      "direction is not None"
+    ]
+  }
+}

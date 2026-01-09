@@ -1,0 +1,144 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception",
+      "KeyError"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5260cb551882268ae4ced33aa365e1c79f11756cfd835983ede98c8a41e9f139",
+    "semantic_fingerprint": "466af49ca83f88dee6e3627f63e86c5f6809b813dc3924651ce523707f163024",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a Redis cache key.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter cache_name",
+        "name": "cache_name",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter key_parts",
+        "name": "key_parts",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_redis_cache_key",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_redis_cache_key(v0: str, v1: list) -> str:\n    v2 = ':'.join((str(v3) for v3 in v1))\n    return f'cache:{v0}:{v2}'",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T23:10:43.669456+00:00",
+    "description": "Build a Redis cache key.",
+    "intent": "Build a Redis cache key.",
+    "language": "python",
+    "name": "build_redis_cache_key",
+    "source_file": "neurop_forge/sources/nosql_helpers.py",
+    "source_line_end": 219,
+    "source_line_start": 216,
+    "tags": [
+      "build",
+      "cache",
+      "cache_name",
+      "key",
+      "key_parts",
+      "redis",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:43.669482+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(cache_name) == string",
+      "cache_name is not None",
+      "type(key_parts) == list",
+      "key_parts is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(cache_name) == string",
+      "cache_name is not None",
+      "type(key_parts) == list",
+      "key_parts is not None"
+    ]
+  }
+}

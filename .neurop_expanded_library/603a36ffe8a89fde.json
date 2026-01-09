@@ -1,0 +1,178 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "603a36ffe8a89fde6857e789362090923748df0fbb7bee3942306eee68274af3",
+    "semantic_fingerprint": "178c8d1f74fac79772491bb0565047dae0739e0d237ecc75fb5dd17fd79d02dd",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build Content-Security-Policy header value.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter default_src",
+        "name": "default_src",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter script_src",
+        "name": "script_src",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter style_src",
+        "name": "style_src",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter img_src",
+        "name": "img_src",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter connect_src",
+        "name": "connect_src",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_csp_header",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_csp_header(v0: list, v1: list, v2: list, v3: list, v4: list) -> str:\n    v5 = []\n    if v0:\n        v5.append(f\"default-src {' '.join(v0)}\")\n    if v1:\n        v5.append(f\"script-src {' '.join(v1)}\")\n    if v2:\n        v5.append(f\"style-src {' '.join(v2)}\")\n    if v3:\n        v5.append(f\"img-src {' '.join(v3)}\")\n    if v4:\n        v5.append(f\"connect-src {' '.join(v4)}\")\n    return '; '.join(v5)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T23:10:44.280790+00:00",
+    "description": "Build Content-Security-Policy header value.",
+    "intent": "Build Content-Security-Policy header value.",
+    "language": "python",
+    "name": "build_csp_header",
+    "source_file": "neurop_forge/sources/middleware_patterns.py",
+    "source_line_end": 186,
+    "source_line_start": 173,
+    "tags": [
+      "build",
+      "connect_src",
+      "csp",
+      "default_src",
+      "header",
+      "img_src",
+      "script_src",
+      "string_manipulation",
+      "style_src"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:44.280818+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(default_src) == list",
+      "default_src is not None",
+      "type(script_src) == list",
+      "script_src is not None",
+      "type(style_src) == list",
+      "style_src is not None",
+      "type(img_src) == list",
+      "img_src is not None",
+      "type(connect_src) == list",
+      "connect_src is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(default_src) == list",
+      "default_src is not None",
+      "type(script_src) == list",
+      "script_src is not None",
+      "type(style_src) == list",
+      "style_src is not None",
+      "type(img_src) == list",
+      "img_src is not None",
+      "type(connect_src) == list",
+      "connect_src is not None"
+    ]
+  }
+}

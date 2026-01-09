@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "54ca92ade05e873d9517ba2c93534ccd623fa85bfeaf9d70aa599deb5feedc0c",
+    "semantic_fingerprint": "9aa03a9a6f4aa609180cc150f3faec245dae6117070fc43b6d3296d745c57afd",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate PKCE code challenge from verifier (S256 method).",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter verifier",
+        "name": "verifier",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_pkce_verifier_hash",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_pkce_verifier_hash(v0: str) -> str:\n    import hashlib\n    import base64\n    v1 = v2.sha256(v0.encode()).digest()\n    v3 = v4.urlsafe_b64encode(v1).rstrip(b'=').decode()\n    return v3",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T23:10:44.029654+00:00",
+    "description": "Generate PKCE code challenge from verifier (S256 method).",
+    "intent": "Generate PKCE code challenge from verifier (S256 method).",
+    "language": "python",
+    "name": "generate_pkce_verifier_hash",
+    "source_file": "neurop_forge/sources/auth_patterns.py",
+    "source_line_end": 263,
+    "source_line_start": 257,
+    "tags": [
+      "generate",
+      "hash",
+      "pkce",
+      "string_manipulation",
+      "verifier"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:44.029669+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(verifier) == string",
+      "verifier is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(verifier) == string",
+      "verifier is not None"
+    ]
+  }
+}

@@ -1,0 +1,131 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "995ae0d4b289058d613ceb165fbe8b9654f4c5f51b82b5f506baadc90e476f02",
+    "semantic_fingerprint": "ed79e47c42051fe5c5ae5b3e1731c432347281452fec6d43d18a0fb668e44ff7",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract the element type from an array type.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter array_type",
+        "name": "array_type",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_array_element_type",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_array_element_type(v0: str) -> str:\n    if v0.endswith('[]'):\n        return v0[:-2]\n    if v0.upper().startswith('ARRAY'):\n        import re\n        v1 = v2.search('ARRAY\\\\[(.+)\\\\]', v0, v2.IGNORECASE)\n        if v1:\n            return v1.group(1)\n    return ''",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-09T23:10:43.346350+00:00",
+    "description": "Extract the element type from an array type.",
+    "intent": "Extract the element type from an array type.",
+    "language": "python",
+    "name": "get_array_element_type",
+    "source_file": "neurop_forge/sources/sql_types.py",
+    "source_line_end": 237,
+    "source_line_start": 228,
+    "tags": [
+      "array",
+      "array_type",
+      "element",
+      "filtering",
+      "get",
+      "type"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:43.346365+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(array_type) == string",
+      "array_type is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(array_type) == string",
+      "array_type is not None"
+    ]
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic sorting block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "93c86034ec4a496ba93dc7087abb5ea37df02f4d14f896ede8e464f7ca4627a4",
+    "semantic_fingerprint": "8f1e06c6aabd038b47ff334a1499659b32d4b62c73cf2054b223c539fcaf4300",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Sort migration IDs by timestamp.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter migration_ids",
+        "name": "migration_ids",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of sort_migration_ids",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def sort_migration_ids(v0: list) -> list:\n    return sorted(v0, key=lambda v1: v2(v1)[0])",
+  "metadata": {
+    "category": "sorting",
+    "created_at": "2026-01-09T23:10:43.441393+00:00",
+    "description": "Sort migration IDs by timestamp.",
+    "intent": "Sort migration IDs by timestamp.",
+    "language": "python",
+    "name": "sort_migration_ids",
+    "source_file": "neurop_forge/sources/migration_helpers.py",
+    "source_line_end": 35,
+    "source_line_start": 33,
+    "tags": [
+      "ids",
+      "migration",
+      "migration_ids",
+      "sort",
+      "sorting"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:43.441407+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(migration_ids) == list",
+      "migration_ids is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(migration_ids) == list",
+      "migration_ids is not None"
+    ]
+  }
+}

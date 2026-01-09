@@ -1,0 +1,148 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": false,
+    "io_operations": [
+      "time"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "non_deterministic",
+    "side_effects": [
+      "time"
+    ],
+    "thread_safe": false
+  },
+  "failure_modes": {
+    "can_fail": true,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "raises_exception",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e4955788051dd4674ab4599ee93d9ca1baa7204bd469651caabcd67ce2bc1753",
+    "semantic_fingerprint": "9baa64040aeba3359cf887662e53f3eecbe897eb0f7ddd891c05f537a5471f34",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate the cutoff timestamp for audit retention.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter current_timestamp",
+        "name": "current_timestamp",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter retention_days",
+        "name": "retention_days",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of calculate_retention_cutoff",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_retention_cutoff(v0: str, v1: int) -> str:\n    from datetime import datetime, timedelta\n    v2 = v3.fromisoformat(v0.replace('Z', '+00:00'))\n    v4 = v2 - v5(days=v1)\n    return v4.isoformat()",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T23:10:43.854240+00:00",
+    "description": "Calculate the cutoff timestamp for audit retention.",
+    "intent": "Calculate the cutoff timestamp for audit retention.",
+    "language": "python",
+    "name": "calculate_retention_cutoff",
+    "source_file": "neurop_forge/sources/audit_logging.py",
+    "source_line_end": 153,
+    "source_line_start": 148,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "current_timestamp",
+      "cutoff",
+      "retention",
+      "retention_days"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 0.5,
+    "last_verified": "2026-01-09T23:10:43.854259+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.27999999999999997,
+    "risk_factors": [
+      "impure_function",
+      "non_deterministic",
+      "side_effects: time"
+    ],
+    "risk_level": "medium",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(current_timestamp) == string",
+      "current_timestamp is not None",
+      "type(retention_days) == integer",
+      "retention_days is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(current_timestamp) == string",
+      "current_timestamp is not None",
+      "type(retention_days) == integer",
+      "retention_days is not None"
+    ]
+  }
+}

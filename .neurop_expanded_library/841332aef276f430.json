@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "841332aef276f430f09192f5afd24595997499199b45a60de8b59c05b0e947e9",
+    "semantic_fingerprint": "739a518f330174f360d6a7c2ae483940fd33a8f79fceadd047664212c1c1e96a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Apply an event to state (generic handler).",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter state",
+        "name": "state",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter event_type",
+        "name": "event_type",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter event_data",
+        "name": "event_data",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of apply_event_to_state",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def apply_event_to_state(v0: dict, v1: str, v2: dict) -> dict:\n    v3 = dict(v0)\n    if v1.endswith('_created'):\n        v3.update(v2)\n    elif v1.endswith('_updated'):\n        v3.update(v2)\n    elif v1.endswith('_deleted'):\n        v3['deleted'] = True\n    else:\n        v3.update(v2)\n    v3['last_event_type'] = v1\n    return v3",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-09T23:10:44.442670+00:00",
+    "description": "Apply an event to state (generic handler).",
+    "intent": "Apply an event to state (generic handler).",
+    "language": "python",
+    "name": "apply_event_to_state",
+    "source_file": "neurop_forge/sources/event_sourcing.py",
+    "source_line_end": 138,
+    "source_line_start": 126,
+    "tags": [
+      "apply",
+      "dict_operation",
+      "event",
+      "event_data",
+      "event_type",
+      "state"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:44.442695+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(state) == dict",
+      "state is not None",
+      "type(event_type) == string",
+      "event_type is not None",
+      "type(event_data) == dict",
+      "event_data is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(state) == dict",
+      "state is not None",
+      "type(event_type) == string",
+      "event_type is not None",
+      "type(event_data) == dict",
+      "event_data is not None"
+    ]
+  }
+}

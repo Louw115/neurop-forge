@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7ad7b42935c5ae93861968f08c102144e4c56a332bda037ce21cbfa445db4809",
+    "semantic_fingerprint": "9912437479de5c980cd9f600af49c1f993dd91bb9cfebce64bacfe6c410fdee1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate CREATE EXTENSION SQL.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter extension_name",
+        "name": "extension_name",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter if_not_exists",
+        "name": "if_not_exists",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_extension_sql",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_extension_sql(v0: str, v1: bool) -> str:\n    v2 = 'IF NOT EXISTS ' if v1 else ''\n    return f'CREATE EXTENSION {v2}{v0}'",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T23:10:43.499249+00:00",
+    "description": "Generate CREATE EXTENSION SQL.",
+    "intent": "Generate CREATE EXTENSION SQL.",
+    "language": "python",
+    "name": "generate_extension_sql",
+    "source_file": "neurop_forge/sources/migration_helpers.py",
+    "source_line_end": 358,
+    "source_line_start": 355,
+    "tags": [
+      "extension",
+      "extension_name",
+      "generate",
+      "if_not_exists",
+      "sql",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:43.499265+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(extension_name) == string",
+      "extension_name is not None",
+      "type(if_not_exists) == boolean",
+      "if_not_exists is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(extension_name) == string",
+      "extension_name is not None",
+      "type(if_not_exists) == boolean",
+      "if_not_exists is not None"
+    ]
+  }
+}

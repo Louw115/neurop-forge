@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "540b0e56551f7f1f47e064d1c38e35ce833510892f05cda54003552570631c2a",
+    "semantic_fingerprint": "712402506a60164abbc09a79df2824e7ea9ef3d0522657b22c5bf477c08d3408",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate a checksum for migration SQL content.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter sql",
+        "name": "sql",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of calculate_migration_checksum",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_migration_checksum(v0: str) -> str:\n    import hashlib\n    v1 = ' '.join(v0.split()).strip()\n    return v2.sha256(v1.encode()).hexdigest()[:16]",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T23:10:43.484873+00:00",
+    "description": "Calculate a checksum for migration SQL content.",
+    "intent": "Calculate a checksum for migration SQL content.",
+    "language": "python",
+    "name": "calculate_migration_checksum",
+    "source_file": "neurop_forge/sources/migration_helpers.py",
+    "source_line_end": 251,
+    "source_line_start": 247,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "checksum",
+      "migration",
+      "sql"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:43.484888+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(sql) == string",
+      "sql is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(sql) == string",
+      "sql is not None"
+    ]
+  }
+}

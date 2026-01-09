@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "72789e991e3d0cea67cb03b3e2c20652043aba648c80ba6cfe3aac4fe8d7add8",
+    "semantic_fingerprint": "25a2eaf25deb84f62c21d0eb3e54ef9a51d631296cb930d5071cf2ec952dcf5e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get the strength of an isolation level (0-3, higher is stronger).",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter level",
+        "name": "level",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of get_isolation_level_strength",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_isolation_level_strength(v0: str) -> int:\n    v1 = {'READ UNCOMMITTED': 0, 'READ COMMITTED': 1, 'REPEATABLE READ': 2, 'SERIALIZABLE': 3}\n    return v1.get(v0.upper(), 1)",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-09T23:10:43.524272+00:00",
+    "description": "Get the strength of an isolation level (0-3, higher is stronger).",
+    "intent": "Get the strength of an isolation level (0-3, higher is stronger).",
+    "language": "python",
+    "name": "get_isolation_level_strength",
+    "source_file": "neurop_forge/sources/transaction_helpers.py",
+    "source_line_end": 121,
+    "source_line_start": 113,
+    "tags": [
+      "filtering",
+      "get",
+      "isolation",
+      "level",
+      "strength"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:43.524288+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(level) == string",
+      "level is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(level) == string",
+      "level is not None"
+    ]
+  }
+}

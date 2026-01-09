@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d5ed29884626fa4c0d62a6126ec435dfdb4e3fdc9abb5fa45fcb9f6e1c6fef53",
+    "semantic_fingerprint": "fde7727f1f20959be9625fc0b50c45215e4cf459250079989d812d8b0247228f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate string is valid JSON.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter body",
+        "name": "body",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of validate_json_body",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_json_body(v0: str) -> dict:\n    import json\n    try:\n        v1.loads(v0)\n        return {'valid': True, 'error': None, 'data': v1.loads(v0)}\n    except v1.JSONDecodeError as e:\n        return {'valid': False, 'error': f'Invalid JSON: {str(v2)}', 'data': None}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-09T23:10:44.126778+00:00",
+    "description": "Validate string is valid JSON.",
+    "intent": "Validate string is valid JSON.",
+    "language": "python",
+    "name": "validate_json_body",
+    "source_file": "neurop_forge/sources/request_validation.py",
+    "source_line_end": 201,
+    "source_line_start": 194,
+    "tags": [
+      "body",
+      "json",
+      "validate",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:44.126793+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(body) == string",
+      "body is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(body) == string",
+      "body is not None"
+    ]
+  }
+}

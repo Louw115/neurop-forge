@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "24f50ede88943186eae6643b58edde500402d63644b76beed8d5c3fe9e82cd38",
+    "semantic_fingerprint": "040418c730c9f6bd76f82836c622bc8ddf3a1091f0335bbb1a30c0394544af61",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Filter events by resource type.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter events",
+        "name": "events",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter resource",
+        "name": "resource",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of filter_events_by_resource",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def filter_events_by_resource(v0: list, v1: str) -> list:\n    return [v2 for v2 in v0 if v2.get('type', '').startswith(f'{v1}.')]",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-09T23:10:44.071481+00:00",
+    "description": "Filter events by resource type.",
+    "intent": "Filter events by resource type.",
+    "language": "python",
+    "name": "filter_events_by_resource",
+    "source_file": "neurop_forge/sources/webhook_patterns.py",
+    "source_line_end": 195,
+    "source_line_start": 193,
+    "tags": [
+      "events",
+      "filter",
+      "filtering",
+      "resource"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:44.071496+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(events) == list",
+      "events is not None",
+      "type(resource) == string",
+      "resource is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(events) == list",
+      "events is not None",
+      "type(resource) == string",
+      "resource is not None"
+    ]
+  }
+}

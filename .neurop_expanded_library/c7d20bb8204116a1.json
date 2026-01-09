@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c7d20bb8204116a19096b55b73461a500dcc38e89540ea7c06660c272db580da",
+    "semantic_fingerprint": "7c59a6362dc78db41db5a480e86b2db91119c4c3c2f10f96da7a25209f0fb8b0",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract the length from a VARCHAR(n) type definition.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter sql_type",
+        "name": "sql_type",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of extract_varchar_length",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def extract_varchar_length(v0: str) -> int:\n    import re\n    v1 = v2.search('\\\\((\\\\d+)\\\\)', v0)\n    return int(v1.group(1)) if v1 else 0",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-09T23:10:43.333162+00:00",
+    "description": "Extract the length from a VARCHAR(n) type definition.",
+    "intent": "Extract the length from a VARCHAR(n) type definition.",
+    "language": "python",
+    "name": "extract_varchar_length",
+    "source_file": "neurop_forge/sources/sql_types.py",
+    "source_line_end": 122,
+    "source_line_start": 118,
+    "tags": [
+      "extract",
+      "filtering",
+      "length",
+      "sql_type",
+      "varchar"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:43.333175+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(sql_type) == string",
+      "sql_type is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(sql_type) == string",
+      "sql_type is not None"
+    ]
+  }
+}

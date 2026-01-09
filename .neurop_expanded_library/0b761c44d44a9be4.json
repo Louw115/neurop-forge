@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0b761c44d44a9be4e600d20853d0d2c101c34b26bc1c87e9765b0f4c110cd00d",
+    "semantic_fingerprint": "1cb9711bddb642b87c34aa8b20d9f375ca8db97d2adff404922b70335a07cbe3",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if a state is valid in the machine.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter machine",
+        "name": "machine",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter state",
+        "name": "state",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_valid_state",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_valid_state(v0: dict, v1: str) -> bool:\n    return v1 in v0.get('states', [])",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-09T23:10:44.372316+00:00",
+    "description": "Check if a state is valid in the machine.",
+    "intent": "Check if a state is valid in the machine.",
+    "language": "python",
+    "name": "is_valid_state",
+    "source_file": "neurop_forge/sources/state_machine.py",
+    "source_line_end": 23,
+    "source_line_start": 21,
+    "tags": [
+      "machine",
+      "state",
+      "valid",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:44.372340+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(machine) == dict",
+      "machine is not None",
+      "type(state) == string",
+      "state is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(machine) == dict",
+      "machine is not None",
+      "type(state) == string",
+      "state is not None"
+    ]
+  }
+}

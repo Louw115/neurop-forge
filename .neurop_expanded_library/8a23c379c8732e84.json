@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8a23c379c8732e846dfc154fe47be0813f7a407595cdf2566b8c5147b946a27c",
+    "semantic_fingerprint": "27d864e4597c6cecec14bdaa84af94c0297b7bf64d92a7ee33acdb6c7facbb04",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate queue metrics from job list.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter jobs",
+        "name": "jobs",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of calculate_queue_metrics",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_queue_metrics(v0: list) -> dict:\n    v1 = len(v0)\n    v2 = {}\n    v3 = {}\n    for v4 in v0:\n        v5 = v4.get('status', 'unknown')\n        v6 = v4.get('type', 'unknown')\n        v2[v5] = v2.get(v5, 0) + 1\n        v3[v6] = v3.get(v6, 0) + 1\n    return {'total': v1, 'by_status': v2, 'by_type': v3}",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T23:10:44.343929+00:00",
+    "description": "Calculate queue metrics from job list.",
+    "intent": "Calculate queue metrics from job list.",
+    "language": "python",
+    "name": "calculate_queue_metrics",
+    "source_file": "neurop_forge/sources/job_scheduling.py",
+    "source_line_end": 205,
+    "source_line_start": 191,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "jobs",
+      "metrics",
+      "queue"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:10:44.343946+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(jobs) == list",
+      "jobs is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(jobs) == list",
+      "jobs is not None"
+    ]
+  }
+}
