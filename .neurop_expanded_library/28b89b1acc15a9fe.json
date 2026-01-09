@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "28b89b1acc15a9fe42072edbb14de4547a4d085663c38773fe37ed8767eeaa1d",
+    "semantic_fingerprint": "92ffda43762e9f7fe5f5cca67335fe61bb3183d33082510232de919b1c9c096b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a Content-Type header value.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter mime_type",
+        "name": "mime_type",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter charset",
+        "name": "charset",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_content_type_header",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_content_type_header(v0: str, v1: str) -> str:\n    if v1:\n        return f'{v0}; charset={v1}'\n    return v0",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T22:14:43.328402+00:00",
+    "description": "Build a Content-Type header value.",
+    "intent": "Build a Content-Type header value.",
+    "language": "python",
+    "name": "build_content_type_header",
+    "source_file": "neurop_forge/sources/http_utilities.py",
+    "source_line_end": 209,
+    "source_line_start": 205,
+    "tags": [
+      "build",
+      "charset",
+      "content",
+      "header",
+      "mime_type",
+      "string_manipulation",
+      "type"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:14:43.328417+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(mime_type) == string",
+      "mime_type is not None",
+      "type(charset) == string",
+      "charset is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(mime_type) == string",
+      "mime_type is not None",
+      "type(charset) == string",
+      "charset is not None"
+    ]
+  }
+}

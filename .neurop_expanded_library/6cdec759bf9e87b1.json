@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception",
+      "KeyError"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "6cdec759bf9e87b1dd7f36bc433b55d39a5f8f029b0292f5ea90646117f8b892",
+    "semantic_fingerprint": "a864418f8e1e51ce51a0e42ac893416d1d4d1825d9c3bb1e28ea2499b473707c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Mask an API key showing only first N characters.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter visible_chars",
+        "name": "visible_chars",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of mask_api_key",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def mask_api_key(v0: str, v1: int) -> str:\n    if not v0 or v1 <= 0:\n        return '*' * 8\n    if len(v0) <= v1:\n        return v0\n    return v0[:v1] + '*' * (len(v0) - v1)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T22:14:43.468351+00:00",
+    "description": "Mask an API key showing only first N characters.",
+    "intent": "Mask an API key showing only first N characters.",
+    "language": "python",
+    "name": "mask_api_key",
+    "source_file": "neurop_forge/sources/cryptography_helpers.py",
+    "source_line_end": 222,
+    "source_line_start": 216,
+    "tags": [
+      "api",
+      "key",
+      "mask",
+      "string_manipulation",
+      "visible_chars"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:14:43.468373+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(key) == string",
+      "key is not None",
+      "type(visible_chars) == integer",
+      "visible_chars is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(key) == string",
+      "key is not None",
+      "type(visible_chars) == integer",
+      "visible_chars is not None"
+    ]
+  }
+}

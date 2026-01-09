@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic aggregation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception",
+      "KeyError"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "514e111fdbc3423ee2a87ef0d4051ee9dc6b7309e084218015df803f0ce9f6b5",
+    "semantic_fingerprint": "acb0d76c0dd0b69f7cc8d780622358bd29bcc6629829002fb5a1673017049aa8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Group a list of dicts by a key field.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter data",
+        "name": "data",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of group_by_key",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def group_by_key(v0: list, v1: str) -> dict:\n    v2 = {}\n    for v3 in v0:\n        if v1 in v3:\n            v4 = v3[v1]\n            if v4 not in v2:\n                v2[v4] = []\n            v2[v4].append(v3)\n    return v2",
+  "metadata": {
+    "category": "aggregation",
+    "created_at": "2026-01-09T22:14:43.509654+00:00",
+    "description": "Group a list of dicts by a key field.",
+    "intent": "Group a list of dicts by a key field.",
+    "language": "python",
+    "name": "group_by_key",
+    "source_file": "neurop_forge/sources/data_transformation.py",
+    "source_line_end": 106,
+    "source_line_start": 97,
+    "tags": [
+      "aggregation",
+      "data",
+      "group",
+      "key"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:14:43.509670+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(data) == list",
+      "data is not None",
+      "type(key) == string",
+      "key is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(data) == list",
+      "data is not None",
+      "type(key) == string",
+      "key is not None"
+    ]
+  }
+}

@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ab2cc33f9bb1d12ff2a12efae802bf97a8b53014473c392e6067d2072d747555",
+    "semantic_fingerprint": "7604494b0f8059d2004145f9186b5e8862137461f509e7e595cda4dd6339a2b4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate difference from N periods ago.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter values",
+        "name": "values",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter periods",
+        "name": "periods",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of difference_values",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def difference_values(v0: list, v1: int) -> list:\n    if not v0 or v1 <= 0 or v1 >= len(v0):\n        return []\n    return [v0[v2] - v0[v2 - v1] for v2 in range(v1, len(v0))]",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T22:14:43.535841+00:00",
+    "description": "Calculate difference from N periods ago.",
+    "intent": "Calculate difference from N periods ago.",
+    "language": "python",
+    "name": "difference_values",
+    "source_file": "neurop_forge/sources/data_transformation.py",
+    "source_line_end": 335,
+    "source_line_start": 331,
+    "tags": [
+      "arithmetic",
+      "difference",
+      "periods",
+      "values"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:14:43.535857+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(values) == list",
+      "values is not None",
+      "type(periods) == integer",
+      "periods is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(values) == list",
+      "values is not None",
+      "type(periods) == integer",
+      "periods is not None"
+    ]
+  }
+}

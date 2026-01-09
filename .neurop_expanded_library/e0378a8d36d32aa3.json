@@ -1,0 +1,131 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e0378a8d36d32aa36f9c41f5ed83e8b13a38a4aea9b2ecbc106aac4970f2389c",
+    "semantic_fingerprint": "adc08912907ccd9be6e5e720fee77a614457fcc50e7a1345a668fd14f3c7042d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get a human-readable description of the file type.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter extension",
+        "name": "extension",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_file_type_description",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_file_type_description(v0: str) -> str:\n    v0 = v0.lower().lstrip('.')\n    v1 = {'png': 'PNG Image', 'jpg': 'JPEG Image', 'jpeg': 'JPEG Image', 'gif': 'GIF Image', 'webp': 'WebP Image', 'svg': 'SVG Vector Image', 'pdf': 'PDF Document', 'doc': 'Word Document', 'docx': 'Word Document', 'xls': 'Excel Spreadsheet', 'xlsx': 'Excel Spreadsheet', 'ppt': 'PowerPoint Presentation', 'pptx': 'PowerPoint Presentation', 'txt': 'Plain Text File', 'md': 'Markdown Document', 'json': 'JSON Data File', 'xml': 'XML Data File', 'csv': 'CSV Spreadsheet', 'zip': 'ZIP Archive', 'mp3': 'MP3 Audio', 'mp4': 'MP4 Video', 'py': 'Python Script', 'js': 'JavaScript File', 'html': 'HTML Document', 'css': 'CSS Stylesheet'}\n    if v0 in v1:\n        return v1[v0]\n    v2 = v3(v0)\n    return f'{v0.upper()} {v2.title()} File'",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-09T22:14:43.423714+00:00",
+    "description": "Get a human-readable description of the file type.",
+    "intent": "Get a human-readable description of the file type.",
+    "language": "python",
+    "name": "get_file_type_description",
+    "source_file": "neurop_forge/sources/file_type_detection.py",
+    "source_line_end": 355,
+    "source_line_start": 322,
+    "tags": [
+      "description",
+      "extension",
+      "file",
+      "filtering",
+      "get",
+      "type"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:14:43.423733+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(extension) == string",
+      "extension is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(extension) == string",
+      "extension is not None"
+    ]
+  }
+}

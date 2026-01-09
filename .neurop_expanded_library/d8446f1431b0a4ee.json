@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d8446f1431b0a4eea8ec5670cd40f66d64871a2da527e55c8c6644f30c9af22e",
+    "semantic_fingerprint": "67666a0d329bfc51014f05b275d2a1fcf24412fe00822db328c4b248f6478af0",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get the category of an HTTP status code.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter code",
+        "name": "code",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_status_category",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_status_category(v0: int) -> str:\n    if 100 <= v0 < 200:\n        return 'informational'\n    if 200 <= v0 < 300:\n        return 'success'\n    if 300 <= v0 < 400:\n        return 'redirection'\n    if 400 <= v0 < 500:\n        return 'client_error'\n    if 500 <= v0 < 600:\n        return 'server_error'\n    return 'unknown'",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-09T22:14:43.318801+00:00",
+    "description": "Get the category of an HTTP status code.",
+    "intent": "Get the category of an HTTP status code.",
+    "language": "python",
+    "name": "get_status_category",
+    "source_file": "neurop_forge/sources/http_utilities.py",
+    "source_line_end": 89,
+    "source_line_start": 77,
+    "tags": [
+      "category",
+      "code",
+      "filtering",
+      "get",
+      "status"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:14:43.318826+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(code) == integer",
+      "code is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(code) == integer",
+      "code is not None"
+    ]
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d0ad6d1e256ca2b8703f9faa63b17880b9c3f7825be9ea6517e916f412d9f190",
+    "semantic_fingerprint": "c28665c05ad93558dda8e6193ddab95ff805d73af058971caa9373a9c326cb27",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find differences between two dicts.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter dict1",
+        "name": "dict1",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter dict2",
+        "name": "dict2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of diff_dicts",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def diff_dicts(v0: dict, v1: dict) -> dict:\n    v2 = {'added': {}, 'removed': {}, 'changed': {}}\n    v3 = set(v0.keys()) | set(v1.keys())\n    for v4 in v3:\n        if v4 not in v0:\n            v2['added'][v4] = v1[v4]\n        elif v4 not in v1:\n            v2['removed'][v4] = v0[v4]\n        elif v0[v4] != v1[v4]:\n            v2['changed'][v4] = {'old': v0[v4], 'new': v1[v4]}\n    return v2",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T22:14:43.522054+00:00",
+    "description": "Find differences between two dicts.",
+    "intent": "Find differences between two dicts.",
+    "language": "python",
+    "name": "diff_dicts",
+    "source_file": "neurop_forge/sources/data_transformation.py",
+    "source_line_end": 231,
+    "source_line_start": 220,
+    "tags": [
+      "arithmetic",
+      "dict1",
+      "dict2",
+      "dicts",
+      "diff"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:14:43.522072+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(dict1) == dict",
+      "dict1 is not None",
+      "type(dict2) == dict",
+      "dict2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(dict1) == dict",
+      "dict1 is not None",
+      "type(dict2) == dict",
+      "dict2 is not None"
+    ]
+  }
+}

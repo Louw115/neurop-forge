@@ -1,0 +1,165 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9f6310168da9aa21beda78041a8d2922ea14dcb547e110e15b16675391c9506b",
+    "semantic_fingerprint": "da28865f9b875fd84402661436d73ca9bbcda4a1e443ea812fd138aef2ec5fb7",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build CORS response headers.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter origin",
+        "name": "origin",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter methods",
+        "name": "methods",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter headers",
+        "name": "headers",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_age",
+        "name": "max_age",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_cors_headers",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_cors_headers(v0: str, v1: list, v2: list, v3: int) -> dict:\n    v4 = {}\n    if v0:\n        v4['Access-Control-Allow-Origin'] = v0\n    if v1:\n        v4['Access-Control-Allow-Methods'] = ', '.join(v1)\n    if v2:\n        v4['Access-Control-Allow-Headers'] = ', '.join(v2)\n    if v3 > 0:\n        v4['Access-Control-Max-Age'] = str(v3)\n    return v4",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-09T22:14:43.355917+00:00",
+    "description": "Build CORS response headers.",
+    "intent": "Build CORS response headers.",
+    "language": "python",
+    "name": "build_cors_headers",
+    "source_file": "neurop_forge/sources/http_utilities.py",
+    "source_line_end": 431,
+    "source_line_start": 420,
+    "tags": [
+      "build",
+      "cors",
+      "dict_operation",
+      "headers",
+      "max_age",
+      "methods",
+      "origin"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:14:43.355945+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(origin) == string",
+      "origin is not None",
+      "type(methods) == list",
+      "methods is not None",
+      "type(headers) == list",
+      "headers is not None",
+      "type(max_age) == integer",
+      "max_age is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(origin) == string",
+      "origin is not None",
+      "type(methods) == list",
+      "methods is not None",
+      "type(headers) == list",
+      "headers is not None",
+      "type(max_age) == integer",
+      "max_age is not None"
+    ]
+  }
+}

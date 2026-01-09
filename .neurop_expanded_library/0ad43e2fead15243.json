@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0ad43e2fead15243609a19f37122e5692cfd9d948e3ab61b00ca37ec52b684e1",
+    "semantic_fingerprint": "0c38c30f55d965aabbe776f80f3893ff76294c9762a705baa8dc4aed60454b66",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Compute HMAC-SHA256 of a message.",
+    "inputs": [
+      {
+        "data_type": "bytes",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      },
+      {
+        "data_type": "bytes",
+        "default_value": null,
+        "description": "Parameter message",
+        "name": "message",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of compute_hmac_sha256",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def compute_hmac_sha256(v0: bytes, v1: bytes) -> str:\n    return v2.new(v0, v1, v3.sha256).hexdigest()",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T22:14:43.454135+00:00",
+    "description": "Compute HMAC-SHA256 of a message.",
+    "intent": "Compute HMAC-SHA256 of a message.",
+    "language": "python",
+    "name": "compute_hmac_sha256",
+    "source_file": "neurop_forge/sources/cryptography_helpers.py",
+    "source_line_end": 117,
+    "source_line_start": 115,
+    "tags": [
+      "arithmetic",
+      "compute",
+      "hmac",
+      "key",
+      "message",
+      "sha256"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:14:43.454150+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(key) == bytes",
+      "key is not None",
+      "type(message) == bytes",
+      "message is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(key) == bytes",
+      "key is not None",
+      "type(message) == bytes",
+      "message is not None"
+    ]
+  }
+}

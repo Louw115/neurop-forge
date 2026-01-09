@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4f1e4790654e8c481ddeca52ff550fa4db026ad9f3852a6c4c34fa5c4622e0ca",
+    "semantic_fingerprint": "de5723e121d313140a340651c6f3f78e9a46a0497cad172a2b41514ea932fc5b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get the general category for a file extension.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter extension",
+        "name": "extension",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_file_category",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_file_category(v0: str) -> str:\n    v0 = v0.lower().lstrip('.')\n    v1 = {'image': ['png', 'jpg', 'jpeg', 'gif', 'webp', 'svg', 'ico', 'bmp', 'tiff', 'tif', 'psd', 'raw', 'heic', 'heif'], 'video': ['mp4', 'webm', 'avi', 'mov', 'mkv', 'flv', 'wmv', 'm4v', 'mpeg', 'mpg', '3gp'], 'audio': ['mp3', 'wav', 'ogg', 'flac', 'aac', 'wma', 'm4a', 'opus', 'aiff'], 'document': ['pdf', 'doc', 'docx', 'odt', 'rtf', 'txt', 'md', 'tex', 'epub', 'mobi'], 'spreadsheet': ['xls', 'xlsx', 'csv', 'ods', 'tsv'], 'presentation': ['ppt', 'pptx', 'odp', 'key'], 'archive': ['zip', 'rar', '7z', 'tar', 'gz', 'bz2', 'xz', 'tgz'], 'code': ['py', 'js', 'ts', 'jsx', 'tsx', 'java', 'c', 'cpp', 'h', 'hpp', 'cs', 'go', 'rs', 'rb', 'php', 'swift', 'kt', 'scala', 'r', 'lua', 'pl', 'sh', 'bash', 'zsh', 'ps1'], 'web': ['html', 'htm', 'css', 'scss', 'sass', 'less', 'vue', 'svelte'], 'data': ['json', 'xml', 'yaml', 'yml', 'toml', 'ini', 'cfg', 'conf'], 'font': ['ttf', 'otf', 'woff', 'woff2', 'eot'], 'executable': ['exe', 'msi', 'dmg', 'app', 'deb', 'rpm', 'apk', 'ipa'], 'database': ['sql', 'db', 'sqlite', 'sqlite3', 'mdb', 'accdb']}\n    for v2, v3 in v1.items():\n        if v0 in v3:\n            return v2\n    return 'other'",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-09T22:14:43.378686+00:00",
+    "description": "Get the general category for a file extension.",
+    "intent": "Get the general category for a file extension.",
+    "language": "python",
+    "name": "get_file_category",
+    "source_file": "neurop_forge/sources/file_type_detection.py",
+    "source_line_end": 65,
+    "source_line_start": 44,
+    "tags": [
+      "category",
+      "extension",
+      "file",
+      "filtering",
+      "get"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:14:43.378713+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(extension) == string",
+      "extension is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(extension) == string",
+      "extension is not None"
+    ]
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "36789cc34d97c3e86d0564ddbefa4c0a0dab3f95c2a75b182d459bb824b69624",
+    "semantic_fingerprint": "c2e06e0a9535a04b73a81d6fda3de713b2d2009f3d09650dba59561083d8b763",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Detect file type from magic bytes (file header).",
+    "inputs": [
+      {
+        "data_type": "bytes",
+        "default_value": null,
+        "description": "Parameter header_bytes",
+        "name": "header_bytes",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of detect_magic_bytes",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def detect_magic_bytes(v0: bytes) -> str:\n    if len(v0) < 4:\n        return 'unknown'\n    v1 = [(b'\\x89PNG\\r\\n\\x1a\\n', 'png'), (b'\\xff\\xd8\\xff', 'jpeg'), (b'GIF87a', 'gif'), (b'GIF89a', 'gif'), (b'RIFF', 'wav'), (b'ID3', 'mp3'), (b'\\xff\\xfb', 'mp3'), (b'\\xff\\xfa', 'mp3'), (b'OggS', 'ogg'), (b'fLaC', 'flac'), (b'%PDF', 'pdf'), (b'PK\\x03\\x04', 'zip'), (b'PK\\x05\\x06', 'zip'), (b'Rar!\\x1a\\x07', 'rar'), (b'\\x1f\\x8b', 'gzip'), (b'BZh', 'bzip2'), (b'\\xfd7zXZ\\x00', 'xz'), (b\"7z\\xbc\\xaf'\\x1c\", '7z'), (b'\\x00\\x00\\x00\\x1cftyp', 'mp4'), (b'\\x00\\x00\\x00 ftyp', 'mp4'), (b'\\x1aE\\xdf\\xa3', 'webm'), (b'RIFF', 'avi'), (b'MZ', 'exe'), (b'\\x7fELF', 'elf'), (b'\\xca\\xfe\\xba\\xbe', 'macho'), (b'\\xfe\\xed\\xfa\\xce', 'macho'), (b'SQLite format 3', 'sqlite')]\n    for v2, v3 in v1:\n        if v0.startswith(v2):\n            return v3\n    if v0[:4] == b'\\x00\\x00\\x00\\x0c' and v0[4:8] == b'jP  ':\n        return 'jpeg2000'\n    if v0[:4] == b'WEBP' or (len(v0) >= 12 and v0[8:12] == b'WEBP'):\n        return 'webp'\n    return 'unknown'",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T22:14:43.400631+00:00",
+    "description": "Detect file type from magic bytes (file header).",
+    "intent": "Detect file type from magic bytes (file header).",
+    "language": "python",
+    "name": "detect_magic_bytes",
+    "source_file": "neurop_forge/sources/file_type_detection.py",
+    "source_line_end": 199,
+    "source_line_start": 159,
+    "tags": [
+      "bytes",
+      "detect",
+      "header_bytes",
+      "magic",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:14:43.400657+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(header_bytes) == bytes",
+      "header_bytes is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(header_bytes) == bytes",
+      "header_bytes is not None"
+    ]
+  }
+}

@@ -1,0 +1,165 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic aggregation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception",
+      "KeyError"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "93ee7c027d234035226a12ef8152209badd12c1086a7f77d56300bcfd6aca4b3",
+    "semantic_fingerprint": "9e388a8807fa62666a73a427d9c700bf36e5f4f706481734d0f6f0306532682b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Aggregate values in groups by a key field.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter data",
+        "name": "data",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter value_field",
+        "name": "value_field",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter operation",
+        "name": "operation",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of aggregate_by_key",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def aggregate_by_key(v0: list, v1: str, v2: str, v3: str) -> dict:\n    v4 = v5(v0, v1)\n    v6 = {}\n    for v7, v8 in v4.items():\n        v9 = [v10.get(v2, 0) for v10 in v8 if v2 in v10]\n        if not v9:\n            v6[v7] = 0\n        elif v3 == 'sum':\n            v6[v7] = sum(v9)\n        elif v3 == 'avg':\n            v6[v7] = sum(v9) / len(v9)\n        elif v3 == 'min':\n            v6[v7] = min(v9)\n        elif v3 == 'max':\n            v6[v7] = max(v9)\n        elif v3 == 'count':\n            v6[v7] = len(v9)\n        else:\n            v6[v7] = v9\n    return v6",
+  "metadata": {
+    "category": "aggregation",
+    "created_at": "2026-01-09T22:14:43.511832+00:00",
+    "description": "Aggregate values in groups by a key field.",
+    "intent": "Aggregate values in groups by a key field.",
+    "language": "python",
+    "name": "aggregate_by_key",
+    "source_file": "neurop_forge/sources/data_transformation.py",
+    "source_line_end": 129,
+    "source_line_start": 109,
+    "tags": [
+      "aggregate",
+      "aggregation",
+      "data",
+      "key",
+      "operation",
+      "value_field"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:14:43.511851+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(data) == list",
+      "data is not None",
+      "type(key) == string",
+      "key is not None",
+      "type(value_field) == string",
+      "value_field is not None",
+      "type(operation) == string",
+      "operation is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(data) == list",
+      "data is not None",
+      "type(key) == string",
+      "key is not None",
+      "type(value_field) == string",
+      "value_field is not None",
+      "type(operation) == string",
+      "operation is not None"
+    ]
+  }
+}

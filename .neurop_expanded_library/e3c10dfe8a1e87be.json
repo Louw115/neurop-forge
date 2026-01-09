@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e3c10dfe8a1e87becb442d56415aba649f6f72633160b4bfdb07333607a26957",
+    "semantic_fingerprint": "e4870802aa70b894982f0f21e43da5445beaced78d15bbbb2cd56cd9c1d93677",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if a string has valid JWT format (3 base64url parts).",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter token",
+        "name": "token",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_valid_jwt_format",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_valid_jwt_format(v0: str) -> bool:\n    if not v0:\n        return False\n    v1 = v0.split('.')\n    if len(v1) != 3:\n        return False\n    return v2((v3(v4) for v4 in v1))",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-09T22:14:43.456455+00:00",
+    "description": "Check if a string has valid JWT format (3 base64url parts).",
+    "intent": "Check if a string has valid JWT format (3 base64url parts).",
+    "language": "python",
+    "name": "is_valid_jwt_format",
+    "source_file": "neurop_forge/sources/cryptography_helpers.py",
+    "source_line_end": 139,
+    "source_line_start": 132,
+    "tags": [
+      "format",
+      "jwt",
+      "token",
+      "valid",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:14:43.456472+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(token) == string",
+      "token is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(token) == string",
+      "token is not None"
+    ]
+  }
+}

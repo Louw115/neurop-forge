@@ -1,0 +1,131 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "76143a73f3348a6a4c214f04687b7343376daf6ff12a640ce3409146dd666a18",
+    "semantic_fingerprint": "695bddbb3efafaf220f659b92811b8261b2740017e36b67999aeda3e80267aa1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get a hint about expected compression for a file type.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter extension",
+        "name": "extension",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_compression_ratio_hint",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_compression_ratio_hint(v0: str) -> str:\n    v0 = v0.lower().lstrip('.')\n    v1 = {'jpg', 'jpeg', 'png', 'gif', 'webp', 'mp3', 'aac', 'ogg', 'flac', 'mp4', 'webm', 'mkv', 'avi', 'zip', 'rar', '7z', 'gz', 'bz2', 'xz', 'pdf', 'docx', 'xlsx', 'pptx'}\n    if v0 in v1:\n        return 'low'\n    v2 = {'txt', 'log', 'csv', 'json', 'xml', 'html', 'css', 'js', 'ts', 'py', 'java', 'c', 'cpp', 'md'}\n    if v0 in v2:\n        return 'high'\n    return 'medium'",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-09T22:14:43.413419+00:00",
+    "description": "Get a hint about expected compression for a file type.",
+    "intent": "Get a hint about expected compression for a file type.",
+    "language": "python",
+    "name": "get_compression_ratio_hint",
+    "source_file": "neurop_forge/sources/file_type_detection.py",
+    "source_line_end": 270,
+    "source_line_start": 255,
+    "tags": [
+      "compression",
+      "extension",
+      "filtering",
+      "get",
+      "hint",
+      "ratio"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:14:43.413445+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(extension) == string",
+      "extension is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(extension) == string",
+      "extension is not None"
+    ]
+  }
+}

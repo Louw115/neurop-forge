@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "542e617ed4b680e7ded1e9fa0297aae1fe1efc5df219f665a38e8e2c23485f34",
+    "semantic_fingerprint": "96afcb5b6dec76bc5da732ba7232b44ad0ede98016e35cc49bf9d0eec719b986",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Normalize file extension to canonical form.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter extension",
+        "name": "extension",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of normalize_extension",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def normalize_extension(v0: str) -> str:\n    v0 = v0.lower().lstrip('.')\n    v1 = {'jpeg': 'jpg', 'tiff': 'tif', 'htm': 'html', 'mpeg': 'mpg', 'yaml': 'yml'}\n    return v1.get(v0, v0)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T22:14:43.415779+00:00",
+    "description": "Normalize file extension to canonical form.",
+    "intent": "Normalize file extension to canonical form.",
+    "language": "python",
+    "name": "normalize_extension",
+    "source_file": "neurop_forge/sources/file_type_detection.py",
+    "source_line_end": 283,
+    "source_line_start": 273,
+    "tags": [
+      "extension",
+      "normalize",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:14:43.415804+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(extension) == string",
+      "extension is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(extension) == string",
+      "extension is not None"
+    ]
+  }
+}

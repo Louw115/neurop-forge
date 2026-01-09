@@ -370,6 +370,10 @@ def demonstrate_expanded_library():
         ("neurop_forge/sources/formatting_utilities.py", "Formatting Utilities"),
         ("neurop_forge/sources/array_operations.py", "Array Operations"),
         ("neurop_forge/sources/security_utilities.py", "Security Utilities"),
+        ("neurop_forge/sources/http_utilities.py", "HTTP Utilities"),
+        ("neurop_forge/sources/file_type_detection.py", "File Type Detection"),
+        ("neurop_forge/sources/cryptography_helpers.py", "Cryptography Helpers"),
+        ("neurop_forge/sources/data_transformation.py", "Data Transformation"),
     ]
 
     print("STEP 1: Initialize Neurop Block Forge")
@@ -521,6 +525,10 @@ def demonstrate_expanded_library():
     print("  - Formatting (currency, bytes, duration, ordinals, etc.)")
     print("  - Array operations (matrix multiply, transpose, vectors, etc.)")
     print("  - Security (sanitize, mask, detect injection, etc.)")
+    print("  - HTTP utilities (status codes, MIME types, headers, cookies)")
+    print("  - File type detection (extensions, magic bytes, categories)")
+    print("  - Cryptography helpers (JWT, HMAC, base64, hashing patterns)")
+    print("  - Data transformation (normalize, pivot, aggregate, window)")
     print()
     print("AI can now compose block graphs across all these domains.")
     print("This is the foundation for building anything - from validated blocks.")

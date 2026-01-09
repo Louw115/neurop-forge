@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "090d559b7e2869b182114d7bd635e6f3a0b0d0909d907c614b0190fe3c9e4000",
+    "semantic_fingerprint": "d972f5e401c1e628cf3ed6f174853d98582cd209e5f59211903fa2fbd8383431",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Apply PKCS7 padding to data.",
+    "inputs": [
+      {
+        "data_type": "bytes",
+        "default_value": null,
+        "description": "Parameter data",
+        "name": "data",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter block_size",
+        "name": "block_size",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "bytes",
+        "default_value": null,
+        "description": "Return value of pad_pkcs7",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def pad_pkcs7(v0: bytes, v1: int) -> v3:\n    if v1 <= 0 or v1 > 255:\n        return v0\n    v2 = v1 - len(v0) % v1\n    return v0 + v3([v2] * v2)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T22:14:43.479572+00:00",
+    "description": "Apply PKCS7 padding to data.",
+    "intent": "Apply PKCS7 padding to data.",
+    "language": "python",
+    "name": "pad_pkcs7",
+    "source_file": "neurop_forge/sources/cryptography_helpers.py",
+    "source_line_end": 284,
+    "source_line_start": 279,
+    "tags": [
+      "block_size",
+      "data",
+      "pad",
+      "pkcs7",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:14:43.479590+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(data) == bytes",
+      "data is not None",
+      "type(block_size) == integer",
+      "block_size is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == bytes"
+    ],
+    "postconditions": [
+      "type(result) == bytes"
+    ],
+    "preconditions": [
+      "type(data) == bytes",
+      "data is not None",
+      "type(block_size) == integer",
+      "block_size is not None"
+    ]
+  }
+}

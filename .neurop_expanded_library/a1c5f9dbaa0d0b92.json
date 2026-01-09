@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic sorting block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a1c5f9dbaa0d0b9258fb56fae06764e9e24e023f9b801703e0bcb7fc74884ccd",
+    "semantic_fingerprint": "2ded21f15022c37873496318fb50401d3227ce0f6ed8bee9da108f245ae260e0",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Rank values (1 = smallest).",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter values",
+        "name": "values",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of rank_values",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def rank_values(v0: list) -> list:\n    if not v0:\n        return []\n    v1 = sorted(enumerate(v0), key=lambda v2: v2[1])\n    v3 = [0] * len(v0)\n    for v4, (v5, _) in enumerate(v1, 1):\n        v3[v5] = v4\n    return v3",
+  "metadata": {
+    "category": "sorting",
+    "created_at": "2026-01-09T22:14:43.504803+00:00",
+    "description": "Rank values (1 = smallest).",
+    "intent": "Rank values (1 = smallest).",
+    "language": "python",
+    "name": "rank_values",
+    "source_file": "neurop_forge/sources/data_transformation.py",
+    "source_line_end": 69,
+    "source_line_start": 61,
+    "tags": [
+      "rank",
+      "sorting",
+      "values"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:14:43.504824+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(values) == list",
+      "values is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(values) == list",
+      "values is not None"
+    ]
+  }
+}
