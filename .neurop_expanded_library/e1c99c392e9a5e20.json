@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e1c99c392e9a5e201b4db27e8d9ff0b3c7f1ed4cc875760f0e95368b69155401",
+    "semantic_fingerprint": "050cb0ea8fefc0eb09bb11729e382a8ac5c539d3acfdb995594142850c888150",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Remove a query parameter from a URL.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter url",
+        "name": "url",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of remove_query_param",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def remove_query_param(v0: str, v1: str) -> str:\n    if not v0 or not v1:\n        return v0\n    v2 = v3(v0)\n    v4 = v5(v2['query'])\n    v4.pop(v1, None)\n    v2['query'] = v6(v4)\n    return v7(v2['scheme'], v2['host'], v2['port'], v2['path'], v2['query'], v2['fragment'])",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T21:54:56.226362+00:00",
+    "description": "Remove a query parameter from a URL.",
+    "intent": "Remove a query parameter from a URL.",
+    "language": "python",
+    "name": "remove_query_param",
+    "source_file": "neurop_forge/sources/url_utilities.py",
+    "source_line_end": 143,
+    "source_line_start": 132,
+    "tags": [
+      "key",
+      "param",
+      "query",
+      "remove",
+      "string_manipulation",
+      "url"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T21:54:56.226380+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(url) == string",
+      "url is not None",
+      "type(key) == string",
+      "key is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(url) == string",
+      "url is not None",
+      "type(key) == string",
+      "key is not None"
+    ]
+  }
+}

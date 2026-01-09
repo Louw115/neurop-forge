@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1eee254b46b487f5104f4485a88f7b22da49b128476fd5836452adb74c289846",
+    "semantic_fingerprint": "a812f6c7af5bba88284e849dae4a2a913e0e4f4de081ce3619f13307741ba0ec",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse a single CSV line into a list of values.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter line",
+        "name": "line",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter delimiter",
+        "name": "delimiter",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of parse_csv_line",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_csv_line(v0: str, v1: str) -> list:\n    if not v0:\n        return []\n    if not v1:\n        v1 = ','\n    return v0.split(v1)",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-09T21:54:56.136822+00:00",
+    "description": "Parse a single CSV line into a list of values.",
+    "intent": "Parse a single CSV line into a list of values.",
+    "language": "python",
+    "name": "parse_csv_line",
+    "source_file": "neurop_forge/sources/data_parsing.py",
+    "source_line_end": 47,
+    "source_line_start": 41,
+    "tags": [
+      "csv",
+      "delimiter",
+      "line",
+      "parse",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T21:54:56.136836+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(line) == string",
+      "line is not None",
+      "type(delimiter) == string",
+      "delimiter is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(line) == string",
+      "line is not None",
+      "type(delimiter) == string",
+      "delimiter is not None"
+    ]
+  }
+}

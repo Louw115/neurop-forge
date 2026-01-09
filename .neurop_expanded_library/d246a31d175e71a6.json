@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d246a31d175e71a6428c3e7019fc394f49b402620736b137de55e49e68f73d2e",
+    "semantic_fingerprint": "ddbb00b6fe126c3456c242501b8300987289ab8ee66dca33ba7c2055a2d9511c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Remove a trailing slash from a path if present.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter path",
+        "name": "path",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of remove_trailing_slash",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def remove_trailing_slash(v0: str) -> str:\n    if not v0:\n        return ''\n    while len(v0) > 1 and (v0.endswith('/') or v0.endswith('\\\\')):\n        v0 = v0[:-1]\n    return v0",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T21:54:56.116349+00:00",
+    "description": "Remove a trailing slash from a path if present.",
+    "intent": "Remove a trailing slash from a path if present.",
+    "language": "python",
+    "name": "remove_trailing_slash",
+    "source_file": "neurop_forge/sources/path_utilities.py",
+    "source_line_end": 149,
+    "source_line_start": 143,
+    "tags": [
+      "path",
+      "remove",
+      "slash",
+      "string_manipulation",
+      "trailing"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T21:54:56.116363+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(path) == string",
+      "path is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(path) == string",
+      "path is not None"
+    ]
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0f8aa0b0f57c82a8c41e3a182c613338b9fcad6584d30f70b0f1ce82a7001930",
+    "semantic_fingerprint": "456db30f09553f448d9b8c0ec0aeed4e7c80bad8e894c7e0dd0d928a3262ca5a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "URL-encode a string.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of url_encode",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def url_encode(v0: str) -> str:\n    if not v0:\n        return ''\n    v1 = []\n    for v2 in v0:\n        if v2.isalnum() or v2 in '-_.~':\n            v1.append(v2)\n        elif v2 == ' ':\n            v1.append('+')\n        else:\n            v3 = v2.encode('utf-8')\n            for v4 in v3:\n                v1.append(f'%{v4:02X}')\n    return ''.join(v1)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T21:54:56.185698+00:00",
+    "description": "URL-encode a string.",
+    "intent": "URL-encode a string.",
+    "language": "python",
+    "name": "url_encode",
+    "source_file": "neurop_forge/sources/encoding_utilities.py",
+    "source_line_end": 109,
+    "source_line_start": 95,
+    "tags": [
+      "encode",
+      "string_manipulation",
+      "text",
+      "url"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T21:54:56.185724+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None"
+    ]
+  }
+}

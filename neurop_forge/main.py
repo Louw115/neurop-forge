@@ -360,6 +360,11 @@ def demonstrate_expanded_library():
         ("neurop_forge/sources/type_conversions.py", "Type Conversions"),
         ("neurop_forge/sources/comparison_logic.py", "Comparison & Logic"),
         ("neurop_forge/sources/datetime_utilities.py", "Date/Time Utilities"),
+        ("neurop_forge/sources/math_statistics.py", "Math & Statistics"),
+        ("neurop_forge/sources/path_utilities.py", "Path Utilities"),
+        ("neurop_forge/sources/data_parsing.py", "Data Parsing"),
+        ("neurop_forge/sources/encoding_utilities.py", "Encoding & Hashing"),
+        ("neurop_forge/sources/url_utilities.py", "URL Utilities"),
     ]
 
     print("STEP 1: Initialize Neurop Block Forge")
@@ -501,6 +506,11 @@ def demonstrate_expanded_library():
     print("  - Type conversions (int, float, string, boolean, etc.)")
     print("  - Comparison logic (equals, between, clamp, coalesce, etc.)")
     print("  - Date/time utilities (days between, leap year, format, etc.)")
+    print("  - Math & statistics (sqrt, median, variance, trig, etc.)")
+    print("  - Path utilities (join path, get extension, is_image, etc.)")
+    print("  - Data parsing (JSON, CSV, key-value, nested dict, etc.)")
+    print("  - Encoding & hashing (MD5, SHA256, base64, URL encode, etc.)")
+    print("  - URL utilities (parse URL, query strings, domains, etc.)")
     print()
     print("AI can now compose block graphs across all these domains.")
     print("This is the foundation for building anything - from validated blocks.")

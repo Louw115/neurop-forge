@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "554f679467c09cb938baa98704bf64a19e74ce71cbb2f8ea018ae0375e894a7b",
+    "semantic_fingerprint": "4b4ed3c8e65375fb981ac12d2fc522dc9bb41f90dd546f4378230620723617d9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate the CRC32 checksum of a string.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of crc32",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def crc32(v0: str) -> int:\n    import zlib\n    if not v0:\n        return 0\n    return v1.crc32(v0.encode('utf-8')) & 4294967295",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T21:54:56.196814+00:00",
+    "description": "Calculate the CRC32 checksum of a string.",
+    "intent": "Calculate the CRC32 checksum of a string.",
+    "language": "python",
+    "name": "crc32",
+    "source_file": "neurop_forge/sources/encoding_utilities.py",
+    "source_line_end": 201,
+    "source_line_start": 196,
+    "tags": [
+      "arithmetic",
+      "crc32",
+      "text"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T21:54:56.196839+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None"
+    ]
+  }
+}
