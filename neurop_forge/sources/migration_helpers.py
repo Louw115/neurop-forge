@@ -1,4 +1,10 @@
 """
+Copyright © 2026 Lourens Wasserman. All Rights Reserved.
+Neurop Block Forge - https://neurop-forge.com
+Commercial use requires a license. See LICENSE file.
+"""
+
+"""
 Migration Helper Utilities - Pure functions for database migration operations.
 All functions are pure, deterministic, and atomic.
 No actual database connections - just migration string/structure manipulation.

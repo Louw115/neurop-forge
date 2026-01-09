@@ -1,0 +1,147 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": false,
+    "io_operations": [
+      "time"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "non_deterministic",
+    "side_effects": [
+      "time"
+    ],
+    "thread_safe": false
+  },
+  "failure_modes": {
+    "can_fail": true,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "raises_exception",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "73c3e5657e278463095e9f88313af0dd474646030864e56897bd4b8a5b4386ff",
+    "semantic_fingerprint": "9afbde2ba33d885b008a86d2027019ba0cece5b2e6e2f3617fcbb3b4920a09fd",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Schedule a timer step.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter step",
+        "name": "step",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter start_timestamp",
+        "name": "start_timestamp",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of schedule_timer",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def schedule_timer(v0: dict, v1: str) -> dict:\n    from datetime import datetime, timedelta\n    v2 = v3.fromisoformat(v1.replace('Z', '+00:00'))\n    v4 = v2 + v5(seconds=v0.get('delay_seconds', 0))\n    v6 = dict(v0)\n    v6['scheduled_at'] = v4.isoformat()\n    return v6",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-09T23:49:53.190558+00:00",
+    "description": "Schedule a timer step.",
+    "intent": "Schedule a timer step.",
+    "language": "python",
+    "name": "schedule_timer",
+    "source_file": "neurop_forge/sources/workflow_patterns.py",
+    "source_line_end": 243,
+    "source_line_start": 236,
+    "tags": [
+      "dict_operation",
+      "schedule",
+      "start_timestamp",
+      "step",
+      "timer"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 0.5,
+    "last_verified": "2026-01-09T23:49:53.190576+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.265,
+    "risk_factors": [
+      "impure_function",
+      "non_deterministic",
+      "side_effects: time"
+    ],
+    "risk_level": "medium",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(step) == dict",
+      "step is not None",
+      "type(start_timestamp) == string",
+      "start_timestamp is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(step) == dict",
+      "step is not None",
+      "type(start_timestamp) == string",
+      "start_timestamp is not None"
+    ]
+  }
+}

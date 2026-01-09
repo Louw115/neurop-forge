@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9682110aac7c9984b5e7d352eab9e4eddb7625a6c3432588b349d9024fca977b",
+    "semantic_fingerprint": "6a3baedec1d8eee8df2c2cd01e4ddaf6b2bc41ba37736c7f4a6c30d767ef5ae0",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse a standard log line.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter line",
+        "name": "line",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of parse_log_line",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_log_line(v0: str) -> dict:\n    import re\n    v1 = '\\\\[([^\\\\]]+)\\\\]\\\\s+(\\\\w+):\\\\s+(.*)'\n    v2 = v3.match(v1, v0)\n    if v2:\n        return {'timestamp': v2.group(1), 'level': v2.group(2), 'message': v2.group(3)}\n    return {'raw': v0}",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-09T23:49:53.508632+00:00",
+    "description": "Parse a standard log line.",
+    "intent": "Parse a standard log line.",
+    "language": "python",
+    "name": "parse_log_line",
+    "source_file": "neurop_forge/sources/logging_utilities.py",
+    "source_line_end": 129,
+    "source_line_start": 118,
+    "tags": [
+      "line",
+      "log",
+      "parse",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:53.508649+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(line) == string",
+      "line is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(line) == string",
+      "line is not None"
+    ]
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "fb65a04730ed5016d5a881a3ab452296c80e4cb30f3e4b6503f4d1ce4b16eec5",
+    "semantic_fingerprint": "510fbaa68095da153ef1ba3f1c15ad20c29fb9d863f25df4eff5f68c395235d8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate next occurrence of recurring schedule.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter recurrence",
+        "name": "recurrence",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_weekday",
+        "name": "current_weekday",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter current_time",
+        "name": "current_time",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of calculate_next_occurrence",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_next_occurrence(v0: dict, v1: int, v2: str) -> dict:\n    v3 = v0.get('days', [])\n    v4 = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']\n    for v5 in range(7):\n        v6 = (v1 + v5) % 7\n        if v4[v6] in [v7.lower() for v7 in v3]:\n            return {'day_offset': v5, 'day_name': v4[v6], 'time': v0.get('start_time')}\n    return {'day_offset': 0, 'day_name': v4[v1], 'time': v0.get('start_time')}",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T23:49:53.577506+00:00",
+    "description": "Calculate next occurrence of recurring schedule.",
+    "intent": "Calculate next occurrence of recurring schedule.",
+    "language": "python",
+    "name": "calculate_next_occurrence",
+    "source_file": "neurop_forge/sources/scheduler_utilities.py",
+    "source_line_end": 120,
+    "source_line_start": 108,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "current_time",
+      "current_weekday",
+      "next",
+      "occurrence",
+      "recurrence"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:53.577526+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(recurrence) == dict",
+      "recurrence is not None",
+      "type(current_weekday) == integer",
+      "current_weekday is not None",
+      "type(current_time) == string",
+      "current_time is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(recurrence) == dict",
+      "recurrence is not None",
+      "type(current_weekday) == integer",
+      "current_weekday is not None",
+      "type(current_time) == string",
+      "current_time is not None"
+    ]
+  }
+}

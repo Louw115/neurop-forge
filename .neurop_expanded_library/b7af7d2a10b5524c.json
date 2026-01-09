@@ -1,0 +1,152 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b7af7d2a10b5524c18ace96a249870b1bae078a9d44966e99d18edb3c9e2f5f5",
+    "semantic_fingerprint": "a9b1a7d4e98258884303007f104201d7a85c320841e2d5f80d2e3089246c8f02",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Apply user-specific overrides to flags.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter flags",
+        "name": "flags",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter overrides",
+        "name": "overrides",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter user_id",
+        "name": "user_id",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of apply_overrides",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def apply_overrides(v0: dict, v1: list, v2: str) -> dict:\n    v3 = dict(v0)\n    for v4 in v1:\n        if v4['user_id'] == v2 and v4['flag_id'] in v3:\n            v3[v4['flag_id']] = dict(v3[v4['flag_id']])\n            v3[v4['flag_id']]['enabled'] = v4['value']\n    return v3",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-09T23:49:53.717320+00:00",
+    "description": "Apply user-specific overrides to flags.",
+    "intent": "Apply user-specific overrides to flags.",
+    "language": "python",
+    "name": "apply_overrides",
+    "source_file": "neurop_forge/sources/feature_flags.py",
+    "source_line_end": 194,
+    "source_line_start": 187,
+    "tags": [
+      "apply",
+      "dict_operation",
+      "flags",
+      "overrides",
+      "user_id"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:53.717344+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(flags) == dict",
+      "flags is not None",
+      "type(overrides) == list",
+      "overrides is not None",
+      "type(user_id) == string",
+      "user_id is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(flags) == dict",
+      "flags is not None",
+      "type(overrides) == list",
+      "overrides is not None",
+      "type(user_id) == string",
+      "user_id is not None"
+    ]
+  }
+}

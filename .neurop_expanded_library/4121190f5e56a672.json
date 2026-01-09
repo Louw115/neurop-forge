@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4121190f5e56a672601e8b4be4f7e38347854e3572577a2a5035a6274b87c375",
+    "semantic_fingerprint": "8d8ad9586812437c277cdc5e0b2e65a59271e278ccc60d3dae62f60010652c51",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build responsive image sizes attribute.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter breakpoints",
+        "name": "breakpoints",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_image_sizes",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_image_sizes(v0: list) -> str:\n    v1 = []\n    for v2 in v0:\n        v1.append(f\"(max-width: {v2['max_width']}px) {v2['image_width']}\")\n    v1.append('100vw')\n    return ', '.join(v1)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T23:49:53.392697+00:00",
+    "description": "Build responsive image sizes attribute.",
+    "intent": "Build responsive image sizes attribute.",
+    "language": "python",
+    "name": "build_image_sizes",
+    "source_file": "neurop_forge/sources/image_utilities.py",
+    "source_line_end": 182,
+    "source_line_start": 176,
+    "tags": [
+      "breakpoints",
+      "build",
+      "image",
+      "sizes",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:53.392713+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(breakpoints) == list",
+      "breakpoints is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(breakpoints) == list",
+      "breakpoints is not None"
+    ]
+  }
+}

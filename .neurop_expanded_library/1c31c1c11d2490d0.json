@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1c31c1c11d2490d0a6d33c1a6f4d33d3f2ccbfae7c146ba58590ac868f5d6174",
+    "semantic_fingerprint": "da026d9056aabd66427714dd8190d0c0536b9e5dc87cd170331d3bdca0fcea7a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate size of Huffman encoded data in bits.",
+    "inputs": [
+      {
+        "data_type": "bytes",
+        "default_value": null,
+        "description": "Parameter data",
+        "name": "data",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter codes",
+        "name": "codes",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of calculate_huffman_size",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_huffman_size(v0: bytes, v1: dict) -> int:\n    return sum((len(v1.get(v2, '')) for v2 in v0))",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T23:49:53.270455+00:00",
+    "description": "Calculate size of Huffman encoded data in bits.",
+    "intent": "Calculate size of Huffman encoded data in bits.",
+    "language": "python",
+    "name": "calculate_huffman_size",
+    "source_file": "neurop_forge/sources/compression_utilities.py",
+    "source_line_end": 115,
+    "source_line_start": 113,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "codes",
+      "data",
+      "huffman",
+      "size"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:53.270472+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(data) == bytes",
+      "data is not None",
+      "type(codes) == dict",
+      "codes is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(data) == bytes",
+      "data is not None",
+      "type(codes) == dict",
+      "codes is not None"
+    ]
+  }
+}

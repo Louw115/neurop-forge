@@ -1,0 +1,155 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f694b4970219e90ca1e6577e8cbf4a77083c6e42b5d26cd0253215eb465248fd",
+    "semantic_fingerprint": "5f837de37533f1f23c631e4d37dfd1139684f1c680cdab672d519fefc94b854d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate approximate AUC-ROC score.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter predictions",
+        "name": "predictions",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter actuals",
+        "name": "actuals",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter thresholds",
+        "name": "thresholds",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_auc_roc_approx",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_auc_roc_approx(v0: list, v1: list, v2: int) -> float:\n    v3 = 0.0\n    v4 = 1.0\n    v5 = 1.0\n    for v6 in range(v2 + 1):\n        v7 = v6 / v2\n        v8 = [1 if v9 >= v7 else 0 for v9 in v0]\n        v10 = sum((1 for v9, v11 in zip(v8, v1) if v9 == 1 and v11 == 1))\n        v12 = sum((1 for v9, v11 in zip(v8, v1) if v9 == 1 and v11 == 0))\n        v13 = sum((1 for v9, v11 in zip(v8, v1) if v9 == 0 and v11 == 0))\n        v14 = sum((1 for v9, v11 in zip(v8, v1) if v9 == 0 and v11 == 1))\n        v15 = v10 / (v10 + v14) if v10 + v14 > 0 else 0\n        v16 = v12 / (v12 + v13) if v12 + v13 > 0 else 0\n        v3 += (v4 - v16) * (v5 + v15) / 2\n        v4, v5 = (v16, v15)\n    return v3",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T23:49:52.791177+00:00",
+    "description": "Calculate approximate AUC-ROC score.",
+    "intent": "Calculate approximate AUC-ROC score.",
+    "language": "python",
+    "name": "calculate_auc_roc_approx",
+    "source_file": "neurop_forge/sources/ml_utilities.py",
+    "source_line_end": 306,
+    "source_line_start": 290,
+    "tags": [
+      "actuals",
+      "approx",
+      "arithmetic",
+      "auc",
+      "calculate",
+      "predictions",
+      "roc",
+      "thresholds"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:52.791197+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(predictions) == list",
+      "predictions is not None",
+      "type(actuals) == list",
+      "actuals is not None",
+      "type(thresholds) == integer",
+      "thresholds is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(predictions) == list",
+      "predictions is not None",
+      "type(actuals) == list",
+      "actuals is not None",
+      "type(thresholds) == integer",
+      "thresholds is not None"
+    ]
+  }
+}

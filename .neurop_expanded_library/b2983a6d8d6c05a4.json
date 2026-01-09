@@ -1,0 +1,131 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b2983a6d8d6c05a4dbb510293636e9413b7f0e1cbe22e60a6b7c4b82d9d49dec",
+    "semantic_fingerprint": "1126f39eddfadda6465a6c5f408bad0961ded2bc1ed03e88ad53a96a57a9a9c7",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse a Docker image tag into components.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter full_tag",
+        "name": "full_tag",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of parse_docker_image_tag",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_docker_image_tag(v0: str) -> dict:\n    v1 = v0.split('/')\n    if len(v1) == 1:\n        v2 = v1[0]\n        v3 = ''\n    elif len(v1) == 2:\n        if '.' in v1[0] or ':' in v1[0]:\n            v3 = v1[0]\n            v2 = v1[1]\n        else:\n            v3 = ''\n            v2 = v0\n    else:\n        v3 = v1[0]\n        v2 = '/'.join(v1[1:])\n    if ':' in v2:\n        v4, v5 = v2.rsplit(':', 1)\n    else:\n        v4, v5 = (v2, 'latest')\n    return {'registry': v3, 'repository': v4, 'tag': v5}",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-09T23:49:52.635616+00:00",
+    "description": "Parse a Docker image tag into components.",
+    "intent": "Parse a Docker image tag into components.",
+    "language": "python",
+    "name": "parse_docker_image_tag",
+    "source_file": "neurop_forge/sources/devops_utilities.py",
+    "source_line_end": 128,
+    "source_line_start": 108,
+    "tags": [
+      "docker",
+      "full_tag",
+      "image",
+      "parse",
+      "tag",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:52.635635+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(full_tag) == string",
+      "full_tag is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(full_tag) == string",
+      "full_tag is not None"
+    ]
+  }
+}

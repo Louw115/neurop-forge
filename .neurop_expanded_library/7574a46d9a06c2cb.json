@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic comparison block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7574a46d9a06c2cba6dc4098ae723d6348325b6c91d8dc7506c664bfb4c181e4",
+    "semantic_fingerprint": "5270ce1810998326823aced73b8bd10996e7f91b45e928bd7f0b864faa93804d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if value matches cron field pattern.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter field",
+        "name": "field",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of matches_cron_field",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def matches_cron_field(v0: int, v1: str) -> bool:\n    if v1 == '*':\n        return True\n    if v1.isdigit():\n        return v0 == int(v1)\n    if ',' in v1:\n        return v0 in [int(v2) for v2 in v1.split(',')]\n    if '-' in v1:\n        v3, v4 = v1.split('-')\n        return int(v3) <= v0 <= int(v4)\n    if '/' in v1:\n        v5, v6 = v1.split('/')\n        if v5 == '*':\n            return v0 % int(v6) == 0\n    return False",
+  "metadata": {
+    "category": "comparison",
+    "created_at": "2026-01-09T23:49:53.567304+00:00",
+    "description": "Check if value matches cron field pattern.",
+    "intent": "Check if value matches cron field pattern.",
+    "language": "python",
+    "name": "matches_cron_field",
+    "source_file": "neurop_forge/sources/scheduler_utilities.py",
+    "source_line_end": 42,
+    "source_line_start": 27,
+    "tags": [
+      "comparison",
+      "cron",
+      "field",
+      "matches",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:53.567323+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.37,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.8,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == integer",
+      "value is not None",
+      "type(field) == string",
+      "field is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(value) == integer",
+      "value is not None",
+      "type(field) == string",
+      "field is not None"
+    ]
+  }
+}

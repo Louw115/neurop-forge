@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic comparison block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "aa5110be2cbfe03582036aa901c24a5ae4ae9fb4502ad1d9becaae7b6aa2f355",
+    "semantic_fingerprint": "c7fc9d26514a9fe4991f7625afa06e1dfc2d84be1128ec39369ed3265cbfaf0a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if text matches any search term (OR).",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter terms",
+        "name": "terms",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of matches_any_term",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def matches_any_term(v0: str, v1: list) -> bool:\n    v2 = v0.lower()\n    return v3((v4.lower() in v2 for v4 in v1))",
+  "metadata": {
+    "category": "comparison",
+    "created_at": "2026-01-09T23:49:53.080270+00:00",
+    "description": "Check if text matches any search term (OR).",
+    "intent": "Check if text matches any search term (OR).",
+    "language": "python",
+    "name": "matches_any_term",
+    "source_file": "neurop_forge/sources/search_patterns.py",
+    "source_line_end": 74,
+    "source_line_start": 71,
+    "tags": [
+      "any",
+      "comparison",
+      "matches",
+      "term",
+      "terms",
+      "text"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:53.080287+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.37,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.8,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None",
+      "type(terms) == list",
+      "terms is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None",
+      "type(terms) == list",
+      "terms is not None"
+    ]
+  }
+}

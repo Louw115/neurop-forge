@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2cac447b659810c2650d7e8dcbf445659ef2a7d4ea70e06a218d9f00c93adb49",
+    "semantic_fingerprint": "4cf21a95d7aa659be973a1fca8f69585658c3573e9f8e25fc95e6f4f7a8a7f52",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if current time is during quiet hours.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_hour",
+        "name": "current_hour",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter quiet_start",
+        "name": "quiet_start",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter quiet_end",
+        "name": "quiet_end",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_quiet_hours",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_quiet_hours(v0: int, v1: int, v2: int) -> bool:\n    if v1 <= v2:\n        return v1 <= v0 < v2\n    return v0 >= v1 or v0 < v2",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-09T23:49:52.917250+00:00",
+    "description": "Check if current time is during quiet hours.",
+    "intent": "Check if current time is during quiet hours.",
+    "language": "python",
+    "name": "is_quiet_hours",
+    "source_file": "neurop_forge/sources/notification_patterns.py",
+    "source_line_end": 104,
+    "source_line_start": 100,
+    "tags": [
+      "current_hour",
+      "hours",
+      "quiet",
+      "quiet_end",
+      "quiet_start",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:52.917272+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(current_hour) == integer",
+      "current_hour is not None",
+      "type(quiet_start) == integer",
+      "quiet_start is not None",
+      "type(quiet_end) == integer",
+      "quiet_end is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(current_hour) == integer",
+      "current_hour is not None",
+      "type(quiet_start) == integer",
+      "quiet_start is not None",
+      "type(quiet_end) == integer",
+      "quiet_end is not None"
+    ]
+  }
+}

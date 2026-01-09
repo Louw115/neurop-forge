@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "36f2ebf854676018b8a0c6308d42b900b02295cdc12911c0fb76583b394b6ea9",
+    "semantic_fingerprint": "ad5ae408d3eaac3eef431b5135f9236d76a8747dbdf271a06a64a1b43de0963b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build Huffman tree structure from frequencies.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter frequencies",
+        "name": "frequencies",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_huffman_tree",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_huffman_tree(v0: dict) -> dict:\n    if not v0:\n        return {}\n    v1 = [{'symbol': v2, 'freq': v3, 'left': None, 'right': None} for v2, v3 in v0.items()]\n    while len(v1) > 1:\n        v1.sort(key=lambda v4: v4['freq'])\n        v5 = v1.pop(0)\n        v6 = v1.pop(0)\n        v7 = {'symbol': None, 'freq': v5['freq'] + v6['freq'], 'left': v5, 'right': v6}\n        v1.append(v7)\n    return v1[0] if v1 else {}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-09T23:49:53.266586+00:00",
+    "description": "Build Huffman tree structure from frequencies.",
+    "intent": "Build Huffman tree structure from frequencies.",
+    "language": "python",
+    "name": "build_huffman_tree",
+    "source_file": "neurop_forge/sources/compression_utilities.py",
+    "source_line_end": 96,
+    "source_line_start": 80,
+    "tags": [
+      "build",
+      "dict_operation",
+      "frequencies",
+      "huffman",
+      "tree"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:53.266612+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(frequencies) == dict",
+      "frequencies is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(frequencies) == dict",
+      "frequencies is not None"
+    ]
+  }
+}

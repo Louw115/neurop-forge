@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3b79cb1d368947ea2c081f0ff8299d0ba405a5672b64bc9f2c42e0e06ad7909b",
+    "semantic_fingerprint": "dc94d79a1b24b90c9e30e48b9886ef030e86172c7b9aa9dee1a4ad1735fa169d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Pack integers into byte-aligned groups.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter values",
+        "name": "values",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter bit_width",
+        "name": "bit_width",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of pack_integers",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def pack_integers(v0: list, v1: int) -> list:\n    v2 = []\n    v3 = 0\n    v4 = 0\n    for v5 in v0:\n        v3 = v3 << v1 | v5 & (1 << v1) - 1\n        v4 += v1\n        while v4 >= 8:\n            v4 -= 8\n            v2.append(v3 >> v4 & 255)\n    if v4 > 0:\n        v2.append(v3 << 8 - v4 & 255)\n    return v2",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-09T23:49:53.285431+00:00",
+    "description": "Pack integers into byte-aligned groups.",
+    "intent": "Pack integers into byte-aligned groups.",
+    "language": "python",
+    "name": "pack_integers",
+    "source_file": "neurop_forge/sources/compression_utilities.py",
+    "source_line_end": 201,
+    "source_line_start": 188,
+    "tags": [
+      "bit_width",
+      "integers",
+      "list_operation",
+      "pack",
+      "values"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:53.285459+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(values) == list",
+      "values is not None",
+      "type(bit_width) == integer",
+      "bit_width is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(values) == list",
+      "values is not None",
+      "type(bit_width) == integer",
+      "bit_width is not None"
+    ]
+  }
+}

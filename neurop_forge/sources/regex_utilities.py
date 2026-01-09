@@ -1,4 +1,10 @@
 """
+Copyright © 2026 Lourens Wasserman. All Rights Reserved.
+Neurop Block Forge - https://neurop-forge.com
+Commercial use requires a license. See LICENSE file.
+"""
+
+"""
 Regex Utilities - Pure functions for regex pattern building and validation.
 
 All functions are:

@@ -1,4 +1,10 @@
 """
+Copyright © 2026 Lourens Wasserman. All Rights Reserved.
+Neurop Block Forge - https://neurop-forge.com
+Commercial use requires a license. See LICENSE file.
+"""
+
+"""
 SQL Building Utilities - Pure functions for constructing SQL query components.
 All functions are pure, deterministic, and atomic.
 No actual database connections - just SQL string/structure manipulation.

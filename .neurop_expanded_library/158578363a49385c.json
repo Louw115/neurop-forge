@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "158578363a49385ce5fa15dc3eb224758573d4543684ba9d8aa4d22652a9501b",
+    "semantic_fingerprint": "309d38cab31f68353d44596d605368561b793d07b568bfe07c939ca5a670bc82",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add a value to histogram buckets.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter buckets",
+        "name": "buckets",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of add_to_histogram",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def add_to_histogram(v0: list, v1: float) -> list:\n    v2 = []\n    for v3 in v0:\n        v4 = v3['count'] + (1 if v1 <= v3['le'] else 0)\n        v2.append({'le': v3['le'], 'count': v4})\n    return v2",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T23:49:53.316699+00:00",
+    "description": "Add a value to histogram buckets.",
+    "intent": "Add a value to histogram buckets.",
+    "language": "python",
+    "name": "add_to_histogram",
+    "source_file": "neurop_forge/sources/metrics_patterns.py",
+    "source_line_end": 81,
+    "source_line_start": 75,
+    "tags": [
+      "add",
+      "arithmetic",
+      "buckets",
+      "histogram",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:53.316726+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(buckets) == list",
+      "buckets is not None",
+      "type(value) == float",
+      "value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(buckets) == list",
+      "buckets is not None",
+      "type(value) == float",
+      "value is not None"
+    ]
+  }
+}

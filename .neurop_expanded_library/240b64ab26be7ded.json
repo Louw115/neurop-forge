@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "240b64ab26be7ded0030254373497b71ae92549c8e2bc7b6e618d040626dfb26",
+    "semantic_fingerprint": "39bc45e8192274cd4d7f2b62dc8eeb19e919ac431765179665a725636d308e29",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a timer/delay workflow step.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter step_id",
+        "name": "step_id",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter delay_seconds",
+        "name": "delay_seconds",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter next_step",
+        "name": "next_step",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_timer_step",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_timer_step(v0: str, v1: int, v2: str) -> dict:\n    return {'id': v0, 'type': 'timer', 'delay_seconds': v1, 'next_step': v2, 'scheduled_at': None, 'fired': False}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-09T23:49:53.189061+00:00",
+    "description": "Build a timer/delay workflow step.",
+    "intent": "Build a timer/delay workflow step.",
+    "language": "python",
+    "name": "build_timer_step",
+    "source_file": "neurop_forge/sources/workflow_patterns.py",
+    "source_line_end": 233,
+    "source_line_start": 224,
+    "tags": [
+      "build",
+      "delay_seconds",
+      "dict_operation",
+      "next_step",
+      "step",
+      "step_id",
+      "timer"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:53.189085+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(step_id) == string",
+      "step_id is not None",
+      "type(delay_seconds) == integer",
+      "delay_seconds is not None",
+      "type(next_step) == string",
+      "next_step is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(step_id) == string",
+      "step_id is not None",
+      "type(delay_seconds) == integer",
+      "delay_seconds is not None",
+      "type(next_step) == string",
+      "next_step is not None"
+    ]
+  }
+}

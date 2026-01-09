@@ -1,4 +1,10 @@
 """
+Copyright © 2026 Lourens Wasserman. All Rights Reserved.
+Neurop Block Forge - https://neurop-forge.com
+Commercial use requires a license. See LICENSE file.
+"""
+
+"""
 API Pattern Utilities - Pure functions for REST/HTTP API patterns.
 All functions are pure, deterministic, and atomic.
 """

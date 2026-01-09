@@ -1,0 +1,151 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c9798e218cfdbe3b50937ed78a077a22d6b5691f191841a9568af6d2d8111a8c",
+    "semantic_fingerprint": "c98cd2f3e3dae1d8acba7b2effd6701d57529742bd25e549aa2b458b5585b5c7",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Assert value is of expected type.",
+    "inputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter expected_type",
+        "name": "expected_type",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter message",
+        "name": "message",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of assert_type",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def assert_type(v0, v1: str, v2: str) -> dict:\n    v3 = type(v0).__name__\n    v4 = v3 == v1\n    return {'passed': v4, 'message': v2, 'actual': v3, 'expected': v1, 'error': None if v4 else f'Expected type {v1}, got {v3}'}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-09T23:49:52.594467+00:00",
+    "description": "Assert value is of expected type.",
+    "intent": "Assert value is of expected type.",
+    "language": "python",
+    "name": "assert_type",
+    "source_file": "neurop_forge/sources/testing_utilities.py",
+    "source_line_end": 295,
+    "source_line_start": 285,
+    "tags": [
+      "assert",
+      "expected_type",
+      "message",
+      "type",
+      "validation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:52.594492+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "value is not None",
+      "type(expected_type) == string",
+      "expected_type is not None",
+      "type(message) == string",
+      "message is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "value is not None",
+      "type(expected_type) == string",
+      "expected_type is not None",
+      "type(message) == string",
+      "message is not None"
+    ]
+  }
+}

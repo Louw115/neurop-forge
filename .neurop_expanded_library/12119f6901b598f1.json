@@ -1,0 +1,158 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": false,
+    "io_operations": [
+      "time"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "non_deterministic",
+    "side_effects": [
+      "time"
+    ],
+    "thread_safe": false
+  },
+  "failure_modes": {
+    "can_fail": true,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "raises_exception",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "12119f6901b598f14bfe732421c4a08d417ea27a4de304f1a175f06a63e3f07c",
+    "semantic_fingerprint": "5d5d6cf2d3178bd9ff370ca41be378b38d6ee614d9aaf86776565d3a3cdc6908",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if a notification has expired.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter notification",
+        "name": "notification",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter expiry_hours",
+        "name": "expiry_hours",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter current_timestamp",
+        "name": "current_timestamp",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_notification_expired",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_notification_expired(v0: dict, v1: int, v2: str) -> bool:\n    from datetime import datetime, timedelta\n    v3 = v4.fromisoformat(v0.get('created_at', v2).replace('Z', '+00:00'))\n    v5 = v4.fromisoformat(v2.replace('Z', '+00:00'))\n    return v5 - v3 > v6(hours=v1)",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-09T23:49:52.934892+00:00",
+    "description": "Check if a notification has expired.",
+    "intent": "Check if a notification has expired.",
+    "language": "python",
+    "name": "is_notification_expired",
+    "source_file": "neurop_forge/sources/notification_patterns.py",
+    "source_line_end": 246,
+    "source_line_start": 241,
+    "tags": [
+      "current_timestamp",
+      "expired",
+      "expiry_hours",
+      "notification",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 0.5,
+    "last_verified": "2026-01-09T23:49:52.934911+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.31,
+    "risk_factors": [
+      "impure_function",
+      "non_deterministic",
+      "side_effects: time"
+    ],
+    "risk_level": "medium",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(notification) == dict",
+      "notification is not None",
+      "type(expiry_hours) == integer",
+      "expiry_hours is not None",
+      "type(current_timestamp) == string",
+      "current_timestamp is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(notification) == dict",
+      "notification is not None",
+      "type(expiry_hours) == integer",
+      "expiry_hours is not None",
+      "type(current_timestamp) == string",
+      "current_timestamp is not None"
+    ]
+  }
+}

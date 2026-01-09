@@ -1,0 +1,152 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "381b62e745609ef9298975fbf6423ce2c55e7e46972fa96d48ba9e745644fb66",
+    "semantic_fingerprint": "4cd62af078366775b102e1bffb11eada6a09ca10d76f255b3bd5dacf4767a9ce",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add string to dictionary.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter dictionary",
+        "name": "dictionary",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter string",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_size",
+        "name": "max_size",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of add_to_dictionary",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def add_to_dictionary(v0: list, v1: str, v2: int) -> list:\n    if len(v0) >= v2:\n        return v0\n    v3 = list(v0)\n    v3.append(v4(len(v3), v1))\n    return v3",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T23:49:53.280692+00:00",
+    "description": "Add string to dictionary.",
+    "intent": "Add string to dictionary.",
+    "language": "python",
+    "name": "add_to_dictionary",
+    "source_file": "neurop_forge/sources/compression_utilities.py",
+    "source_line_end": 174,
+    "source_line_start": 168,
+    "tags": [
+      "add",
+      "arithmetic",
+      "dictionary",
+      "max_size",
+      "string"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:53.280720+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(dictionary) == list",
+      "dictionary is not None",
+      "type(string) == string",
+      "string is not None",
+      "type(max_size) == integer",
+      "max_size is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(dictionary) == list",
+      "dictionary is not None",
+      "type(string) == string",
+      "string is not None",
+      "type(max_size) == integer",
+      "max_size is not None"
+    ]
+  }
+}

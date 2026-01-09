@@ -1,0 +1,165 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "77692c832fa7f33617bf26a319893c44e683ce3d04556e5a85908dde2c070ae7",
+    "semantic_fingerprint": "f5bbecabbb9b7607061bec856c37cf1606d1b1df9040d797b863c9d6124e2b89",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if access is allowed for resource action.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter rules",
+        "name": "rules",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter resource",
+        "name": "resource",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter action",
+        "name": "action",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter context",
+        "name": "context",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of check_resource_access",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def check_resource_access(v0: list, v1: str, v2: str, v3: dict) -> bool:\n    for v4 in v0:\n        if v4['resource'] == v1 and v4['action'] in [v2, '*']:\n            v5 = v6(v4, v3)\n            if v5 == 'deny':\n                return False\n            if v5 == 'allow':\n                return True\n    return False",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-09T23:49:53.660171+00:00",
+    "description": "Check if access is allowed for resource action.",
+    "intent": "Check if access is allowed for resource action.",
+    "language": "python",
+    "name": "check_resource_access",
+    "source_file": "neurop_forge/sources/permission_utilities.py",
+    "source_line_end": 160,
+    "source_line_start": 151,
+    "tags": [
+      "access",
+      "action",
+      "check",
+      "context",
+      "resource",
+      "rules",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:53.660195+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(rules) == list",
+      "rules is not None",
+      "type(resource) == string",
+      "resource is not None",
+      "type(action) == string",
+      "action is not None",
+      "type(context) == dict",
+      "context is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(rules) == list",
+      "rules is not None",
+      "type(resource) == string",
+      "resource is not None",
+      "type(action) == string",
+      "action is not None",
+      "type(context) == dict",
+      "context is not None"
+    ]
+  }
+}

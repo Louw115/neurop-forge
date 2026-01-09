@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic comparison block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "6791c94a72ac63da9b89a4f47805ce49fd91a8271d5e95df8f3adbdc448563e7",
+    "semantic_fingerprint": "c9fb19f646193d80c056613bc74551268211ef960e10f6e68d221a0d31c62b1e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Compare current vs previous period.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter current",
+        "name": "current",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter previous",
+        "name": "previous",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of compare_periods",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def compare_periods(v0: float, v1: float) -> dict:\n    v2 = v0 - v1\n    v3 = v2 / v1 * 100 if v1 != 0 else 0\n    v4 = 'up' if v2 > 0 else 'down' if v2 < 0 else 'flat'\n    return {'current': v0, 'previous': v1, 'change': v2, 'change_percent': v3, 'trend': v4}",
+  "metadata": {
+    "category": "comparison",
+    "created_at": "2026-01-09T23:49:53.003800+00:00",
+    "description": "Compare current vs previous period.",
+    "intent": "Compare current vs previous period.",
+    "language": "python",
+    "name": "compare_periods",
+    "source_file": "neurop_forge/sources/analytics_patterns.py",
+    "source_line_end": 316,
+    "source_line_start": 305,
+    "tags": [
+      "compare",
+      "comparison",
+      "current",
+      "periods",
+      "previous"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:53.003826+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(current) == float",
+      "current is not None",
+      "type(previous) == float",
+      "previous is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(current) == float",
+      "current is not None",
+      "type(previous) == float",
+      "previous is not None"
+    ]
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic sorting block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "646afc796ad9f8333f566ed4120c76d561594a81f36c4ef2d8383e6f617a9264",
+    "semantic_fingerprint": "7693ea540b9dda38e93dc99baca4431ba2bad7d600f19112db36740028ccb073",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Sort content items by date field.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter date_field",
+        "name": "date_field",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter descending",
+        "name": "descending",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of sort_content_by_date",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def sort_content_by_date(v0: list, v1: str, v2: bool) -> list:\n    return sorted(v0, key=lambda v3: v3.get(v1, ''), reverse=v2)",
+  "metadata": {
+    "category": "sorting",
+    "created_at": "2026-01-09T23:49:53.755017+00:00",
+    "description": "Sort content items by date field.",
+    "intent": "Sort content items by date field.",
+    "language": "python",
+    "name": "sort_content_by_date",
+    "source_file": "neurop_forge/sources/content_utilities.py",
+    "source_line_end": 179,
+    "source_line_start": 177,
+    "tags": [
+      "content",
+      "date",
+      "date_field",
+      "descending",
+      "items",
+      "sort",
+      "sorting"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:53.755041+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "type(date_field) == string",
+      "date_field is not None",
+      "type(descending) == boolean",
+      "descending is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "type(date_field) == string",
+      "date_field is not None",
+      "type(descending) == boolean",
+      "descending is not None"
+    ]
+  }
+}

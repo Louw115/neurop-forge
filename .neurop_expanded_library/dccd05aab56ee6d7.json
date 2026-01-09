@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "dccd05aab56ee6d7ab433754192d43cc58f6bd13207090bc8af95fb2474705be",
+    "semantic_fingerprint": "d654cb4d7c6b43c88845c5401cf3f86de0efaa12661e9bcc1dc4ece04336e2dd",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Update status of a parallel branch.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter step",
+        "name": "step",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter branch_id",
+        "name": "branch_id",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter status",
+        "name": "status",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of update_branch_status",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def update_branch_status(v0: dict, v1: str, v2: str) -> dict:\n    v3 = dict(v0)\n    v3['branch_statuses'] = dict(v0.get('branch_statuses', {}))\n    v3['branch_statuses'][v1] = v2\n    return v3",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-09T23:49:53.186063+00:00",
+    "description": "Update status of a parallel branch.",
+    "intent": "Update status of a parallel branch.",
+    "language": "python",
+    "name": "update_branch_status",
+    "source_file": "neurop_forge/sources/workflow_patterns.py",
+    "source_line_end": 210,
+    "source_line_start": 205,
+    "tags": [
+      "branch",
+      "branch_id",
+      "dict_operation",
+      "status",
+      "step",
+      "update"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:53.186081+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(step) == dict",
+      "step is not None",
+      "type(branch_id) == string",
+      "branch_id is not None",
+      "type(status) == string",
+      "status is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(step) == dict",
+      "step is not None",
+      "type(branch_id) == string",
+      "branch_id is not None",
+      "type(status) == string",
+      "status is not None"
+    ]
+  }
+}

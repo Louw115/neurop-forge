@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1b3bc75196b8abe3878ca8e88e01b740558e3d41b7dc3ad59469f2fb3dc2a42b",
+    "semantic_fingerprint": "413b72bec2a15f36c09bde307178b969eafdd9ba1c186ebc1809546a34efe31a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate workflow progress percentage.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter workflow",
+        "name": "workflow",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_workflow_progress",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_workflow_progress(v0: dict) -> float:\n    v1 = len(v0.get('steps', {}))\n    if v1 == 0:\n        return 0.0\n    v2 = len([v3 for v3 in v0.get('history', []) if v3.get('action') == 'advanced'])\n    return min(100.0, v2 / v1 * 100)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T23:49:53.174398+00:00",
+    "description": "Calculate workflow progress percentage.",
+    "intent": "Calculate workflow progress percentage.",
+    "language": "python",
+    "name": "calculate_workflow_progress",
+    "source_file": "neurop_forge/sources/workflow_patterns.py",
+    "source_line_end": 137,
+    "source_line_start": 131,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "progress",
+      "workflow"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:53.174425+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(workflow) == dict",
+      "workflow is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(workflow) == dict",
+      "workflow is not None"
+    ]
+  }
+}

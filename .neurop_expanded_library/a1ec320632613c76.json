@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a1ec320632613c7676f9b2122dbb8d22d4b7f4a7355dc35facd22052ee5cd9d3",
+    "semantic_fingerprint": "412cecef016066ce04e86af4b6fba1f6870eb2c8511ff9633c2f2b17dc95ccf4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Evaluate a targeting rule against user context.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter rule",
+        "name": "rule",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter user_context",
+        "name": "user_context",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of evaluate_targeting_rule",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def evaluate_targeting_rule(v0: dict, v1: dict) -> bool:\n    v2 = v0.get('attribute')\n    v3 = v0.get('operator')\n    v4 = v0.get('value')\n    v5 = v1.get(v2)\n    if v3 == 'equals':\n        return v5 == v4\n    elif v3 == 'not_equals':\n        return v5 != v4\n    elif v3 == 'in':\n        return v5 in v4\n    elif v3 == 'not_in':\n        return v5 not in v4\n    elif v3 == 'contains':\n        return v4 in str(v5) if v5 else False\n    elif v3 == 'starts_with':\n        return str(v5).startswith(v4) if v5 else False\n    elif v3 == 'ends_with':\n        return str(v5).endswith(v4) if v5 else False\n    elif v3 == 'greater_than':\n        return v5 > v4 if v5 is not None else False\n    elif v3 == 'less_than':\n        return v5 < v4 if v5 is not None else False\n    elif v3 == 'regex':\n        import re\n        return bool(v6.match(v4, str(v5))) if v5 else False\n    return False",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T23:49:53.701710+00:00",
+    "description": "Evaluate a targeting rule against user context.",
+    "intent": "Evaluate a targeting rule against user context.",
+    "language": "python",
+    "name": "evaluate_targeting_rule",
+    "source_file": "neurop_forge/sources/feature_flags.py",
+    "source_line_end": 82,
+    "source_line_start": 55,
+    "tags": [
+      "arithmetic",
+      "evaluate",
+      "rule",
+      "targeting",
+      "user_context"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:53.701730+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(rule) == dict",
+      "rule is not None",
+      "type(user_context) == dict",
+      "user_context is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(rule) == dict",
+      "rule is not None",
+      "type(user_context) == dict",
+      "user_context is not None"
+    ]
+  }
+}

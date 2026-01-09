@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2ba7eeb1943a580cfb3e7e3357cbda638b5d26d130b557754952bf8e21811259",
+    "semantic_fingerprint": "70ceff368e19cdcf7585be6d72bff555e05aca4de044d2c1b428d64a1ae2fe62",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate a deterministic test list.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter length",
+        "name": "length",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter item_generator",
+        "name": "item_generator",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seed",
+        "name": "seed",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of generate_test_list",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_test_list(v0: int, v1: str, v2: int) -> list:\n    v3 = []\n    for v4 in range(v0):\n        if v1 == 'string':\n            v3.append(v5(10, v2 + v4))\n        elif v1 == 'integer':\n            v3.append(v6(0, 1000, v2 + v4))\n        elif v1 == 'boolean':\n            v3.append(v7(v2 + v4))\n    return v3",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-09T23:49:52.572604+00:00",
+    "description": "Generate a deterministic test list.",
+    "intent": "Generate a deterministic test list.",
+    "language": "python",
+    "name": "generate_test_list",
+    "source_file": "neurop_forge/sources/testing_utilities.py",
+    "source_line_end": 92,
+    "source_line_start": 82,
+    "tags": [
+      "generate",
+      "item_generator",
+      "length",
+      "list",
+      "list_operation",
+      "seed",
+      "test"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:52.572620+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(length) == integer",
+      "length is not None",
+      "type(item_generator) == string",
+      "item_generator is not None",
+      "type(seed) == integer",
+      "seed is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(length) == integer",
+      "length is not None",
+      "type(item_generator) == string",
+      "item_generator is not None",
+      "type(seed) == integer",
+      "seed is not None"
+    ]
+  }
+}

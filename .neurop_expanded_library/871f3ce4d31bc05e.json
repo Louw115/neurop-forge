@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception",
+      "KeyError"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "871f3ce4d31bc05e58ed9cc8c118b74debd33e5fca391b6e32e96fc5ccbf43ed",
+    "semantic_fingerprint": "d3c0f3c7fcb0d1eb81ad11c573dd72ae1a3b941a57f52e5560e0af3af4dab6c7",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build keys for cache warm-up.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter patterns",
+        "name": "patterns",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter params",
+        "name": "params",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of build_warm_up_keys",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_warm_up_keys(v0: list, v1: list) -> list:\n    v2 = []\n    for v3 in v0:\n        for v4 in v1:\n            v2.append(v3.replace('{}', str(v4)))\n    return v2",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-09T23:49:53.481917+00:00",
+    "description": "Build keys for cache warm-up.",
+    "intent": "Build keys for cache warm-up.",
+    "language": "python",
+    "name": "build_warm_up_keys",
+    "source_file": "neurop_forge/sources/caching_patterns.py",
+    "source_line_end": 215,
+    "source_line_start": 209,
+    "tags": [
+      "build",
+      "keys",
+      "list_operation",
+      "params",
+      "patterns",
+      "warm"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:53.481936+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(patterns) == list",
+      "patterns is not None",
+      "type(params) == list",
+      "params is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(patterns) == list",
+      "patterns is not None",
+      "type(params) == list",
+      "params is not None"
+    ]
+  }
+}

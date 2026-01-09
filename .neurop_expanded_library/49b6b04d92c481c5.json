@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "49b6b04d92c481c5282a403739ddbaa1ba15a15762c86419caf584abec8ce094",
+    "semantic_fingerprint": "9c3a4a29039f789c6c3d7d2efceae2d793fc69eb339033fc7b5a3d15b808b1d9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Normalize form data (trim, type conversion).",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter form_data",
+        "name": "form_data",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter field_definitions",
+        "name": "field_definitions",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of normalize_form_data",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def normalize_form_data(v0: dict, v1: list) -> dict:\n    v2 = {}\n    for v3 in v1:\n        v4 = v3['name']\n        v5 = v0.get(v4, v3.get('default'))\n        if isinstance(v5, str):\n            v5 = v5.strip()\n        if v3['type'] == 'number' and v5:\n            try:\n                v5 = float(v5)\n            except v6:\n                pass\n        elif v3['type'] == 'integer' and v5:\n            try:\n                v5 = int(v5)\n            except v6:\n                pass\n        elif v3['type'] == 'boolean':\n            v5 = v5 in [True, 'true', '1', 'yes', 'on']\n        v2[v4] = v5\n    return v2",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-09T23:49:53.629497+00:00",
+    "description": "Normalize form data (trim, type conversion).",
+    "intent": "Normalize form data (trim, type conversion).",
+    "language": "python",
+    "name": "normalize_form_data",
+    "source_file": "neurop_forge/sources/form_utilities.py",
+    "source_line_end": 225,
+    "source_line_start": 204,
+    "tags": [
+      "data",
+      "dict_operation",
+      "field_definitions",
+      "form",
+      "form_data",
+      "normalize"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:53.629515+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(form_data) == dict",
+      "form_data is not None",
+      "type(field_definitions) == list",
+      "field_definitions is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(form_data) == dict",
+      "form_data is not None",
+      "type(field_definitions) == list",
+      "field_definitions is not None"
+    ]
+  }
+}

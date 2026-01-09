@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b8e0e0daa4f54e633855fd999f65535639a2f2e1a3666902ac4fd8b64f80c4ff",
+    "semantic_fingerprint": "005bbed93865d2847493b05c55b390e2c332e1abf015566cf51ae49a829b272d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Remove a permission from a role.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter role",
+        "name": "role",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter permission",
+        "name": "permission",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of remove_permission_from_role",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def remove_permission_from_role(v0: dict, v1: str) -> dict:\n    v2 = dict(v0)\n    v2['permissions'] = [v3 for v3 in v0.get('permissions', []) if v3 != v1]\n    return v2",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-09T23:49:53.647311+00:00",
+    "description": "Remove a permission from a role.",
+    "intent": "Remove a permission from a role.",
+    "language": "python",
+    "name": "remove_permission_from_role",
+    "source_file": "neurop_forge/sources/permission_utilities.py",
+    "source_line_end": 48,
+    "source_line_start": 44,
+    "tags": [
+      "dict_operation",
+      "from",
+      "permission",
+      "remove",
+      "role"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:53.647329+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(role) == dict",
+      "role is not None",
+      "type(permission) == string",
+      "permission is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(role) == dict",
+      "role is not None",
+      "type(permission) == string",
+      "permission is not None"
+    ]
+  }
+}

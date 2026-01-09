@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b135cfe9047b3960236facf649dc1d38375c2f9bd3cf16f3b13e948ea44c2f97",
+    "semantic_fingerprint": "6bafd2da734bed56fd5c9b34522a25e5dfe7965a04f40d44b77bfd36e4ba5c4d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build pagination display info.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_page",
+        "name": "current_page",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter per_page",
+        "name": "per_page",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter total_items",
+        "name": "total_items",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_pagination_info",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_pagination_info(v0: int, v1: int, v2: int) -> dict:\n    v3 = (v2 + v1 - 1) // v1 if v1 > 0 else 0\n    v4 = (v0 - 1) * v1 + 1\n    v5 = min(v0 * v1, v2)\n    return {'current_page': v0, 'total_pages': v3, 'start_item': v4, 'end_item': v5, 'total_items': v2, 'has_prev': v0 > 1, 'has_next': v0 < v3}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-09T23:49:52.824275+00:00",
+    "description": "Build pagination display info.",
+    "intent": "Build pagination display info.",
+    "language": "python",
+    "name": "build_pagination_info",
+    "source_file": "neurop_forge/sources/ui_patterns.py",
+    "source_line_end": 166,
+    "source_line_start": 153,
+    "tags": [
+      "build",
+      "current_page",
+      "dict_operation",
+      "info",
+      "pagination",
+      "per_page",
+      "total_items"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:52.824291+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(current_page) == integer",
+      "current_page is not None",
+      "type(per_page) == integer",
+      "per_page is not None",
+      "type(total_items) == integer",
+      "total_items is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(current_page) == integer",
+      "current_page is not None",
+      "type(per_page) == integer",
+      "per_page is not None",
+      "type(total_items) == integer",
+      "total_items is not None"
+    ]
+  }
+}

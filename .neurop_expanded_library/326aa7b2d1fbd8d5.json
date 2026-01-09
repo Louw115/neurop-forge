@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic aggregation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "326aa7b2d1fbd8d57697ff423ec40c3a28d17a818e70d39f27a7ae7327b8af4e",
+    "semantic_fingerprint": "b789bcf599759f4c9b8122293b030a540922eab64928c07f62d2a9695b6ea31e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Count unread notifications.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter notifications",
+        "name": "notifications",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of count_unread_notifications",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def count_unread_notifications(v0: list) -> int:\n    return sum((1 for v1 in v0 if not v1.get('read')))",
+  "metadata": {
+    "category": "aggregation",
+    "created_at": "2026-01-09T23:49:52.920057+00:00",
+    "description": "Count unread notifications.",
+    "intent": "Count unread notifications.",
+    "language": "python",
+    "name": "count_unread_notifications",
+    "source_file": "neurop_forge/sources/notification_patterns.py",
+    "source_line_end": 135,
+    "source_line_start": 133,
+    "tags": [
+      "aggregation",
+      "count",
+      "notifications",
+      "unread"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:52.920075+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(notifications) == list",
+      "notifications is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(notifications) == list",
+      "notifications is not None"
+    ]
+  }
+}

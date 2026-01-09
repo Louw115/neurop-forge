@@ -1,0 +1,151 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "96aa14c057a4a18f1f0daead85158d54c7d92bcc8af74fdc40e4d997416f8b4d",
+    "semantic_fingerprint": "f1ccaa0b19793be7252aed8ccb83f3f4ef6facb8bd9d0fa86cbe76952e2d537f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate precision score.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter predictions",
+        "name": "predictions",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter actuals",
+        "name": "actuals",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter positive_class",
+        "name": "positive_class",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of precision_score",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def precision_score(v0: list, v1: list, v2) -> float:\n    v3 = sum((1 for v4, v5 in zip(v0, v1) if v4 == v2 and v5 == v2))\n    v6 = sum((1 for v4 in v0 if v4 == v2))\n    if v6 == 0:\n        return 0.0\n    return v3 / v6",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T23:49:52.768943+00:00",
+    "description": "Calculate precision score.",
+    "intent": "Calculate precision score.",
+    "language": "python",
+    "name": "precision_score",
+    "source_file": "neurop_forge/sources/ml_utilities.py",
+    "source_line_end": 171,
+    "source_line_start": 165,
+    "tags": [
+      "actuals",
+      "arithmetic",
+      "positive_class",
+      "precision",
+      "predictions",
+      "score"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:52.768961+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(predictions) == list",
+      "predictions is not None",
+      "type(actuals) == list",
+      "actuals is not None",
+      "positive_class is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(predictions) == list",
+      "predictions is not None",
+      "type(actuals) == list",
+      "actuals is not None",
+      "positive_class is not None"
+    ]
+  }
+}

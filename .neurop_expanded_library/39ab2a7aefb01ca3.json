@@ -1,0 +1,139 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "39ab2a7aefb01ca35dea25b3921d9cb762ccf2b949e56eeb4593c7070bad4802",
+    "semantic_fingerprint": "38c1134669232309c20f6e9cb9b573816e7d847a6a1e8e61a96162f0cc86c877",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Run all validators on a field value.",
+    "inputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter validators",
+        "name": "validators",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of run_field_validators",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def run_field_validators(v0, v1: list) -> list:\n    v2 = []\n    for v3 in v1:\n        v4 = v3['type']\n        v5 = v3.get('params', {})\n        v6 = v3.get('message', 'Invalid value')\n        v7 = None\n        if v4 == 'required':\n            v7 = v8(v0, v6)\n        elif v4 == 'min_length':\n            v7 = v9(v0, v5.get('min', 0), v6)\n        elif v4 == 'max_length':\n            v7 = v10(v0, v5.get('max', 0), v6)\n        elif v4 == 'pattern':\n            v7 = v11(v0, v5.get('pattern', ''), v6)\n        elif v4 == 'email':\n            v7 = v12(v0, v6)\n        elif v4 == 'numeric':\n            v7 = v13(v0, v6)\n        elif v4 == 'min_value':\n            v7 = v14(v0, v5.get('min', 0), v6)\n        elif v4 == 'max_value':\n            v7 = v15(v0, v5.get('max', 0), v6)\n        if v7 and (not v7['valid']):\n            v2.append(v7['error'])\n    return v2",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-09T23:49:53.623263+00:00",
+    "description": "Run all validators on a field value.",
+    "intent": "Run all validators on a field value.",
+    "language": "python",
+    "name": "run_field_validators",
+    "source_file": "neurop_forge/sources/form_utilities.py",
+    "source_line_end": 174,
+    "source_line_start": 148,
+    "tags": [
+      "field",
+      "list_operation",
+      "run",
+      "validators",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:53.623281+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "value is not None",
+      "type(validators) == list",
+      "validators is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "value is not None",
+      "type(validators) == list",
+      "validators is not None"
+    ]
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "92be92f8bd24be6f4d083128fee38772c2b5ccc7175faa38f30d148eae6f3247",
+    "semantic_fingerprint": "63e8a3bb0a9e19c9c03cfa9f46034d66fdb504bc20f91ea4b0854204ca12617f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate which page numbers to show.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_page",
+        "name": "current_page",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter total_pages",
+        "name": "total_pages",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter visible_pages",
+        "name": "visible_pages",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of calculate_pagination_range",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_pagination_range(v0: int, v1: int, v2: int) -> list:\n    if v1 <= v2:\n        return list(range(1, v1 + 1))\n    v3 = v2 // 2\n    v4 = max(1, v0 - v3)\n    v5 = min(v1, v4 + v2 - 1)\n    if v5 - v4 + 1 < v2:\n        v4 = max(1, v5 - v2 + 1)\n    return list(range(v4, v5 + 1))",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T23:49:52.822532+00:00",
+    "description": "Calculate which page numbers to show.",
+    "intent": "Calculate which page numbers to show.",
+    "language": "python",
+    "name": "calculate_pagination_range",
+    "source_file": "neurop_forge/sources/ui_patterns.py",
+    "source_line_end": 150,
+    "source_line_start": 141,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "current_page",
+      "pagination",
+      "range",
+      "total_pages",
+      "visible_pages"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:52.822554+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(current_page) == integer",
+      "current_page is not None",
+      "type(total_pages) == integer",
+      "total_pages is not None",
+      "type(visible_pages) == integer",
+      "visible_pages is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(current_page) == integer",
+      "current_page is not None",
+      "type(total_pages) == integer",
+      "total_pages is not None",
+      "type(visible_pages) == integer",
+      "visible_pages is not None"
+    ]
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": false,
+    "io_operations": [
+      "file_read"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "non_deterministic",
+    "side_effects": [
+      "file_io"
+    ],
+    "thread_safe": false
+  },
+  "failure_modes": {
+    "can_fail": true,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "raises_exception",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4b7d851022044dcd8232aa809a9b735e1efd169cdf1dcf7ef537f34906255631",
+    "semantic_fingerprint": "936af14b0679e16751c799f6c63bcf73b736fe363acad6cb2fdf5f7210c01036",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build summary of log entries.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter entries",
+        "name": "entries",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_log_summary",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_log_summary(v0: list) -> dict:\n    v1 = v2(v0)\n    v3 = v1.get('ERROR', 0) + v1.get('FATAL', 0)\n    return {'total_entries': len(v0), 'by_level': v1, 'error_count': v3, 'first_timestamp': v0[0].get('timestamp') if v0 else None, 'last_timestamp': v0[-1].get('timestamp') if v0 else None}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-09T23:49:53.515907+00:00",
+    "description": "Build summary of log entries.",
+    "intent": "Build summary of log entries.",
+    "language": "python",
+    "name": "build_log_summary",
+    "source_file": "neurop_forge/sources/logging_utilities.py",
+    "source_line_end": 182,
+    "source_line_start": 172,
+    "tags": [
+      "build",
+      "dict_operation",
+      "entries",
+      "log",
+      "summary"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 0.5,
+    "last_verified": "2026-01-09T23:49:53.515923+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.265,
+    "risk_factors": [
+      "impure_function",
+      "non_deterministic",
+      "side_effects: file_io"
+    ],
+    "risk_level": "medium",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(entries) == list",
+      "entries is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(entries) == list",
+      "entries is not None"
+    ]
+  }
+}

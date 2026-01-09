@@ -408,6 +408,31 @@ def demonstrate_expanded_library():
         ("neurop_forge/sources/state_machine.py", "State Machine"),
         ("neurop_forge/sources/event_sourcing.py", "Event Sourcing"),
         ("neurop_forge/sources/queue_patterns.py", "Queue Patterns"),
+        ("neurop_forge/sources/testing_utilities.py", "Testing Utilities"),
+        ("neurop_forge/sources/devops_utilities.py", "DevOps Utilities"),
+        ("neurop_forge/sources/security_patterns.py", "Security Patterns"),
+        ("neurop_forge/sources/ml_utilities.py", "ML Utilities"),
+        ("neurop_forge/sources/ui_patterns.py", "UI Patterns"),
+        ("neurop_forge/sources/ecommerce_patterns.py", "E-commerce Patterns"),
+        ("neurop_forge/sources/notification_patterns.py", "Notification Patterns"),
+        ("neurop_forge/sources/analytics_patterns.py", "Analytics Patterns"),
+        ("neurop_forge/sources/file_utilities.py", "File Utilities"),
+        ("neurop_forge/sources/search_patterns.py", "Search Patterns"),
+        ("neurop_forge/sources/i18n_patterns.py", "Internationalization Patterns"),
+        ("neurop_forge/sources/workflow_patterns.py", "Workflow Patterns"),
+        ("neurop_forge/sources/graph_utilities.py", "Graph Utilities"),
+        ("neurop_forge/sources/compression_utilities.py", "Compression Utilities"),
+        ("neurop_forge/sources/metrics_patterns.py", "Metrics Patterns"),
+        ("neurop_forge/sources/image_utilities.py", "Image Utilities"),
+        ("neurop_forge/sources/network_utilities.py", "Network Utilities"),
+        ("neurop_forge/sources/caching_patterns.py", "Caching Patterns"),
+        ("neurop_forge/sources/logging_utilities.py", "Logging Utilities"),
+        ("neurop_forge/sources/financial_utilities.py", "Financial Utilities"),
+        ("neurop_forge/sources/scheduler_utilities.py", "Scheduler Utilities"),
+        ("neurop_forge/sources/form_utilities.py", "Form Utilities"),
+        ("neurop_forge/sources/permission_utilities.py", "Permission Utilities"),
+        ("neurop_forge/sources/feature_flags.py", "Feature Flags"),
+        ("neurop_forge/sources/content_utilities.py", "Content Utilities"),
     ]
 
     print("STEP 1: Initialize Neurop Block Forge")
@@ -431,7 +456,7 @@ def demonstrate_expanded_library():
         result = forge.ingest_source(
             source_path=source_path,
             license_type=LicenseType.MIT,
-            author="Neurop Forge Team",
+            author="Lourens Wasserman",
             repository="neurop-block-forge",
         )
 

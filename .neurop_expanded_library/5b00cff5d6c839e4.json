@@ -1,0 +1,164 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5b00cff5d6c839e492617d7904c0e0ce36c1d4e45395981772649430adec605c",
+    "semantic_fingerprint": "17040a2931ce334b790fbee498b18e209a07538e187311df3061b1a3b20de878",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Pluralize word according to locale rules.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter count",
+        "name": "count",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter singular",
+        "name": "singular",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter plural",
+        "name": "plural",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter locale",
+        "name": "locale",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of pluralize_locale",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def pluralize_locale(v0: int, v1: str, v2: str, v3: str) -> str:\n    v4 = v5(v3)\n    if v4 == 'ru':\n        if v0 % 10 == 1 and v0 % 100 != 11:\n            return v1\n        return v2\n    return v1 if v0 == 1 else v2",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T23:49:53.133526+00:00",
+    "description": "Pluralize word according to locale rules.",
+    "intent": "Pluralize word according to locale rules.",
+    "language": "python",
+    "name": "pluralize_locale",
+    "source_file": "neurop_forge/sources/i18n_patterns.py",
+    "source_line_end": 122,
+    "source_line_start": 115,
+    "tags": [
+      "count",
+      "locale",
+      "plural",
+      "pluralize",
+      "singular",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:53.133544+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(count) == integer",
+      "count is not None",
+      "type(singular) == string",
+      "singular is not None",
+      "type(plural) == string",
+      "plural is not None",
+      "type(locale) == string",
+      "locale is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(count) == integer",
+      "count is not None",
+      "type(singular) == string",
+      "singular is not None",
+      "type(plural) == string",
+      "plural is not None",
+      "type(locale) == string",
+      "locale is not None"
+    ]
+  }
+}

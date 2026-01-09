@@ -1,4 +1,10 @@
 """
+Copyright © 2026 Lourens Wasserman. All Rights Reserved.
+Neurop Block Forge - https://neurop-forge.com
+Commercial use requires a license. See LICENSE file.
+"""
+
+"""
 File Path Utilities - Pure functions for path string manipulation.
 
 Note: These functions work with path strings only, they do NOT access the filesystem.

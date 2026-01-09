@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5fb89701d4cd2c532f5c36fb8cdcfb5d746273c49938e9027a8bfa9c2e97788f",
+    "semantic_fingerprint": "6c5f936fdaca4dd792c8174ae7437e249bd485096adf8db57c6500d24fb1fc91",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Normalize MAC address format.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter mac",
+        "name": "mac",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter separator",
+        "name": "separator",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of normalize_mac_address",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def normalize_mac_address(v0: str, v1: str) -> str:\n    v2 = v0.replace(':', '').replace('-', '').lower()\n    if len(v2) != 12:\n        return v0\n    return v1.join((v2[v3:v3 + 2] for v3 in range(0, 12, 2)))",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T23:49:53.425533+00:00",
+    "description": "Normalize MAC address format.",
+    "intent": "Normalize MAC address format.",
+    "language": "python",
+    "name": "normalize_mac_address",
+    "source_file": "neurop_forge/sources/network_utilities.py",
+    "source_line_end": 182,
+    "source_line_start": 177,
+    "tags": [
+      "address",
+      "mac",
+      "normalize",
+      "separator",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:53.425560+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(mac) == string",
+      "mac is not None",
+      "type(separator) == string",
+      "separator is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(mac) == string",
+      "mac is not None",
+      "type(separator) == string",
+      "separator is not None"
+    ]
+  }
+}

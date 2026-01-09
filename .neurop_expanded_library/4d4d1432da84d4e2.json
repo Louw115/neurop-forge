@@ -1,0 +1,155 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4d4d1432da84d4e21b5e49616f1073bd515d0d46432bb9fb043a716d130a3399",
+    "semantic_fingerprint": "29495d930320b0a1d2c7eaf543281ef2aca060d48f2af9852a06358a02e54279",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Detect best locale from Accept-Language header.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter accept_language",
+        "name": "accept_language",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter supported_locales",
+        "name": "supported_locales",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter default_locale",
+        "name": "default_locale",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of detect_locale_from_header",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def detect_locale_from_header(v0: str, v1: list, v2: str) -> str:\n    if not v0:\n        return v2\n    for v3 in v0.split(','):\n        v4 = v3.split(';')[0].strip()\n        v5 = v6(v4)\n        if v5 in v1:\n            return v5\n        v7 = v8(v4)\n        for v9 in v1:\n            if v9.startswith(v7):\n                return v9\n    return v2",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T23:49:53.142341+00:00",
+    "description": "Detect best locale from Accept-Language header.",
+    "intent": "Detect best locale from Accept-Language header.",
+    "language": "python",
+    "name": "detect_locale_from_header",
+    "source_file": "neurop_forge/sources/i18n_patterns.py",
+    "source_line_end": 180,
+    "source_line_start": 167,
+    "tags": [
+      "accept_language",
+      "default_locale",
+      "detect",
+      "from",
+      "header",
+      "locale",
+      "string_manipulation",
+      "supported_locales"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:53.142360+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(accept_language) == string",
+      "accept_language is not None",
+      "type(supported_locales) == list",
+      "supported_locales is not None",
+      "type(default_locale) == string",
+      "default_locale is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(accept_language) == string",
+      "accept_language is not None",
+      "type(supported_locales) == list",
+      "supported_locales is not None",
+      "type(default_locale) == string",
+      "default_locale is not None"
+    ]
+  }
+}

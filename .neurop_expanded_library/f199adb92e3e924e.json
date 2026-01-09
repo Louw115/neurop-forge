@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f199adb92e3e924e5ef6757ea71974e5b3ec722f548dcc16b943312de7ee9b14",
+    "semantic_fingerprint": "64a3ca3a079ae32ea74da80e10f859fc528db30ffe7566e5e955c66eabc4536d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find missing translations compared to base.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter base_translations",
+        "name": "base_translations",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter locale_translations",
+        "name": "locale_translations",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of find_missing_translations",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def find_missing_translations(v0: dict, v1: dict) -> list:\n    v2 = []\n    for v3 in v0:\n        if v3 not in v1:\n            v2.append(v3)\n    return v2",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-09T23:49:53.145253+00:00",
+    "description": "Find missing translations compared to base.",
+    "intent": "Find missing translations compared to base.",
+    "language": "python",
+    "name": "find_missing_translations",
+    "source_file": "neurop_forge/sources/i18n_patterns.py",
+    "source_line_end": 200,
+    "source_line_start": 194,
+    "tags": [
+      "base_translations",
+      "filtering",
+      "find",
+      "locale_translations",
+      "missing",
+      "translations"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:53.145269+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(base_translations) == dict",
+      "base_translations is not None",
+      "type(locale_translations) == dict",
+      "locale_translations is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(base_translations) == dict",
+      "base_translations is not None",
+      "type(locale_translations) == dict",
+      "locale_translations is not None"
+    ]
+  }
+}

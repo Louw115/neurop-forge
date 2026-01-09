@@ -1,4 +1,10 @@
 """
+Copyright © 2026 Lourens Wasserman. All Rights Reserved.
+Neurop Block Forge - https://neurop-forge.com
+Commercial use requires a license. See LICENSE file.
+"""
+
+"""
 ORM Pattern Utilities - Pure functions for ORM-style data patterns.
 All functions are pure, deterministic, and atomic.
 """

@@ -1,0 +1,165 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "fd01de724f37e90145cbb5689726bf8465b6d43f9b1fe6786345cc7b55a6691d",
+    "semantic_fingerprint": "1c07e19921d941893a3a85b6b197bd5d510d0c94c0ba7a93a30904fda9859d8b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add a rejection to a step.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter step",
+        "name": "step",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter rejector",
+        "name": "rejector",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter timestamp",
+        "name": "timestamp",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter reason",
+        "name": "reason",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of add_rejection",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def add_rejection(v0: dict, v1: str, v2: str, v3: str) -> dict:\n    v4 = dict(v0)\n    v4['rejections'] = list(v0.get('rejections', []))\n    v4['rejections'].append({'rejector': v1, 'timestamp': v2, 'reason': v3})\n    return v4",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T23:49:53.181262+00:00",
+    "description": "Add a rejection to a step.",
+    "intent": "Add a rejection to a step.",
+    "language": "python",
+    "name": "add_rejection",
+    "source_file": "neurop_forge/sources/workflow_patterns.py",
+    "source_line_end": 181,
+    "source_line_start": 176,
+    "tags": [
+      "add",
+      "arithmetic",
+      "reason",
+      "rejection",
+      "rejector",
+      "step",
+      "timestamp"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:53.181281+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(step) == dict",
+      "step is not None",
+      "type(rejector) == string",
+      "rejector is not None",
+      "type(timestamp) == string",
+      "timestamp is not None",
+      "type(reason) == string",
+      "reason is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(step) == dict",
+      "step is not None",
+      "type(rejector) == string",
+      "rejector is not None",
+      "type(timestamp) == string",
+      "timestamp is not None",
+      "type(reason) == string",
+      "reason is not None"
+    ]
+  }
+}

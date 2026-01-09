@@ -1,0 +1,152 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "76ce1fd9a18e0195add8ede03622eef1fd81d8518ad7c0684c4efae118bbbccd",
+    "semantic_fingerprint": "4943be0c491735b54a0353644e4446686cdccb11da6bcf12bce47019d1755530",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Cancel a workflow.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter workflow",
+        "name": "workflow",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter timestamp",
+        "name": "timestamp",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter reason",
+        "name": "reason",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of cancel_workflow",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def cancel_workflow(v0: dict, v1: str, v2: str) -> dict:\n    v3 = dict(v0)\n    v3['status'] = 'cancelled'\n    v3['cancelled_at'] = v1\n    v3['cancellation_reason'] = v2\n    v3['history'] = list(v0.get('history', []))\n    v3['history'].append({'action': 'cancelled', 'reason': v2, 'timestamp': v1})\n    return v3",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-09T23:49:53.165798+00:00",
+    "description": "Cancel a workflow.",
+    "intent": "Cancel a workflow.",
+    "language": "python",
+    "name": "cancel_workflow",
+    "source_file": "neurop_forge/sources/workflow_patterns.py",
+    "source_line_end": 81,
+    "source_line_start": 73,
+    "tags": [
+      "cancel",
+      "dict_operation",
+      "reason",
+      "timestamp",
+      "workflow"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:53.165816+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(workflow) == dict",
+      "workflow is not None",
+      "type(timestamp) == string",
+      "timestamp is not None",
+      "type(reason) == string",
+      "reason is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(workflow) == dict",
+      "workflow is not None",
+      "type(timestamp) == string",
+      "timestamp is not None",
+      "type(reason) == string",
+      "reason is not None"
+    ]
+  }
+}

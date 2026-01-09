@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0cfea79e8ed8e2bb2a0a0a3a7f358bc6fafb7880c432d9e3ba89e362f1b2e5aa",
+    "semantic_fingerprint": "04626930ab86a360b8559f5112f3d6d019525f5c9b9df32c9faae5fa074dae3c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Convert RGB to HSL.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter r",
+        "name": "r",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter g",
+        "name": "g",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter b",
+        "name": "b",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of rgb_to_hsl",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def rgb_to_hsl(v0: int, v1: int, v2: int) -> dict:\n    v0, v1, v2 = (v0 / 255, v1 / 255, v2 / 255)\n    v3 = max(v0, v1, v2)\n    v4 = min(v0, v1, v2)\n    v5 = (v3 + v4) / 2\n    if v3 == v4:\n        v6 = v7 = 0\n    else:\n        v8 = v3 - v4\n        v7 = v8 / (2 - v3 - v4) if v5 > 0.5 else v8 / (v3 + v4)\n        if v3 == v0:\n            v6 = (v1 - v2) / v8 + (6 if v1 < v2 else 0)\n        elif v3 == v1:\n            v6 = (v2 - v0) / v8 + 2\n        else:\n            v6 = (v0 - v1) / v8 + 4\n        v6 /= 6\n    return {'h': int(v6 * 360), 's': int(v7 * 100), 'l': int(v5 * 100)}",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-09T23:49:53.380094+00:00",
+    "description": "Convert RGB to HSL.",
+    "intent": "Convert RGB to HSL.",
+    "language": "python",
+    "name": "rgb_to_hsl",
+    "source_file": "neurop_forge/sources/image_utilities.py",
+    "source_line_end": 114,
+    "source_line_start": 96,
+    "tags": [
+      "b",
+      "g",
+      "hsl",
+      "r",
+      "rgb",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:53.380123+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(r) == integer",
+      "r is not None",
+      "type(g) == integer",
+      "g is not None",
+      "type(b) == integer",
+      "b is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(r) == integer",
+      "r is not None",
+      "type(g) == integer",
+      "g is not None",
+      "type(b) == integer",
+      "b is not None"
+    ]
+  }
+}

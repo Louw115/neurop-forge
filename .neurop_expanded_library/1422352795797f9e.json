@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1422352795797f9e6ee50c8cc5861154d794076569dc108487a9648585068fc5",
+    "semantic_fingerprint": "80a73d787a2850ce0a331151ef3572f92a2cdc808ef588c4f3eb8e642fdd2eec",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate refund amount based on condition.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter original_price",
+        "name": "original_price",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter condition",
+        "name": "condition",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter restocking_fee_percent",
+        "name": "restocking_fee_percent",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_refund_amount",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_refund_amount(v0: float, v1: str, v2: float) -> float:\n    if v1 == 'unopened':\n        return v0\n    elif v1 == 'like_new':\n        return v0 * (1 - v2 / 100)\n    elif v1 == 'used':\n        return v0 * 0.5\n    elif v1 == 'damaged':\n        return 0\n    return v0",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T23:49:52.879496+00:00",
+    "description": "Calculate refund amount based on condition.",
+    "intent": "Calculate refund amount based on condition.",
+    "language": "python",
+    "name": "calculate_refund_amount",
+    "source_file": "neurop_forge/sources/ecommerce_patterns.py",
+    "source_line_end": 152,
+    "source_line_start": 142,
+    "tags": [
+      "amount",
+      "arithmetic",
+      "calculate",
+      "condition",
+      "original_price",
+      "refund",
+      "restocking_fee_percent"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:52.879514+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(original_price) == float",
+      "original_price is not None",
+      "type(condition) == string",
+      "condition is not None",
+      "type(restocking_fee_percent) == float",
+      "restocking_fee_percent is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(original_price) == float",
+      "original_price is not None",
+      "type(condition) == string",
+      "condition is not None",
+      "type(restocking_fee_percent) == float",
+      "restocking_fee_percent is not None"
+    ]
+  }
+}

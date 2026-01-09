@@ -1,0 +1,149 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "cdd0a480e75b76aeaca57338fc4a10b75646bafc5d89be4cae03839a6a3b8722",
+    "semantic_fingerprint": "552ffa757f8d097f10aa962ae6948c999740c053e195c52fdc30589f6250e378",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Assert value is not in container.",
+    "inputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter container",
+        "name": "container",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter message",
+        "name": "message",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of assert_not_in",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def assert_not_in(v0, v1, v2: str) -> dict:\n    v3 = v0 not in v1\n    return {'passed': v3, 'message': v2, 'actual': str(v0), 'expected': f'not in {v1}', 'error': None if v3 else f'{v0} unexpectedly found in container'}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-09T23:49:52.585229+00:00",
+    "description": "Assert value is not in container.",
+    "intent": "Assert value is not in container.",
+    "language": "python",
+    "name": "assert_not_in",
+    "source_file": "neurop_forge/sources/testing_utilities.py",
+    "source_line_end": 209,
+    "source_line_start": 200,
+    "tags": [
+      "assert",
+      "container",
+      "message",
+      "not",
+      "validation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:52.585245+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "value is not None",
+      "container is not None",
+      "type(message) == string",
+      "message is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "value is not None",
+      "container is not None",
+      "type(message) == string",
+      "message is not None"
+    ]
+  }
+}

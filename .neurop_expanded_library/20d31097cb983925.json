@@ -1,0 +1,166 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "20d31097cb9839254ed42c33f15651cd100a03e05df6747b3b9f1c04b238ce02",
+    "semantic_fingerprint": "bffbfd86cd92a08aadd839fb5e150d942d0eb5f939e09bebb346e6fca532eb1c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find all paths between two nodes up to max depth.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter graph",
+        "name": "graph",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter start",
+        "name": "start",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter end",
+        "name": "end",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_depth",
+        "name": "max_depth",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of find_all_paths",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def find_all_paths(v0: dict, v1: str, v2: str, v3: int) -> list:\n    if v1 not in v0['nodes'] or v2 not in v0['nodes']:\n        return []\n    v4 = v5(v0)\n    v6 = []\n\n    def dfs(v7, v8, v9):\n        if v9 > v3:\n            return\n        if v7 == v2:\n            v6.append(list(v8))\n            return\n        for v10 in v4.get(v7, []):\n            if v10 not in v8:\n                v8.append(v10)\n                v11(v10, v8, v9 + 1)\n                v8.pop()\n    v11(v1, [v1], 0)\n    return v6",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-09T23:49:53.225003+00:00",
+    "description": "Find all paths between two nodes up to max depth.",
+    "intent": "Find all paths between two nodes up to max depth.",
+    "language": "python",
+    "name": "find_all_paths",
+    "source_file": "neurop_forge/sources/graph_utilities.py",
+    "source_line_end": 177,
+    "source_line_start": 159,
+    "tags": [
+      "all",
+      "end",
+      "filtering",
+      "find",
+      "graph",
+      "max_depth",
+      "paths",
+      "start"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:53.225030+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(graph) == dict",
+      "graph is not None",
+      "type(start) == string",
+      "start is not None",
+      "type(end) == string",
+      "end is not None",
+      "type(max_depth) == integer",
+      "max_depth is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(graph) == dict",
+      "graph is not None",
+      "type(start) == string",
+      "start is not None",
+      "type(end) == string",
+      "end is not None",
+      "type(max_depth) == integer",
+      "max_depth is not None"
+    ]
+  }
+}

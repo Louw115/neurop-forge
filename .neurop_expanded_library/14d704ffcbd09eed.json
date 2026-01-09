@@ -1,0 +1,152 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "14d704ffcbd09eedecab0c1d3c801186da834ba359fa550428c064d990842b16",
+    "semantic_fingerprint": "f371038af9a11fdf188bf4aa83fd8f94a92d159ffee48318efeceb0eb563d5d4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate a unique filename.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter base_name",
+        "name": "base_name",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter existing_names",
+        "name": "existing_names",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_attempts",
+        "name": "max_attempts",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_unique_filename",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_unique_filename(v0: str, v1: set, v2: int) -> str:\n    if v0 not in v1:\n        return v0\n    v3, v4 = v0.rsplit('.', 1) if '.' in v0 else (v0, '')\n    for v5 in range(1, v2 + 1):\n        v6 = f'{v3}_{v5}' + (f'.{v4}' if v4 else '')\n        if v6 not in v1:\n            return v6\n    return f'{v3}_{v2 + 1}' + (f'.{v4}' if v4 else '')",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T23:49:53.048896+00:00",
+    "description": "Generate a unique filename.",
+    "intent": "Generate a unique filename.",
+    "language": "python",
+    "name": "generate_unique_filename",
+    "source_file": "neurop_forge/sources/file_utilities.py",
+    "source_line_end": 188,
+    "source_line_start": 179,
+    "tags": [
+      "base_name",
+      "existing_names",
+      "filename",
+      "generate",
+      "max_attempts",
+      "string_manipulation",
+      "unique"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:53.048921+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(base_name) == string",
+      "base_name is not None",
+      "existing_names is not None",
+      "type(max_attempts) == integer",
+      "max_attempts is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(base_name) == string",
+      "base_name is not None",
+      "existing_names is not None",
+      "type(max_attempts) == integer",
+      "max_attempts is not None"
+    ]
+  }
+}

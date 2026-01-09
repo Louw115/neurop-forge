@@ -1,0 +1,149 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "fdc2e4c1962b74cb1e4775485dfcd8b9301744115f3af2b7e48c8d0e9257521e",
+    "semantic_fingerprint": "c551b50eebfa8d3bbd8729d2669ef26dfbe0153891057627e05668947e7c42ca",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Assert two values are equal.",
+    "inputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter actual",
+        "name": "actual",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter expected",
+        "name": "expected",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter message",
+        "name": "message",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of assert_equals",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def assert_equals(v0, v1, v2: str) -> dict:\n    v3 = v0 == v1\n    return {'passed': v3, 'message': v2, 'actual': str(v0), 'expected': str(v1), 'error': None if v3 else f'Expected {v1}, got {v0}'}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-09T23:49:52.576466+00:00",
+    "description": "Assert two values are equal.",
+    "intent": "Assert two values are equal.",
+    "language": "python",
+    "name": "assert_equals",
+    "source_file": "neurop_forge/sources/testing_utilities.py",
+    "source_line_end": 129,
+    "source_line_start": 120,
+    "tags": [
+      "actual",
+      "assert",
+      "equals",
+      "expected",
+      "message",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:52.576481+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "actual is not None",
+      "expected is not None",
+      "type(message) == string",
+      "message is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "actual is not None",
+      "expected is not None",
+      "type(message) == string",
+      "message is not None"
+    ]
+  }
+}

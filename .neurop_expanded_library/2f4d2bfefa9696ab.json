@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2f4d2bfefa9696ab27efcf6664c686e141e336747b9d922ee897d72530abdbe6",
+    "semantic_fingerprint": "692c27323851b0d07f2b9e7ba39451fa1b994f325a059f8c01af87ae9872bdd4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract text snippets containing search terms.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter terms",
+        "name": "terms",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter snippet_length",
+        "name": "snippet_length",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of extract_snippets",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def extract_snippets(v0: str, v1: list, v2: int) -> list:\n    v3 = []\n    v4 = v0.lower()\n    for v5 in v1:\n        v6 = v5.lower()\n        v7 = v4.find(v6)\n        while v7 != -1:\n            v8 = max(0, v7 - v2 // 2)\n            v9 = min(len(v0), v7 + len(v5) + v2 // 2)\n            v10 = v0[v8:v9]\n            if v8 > 0:\n                v10 = '...' + v10\n            if v9 < len(v0):\n                v10 = v10 + '...'\n            if v10 not in v3:\n                v3.append(v10)\n            v7 = v4.find(v6, v7 + 1)\n    return v3",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-09T23:49:53.088474+00:00",
+    "description": "Extract text snippets containing search terms.",
+    "intent": "Extract text snippets containing search terms.",
+    "language": "python",
+    "name": "extract_snippets",
+    "source_file": "neurop_forge/sources/search_patterns.py",
+    "source_line_end": 143,
+    "source_line_start": 125,
+    "tags": [
+      "extract",
+      "filtering",
+      "snippet_length",
+      "snippets",
+      "terms",
+      "text"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:53.088495+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None",
+      "type(terms) == list",
+      "terms is not None",
+      "type(snippet_length) == integer",
+      "snippet_length is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None",
+      "type(terms) == list",
+      "terms is not None",
+      "type(snippet_length) == integer",
+      "snippet_length is not None"
+    ]
+  }
+}

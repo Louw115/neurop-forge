@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "34c667c6d5d487945e8710752fc7ddb334aac9e9ce596d7b0a92066a5559a72e",
+    "semantic_fingerprint": "8b422baddb0590a7db9a4f0958fd14e9888c478523b7ec17379d8a9a78b6f973",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if timer is ready to fire.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter step",
+        "name": "step",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter current_timestamp",
+        "name": "current_timestamp",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_timer_ready",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_timer_ready(v0: dict, v1: str) -> bool:\n    v2 = v0.get('scheduled_at')\n    if not v2:\n        return False\n    return v1 >= v2",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-09T23:49:53.191833+00:00",
+    "description": "Check if timer is ready to fire.",
+    "intent": "Check if timer is ready to fire.",
+    "language": "python",
+    "name": "is_timer_ready",
+    "source_file": "neurop_forge/sources/workflow_patterns.py",
+    "source_line_end": 251,
+    "source_line_start": 246,
+    "tags": [
+      "current_timestamp",
+      "ready",
+      "step",
+      "timer",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:53.191850+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(step) == dict",
+      "step is not None",
+      "type(current_timestamp) == string",
+      "current_timestamp is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(step) == dict",
+      "step is not None",
+      "type(current_timestamp) == string",
+      "current_timestamp is not None"
+    ]
+  }
+}

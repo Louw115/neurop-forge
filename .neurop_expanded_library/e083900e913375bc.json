@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e083900e913375bc151b6ad7dd78c8dce8759f640713e43aea69c6e7f7b7f998",
+    "semantic_fingerprint": "36c11c0c0269304471605eb390060656a207de20a851d15cfbbca3f9bdcd69b4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate depreciation using declining balance method.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter cost",
+        "name": "cost",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter rate",
+        "name": "rate",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter year",
+        "name": "year",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_depreciation_declining",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_depreciation_declining(v0: float, v1: float, v2: int) -> float:\n    v3 = v0\n    for _ in range(v2 - 1):\n        v3 -= v3 * (v1 / 100)\n    return v3 * (v1 / 100)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T23:49:53.553601+00:00",
+    "description": "Calculate depreciation using declining balance method.",
+    "intent": "Calculate depreciation using declining balance method.",
+    "language": "python",
+    "name": "calculate_depreciation_declining",
+    "source_file": "neurop_forge/sources/financial_utilities.py",
+    "source_line_end": 185,
+    "source_line_start": 180,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "cost",
+      "declining",
+      "depreciation",
+      "rate",
+      "year"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:53.553619+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(cost) == float",
+      "cost is not None",
+      "type(rate) == float",
+      "rate is not None",
+      "type(year) == integer",
+      "year is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(cost) == float",
+      "cost is not None",
+      "type(rate) == float",
+      "rate is not None",
+      "type(year) == integer",
+      "year is not None"
+    ]
+  }
+}

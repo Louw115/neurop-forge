@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "adea63624a070ea0ea30caf5e7764f6823083e89ffb25f9faa6112fc6e444f99",
+    "semantic_fingerprint": "c59d47df1b7c0fcb1a058d77aaf523bbb2f5c172ca04f2b041520391dcb312f8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Label encode a categorical value.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter categories",
+        "name": "categories",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of label_encode",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def label_encode(v0: str, v1: list) -> int:\n    if v0 in v1:\n        return v1.index(v0)\n    return -1",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T23:49:52.753760+00:00",
+    "description": "Label encode a categorical value.",
+    "intent": "Label encode a categorical value.",
+    "language": "python",
+    "name": "label_encode",
+    "source_file": "neurop_forge/sources/ml_utilities.py",
+    "source_line_end": 76,
+    "source_line_start": 72,
+    "tags": [
+      "arithmetic",
+      "categories",
+      "encode",
+      "label",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:52.753780+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == string",
+      "value is not None",
+      "type(categories) == list",
+      "categories is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(value) == string",
+      "value is not None",
+      "type(categories) == list",
+      "categories is not None"
+    ]
+  }
+}

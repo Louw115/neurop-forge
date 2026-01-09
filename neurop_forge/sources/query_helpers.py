@@ -1,4 +1,10 @@
 """
+Copyright © 2026 Lourens Wasserman. All Rights Reserved.
+Neurop Block Forge - https://neurop-forge.com
+Commercial use requires a license. See LICENSE file.
+"""
+
+"""
 Query Helper Utilities - Pure functions for query manipulation and analysis.
 All functions are pure, deterministic, and atomic.
 """

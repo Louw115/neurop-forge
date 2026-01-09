@@ -1,4 +1,10 @@
 """
+Copyright © 2026 Lourens Wasserman. All Rights Reserved.
+Neurop Block Forge - https://neurop-forge.com
+Commercial use requires a license. See LICENSE file.
+"""
+
+"""
 Date/Time Utilities - Pure functions for date and time calculations.
 
 Note: These functions work with date components (year, month, day) rather than

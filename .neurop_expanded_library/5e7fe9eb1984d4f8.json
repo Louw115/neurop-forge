@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5e7fe9eb1984d4f830f4d652efad50ae27ab72a74f96deca5e1272012285f6e4",
+    "semantic_fingerprint": "5a0a165bd8161446245e6682c957b4e1191faff8dcaceb50d993eaaeda3bfdd9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate a risk score from factors.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter factors",
+        "name": "factors",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_risk_score",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_risk_score(v0: dict) -> float:\n    v1 = 0.0\n    v2 = {'failed_logins': 10.0, 'new_device': 20.0, 'new_location': 15.0, 'unusual_time': 5.0, 'high_value_action': 25.0}\n    for v3, v4 in v2.items():\n        if v0.get(v3, False):\n            v1 += v4\n    return min(100.0, v1)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T23:49:52.729641+00:00",
+    "description": "Calculate a risk score from factors.",
+    "intent": "Calculate a risk score from factors.",
+    "language": "python",
+    "name": "calculate_risk_score",
+    "source_file": "neurop_forge/sources/security_patterns.py",
+    "source_line_end": 313,
+    "source_line_start": 300,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "factors",
+      "risk",
+      "score"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:52.729657+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(factors) == dict",
+      "factors is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(factors) == dict",
+      "factors is not None"
+    ]
+  }
+}

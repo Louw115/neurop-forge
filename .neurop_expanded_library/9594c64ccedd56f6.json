@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9594c64ccedd56f6d2a20d3ec5be253223106537d124f1c91aa50c331ad2c63e",
+    "semantic_fingerprint": "b9ca420b9485e1d22d00e8b626e524efbc6689eb2a0b2ee2530c5a313b44d4bb",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Normalize a value using z-score standardization.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter mean",
+        "name": "mean",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter std",
+        "name": "std",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of normalize_zscore",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def normalize_zscore(v0: float, v1: float, v2: float) -> float:\n    if v2 == 0:\n        return 0.0\n    return (v0 - v1) / v2",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T23:49:52.746855+00:00",
+    "description": "Normalize a value using z-score standardization.",
+    "intent": "Normalize a value using z-score standardization.",
+    "language": "python",
+    "name": "normalize_zscore",
+    "source_file": "neurop_forge/sources/ml_utilities.py",
+    "source_line_end": 28,
+    "source_line_start": 24,
+    "tags": [
+      "arithmetic",
+      "mean",
+      "normalize",
+      "std",
+      "value",
+      "zscore"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:52.746873+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == float",
+      "value is not None",
+      "type(mean) == float",
+      "mean is not None",
+      "type(std) == float",
+      "std is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(value) == float",
+      "value is not None",
+      "type(mean) == float",
+      "mean is not None",
+      "type(std) == float",
+      "std is not None"
+    ]
+  }
+}

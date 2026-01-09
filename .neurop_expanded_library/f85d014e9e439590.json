@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic aggregation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f85d014e9e4395908eb48aa14a9db4b3562eb976468378a900a8b23b44157c5d",
+    "semantic_fingerprint": "cd91916d6ac071ca3dd75dd267be93315be5a83f150e4a9bee54ac543bf5889f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Group events by event type.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter events",
+        "name": "events",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of group_events_by_type",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def group_events_by_type(v0: list) -> dict:\n    v1 = {}\n    for v2 in v0:\n        v3 = v2.get('event', 'unknown')\n        if v3 not in v1:\n            v1[v3] = []\n        v1[v3].append(v2)\n    return v1",
+  "metadata": {
+    "category": "aggregation",
+    "created_at": "2026-01-09T23:49:52.971349+00:00",
+    "description": "Group events by event type.",
+    "intent": "Group events by event type.",
+    "language": "python",
+    "name": "group_events_by_type",
+    "source_file": "neurop_forge/sources/analytics_patterns.py",
+    "source_line_end": 150,
+    "source_line_start": 142,
+    "tags": [
+      "aggregation",
+      "events",
+      "group",
+      "type"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:49:52.971377+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(events) == list",
+      "events is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(events) == list",
+      "events is not None"
+    ]
+  }
+}

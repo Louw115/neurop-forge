@@ -1,4 +1,10 @@
 """
+Copyright © 2026 Lourens Wasserman. All Rights Reserved.
+Neurop Block Forge - https://neurop-forge.com
+Commercial use requires a license. See LICENSE file.
+"""
+
+"""
 Transaction Helper Utilities - Pure functions for transaction management patterns.
 All functions are pure, deterministic, and atomic.
 No actual database connections - just transaction logic helpers.
