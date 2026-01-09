@@ -1,0 +1,126 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b8e17ebe6c7a2886955f28ada1ed5fb74dc518e19369008bbec26ad65aff4fef",
+    "semantic_fingerprint": "df7a1dbbef7e0cfea1590091ff1d5fa9d7289f4257758715a3d14412710da779",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Convert a value to a boolean.",
+    "inputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of to_boolean",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def to_boolean(v0) -> bool:\n    if v0 is None:\n        return False\n    if isinstance(v0, bool):\n        return v0\n    if isinstance(v0, (int, float)):\n        return v0 != 0\n    if isinstance(v0, str):\n        return v0.lower() in ('true', 'yes', '1', 'on')\n    if isinstance(v0, (list, dict, tuple, set)):\n        return len(v0) > 0\n    return bool(v0)",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-09T21:49:06.321921+00:00",
+    "description": "Convert a value to a boolean.",
+    "intent": "Convert a value to a boolean.",
+    "language": "python",
+    "name": "to_boolean",
+    "source_file": "neurop_forge/sources/type_conversions.py",
+    "source_line_end": 66,
+    "source_line_start": 54,
+    "tags": [
+      "boolean",
+      "transformation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T21:49:06.321946+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "value is not None"
+    ]
+  }
+}
