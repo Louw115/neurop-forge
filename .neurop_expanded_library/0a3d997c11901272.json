@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic searching block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0a3d997c11901272ed18519f26fa900cef784e8b042359332ce18eacbd484452",
+    "semantic_fingerprint": "f3e9a68adc24294ebecc3f841ddc15b8bc5581dea89a2bfe6c18cb1a299931ac",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if text contains common XSS patterns.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of contains_xss_patterns",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def contains_xss_patterns(v0: str) -> bool:\n    if not v0:\n        return False\n    v1 = ['<script', 'javascript:', 'onerror\\\\s*=', 'onload\\\\s*=', 'onclick\\\\s*=', 'onmouseover\\\\s*=', 'onfocus\\\\s*=', 'onblur\\\\s*=']\n    v2 = v0.lower()\n    for v3 in v1:\n        if v4.search(v3, v2, v4.IGNORECASE):\n            return True\n    return False",
+  "metadata": {
+    "category": "searching",
+    "created_at": "2026-01-09T22:01:13.863388+00:00",
+    "description": "Check if text contains common XSS patterns.",
+    "intent": "Check if text contains common XSS patterns.",
+    "language": "python",
+    "name": "contains_xss_patterns",
+    "source_file": "neurop_forge/sources/security_utilities.py",
+    "source_line_end": 215,
+    "source_line_start": 197,
+    "tags": [
+      "contains",
+      "patterns",
+      "searching",
+      "text",
+      "xss"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:01:13.863405+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.37,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.8,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None"
+    ]
+  }
+}

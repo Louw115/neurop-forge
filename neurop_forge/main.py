@@ -365,6 +365,11 @@ def demonstrate_expanded_library():
         ("neurop_forge/sources/data_parsing.py", "Data Parsing"),
         ("neurop_forge/sources/encoding_utilities.py", "Encoding & Hashing"),
         ("neurop_forge/sources/url_utilities.py", "URL Utilities"),
+        ("neurop_forge/sources/text_analysis.py", "Text Analysis"),
+        ("neurop_forge/sources/color_utilities.py", "Color Utilities"),
+        ("neurop_forge/sources/formatting_utilities.py", "Formatting Utilities"),
+        ("neurop_forge/sources/array_operations.py", "Array Operations"),
+        ("neurop_forge/sources/security_utilities.py", "Security Utilities"),
     ]
 
     print("STEP 1: Initialize Neurop Block Forge")
@@ -511,6 +516,11 @@ def demonstrate_expanded_library():
     print("  - Data parsing (JSON, CSV, key-value, nested dict, etc.)")
     print("  - Encoding & hashing (MD5, SHA256, base64, URL encode, etc.)")
     print("  - URL utilities (parse URL, query strings, domains, etc.)")
+    print("  - Text analysis (word count, reading time, lexical diversity)")
+    print("  - Color utilities (hex to RGB, blend, brightness, etc.)")
+    print("  - Formatting (currency, bytes, duration, ordinals, etc.)")
+    print("  - Array operations (matrix multiply, transpose, vectors, etc.)")
+    print("  - Security (sanitize, mask, detect injection, etc.)")
     print()
     print("AI can now compose block graphs across all these domains.")
     print("This is the foundation for building anything - from validated blocks.")

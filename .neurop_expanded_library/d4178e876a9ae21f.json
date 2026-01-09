@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d4178e876a9ae21f644fd25d98ffb2389ae49396206da60ac499eb881722aeb3",
+    "semantic_fingerprint": "19c95ae614957abf9d6ea4de9f64163ac04e293cdf12283740e99f4cae0b7853",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Mask an IP address for privacy.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter ip",
+        "name": "ip",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of mask_ip_address",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def mask_ip_address(v0: str) -> str:\n    if not v0:\n        return ''\n    v1 = v0.split('.')\n    if len(v1) == 4:\n        return f'{v1[0]}.{v1[1]}.***.***'\n    return '***.***.***.***'",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T22:01:13.850041+00:00",
+    "description": "Mask an IP address for privacy.",
+    "intent": "Mask an IP address for privacy.",
+    "language": "python",
+    "name": "mask_ip_address",
+    "source_file": "neurop_forge/sources/security_utilities.py",
+    "source_line_end": 83,
+    "source_line_start": 76,
+    "tags": [
+      "address",
+      "ip",
+      "mask",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:01:13.850059+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(ip) == string",
+      "ip is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(ip) == string",
+      "ip is not None"
+    ]
+  }
+}
