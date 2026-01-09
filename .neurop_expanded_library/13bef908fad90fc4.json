@@ -1,0 +1,131 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "13bef908fad90fc4d347e5315abee960617d0917c43020c2eeb822d85534d644",
+    "semantic_fingerprint": "99ea2bcda19f80c2fb25add433857b4e7838b56f8d1658e69633044c6a1cf7a3",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get number of decimal places for a currency.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter currency_code",
+        "name": "currency_code",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of get_currency_decimal_places",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_currency_decimal_places(v0: str) -> int:\n    v1 = ['JPY', 'KRW', 'VND', 'CLP', 'ISK', 'HUF']\n    v2 = ['BHD', 'JOD', 'KWD', 'OMR']\n    v3 = v0.upper()\n    if v3 in v1:\n        return 0\n    if v3 in v2:\n        return 3\n    return 2",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-09T22:37:54.092901+00:00",
+    "description": "Get number of decimal places for a currency.",
+    "intent": "Get number of decimal places for a currency.",
+    "language": "python",
+    "name": "get_currency_decimal_places",
+    "source_file": "neurop_forge/sources/money_utilities.py",
+    "source_line_end": 179,
+    "source_line_start": 170,
+    "tags": [
+      "currency",
+      "currency_code",
+      "decimal",
+      "filtering",
+      "get",
+      "places"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:37:54.092925+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(currency_code) == string",
+      "currency_code is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(currency_code) == string",
+      "currency_code is not None"
+    ]
+  }
+}

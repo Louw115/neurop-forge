@@ -380,6 +380,12 @@ def demonstrate_expanded_library():
         ("neurop_forge/sources/caching_utilities.py", "Caching Utilities"),
         ("neurop_forge/sources/rate_limiting.py", "Rate Limiting"),
         ("neurop_forge/sources/email_utilities.py", "Email Utilities"),
+        ("neurop_forge/sources/configuration_utilities.py", "Configuration Utilities"),
+        ("neurop_forge/sources/pagination_utilities.py", "Pagination Utilities"),
+        ("neurop_forge/sources/slug_utilities.py", "Slug Utilities"),
+        ("neurop_forge/sources/money_utilities.py", "Money Utilities"),
+        ("neurop_forge/sources/phone_utilities.py", "Phone Utilities"),
+        ("neurop_forge/sources/markdown_utilities.py", "Markdown Utilities"),
     ]
 
     print("STEP 1: Initialize Neurop Block Forge")
@@ -541,6 +547,12 @@ def demonstrate_expanded_library():
     print("  - Caching utilities (TTL, keys, eviction, ETag, hit rate)")
     print("  - Rate limiting (token bucket, sliding window, backoff)")
     print("  - Email utilities (validation, parsing, masking, mailto)")
+    print("  - Configuration (env parsing, feature flags, DSN parsing)")
+    print("  - Pagination (offset/limit, cursor, page calculations)")
+    print("  - Slug utilities (URL slugs, base62/36 IDs, checksum)")
+    print("  - Money utilities (currency formatting, tax, interest)")
+    print("  - Phone utilities (parsing, formatting, validation)")
+    print("  - Markdown utilities (formatting, parsing, TOC generation)")
     print()
     print("AI can now compose block graphs across all these domains.")
     print("This is the foundation for building anything - from validated blocks.")

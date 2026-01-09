@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a47acb5e9c1f0278f628e90b6dfb0fe62418a9d5dbbfdf04654c0c2c93e9b1fb",
+    "semantic_fingerprint": "f8acd6434c3b8edb8e6edd27e8f3e181fb952334aa62348ff3c87ab8c38571fe",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Unflatten a flat configuration dictionary.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter flat_config",
+        "name": "flat_config",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter separator",
+        "name": "separator",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of unflatten_config",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def unflatten_config(v0: dict, v1: str) -> dict:\n    v2 = {}\n    for v3, v4 in v0.items():\n        v5 = v3.split(v1)\n        v6 = v2\n        for v7 in v5[:-1]:\n            if v7 not in v6:\n                v6[v7] = {}\n            v6 = v6[v7]\n        v6[v5[-1]] = v4\n    return v2",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-09T22:37:53.894840+00:00",
+    "description": "Unflatten a flat configuration dictionary.",
+    "intent": "Unflatten a flat configuration dictionary.",
+    "language": "python",
+    "name": "unflatten_config",
+    "source_file": "neurop_forge/sources/configuration_utilities.py",
+    "source_line_end": 128,
+    "source_line_start": 117,
+    "tags": [
+      "config",
+      "dict_operation",
+      "flat_config",
+      "separator",
+      "unflatten"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:37:53.894866+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(flat_config) == dict",
+      "flat_config is not None",
+      "type(separator) == string",
+      "separator is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(flat_config) == dict",
+      "flat_config is not None",
+      "type(separator) == string",
+      "separator is not None"
+    ]
+  }
+}

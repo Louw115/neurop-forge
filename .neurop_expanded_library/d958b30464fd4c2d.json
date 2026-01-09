@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d958b30464fd4c2d67f09ab82980d48ba082492fc3aeff28534ad6c6e85a5c57",
+    "semantic_fingerprint": "9a087bef87f17ab8ed3197f061b710123f3cf6a8d172628aff26c55052b5db82",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if environment is staging.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter env_name",
+        "name": "env_name",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_staging_env",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_staging_env(v0: str) -> bool:\n    return v0.lower() in ('stage', 'staging', 'uat', 'preprod')",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-09T22:37:53.913164+00:00",
+    "description": "Check if environment is staging.",
+    "intent": "Check if environment is staging.",
+    "language": "python",
+    "name": "is_staging_env",
+    "source_file": "neurop_forge/sources/configuration_utilities.py",
+    "source_line_end": 216,
+    "source_line_start": 214,
+    "tags": [
+      "env",
+      "env_name",
+      "staging",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:37:53.913190+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(env_name) == string",
+      "env_name is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(env_name) == string",
+      "env_name is not None"
+    ]
+  }
+}

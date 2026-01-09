@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e08ce77b4ade17d0e4a7b57a0b248cdfd8a71b10b5f6a7ae14bb131c51b0579c",
+    "semantic_fingerprint": "ae3b5f59e918eee0091ef9f9d241a749c02b2182e89bb5b6b94350a8ac01d7c3",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract national number without country code.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter phone",
+        "name": "phone",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter country_code",
+        "name": "country_code",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of extract_national_number",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def extract_national_number(v0: str, v1: str) -> str:\n    v2 = v3(v0)\n    v4 = v1.lstrip('+')\n    if v2.startswith(v4):\n        return v2[len(v4):]\n    return v2",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-09T22:37:54.145448+00:00",
+    "description": "Extract national number without country code.",
+    "intent": "Extract national number without country code.",
+    "language": "python",
+    "name": "extract_national_number",
+    "source_file": "neurop_forge/sources/phone_utilities.py",
+    "source_line_end": 107,
+    "source_line_start": 101,
+    "tags": [
+      "country_code",
+      "extract",
+      "filtering",
+      "national",
+      "number",
+      "phone"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:37:54.145474+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(phone) == string",
+      "phone is not None",
+      "type(country_code) == string",
+      "country_code is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(phone) == string",
+      "phone is not None",
+      "type(country_code) == string",
+      "country_code is not None"
+    ]
+  }
+}

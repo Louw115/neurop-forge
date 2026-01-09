@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "75195ca45a45b222b69e28a12e76e0d0763f8b9036254a033aef521f0c0aaf16",
+    "semantic_fingerprint": "56f52435909b2cd0d05f21fc901e54d31f118806c80d4a4570c008e3d6abb3fb",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get currency symbol from ISO code.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter currency_code",
+        "name": "currency_code",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_currency_symbol",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_currency_symbol(v0: str) -> str:\n    v1 = {'USD': '$', 'EUR': '\u20ac', 'GBP': '\u00a3', 'JPY': '\u00a5', 'CNY': '\u00a5', 'CAD': 'CA$', 'AUD': 'A$', 'CHF': 'CHF', 'INR': '\u20b9', 'KRW': '\u20a9', 'BRL': 'R$', 'MXN': 'MX$', 'RUB': '\u20bd', 'SGD': 'S$', 'HKD': 'HK$'}\n    return v1.get(v0.upper(), v0)",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-09T22:37:54.091213+00:00",
+    "description": "Get currency symbol from ISO code.",
+    "intent": "Get currency symbol from ISO code.",
+    "language": "python",
+    "name": "get_currency_symbol",
+    "source_file": "neurop_forge/sources/money_utilities.py",
+    "source_line_end": 167,
+    "source_line_start": 160,
+    "tags": [
+      "currency",
+      "currency_code",
+      "filtering",
+      "get",
+      "symbol"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:37:54.091233+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(currency_code) == string",
+      "currency_code is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(currency_code) == string",
+      "currency_code is not None"
+    ]
+  }
+}

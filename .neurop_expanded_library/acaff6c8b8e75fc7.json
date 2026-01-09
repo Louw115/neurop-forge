@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "acaff6c8b8e75fc74f20e0862c4ca89290791739e681a932a592103549e931c8",
+    "semantic_fingerprint": "bf20a62d2ca382c4033f4cf86c4a4b5b4bef1c5379b11d2ff28ddb4f0b22b292",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a URL for a specific page.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter base_url",
+        "name": "base_url",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter page",
+        "name": "page",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter page_param",
+        "name": "page_param",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_page_url",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_page_url(v0: str, v1: int, v2: str) -> str:\n    if '?' in v0:\n        if v2 + '=' in v0:\n            import re\n            return v3.sub(f'{v2}=\\\\d+', f'{v2}={v1}', v0)\n        return f'{v0}&{v2}={v1}'\n    return f'{v0}?{v2}={v1}'",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T22:37:53.986205+00:00",
+    "description": "Build a URL for a specific page.",
+    "intent": "Build a URL for a specific page.",
+    "language": "python",
+    "name": "build_page_url",
+    "source_file": "neurop_forge/sources/pagination_utilities.py",
+    "source_line_end": 241,
+    "source_line_start": 234,
+    "tags": [
+      "base_url",
+      "build",
+      "page",
+      "page_param",
+      "string_manipulation",
+      "url"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:37:53.986234+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(base_url) == string",
+      "base_url is not None",
+      "type(page) == integer",
+      "page is not None",
+      "type(page_param) == string",
+      "page_param is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(base_url) == string",
+      "base_url is not None",
+      "type(page) == integer",
+      "page is not None",
+      "type(page_param) == string",
+      "page_param is not None"
+    ]
+  }
+}

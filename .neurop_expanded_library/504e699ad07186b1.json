@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception",
+      "KeyError"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "504e699ad07186b1148652a07d13239d355d0414541bdbde4b0d290819f1f5f0",
+    "semantic_fingerprint": "855ece077aa797eca21b91fc2fe6d06d6c5a71a83e959072c402f261aaef2858",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format a configuration key in specified style.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter case_style",
+        "name": "case_style",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_config_key",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_config_key(v0: str, v1: str) -> str:\n    if v1 == 'upper':\n        return v0.upper()\n    if v1 == 'lower':\n        return v0.lower()\n    if v1 == 'snake':\n        import re\n        v2 = v3.sub('(.)([A-Z][a-z]+)', '\\\\1_\\\\2', v0)\n        return v3.sub('([a-z0-9])([A-Z])', '\\\\1_\\\\2', v2).lower()\n    if v1 == 'camel':\n        v4 = v0.replace('-', '_').split('_')\n        return v4[0].lower() + ''.join((v5.title() for v5 in v4[1:]))\n    return v0",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T22:37:53.922636+00:00",
+    "description": "Format a configuration key in specified style.",
+    "intent": "Format a configuration key in specified style.",
+    "language": "python",
+    "name": "format_config_key",
+    "source_file": "neurop_forge/sources/configuration_utilities.py",
+    "source_line_end": 270,
+    "source_line_start": 257,
+    "tags": [
+      "case_style",
+      "config",
+      "format",
+      "key",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:37:53.922664+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(key) == string",
+      "key is not None",
+      "type(case_style) == string",
+      "case_style is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(key) == string",
+      "key is not None",
+      "type(case_style) == string",
+      "case_style is not None"
+    ]
+  }
+}

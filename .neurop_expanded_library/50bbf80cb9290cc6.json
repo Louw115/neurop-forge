@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "50bbf80cb9290cc62c53098766799beeb1d8264bc042b0c9ec863ca0f47d1c3d",
+    "semantic_fingerprint": "bca927ba8cd72279281be419f884e11a5e5e809fa3aba413027a8f089a552983",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract all code blocks from markdown text.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter markdown",
+        "name": "markdown",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of extract_code_blocks",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def extract_code_blocks(v0: str) -> list:\n    v1 = '```(\\\\w*)\\\\n(.*?)```'\n    return [{'language': v2[0], 'code': v2[1]} for v2 in v3.findall(v1, v0, v3.DOTALL)]",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-09T22:37:54.230024+00:00",
+    "description": "Extract all code blocks from markdown text.",
+    "intent": "Extract all code blocks from markdown text.",
+    "language": "python",
+    "name": "extract_code_blocks",
+    "source_file": "neurop_forge/sources/markdown_utilities.py",
+    "source_line_end": 153,
+    "source_line_start": 150,
+    "tags": [
+      "blocks",
+      "code",
+      "extract",
+      "filtering",
+      "markdown"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:37:54.230048+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(markdown) == string",
+      "markdown is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(markdown) == string",
+      "markdown is not None"
+    ]
+  }
+}

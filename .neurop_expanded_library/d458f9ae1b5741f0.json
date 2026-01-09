@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d458f9ae1b5741f0d25786248f6f9f4b65bc2c45f662bba7bf8d2db2ae6c6422",
+    "semantic_fingerprint": "f36971915ea7ebe0b5a876c35a69d6e724c636b8c6c1e03b6144d157b7fd9578",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Convert a number to base36 ID (lowercase alphanumeric).",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter number",
+        "name": "number",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_base36_id",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_base36_id(v0: int) -> str:\n    if v0 == 0:\n        return '0'\n    v1 = '0123456789abcdefghijklmnopqrstuvwxyz'\n    v2 = []\n    while v0 > 0:\n        v2.append(v1[v0 % 36])\n        v0 //= 36\n    return ''.join(reversed(v2))",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-09T22:37:54.025453+00:00",
+    "description": "Convert a number to base36 ID (lowercase alphanumeric).",
+    "intent": "Convert a number to base36 ID (lowercase alphanumeric).",
+    "language": "python",
+    "name": "generate_base36_id",
+    "source_file": "neurop_forge/sources/slug_utilities.py",
+    "source_line_end": 135,
+    "source_line_start": 126,
+    "tags": [
+      "base36",
+      "generate",
+      "number",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:37:54.025478+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(number) == integer",
+      "number is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(number) == integer",
+      "number is not None"
+    ]
+  }
+}

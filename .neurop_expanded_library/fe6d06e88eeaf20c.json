@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "fe6d06e88eeaf20cfc77f77c961a1e607bced0b89bb26cc487c5beaece760759",
+    "semantic_fingerprint": "02e5e5d43a7fe7523225bf5d997d46dc9ed659424fd5eedacba6bbfaa88f1c76",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format a human-readable pagination summary.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter page",
+        "name": "page",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter page_size",
+        "name": "page_size",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter total_items",
+        "name": "total_items",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_pagination_summary",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_pagination_summary(v0: int, v1: int, v2: int) -> str:\n    if v2 == 0:\n        return 'No items'\n    v3 = v4(v0, v1)\n    v5 = v6(v0, v1, v2)\n    return f'Showing {v3}-{v5} of {v2}'",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T22:37:53.974669+00:00",
+    "description": "Format a human-readable pagination summary.",
+    "intent": "Format a human-readable pagination summary.",
+    "language": "python",
+    "name": "format_pagination_summary",
+    "source_file": "neurop_forge/sources/pagination_utilities.py",
+    "source_line_end": 198,
+    "source_line_start": 192,
+    "tags": [
+      "format",
+      "page",
+      "page_size",
+      "pagination",
+      "string_manipulation",
+      "summary",
+      "total_items"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:37:53.974696+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(page) == integer",
+      "page is not None",
+      "type(page_size) == integer",
+      "page_size is not None",
+      "type(total_items) == integer",
+      "total_items is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(page) == integer",
+      "page is not None",
+      "type(page_size) == integer",
+      "page_size is not None",
+      "type(total_items) == integer",
+      "total_items is not None"
+    ]
+  }
+}

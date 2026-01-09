@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3aeb5e448434e0150d1a247ebcd3c1f9ef8eeeb9e4017df26b6ad0cb6c5ab877",
+    "semantic_fingerprint": "3f1b1d12e37f6b8a349af72e7c8c56c12bd12fbbf6aea83b9fa392a209d15bb1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract tax from a tax-inclusive amount.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter amount_with_tax",
+        "name": "amount_with_tax",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter tax_rate",
+        "name": "tax_rate",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of extract_tax",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def extract_tax(v0: float, v1: float) -> float:\n    return v2(v0 - v0 / (1 + v1 / 100))",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-09T22:37:54.078181+00:00",
+    "description": "Extract tax from a tax-inclusive amount.",
+    "intent": "Extract tax from a tax-inclusive amount.",
+    "language": "python",
+    "name": "extract_tax",
+    "source_file": "neurop_forge/sources/money_utilities.py",
+    "source_line_end": 95,
+    "source_line_start": 93,
+    "tags": [
+      "amount_with_tax",
+      "extract",
+      "filtering",
+      "tax",
+      "tax_rate"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:37:54.078206+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(amount_with_tax) == float",
+      "amount_with_tax is not None",
+      "type(tax_rate) == float",
+      "tax_rate is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(amount_with_tax) == float",
+      "amount_with_tax is not None",
+      "type(tax_rate) == float",
+      "tax_rate is not None"
+    ]
+  }
+}
