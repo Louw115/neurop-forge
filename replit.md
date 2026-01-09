@@ -57,7 +57,7 @@ This demonstrates:
 - Strict schema enforcement
 
 ## Library Status
-**506 blocks** across 20 source modules (97% pass rate, 14 quarantined)
+**753 blocks** across 26 source modules (97.6% pass rate, 18 quarantined)
 
 ### Domains Covered
 1. String manipulation
@@ -80,13 +80,24 @@ This demonstrates:
 18. File type detection
 19. Cryptography helpers
 20. Data transformation
+21. Regex utilities
+22. UUID utilities
+23. Geolocation utilities
+24. Caching utilities
+25. Rate limiting
+26. Email utilities
 
 ## Target
 - Goal: 4,500+ blocks for world-changing coverage
-- Current: Phase 1 complete (500+ blocks)
-- Remaining: ~4,000 blocks across business logic, database patterns, web/API, data science, specialized domains
+- Current: Phase 2 complete (750+ blocks)
+- Remaining: ~3,750 blocks across business logic, database patterns, web/API, data science, specialized domains
 
 ## Recent Changes
-- Phase 1 complete: 506 blocks from 20 source modules
-- Fixed normalize_values to use provided parameters correctly
+- Phase 2 complete: 753 blocks from 26 source modules
+- Added regex utilities (55 blocks): pattern building, matching, extraction
+- Added UUID utilities (36 blocks): validation, parsing, version detection
+- Added geolocation (37 blocks): haversine distance, bearing, coordinates
+- Added caching utilities (41 blocks): TTL, keys, eviction, ETag
+- Added rate limiting (47 blocks): token bucket, sliding window, backoff
+- Added email utilities (32 blocks): validation, parsing, masking
 - All functions verified as pure, deterministic, atomic
