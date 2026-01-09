@@ -1,0 +1,131 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d751f51b0784d34385bf4a246b0dfa4d18a16fdb1b5961b7ba16138e8ea4917c",
+    "semantic_fingerprint": "6648ac8be908163d928a45311df5bff1e0d7430c3026a756e8e229ed5376ddf8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format TTL in human-readable form.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seconds",
+        "name": "seconds",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_ttl_human_readable",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_ttl_human_readable(v0: int) -> str:\n    if v0 < 60:\n        return f'{v0}s'\n    if v0 < 3600:\n        return f'{v0 // 60}m {v0 % 60}s'\n    if v0 < 86400:\n        v1 = v0 // 3600\n        v2 = v0 % 3600 // 60\n        return f'{v1}h {v2}m'\n    v3 = v0 // 86400\n    v1 = v0 % 86400 // 3600\n    return f'{v3}d {v1}h'",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T22:28:40.425976+00:00",
+    "description": "Format TTL in human-readable form.",
+    "intent": "Format TTL in human-readable form.",
+    "language": "python",
+    "name": "format_ttl_human_readable",
+    "source_file": "neurop_forge/sources/caching_utilities.py",
+    "source_line_end": 118,
+    "source_line_start": 106,
+    "tags": [
+      "format",
+      "human",
+      "readable",
+      "seconds",
+      "string_manipulation",
+      "ttl"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:28:40.426007+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(seconds) == integer",
+      "seconds is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(seconds) == integer",
+      "seconds is not None"
+    ]
+  }
+}

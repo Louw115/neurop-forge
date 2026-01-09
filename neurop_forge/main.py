@@ -374,6 +374,12 @@ def demonstrate_expanded_library():
         ("neurop_forge/sources/file_type_detection.py", "File Type Detection"),
         ("neurop_forge/sources/cryptography_helpers.py", "Cryptography Helpers"),
         ("neurop_forge/sources/data_transformation.py", "Data Transformation"),
+        ("neurop_forge/sources/regex_utilities.py", "Regex Utilities"),
+        ("neurop_forge/sources/uuid_utilities.py", "UUID Utilities"),
+        ("neurop_forge/sources/geolocation_utilities.py", "Geolocation Utilities"),
+        ("neurop_forge/sources/caching_utilities.py", "Caching Utilities"),
+        ("neurop_forge/sources/rate_limiting.py", "Rate Limiting"),
+        ("neurop_forge/sources/email_utilities.py", "Email Utilities"),
     ]
 
     print("STEP 1: Initialize Neurop Block Forge")
@@ -529,6 +535,12 @@ def demonstrate_expanded_library():
     print("  - File type detection (extensions, magic bytes, categories)")
     print("  - Cryptography helpers (JWT, HMAC, base64, hashing patterns)")
     print("  - Data transformation (normalize, pivot, aggregate, window)")
+    print("  - Regex utilities (pattern building, extraction, replacement)")
+    print("  - UUID utilities (validation, parsing, version detection)")
+    print("  - Geolocation (haversine distance, bearing, coordinates)")
+    print("  - Caching utilities (TTL, keys, eviction, ETag, hit rate)")
+    print("  - Rate limiting (token bucket, sliding window, backoff)")
+    print("  - Email utilities (validation, parsing, masking, mailto)")
     print()
     print("AI can now compose block graphs across all these domains.")
     print("This is the foundation for building anything - from validated blocks.")

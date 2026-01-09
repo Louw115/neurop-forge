@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "872a381f83696682fa668a28101d29083afaef1e541861709b44e455be3f09de",
+    "semantic_fingerprint": "8674a62b2606a1ecc9a3834a372d331c0eaf56de7b848768fab02bfa7ff70b3c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate a bounding box around a point.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter lat",
+        "name": "lat",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter lon",
+        "name": "lon",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter radius_km",
+        "name": "radius_km",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of calculate_bounding_box",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_bounding_box(v0: float, v1: float, v2: float) -> dict:\n    v3 = 6371.0\n    v4 = v5(v2 / v3)\n    v6 = v5(v2 / (v3 * v7.cos(v8(v0))))\n    return {'min_lat': v0 - v4, 'max_lat': v0 + v4, 'min_lon': v9(v1 - v6), 'max_lon': v9(v1 + v6)}",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T22:28:40.366959+00:00",
+    "description": "Calculate a bounding box around a point.",
+    "intent": "Calculate a bounding box around a point.",
+    "language": "python",
+    "name": "calculate_bounding_box",
+    "source_file": "neurop_forge/sources/geolocation_utilities.py",
+    "source_line_end": 152,
+    "source_line_start": 142,
+    "tags": [
+      "arithmetic",
+      "bounding",
+      "box",
+      "calculate",
+      "lat",
+      "lon",
+      "radius_km"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:28:40.367001+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(lat) == float",
+      "lat is not None",
+      "type(lon) == float",
+      "lon is not None",
+      "type(radius_km) == float",
+      "radius_km is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(lat) == float",
+      "lat is not None",
+      "type(lon) == float",
+      "lon is not None",
+      "type(radius_km) == float",
+      "radius_km is not None"
+    ]
+  }
+}

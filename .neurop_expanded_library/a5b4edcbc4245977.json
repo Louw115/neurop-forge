@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a5b4edcbc4245977481c22c3dc85f01ec22dad0d35973adc0394363f7ef3672e",
+    "semantic_fingerprint": "e6587916cbf1953279c07c2dc777995f16ae83b53d5075963b728dacb5563d4b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get the variant of a UUID.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter uuid_str",
+        "name": "uuid_str",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_uuid_variant",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_uuid_variant(v0: str) -> str:\n    if not v1(v0):\n        return 'invalid'\n    v2 = v0[19].lower()\n    if v2 in '89ab':\n        return 'RFC4122'\n    elif v2 in '0123456789':\n        return 'NCS'\n    elif v2 in 'cd':\n        return 'Microsoft'\n    else:\n        return 'Reserved'",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-09T22:28:40.282402+00:00",
+    "description": "Get the variant of a UUID.",
+    "intent": "Get the variant of a UUID.",
+    "language": "python",
+    "name": "get_uuid_variant",
+    "source_file": "neurop_forge/sources/uuid_utilities.py",
+    "source_line_end": 67,
+    "source_line_start": 55,
+    "tags": [
+      "filtering",
+      "get",
+      "uuid",
+      "uuid_str",
+      "variant"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:28:40.282428+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(uuid_str) == string",
+      "uuid_str is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(uuid_str) == string",
+      "uuid_str is not None"
+    ]
+  }
+}

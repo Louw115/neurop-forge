@@ -1,0 +1,126 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d1e1122406fcc10b50a125c2bda39c77b0deb29a00f1e8e73c8452e7f9a73a9b",
+    "semantic_fingerprint": "cd5714289d8878407baf1f5ab0d83cddf18cc882e0618297d8bbb17c3bcfbbb9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse a coordinate string like '40.7128\u00b0N, 74.0060\u00b0W'.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter coord_str",
+        "name": "coord_str",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Return value of parse_coordinate_string",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_coordinate_string(v0: str) -> tuple:\n    import re\n    v1 = '([\\\\d.]+)\u00b0?([NS]),?\\\\s*([\\\\d.]+)\u00b0?([EW])'\n    v2 = v3.search(v1, v0, v3.IGNORECASE)\n    if not v2:\n        return (0.0, 0.0)\n    v4 = float(v2.group(1))\n    if v2.group(2).upper() == 'S':\n        v4 = -v4\n    v5 = float(v2.group(3))\n    if v2.group(4).upper() == 'W':\n        v5 = -v5\n    return (v4, v5)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T22:28:40.401421+00:00",
+    "description": "Parse a coordinate string like '40.7128\u00b0N, 74.0060\u00b0W'.",
+    "intent": "Parse a coordinate string like '40.7128\u00b0N, 74.0060\u00b0W'.",
+    "language": "python",
+    "name": "parse_coordinate_string",
+    "source_file": "neurop_forge/sources/geolocation_utilities.py",
+    "source_line_end": 337,
+    "source_line_start": 324,
+    "tags": [
+      "coord_str",
+      "coordinate",
+      "parse",
+      "string",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:28:40.401439+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(coord_str) == string",
+      "coord_str is not None"
+    ],
+    "invariants": [],
+    "output_validators": [],
+    "postconditions": [],
+    "preconditions": [
+      "type(coord_str) == string",
+      "coord_str is not None"
+    ]
+  }
+}

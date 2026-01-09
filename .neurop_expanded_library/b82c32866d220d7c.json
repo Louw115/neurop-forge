@@ -1,0 +1,144 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b82c32866d220d7c15d7fa06f4fbf1546d41221231d2f2f52f703aceacdee886",
+    "semantic_fingerprint": "b73752bbb2757a29aa58ef724ca11e4021c267dce244ec377682616f0b4db1ff",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate time to wait for sufficient tokens.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter tokens_needed",
+        "name": "tokens_needed",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter refill_rate",
+        "name": "refill_rate",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_wait_time_for_tokens",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_wait_time_for_tokens(v0: float, v1: float) -> float:\n    return v0 / v1 if v1 > 0 else float('inf')",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T22:28:40.502208+00:00",
+    "description": "Calculate time to wait for sufficient tokens.",
+    "intent": "Calculate time to wait for sufficient tokens.",
+    "language": "python",
+    "name": "calculate_wait_time_for_tokens",
+    "source_file": "neurop_forge/sources/rate_limiting.py",
+    "source_line_end": 256,
+    "source_line_start": 254,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "for",
+      "refill_rate",
+      "time",
+      "tokens",
+      "tokens_needed",
+      "wait"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:28:40.502229+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(tokens_needed) == float",
+      "tokens_needed is not None",
+      "type(refill_rate) == float",
+      "refill_rate is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(tokens_needed) == float",
+      "tokens_needed is not None",
+      "type(refill_rate) == float",
+      "refill_rate is not None"
+    ]
+  }
+}

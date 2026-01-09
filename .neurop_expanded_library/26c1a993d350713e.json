@@ -1,0 +1,131 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "26c1a993d350713ee9b240505a52fa6a9cf874fd5d4ba7dea9c4da5ea6c1d43a",
+    "semantic_fingerprint": "459ba7f6d53979318eafba7f28653124f5f828d40e0b7bea1bc92e05638414e7",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a negated character class from a string of characters.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter chars",
+        "name": "chars",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_negated_character_class",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_negated_character_class(v0: str) -> str:\n    v1 = v0.replace('\\\\', '\\\\\\\\').replace(']', '\\\\]').replace('^', '\\\\^').replace('-', '\\\\-')\n    return '[^' + v1 + ']'",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T22:28:40.238545+00:00",
+    "description": "Build a negated character class from a string of characters.",
+    "intent": "Build a negated character class from a string of characters.",
+    "language": "python",
+    "name": "build_negated_character_class",
+    "source_file": "neurop_forge/sources/regex_utilities.py",
+    "source_line_end": 235,
+    "source_line_start": 232,
+    "tags": [
+      "build",
+      "character",
+      "chars",
+      "class",
+      "negated",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:28:40.238562+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(chars) == string",
+      "chars is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(chars) == string",
+      "chars is not None"
+    ]
+  }
+}

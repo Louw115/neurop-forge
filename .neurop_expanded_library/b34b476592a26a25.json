@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b34b476592a26a2592dd4f79682e81686c8dcaf9987c28de55a592aeff67b603",
+    "semantic_fingerprint": "04c53b32d3e0ce8a6eb4f3df05a8e339bc3ef303d3ac9700d5ddc807e3ddfab7",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate cache efficiency score.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter hits",
+        "name": "hits",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter misses",
+        "name": "misses",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter evictions",
+        "name": "evictions",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_cache_efficiency",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_cache_efficiency(v0: int, v1: int, v2: int) -> float:\n    v3 = v0 + v1\n    if v3 == 0:\n        return 0.0\n    v4 = v0 / v3\n    v5 = v2 / v3 if v3 > 0 else 0\n    return max(0, v4 - v5 * 0.5)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T22:28:40.438536+00:00",
+    "description": "Calculate cache efficiency score.",
+    "intent": "Calculate cache efficiency score.",
+    "language": "python",
+    "name": "calculate_cache_efficiency",
+    "source_file": "neurop_forge/sources/caching_utilities.py",
+    "source_line_end": 213,
+    "source_line_start": 206,
+    "tags": [
+      "arithmetic",
+      "cache",
+      "calculate",
+      "efficiency",
+      "evictions",
+      "hits",
+      "misses"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:28:40.438554+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(hits) == integer",
+      "hits is not None",
+      "type(misses) == integer",
+      "misses is not None",
+      "type(evictions) == integer",
+      "evictions is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(hits) == integer",
+      "hits is not None",
+      "type(misses) == integer",
+      "misses is not None",
+      "type(evictions) == integer",
+      "evictions is not None"
+    ]
+  }
+}

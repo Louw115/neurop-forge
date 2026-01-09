@@ -1,0 +1,155 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "398719b33e4d5478b1c2d0283449d9a1a911e148389d3e3c5fb8269304f01b88",
+    "semantic_fingerprint": "0f0cb988e538d1fe322ba248f48386235306faf99e940b3c9c25f50a800a1118",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate water level after adding.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter current_level",
+        "name": "current_level",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter amount",
+        "name": "amount",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter bucket_size",
+        "name": "bucket_size",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of leaky_bucket_after_add",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def leaky_bucket_after_add(v0: float, v1: float, v2: int) -> float:\n    return min(v0 + v1, v2)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T22:28:40.473948+00:00",
+    "description": "Calculate water level after adding.",
+    "intent": "Calculate water level after adding.",
+    "language": "python",
+    "name": "leaky_bucket_after_add",
+    "source_file": "neurop_forge/sources/rate_limiting.py",
+    "source_line_end": 85,
+    "source_line_start": 83,
+    "tags": [
+      "add",
+      "after",
+      "amount",
+      "arithmetic",
+      "bucket",
+      "bucket_size",
+      "current_level",
+      "leaky"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:28:40.473964+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(current_level) == float",
+      "current_level is not None",
+      "type(amount) == float",
+      "amount is not None",
+      "type(bucket_size) == integer",
+      "bucket_size is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(current_level) == float",
+      "current_level is not None",
+      "type(amount) == float",
+      "amount is not None",
+      "type(bucket_size) == integer",
+      "bucket_size is not None"
+    ]
+  }
+}

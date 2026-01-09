@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0509238e82265446b33112ec1bf7e8320b1b1a1636f5754d14c48c9628c04776",
+    "semantic_fingerprint": "69d058488d5b0fde09b1dcc38fdfcfbc701475d980e5725efa76224e74b89522",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse a mailto: link into components.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter link",
+        "name": "link",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of parse_mailto_link",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_mailto_link(v0: str) -> dict:\n    from urllib.parse import unquote, urlparse, parse_qs\n    if not v0.startswith('mailto:'):\n        return {}\n    v1 = v2(v0)\n    v3 = v1.path\n    v4 = v5(v1.query)\n    return {'email': v3, 'subject': v6(v4.get('subject', [''])[0]), 'body': v6(v4.get('body', [''])[0]), 'cc': v4.get('cc', []), 'bcc': v4.get('bcc', [])}",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-09T22:28:40.578993+00:00",
+    "description": "Parse a mailto: link into components.",
+    "intent": "Parse a mailto: link into components.",
+    "language": "python",
+    "name": "parse_mailto_link",
+    "source_file": "neurop_forge/sources/email_utilities.py",
+    "source_line_end": 330,
+    "source_line_start": 316,
+    "tags": [
+      "link",
+      "mailto",
+      "parse",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:28:40.579022+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(link) == string",
+      "link is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(link) == string",
+      "link is not None"
+    ]
+  }
+}

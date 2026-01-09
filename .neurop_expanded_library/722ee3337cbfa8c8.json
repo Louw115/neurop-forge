@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic aggregation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "722ee3337cbfa8c8be0515d5bf8c2b516e0105346e6b02bbcaeacb07b461903f",
+    "semantic_fingerprint": "d9933c3872d57febc6b062e3fc1ce8cc82ca984a1a1c77c7cd62cc29f2beeb68",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Group emails by their domain.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter emails",
+        "name": "emails",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of group_emails_by_domain",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def group_emails_by_domain(v0: list) -> dict:\n    v1 = {}\n    for v2 in v0:\n        v3 = v4(v2)\n        if v3 not in v1:\n            v1[v3] = []\n        v1[v3].append(v2)\n    return v1",
+  "metadata": {
+    "category": "aggregation",
+    "created_at": "2026-01-09T22:28:40.556090+00:00",
+    "description": "Group emails by their domain.",
+    "intent": "Group emails by their domain.",
+    "language": "python",
+    "name": "group_emails_by_domain",
+    "source_file": "neurop_forge/sources/email_utilities.py",
+    "source_line_end": 248,
+    "source_line_start": 240,
+    "tags": [
+      "aggregation",
+      "domain",
+      "emails",
+      "group"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:28:40.556106+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(emails) == list",
+      "emails is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(emails) == list",
+      "emails is not None"
+    ]
+  }
+}

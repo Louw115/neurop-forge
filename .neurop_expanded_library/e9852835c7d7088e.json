@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e9852835c7d7088e128f2952c205ae043a7886aea71fdb23d8cbbd8f99322088",
+    "semantic_fingerprint": "03d322fc91fad794d1718bd05817b562c0d12e7e1028aaab5b4421eeeae184b7",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Strictly validate email format (no consecutive dots, no leading/trailing dots).",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter email",
+        "name": "email",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_valid_email_strict",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_valid_email_strict(v0: str) -> bool:\n    if '..' in v0:\n        return False\n    v1, _, v2 = v0.partition('@')\n    if not v1 or not v2:\n        return False\n    if v1.startswith('.') or v1.endswith('.'):\n        return False\n    if v2.startswith('.') or v2.endswith('.'):\n        return False\n    return v3(v0)",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-09T22:28:40.519576+00:00",
+    "description": "Strictly validate email format (no consecutive dots, no leading/trailing dots).",
+    "intent": "Strictly validate email format (no consecutive dots, no leading/trailing dots).",
+    "language": "python",
+    "name": "is_valid_email_strict",
+    "source_file": "neurop_forge/sources/email_utilities.py",
+    "source_line_end": 32,
+    "source_line_start": 21,
+    "tags": [
+      "email",
+      "strict",
+      "valid",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:28:40.519602+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(email) == string",
+      "email is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(email) == string",
+      "email is not None"
+    ]
+  }
+}

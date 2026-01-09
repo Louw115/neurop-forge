@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f60958188f8cde659fc58183add4243d55c9bc44ba687fb300000714dc1a8071",
+    "semantic_fingerprint": "9cd3c3088ba5e458e3bbdff68f0faabaaa3adca13c9652c2c717960994780a10",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Remove duplicate emails (case-insensitive).",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter emails",
+        "name": "emails",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of deduplicate_emails",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def deduplicate_emails(v0: list) -> list:\n    v1 = set()\n    v2 = []\n    for v3 in v0:\n        v4 = v5(v3)\n        if v4 not in v1:\n            v1.add(v4)\n            v2.append(v3)\n    return v2",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-09T22:28:40.554741+00:00",
+    "description": "Remove duplicate emails (case-insensitive).",
+    "intent": "Remove duplicate emails (case-insensitive).",
+    "language": "python",
+    "name": "deduplicate_emails",
+    "source_file": "neurop_forge/sources/email_utilities.py",
+    "source_line_end": 232,
+    "source_line_start": 223,
+    "tags": [
+      "deduplicate",
+      "emails",
+      "list_operation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:28:40.554757+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(emails) == list",
+      "emails is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(emails) == list",
+      "emails is not None"
+    ]
+  }
+}

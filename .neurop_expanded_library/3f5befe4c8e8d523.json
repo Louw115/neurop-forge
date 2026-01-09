@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3f5befe4c8e8d5235c659523324c8d47ed0f89b05d81e65f57306cfb53e4851e",
+    "semantic_fingerprint": "993f4220cce2361f29bea25e5a93741351d71e6a47560961fbd2308ac6f94b77",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get rate limit for a tier.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter tier",
+        "name": "tier",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter tier_limits",
+        "name": "tier_limits",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter default_limit",
+        "name": "default_limit",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of tier_rate_limit",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def tier_rate_limit(v0: str, v1: dict, v2: int) -> int:\n    return v1.get(v0, v2)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T22:28:40.492235+00:00",
+    "description": "Get rate limit for a tier.",
+    "intent": "Get rate limit for a tier.",
+    "language": "python",
+    "name": "tier_rate_limit",
+    "source_file": "neurop_forge/sources/rate_limiting.py",
+    "source_line_end": 192,
+    "source_line_start": 190,
+    "tags": [
+      "arithmetic",
+      "default_limit",
+      "limit",
+      "rate",
+      "tier",
+      "tier_limits"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:28:40.492250+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(tier) == string",
+      "tier is not None",
+      "type(tier_limits) == dict",
+      "tier_limits is not None",
+      "type(default_limit) == integer",
+      "default_limit is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(tier) == string",
+      "tier is not None",
+      "type(tier_limits) == dict",
+      "tier_limits is not None",
+      "type(default_limit) == integer",
+      "default_limit is not None"
+    ]
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "cdc0b6c6eeca1a835f6569da1bd682384c9ea921061fa6ae7e696d13100c34ee",
+    "semantic_fingerprint": "b0f75f0502b52287dde7d9730a282f4d41a9950443d8f056b964863902b39078",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if domain format could have MX records (basic validation).",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter domain",
+        "name": "domain",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_valid_mx_domain_format",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_valid_mx_domain_format(v0: str) -> bool:\n    if not v0 or '.' not in v0:\n        return False\n    v1 = v0.split('.')\n    return v2((v3.match('^[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?$', v4) for v4 in v1))",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-09T22:28:40.569629+00:00",
+    "description": "Check if domain format could have MX records (basic validation).",
+    "intent": "Check if domain format could have MX records (basic validation).",
+    "language": "python",
+    "name": "is_valid_mx_domain_format",
+    "source_file": "neurop_forge/sources/email_utilities.py",
+    "source_line_end": 294,
+    "source_line_start": 289,
+    "tags": [
+      "domain",
+      "format",
+      "valid",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:28:40.569657+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(domain) == string",
+      "domain is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(domain) == string",
+      "domain is not None"
+    ]
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8bddb5edce19bc18ebe74c9359426b669acb050b0bedea73f671434d885c9ae5",
+    "semantic_fingerprint": "b09d08d09808d27c18df2ca620120dd6e9f0c8c1adb95bb66ce05a905f20395b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if request can proceed based on sliding window count.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter request_count",
+        "name": "request_count",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_requests",
+        "name": "max_requests",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of sliding_window_can_proceed",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def sliding_window_can_proceed(v0: int, v1: int) -> bool:\n    return v0 < v1",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-09T22:28:40.466820+00:00",
+    "description": "Check if request can proceed based on sliding window count.",
+    "intent": "Check if request can proceed based on sliding window count.",
+    "language": "python",
+    "name": "sliding_window_can_proceed",
+    "source_file": "neurop_forge/sources/rate_limiting.py",
+    "source_line_end": 44,
+    "source_line_start": 42,
+    "tags": [
+      "can",
+      "max_requests",
+      "proceed",
+      "request_count",
+      "sliding",
+      "validation",
+      "window"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:28:40.466836+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(request_count) == integer",
+      "request_count is not None",
+      "type(max_requests) == integer",
+      "max_requests is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(request_count) == integer",
+      "request_count is not None",
+      "type(max_requests) == integer",
+      "max_requests is not None"
+    ]
+  }
+}

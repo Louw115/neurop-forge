@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "03932cf9a7aab42b2179d4f19424249068e06ce975b27456c780a3fea8f9d6bb",
+    "semantic_fingerprint": "fcd2153b37aaf5dd623905e1db7cd6dd932ef7b9be88cfa62ae3da4150e662ab",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Convert bearing to compass direction.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter bearing",
+        "name": "bearing",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of compass_direction",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def compass_direction(v0: float) -> str:\n    v1 = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW']\n    v2 = round(v0 / 22.5) % 16\n    return v1[v2]",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-09T22:28:40.397082+00:00",
+    "description": "Convert bearing to compass direction.",
+    "intent": "Convert bearing to compass direction.",
+    "language": "python",
+    "name": "compass_direction",
+    "source_file": "neurop_forge/sources/geolocation_utilities.py",
+    "source_line_end": 309,
+    "source_line_start": 304,
+    "tags": [
+      "bearing",
+      "compass",
+      "direction",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:28:40.397105+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(bearing) == float",
+      "bearing is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(bearing) == float",
+      "bearing is not None"
+    ]
+  }
+}

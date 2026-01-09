@@ -1,0 +1,131 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "31da4f76270c2d4e6cf8114b1e178d8b6ce3d2703bd19e0b92968e82130bcab0",
+    "semantic_fingerprint": "f7f9fb8af10038ae498b6eacfa54949ecfafbdebab461e265ef54f1971f5eaa1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format a list of addresses for email header.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter addresses",
+        "name": "addresses",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_email_header_list",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_email_header_list(v0: list) -> str:\n    v1 = []\n    for v2 in v0:\n        if isinstance(v2, dict):\n            v1.append(v3(v2.get('name', ''), v2.get('email', '')))\n        else:\n            v1.append(str(v2))\n    return ', '.join(v1)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T22:28:40.565697+00:00",
+    "description": "Format a list of addresses for email header.",
+    "intent": "Format a list of addresses for email header.",
+    "language": "python",
+    "name": "format_email_header_list",
+    "source_file": "neurop_forge/sources/email_utilities.py",
+    "source_line_end": 286,
+    "source_line_start": 278,
+    "tags": [
+      "addresses",
+      "email",
+      "format",
+      "header",
+      "list",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Neurop Forge Team",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T22:28:40.565738+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(addresses) == list",
+      "addresses is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(addresses) == list",
+      "addresses is not None"
+    ]
+  }
+}
