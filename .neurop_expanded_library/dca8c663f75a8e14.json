@@ -88,7 +88,7 @@
   "logic": "def calculate_auc_roc_approx(predictions: list, actuals: list, thresholds: int) -> float:\n    \"\"\"Calculate approximate AUC-ROC score.\"\"\"\n    auc = 0.0\n    prev_fpr = 1.0\n    prev_tpr = 1.0\n    for i in range(thresholds + 1):\n        threshold = i / thresholds\n        preds = [1 if p >= threshold else 0 for p in predictions]\n        tp = sum(1 for p, a in zip(preds, actuals) if p == 1 and a == 1)\n        fp = sum(1 for p, a in zip(preds, actuals) if p == 1 and a == 0)\n        tn = sum(1 for p, a in zip(preds, actuals) if p == 0 and a == 0)\n        fn = sum(1 for p, a in zip(preds, actuals) if p == 0 and a == 1)\n        tpr = tp / (tp + fn) if (tp + fn) > 0 else 0\n        fpr = fp / (fp + tn) if (fp + tn) > 0 else 0\n        auc += (prev_fpr - fpr) * (prev_tpr + tpr) / 2\n        prev_fpr, prev_tpr = fpr, tpr\n    return auc",
   "metadata": {
     "category": "arithmetic",
-    "created_at": "2026-01-10T02:26:00.331783+00:00",
+    "created_at": "2026-01-10T02:30:23.578721+00:00",
     "description": "Calculate approximate AUC-ROC score.",
     "intent": "Calculate approximate AUC-ROC score.",
     "language": "python",
@@ -121,7 +121,7 @@
     "determinism_score": 1.0,
     "execution_count": 0,
     "failure_count": 0,
-    "last_verified": "2026-01-10T02:26:00.331804+00:00",
+    "last_verified": "2026-01-10T02:30:23.578751+00:00",
     "license_score": 1.0,
     "overall_score": 0.355,
     "risk_factors": [],

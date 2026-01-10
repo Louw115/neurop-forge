@@ -24,20 +24,21 @@ class GoldenBlock:
     name: str
     intent: str
     test_input: Dict[str, Any]
+    expected_output: Any
     expected_output_type: str
 
 
 GOLDEN_BLOCKS = [
-    GoldenBlock("reverse_string", "reverse a string", {"text": "hello world"}, "string"),
-    GoldenBlock("is_empty", "check if empty", {"value": "test"}, "boolean"),
-    GoldenBlock("to_uppercase", "convert to uppercase", {"text": "hello"}, "string"),
-    GoldenBlock("to_lowercase", "convert to lowercase", {"text": "HELLO"}, "string"),
-    GoldenBlock("word_count", "count words", {"text": "hello world test"}, "integer"),
-    GoldenBlock("is_not_none", "check if not none", {"value": "test"}, "boolean"),
-    GoldenBlock("to_int", "convert to integer", {"value": "42"}, "integer"),
-    GoldenBlock("is_positive", "check if positive", {"n": 42}, "boolean"),
-    GoldenBlock("is_even", "check if even", {"n": 42}, "boolean"),
-    GoldenBlock("capitalize_first", "capitalize first letter", {"text": "hello"}, "string"),
+    GoldenBlock("reverse_string", "reverse a string", {"text": "hello world"}, "dlrow olleh", "string"),
+    GoldenBlock("is_empty", "check if empty", {"value": "test"}, False, "boolean"),
+    GoldenBlock("to_uppercase", "convert to uppercase", {"text": "hello"}, "HELLO", "string"),
+    GoldenBlock("to_lowercase", "convert to lowercase", {"text": "HELLO"}, "hello", "string"),
+    GoldenBlock("word_count", "count words", {"text": "hello world test"}, 3, "integer"),
+    GoldenBlock("is_not_none", "check if not none", {"value": "test"}, True, "boolean"),
+    GoldenBlock("to_integer", "convert to integer", {"value": "42"}, 42, "integer"),
+    GoldenBlock("is_positive", "check if positive", {"n": 42}, True, "boolean"),
+    GoldenBlock("is_even", "check if even", {"n": 42}, True, "boolean"),
+    GoldenBlock("capitalize_first", "capitalize first letter", {"text": "hello"}, "Hello", "string"),
 ]
 
 
@@ -107,18 +108,30 @@ class GoldenDemoRunner:
             outputs, error = self._executor.execute(block, inputs)
             
             results["blocks_tested"] += 1
-            success = error is None
+            
+            actual_result = None
+            output_correct = False
+            if error is None and outputs:
+                actual_result = outputs.get("result", list(outputs.values())[0] if outputs else None)
+                output_correct = actual_result == golden.expected_output
+            
+            success = error is None and output_correct
             
             if success:
                 results["blocks_succeeded"] += 1
             else:
                 results["blocks_failed"] += 1
+                if error is None and not output_correct:
+                    error = f"Output mismatch: expected {golden.expected_output!r}, got {actual_result!r}"
 
             trace = {
                 "block_name": golden.name,
                 "intent": golden.intent,
                 "inputs": inputs,
-                "outputs": outputs if success else None,
+                "outputs": outputs if error is None else None,
+                "expected": golden.expected_output,
+                "actual": actual_result,
+                "output_correct": output_correct,
                 "error": error,
                 "success": success,
             }
@@ -212,9 +225,10 @@ def print_golden_demo_results(results: Dict[str, Any]) -> None:
         status = "SUCCESS" if trace["success"] else "FAILED"
         print(f"  {trace['block_name']}: {status}")
         if trace["success"]:
-            print(f"    Output: {trace['outputs']}")
+            print(f"    Expected: {trace.get('expected')!r} -> Got: {trace.get('actual')!r}")
         else:
-            print(f"    Error: {trace['error'][:50]}..." if trace["error"] else "    Error: Unknown")
+            err_msg = trace["error"][:60] if trace.get("error") else "Unknown"
+            print(f"    Error: {err_msg}")
     print()
 
     if golden.get("trust_stats"):

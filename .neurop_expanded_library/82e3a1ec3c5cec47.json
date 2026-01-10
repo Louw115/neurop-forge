@@ -74,7 +74,7 @@
   "logic": "def int_to_words(number: int) -> str:\n    \"\"\"Convert integer to English words.\"\"\"\n    if number == 0:\n        return \"zero\"\n    ones = [\"\", \"one\", \"two\", \"three\", \"four\", \"five\", \"six\", \"seven\", \"eight\", \"nine\",\n            \"ten\", \"eleven\", \"twelve\", \"thirteen\", \"fourteen\", \"fifteen\", \"sixteen\",\n            \"seventeen\", \"eighteen\", \"nineteen\"]\n    tens = [\"\", \"\", \"twenty\", \"thirty\", \"forty\", \"fifty\", \"sixty\", \"seventy\", \"eighty\", \"ninety\"]\n    scales = [\"\", \"thousand\", \"million\", \"billion\", \"trillion\"]\n    if number < 0:\n        return \"negative \" + int_to_words(-number)\n    def under_thousand(n):\n        if n < 20:\n            return ones[n]\n        if n < 100:\n            return tens[n // 10] + (\"-\" + ones[n % 10] if n % 10 else \"\")\n        return ones[n // 100] + \" hundred\" + (\" \" + under_thousand(n % 100) if n % 100 else \"\")\n    result = []\n    scale_idx = 0\n    while number > 0:\n        chunk = number % 1000\n        if chunk:\n            part = under_thousand(chunk)\n            if scales[scale_idx]:\n                part += \" \" + scales[scale_idx]\n            result.insert(0, part)\n        number //= 1000\n        scale_idx += 1\n    return \" \".join(result)",
   "metadata": {
     "category": "transformation",
-    "created_at": "2026-01-10T02:26:03.936820+00:00",
+    "created_at": "2026-01-10T02:30:26.674896+00:00",
     "description": "Convert integer to English words.",
     "intent": "Convert integer to English words.",
     "language": "python",
@@ -103,7 +103,7 @@
     "determinism_score": 1.0,
     "execution_count": 0,
     "failure_count": 0,
-    "last_verified": "2026-01-10T02:26:03.936847+00:00",
+    "last_verified": "2026-01-10T02:30:26.674916+00:00",
     "license_score": 1.0,
     "overall_score": 0.34450000000000003,
     "risk_factors": [],

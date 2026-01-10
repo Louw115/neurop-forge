@@ -81,7 +81,7 @@
   "logic": "def build_audit_trigger_function(function_name: str, audit_table: str) -> str:\n    \"\"\"Build a PostgreSQL trigger function for automatic auditing.\"\"\"\n    from neurop_forge.sources.sql_building import escape_sql_identifier\n    return f\"\"\"\nCREATE OR REPLACE FUNCTION {escape_sql_identifier(function_name)}()\nRETURNS TRIGGER AS $$\nBEGIN\n    IF TG_OP = 'INSERT' THEN\n        INSERT INTO {escape_sql_identifier(audit_table)} (table_name, operation, record_id, new_values, timestamp)\n        VALUES (TG_TABLE_NAME, 'INSERT', NEW.id::text, to_jsonb(NEW), CURRENT_TIMESTAMP);\n        RETURN NEW;\n    ELSIF TG_OP = 'UPDATE' THEN\n        INSERT INTO {escape_sql_identifier(audit_table)} (table_name, operation, record_id, old_values, new_values, timestamp)\n        VALUES (TG_TABLE_NAME, 'UPDATE', NEW.id::text, to_jsonb(OLD), to_jsonb(NEW), CURRENT_TIMESTAMP);\n        RETURN NEW;\n    ELSIF TG_OP = 'DELETE' THEN\n        INSERT INTO {escape_sql_identifier(audit_table)} (table_name, operation, record_id, old_values, timestamp)\n        VALUES (TG_TABLE_NAME, 'DELETE', OLD.id::text, to_jsonb(OLD), CURRENT_TIMESTAMP);\n        RETURN OLD;\n    END IF;\n    RETURN NULL;\nEND;\n$$ LANGUAGE plpgsql;\n\"\"\"",
   "metadata": {
     "category": "string",
-    "created_at": "2026-01-10T02:25:58.871740+00:00",
+    "created_at": "2026-01-10T02:30:22.273019+00:00",
     "description": "Build a PostgreSQL trigger function for automatic auditing.",
     "intent": "Build a PostgreSQL trigger function for automatic auditing.",
     "language": "python",
@@ -113,7 +113,7 @@
     "determinism_score": 1.0,
     "execution_count": 0,
     "failure_count": 0,
-    "last_verified": "2026-01-10T02:25:58.871768+00:00",
+    "last_verified": "2026-01-10T02:30:22.273037+00:00",
     "license_score": 1.0,
     "overall_score": 0.33999999999999997,
     "risk_factors": [],

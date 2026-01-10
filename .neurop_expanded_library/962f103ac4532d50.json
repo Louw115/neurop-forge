@@ -74,7 +74,7 @@
   "logic": "def extract_column_names(select_query: str) -> list:\n    \"\"\"Extract column names from a SELECT query (simple cases only).\"\"\"\n    import re\n    match = re.search(r'SELECT\\s+(.*?)\\s+FROM', select_query, re.IGNORECASE | re.DOTALL)\n    if not match:\n        return []\n    columns_str = match.group(1)\n    if columns_str.strip() == '*':\n        return ['*']\n    columns = []\n    for col in columns_str.split(','):\n        col = col.strip()\n        as_match = re.search(r'\\bAS\\s+[\"\\']?(\\w+)[\"\\']?\\s*$', col, re.IGNORECASE)\n        if as_match:\n            columns.append(as_match.group(1))\n        else:\n            parts = col.split('.')\n            columns.append(parts[-1].strip('\"').strip(\"'\").strip())\n    return columns",
   "metadata": {
     "category": "filtering",
-    "created_at": "2026-01-10T02:25:58.062510+00:00",
+    "created_at": "2026-01-10T02:30:21.673415+00:00",
     "description": "Extract column names from a SELECT query (simple cases only).",
     "intent": "Extract column names from a SELECT query (simple cases only).",
     "language": "python",
@@ -104,7 +104,7 @@
     "determinism_score": 1.0,
     "execution_count": 0,
     "failure_count": 0,
-    "last_verified": "2026-01-10T02:25:58.062537+00:00",
+    "last_verified": "2026-01-10T02:30:21.673430+00:00",
     "license_score": 1.0,
     "overall_score": 0.3775,
     "risk_factors": [],

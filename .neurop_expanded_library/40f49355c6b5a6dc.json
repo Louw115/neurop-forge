@@ -88,7 +88,7 @@
   "logic": "def validate_nested_object(data: dict, schema: dict, prefix: str) -> dict:\n    \"\"\"Validate a nested object against a schema.\"\"\"\n    errors = []\n    for field, rules in schema.items():\n        full_path = f\"{prefix}.{field}\" if prefix else field\n        value = extract_field_from_path(field, data)\n        if rules.get(\"required\") and value is None:\n            errors.append(f\"{full_path} is required\")\n            continue\n        if value is not None:\n            if \"type\" in rules:\n                type_result = validate_field_types({field: value}, {field: rules[\"type\"]})\n                if not type_result[\"valid\"]:\n                    errors.extend([f\"{full_path}: {e}\" for e in type_result[\"errors\"]])\n            if \"min_length\" in rules and isinstance(value, str):\n                if len(value) < rules[\"min_length\"]:\n                    errors.append(f\"{full_path} must be at least {rules['min_length']} characters\")\n            if \"max_length\" in rules and isinstance(value, str):\n                if len(value) > rules[\"max_length\"]:\n                    errors.append(f\"{full_path} must be at most {rules['max_length']} characters\")\n    return {\"valid\": len(errors) == 0, \"errors\": errors}",
   "metadata": {
     "category": "validation",
-    "created_at": "2026-01-10T02:25:59.388629+00:00",
+    "created_at": "2026-01-10T02:30:22.671642+00:00",
     "description": "Validate a nested object against a schema.",
     "intent": "Validate a nested object against a schema.",
     "language": "python",
@@ -120,7 +120,7 @@
     "determinism_score": 1.0,
     "execution_count": 0,
     "failure_count": 0,
-    "last_verified": "2026-01-10T02:25:59.388659+00:00",
+    "last_verified": "2026-01-10T02:30:22.671663+00:00",
     "license_score": 1.0,
     "overall_score": 0.385,
     "risk_factors": [],

@@ -89,7 +89,7 @@
   "logic": "def build_dynamodb_query_key_condition(partition_key: str, sort_key: str, sort_operator: str) -> str:\n    \"\"\"Build a DynamoDB query key condition expression.\"\"\"\n    pk_cond = f\"#{partition_key} = :{partition_key}\"\n    if sort_key and sort_operator:\n        ops = {\n            \"eq\": \"=\",\n            \"lt\": \"<\",\n            \"lte\": \"<=\",\n            \"gt\": \">\",\n            \"gte\": \">=\",\n            \"between\": \"BETWEEN\",\n            \"begins_with\": \"begins_with\"\n        }\n        op = ops.get(sort_operator, \"=\")\n        if sort_operator == \"between\":\n            sk_cond = f\"#{sort_key} BETWEEN :{sort_key}_start AND :{sort_key}_end\"\n        elif sort_operator == \"begins_with\":\n            sk_cond = f\"begins_with(#{sort_key}, :{sort_key})\"\n        else:\n            sk_cond = f\"#{sort_key} {op} :{sort_key}\"\n        return f\"{pk_cond} AND {sk_cond}\"\n    return pk_cond",
   "metadata": {
     "category": "string",
-    "created_at": "2026-01-10T02:25:58.591448+00:00",
+    "created_at": "2026-01-10T02:30:22.054018+00:00",
     "description": "Build a DynamoDB query key condition expression.",
     "intent": "Build a DynamoDB query key condition expression.",
     "language": "python",
@@ -123,7 +123,7 @@
     "determinism_score": 1.0,
     "execution_count": 0,
     "failure_count": 0,
-    "last_verified": "2026-01-10T02:25:58.591464+00:00",
+    "last_verified": "2026-01-10T02:30:22.054043+00:00",
     "license_score": 1.0,
     "overall_score": 0.33999999999999997,
     "risk_factors": [],
