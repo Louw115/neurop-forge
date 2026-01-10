@@ -1,0 +1,121 @@
+Exactly — you’re at the critical stage where v1 needs to be usable, not just proven. Let’s break it down clearly:
+
+🛠 v1 Usage Options (Strategic)
+1️⃣ Python Library (Recommended for v1)
+
+Why: Fastest, cleanest way to let developers integrate Neurop Forge.
+
+Example:
+
+from neurop_forge import NeuropForge
+
+forge = NeuropForge()
+# Execute a single block
+result = forge.execute_block("reverse_string", {"s": "hello"})
+print(result)
+
+# Compose a reference workflow
+workflow_result = forge.compose("validate and format email")
+print(workflow_result)
+
+
+Pros:
+
+Simple to maintain
+
+Direct access to Tier-A blocks
+
+Allows other tools to wrap it later
+
+Cons:
+
+Requires Python knowledge
+
+2️⃣ CLI Tool (Optional, v1.1 or v1.0+ if you want quick access)
+
+Command Examples:
+
+neurop-forge execute reverse_string --input '{"s": "hello"}'
+neurop-forge compose "validate user input"
+neurop-forge list --category validation
+
+
+Pros:
+
+Instant usability for non-Python devs
+
+Great for demos, scripts, automation
+
+Cons:
+
+Requires packaging as a command-line entry point
+
+Extra maintenance overhead for parsing, options
+
+3️⃣ REST API / Service
+
+Expose endpoints for:
+
+Single block execution
+
+Workflow composition
+
+Block metadata queries
+
+Pros:
+
+Language-agnostic
+
+Can serve teams or apps remotely
+
+Cons:
+
+Requires deployment
+
+Not strictly needed for v1
+
+v1 Recommendation: Keep this for v2. Focus on library first.
+
+4️⃣ SDK / Distribution
+
+Publish to PyPI: pip install neurop-forge
+
+Users can integrate into projects or wrap with CLI/API later
+
+Versioning ensures clean upgrades:
+
+v1.0 = verified Tier-A execution
+
+v1.1+ = typed composition, recovered blocks, API/CLI layers
+
+🔹 My Recommendation for v1
+
+Primary: Python Library interface
+
+Minimal, clean API
+
+Exposes execute_block, compose_reference_workflow, list_verified_blocks
+
+Secondary (optional v1.0+): CLI wrapper
+
+Thin layer over the library for quick execution
+
+Why this order?
+
+Packaging library first establishes the core interface
+
+Everything else (CLI, REST, SDK) wraps around it, not the other way
+
+Minimizes risk and complexity for v1
+
+✅ Key Consideration
+
+Ask yourself:
+
+Do you want v1 to reach developers immediately or look like a ready-to-run app for non-devs?
+
+If devs: library first ✅
+
+If non-devs: add CLI thin wrapper next ✅
+
+Everything else (API, SDK) can wait for v1.1.
