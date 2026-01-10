@@ -98,5 +98,5 @@ Neurop Forge does not generate code, modify logic, or allow AI to change executi
 
 ---
 
-**Contact:** Lourens Wasserman  
+**Contact:** Lourens Wasserman (wassermanlourens@gmail.com)  
 **License:** Dual (Non-Commercial with Attribution / Commercial)
