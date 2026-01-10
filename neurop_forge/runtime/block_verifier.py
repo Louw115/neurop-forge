@@ -267,3 +267,171 @@ def run_verification(block_store) -> Dict[str, Any]:
     print(f"  Success Rate: {result['success_rate']*100:.1f}%")
     
     return result
+
+
+@dataclass
+class VerificationGateResult:
+    """Result of passing a block through the verification gate."""
+    block_id: str
+    block_name: str
+    admitted: bool
+    tier: str
+    reasons: List[str]
+    verification_result: Optional[VerificationResult]
+
+
+class AutoVerificationGate:
+    """
+    Gate that blocks must pass through before being admitted to verified registry.
+    
+    The gate enforces:
+    1. Block must execute successfully with test inputs
+    2. Block must produce valid output
+    3. Block is classified into Tier-A or Tier-B
+    
+    Usage:
+        gate = AutoVerificationGate()
+        result = gate.admit(block)
+        if result.admitted:
+            # Block is now in verified registry
+            print(f"Block admitted as {result.tier}")
+    """
+    
+    def __init__(self):
+        self._verifier = BlockVerifier()
+        self._registry = get_verification_registry()
+        try:
+            from neurop_forge.core.block_tier import BlockTierClassifier, TierRegistry
+            self._tier_classifier = BlockTierClassifier(set(self._registry.get_verified_ids()))
+            self._tier_registry = TierRegistry.load()
+        except ImportError:
+            self._tier_classifier = None
+            self._tier_registry = None
+    
+    def admit(self, block: NeuropBlock) -> VerificationGateResult:
+        """
+        Attempt to admit a block through the verification gate.
+        
+        Returns:
+            VerificationGateResult with admission status and tier classification
+        """
+        block_id = block.get_identity_hash() if hasattr(block, 'get_identity_hash') else str(id(block))
+        block_name = block.metadata.name if hasattr(block.metadata, 'name') else "unknown"
+        reasons = []
+        
+        if self._registry.is_verified(block_id):
+            tier = self._get_tier(block_id)
+            return VerificationGateResult(
+                block_id=block_id,
+                block_name=block_name,
+                admitted=True,
+                tier=tier,
+                reasons=["Block already verified"],
+                verification_result=self._registry.verified_blocks.get(block_id),
+            )
+        
+        verification = self._verifier.verify_block(block)
+        
+        if not verification.verified:
+            reasons.append(f"Verification failed: {verification.error}")
+            return VerificationGateResult(
+                block_id=block_id,
+                block_name=block_name,
+                admitted=False,
+                tier="quarantined",
+                reasons=reasons,
+                verification_result=verification,
+            )
+        
+        tier = "tier_a"
+        if self._tier_classifier:
+            try:
+                from neurop_forge.core.block_tier import BlockTier
+                verified_ids = set(self._registry.get_verified_ids())
+                verified_ids.add(block_id)
+                self._tier_classifier._verified_ids = verified_ids
+                
+                classification = self._tier_classifier.classify_block(block)
+                tier = classification.tier.value
+                reasons.extend(classification.reasons)
+                
+                if self._tier_registry:
+                    if classification.tier == BlockTier.TIER_A:
+                        self._tier_registry.tier_a[block_id] = classification
+                    else:
+                        self._tier_registry.tier_b[block_id] = classification
+                    self._tier_registry.save()
+            except Exception as e:
+                reasons.append(f"Tier classification error: {e}")
+        
+        reasons.insert(0, f"Block admitted as {tier}")
+        self._registry.save()
+        
+        return VerificationGateResult(
+            block_id=block_id,
+            block_name=block_name,
+            admitted=True,
+            tier=tier,
+            reasons=reasons,
+            verification_result=verification,
+        )
+    
+    def admit_batch(self, blocks: List[NeuropBlock]) -> Dict[str, Any]:
+        """
+        Admit multiple blocks through the gate.
+        
+        Returns summary of admission results.
+        """
+        admitted = 0
+        rejected = 0
+        tier_a = 0
+        tier_b = 0
+        
+        for block in blocks:
+            result = self.admit(block)
+            if result.admitted:
+                admitted += 1
+                if result.tier == "tier_a":
+                    tier_a += 1
+                else:
+                    tier_b += 1
+            else:
+                rejected += 1
+        
+        return {
+            "total": len(blocks),
+            "admitted": admitted,
+            "rejected": rejected,
+            "tier_a": tier_a,
+            "tier_b": tier_b,
+            "admission_rate": admitted / len(blocks) if blocks else 0,
+        }
+    
+    def _get_tier(self, block_id: str) -> str:
+        """Get tier for a verified block."""
+        if self._tier_registry:
+            if block_id in self._tier_registry.tier_a:
+                return "tier_a"
+            elif block_id in self._tier_registry.tier_b:
+                return "tier_b"
+        return "tier_a"
+    
+    def get_stats(self) -> Dict[str, Any]:
+        """Get gate statistics."""
+        verified_count = len(self._registry.verified_blocks)
+        failed_count = len(self._registry.failed_blocks)
+        tier_a = len(self._tier_registry.tier_a) if self._tier_registry else 0
+        tier_b = len(self._tier_registry.tier_b) if self._tier_registry else 0
+        
+        return {
+            "verified": verified_count,
+            "failed": failed_count,
+            "tier_a": tier_a,
+            "tier_b": tier_b,
+            "admission_rate": verified_count / (verified_count + failed_count) if (verified_count + failed_count) > 0 else 0,
+        }
+
+
+def create_verification_gate() -> AutoVerificationGate:
+    """Create and return a verification gate instance."""
+    return AutoVerificationGate()

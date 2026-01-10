@@ -71,8 +71,14 @@ This validates:
 - Owned by Lourens Wasserman
 
 ## Library Status
-**4,549 total blocks** across 175 source modules
+**4,551 total blocks** across 175 source modules
 **2,740 verified blocks** (60.2% verification rate) - verified-only mode for semantic composition
+
+### Block Tier Classification
+Verified blocks are classified into tiers for safer AI composition:
+- **Tier-A: 2,060 blocks (75%)** - Deterministic, pure functions, no external deps
+- **Tier-B: 680 blocks (25%)** - Context-dependent or complex input requirements
+- Classification stored in `.neurop_verified/tier_registry.json`
 
 ### Block Verification System
 The verification system ensures only working blocks are used in semantic composition:
@@ -80,6 +86,7 @@ The verification system ensures only working blocks are used in semantic composi
 - Verified blocks stored in `.neurop_verified/registry.json`
 - Semantic Composer filters to verified blocks only
 - Golden Validation Suite: 10/10 blocks pass with expected output validation
+- Production Reference Workflows: 4/5 passing with real-world semantic graphs
 
 ### Semantic Domains Covered
 1. String (924 blocks)
