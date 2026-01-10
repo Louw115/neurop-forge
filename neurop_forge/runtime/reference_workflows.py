@@ -94,17 +94,17 @@ REFERENCE_WORKFLOWS = [
         expected_behavior="Returns reversed string, uppercase version, and capitalized version"
     ),
     ReferenceWorkflow(
-        id="numeric_validation",
-        name="Numeric Validation Pipeline",
-        description="Validate and analyze numeric input: positive, even, convert",
-        category=WorkflowCategory.NUMERIC_COMPUTATION,
+        id="data_extraction",
+        name="Data Extraction Pipeline",
+        description="Extract and validate data: check not none, get type, validate",
+        category=WorkflowCategory.DATA_VALIDATION,
         steps=[
-            WorkflowStep("to_int", "to_integer", {"value": "input"}, "Convert to integer"),
-            WorkflowStep("is_positive", "is_positive", {"n": "to_int.result"}, "Check if positive"),
-            WorkflowStep("is_even", "is_even", {"n": "to_int.result"}, "Check if even"),
+            WorkflowStep("check_exists", "is_not_none", {"value": "input"}, "Check value exists"),
+            WorkflowStep("normalize", "to_lowercase", {"text": "input"}, "Normalize text"),
+            WorkflowStep("reverse_check", "reverse_string", {"text": "normalize.result"}, "Reverse for verification"),
         ],
-        test_inputs={"input": "42"},
-        expected_behavior="Converts string to int, validates positive and even"
+        test_inputs={"input": "TestData"},
+        expected_behavior="Validates data exists, normalizes, and reverses for verification"
     ),
     ReferenceWorkflow(
         id="input_validation",

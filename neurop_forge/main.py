@@ -976,10 +976,15 @@ def run_production_validation():
     print(f"Semantic Composer now using ONLY {len(verified_ids)} verified blocks")
     print()
     
-    from neurop_forge.core.block_tier import classify_blocks, print_tier_summary
+    from neurop_forge.core.block_tier import classify_blocks, print_tier_summary, get_tier_registry
     tier_registry = classify_blocks(all_blocks_for_verify, verified_ids)
     tier_summary = tier_registry.summary()
     print(f"Tier Classification: {tier_summary['tier_a']} Tier-A, {tier_summary['tier_b']} Tier-B")
+    print()
+    
+    tier_a_ids = set(tier_registry.tier_a.keys())
+    forge._semantic_composer.set_verified_blocks(tier_a_ids)
+    print(f"Production Mode: Using ONLY {len(tier_a_ids)} Tier-A blocks (deterministic)")
     print()
     
     from neurop_forge.runtime.block_verifier import AutoVerificationGate
@@ -988,7 +993,7 @@ def run_production_validation():
     print(f"Verification Gate Stats: {gate_stats['verified']} admitted, {gate_stats['failed']} rejected")
     print()
     
-    print("C) Semantic Graph Execution (Verified Blocks Only):")
+    print("C) Semantic Graph Execution (Tier-A Only - Production Mode):")
     print("-" * 40)
     
     test_inputs = {
@@ -1047,24 +1052,42 @@ def run_production_validation():
     workflow_results = run_reference_workflows(forge._block_store)
     print_reference_workflow_results(workflow_results)
     
+    golden_blocks = golden_results.get("golden_blocks", {})
+    golden_succeeded = golden_blocks.get("blocks_succeeded", 0)
+    golden_total = golden_blocks.get("blocks_tested", 0)
+    golden_failed = golden_blocks.get("blocks_failed", 0)
+    
+    workflows_available = workflow_results.get("workflows_available", 0)
+    workflows_total = workflow_results.get("workflows_total", 0)
+    workflows_all_pass = workflow_results.get("overall_success", False)
+    workflows_passed = workflows_available if workflows_all_pass else sum(
+        1 for r in workflow_results.get("results", {}).values() if r.get("success")
+    )
+    
     print("=" * 70)
-    print("NEUROP BLOCK FORGE - PHASE 2 COMPLETE")
+    print("NEUROP BLOCK FORGE v1.0.0 - PACKAGING READY")
     print("=" * 70)
     print()
-    print("THE FULL LOOP IS NOW OPERATIONAL:")
-    print("  1. Intent -> Semantic domain matching")
-    print("  2. Compose -> Validated block graph with type flow")
-    print("  3. Execute -> Deterministic graph execution")
-    print("  4. Result -> Full trace with timing and outputs")
-    print("  5. Trust -> Execution tracking updates trust scores")
+    print("PACKAGING VALIDATION:")
+    print(f"  Golden Validation Suite: {golden_succeeded}/{golden_total} {'PASS' if golden_failed == 0 else 'FAIL'}")
+    print(f"  Production Reference Workflows: {workflows_passed}/{workflows_total} {'PASS' if workflows_passed == workflows_total else 'FAIL'}")
+    print(f"  Tier-A Production Blocks: {len(tier_a_ids)}")
+    print(f"  Tier-B Blocks (not used in production): {tier_summary['tier_b']}")
+    print()
+    print("PRODUCTION CLAIMS:")
+    print(f"  - Reference workflows execute deterministically ({workflows_passed}/{workflows_total})")
+    print(f"  - Golden validation blocks return expected outputs ({golden_succeeded}/{golden_total})")
+    print("  - Tier-A blocks are pure, deterministic functions")
+    print("  - Tier-B blocks require explicit opt-in")
     print()
     print("CONTRACT VERSION: v1.0.0")
     print("  - Block.logic stores ORIGINAL source code")
     print("  - TrustScore includes execution_count, success_count, success_rate")
     print("  - Interface.inputs aligns with function parameters")
     print()
-    print("AI can now compose block graphs across all these domains.")
-    print("This is the foundation for building anything - from validated blocks.")
+    
+    all_pass = (golden_failed == 0) and (workflows_passed == workflows_total)
+    print(f"STATUS: {'READY FOR PACKAGING' if all_pass else 'NEEDS FIXES'}")
 
     return {
         "module_results": module_results,
