@@ -90,11 +90,11 @@ class AICustomerProcessor:
         validated = {}
         
         # === STAGE 1: Name Processing ===
-        name = customer.get("name", "")
+        name = customer.get("name", "").strip()
         
-        # Check if empty
-        is_empty = self.run_block("is_empty", {"value": name}, "name_check")
-        if is_empty:
+        # Check if empty using string_length
+        name_len = self.run_block("string_length", {"text": name}, "name_check")
+        if not name_len or name_len == 0:
             issues.append("Name is required")
             validated["name"] = None
         else:
@@ -110,10 +110,11 @@ class AICustomerProcessor:
                 issues.append("Name too short")
         
         # === STAGE 2: Email Validation ===
-        email = customer.get("email", "")
+        email = customer.get("email", "").strip()
         
-        is_empty = self.run_block("is_empty", {"value": email}, "email_check")
-        if is_empty:
+        # Check if empty using string_length
+        email_len = self.run_block("string_length", {"text": email}, "email_check")
+        if not email_len or email_len == 0:
             issues.append("Email is required")
             validated["email"] = None
         else:
@@ -129,10 +130,11 @@ class AICustomerProcessor:
                 issues.append("Invalid email format")
         
         # === STAGE 3: Phone Processing ===
-        phone = customer.get("phone", "")
+        phone = customer.get("phone", "").strip()
         
-        is_empty = self.run_block("is_empty", {"value": phone}, "phone_check")
-        if is_empty:
+        # Check if empty using string_length
+        phone_len_check = self.run_block("string_length", {"text": phone}, "phone_check")
+        if not phone_len_check or phone_len_check == 0:
             validated["phone"] = None
             issues.append("Phone is recommended")
         else:
@@ -150,10 +152,11 @@ class AICustomerProcessor:
                 issues.append("Phone number too short")
         
         # === STAGE 4: Company Processing ===
-        company = customer.get("company", "")
+        company = customer.get("company", "").strip()
         
-        is_empty = self.run_block("is_empty", {"value": company.strip()}, "company_check")
-        if is_empty:
+        # Check if empty using string_length
+        company_len = self.run_block("string_length", {"text": company}, "company_check")
+        if not company_len or company_len == 0:
             validated["company"] = None
         else:
             # Title case the company name
