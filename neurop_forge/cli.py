@@ -18,6 +18,7 @@ import sys
 from typing import Optional
 
 from neurop_forge.api import NeuropForge
+from neurop_forge.validation.block_compatibility_tester import BlockCompatibilityTester
 
 
 def cmd_execute(args) -> int:
@@ -166,6 +167,35 @@ def cmd_stats(args) -> int:
         return 1
 
 
+def cmd_test(args) -> int:
+    """Run block compatibility tests."""
+    print("Running block compatibility tests...")
+    print()
+    
+    try:
+        tester = BlockCompatibilityTester()
+        report = tester.run_full_test(tier_a_only=not args.all)
+        print(tester.generate_text_report(report))
+        
+        if args.json:
+            import json
+            json_report = {
+                "total": report.total_blocks,
+                "passed": report.passed,
+                "failed": report.failed,
+                "pass_rate": round(report.passed / report.total_blocks * 100, 1) if report.total_blocks > 0 else 0,
+                "duplicate_names": list(report.duplicate_names.keys()),
+                "execution_failures": [(n, e) for _, n, e in report.execution_failures]
+            }
+            print("\n[JSON OUTPUT]")
+            print(json.dumps(json_report, indent=2))
+        
+        return 0 if report.failed == 0 else 1
+    except Exception as e:
+        print(f"Error: {e}", file=sys.stderr)
+        return 1
+
+
 def main() -> int:
     """Main CLI entry point."""
     parser = argparse.ArgumentParser(
@@ -203,6 +233,13 @@ def main() -> int:
     
     stats_parser = subparsers.add_parser("stats", help="Show library statistics")
     stats_parser.set_defaults(func=cmd_stats)
+    
+    test_parser = subparsers.add_parser("test", help="Run block compatibility tests")
+    test_parser.add_argument("--all", "-a", action="store_true", 
+                            help="Test all blocks (not just Tier-A)")
+    test_parser.add_argument("--json", "-j", action="store_true", 
+                            help="Output JSON summary")
+    test_parser.set_defaults(func=cmd_test)
     
     args = parser.parse_args()
     
