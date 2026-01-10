@@ -22,10 +22,16 @@ import json
 from openai import OpenAI
 from neurop_forge import execute_block
 
-client = OpenAI(
-    api_key=os.environ.get("AI_INTEGRATIONS_OPENAI_API_KEY"),
-    base_url=os.environ.get("AI_INTEGRATIONS_OPENAI_BASE_URL")
-)
+API_KEY = os.environ.get("AI_INTEGRATIONS_OPENAI_API_KEY")
+BASE_URL = os.environ.get("AI_INTEGRATIONS_OPENAI_BASE_URL")
+
+if not API_KEY or not BASE_URL:
+    print("ERROR: OpenAI integration not configured.")
+    print("This demo requires Replit's AI Integration to be set up.")
+    print("Missing: AI_INTEGRATIONS_OPENAI_API_KEY and/or AI_INTEGRATIONS_OPENAI_BASE_URL")
+    sys.exit(1)
+
+client = OpenAI(api_key=API_KEY, base_url=BASE_URL)
 
 AVAILABLE_BLOCKS = [
     {
