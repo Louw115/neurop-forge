@@ -58,7 +58,12 @@ from neurop_forge.composition.graph_rules import GraphValidator, CompositionGrap
 
 from neurop_forge.semantic.intent_schema import SemanticIntent, SemanticDomain, SemanticOperation, SemanticType
 from neurop_forge.semantic.intent_extractor import SemanticIntentExtractor
-from neurop_forge.semantic.composer import SemanticComposer, SemanticIndexEntry
+from neurop_forge.semantic.composer import SemanticComposer, SemanticIndexEntry, SemanticGraph
+
+from neurop_forge.runtime.context import ExecutionContext
+from neurop_forge.runtime.executor import GraphExecutor
+from neurop_forge.runtime.result import ExecutionResult, ExecutionStatus
+from neurop_forge.runtime.guards import RetryPolicy
 
 
 class NeuropForge:
@@ -108,6 +113,12 @@ class NeuropForge:
 
         self._semantic_extractor = SemanticIntentExtractor()
         self._semantic_composer = SemanticComposer()
+        
+        self._graph_executor = GraphExecutor(
+            block_library={},
+            retry_policy=RetryPolicy(max_retries=2),
+            default_timeout_ms=30000.0,
+        )
 
         self._load_existing_blocks()
 
@@ -116,6 +127,7 @@ class NeuropForge:
         for block in self._block_store.get_all():
             self._indexer.index_block(block)
             self._index_block_semantically(block)
+            self._graph_executor.register_block(block.get_identity_hash(), block)
 
     def ingest_source(
         self,
@@ -261,6 +273,7 @@ class NeuropForge:
         if store_result.is_success():
             self._indexer.index_block(block)
             self._index_block_semantically(block)
+            self._graph_executor.register_block(block.get_identity_hash(), block)
             return {
                 "status": "stored",
                 "identity": block.get_identity_hash(),
@@ -393,6 +406,65 @@ class NeuropForge:
     def get_semantic_statistics(self) -> Dict[str, Any]:
         """Get statistics about the semantic index."""
         return self._semantic_composer.get_statistics()
+
+    def execute_intent(
+        self,
+        intent: str,
+        inputs: Optional[Dict[str, Any]] = None,
+        min_trust: float = 0.2,
+    ) -> Dict[str, Any]:
+        """
+        FULL PIPELINE: Intent -> Compose -> Execute -> Result
+        
+        This is the complete Neurop execution loop:
+        1. Parse intent into semantic requirements
+        2. Compose a validated block graph
+        3. Execute the graph with given inputs
+        4. Return execution result with full trace
+        
+        Args:
+            intent: Natural language intent description
+            inputs: Initial input values for execution
+            min_trust: Minimum trust score for blocks
+            
+        Returns:
+            ExecutionResult with status, outputs, and trace
+        """
+        semantic_graph = self._semantic_composer.compose(intent, min_trust=min_trust)
+        
+        if not semantic_graph.nodes:
+            return {
+                "status": "failed",
+                "error": "No blocks matched the intent",
+                "query": intent,
+            }
+        
+        result = self._graph_executor.execute(
+            graph=semantic_graph,
+            initial_inputs=inputs or {},
+        )
+        
+        return result.to_dict()
+
+    def execute_graph(
+        self,
+        graph: SemanticGraph,
+        inputs: Optional[Dict[str, Any]] = None,
+    ) -> ExecutionResult:
+        """
+        Execute a pre-composed semantic graph.
+        
+        Args:
+            graph: Composed SemanticGraph
+            inputs: Initial input values
+            
+        Returns:
+            ExecutionResult with full trace
+        """
+        return self._graph_executor.execute(
+            graph=graph,
+            initial_inputs=inputs or {},
+        )
 
 
 def demonstrate_expanded_library():
@@ -825,6 +897,60 @@ def demonstrate_expanded_library():
     print("  - Event sourcing (events, snapshots, projections)")
     print("  - Queue patterns (routing, acknowledgments, DLQ)")
     print()
+    print("STEP 7: RUNTIME EXECUTION - Complete the Loop")
+    print("-" * 50)
+    print()
+    print("Now demonstrating the FULL pipeline:")
+    print("  Intent -> Compose -> Execute -> Result")
+    print()
+    
+    test_inputs = {
+        "email": "user@example.com",
+        "username": "john_doe",
+        "phone": "+1-555-123-4567",
+    }
+    
+    print(f"Test Inputs: {test_inputs}")
+    print()
+    
+    execution_result = forge.execute_intent(
+        intent="validate and format user input",
+        inputs=test_inputs,
+    )
+    
+    print("Execution Result:")
+    print(f"  Status: {execution_result.get('status', 'unknown').upper()}")
+    print(f"  Duration: {execution_result.get('total_duration_ms', 0):.2f}ms")
+    print(f"  Nodes Executed: {execution_result.get('nodes_executed', 0)}")
+    print(f"  Nodes Succeeded: {execution_result.get('nodes_succeeded', 0)}")
+    print()
+    
+    if execution_result.get('traces'):
+        print("Execution Trace:")
+        for trace in execution_result['traces'][:6]:
+            status_icon = "✓" if trace['status'] == 'success' else "✗"
+            print(f"  {status_icon} {trace['block_name']} ({trace['duration_ms']:.2f}ms)")
+            if trace.get('error'):
+                print(f"      Error: {trace['error'][:50]}...")
+        print()
+    
+    if execution_result.get('final_outputs'):
+        print("Final Outputs:")
+        for key, value in list(execution_result['final_outputs'].items())[:5]:
+            val_str = str(value)[:40] + "..." if len(str(value)) > 40 else str(value)
+            print(f"  {key}: {val_str}")
+    print()
+    
+    print("=" * 70)
+    print("NEUROP BLOCK FORGE - PHASE 2 COMPLETE")
+    print("=" * 70)
+    print()
+    print("THE FULL LOOP IS NOW OPERATIONAL:")
+    print("  1. Intent -> Semantic domain matching")
+    print("  2. Compose -> Validated block graph with type flow")
+    print("  3. Execute -> Deterministic graph execution")
+    print("  4. Result -> Full trace with timing and outputs")
+    print()
     print("AI can now compose block graphs across all these domains.")
     print("This is the foundation for building anything - from validated blocks.")
 
@@ -833,6 +959,7 @@ def demonstrate_expanded_library():
         "library_stats": stats,
         "total_created": total_created,
         "semantic_graph_result": semantic_graph_result,
+        "execution_result": execution_result,
     }
 
 
