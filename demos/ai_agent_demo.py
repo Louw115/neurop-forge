@@ -10,6 +10,10 @@ This demo shows GPT acting as a controlled operator:
 
 THE KEY INSIGHT: GPT calls pre-verified blocks. GPT writes zero code.
 
+Requirements:
+    pip install openai
+    export OPENAI_API_KEY="your-api-key-here"
+
 Usage:
     python demos/ai_agent_demo.py
     python demos/ai_agent_demo.py "Validate this email: test@example.com"
@@ -22,16 +26,15 @@ import json
 from openai import OpenAI
 from neurop_forge import execute_block
 
-API_KEY = os.environ.get("AI_INTEGRATIONS_OPENAI_API_KEY")
-BASE_URL = os.environ.get("AI_INTEGRATIONS_OPENAI_BASE_URL")
+API_KEY = os.environ.get("OPENAI_API_KEY")
 
-if not API_KEY or not BASE_URL:
-    print("ERROR: OpenAI integration not configured.")
-    print("This demo requires Replit's AI Integration to be set up.")
-    print("Missing: AI_INTEGRATIONS_OPENAI_API_KEY and/or AI_INTEGRATIONS_OPENAI_BASE_URL")
+if not API_KEY:
+    print("ERROR: OpenAI API key not configured.")
+    print("Please set your OPENAI_API_KEY environment variable:")
+    print("  export OPENAI_API_KEY='your-api-key-here'")
     sys.exit(1)
 
-client = OpenAI(api_key=API_KEY, base_url=BASE_URL)
+client = OpenAI(api_key=API_KEY)
 
 AVAILABLE_BLOCKS = [
     {
