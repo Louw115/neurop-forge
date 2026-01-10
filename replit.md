@@ -145,11 +145,19 @@ This demonstrates:
 ```
 neurop_forge/runtime/
 ├── __init__.py     # Module exports
+├── adapter.py      # FunctionAdapter - semantic input to signature mapping
 ├── context.py      # ExecutionContext - state, variables, data flow
 ├── executor.py     # GraphExecutor - deterministic graph execution
 ├── result.py       # ExecutionResult - trace, timing, outputs
 └── guards.py       # RetryPolicy, CircuitBreaker, ExecutionGuard
 ```
+
+### Adapter Layer (Block Contract Normalization)
+The FunctionAdapter bridges semantic inputs and actual function signatures:
+- **FunctionSignature**: AST-based introspection of function parameters, defaults, types
+- **SemanticInputMapper**: Maps semantic aliases (email→email_address, text→s, etc.)
+- **Auto-generated parameter handling**: v1, v2, v3 patterns mapped via interface metadata
+- **Signature caching**: Per-block cache for performance
 
 ### Features
 - Scoped variable management (global, graph, node)
@@ -161,6 +169,11 @@ neurop_forge/runtime/
 - Full execution trace
 
 ## Recent Changes
+- **Adapter Layer**: FunctionAdapter bridges semantic inputs to actual function signatures
+  - AST-based signature introspection (FunctionSignature.from_source)
+  - SemanticInputMapper with 15+ semantic alias categories
+  - Auto-generated parameter handling (v1, v2, etc.) via interface metadata
+  - Signature caching for performance
 - Phase 2 complete: Runtime Executor with full Intent -> Compose -> Execute -> Result loop
 - Added ExecutionContext with scoped variables and checkpointing
 - Added GraphExecutor with deterministic block execution and input binding
@@ -170,3 +183,7 @@ neurop_forge/runtime/
 - 4,518 blocks from 175 source modules
 - 100% composition confidence on semantic graphs
 - Semantic domain matching with type flow validation
+
+## Execution Demo Results
+- Direct block execution: SUCCESS (`reverse_string` → `'dlrow olleh'`, `is_empty` → `False`)
+- Semantic graph execution: PARTIAL_SUCCESS (2/9 nodes succeed - remaining failures are block-internal issues)
