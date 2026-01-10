@@ -1,0 +1,169 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "674e152b2ab2f3d5296a21324e5c7cac6e470676bb41ef06cac2454c54f8d39d",
+    "semantic_fingerprint": "e613e180f5853e0f7823d9baaf21a8b36da50a7f83a67a75b1e6e48cc7ffb039",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a snapshot record.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter stream_id",
+        "name": "stream_id",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter state",
+        "name": "state",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter last_sequence",
+        "name": "last_sequence",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter timestamp",
+        "name": "timestamp",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_snapshot",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_snapshot(stream_id: str, state: dict, last_sequence: int, timestamp: str) -> dict:\n    \"\"\"Build a snapshot record.\"\"\"\n    return {\n        \"stream_id\": stream_id,\n        \"state\": state,\n        \"last_sequence\": last_sequence,\n        \"timestamp\": timestamp\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:27.614573+00:00",
+    "description": "Build a snapshot record.",
+    "intent": "Build a snapshot record.",
+    "language": "python",
+    "name": "build_snapshot",
+    "source_file": "neurop_forge/sources/event_sourcing.py",
+    "source_line_end": 109,
+    "source_line_start": 102,
+    "tags": [
+      "build",
+      "dict_operation",
+      "last_sequence",
+      "snapshot",
+      "state",
+      "stream_id",
+      "timestamp"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.614599+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(stream_id) == string",
+      "stream_id is not None",
+      "type(state) == dict",
+      "state is not None",
+      "type(last_sequence) == integer",
+      "last_sequence is not None",
+      "type(timestamp) == string",
+      "timestamp is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(stream_id) == string",
+      "stream_id is not None",
+      "type(state) == dict",
+      "state is not None",
+      "type(last_sequence) == integer",
+      "last_sequence is not None",
+      "type(timestamp) == string",
+      "timestamp is not None"
+    ]
+  }
+}

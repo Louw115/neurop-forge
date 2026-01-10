@@ -1,0 +1,149 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception",
+      "KeyError"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "12cd364d3d2b873ea98397c3869044ad7157af96bae90b34facfa168bb0955b9",
+    "semantic_fingerprint": "2c52ef3a2fe016c11c830923f31c4a5a008dd823e8cb3783f72fa80ff48999a9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract API key from query parameters.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter query_params",
+        "name": "query_params",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter param_name",
+        "name": "param_name",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of extract_api_key_from_query",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def extract_api_key_from_query(query_params: dict, param_name: str) -> str:\n    \"\"\"Extract API key from query parameters.\"\"\"\n    return query_params.get(param_name, \"\")",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:27.040980+00:00",
+    "description": "Extract API key from query parameters.",
+    "intent": "Extract API key from query parameters.",
+    "language": "python",
+    "name": "extract_api_key_from_query",
+    "source_file": "neurop_forge/sources/auth_patterns.py",
+    "source_line_end": 292,
+    "source_line_start": 290,
+    "tags": [
+      "api",
+      "extract",
+      "filtering",
+      "from",
+      "key",
+      "param_name",
+      "query",
+      "query_params"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.041025+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(query_params) == dict",
+      "query_params is not None",
+      "type(param_name) == string",
+      "param_name is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(query_params) == dict",
+      "query_params is not None",
+      "type(param_name) == string",
+      "param_name is not None"
+    ]
+  }
+}

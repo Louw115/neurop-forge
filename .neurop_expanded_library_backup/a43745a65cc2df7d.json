@@ -1,0 +1,132 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a43745a65cc2df7d887add75140996a9a6dc52ae9cda6c5e3d22a515ae16dfe2",
+    "semantic_fingerprint": "d9ebb361e8f523615503d4142d7c2aa8f3953e0dd3766fca3f100fb8d9f1821c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Decode Morse code to text.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter morse",
+        "name": "morse",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of morse_decode",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def morse_decode(morse: str) -> str:\n    \"\"\"Decode Morse code to text.\"\"\"\n    decode = {\n        \".-\": \"A\", \"-...\": \"B\", \"-.-.\": \"C\", \"-..\": \"D\", \".\": \"E\", \"..-.\": \"F\",\n        \"--.\": \"G\", \"....\": \"H\", \"..\": \"I\", \".---\": \"J\", \"-.-\": \"K\", \".-..\": \"L\",\n        \"--\": \"M\", \"-.\": \"N\", \"---\": \"O\", \".--.\": \"P\", \"--.-\": \"Q\", \".-.\": \"R\",\n        \"...\": \"S\", \"-\": \"T\", \"..-\": \"U\", \"...-\": \"V\", \".--\": \"W\", \"-..-\": \"X\",\n        \"-.--\": \"Y\", \"--..\": \"Z\", \"-----\": \"0\", \".----\": \"1\", \"..---\": \"2\",\n        \"...--\": \"3\", \"....-\": \"4\", \".....\": \"5\", \"-....\": \"6\", \"--...\": \"7\",\n        \"---..\": \"8\", \"----.\": \"9\", \"/\": \" \"\n    }\n    return \"\".join(decode.get(code, \"\") for code in morse.split(\" \"))",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:32.269105+00:00",
+    "description": "Decode Morse code to text.",
+    "intent": "Decode Morse code to text.",
+    "language": "python",
+    "name": "morse_decode",
+    "source_file": "neurop_forge/sources/encoding_schemes.py",
+    "source_line_end": 212,
+    "source_line_start": 201,
+    "tags": [
+      "decode",
+      "morse",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:32.269132+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(morse) == string",
+      "morse is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(morse) == string",
+      "morse is not None"
+    ]
+  }
+}

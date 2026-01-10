@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "85a0abd20d3af2c730ff2008715a6061bafe4e1a930567bed24862a3785d4ef7",
+    "semantic_fingerprint": "d519b74f5f4ed3c66c2c1fce7457f42b01f0eac61af4f9e0b5a1fbd61f23aa1f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find first item matching predicate.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter predicate",
+        "name": "predicate",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of find_first",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def find_first(items: list, predicate) -> int:\n    \"\"\"Find first item matching predicate.\"\"\"\n    for i, item in enumerate(items):\n        if predicate(item):\n            return i\n    return -1",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:31.053748+00:00",
+    "description": "Find first item matching predicate.",
+    "intent": "Find first item matching predicate.",
+    "language": "python",
+    "name": "find_first",
+    "source_file": "neurop_forge/sources/search_algorithms.py",
+    "source_line_end": 162,
+    "source_line_start": 157,
+    "tags": [
+      "filtering",
+      "find",
+      "first",
+      "items",
+      "predicate"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.053766+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "predicate is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "predicate is not None"
+    ]
+  }
+}

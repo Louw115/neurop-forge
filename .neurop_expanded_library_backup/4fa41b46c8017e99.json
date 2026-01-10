@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4fa41b46c8017e9985fb3433fb36d7bab509bfffb5350c7a077db1a472c6a7d8",
+    "semantic_fingerprint": "8d6c064fd3f332640f2d948a2c51c6dbfa72e5234a5e0a05033b37d929372822",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Redact sensitive values in a configuration dictionary.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter config",
+        "name": "config",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of redact_sensitive_config",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def redact_sensitive_config(config: dict) -> dict:\n    \"\"\"Redact sensitive values in a configuration dictionary.\"\"\"\n    result = {}\n    for key, value in config.items():\n        if isinstance(value, dict):\n            result[key] = redact_sensitive_config(value)\n        elif is_sensitive_key(key):\n            result[key] = '[REDACTED]'\n        else:\n            result[key] = value\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:25.410835+00:00",
+    "description": "Redact sensitive values in a configuration dictionary.",
+    "intent": "Redact sensitive values in a configuration dictionary.",
+    "language": "python",
+    "name": "redact_sensitive_config",
+    "source_file": "neurop_forge/sources/configuration_utilities.py",
+    "source_line_end": 310,
+    "source_line_start": 300,
+    "tags": [
+      "config",
+      "dict_operation",
+      "redact",
+      "sensitive"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.410853+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(config) == dict",
+      "config is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(config) == dict",
+      "config is not None"
+    ]
+  }
+}

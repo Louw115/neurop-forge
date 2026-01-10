@@ -1,0 +1,148 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "bf9ebc83ad36b1163efa4bf36671d53b1327af7348352cc393fa84ab5bf049c2",
+    "semantic_fingerprint": "04bb1733a1683479fdf7894dc4e85cdd5603e7d9381b96a4d2db586851a7d74b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate time to wait for sufficient tokens.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter tokens_needed",
+        "name": "tokens_needed",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter refill_rate",
+        "name": "refill_rate",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_wait_time_for_tokens",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_wait_time_for_tokens(tokens_needed: float, refill_rate: float) -> float:\n    \"\"\"Calculate time to wait for sufficient tokens.\"\"\"\n    return tokens_needed / refill_rate if refill_rate > 0 else float('inf')",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:25.232690+00:00",
+    "description": "Calculate time to wait for sufficient tokens.",
+    "intent": "Calculate time to wait for sufficient tokens.",
+    "language": "python",
+    "name": "calculate_wait_time_for_tokens",
+    "source_file": "neurop_forge/sources/rate_limiting.py",
+    "source_line_end": 262,
+    "source_line_start": 260,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "for",
+      "refill_rate",
+      "time",
+      "tokens",
+      "tokens_needed",
+      "wait"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.232716+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(tokens_needed) == float",
+      "tokens_needed is not None",
+      "type(refill_rate) == float",
+      "refill_rate is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(tokens_needed) == float",
+      "tokens_needed is not None",
+      "type(refill_rate) == float",
+      "refill_rate is not None"
+    ]
+  }
+}

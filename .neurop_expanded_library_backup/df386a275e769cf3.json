@@ -1,0 +1,159 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "df386a275e769cf32faba9e52120ebc4313d5938559f73a2900499bc26f93eac",
+    "semantic_fingerprint": "0f91da9c7240ceba0af1dc324f009c86daa6b19ecfd083767692688790876229",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate ALTER TABLE RENAME COLUMN SQL.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter table",
+        "name": "table",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter old_name",
+        "name": "old_name",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter new_name",
+        "name": "new_name",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_rename_column_sql",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_rename_column_sql(table: str, old_name: str, new_name: str) -> str:\n    \"\"\"Generate ALTER TABLE RENAME COLUMN SQL.\"\"\"\n    from neurop_forge.sources.sql_building import escape_sql_identifier\n    return f\"ALTER TABLE {escape_sql_identifier(table)} RENAME COLUMN {escape_sql_identifier(old_name)} TO {escape_sql_identifier(new_name)}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:26.238920+00:00",
+    "description": "Generate ALTER TABLE RENAME COLUMN SQL.",
+    "intent": "Generate ALTER TABLE RENAME COLUMN SQL.",
+    "language": "python",
+    "name": "generate_rename_column_sql",
+    "source_file": "neurop_forge/sources/migration_helpers.py",
+    "source_line_end": 80,
+    "source_line_start": 77,
+    "tags": [
+      "column",
+      "generate",
+      "new_name",
+      "old_name",
+      "rename",
+      "sql",
+      "string_manipulation",
+      "table"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.238939+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(table) == string",
+      "table is not None",
+      "type(old_name) == string",
+      "old_name is not None",
+      "type(new_name) == string",
+      "new_name is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(table) == string",
+      "table is not None",
+      "type(old_name) == string",
+      "old_name is not None",
+      "type(new_name) == string",
+      "new_name is not None"
+    ]
+  }
+}

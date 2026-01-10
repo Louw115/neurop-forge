@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "28be9f9d6c50690f959c6dbf8284fa01aec91f18c53d500981b0e7cb3e481734",
+    "semantic_fingerprint": "a6ceb776f5421cf27f042cea953ccc2c435f0cd4096b923e92e02ab759538113",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Convert to sorted list of key-value pairs.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter sl",
+        "name": "sl",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of skip_list_to_list",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def skip_list_to_list(sl: dict) -> list:\n    \"\"\"Convert to sorted list of key-value pairs.\"\"\"\n    result = []\n    node = sl[\"head\"][\"forward\"][0]\n    while node:\n        result.append((node[\"key\"], node[\"value\"]))\n        node = node[\"forward\"][0]\n    return result",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T12:22:30.836065+00:00",
+    "description": "Convert to sorted list of key-value pairs.",
+    "intent": "Convert to sorted list of key-value pairs.",
+    "language": "python",
+    "name": "skip_list_to_list",
+    "source_file": "neurop_forge/sources/skip_list.py",
+    "source_line_end": 165,
+    "source_line_start": 158,
+    "tags": [
+      "list",
+      "skip",
+      "sl",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.836081+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(sl) == dict",
+      "sl is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(sl) == dict",
+      "sl is not None"
+    ]
+  }
+}

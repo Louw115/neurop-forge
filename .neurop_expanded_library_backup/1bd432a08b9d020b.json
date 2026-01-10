@@ -1,0 +1,144 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1bd432a08b9d020b43908a9af287efc613e7b907c3888a17e45943e6eb84793a",
+    "semantic_fingerprint": "5332a47543561d947a3f5bdf30deb3ca94c1e9fe74af9e06893487f850e8edce",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Set prerelease tag.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter version",
+        "name": "version",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter prerelease",
+        "name": "prerelease",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of set_prerelease",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def set_prerelease(version: str, prerelease: str) -> str:\n    \"\"\"Set prerelease tag.\"\"\"\n    p = parse_version(version)\n    if not p:\n        return version\n    p['prerelease'] = prerelease\n    return format_version(p)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:32.596179+00:00",
+    "description": "Set prerelease tag.",
+    "intent": "Set prerelease tag.",
+    "language": "python",
+    "name": "set_prerelease",
+    "source_file": "neurop_forge/sources/semantic_version.py",
+    "source_line_end": 113,
+    "source_line_start": 107,
+    "tags": [
+      "prerelease",
+      "set",
+      "string_manipulation",
+      "version"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:32.596207+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(version) == string",
+      "version is not None",
+      "type(prerelease) == string",
+      "prerelease is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(version) == string",
+      "version is not None",
+      "type(prerelease) == string",
+      "prerelease is not None"
+    ]
+  }
+}

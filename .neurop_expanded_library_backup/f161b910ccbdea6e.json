@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f161b910ccbdea6e27ba1888f47a81437c98416a60e89ad2179e4113cf01b206",
+    "semantic_fingerprint": "5e88b464405309d4c2d2881c97e8815562fca1a40aaa1adcefddff11f50efb83",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Humanize relative time.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seconds",
+        "name": "seconds",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of humanize_relative",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def humanize_relative(seconds: int) -> str:\n    \"\"\"Humanize relative time.\"\"\"\n    if abs(seconds) < 60:\n        return \"just now\"\n    if seconds > 0:\n        if seconds < 3600:\n            return f\"{seconds // 60} minutes ago\"\n        if seconds < 86400:\n            return f\"{seconds // 3600} hours ago\"\n        return f\"{seconds // 86400} days ago\"\n    else:\n        secs = abs(seconds)\n        if secs < 3600:\n            return f\"in {secs // 60} minutes\"\n        if secs < 86400:\n            return f\"in {secs // 3600} hours\"\n        return f\"in {secs // 86400} days\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:34.279721+00:00",
+    "description": "Humanize relative time.",
+    "intent": "Humanize relative time.",
+    "language": "python",
+    "name": "humanize_relative",
+    "source_file": "neurop_forge/sources/duration_utilities.py",
+    "source_line_end": 215,
+    "source_line_start": 199,
+    "tags": [
+      "humanize",
+      "relative",
+      "seconds",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.279744+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(seconds) == integer",
+      "seconds is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(seconds) == integer",
+      "seconds is not None"
+    ]
+  }
+}

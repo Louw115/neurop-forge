@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1682d59a46fd0a7683d2c2485b1023c8cc7157ddce5dc7d348d6aa62cbea10f4",
+    "semantic_fingerprint": "371dbde6f3a57fdda4b2792d268d1231ab7cd1f64331cb33edd545f49050a3db",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Unflatten a flat configuration dictionary.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter flat_config",
+        "name": "flat_config",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter separator",
+        "name": "separator",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of unflatten_config",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def unflatten_config(flat_config: dict, separator: str) -> dict:\n    \"\"\"Unflatten a flat configuration dictionary.\"\"\"\n    result = {}\n    for key, value in flat_config.items():\n        parts = key.split(separator)\n        current = result\n        for part in parts[:-1]:\n            if part not in current:\n                current[part] = {}\n            current = current[part]\n        current[parts[-1]] = value\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:25.372864+00:00",
+    "description": "Unflatten a flat configuration dictionary.",
+    "intent": "Unflatten a flat configuration dictionary.",
+    "language": "python",
+    "name": "unflatten_config",
+    "source_file": "neurop_forge/sources/configuration_utilities.py",
+    "source_line_end": 136,
+    "source_line_start": 125,
+    "tags": [
+      "config",
+      "dict_operation",
+      "flat_config",
+      "separator",
+      "unflatten"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.372885+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(flat_config) == dict",
+      "flat_config is not None",
+      "type(separator) == string",
+      "separator is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(flat_config) == dict",
+      "flat_config is not None",
+      "type(separator) == string",
+      "separator is not None"
+    ]
+  }
+}

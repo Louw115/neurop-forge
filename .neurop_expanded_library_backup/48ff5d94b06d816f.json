@@ -1,0 +1,139 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": false,
+    "io_operations": [
+      "time"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "non_deterministic",
+    "side_effects": [
+      "time"
+    ],
+    "thread_safe": false
+  },
+  "failure_modes": {
+    "can_fail": true,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "raises_exception",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "48ff5d94b06d816f6b91f1398081870df98de6ccf47412b34022a67d0dcd4a4c",
+    "semantic_fingerprint": "277f058f61a15e6bd70e3e852ec166651b6bce11fcb264117a30662b203ca7a2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse time string (HH:MM:SS or HH:MM).",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter time_str",
+        "name": "time_str",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of parse_time",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_time(time_str: str) -> dict:\n    \"\"\"Parse time string (HH:MM:SS or HH:MM).\"\"\"\n    parts = time_str.split(\":\")\n    hours = int(parts[0]) if parts else 0\n    minutes = int(parts[1]) if len(parts) > 1 else 0\n    seconds = int(parts[2]) if len(parts) > 2 else 0\n    return {\"hours\": hours, \"minutes\": minutes, \"seconds\": seconds}",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T12:22:31.698100+00:00",
+    "description": "Parse time string (HH:MM:SS or HH:MM).",
+    "intent": "Parse time string (HH:MM:SS or HH:MM).",
+    "language": "python",
+    "name": "parse_time",
+    "source_file": "neurop_forge/sources/time_utilities.py",
+    "source_line_end": 151,
+    "source_line_start": 145,
+    "tags": [
+      "parse",
+      "time",
+      "time_str",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 0.5,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.698137+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3025,
+    "risk_factors": [
+      "impure_function",
+      "non_deterministic",
+      "side_effects: time"
+    ],
+    "risk_level": "medium",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(time_str) == string",
+      "time_str is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(time_str) == string",
+      "time_str is not None"
+    ]
+  }
+}

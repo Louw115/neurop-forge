@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f55cab2c8578ce64bdfde63ac03bdd79d3e60d338adf12acbb4c10bfbb7bfa0c",
+    "semantic_fingerprint": "31ab3c81880509ab6e910f2c12b45b1e08ebb2531eb63c1a34832d402101746d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Wrap SQL statements in a transaction.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter sql",
+        "name": "sql",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of wrap_in_transaction",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def wrap_in_transaction(sql: str) -> str:\n    \"\"\"Wrap SQL statements in a transaction.\"\"\"\n    return f\"BEGIN;\\n{sql}\\nCOMMIT;\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:26.297979+00:00",
+    "description": "Wrap SQL statements in a transaction.",
+    "intent": "Wrap SQL statements in a transaction.",
+    "language": "python",
+    "name": "wrap_in_transaction",
+    "source_file": "neurop_forge/sources/migration_helpers.py",
+    "source_line_end": 289,
+    "source_line_start": 287,
+    "tags": [
+      "sql",
+      "string_manipulation",
+      "transaction",
+      "wrap"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.298027+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(sql) == string",
+      "sql is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(sql) == string",
+      "sql is not None"
+    ]
+  }
+}

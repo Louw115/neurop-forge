@@ -1,0 +1,147 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c8fc0fe7644a6c4fd811939b922f9f5c0e549abb6ec443fab2aa4d1c4b65faeb",
+    "semantic_fingerprint": "062ee8f1a6d4977cc3e98b3de9f338acd8720d7541cf73b57cba4f24cd2cb858",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get all flag values for user.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter flags",
+        "name": "flags",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter user_context",
+        "name": "user_context",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of get_all_flag_values",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_all_flag_values(flags: dict, user_context: dict) -> dict:\n    \"\"\"Get all flag values for user.\"\"\"\n    result = {}\n    for flag_id, flag in flags.items():\n        result[flag_id] = evaluate_feature_flag(flag, user_context)\n    return result",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:29.458275+00:00",
+    "description": "Get all flag values for user.",
+    "intent": "Get all flag values for user.",
+    "language": "python",
+    "name": "get_all_flag_values",
+    "source_file": "neurop_forge/sources/feature_flags.py",
+    "source_line_end": 175,
+    "source_line_start": 170,
+    "tags": [
+      "all",
+      "filtering",
+      "flag",
+      "flags",
+      "get",
+      "user_context",
+      "values"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.458293+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(flags) == dict",
+      "flags is not None",
+      "type(user_context) == dict",
+      "user_context is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(flags) == dict",
+      "flags is not None",
+      "type(user_context) == dict",
+      "user_context is not None"
+    ]
+  }
+}

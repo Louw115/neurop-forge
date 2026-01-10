@@ -1,0 +1,158 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7d8c2cdc8c3ba106e00b77f76fa11ea881c04668a4853ebb4b01de0efc4e7545",
+    "semantic_fingerprint": "8ba0e7eb7e84bd626b2d1d6d053aa387241698b2a62769a2d40954222bafb3f8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a CREATE TRIGGER statement for auditing.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter trigger_name",
+        "name": "trigger_name",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter table",
+        "name": "table",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter function_name",
+        "name": "function_name",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_audit_trigger",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_audit_trigger(trigger_name: str, table: str, function_name: str) -> str:\n    \"\"\"Build a CREATE TRIGGER statement for auditing.\"\"\"\n    from neurop_forge.sources.sql_building import escape_sql_identifier\n    return f\"\"\"\nCREATE TRIGGER {escape_sql_identifier(trigger_name)}\nAFTER INSERT OR UPDATE OR DELETE ON {escape_sql_identifier(table)}\nFOR EACH ROW EXECUTE FUNCTION {escape_sql_identifier(function_name)}();\n\"\"\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:26.842648+00:00",
+    "description": "Build a CREATE TRIGGER statement for auditing.",
+    "intent": "Build a CREATE TRIGGER statement for auditing.",
+    "language": "python",
+    "name": "build_audit_trigger",
+    "source_file": "neurop_forge/sources/audit_logging.py",
+    "source_line_end": 151,
+    "source_line_start": 144,
+    "tags": [
+      "audit",
+      "build",
+      "function_name",
+      "string_manipulation",
+      "table",
+      "trigger",
+      "trigger_name"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.842667+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(trigger_name) == string",
+      "trigger_name is not None",
+      "type(table) == string",
+      "table is not None",
+      "type(function_name) == string",
+      "function_name is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(trigger_name) == string",
+      "trigger_name is not None",
+      "type(table) == string",
+      "table is not None",
+      "type(function_name) == string",
+      "function_name is not None"
+    ]
+  }
+}

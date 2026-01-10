@@ -1,0 +1,147 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1fc3aee10a938681e48b2357fa7185457ad3fae4659cc7e95ab4dea4cbb75519",
+    "semantic_fingerprint": "9b42d78a14bb618b1b84186b1f6ae7c1180a25464540f651cbc7e55f41e19492",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Partition events by stream for parallel replay.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter events",
+        "name": "events",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter partition_count",
+        "name": "partition_count",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of partition_events_for_parallel_replay",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def partition_events_for_parallel_replay(events: list, partition_count: int) -> list:\n    \"\"\"Partition events by stream for parallel replay.\"\"\"\n    by_stream = {}\n    for event in events:\n        stream_id = event.get(\"stream_id\", \"default\")\n        if stream_id not in by_stream:\n            by_stream[stream_id] = []\n        by_stream[stream_id].append(event)\n    streams = list(by_stream.values())\n    partitions = [[] for _ in range(partition_count)]\n    for i, stream_events in enumerate(streams):\n        partitions[i % partition_count].extend(stream_events)\n    return partitions",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:27.665719+00:00",
+    "description": "Partition events by stream for parallel replay.",
+    "intent": "Partition events by stream for parallel replay.",
+    "language": "python",
+    "name": "partition_events_for_parallel_replay",
+    "source_file": "neurop_forge/sources/event_sourcing.py",
+    "source_line_end": 283,
+    "source_line_start": 271,
+    "tags": [
+      "events",
+      "for",
+      "list_operation",
+      "parallel",
+      "partition",
+      "partition_count",
+      "replay"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.665746+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(events) == list",
+      "events is not None",
+      "type(partition_count) == integer",
+      "partition_count is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(events) == list",
+      "events is not None",
+      "type(partition_count) == integer",
+      "partition_count is not None"
+    ]
+  }
+}

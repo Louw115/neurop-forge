@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b957d74a2a702f5e06fb1f78e4d5847a6a663256fbee279de1afeec91b0d9e9e",
+    "semantic_fingerprint": "f6aa0a5de2994852946b268aea2fd548aa4d35800c20598fcaad66e8ede81be5",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Evaluate if alert rule is triggered.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter rule",
+        "name": "rule",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter current_value",
+        "name": "current_value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of evaluate_alert_rule",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def evaluate_alert_rule(rule: dict, current_value: float) -> bool:\n    \"\"\"Evaluate if alert rule is triggered.\"\"\"\n    threshold = rule[\"threshold\"]\n    comparison = rule[\"comparison\"]\n    if comparison == \"above\":\n        return current_value > threshold\n    elif comparison == \"below\":\n        return current_value < threshold\n    elif comparison == \"equals\":\n        return abs(current_value - threshold) < 0.001\n    return False",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:28.913257+00:00",
+    "description": "Evaluate if alert rule is triggered.",
+    "intent": "Evaluate if alert rule is triggered.",
+    "language": "python",
+    "name": "evaluate_alert_rule",
+    "source_file": "neurop_forge/sources/metrics_patterns.py",
+    "source_line_end": 229,
+    "source_line_start": 219,
+    "tags": [
+      "alert",
+      "arithmetic",
+      "current_value",
+      "evaluate",
+      "rule"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.913286+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(rule) == dict",
+      "rule is not None",
+      "type(current_value) == float",
+      "current_value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(rule) == dict",
+      "rule is not None",
+      "type(current_value) == float",
+      "current_value is not None"
+    ]
+  }
+}

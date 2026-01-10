@@ -1,0 +1,156 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5735de43a1b222cf186c8361b2b2ac5f8c902277f9ee8cbb481b0b7418e02fe9",
+    "semantic_fingerprint": "139df5ec747b19816e9fe02dc0a790f7b4c07dffd862d92995a5a01cc3d965c2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate string matches regex pattern.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter pattern",
+        "name": "pattern",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter field_name",
+        "name": "field_name",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of validate_pattern",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_pattern(value: str, pattern: str, field_name: str) -> dict:\n    \"\"\"Validate string matches regex pattern.\"\"\"\n    import re\n    if not re.match(pattern, value):\n        return {\"valid\": False, \"error\": f\"{field_name} has invalid format\"}\n    return {\"valid\": True, \"error\": None}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:27.193751+00:00",
+    "description": "Validate string matches regex pattern.",
+    "intent": "Validate string matches regex pattern.",
+    "language": "python",
+    "name": "validate_pattern",
+    "source_file": "neurop_forge/sources/request_validation.py",
+    "source_line_end": 157,
+    "source_line_start": 152,
+    "tags": [
+      "field_name",
+      "pattern",
+      "validate",
+      "validation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.193781+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == string",
+      "value is not None",
+      "type(pattern) == string",
+      "pattern is not None",
+      "type(field_name) == string",
+      "field_name is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(value) == string",
+      "value is not None",
+      "type(pattern) == string",
+      "pattern is not None",
+      "type(field_name) == string",
+      "field_name is not None"
+    ]
+  }
+}

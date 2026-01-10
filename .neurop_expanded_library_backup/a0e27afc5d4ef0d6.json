@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a0e27afc5d4ef0d6f62d40123e6e855648298ff27be32773454ae2e3f796b214",
+    "semantic_fingerprint": "67354b6dedc378353571371a0c20711a6a50be1ba61299d6d65bf5f588a0daf6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Merge two inventory records.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter inv1",
+        "name": "inv1",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter inv2",
+        "name": "inv2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of merge_inventories",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def merge_inventories(inv1: dict, inv2: dict) -> dict:\n    \"\"\"Merge two inventory records.\"\"\"\n    merged = dict(inv1)\n    for sku, item in inv2.items():\n        if sku in merged:\n            merged[sku] = add_quantity(merged[sku], item[\"quantity\"])\n        else:\n            merged[sku] = item\n    return merged",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:34.503468+00:00",
+    "description": "Merge two inventory records.",
+    "intent": "Merge two inventory records.",
+    "language": "python",
+    "name": "merge_inventories",
+    "source_file": "neurop_forge/sources/inventory_utilities.py",
+    "source_line_end": 185,
+    "source_line_start": 177,
+    "tags": [
+      "dict_operation",
+      "inv1",
+      "inv2",
+      "inventories",
+      "merge"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.503496+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(inv1) == dict",
+      "inv1 is not None",
+      "type(inv2) == dict",
+      "inv2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(inv1) == dict",
+      "inv1 is not None",
+      "type(inv2) == dict",
+      "inv2 is not None"
+    ]
+  }
+}

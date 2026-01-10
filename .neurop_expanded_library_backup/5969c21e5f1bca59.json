@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5969c21e5f1bca5906f073b38c4c27fa75a8475d19552dde80bfbfad4100227e",
+    "semantic_fingerprint": "7e9f9737a9fce87e6eae8656828b6f668351ec434ecc2e38fda6964d9df6b8d7",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate Huffman codes from tree.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter tree",
+        "name": "tree",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter prefix",
+        "name": "prefix",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter codes",
+        "name": "codes",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of generate_huffman_codes",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_huffman_codes(tree: dict, prefix: str, codes: dict) -> dict:\n    \"\"\"Generate Huffman codes from tree.\"\"\"\n    if not tree:\n        return codes\n    if tree.get(\"symbol\") is not None:\n        codes[tree[\"symbol\"]] = prefix or \"0\"\n        return codes\n    if tree.get(\"left\"):\n        generate_huffman_codes(tree[\"left\"], prefix + \"0\", codes)\n    if tree.get(\"right\"):\n        generate_huffman_codes(tree[\"right\"], prefix + \"1\", codes)\n    return codes",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:28.790421+00:00",
+    "description": "Generate Huffman codes from tree.",
+    "intent": "Generate Huffman codes from tree.",
+    "language": "python",
+    "name": "generate_huffman_codes",
+    "source_file": "neurop_forge/sources/compression_utilities.py",
+    "source_line_end": 110,
+    "source_line_start": 99,
+    "tags": [
+      "codes",
+      "dict_operation",
+      "generate",
+      "huffman",
+      "prefix",
+      "tree"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.790450+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(tree) == dict",
+      "tree is not None",
+      "type(prefix) == string",
+      "prefix is not None",
+      "type(codes) == dict",
+      "codes is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(tree) == dict",
+      "tree is not None",
+      "type(prefix) == string",
+      "prefix is not None",
+      "type(codes) == dict",
+      "codes is not None"
+    ]
+  }
+}

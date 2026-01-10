@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "be7e4acdb5856569aeeda62cbe77b3c038a4467f17fc27a0e0f991c38d50df32",
+    "semantic_fingerprint": "156754aa5713e1321a04eeed502dbb99179cae836de49443c1cc25cedd3e7564",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Remove duplicates from batch, keeping first occurrence.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter records",
+        "name": "records",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter key_column",
+        "name": "key_column",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of deduplicate_batch",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def deduplicate_batch(records: list, key_column: str) -> list:\n    \"\"\"Remove duplicates from batch, keeping first occurrence.\"\"\"\n    seen = set()\n    result = []\n    for record in records:\n        key = record.get(key_column)\n        if key not in seen:\n            seen.add(key)\n            result.append(record)\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:26.816523+00:00",
+    "description": "Remove duplicates from batch, keeping first occurrence.",
+    "intent": "Remove duplicates from batch, keeping first occurrence.",
+    "language": "python",
+    "name": "deduplicate_batch",
+    "source_file": "neurop_forge/sources/batch_operations.py",
+    "source_line_end": 261,
+    "source_line_start": 252,
+    "tags": [
+      "batch",
+      "deduplicate",
+      "key_column",
+      "list_operation",
+      "records"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.816543+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(records) == list",
+      "records is not None",
+      "type(key_column) == string",
+      "key_column is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(records) == list",
+      "records is not None",
+      "type(key_column) == string",
+      "key_column is not None"
+    ]
+  }
+}

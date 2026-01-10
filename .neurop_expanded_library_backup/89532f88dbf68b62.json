@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "89532f88dbf68b62e9182938a49e97c28478b6e3068b07760fd958579e88657f",
+    "semantic_fingerprint": "fcb24e8d358a82b128dcc3347e67e40ded57d2a6cff78f0681959129de2d81a2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Keep only the parts of text that match the pattern.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter pattern",
+        "name": "pattern",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of keep_only_pattern",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def keep_only_pattern(text: str, pattern: str) -> str:\n    \"\"\"Keep only the parts of text that match the pattern.\"\"\"\n    try:\n        return ''.join(re.findall(pattern, text))\n    except re.error:\n        return \"\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:24.862937+00:00",
+    "description": "Keep only the parts of text that match the pattern.",
+    "intent": "Keep only the parts of text that match the pattern.",
+    "language": "python",
+    "name": "keep_only_pattern",
+    "source_file": "neurop_forge/sources/regex_utilities.py",
+    "source_line_end": 349,
+    "source_line_start": 344,
+    "tags": [
+      "keep",
+      "only",
+      "pattern",
+      "string_manipulation",
+      "text"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:24.862960+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None",
+      "type(pattern) == string",
+      "pattern is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None",
+      "type(pattern) == string",
+      "pattern is not None"
+    ]
+  }
+}

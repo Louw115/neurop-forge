@@ -1,0 +1,159 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "31c0577bb47f8d65c5fc71ce1d2738d3a476ed40896a4a3806ad2958eedf54f4",
+    "semantic_fingerprint": "6e2518ac5e1d2c89ad1862b0bc3c562c4740ebc151443ef7181322afa72e806b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Estimate memory usage of cache in bytes.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter item_count",
+        "name": "item_count",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter avg_key_size",
+        "name": "avg_key_size",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter avg_value_size",
+        "name": "avg_value_size",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of calculate_memory_size_estimate",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_memory_size_estimate(item_count: int, avg_key_size: int, avg_value_size: int) -> int:\n    \"\"\"Estimate memory usage of cache in bytes.\"\"\"\n    return item_count * (avg_key_size + avg_value_size)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:25.107603+00:00",
+    "description": "Estimate memory usage of cache in bytes.",
+    "intent": "Estimate memory usage of cache in bytes.",
+    "language": "python",
+    "name": "calculate_memory_size_estimate",
+    "source_file": "neurop_forge/sources/caching_utilities.py",
+    "source_line_end": 192,
+    "source_line_start": 190,
+    "tags": [
+      "arithmetic",
+      "avg_key_size",
+      "avg_value_size",
+      "calculate",
+      "estimate",
+      "item_count",
+      "memory",
+      "size"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.107637+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(item_count) == integer",
+      "item_count is not None",
+      "type(avg_key_size) == integer",
+      "avg_key_size is not None",
+      "type(avg_value_size) == integer",
+      "avg_value_size is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(item_count) == integer",
+      "item_count is not None",
+      "type(avg_key_size) == integer",
+      "avg_key_size is not None",
+      "type(avg_value_size) == integer",
+      "avg_value_size is not None"
+    ]
+  }
+}

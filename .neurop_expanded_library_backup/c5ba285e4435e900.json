@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic searching block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c5ba285e4435e900148be0ec86237f87e5183bd44bd07338ad568106c91c16da",
+    "semantic_fingerprint": "bf7d45637953e840b2a2a9d47004dc9ecbc353505c51afa1a3610b9c3d38a92d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Set a nested value.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter ht",
+        "name": "ht",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter keys",
+        "name": "keys",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of hash_table_set_nested",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def hash_table_set_nested(ht: dict, keys: list, value) -> dict:\n    \"\"\"Set a nested value.\"\"\"\n    if not keys:\n        return ht\n    if len(keys) == 1:\n        return hash_table_put(ht, keys[0], value)\n    current = hash_table_get_or_default(ht, keys[0], {})\n    if isinstance(current, dict):\n        nested_ht = hash_table_from_dict(current, 16)\n    else:\n        nested_ht = create_hash_table(16)\n    nested_ht = hash_table_set_nested(nested_ht, keys[1:], value)\n    return hash_table_put(ht, keys[0], hash_table_to_dict(nested_ht))",
+  "metadata": {
+    "category": "searching",
+    "created_at": "2026-01-10T12:22:30.569868+00:00",
+    "description": "Set a nested value.",
+    "intent": "Set a nested value.",
+    "language": "python",
+    "name": "hash_table_set_nested",
+    "source_file": "neurop_forge/sources/hash_table.py",
+    "source_line_end": 213,
+    "source_line_start": 201,
+    "tags": [
+      "hash",
+      "ht",
+      "keys",
+      "nested",
+      "searching",
+      "set",
+      "table",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.569890+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.37,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.8,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(ht) == dict",
+      "ht is not None",
+      "type(keys) == list",
+      "keys is not None",
+      "value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(ht) == dict",
+      "ht is not None",
+      "type(keys) == list",
+      "keys is not None",
+      "value is not None"
+    ]
+  }
+}

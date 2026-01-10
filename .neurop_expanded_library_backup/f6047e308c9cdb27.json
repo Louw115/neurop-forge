@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f6047e308c9cdb27346ac3d186b0f59407f50b177dea993beab11345dd2055c4",
+    "semantic_fingerprint": "536556049ff9bc1169e85c66343e739b8b36296650e447175f625cda06b8da99",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Categorize HTTP status code.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter status",
+        "name": "status",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of categorize_http_status",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def categorize_http_status(status: int) -> str:\n    \"\"\"Categorize HTTP status code.\"\"\"\n    if status < 400:\n        return \"success\"\n    if status < 500:\n        return \"client_error\"\n    return \"server_error\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:33.365682+00:00",
+    "description": "Categorize HTTP status code.",
+    "intent": "Categorize HTTP status code.",
+    "language": "python",
+    "name": "categorize_http_status",
+    "source_file": "neurop_forge/sources/exception_utilities.py",
+    "source_line_end": 194,
+    "source_line_start": 188,
+    "tags": [
+      "categorize",
+      "http",
+      "status",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:33.365707+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(status) == integer",
+      "status is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(status) == integer",
+      "status is not None"
+    ]
+  }
+}

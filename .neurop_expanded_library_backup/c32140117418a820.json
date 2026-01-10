@@ -1,0 +1,169 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c32140117418a820db930e4235c12bff67acd9cf9d7cd0f3827bf2317e201c50",
+    "semantic_fingerprint": "ca2cd8cc02321f28e1fd967534a75cbcd9d8c7247058d4817dde47adf37101dd",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build retry result.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter attempts",
+        "name": "attempts",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_attempts",
+        "name": "max_attempts",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter last_error",
+        "name": "last_error",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter success",
+        "name": "success",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of retry_result",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def retry_result(attempts: int, max_attempts: int, last_error: str, success: bool) -> dict:\n    \"\"\"Build retry result.\"\"\"\n    return {\n        \"success\": success,\n        \"attempts\": attempts,\n        \"max_attempts\": max_attempts,\n        \"should_retry\": not success and attempts < max_attempts,\n        \"last_error\": last_error\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:30.712659+00:00",
+    "description": "Build retry result.",
+    "intent": "Build retry result.",
+    "language": "python",
+    "name": "retry_result",
+    "source_file": "neurop_forge/sources/promise_utilities.py",
+    "source_line_end": 179,
+    "source_line_start": 171,
+    "tags": [
+      "attempts",
+      "dict_operation",
+      "last_error",
+      "max_attempts",
+      "result",
+      "retry",
+      "success"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.712678+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(attempts) == integer",
+      "attempts is not None",
+      "type(max_attempts) == integer",
+      "max_attempts is not None",
+      "type(last_error) == string",
+      "last_error is not None",
+      "type(success) == boolean",
+      "success is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(attempts) == integer",
+      "attempts is not None",
+      "type(max_attempts) == integer",
+      "max_attempts is not None",
+      "type(last_error) == string",
+      "last_error is not None",
+      "type(success) == boolean",
+      "success is not None"
+    ]
+  }
+}

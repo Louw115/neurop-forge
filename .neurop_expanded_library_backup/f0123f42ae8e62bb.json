@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f0123f42ae8e62bbcaa841213d11ac91ebdd55d956f8419d5cb790860ce3c2ac",
+    "semantic_fingerprint": "fcddff8f9e6277944e570c80371b77972e9adec4c98b28298654a772fbba6e0f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a UNION or UNION ALL query.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter query1",
+        "name": "query1",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter query2",
+        "name": "query2",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter all_rows",
+        "name": "all_rows",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_union",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_union(query1: str, query2: str, all_rows: bool) -> str:\n    \"\"\"Build a UNION or UNION ALL query.\"\"\"\n    union_type = \"UNION ALL\" if all_rows else \"UNION\"\n    return f\"({query1}) {union_type} ({query2})\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:25.890630+00:00",
+    "description": "Build a UNION or UNION ALL query.",
+    "intent": "Build a UNION or UNION ALL query.",
+    "language": "python",
+    "name": "build_union",
+    "source_file": "neurop_forge/sources/sql_building.py",
+    "source_line_end": 218,
+    "source_line_start": 215,
+    "tags": [
+      "all_rows",
+      "build",
+      "query1",
+      "query2",
+      "string_manipulation",
+      "union"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.890660+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(query1) == string",
+      "query1 is not None",
+      "type(query2) == string",
+      "query2 is not None",
+      "type(all_rows) == boolean",
+      "all_rows is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(query1) == string",
+      "query1 is not None",
+      "type(query2) == string",
+      "query2 is not None",
+      "type(all_rows) == boolean",
+      "all_rows is not None"
+    ]
+  }
+}

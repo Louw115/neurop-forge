@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b4036a1f1a7a1b34b52817bb7df592ff20dfd0bffd0c833f49c37f72cabc6b46",
+    "semantic_fingerprint": "55ba83380b10349b4f0264d1a37e76abc5824659385d40a9820d7e351fea5346",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate binary cross-entropy loss.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter predicted",
+        "name": "predicted",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter actual",
+        "name": "actual",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of binary_cross_entropy",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def binary_cross_entropy(predicted: float, actual: float) -> float:\n    \"\"\"Calculate binary cross-entropy loss.\"\"\"\n    import math\n    epsilon = 1e-15\n    predicted = max(epsilon, min(1 - epsilon, predicted))\n    return -(actual * math.log(predicted) + (1 - actual) * math.log(1 - predicted))",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:28.008500+00:00",
+    "description": "Calculate binary cross-entropy loss.",
+    "intent": "Calculate binary cross-entropy loss.",
+    "language": "python",
+    "name": "binary_cross_entropy",
+    "source_file": "neurop_forge/sources/ml_utilities.py",
+    "source_line_end": 128,
+    "source_line_start": 123,
+    "tags": [
+      "actual",
+      "arithmetic",
+      "binary",
+      "cross",
+      "entropy",
+      "predicted"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.008520+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(predicted) == float",
+      "predicted is not None",
+      "type(actual) == float",
+      "actual is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(predicted) == float",
+      "predicted is not None",
+      "type(actual) == float",
+      "actual is not None"
+    ]
+  }
+}

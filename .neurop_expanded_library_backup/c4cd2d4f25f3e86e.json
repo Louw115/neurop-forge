@@ -1,0 +1,155 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c4cd2d4f25f3e86ed4b3b084b3ed779b611f0a517b52370c798f74ff69c886f3",
+    "semantic_fingerprint": "58e88d2bf4862b5b97a7deb6d5be9452e3dfaae2fe516b31a3120c44a44a25cb",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Create standardized result object.",
+    "inputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter success",
+        "name": "success",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter error",
+        "name": "error",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of create_error_result",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def create_error_result(success: bool, value, error: str) -> dict:\n    \"\"\"Create standardized result object.\"\"\"\n    return {\n        \"success\": success,\n        \"value\": value,\n        \"error\": error\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:33.327441+00:00",
+    "description": "Create standardized result object.",
+    "intent": "Create standardized result object.",
+    "language": "python",
+    "name": "create_error_result",
+    "source_file": "neurop_forge/sources/exception_utilities.py",
+    "source_line_end": 18,
+    "source_line_start": 12,
+    "tags": [
+      "create",
+      "dict_operation",
+      "error",
+      "result",
+      "success",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:33.327468+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(success) == boolean",
+      "success is not None",
+      "value is not None",
+      "type(error) == string",
+      "error is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(success) == boolean",
+      "success is not None",
+      "value is not None",
+      "type(error) == string",
+      "error is not None"
+    ]
+  }
+}

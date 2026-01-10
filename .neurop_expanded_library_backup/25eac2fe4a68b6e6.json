@@ -1,0 +1,169 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception",
+      "KeyError"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "25eac2fe4a68b6e65f0253e45d66995a80b5fc1bd9d92bc5e6787485a2bdf644",
+    "semantic_fingerprint": "8772a96ca2539e248fd149a97f81414a2be3d897d5edb39f970b278b78c28c25",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Translate a key using translation dictionary.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter translations",
+        "name": "translations",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter locale",
+        "name": "locale",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter fallback_locale",
+        "name": "fallback_locale",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of translate_key",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def translate_key(key: str, translations: dict, locale: str, fallback_locale: str) -> str:\n    \"\"\"Translate a key using translation dictionary.\"\"\"\n    locale_trans = translations.get(locale, {})\n    if key in locale_trans:\n        return locale_trans[key]\n    fallback_trans = translations.get(fallback_locale, {})\n    return fallback_trans.get(key, key)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:28.595609+00:00",
+    "description": "Translate a key using translation dictionary.",
+    "intent": "Translate a key using translation dictionary.",
+    "language": "python",
+    "name": "translate_key",
+    "source_file": "neurop_forge/sources/i18n_patterns.py",
+    "source_line_end": 131,
+    "source_line_start": 125,
+    "tags": [
+      "fallback_locale",
+      "key",
+      "locale",
+      "string_manipulation",
+      "translate",
+      "translations"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.595635+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(key) == string",
+      "key is not None",
+      "type(translations) == dict",
+      "translations is not None",
+      "type(locale) == string",
+      "locale is not None",
+      "type(fallback_locale) == string",
+      "fallback_locale is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(key) == string",
+      "key is not None",
+      "type(translations) == dict",
+      "translations is not None",
+      "type(locale) == string",
+      "locale is not None",
+      "type(fallback_locale) == string",
+      "fallback_locale is not None"
+    ]
+  }
+}

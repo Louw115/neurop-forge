@@ -1,0 +1,170 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c364b073d7577a44bea7cf8ab888ff5677f74a365399914da45a60605190238b",
+    "semantic_fingerprint": "8a44d282288d98a00bdd208fe4481081addafc1223603f455bca26fbcd5a634b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate Bayesian average rating.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter item_rating",
+        "name": "item_rating",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter item_count",
+        "name": "item_count",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter global_avg",
+        "name": "global_avg",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter min_votes",
+        "name": "min_votes",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_bayesian_average",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_bayesian_average(item_rating: float, item_count: int, global_avg: float, min_votes: int) -> float:\n    \"\"\"Calculate Bayesian average rating.\"\"\"\n    return (min_votes * global_avg + item_count * item_rating) / (min_votes + item_count)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:35.058329+00:00",
+    "description": "Calculate Bayesian average rating.",
+    "intent": "Calculate Bayesian average rating.",
+    "language": "python",
+    "name": "calculate_bayesian_average",
+    "source_file": "neurop_forge/sources/review_utilities.py",
+    "source_line_end": 154,
+    "source_line_start": 152,
+    "tags": [
+      "arithmetic",
+      "average",
+      "bayesian",
+      "calculate",
+      "global_avg",
+      "item_count",
+      "item_rating",
+      "min_votes"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:35.058349+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(item_rating) == float",
+      "item_rating is not None",
+      "type(item_count) == integer",
+      "item_count is not None",
+      "type(global_avg) == float",
+      "global_avg is not None",
+      "type(min_votes) == integer",
+      "min_votes is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(item_rating) == float",
+      "item_rating is not None",
+      "type(item_count) == integer",
+      "item_count is not None",
+      "type(global_avg) == float",
+      "global_avg is not None",
+      "type(min_votes) == integer",
+      "min_votes is not None"
+    ]
+  }
+}

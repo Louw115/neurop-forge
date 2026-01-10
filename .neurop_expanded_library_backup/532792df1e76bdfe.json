@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "532792df1e76bdfebb35908f933a7a3d34f97946c9c8db4b4a77147bb4c71cdb",
+    "semantic_fingerprint": "82d272fc70650da14e11085544567b0481b35e799642edf1c02ea7c10fa80b1a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate cofactor at position.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter m",
+        "name": "m",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter row",
+        "name": "row",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter col",
+        "name": "col",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of matrix_cofactor",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def matrix_cofactor(m: dict, row: int, col: int) -> float:\n    \"\"\"Calculate cofactor at position.\"\"\"\n    minor = matrix_minor(m, row, col)\n    sign = 1 if (row + col) % 2 == 0 else -1\n    if minor[\"num_rows\"] == 2:\n        return sign * matrix_determinant_2x2(minor)\n    return sign * matrix_determinant(minor)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:29.700665+00:00",
+    "description": "Calculate cofactor at position.",
+    "intent": "Calculate cofactor at position.",
+    "language": "python",
+    "name": "matrix_cofactor",
+    "source_file": "neurop_forge/sources/matrix_utilities.py",
+    "source_line_end": 122,
+    "source_line_start": 116,
+    "tags": [
+      "arithmetic",
+      "cofactor",
+      "col",
+      "m",
+      "matrix",
+      "row"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.700691+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(m) == dict",
+      "m is not None",
+      "type(row) == integer",
+      "row is not None",
+      "type(col) == integer",
+      "col is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(m) == dict",
+      "m is not None",
+      "type(row) == integer",
+      "row is not None",
+      "type(col) == integer",
+      "col is not None"
+    ]
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0845b14a1992ea443a8f150a54ba66602d754521de2694d537d3ed2127450ae1",
+    "semantic_fingerprint": "dda7acdd9a8b53319a5b20a443124d3d3bd949b26ac163f826aecff4cbbe3553",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format a delete success response.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter resource_type",
+        "name": "resource_type",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter resource_id",
+        "name": "resource_id",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of format_deleted_response",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_deleted_response(resource_type: str, resource_id: str) -> dict:\n    \"\"\"Format a delete success response.\"\"\"\n    return {\n        \"success\": True,\n        \"message\": f\"{resource_type} deleted successfully\",\n        \"id\": resource_id\n    }",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:27.252387+00:00",
+    "description": "Format a delete success response.",
+    "intent": "Format a delete success response.",
+    "language": "python",
+    "name": "format_deleted_response",
+    "source_file": "neurop_forge/sources/response_formatting.py",
+    "source_line_end": 53,
+    "source_line_start": 47,
+    "tags": [
+      "deleted",
+      "format",
+      "resource_id",
+      "resource_type",
+      "response",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.252405+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(resource_type) == string",
+      "resource_type is not None",
+      "type(resource_id) == string",
+      "resource_id is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(resource_type) == string",
+      "resource_type is not None",
+      "type(resource_id) == string",
+      "resource_id is not None"
+    ]
+  }
+}

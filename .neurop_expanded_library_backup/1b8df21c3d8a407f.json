@@ -1,0 +1,165 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1b8df21c3d8a407f62ed2f4f56922ec5ecdccf57b75acac0d70938a09befebd7",
+    "semantic_fingerprint": "fdc573855a9388602c32cef0662fa58e0c6e623ec62e35788a6dc24ef2857903",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Convert CMYK to RGB.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter c",
+        "name": "c",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter m",
+        "name": "m",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter y",
+        "name": "y",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter k",
+        "name": "k",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Return value of cmyk_to_rgb",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def cmyk_to_rgb(c: int, m: int, y: int, k: int) -> tuple:\n    \"\"\"Convert CMYK to RGB.\"\"\"\n    c, m, y, k = c / 100.0, m / 100.0, y / 100.0, k / 100.0\n    r = round(255 * (1 - c) * (1 - k))\n    g = round(255 * (1 - m) * (1 - k))\n    b = round(255 * (1 - y) * (1 - k))\n    return (r, g, b)",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T12:22:24.317228+00:00",
+    "description": "Convert CMYK to RGB.",
+    "intent": "Convert CMYK to RGB.",
+    "language": "python",
+    "name": "cmyk_to_rgb",
+    "source_file": "neurop_forge/sources/color_utilities.py",
+    "source_line_end": 226,
+    "source_line_start": 220,
+    "tags": [
+      "c",
+      "cmyk",
+      "k",
+      "m",
+      "rgb",
+      "transformation",
+      "y"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:24.317258+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(c) == integer",
+      "c is not None",
+      "type(m) == integer",
+      "m is not None",
+      "type(y) == integer",
+      "y is not None",
+      "type(k) == integer",
+      "k is not None"
+    ],
+    "invariants": [],
+    "output_validators": [],
+    "postconditions": [],
+    "preconditions": [
+      "type(c) == integer",
+      "c is not None",
+      "type(m) == integer",
+      "m is not None",
+      "type(y) == integer",
+      "y is not None",
+      "type(k) == integer",
+      "k is not None"
+    ]
+  }
+}

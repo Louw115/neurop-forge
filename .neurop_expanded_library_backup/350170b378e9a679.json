@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "350170b378e9a67941c298b9acf79e812d8b65ce27e54df799657db1ff5dedf5",
+    "semantic_fingerprint": "61f62e1e029c760cd06ba3324ce1242edcdccec328c7bd28a1b31c50b9d7856e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if before shipping cutoff.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_hour",
+        "name": "current_hour",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter cutoff_hour",
+        "name": "cutoff_hour",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_before_cutoff",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_before_cutoff(current_hour: int, cutoff_hour: int) -> bool:\n    \"\"\"Check if before shipping cutoff.\"\"\"\n    return current_hour < cutoff_hour",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:34.547479+00:00",
+    "description": "Check if before shipping cutoff.",
+    "intent": "Check if before shipping cutoff.",
+    "language": "python",
+    "name": "is_before_cutoff",
+    "source_file": "neurop_forge/sources/shipping_utilities.py",
+    "source_line_end": 156,
+    "source_line_start": 154,
+    "tags": [
+      "before",
+      "current_hour",
+      "cutoff",
+      "cutoff_hour",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.547505+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(current_hour) == integer",
+      "current_hour is not None",
+      "type(cutoff_hour) == integer",
+      "cutoff_hour is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(current_hour) == integer",
+      "current_hour is not None",
+      "type(cutoff_hour) == integer",
+      "cutoff_hour is not None"
+    ]
+  }
+}

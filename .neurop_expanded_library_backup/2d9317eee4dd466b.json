@@ -1,0 +1,156 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2d9317eee4dd466b635f26aed4edf06ae59d84668787ace80b88bcea070c9a29",
+    "semantic_fingerprint": "eb845a6fa91c09715086a306db42af0175d2989117db4f5fd3a826eec695a866",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Wrap value to range.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter min_val",
+        "name": "min_val",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter max_val",
+        "name": "max_val",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of wrap",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def wrap(value: float, min_val: float, max_val: float) -> float:\n    \"\"\"Wrap value to range.\"\"\"\n    range_size = max_val - min_val\n    return min_val + (value - min_val) % range_size",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:33.444824+00:00",
+    "description": "Wrap value to range.",
+    "intent": "Wrap value to range.",
+    "language": "python",
+    "name": "wrap",
+    "source_file": "neurop_forge/sources/numeric_utilities.py",
+    "source_line_end": 88,
+    "source_line_start": 85,
+    "tags": [
+      "arithmetic",
+      "max_val",
+      "min_val",
+      "value",
+      "wrap"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:33.444840+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == float",
+      "value is not None",
+      "type(min_val) == float",
+      "min_val is not None",
+      "type(max_val) == float",
+      "max_val is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(value) == float",
+      "value is not None",
+      "type(min_val) == float",
+      "min_val is not None",
+      "type(max_val) == float",
+      "max_val is not None"
+    ]
+  }
+}

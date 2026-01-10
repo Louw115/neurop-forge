@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "88eb9b1f2a251656cc3a313a69013b89d87ac4e5b9fa33bc5eb4ff77e4c17eb9",
+    "semantic_fingerprint": "79fa913f295c136d5fa0811da96223108f0aa83609ac8fc8ef9478d030f36571",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Safely compute percentage.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter part",
+        "name": "part",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter whole",
+        "name": "whole",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter default",
+        "name": "default",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of safe_percentage",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def safe_percentage(part: float, whole: float, default: float) -> float:\n    \"\"\"Safely compute percentage.\"\"\"\n    if whole == 0:\n        return default\n    return (part / whole) * 100",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:33.491355+00:00",
+    "description": "Safely compute percentage.",
+    "intent": "Safely compute percentage.",
+    "language": "python",
+    "name": "safe_percentage",
+    "source_file": "neurop_forge/sources/safe_math.py",
+    "source_line_end": 164,
+    "source_line_start": 160,
+    "tags": [
+      "arithmetic",
+      "default",
+      "part",
+      "percentage",
+      "safe",
+      "whole"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:33.491373+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(part) == float",
+      "part is not None",
+      "type(whole) == float",
+      "whole is not None",
+      "type(default) == float",
+      "default is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(part) == float",
+      "part is not None",
+      "type(whole) == float",
+      "whole is not None",
+      "type(default) == float",
+      "default is not None"
+    ]
+  }
+}

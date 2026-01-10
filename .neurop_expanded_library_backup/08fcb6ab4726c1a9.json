@@ -1,0 +1,135 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "08fcb6ab4726c1a99df27d8df9449c63adb9ddb4f1e569d6a6ad5beef0005cf1",
+    "semantic_fingerprint": "55833c978e98753db1160eb1ec409ea1aff71cd6064b2dbae4b2829d94dbeb9c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get a human-readable description of the file type.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter extension",
+        "name": "extension",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_file_type_description",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_file_type_description(extension: str) -> str:\n    \"\"\"Get a human-readable description of the file type.\"\"\"\n    extension = extension.lower().lstrip('.')\n    descriptions = {\n        \"png\": \"PNG Image\",\n        \"jpg\": \"JPEG Image\",\n        \"jpeg\": \"JPEG Image\",\n        \"gif\": \"GIF Image\",\n        \"webp\": \"WebP Image\",\n        \"svg\": \"SVG Vector Image\",\n        \"pdf\": \"PDF Document\",\n        \"doc\": \"Word Document\",\n        \"docx\": \"Word Document\",\n        \"xls\": \"Excel Spreadsheet\",\n        \"xlsx\": \"Excel Spreadsheet\",\n        \"ppt\": \"PowerPoint Presentation\",\n        \"pptx\": \"PowerPoint Presentation\",\n        \"txt\": \"Plain Text File\",\n        \"md\": \"Markdown Document\",\n        \"json\": \"JSON Data File\",\n        \"xml\": \"XML Data File\",\n        \"csv\": \"CSV Spreadsheet\",\n        \"zip\": \"ZIP Archive\",\n        \"mp3\": \"MP3 Audio\",\n        \"mp4\": \"MP4 Video\",\n        \"py\": \"Python Script\",\n        \"js\": \"JavaScript File\",\n        \"html\": \"HTML Document\",\n        \"css\": \"CSS Stylesheet\",\n    }\n    if extension in descriptions:\n        return descriptions[extension]\n    category = get_file_category(extension)\n    return f\"{extension.upper()} {category.title()} File\"",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:24.656948+00:00",
+    "description": "Get a human-readable description of the file type.",
+    "intent": "Get a human-readable description of the file type.",
+    "language": "python",
+    "name": "get_file_type_description",
+    "source_file": "neurop_forge/sources/file_type_detection.py",
+    "source_line_end": 361,
+    "source_line_start": 328,
+    "tags": [
+      "description",
+      "extension",
+      "file",
+      "filtering",
+      "get",
+      "type"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:24.656967+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(extension) == string",
+      "extension is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(extension) == string",
+      "extension is not None"
+    ]
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "13a25fb63488abf8efc4b584d9bfc4cbe8e0d31ca248c51653f3b10fc8216ab3",
+    "semantic_fingerprint": "2f697472d4a3549122373a2df052640637352c6f4041732a34688b47033f2ad9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate Luhn checksum digit.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter digits",
+        "name": "digits",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of luhn_checksum",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def luhn_checksum(digits: str) -> int:\n    \"\"\"Calculate Luhn checksum digit.\"\"\"\n    def digits_of(n):\n        return [int(d) for d in str(n)]\n    digits_list = digits_of(digits)\n    odd_digits = digits_list[-1::-2]\n    even_digits = digits_list[-2::-2]\n    total = sum(odd_digits)\n    for d in even_digits:\n        total += sum(digits_of(d * 2))\n    return (10 - (total % 10)) % 10",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:31.303449+00:00",
+    "description": "Calculate Luhn checksum digit.",
+    "intent": "Calculate Luhn checksum digit.",
+    "language": "python",
+    "name": "luhn_checksum",
+    "source_file": "neurop_forge/sources/checksum_utilities.py",
+    "source_line_end": 103,
+    "source_line_start": 93,
+    "tags": [
+      "arithmetic",
+      "checksum",
+      "digits",
+      "luhn"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.303469+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(digits) == string",
+      "digits is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(digits) == string",
+      "digits is not None"
+    ]
+  }
+}

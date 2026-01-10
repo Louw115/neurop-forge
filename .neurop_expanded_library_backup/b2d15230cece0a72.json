@@ -1,0 +1,168 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b2d15230cece0a72badb572f930659fb36c971301e510f2a2254e4bb7eb23ad6",
+    "semantic_fingerprint": "d54aa8a57f6769ead0c5f9879d2dd8e1845bb635488aea1e787f073cc8219a9b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if currently in maintenance window.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter window",
+        "name": "window",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_weekday",
+        "name": "current_weekday",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_hour",
+        "name": "current_hour",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_minute",
+        "name": "current_minute",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_in_maintenance_window",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_in_maintenance_window(window: dict, current_weekday: int, current_hour: int, current_minute: int) -> bool:\n    \"\"\"Check if currently in maintenance window.\"\"\"\n    if not is_scheduled_day(current_weekday, window.get(\"days\", [])):\n        return False\n    start_parts = window.get(\"start_time\", \"00:00\").split(\":\")\n    start_minutes = int(start_parts[0]) * 60 + int(start_parts[1])\n    current_minutes = current_hour * 60 + current_minute\n    end_minutes = start_minutes + window.get(\"duration_minutes\", 0)\n    return start_minutes <= current_minutes < end_minutes",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:29.260167+00:00",
+    "description": "Check if currently in maintenance window.",
+    "intent": "Check if currently in maintenance window.",
+    "language": "python",
+    "name": "is_in_maintenance_window",
+    "source_file": "neurop_forge/sources/scheduler_utilities.py",
+    "source_line_end": 184,
+    "source_line_start": 176,
+    "tags": [
+      "current_hour",
+      "current_minute",
+      "current_weekday",
+      "maintenance",
+      "validation",
+      "window"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.260197+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(window) == dict",
+      "window is not None",
+      "type(current_weekday) == integer",
+      "current_weekday is not None",
+      "type(current_hour) == integer",
+      "current_hour is not None",
+      "type(current_minute) == integer",
+      "current_minute is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(window) == dict",
+      "window is not None",
+      "type(current_weekday) == integer",
+      "current_weekday is not None",
+      "type(current_hour) == integer",
+      "current_hour is not None",
+      "type(current_minute) == integer",
+      "current_minute is not None"
+    ]
+  }
+}

@@ -1,0 +1,170 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b7be14987769b77e98b4184c70f2db129db5595ab8c003ccfecdcfc71707a468",
+    "semantic_fingerprint": "696a0d23438d44e1edc3fabf325d4c56ab22fd39d4bd32ddef0f70dde7729027",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if a numeric value is within a range.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter min_val",
+        "name": "min_val",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter max_val",
+        "name": "max_val",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter field_name",
+        "name": "field_name",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of check_numeric_range",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def check_numeric_range(value: float, min_val: float, max_val: float, field_name: str) -> dict:\n    \"\"\"Check if a numeric value is within a range.\"\"\"\n    if value < min_val or value > max_val:\n        return {\"valid\": False, \"error\": f\"{field_name} must be between {min_val} and {max_val}\"}\n    return {\"valid\": True, \"error\": None}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:26.435265+00:00",
+    "description": "Check if a numeric value is within a range.",
+    "intent": "Check if a numeric value is within a range.",
+    "language": "python",
+    "name": "check_numeric_range",
+    "source_file": "neurop_forge/sources/data_integrity.py",
+    "source_line_end": 51,
+    "source_line_start": 47,
+    "tags": [
+      "check",
+      "field_name",
+      "max_val",
+      "min_val",
+      "numeric",
+      "range",
+      "validation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.435295+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == float",
+      "value is not None",
+      "type(min_val) == float",
+      "min_val is not None",
+      "type(max_val) == float",
+      "max_val is not None",
+      "type(field_name) == string",
+      "field_name is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(value) == float",
+      "value is not None",
+      "type(min_val) == float",
+      "min_val is not None",
+      "type(max_val) == float",
+      "max_val is not None",
+      "type(field_name) == string",
+      "field_name is not None"
+    ]
+  }
+}

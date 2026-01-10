@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "37dd7f13c27b71a7f3e26d8c6fb305394c33dcc6441e25fc2de10353413ebbe5",
+    "semantic_fingerprint": "6ffba348592e84a56bbcbe940cc8edd7e5ba0215a5b4d4511f53d974468cb345",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format a list according to locale.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter locale",
+        "name": "locale",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter style",
+        "name": "style",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_list_locale",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_list_locale(items: list, locale: str, style: str) -> str:\n    \"\"\"Format a list according to locale.\"\"\"\n    if not items:\n        return \"\"\n    if len(items) == 1:\n        return str(items[0])\n    lang = get_locale_language(locale)\n    if style == \"or\":\n        conjunction = \"oder\" if lang == \"de\" else \"o\" if lang == \"es\" else \"or\"\n    else:\n        conjunction = \"und\" if lang == \"de\" else \"y\" if lang == \"es\" else \"and\"\n    if len(items) == 2:\n        return f\"{items[0]} {conjunction} {items[1]}\"\n    return \", \".join(str(i) for i in items[:-1]) + f\", {conjunction} {items[-1]}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:28.616962+00:00",
+    "description": "Format a list according to locale.",
+    "intent": "Format a list according to locale.",
+    "language": "python",
+    "name": "format_list_locale",
+    "source_file": "neurop_forge/sources/i18n_patterns.py",
+    "source_line_end": 223,
+    "source_line_start": 210,
+    "tags": [
+      "format",
+      "items",
+      "list",
+      "locale",
+      "string_manipulation",
+      "style"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.617001+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "type(locale) == string",
+      "locale is not None",
+      "type(style) == string",
+      "style is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "type(locale) == string",
+      "locale is not None",
+      "type(style) == string",
+      "style is not None"
+    ]
+  }
+}

@@ -1,0 +1,164 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": false,
+    "io_operations": [
+      "random"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "non_deterministic",
+    "side_effects": [
+      "random"
+    ],
+    "thread_safe": false
+  },
+  "failure_modes": {
+    "can_fail": true,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "raises_exception",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8ff60b90a71dd7ffaaf43917696b07306f969e7f5666332330da480ddbb262dd",
+    "semantic_fingerprint": "6115d6415ad4e2872b1b4516ad17acc6fd9f55152c32d3ecfef76f8479847a22",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate deterministic random float in range.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seed",
+        "name": "seed",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter min_val",
+        "name": "min_val",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter max_val",
+        "name": "max_val",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of random_float_range",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def random_float_range(seed: int, min_val: float, max_val: float) -> float:\n    \"\"\"Generate deterministic random float in range.\"\"\"\n    return min_val + random_float(seed) * (max_val - min_val)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:30.413116+00:00",
+    "description": "Generate deterministic random float in range.",
+    "intent": "Generate deterministic random float in range.",
+    "language": "python",
+    "name": "random_float_range",
+    "source_file": "neurop_forge/sources/sampling_utilities.py",
+    "source_line_end": 35,
+    "source_line_start": 33,
+    "tags": [
+      "arithmetic",
+      "float",
+      "max_val",
+      "min_val",
+      "random",
+      "range",
+      "seed"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 0.5,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.413144+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.265,
+    "risk_factors": [
+      "impure_function",
+      "non_deterministic",
+      "side_effects: random"
+    ],
+    "risk_level": "medium",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(seed) == integer",
+      "seed is not None",
+      "type(min_val) == float",
+      "min_val is not None",
+      "type(max_val) == float",
+      "max_val is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(seed) == integer",
+      "seed is not None",
+      "type(min_val) == float",
+      "min_val is not None",
+      "type(max_val) == float",
+      "max_val is not None"
+    ]
+  }
+}

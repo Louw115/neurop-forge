@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a0529e64578e9644d71725bccef1510dc456a289a275c4f6d80c9aa261e1f1eb",
+    "semantic_fingerprint": "8785538095d8706b230c977d06fad8aee384abc6e25dad8c7740262a1692dca1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get severity level for error code.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter error_code",
+        "name": "error_code",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_severity",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_severity(error_code: str) -> str:\n    \"\"\"Get severity level for error code.\"\"\"\n    category = get_error_category(error_code)\n    if category in [\"SERVER\", \"TIMEOUT\"]:\n        return \"error\"\n    if category in [\"AUTH\", \"PERM\"]:\n        return \"warning\"\n    return \"info\"",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:34.103407+00:00",
+    "description": "Get severity level for error code.",
+    "intent": "Get severity level for error code.",
+    "language": "python",
+    "name": "get_severity",
+    "source_file": "neurop_forge/sources/error_codes.py",
+    "source_line_end": 165,
+    "source_line_start": 158,
+    "tags": [
+      "error_code",
+      "filtering",
+      "get",
+      "severity"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.103424+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(error_code) == string",
+      "error_code is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(error_code) == string",
+      "error_code is not None"
+    ]
+  }
+}

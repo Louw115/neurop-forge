@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic aggregation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "109cd7d5e025b3d44e71c821d08b0b0706eacd9f5209255b8711fad9c22904d0",
+    "semantic_fingerprint": "de5b1934046f4bc53572a21bb953c33917bd7a1cb1bc9663b2e54b0c45a40cb9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Count number of inversions.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of inversion_count",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def inversion_count(items: list) -> int:\n    \"\"\"Count number of inversions.\"\"\"\n    count = 0\n    for i in range(len(items)):\n        for j in range(i + 1, len(items)):\n            if items[i] > items[j]:\n                count += 1\n    return count",
+  "metadata": {
+    "category": "aggregation",
+    "created_at": "2026-01-10T12:22:31.013532+00:00",
+    "description": "Count number of inversions.",
+    "intent": "Count number of inversions.",
+    "language": "python",
+    "name": "inversion_count",
+    "source_file": "neurop_forge/sources/sorting_algorithms.py",
+    "source_line_end": 222,
+    "source_line_start": 215,
+    "tags": [
+      "aggregation",
+      "count",
+      "inversion",
+      "items"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.013551+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None"
+    ]
+  }
+}

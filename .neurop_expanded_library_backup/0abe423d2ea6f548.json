@@ -1,0 +1,158 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0abe423d2ea6f5482a26eebb1ab1d130af5736f9059763755928d73136bec1b1",
+    "semantic_fingerprint": "757f3625467387561fb90a4acc06f6be9a002c3f4464078ac65da5c24dd96eed",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Determine if request should be throttled.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter priority",
+        "name": "priority",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter current_load",
+        "name": "current_load",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter threshold",
+        "name": "threshold",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of should_throttle_request",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def should_throttle_request(priority: int, current_load: float, threshold: float) -> bool:\n    \"\"\"Determine if request should be throttled.\"\"\"\n    if priority <= 1:\n        return False\n    return current_load > threshold",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:27.453401+00:00",
+    "description": "Determine if request should be throttled.",
+    "intent": "Determine if request should be throttled.",
+    "language": "python",
+    "name": "should_throttle_request",
+    "source_file": "neurop_forge/sources/middleware_patterns.py",
+    "source_line_end": 332,
+    "source_line_start": 328,
+    "tags": [
+      "current_load",
+      "priority",
+      "request",
+      "should",
+      "threshold",
+      "throttle",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.453419+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(priority) == integer",
+      "priority is not None",
+      "type(current_load) == float",
+      "current_load is not None",
+      "type(threshold) == float",
+      "threshold is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(priority) == integer",
+      "priority is not None",
+      "type(current_load) == float",
+      "current_load is not None",
+      "type(threshold) == float",
+      "threshold is not None"
+    ]
+  }
+}

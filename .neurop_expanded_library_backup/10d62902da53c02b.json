@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "10d62902da53c02be86b13fd3e7804390fe0a985537a83cf1e27834d2ed7208a",
+    "semantic_fingerprint": "154b9691dbba1693c60650288141d06184187dc97574324182847568a0cb4872",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract the local part (before @) of an email.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter email",
+        "name": "email",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of extract_local_part",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def extract_local_part(email: str) -> str:\n    \"\"\"Extract the local part (before @) of an email.\"\"\"\n    parts = email.split('@')\n    return parts[0] if len(parts) == 2 else \"\"",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:25.273822+00:00",
+    "description": "Extract the local part (before @) of an email.",
+    "intent": "Extract the local part (before @) of an email.",
+    "language": "python",
+    "name": "extract_local_part",
+    "source_file": "neurop_forge/sources/email_utilities.py",
+    "source_line_end": 44,
+    "source_line_start": 41,
+    "tags": [
+      "email",
+      "extract",
+      "filtering",
+      "local",
+      "part"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.273847+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(email) == string",
+      "email is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(email) == string",
+      "email is not None"
+    ]
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a60d3fc12b42ae18a97e5d149d017436dbafaa6f22fa4f392a6880f5313d6e76",
+    "semantic_fingerprint": "02942ca2b801489ed7148ea6f3244ae4a7d4640331e38ec730f6384a79b7b0d3",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Sanitize a single path component to prevent traversal.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter component",
+        "name": "component",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of sanitize_path_component",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def sanitize_path_component(component: str) -> str:\n    \"\"\"Sanitize a single path component to prevent traversal.\"\"\"\n    if not component:\n        return \"\"\n    sanitized = component.replace('..', '').replace('/', '').replace('\\\\', '')\n    return sanitize_filename(sanitized)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:24.484548+00:00",
+    "description": "Sanitize a single path component to prevent traversal.",
+    "intent": "Sanitize a single path component to prevent traversal.",
+    "language": "python",
+    "name": "sanitize_path_component",
+    "source_file": "neurop_forge/sources/security_utilities.py",
+    "source_line_end": 57,
+    "source_line_start": 52,
+    "tags": [
+      "component",
+      "path",
+      "sanitize",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:24.484564+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(component) == string",
+      "component is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(component) == string",
+      "component is not None"
+    ]
+  }
+}

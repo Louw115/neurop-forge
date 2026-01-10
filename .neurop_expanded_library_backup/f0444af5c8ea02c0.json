@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f0444af5c8ea02c0a9e1ce7837381a86d7863d0f7ca11bfc291532a145ea8118",
+    "semantic_fingerprint": "fa32e8673926b108988c7f26b97cde971d54344ba59d84fc1ff3743db385196b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build socket address string.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter host",
+        "name": "host",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter port",
+        "name": "port",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_socket_address",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_socket_address(host: str, port: int) -> str:\n    \"\"\"Build socket address string.\"\"\"\n    if \":\" in host:\n        return f\"[{host}]:{port}\"\n    return f\"{host}:{port}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:29.025166+00:00",
+    "description": "Build socket address string.",
+    "intent": "Build socket address string.",
+    "language": "python",
+    "name": "build_socket_address",
+    "source_file": "neurop_forge/sources/network_utilities.py",
+    "source_line_end": 150,
+    "source_line_start": 146,
+    "tags": [
+      "address",
+      "build",
+      "host",
+      "port",
+      "socket",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.025185+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(host) == string",
+      "host is not None",
+      "type(port) == integer",
+      "port is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(host) == string",
+      "host is not None",
+      "type(port) == integer",
+      "port is not None"
+    ]
+  }
+}

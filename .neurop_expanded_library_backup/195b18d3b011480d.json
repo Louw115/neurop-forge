@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "195b18d3b011480de0842e4fd82de6e736dd000b01b77a1ecc3c8c6ab3f31a6b",
+    "semantic_fingerprint": "94097107a68a6cc4a55a620141cd89ad77af39f15e3f7e6fbb834cbe2c3a42e6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Evaluate feature flag for user context.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter flag",
+        "name": "flag",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter user_context",
+        "name": "user_context",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of evaluate_feature_flag",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def evaluate_feature_flag(flag: dict, user_context: dict) -> bool:\n    \"\"\"Evaluate feature flag for user context.\"\"\"\n    if not flag.get(\"enabled\"):\n        return False\n    rules = flag.get(\"rules\", [])\n    if not rules:\n        return flag.get(\"default_value\", True)\n    for rule in rules:\n        if rule.get(\"enabled\", True) and evaluate_targeting_rule(rule, user_context):\n            return True\n    return flag.get(\"default_value\", False)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:29.443733+00:00",
+    "description": "Evaluate feature flag for user context.",
+    "intent": "Evaluate feature flag for user context.",
+    "language": "python",
+    "name": "evaluate_feature_flag",
+    "source_file": "neurop_forge/sources/feature_flags.py",
+    "source_line_end": 95,
+    "source_line_start": 85,
+    "tags": [
+      "arithmetic",
+      "evaluate",
+      "feature",
+      "flag",
+      "user_context"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.443752+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(flag) == dict",
+      "flag is not None",
+      "type(user_context) == dict",
+      "user_context is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(flag) == dict",
+      "flag is not None",
+      "type(user_context) == dict",
+      "user_context is not None"
+    ]
+  }
+}

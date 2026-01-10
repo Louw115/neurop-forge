@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "dfb2b40ba20e047cac5e0cef709c6aee5ecf97e456270b4bb004cdf1ba608a2d",
+    "semantic_fingerprint": "904d97d274697155d85389c02b70792475298ceb8a0ad5b0f18af0bfe3d09ade",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Change the file extension of a path.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter path",
+        "name": "path",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter new_extension",
+        "name": "new_extension",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of change_extension",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def change_extension(path: str, new_extension: str) -> str:\n    \"\"\"Change the file extension of a path.\"\"\"\n    if not path:\n        return \"\"\n    if new_extension and not new_extension.startswith('.'):\n        new_extension = '.' + new_extension\n    directory = get_directory(path)\n    basename = get_basename(path)\n    if directory:\n        return directory + '/' + basename + new_extension\n    return basename + new_extension",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:23.943249+00:00",
+    "description": "Change the file extension of a path.",
+    "intent": "Change the file extension of a path.",
+    "language": "python",
+    "name": "change_extension",
+    "source_file": "neurop_forge/sources/path_utilities.py",
+    "source_line_end": 87,
+    "source_line_start": 77,
+    "tags": [
+      "change",
+      "extension",
+      "new_extension",
+      "path",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:23.943278+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(path) == string",
+      "path is not None",
+      "type(new_extension) == string",
+      "new_extension is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(path) == string",
+      "path is not None",
+      "type(new_extension) == string",
+      "new_extension is not None"
+    ]
+  }
+}

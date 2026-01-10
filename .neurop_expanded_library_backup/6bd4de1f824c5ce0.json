@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "6bd4de1f824c5ce05cd1949b5119dcea603d79827d68a63898c9b467fe2ea720",
+    "semantic_fingerprint": "023fd447672784fd7e7a7b3506b786104b58d8d51d152b1d32e6de2c66194b76",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find all match positions as (start, end) tuples.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter pattern",
+        "name": "pattern",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of find_all_positions",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def find_all_positions(text: str, pattern: str) -> list:\n    \"\"\"Find all match positions as (start, end) tuples.\"\"\"\n    try:\n        return [(m.start(), m.end()) for m in re.finditer(pattern, text)]\n    except re.error:\n        return []",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:24.854821+00:00",
+    "description": "Find all match positions as (start, end) tuples.",
+    "intent": "Find all match positions as (start, end) tuples.",
+    "language": "python",
+    "name": "find_all_positions",
+    "source_file": "neurop_forge/sources/regex_utilities.py",
+    "source_line_end": 324,
+    "source_line_start": 319,
+    "tags": [
+      "all",
+      "filtering",
+      "find",
+      "pattern",
+      "positions",
+      "text"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:24.854849+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None",
+      "type(pattern) == string",
+      "pattern is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None",
+      "type(pattern) == string",
+      "pattern is not None"
+    ]
+  }
+}

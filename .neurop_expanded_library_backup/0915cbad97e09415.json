@@ -1,0 +1,169 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0915cbad97e094153c546db6e155a0c3feb33d677ffe40614f004e17d007c48b",
+    "semantic_fingerprint": "6c4ab367f95fbebf43a3cdb1b845ede3cb1c01b5b65d7699f9b430ad5f2667e1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate a unique audit log ID.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter timestamp",
+        "name": "timestamp",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter table",
+        "name": "table",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter operation",
+        "name": "operation",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter sequence",
+        "name": "sequence",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_audit_id",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_audit_id(timestamp: str, table: str, operation: str, sequence: int) -> str:\n    \"\"\"Generate a unique audit log ID.\"\"\"\n    import hashlib\n    combined = f\"{timestamp}:{table}:{operation}:{sequence}\"\n    hash_part = hashlib.sha256(combined.encode()).hexdigest()[:8]\n    return f\"audit_{hash_part}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:26.826726+00:00",
+    "description": "Generate a unique audit log ID.",
+    "intent": "Generate a unique audit log ID.",
+    "language": "python",
+    "name": "generate_audit_id",
+    "source_file": "neurop_forge/sources/audit_logging.py",
+    "source_line_end": 17,
+    "source_line_start": 12,
+    "tags": [
+      "audit",
+      "generate",
+      "operation",
+      "sequence",
+      "string_manipulation",
+      "table",
+      "timestamp"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.826747+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(timestamp) == string",
+      "timestamp is not None",
+      "type(table) == string",
+      "table is not None",
+      "type(operation) == string",
+      "operation is not None",
+      "type(sequence) == integer",
+      "sequence is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(timestamp) == string",
+      "timestamp is not None",
+      "type(table) == string",
+      "table is not None",
+      "type(operation) == string",
+      "operation is not None",
+      "type(sequence) == integer",
+      "sequence is not None"
+    ]
+  }
+}

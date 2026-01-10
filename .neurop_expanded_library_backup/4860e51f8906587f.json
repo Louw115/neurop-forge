@@ -1,0 +1,170 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4860e51f8906587fa1693ffa2d92afd77a21def12caa62dbe684d04d5c730227",
+    "semantic_fingerprint": "a450efea1d1c0e027f63016ac2ffe9dd60aa4481bb208bbe0c15ad17126570e6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Estimate total duration for processing all batches.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter total_items",
+        "name": "total_items",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter batch_size",
+        "name": "batch_size",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter ms_per_item",
+        "name": "ms_per_item",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter overhead_per_batch_ms",
+        "name": "overhead_per_batch_ms",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of estimate_total_duration_ms",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def estimate_total_duration_ms(total_items: int, batch_size: int, ms_per_item: int, overhead_per_batch_ms: int) -> int:\n    \"\"\"Estimate total duration for processing all batches.\"\"\"\n    batch_count = calculate_batch_count(total_items, batch_size)\n    return batch_count * estimate_batch_duration_ms(batch_size, ms_per_item, overhead_per_batch_ms)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:26.805713+00:00",
+    "description": "Estimate total duration for processing all batches.",
+    "intent": "Estimate total duration for processing all batches.",
+    "language": "python",
+    "name": "estimate_total_duration_ms",
+    "source_file": "neurop_forge/sources/batch_operations.py",
+    "source_line_end": 49,
+    "source_line_start": 46,
+    "tags": [
+      "arithmetic",
+      "batch_size",
+      "duration",
+      "estimate",
+      "ms_per_item",
+      "overhead_per_batch_ms",
+      "total",
+      "total_items"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.805733+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(total_items) == integer",
+      "total_items is not None",
+      "type(batch_size) == integer",
+      "batch_size is not None",
+      "type(ms_per_item) == integer",
+      "ms_per_item is not None",
+      "type(overhead_per_batch_ms) == integer",
+      "overhead_per_batch_ms is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(total_items) == integer",
+      "total_items is not None",
+      "type(batch_size) == integer",
+      "batch_size is not None",
+      "type(ms_per_item) == integer",
+      "ms_per_item is not None",
+      "type(overhead_per_batch_ms) == integer",
+      "overhead_per_batch_ms is not None"
+    ]
+  }
+}

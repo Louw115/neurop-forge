@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2c2e32c231388a2347ff68a614b40d77d2d43ca5002fa8693a3b09804edd9d6c",
+    "semantic_fingerprint": "fc4b01bf3f0b205f6330e36d7335d8713f0ad1c97a6b118bea73685c81c65632",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Sanitize form input to prevent XSS.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of sanitize_form_input",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def sanitize_form_input(value: str) -> str:\n    \"\"\"Sanitize form input to prevent XSS.\"\"\"\n    replacements = {\"<\": \"&lt;\", \">\": \"&gt;\", '\"': \"&quot;\", \"'\": \"&#x27;\", \"&\": \"&amp;\"}\n    result = value\n    for char, replacement in replacements.items():\n        result = result.replace(char, replacement)\n    return result",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:29.336361+00:00",
+    "description": "Sanitize form input to prevent XSS.",
+    "intent": "Sanitize form input to prevent XSS.",
+    "language": "python",
+    "name": "sanitize_form_input",
+    "source_file": "neurop_forge/sources/form_utilities.py",
+    "source_line_end": 201,
+    "source_line_start": 195,
+    "tags": [
+      "form",
+      "input",
+      "sanitize",
+      "string_manipulation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.336382+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == string",
+      "value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(value) == string",
+      "value is not None"
+    ]
+  }
+}

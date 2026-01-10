@@ -1,0 +1,171 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "17efefeac7bad97cb727d8967bd4bf0e232c853caa7d111b19b9addeb145405b",
+    "semantic_fingerprint": "aff097e075929b027f6d9f7eb4c273170893bcc279edbfdb4bf7646ef17e5536",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Create error log entry.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter error_code",
+        "name": "error_code",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter message",
+        "name": "message",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter context",
+        "name": "context",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter timestamp",
+        "name": "timestamp",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of create_error_log_entry",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def create_error_log_entry(error_code: str, message: str, context: dict, timestamp: int) -> dict:\n    \"\"\"Create error log entry.\"\"\"\n    return {\n        \"timestamp\": timestamp,\n        \"code\": error_code,\n        \"message\": message,\n        \"context\": context,\n        \"severity\": get_severity(error_code)\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:34.101786+00:00",
+    "description": "Create error log entry.",
+    "intent": "Create error log entry.",
+    "language": "python",
+    "name": "create_error_log_entry",
+    "source_file": "neurop_forge/sources/error_codes.py",
+    "source_line_end": 155,
+    "source_line_start": 147,
+    "tags": [
+      "context",
+      "create",
+      "dict_operation",
+      "entry",
+      "error",
+      "error_code",
+      "log",
+      "message",
+      "timestamp"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.101805+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(error_code) == string",
+      "error_code is not None",
+      "type(message) == string",
+      "message is not None",
+      "type(context) == dict",
+      "context is not None",
+      "type(timestamp) == integer",
+      "timestamp is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(error_code) == string",
+      "error_code is not None",
+      "type(message) == string",
+      "message is not None",
+      "type(context) == dict",
+      "context is not None",
+      "type(timestamp) == integer",
+      "timestamp is not None"
+    ]
+  }
+}

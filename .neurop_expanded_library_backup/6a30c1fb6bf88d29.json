@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "6a30c1fb6bf88d299fd27d2b6111fb101fcc2b3a4e355fccabccb451e69dd39c",
+    "semantic_fingerprint": "8231702fc42873b3d65b59cb739d9fe0d01402a6072135430448611bc8b805fe",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Detect credit card type from number.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter card",
+        "name": "card",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_card_type",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_card_type(card: str) -> str:\n    \"\"\"Detect credit card type from number.\"\"\"\n    digits = card.replace(\" \", \"\").replace(\"-\", \"\")\n    if digits.startswith(\"4\"):\n        return \"visa\"\n    if digits[:2] in [\"51\", \"52\", \"53\", \"54\", \"55\"]:\n        return \"mastercard\"\n    if int(digits[:6]) >= 222100 and int(digits[:6]) <= 272099:\n        return \"mastercard\"\n    if digits[:2] in [\"34\", \"37\"]:\n        return \"amex\"\n    if digits[:4] == \"6011\" or digits[:2] == \"65\":\n        return \"discover\"\n    return \"unknown\"",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:32.672935+00:00",
+    "description": "Detect credit card type from number.",
+    "intent": "Detect credit card type from number.",
+    "language": "python",
+    "name": "get_card_type",
+    "source_file": "neurop_forge/sources/bank_utilities.py",
+    "source_line_end": 136,
+    "source_line_start": 123,
+    "tags": [
+      "card",
+      "filtering",
+      "get",
+      "type"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:32.672957+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(card) == string",
+      "card is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(card) == string",
+      "card is not None"
+    ]
+  }
+}

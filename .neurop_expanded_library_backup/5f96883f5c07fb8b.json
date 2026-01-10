@@ -1,0 +1,170 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5f96883f5c07fb8b069b8fae5037d2914da316575f51f85197ee125492ccd4f6",
+    "semantic_fingerprint": "4b5b0bc124621060721da6507746941cb12afb5ee08ef2e08a858b254b4fb435",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate array length constraints.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter arr",
+        "name": "arr",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter min_len",
+        "name": "min_len",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_len",
+        "name": "max_len",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter field_name",
+        "name": "field_name",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of validate_array_length",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_array_length(arr: list, min_len: int, max_len: int, field_name: str) -> dict:\n    \"\"\"Validate array length constraints.\"\"\"\n    if len(arr) < min_len:\n        return {\"valid\": False, \"error\": f\"{field_name} must have at least {min_len} items\"}\n    if max_len > 0 and len(arr) > max_len:\n        return {\"valid\": False, \"error\": f\"{field_name} must have at most {max_len} items\"}\n    return {\"valid\": True, \"error\": None}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:27.184048+00:00",
+    "description": "Validate array length constraints.",
+    "intent": "Validate array length constraints.",
+    "language": "python",
+    "name": "validate_array_length",
+    "source_file": "neurop_forge/sources/request_validation.py",
+    "source_line_end": 127,
+    "source_line_start": 121,
+    "tags": [
+      "arr",
+      "array",
+      "field_name",
+      "length",
+      "max_len",
+      "min_len",
+      "validate",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.184079+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(arr) == list",
+      "arr is not None",
+      "type(min_len) == integer",
+      "min_len is not None",
+      "type(max_len) == integer",
+      "max_len is not None",
+      "type(field_name) == string",
+      "field_name is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(arr) == list",
+      "arr is not None",
+      "type(min_len) == integer",
+      "min_len is not None",
+      "type(max_len) == integer",
+      "max_len is not None",
+      "type(field_name) == string",
+      "field_name is not None"
+    ]
+  }
+}

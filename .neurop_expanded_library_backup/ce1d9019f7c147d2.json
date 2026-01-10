@@ -1,0 +1,144 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ce1d9019f7c147d2fb5b71c61cf4db45ebc64b6798a7deb5d23808c8a6f9ea50",
+    "semantic_fingerprint": "41f700fa0e5641a9a04fceaf9f3f57503661f6c828a045c7d08f7b4dc7a9b623",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find rightmost occurrence of target.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter target",
+        "name": "target",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of binary_search_rightmost",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def binary_search_rightmost(items: list, target) -> int:\n    \"\"\"Find rightmost occurrence of target.\"\"\"\n    left, right = 0, len(items)\n    while left < right:\n        mid = (left + right) // 2\n        if items[mid] <= target:\n            left = mid + 1\n        else:\n            right = mid\n    return left - 1 if left > 0 and items[left - 1] == target else -1",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:31.036092+00:00",
+    "description": "Find rightmost occurrence of target.",
+    "intent": "Find rightmost occurrence of target.",
+    "language": "python",
+    "name": "binary_search_rightmost",
+    "source_file": "neurop_forge/sources/search_algorithms.py",
+    "source_line_end": 55,
+    "source_line_start": 46,
+    "tags": [
+      "arithmetic",
+      "binary",
+      "items",
+      "rightmost",
+      "search",
+      "target"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.036112+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "target is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "target is not None"
+    ]
+  }
+}

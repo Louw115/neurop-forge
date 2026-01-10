@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "736c7fa86aad938c5911e87c724a1297c833974419cd08d5e9e12fccae057622",
+    "semantic_fingerprint": "5ee8f068c55787ef37afca47f1c4f767b02244a5eaefc787d1fd764748e1f07d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate intersection rectangle.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter r1",
+        "name": "r1",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter r2",
+        "name": "r2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of rectangle_intersection",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def rectangle_intersection(r1: dict, r2: dict) -> dict:\n    \"\"\"Calculate intersection rectangle.\"\"\"\n    x = max(r1[\"x\"], r2[\"x\"])\n    y = max(r1[\"y\"], r2[\"y\"])\n    x2 = min(r1[\"x\"] + r1[\"width\"], r2[\"x\"] + r2[\"width\"])\n    y2 = min(r1[\"y\"] + r1[\"height\"], r2[\"y\"] + r2[\"height\"])\n    if x < x2 and y < y2:\n        return create_rectangle(x, y, x2 - x, y2 - y)\n    return None",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:31.126159+00:00",
+    "description": "Calculate intersection rectangle.",
+    "intent": "Calculate intersection rectangle.",
+    "language": "python",
+    "name": "rectangle_intersection",
+    "source_file": "neurop_forge/sources/geometry_utilities.py",
+    "source_line_end": 176,
+    "source_line_start": 168,
+    "tags": [
+      "dict_operation",
+      "intersection",
+      "r1",
+      "r2",
+      "rectangle"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.126178+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(r1) == dict",
+      "r1 is not None",
+      "type(r2) == dict",
+      "r2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(r1) == dict",
+      "r1 is not None",
+      "type(r2) == dict",
+      "r2 is not None"
+    ]
+  }
+}

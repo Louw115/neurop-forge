@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f04d12d2df8fdbc6a731b7e46fa6729be5942bed64e246ba5eaa60a0815a26fb",
+    "semantic_fingerprint": "2e5979b240b91e8e5050d66dbe7d0a3c31e8743c8a337fef7444fe767de01d43",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Assert collection contains item.",
+    "inputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter collection",
+        "name": "collection",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter item",
+        "name": "item",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of assert_contains",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def assert_contains(collection, item) -> dict:\n    \"\"\"Assert collection contains item.\"\"\"\n    passed = item in collection\n    return {\n        \"passed\": passed,\n        \"item\": item,\n        \"message\": \"\" if passed else f\"Expected collection to contain {item}\"\n    }",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:34.014055+00:00",
+    "description": "Assert collection contains item.",
+    "intent": "Assert collection contains item.",
+    "language": "python",
+    "name": "assert_contains",
+    "source_file": "neurop_forge/sources/assertion_utilities.py",
+    "source_line_end": 138,
+    "source_line_start": 131,
+    "tags": [
+      "assert",
+      "collection",
+      "contains",
+      "item",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.014073+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "collection is not None",
+      "item is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "collection is not None",
+      "item is not None"
+    ]
+  }
+}

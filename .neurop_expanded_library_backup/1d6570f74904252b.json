@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1d6570f74904252b9076069ecc570ffde5dab91c1f0ab57036dbf982c97ddd61",
+    "semantic_fingerprint": "f9ba5cfa40e2c333a0a224ad20e861429a5e90a29b26fa79f55cd2938e627a24",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Shrink interval by amount on both sides.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter interval",
+        "name": "interval",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter amount",
+        "name": "amount",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of interval_shrink",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def interval_shrink(interval: dict, amount) -> dict:\n    \"\"\"Shrink interval by amount on both sides.\"\"\"\n    new_start = interval[\"start\"] + amount\n    new_end = interval[\"end\"] - amount\n    if new_start > new_end:\n        mid = interval_midpoint(interval)\n        return create_interval(mid, mid)\n    return create_interval(new_start, new_end)",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:30.221828+00:00",
+    "description": "Shrink interval by amount on both sides.",
+    "intent": "Shrink interval by amount on both sides.",
+    "language": "python",
+    "name": "interval_shrink",
+    "source_file": "neurop_forge/sources/interval_utilities.py",
+    "source_line_end": 105,
+    "source_line_start": 98,
+    "tags": [
+      "amount",
+      "dict_operation",
+      "interval",
+      "shrink"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.221846+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(interval) == dict",
+      "interval is not None",
+      "amount is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(interval) == dict",
+      "interval is not None",
+      "amount is not None"
+    ]
+  }
+}

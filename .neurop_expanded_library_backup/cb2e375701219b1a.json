@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "cb2e375701219b1ae3f41a0d85c477058a86ac2460162f3d3200d408b16caae6",
+    "semantic_fingerprint": "62fc7adb8c709e46ffb16b9af89cdf1b16e81acd255b879041e80355f7919481",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format gauge metric in Prometheus format.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter metric",
+        "name": "metric",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_prometheus_gauge",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_prometheus_gauge(metric: dict) -> str:\n    \"\"\"Format gauge metric in Prometheus format.\"\"\"\n    return format_prometheus_counter(metric)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:28.877334+00:00",
+    "description": "Format gauge metric in Prometheus format.",
+    "intent": "Format gauge metric in Prometheus format.",
+    "language": "python",
+    "name": "format_prometheus_gauge",
+    "source_file": "neurop_forge/sources/metrics_patterns.py",
+    "source_line_end": 118,
+    "source_line_start": 116,
+    "tags": [
+      "format",
+      "gauge",
+      "metric",
+      "prometheus",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.877361+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(metric) == dict",
+      "metric is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(metric) == dict",
+      "metric is not None"
+    ]
+  }
+}

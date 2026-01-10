@@ -1,0 +1,144 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "bf2215112f6014aa868d5a513d627953766aa2d68fffbf27573448676327328c",
+    "semantic_fingerprint": "e3f7a05b7589ecaba4c00f73c1844727f88cdbedb9cf696be57f45f2539debe1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Prepend text to builder.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter builder",
+        "name": "builder",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of prepend",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def prepend(builder: dict, text: str) -> dict:\n    \"\"\"Prepend text to builder.\"\"\"\n    return {\n        \"parts\": [text] + builder[\"parts\"],\n        \"length\": builder[\"length\"] + len(text)\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:31.490098+00:00",
+    "description": "Prepend text to builder.",
+    "intent": "Prepend text to builder.",
+    "language": "python",
+    "name": "prepend",
+    "source_file": "neurop_forge/sources/string_builder.py",
+    "source_line_end": 50,
+    "source_line_start": 45,
+    "tags": [
+      "builder",
+      "dict_operation",
+      "prepend",
+      "text"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.490125+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(builder) == dict",
+      "builder is not None",
+      "type(text) == string",
+      "text is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(builder) == dict",
+      "builder is not None",
+      "type(text) == string",
+      "text is not None"
+    ]
+  }
+}

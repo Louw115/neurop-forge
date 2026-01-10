@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "40ed957ba885030cb67a8eebc7db9f593e4466121d6e64d2661210eecf372e43",
+    "semantic_fingerprint": "7a63b9082e4476755e1109a1cfd63e5da964ffafd007115282a97e9257999025",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate quantity-based discount percentage.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter quantity",
+        "name": "quantity",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter tiers",
+        "name": "tiers",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_quantity_discount",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_quantity_discount(quantity: int, tiers: list) -> float:\n    \"\"\"Calculate quantity-based discount percentage.\"\"\"\n    discount = 0.0\n    for tier in sorted(tiers, key=lambda t: t[\"min_qty\"], reverse=True):\n        if quantity >= tier[\"min_qty\"]:\n            discount = tier[\"discount_percent\"]\n            break\n    return discount",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:28.211784+00:00",
+    "description": "Calculate quantity-based discount percentage.",
+    "intent": "Calculate quantity-based discount percentage.",
+    "language": "python",
+    "name": "calculate_quantity_discount",
+    "source_file": "neurop_forge/sources/ecommerce_patterns.py",
+    "source_line_end": 60,
+    "source_line_start": 53,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "discount",
+      "quantity",
+      "tiers"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.211808+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(quantity) == integer",
+      "quantity is not None",
+      "type(tiers) == list",
+      "tiers is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(quantity) == integer",
+      "quantity is not None",
+      "type(tiers) == list",
+      "tiers is not None"
+    ]
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ce6021dd3c0337d05b2fa6819717f3c3714ac960ba15de6142f21774faeb32ae",
+    "semantic_fingerprint": "01e42b69469970d295bb3dac6527b2565ed881ff6560fbc3d2113c3e5152f5fd",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if value has special character.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of has_special_char",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def has_special_char(value: str) -> dict:\n    \"\"\"Check if value has special character.\"\"\"\n    special = set(\"!@#$%^&*()_+-=[]{}|;':\\\",./<>?\")\n    valid = any(c in special for c in value)\n    return {\"valid\": valid, \"error\": \"Must contain a special character\" if not valid else None}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:32.189928+00:00",
+    "description": "Check if value has special character.",
+    "intent": "Check if value has special character.",
+    "language": "python",
+    "name": "has_special_char",
+    "source_file": "neurop_forge/sources/validation_rules.py",
+    "source_line_end": 179,
+    "source_line_start": 175,
+    "tags": [
+      "char",
+      "has",
+      "special",
+      "validation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:32.189952+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == string",
+      "value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(value) == string",
+      "value is not None"
+    ]
+  }
+}

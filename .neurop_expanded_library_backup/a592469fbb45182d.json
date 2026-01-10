@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a592469fbb45182d2d508cab0cbd9740cb46f95c4ee991751cb6bba2bcacc640",
+    "semantic_fingerprint": "5bce3ed12773fdc6b65cbb70049aab09ef765f2356c7a9ee762ada3057399605",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Escape special characters for JSON string.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of escape_json_string",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def escape_json_string(text: str) -> str:\n    \"\"\"Escape special characters for JSON string.\"\"\"\n    if not text:\n        return \"\"\n    return (text\n            .replace('\\\\', '\\\\\\\\')\n            .replace('\"', '\\\\\"')\n            .replace('\\n', '\\\\n')\n            .replace('\\r', '\\\\r')\n            .replace('\\t', '\\\\t'))",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:24.119629+00:00",
+    "description": "Escape special characters for JSON string.",
+    "intent": "Escape special characters for JSON string.",
+    "language": "python",
+    "name": "escape_json_string",
+    "source_file": "neurop_forge/sources/encoding_utilities.py",
+    "source_line_end": 251,
+    "source_line_start": 242,
+    "tags": [
+      "escape",
+      "json",
+      "string",
+      "string_manipulation",
+      "text"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:24.119655+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None"
+    ]
+  }
+}

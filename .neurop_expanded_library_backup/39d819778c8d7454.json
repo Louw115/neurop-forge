@@ -1,0 +1,168 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "39d819778c8d7454d99097676f1e67f0dec5629316e3abee57fa1f6cd67ec17b",
+    "semantic_fingerprint": "c412186a195fb20c8ef853922f7a7d99512d4ac758e6a07f1335ec8db59681b6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate midpoint between two coordinates.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter lat1",
+        "name": "lat1",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter lng1",
+        "name": "lng1",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter lat2",
+        "name": "lat2",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter lng2",
+        "name": "lng2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of midpoint",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def midpoint(lat1: float, lng1: float, lat2: float, lng2: float) -> dict:\n    \"\"\"Calculate midpoint between two coordinates.\"\"\"\n    lat1_rad = degrees_to_radians(lat1)\n    lat2_rad = degrees_to_radians(lat2)\n    dlng = degrees_to_radians(lng2 - lng1)\n    bx = math.cos(lat2_rad) * math.cos(dlng)\n    by = math.cos(lat2_rad) * math.sin(dlng)\n    mid_lat = math.atan2(\n        math.sin(lat1_rad) + math.sin(lat2_rad),\n        math.sqrt((math.cos(lat1_rad) + bx) ** 2 + by ** 2)\n    )\n    mid_lng = degrees_to_radians(lng1) + math.atan2(by, math.cos(lat1_rad) + bx)\n    return {\n        \"lat\": radians_to_degrees(mid_lat),\n        \"lng\": normalize_longitude(radians_to_degrees(mid_lng))\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:32.862139+00:00",
+    "description": "Calculate midpoint between two coordinates.",
+    "intent": "Calculate midpoint between two coordinates.",
+    "language": "python",
+    "name": "midpoint",
+    "source_file": "neurop_forge/sources/coordinate_utilities.py",
+    "source_line_end": 105,
+    "source_line_start": 90,
+    "tags": [
+      "dict_operation",
+      "lat1",
+      "lat2",
+      "lng1",
+      "lng2",
+      "midpoint"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:32.862168+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(lat1) == float",
+      "lat1 is not None",
+      "type(lng1) == float",
+      "lng1 is not None",
+      "type(lat2) == float",
+      "lat2 is not None",
+      "type(lng2) == float",
+      "lng2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(lat1) == float",
+      "lat1 is not None",
+      "type(lng1) == float",
+      "lng1 is not None",
+      "type(lat2) == float",
+      "lat2 is not None",
+      "type(lng2) == float",
+      "lng2 is not None"
+    ]
+  }
+}

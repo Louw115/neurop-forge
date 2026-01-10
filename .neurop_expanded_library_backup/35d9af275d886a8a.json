@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "35d9af275d886a8a138e0bc64d9be481bd9252d7244ba2b6d57f879c0bf559d6",
+    "semantic_fingerprint": "ecb73f9b87b41e35294003fd182ce026feafb3b949e23689944ef7ea3fac8ddf",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate password strength.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter password",
+        "name": "password",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter min_length",
+        "name": "min_length",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of validate_password_strength",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_password_strength(password: str, min_length: int) -> dict:\n    \"\"\"Validate password strength.\"\"\"\n    checks = [\n        min_length(password, min_length),\n        has_uppercase(password),\n        has_lowercase(password),\n        has_digit(password),\n    ]\n    errors = [c[\"error\"] for c in checks if not c[\"valid\"]]\n    return {\"valid\": len(errors) == 0, \"errors\": errors}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:32.192640+00:00",
+    "description": "Validate password strength.",
+    "intent": "Validate password strength.",
+    "language": "python",
+    "name": "validate_password_strength",
+    "source_file": "neurop_forge/sources/validation_rules.py",
+    "source_line_end": 191,
+    "source_line_start": 182,
+    "tags": [
+      "min_length",
+      "password",
+      "strength",
+      "validate",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:32.192666+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(password) == string",
+      "password is not None",
+      "type(min_length) == integer",
+      "min_length is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(password) == string",
+      "password is not None",
+      "type(min_length) == integer",
+      "min_length is not None"
+    ]
+  }
+}

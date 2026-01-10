@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "805ff66589c8018452dafee4fa6da9c28f704e395d6e3b07338b1320aefc2bad",
+    "semantic_fingerprint": "9a0c1b8d971b9f62605e85fcefa19574ce772fc75bf962952244e3363f184bca",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format an audit entry for display.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter record",
+        "name": "record",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_audit_entry",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_audit_entry(record: dict) -> str:\n    \"\"\"Format an audit entry for display.\"\"\"\n    timestamp = record.get(\"timestamp\", \"\")\n    user = record.get(\"user_id\", \"system\")\n    operation = record.get(\"operation\", \"UNKNOWN\")\n    table = record.get(\"table_name\", \"unknown\")\n    record_id = record.get(\"record_id\", \"\")\n    return f\"[{timestamp}] {user} {operation} {table}#{record_id}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:26.864486+00:00",
+    "description": "Format an audit entry for display.",
+    "intent": "Format an audit entry for display.",
+    "language": "python",
+    "name": "format_audit_entry",
+    "source_file": "neurop_forge/sources/audit_logging.py",
+    "source_line_end": 267,
+    "source_line_start": 260,
+    "tags": [
+      "audit",
+      "entry",
+      "format",
+      "record",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.864507+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(record) == dict",
+      "record is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(record) == dict",
+      "record is not None"
+    ]
+  }
+}

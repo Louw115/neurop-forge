@@ -1,0 +1,144 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "10c86b2dcf501429000e44eba158e6e215044c2fb80c49f4e30a776a27c5b405",
+    "semantic_fingerprint": "e7f61d56eb11d8a77d7b9e61a6217207efecd1c83c87923126c8baac5d0f4934",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Split order into two orders.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter order",
+        "name": "order",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter item_ids",
+        "name": "item_ids",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of split_order",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def split_order(order: dict, item_ids: list) -> dict:\n    \"\"\"Split order into two orders.\"\"\"\n    split_items = []\n    remaining_items = []\n    for item in order.get(\"items\", []):\n        if item.get(\"item_id\") in item_ids:\n            split_items.append(item)\n        else:\n            remaining_items.append(item)\n    return {\n        \"split\": {**order, \"items\": split_items},\n        \"remaining\": {**order, \"items\": remaining_items}\n    }",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:34.585033+00:00",
+    "description": "Split order into two orders.",
+    "intent": "Split order into two orders.",
+    "language": "python",
+    "name": "split_order",
+    "source_file": "neurop_forge/sources/order_utilities.py",
+    "source_line_end": 120,
+    "source_line_start": 108,
+    "tags": [
+      "item_ids",
+      "order",
+      "split",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.585061+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(order) == dict",
+      "order is not None",
+      "type(item_ids) == list",
+      "item_ids is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(order) == dict",
+      "order is not None",
+      "type(item_ids) == list",
+      "item_ids is not None"
+    ]
+  }
+}

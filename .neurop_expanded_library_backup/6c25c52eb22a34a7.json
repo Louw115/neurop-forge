@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "6c25c52eb22a34a7ff9eeffa0f128a2fe3e799f0f4f7f88c31c8a7dcd91278de",
+    "semantic_fingerprint": "e79d8dbe4f8fc75952a550da9b492a09b037deb63feee990f42ad5fd1cca820c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format ZIP code for country.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter zip_code",
+        "name": "zip_code",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter country",
+        "name": "country",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_zip",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_zip(zip_code: str, country: str) -> str:\n    \"\"\"Format ZIP code for country.\"\"\"\n    zip_code = zip_code.upper().replace(\" \", \"\")\n    if country == \"US\":\n        if len(zip_code) > 5 and \"-\" not in zip_code:\n            zip_code = zip_code[:5] + \"-\" + zip_code[5:9]\n    elif country == \"CA\":\n        if len(zip_code) == 6:\n            zip_code = zip_code[:3] + \" \" + zip_code[3:]\n    elif country == \"GB\":\n        if len(zip_code) >= 5:\n            zip_code = zip_code[:-3] + \" \" + zip_code[-3:]\n    return zip_code",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:34.230752+00:00",
+    "description": "Format ZIP code for country.",
+    "intent": "Format ZIP code for country.",
+    "language": "python",
+    "name": "format_zip",
+    "source_file": "neurop_forge/sources/address_utilities.py",
+    "source_line_end": 188,
+    "source_line_start": 176,
+    "tags": [
+      "country",
+      "format",
+      "string_manipulation",
+      "zip",
+      "zip_code"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.230780+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(zip_code) == string",
+      "zip_code is not None",
+      "type(country) == string",
+      "country is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(zip_code) == string",
+      "zip_code is not None",
+      "type(country) == string",
+      "country is not None"
+    ]
+  }
+}

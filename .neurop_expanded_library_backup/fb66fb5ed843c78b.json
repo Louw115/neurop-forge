@@ -1,0 +1,155 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "fb66fb5ed843c78bbb203d38a540fec0071508833a957870e6ea54d0344087c8",
+    "semantic_fingerprint": "19a4f4c450459c656cd003394217e41066350ac70cc8f778fb152c663610040c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Assert value has expected length.",
+    "inputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter expected_length",
+        "name": "expected_length",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter message",
+        "name": "message",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of assert_length",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def assert_length(value, expected_length: int, message: str) -> dict:\n    \"\"\"Assert value has expected length.\"\"\"\n    actual_length = len(value)\n    passed = actual_length == expected_length\n    return {\n        \"passed\": passed,\n        \"message\": message,\n        \"actual\": str(actual_length),\n        \"expected\": str(expected_length),\n        \"error\": None if passed else f\"Expected length {expected_length}, got {actual_length}\"\n    }",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:27.799859+00:00",
+    "description": "Assert value has expected length.",
+    "intent": "Assert value has expected length.",
+    "language": "python",
+    "name": "assert_length",
+    "source_file": "neurop_forge/sources/testing_utilities.py",
+    "source_line_end": 258,
+    "source_line_start": 248,
+    "tags": [
+      "assert",
+      "expected_length",
+      "length",
+      "message",
+      "validation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.799887+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "value is not None",
+      "type(expected_length) == integer",
+      "expected_length is not None",
+      "type(message) == string",
+      "message is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "value is not None",
+      "type(expected_length) == integer",
+      "expected_length is not None",
+      "type(message) == string",
+      "message is not None"
+    ]
+  }
+}

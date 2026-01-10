@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d1869d6b376ff93724e73879998fcea9bae17a3f662ba0ded40c7ed83a3fbceb",
+    "semantic_fingerprint": "c16a08e29c392f35d16b3767a90984faa018c2311e95cfc52c2565d5bd1f2499",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate a CHECK constraint SQL fragment.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter column",
+        "name": "column",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter condition",
+        "name": "condition",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_check_constraint",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_check_constraint(column: str, condition: str) -> str:\n    \"\"\"Generate a CHECK constraint SQL fragment.\"\"\"\n    from neurop_forge.sources.sql_building import escape_sql_identifier\n    return f\"CHECK ({condition})\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:26.487939+00:00",
+    "description": "Generate a CHECK constraint SQL fragment.",
+    "intent": "Generate a CHECK constraint SQL fragment.",
+    "language": "python",
+    "name": "generate_check_constraint",
+    "source_file": "neurop_forge/sources/data_integrity.py",
+    "source_line_end": 211,
+    "source_line_start": 208,
+    "tags": [
+      "check",
+      "column",
+      "condition",
+      "constraint",
+      "generate",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.487967+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(column) == string",
+      "column is not None",
+      "type(condition) == string",
+      "condition is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(column) == string",
+      "column is not None",
+      "type(condition) == string",
+      "condition is not None"
+    ]
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "acb13635e9ae301fe421425acb3ff04d80130feecb5932e63d8f5e90f7d1c0e8",
+    "semantic_fingerprint": "ce4a385aa09986c84689fc5ee0787d7c3369b41e42e9f2022918a4625ce25670",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get available space.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter buffer",
+        "name": "buffer",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of ring_available_space",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def ring_available_space(buffer: dict) -> int:\n    \"\"\"Get available space.\"\"\"\n    return buffer[\"capacity\"] - buffer[\"size\"]",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:30.763101+00:00",
+    "description": "Get available space.",
+    "intent": "Get available space.",
+    "language": "python",
+    "name": "ring_available_space",
+    "source_file": "neurop_forge/sources/ring_buffer.py",
+    "source_line_end": 218,
+    "source_line_start": 216,
+    "tags": [
+      "arithmetic",
+      "available",
+      "buffer",
+      "ring",
+      "space"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.763118+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(buffer) == dict",
+      "buffer is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(buffer) == dict",
+      "buffer is not None"
+    ]
+  }
+}

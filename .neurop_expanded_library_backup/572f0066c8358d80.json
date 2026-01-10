@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "572f0066c8358d80a310d96eeb06ca915a3f2aa93136c908163f30a486c95fc4",
+    "semantic_fingerprint": "e407bf24bf3b73f3e2814f1b8e3259df7e3b933652968a75ace25334fb6dd271",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a sort query string value from parameters.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter sort_params",
+        "name": "sort_params",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_sort_string",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_sort_string(sort_params: list) -> str:\n    \"\"\"Build a sort query string value from parameters.\"\"\"\n    parts = []\n    for param in sort_params:\n        field = param.get(\"field\", \"\")\n        direction = param.get(\"direction\", \"asc\")\n        if direction == \"desc\":\n            parts.append(f\"-{field}\")\n        else:\n            parts.append(field)\n    return \",\".join(parts)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:26.929656+00:00",
+    "description": "Build a sort query string value from parameters.",
+    "intent": "Build a sort query string value from parameters.",
+    "language": "python",
+    "name": "build_sort_string",
+    "source_file": "neurop_forge/sources/api_patterns.py",
+    "source_line_end": 263,
+    "source_line_start": 253,
+    "tags": [
+      "build",
+      "sort",
+      "sort_params",
+      "string",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.929675+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(sort_params) == list",
+      "sort_params is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(sort_params) == list",
+      "sort_params is not None"
+    ]
+  }
+}

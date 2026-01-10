@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "778daf4a4c02c228eec50b7f5d4b5c0e18d69a1fb99dcce22c8329c4045253c8",
+    "semantic_fingerprint": "11e005ec205199753a347a9ac58675d4e3ecf618c03192c6ffe523956848e984",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate a WHERE condition for a named scope.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter scope_name",
+        "name": "scope_name",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter scope_params",
+        "name": "scope_params",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_scope_condition",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_scope_condition(scope_name: str, scope_params: dict) -> str:\n    \"\"\"Generate a WHERE condition for a named scope.\"\"\"\n    scopes = {\n        \"active\": \"deleted_at IS NULL\",\n        \"deleted\": \"deleted_at IS NOT NULL\",\n        \"recent\": \"created_at >= CURRENT_DATE - INTERVAL '7 days'\",\n        \"today\": \"DATE(created_at) = CURRENT_DATE\",\n        \"this_month\": \"EXTRACT(MONTH FROM created_at) = EXTRACT(MONTH FROM CURRENT_DATE) AND EXTRACT(YEAR FROM created_at) = EXTRACT(YEAR FROM CURRENT_DATE)\"\n    }\n    return scopes.get(scope_name, \"1=1\")",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:26.699543+00:00",
+    "description": "Generate a WHERE condition for a named scope.",
+    "intent": "Generate a WHERE condition for a named scope.",
+    "language": "python",
+    "name": "generate_scope_condition",
+    "source_file": "neurop_forge/sources/orm_patterns.py",
+    "source_line_end": 296,
+    "source_line_start": 287,
+    "tags": [
+      "condition",
+      "generate",
+      "scope",
+      "scope_name",
+      "scope_params",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.699570+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(scope_name) == string",
+      "scope_name is not None",
+      "type(scope_params) == dict",
+      "scope_params is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(scope_name) == string",
+      "scope_name is not None",
+      "type(scope_params) == dict",
+      "scope_params is not None"
+    ]
+  }
+}

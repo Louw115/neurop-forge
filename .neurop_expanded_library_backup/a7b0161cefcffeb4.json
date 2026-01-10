@@ -1,0 +1,147 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a7b0161cefcffeb4c88d90013ea5341b5f0b490ba5c4041fc80dfaa949d50dc2",
+    "semantic_fingerprint": "2b0cee84e262eefc0af3da2251203b96a5f5044a139c90c6fa036896983d81f0",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate DROP EXTENSION SQL.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter extension_name",
+        "name": "extension_name",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter if_exists",
+        "name": "if_exists",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_drop_extension_sql",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_drop_extension_sql(extension_name: str, if_exists: bool) -> str:\n    \"\"\"Generate DROP EXTENSION SQL.\"\"\"\n    if_clause = \"IF EXISTS \" if if_exists else \"\"\n    return f\"DROP EXTENSION {if_clause}{extension_name}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:26.320334+00:00",
+    "description": "Generate DROP EXTENSION SQL.",
+    "intent": "Generate DROP EXTENSION SQL.",
+    "language": "python",
+    "name": "generate_drop_extension_sql",
+    "source_file": "neurop_forge/sources/migration_helpers.py",
+    "source_line_end": 370,
+    "source_line_start": 367,
+    "tags": [
+      "drop",
+      "extension",
+      "extension_name",
+      "generate",
+      "if_exists",
+      "sql",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.320361+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(extension_name) == string",
+      "extension_name is not None",
+      "type(if_exists) == boolean",
+      "if_exists is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(extension_name) == string",
+      "extension_name is not None",
+      "type(if_exists) == boolean",
+      "if_exists is not None"
+    ]
+  }
+}

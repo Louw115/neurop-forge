@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ac1b69c8f1283c40bde2dc5aca9c6ebcb4b577ca3eb0afc837ebabe9bdb75c04",
+    "semantic_fingerprint": "0062e3eda616c828eacfa6f9603befd7278407f1d7ee4d852b52c23811e01725",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if t1 is before t2.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter t1",
+        "name": "t1",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter t2",
+        "name": "t2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_before_time",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_before_time(t1: dict, t2: dict) -> bool:\n    \"\"\"Check if t1 is before t2.\"\"\"\n    return seconds_between(t1, t2) > 0",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:31.669695+00:00",
+    "description": "Check if t1 is before t2.",
+    "intent": "Check if t1 is before t2.",
+    "language": "python",
+    "name": "is_before_time",
+    "source_file": "neurop_forge/sources/time_utilities.py",
+    "source_line_end": 64,
+    "source_line_start": 62,
+    "tags": [
+      "before",
+      "t1",
+      "t2",
+      "time",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.669721+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(t1) == dict",
+      "t1 is not None",
+      "type(t2) == dict",
+      "t2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(t1) == dict",
+      "t1 is not None",
+      "type(t2) == dict",
+      "t2 is not None"
+    ]
+  }
+}

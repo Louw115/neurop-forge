@@ -1,0 +1,169 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f4ca9b1cd922d416742e481e82c6fed5c4b7d7194098a107882ae9530dac3bdc",
+    "semantic_fingerprint": "8877b9a332573c913758e822db59b89e17f420295ed7d407117d1404b3b5601d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate overlap duration in seconds.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter start1",
+        "name": "start1",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter end1",
+        "name": "end1",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter start2",
+        "name": "start2",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter end2",
+        "name": "end2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of overlap_duration",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def overlap_duration(start1: dict, end1: dict, start2: dict, end2: dict) -> int:\n    \"\"\"Calculate overlap duration in seconds.\"\"\"\n    s1 = to_seconds(start1[\"hours\"], start1[\"minutes\"], start1[\"seconds\"])\n    e1 = to_seconds(end1[\"hours\"], end1[\"minutes\"], end1[\"seconds\"])\n    s2 = to_seconds(start2[\"hours\"], start2[\"minutes\"], start2[\"seconds\"])\n    e2 = to_seconds(end2[\"hours\"], end2[\"minutes\"], end2[\"seconds\"])\n    overlap_start = max(s1, s2)\n    overlap_end = min(e1, e2)\n    return max(0, overlap_end - overlap_start)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:31.714794+00:00",
+    "description": "Calculate overlap duration in seconds.",
+    "intent": "Calculate overlap duration in seconds.",
+    "language": "python",
+    "name": "overlap_duration",
+    "source_file": "neurop_forge/sources/time_utilities.py",
+    "source_line_end": 197,
+    "source_line_start": 189,
+    "tags": [
+      "arithmetic",
+      "duration",
+      "end1",
+      "end2",
+      "overlap",
+      "start1",
+      "start2"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.714823+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(start1) == dict",
+      "start1 is not None",
+      "type(end1) == dict",
+      "end1 is not None",
+      "type(start2) == dict",
+      "start2 is not None",
+      "type(end2) == dict",
+      "end2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(start1) == dict",
+      "start1 is not None",
+      "type(end1) == dict",
+      "end1 is not None",
+      "type(start2) == dict",
+      "start2 is not None",
+      "type(end2) == dict",
+      "end2 is not None"
+    ]
+  }
+}

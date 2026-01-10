@@ -1,0 +1,170 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0ce8245eb9de7702f9a3afdc9a81417b0519f8e6219d5b45ff2d3126217d3b33",
+    "semantic_fingerprint": "8641be68d0f3042a129aa6a99ca0576dec61ef676f8206f9232dbd81de463904",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build standard webhook request headers.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter signature",
+        "name": "signature",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter signature_header",
+        "name": "signature_header",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter event_id",
+        "name": "event_id",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter timestamp",
+        "name": "timestamp",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_webhook_headers",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_webhook_headers(signature: str, signature_header: str, event_id: str, timestamp: str) -> dict:\n    \"\"\"Build standard webhook request headers.\"\"\"\n    return {\n        signature_header: signature,\n        \"X-Webhook-Id\": event_id,\n        \"X-Webhook-Timestamp\": timestamp,\n        \"Content-Type\": \"application/json\"\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:27.129410+00:00",
+    "description": "Build standard webhook request headers.",
+    "intent": "Build standard webhook request headers.",
+    "language": "python",
+    "name": "build_webhook_headers",
+    "source_file": "neurop_forge/sources/webhook_patterns.py",
+    "source_line_end": 278,
+    "source_line_start": 271,
+    "tags": [
+      "build",
+      "dict_operation",
+      "event_id",
+      "headers",
+      "signature",
+      "signature_header",
+      "timestamp",
+      "webhook"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.129439+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(signature) == string",
+      "signature is not None",
+      "type(signature_header) == string",
+      "signature_header is not None",
+      "type(event_id) == string",
+      "event_id is not None",
+      "type(timestamp) == string",
+      "timestamp is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(signature) == string",
+      "signature is not None",
+      "type(signature_header) == string",
+      "signature_header is not None",
+      "type(event_id) == string",
+      "event_id is not None",
+      "type(timestamp) == string",
+      "timestamp is not None"
+    ]
+  }
+}

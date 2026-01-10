@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9646d3d51b62d6a19a943f81d4bc525bc1fb3147888e1d059a1c7631dea14f16",
+    "semantic_fingerprint": "40925c9d5af8d87558eaa30716266bf9a0c6d11a1cac3c180ccabf8c1306372b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract all items in sorted order.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter heap",
+        "name": "heap",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of heap_to_sorted_list",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def heap_to_sorted_list(heap: dict) -> list:\n    \"\"\"Extract all items in sorted order.\"\"\"\n    result = []\n    current = {\"type\": heap[\"type\"], \"items\": list(heap[\"items\"])}\n    while current[\"items\"]:\n        pop_result = heap_pop(current)\n        result.append(pop_result[\"value\"])\n        current = pop_result[\"heap\"]\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:29.861850+00:00",
+    "description": "Extract all items in sorted order.",
+    "intent": "Extract all items in sorted order.",
+    "language": "python",
+    "name": "heap_to_sorted_list",
+    "source_file": "neurop_forge/sources/heap_utilities.py",
+    "source_line_end": 144,
+    "source_line_start": 136,
+    "tags": [
+      "heap",
+      "list",
+      "list_operation",
+      "sorted"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.861867+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(heap) == dict",
+      "heap is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(heap) == dict",
+      "heap is not None"
+    ]
+  }
+}

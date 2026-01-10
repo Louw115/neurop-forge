@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b297b55015ee3adc03ac70061f66fa9117170b6618d74be181a4f7585423d615",
+    "semantic_fingerprint": "2aabef1aa02e87fc7f0f158d2ede1e07eb516989b6e8a80dac090cc96eff979f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Blend two RGB colors.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter color1",
+        "name": "color1",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter color2",
+        "name": "color2",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter ratio",
+        "name": "ratio",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of blend_colors",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def blend_colors(color1: dict, color2: dict, ratio: float) -> dict:\n    \"\"\"Blend two RGB colors.\"\"\"\n    ratio = max(0, min(1, ratio))\n    return {\n        \"r\": int(color1[\"r\"] * (1 - ratio) + color2[\"r\"] * ratio),\n        \"g\": int(color1[\"g\"] * (1 - ratio) + color2[\"g\"] * ratio),\n        \"b\": int(color1[\"b\"] * (1 - ratio) + color2[\"b\"] * ratio)\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:28.969235+00:00",
+    "description": "Blend two RGB colors.",
+    "intent": "Blend two RGB colors.",
+    "language": "python",
+    "name": "blend_colors",
+    "source_file": "neurop_forge/sources/image_utilities.py",
+    "source_line_end": 139,
+    "source_line_start": 132,
+    "tags": [
+      "blend",
+      "color1",
+      "color2",
+      "colors",
+      "dict_operation",
+      "ratio"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.969262+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(color1) == dict",
+      "color1 is not None",
+      "type(color2) == dict",
+      "color2 is not None",
+      "type(ratio) == float",
+      "ratio is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(color1) == dict",
+      "color1 is not None",
+      "type(color2) == dict",
+      "color2 is not None",
+      "type(ratio) == float",
+      "ratio is not None"
+    ]
+  }
+}

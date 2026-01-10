@@ -1,0 +1,155 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "75c4b91e57a3fcc92f979905609b7c16101f1b71cc6a4aa197e081e6dd2b1f6e",
+    "semantic_fingerprint": "149b549b3a3f5633acadc7d5fcf83ae7953bb9a8181c3ce92eacfe82ef30a4b5",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate dimension from ratio.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter known",
+        "name": "known",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter ratio",
+        "name": "ratio",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter is_width",
+        "name": "is_width",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of calculate_dimension",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_dimension(known: int, ratio: tuple, is_width: bool) -> int:\n    \"\"\"Calculate dimension from ratio.\"\"\"\n    if is_width:\n        return int(known * ratio[0] / ratio[1]) if ratio[1] != 0 else 0\n    return int(known * ratio[1] / ratio[0]) if ratio[0] != 0 else 0",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:35.094241+00:00",
+    "description": "Calculate dimension from ratio.",
+    "intent": "Calculate dimension from ratio.",
+    "language": "python",
+    "name": "calculate_dimension",
+    "source_file": "neurop_forge/sources/ratio_utilities.py",
+    "source_line_end": 148,
+    "source_line_start": 144,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "dimension",
+      "is_width",
+      "known",
+      "ratio"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:35.094268+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(known) == integer",
+      "known is not None",
+      "ratio is not None",
+      "type(is_width) == boolean",
+      "is_width is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(known) == integer",
+      "known is not None",
+      "ratio is not None",
+      "type(is_width) == boolean",
+      "is_width is not None"
+    ]
+  }
+}

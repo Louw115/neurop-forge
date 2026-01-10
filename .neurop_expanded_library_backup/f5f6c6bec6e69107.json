@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f5f6c6bec6e69107dd5abf5ca16b3d5c8ed697c59dd46e2942b2a2e0651ea4a2",
+    "semantic_fingerprint": "ac8f12a3269a7b199456b85d697efcea50c1fecf873f69b86da46514739133cb",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate BLAKE2s hash.",
+    "inputs": [
+      {
+        "data_type": "bytes",
+        "default_value": null,
+        "description": "Parameter data",
+        "name": "data",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter digest_size",
+        "name": "digest_size",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of blake2s_hash",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def blake2s_hash(data: bytes, digest_size: int) -> str:\n    \"\"\"Calculate BLAKE2s hash.\"\"\"\n    return hashlib.blake2s(data, digest_size=digest_size).hexdigest()",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:32.047048+00:00",
+    "description": "Calculate BLAKE2s hash.",
+    "intent": "Calculate BLAKE2s hash.",
+    "language": "python",
+    "name": "blake2s_hash",
+    "source_file": "neurop_forge/sources/crypto_primitives.py",
+    "source_line_end": 59,
+    "source_line_start": 57,
+    "tags": [
+      "blake2s",
+      "data",
+      "digest_size",
+      "hash",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:32.047072+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(data) == bytes",
+      "data is not None",
+      "type(digest_size) == integer",
+      "digest_size is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(data) == bytes",
+      "data is not None",
+      "type(digest_size) == integer",
+      "digest_size is not None"
+    ]
+  }
+}

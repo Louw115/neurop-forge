@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0cd0300296b828dbe821fa7139ec3df08cae2e48a8cd692e79d0e0038cc363b4",
+    "semantic_fingerprint": "b71740ab815b95bc32641e13ed21c5af43ef5999b4af82e0f363b41feeef09fa",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Truncate notification body for preview.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter body",
+        "name": "body",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_length",
+        "name": "max_length",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of truncate_notification_body",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def truncate_notification_body(body: str, max_length: int) -> str:\n    \"\"\"Truncate notification body for preview.\"\"\"\n    if len(body) <= max_length:\n        return body\n    return body[:max_length - 3] + \"...\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:28.346629+00:00",
+    "description": "Truncate notification body for preview.",
+    "intent": "Truncate notification body for preview.",
+    "language": "python",
+    "name": "truncate_notification_body",
+    "source_file": "neurop_forge/sources/notification_patterns.py",
+    "source_line_end": 171,
+    "source_line_start": 167,
+    "tags": [
+      "body",
+      "max_length",
+      "notification",
+      "string_manipulation",
+      "truncate"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.346657+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(body) == string",
+      "body is not None",
+      "type(max_length) == integer",
+      "max_length is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(body) == string",
+      "body is not None",
+      "type(max_length) == integer",
+      "max_length is not None"
+    ]
+  }
+}

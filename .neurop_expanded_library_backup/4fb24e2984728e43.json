@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4fb24e2984728e43ab68c4dd4376587a005824dce595308c1a79853e3c8881ae",
+    "semantic_fingerprint": "9150d23bb00a0e8afa6aa8fb2474849892574d313707b40286e12b86023d22b4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if value is a number.",
+    "inputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of is_number",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_number(value) -> dict:\n    \"\"\"Check if value is a number.\"\"\"\n    valid = isinstance(value, (int, float)) and not isinstance(value, bool)\n    return {\"valid\": valid, \"error\": \"Must be a number\" if not valid else None}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:32.098384+00:00",
+    "description": "Check if value is a number.",
+    "intent": "Check if value is a number.",
+    "language": "python",
+    "name": "is_number",
+    "source_file": "neurop_forge/sources/validation_rules.py",
+    "source_line_end": 30,
+    "source_line_start": 27,
+    "tags": [
+      "number",
+      "validation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:32.098405+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "value is not None"
+    ]
+  }
+}

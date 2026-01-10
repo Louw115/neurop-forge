@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c221bd7b4cb9b905a15c97e1ec0d3dae291ac0853e096baca3c426156b4ed8cb",
+    "semantic_fingerprint": "2f2887ff4a3eada9ba376b1ff8414d4baf4c5106a8aa15b7501e4fa5fb8f8f9b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a TRUNCATE TABLE statement.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter table",
+        "name": "table",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter restart_identity",
+        "name": "restart_identity",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_truncate_table",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_truncate_table(table: str, restart_identity: bool) -> str:\n    \"\"\"Build a TRUNCATE TABLE statement.\"\"\"\n    restart_clause = \" RESTART IDENTITY\" if restart_identity else \"\"\n    return f\"TRUNCATE TABLE {escape_sql_identifier(table)}{restart_clause}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:25.946295+00:00",
+    "description": "Build a TRUNCATE TABLE statement.",
+    "intent": "Build a TRUNCATE TABLE statement.",
+    "language": "python",
+    "name": "build_truncate_table",
+    "source_file": "neurop_forge/sources/sql_building.py",
+    "source_line_end": 379,
+    "source_line_start": 376,
+    "tags": [
+      "build",
+      "restart_identity",
+      "string_manipulation",
+      "table",
+      "truncate"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.946322+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(table) == string",
+      "table is not None",
+      "type(restart_identity) == boolean",
+      "restart_identity is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(table) == string",
+      "table is not None",
+      "type(restart_identity) == boolean",
+      "restart_identity is not None"
+    ]
+  }
+}

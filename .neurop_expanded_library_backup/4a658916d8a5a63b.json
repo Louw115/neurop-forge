@@ -1,0 +1,163 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": false,
+    "io_operations": [
+      "random"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "non_deterministic",
+    "side_effects": [
+      "random"
+    ],
+    "thread_safe": false
+  },
+  "failure_modes": {
+    "can_fail": true,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "raises_exception",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4a658916d8a5a63b4fe18d0abfcf91bb2fbc441f0ac9ec63ecb0d8a7ba028ba5",
+    "semantic_fingerprint": "5fb6881038e13a81e97564c5ab323adf4b5c0611b766993cad13a9d5f424bf96",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate deterministic random date.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seed",
+        "name": "seed",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter start_year",
+        "name": "start_year",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter end_year",
+        "name": "end_year",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of random_date",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def random_date(seed: int, start_year: int, end_year: int) -> dict:\n    \"\"\"Generate deterministic random date.\"\"\"\n    year = random_int(seed, start_year, end_year)\n    month = random_int(hash_seed(seed, \"month\"), 1, 12)\n    days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]\n    max_day = days_in_month[month - 1]\n    if month == 2 and year % 4 == 0 and (year % 100 != 0 or year % 400 == 0):\n        max_day = 29\n    day = random_int(hash_seed(seed, \"day\"), 1, max_day)\n    return {\"year\": year, \"month\": month, \"day\": day}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:32.537089+00:00",
+    "description": "Generate deterministic random date.",
+    "intent": "Generate deterministic random date.",
+    "language": "python",
+    "name": "random_date",
+    "source_file": "neurop_forge/sources/random_utilities.py",
+    "source_line_end": 152,
+    "source_line_start": 143,
+    "tags": [
+      "date",
+      "dict_operation",
+      "end_year",
+      "random",
+      "seed",
+      "start_year"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 0.5,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:32.537120+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.265,
+    "risk_factors": [
+      "impure_function",
+      "non_deterministic",
+      "side_effects: random"
+    ],
+    "risk_level": "medium",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(seed) == integer",
+      "seed is not None",
+      "type(start_year) == integer",
+      "start_year is not None",
+      "type(end_year) == integer",
+      "end_year is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(seed) == integer",
+      "seed is not None",
+      "type(start_year) == integer",
+      "start_year is not None",
+      "type(end_year) == integer",
+      "end_year is not None"
+    ]
+  }
+}

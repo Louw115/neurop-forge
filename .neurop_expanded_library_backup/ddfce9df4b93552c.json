@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ddfce9df4b93552c36e648b2bd20cd1dce8aec051593c0357bdf701ba5d7ff00",
+    "semantic_fingerprint": "734014ca069ac9cefc57c5c6ff9453c188166f89a5c1a1116c5716cee0fcacfb",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate funnel conversion rates between steps.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter steps",
+        "name": "steps",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter step_counts",
+        "name": "step_counts",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of calculate_funnel_conversion",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_funnel_conversion(steps: list, step_counts: list) -> list:\n    \"\"\"Calculate funnel conversion rates between steps.\"\"\"\n    if len(steps) != len(step_counts) or not step_counts:\n        return []\n    result = []\n    for i, (step, count) in enumerate(zip(steps, step_counts)):\n        if i == 0:\n            conversion = 100.0\n        else:\n            prev_count = step_counts[i - 1]\n            conversion = (count / prev_count * 100) if prev_count > 0 else 0\n        result.append({\n            \"step\": step,\n            \"count\": count,\n            \"conversion_rate\": conversion\n        })\n    return result",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:28.405916+00:00",
+    "description": "Calculate funnel conversion rates between steps.",
+    "intent": "Calculate funnel conversion rates between steps.",
+    "language": "python",
+    "name": "calculate_funnel_conversion",
+    "source_file": "neurop_forge/sources/analytics_patterns.py",
+    "source_line_end": 184,
+    "source_line_start": 168,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "conversion",
+      "funnel",
+      "step_counts",
+      "steps"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.405933+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(steps) == list",
+      "steps is not None",
+      "type(step_counts) == list",
+      "step_counts is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(steps) == list",
+      "steps is not None",
+      "type(step_counts) == list",
+      "step_counts is not None"
+    ]
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b3cd76a36f2992400833a47587fc0fcf456db43a73a63ca068cb0b4766bde038",
+    "semantic_fingerprint": "2fc5b69a5d38fc0cd9bc989cae6553b4139757dc30bec46e4ba255e360b26afd",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Run-length encode a list.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter data",
+        "name": "data",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of run_length_encode",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def run_length_encode(data: list) -> list:\n    \"\"\"Run-length encode a list.\"\"\"\n    if not data:\n        return []\n    result = []\n    current = data[0]\n    count = 1\n    for item in data[1:]:\n        if item == current:\n            count += 1\n        else:\n            result.append((current, count))\n            current = item\n            count = 1\n    result.append((current, count))\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:28.771612+00:00",
+    "description": "Run-length encode a list.",
+    "intent": "Run-length encode a list.",
+    "language": "python",
+    "name": "run_length_encode",
+    "source_file": "neurop_forge/sources/compression_utilities.py",
+    "source_line_end": 41,
+    "source_line_start": 26,
+    "tags": [
+      "data",
+      "encode",
+      "length",
+      "list_operation",
+      "run"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.771638+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(data) == list",
+      "data is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(data) == list",
+      "data is not None"
+    ]
+  }
+}

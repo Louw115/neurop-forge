@@ -1,0 +1,132 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "30c85e73ed69b7c6461b1840d21bb32f2995ac10cd9793fa9053c2c6db80684d",
+    "semantic_fingerprint": "3defed4c9f1ee01127ee243006fb19ed160d2790f8eef3bc58d6b07450a4ade6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse JSON path into parts.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter path",
+        "name": "path",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of parse_path",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_path(path: str) -> list:\n    \"\"\"Parse JSON path into parts.\"\"\"\n    if path.startswith(\"$.\"):\n        path = path[2:]\n    elif path.startswith(\"$\"):\n        path = path[1:]\n    parts = []\n    current = \"\"\n    in_bracket = False\n    for char in path:\n        if char == \"[\":\n            if current:\n                parts.append(current)\n                current = \"\"\n            in_bracket = True\n        elif char == \"]\":\n            if current:\n                parts.append(current.strip(\"'\\\"\"))\n                current = \"\"\n            in_bracket = False\n        elif char == \".\" and not in_bracket:\n            if current:\n                parts.append(current)\n                current = \"\"\n        else:\n            current += char\n    if current:\n        parts.append(current)\n    return parts",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T12:22:33.921029+00:00",
+    "description": "Parse JSON path into parts.",
+    "intent": "Parse JSON path into parts.",
+    "language": "python",
+    "name": "parse_path",
+    "source_file": "neurop_forge/sources/json_path.py",
+    "source_line_end": 67,
+    "source_line_start": 39,
+    "tags": [
+      "parse",
+      "path",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:33.921057+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(path) == string",
+      "path is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(path) == string",
+      "path is not None"
+    ]
+  }
+}

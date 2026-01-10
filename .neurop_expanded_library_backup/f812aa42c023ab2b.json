@@ -1,0 +1,144 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic comparison block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f812aa42c023ab2b07435df1fbb8e6dd464f43c3b9a03157d7c4f448c33325ad",
+    "semantic_fingerprint": "e70774ac0b214ab434a7bdd34b8b3b2f14dbe91c5d483a589d351cca2a3f1bea",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if MIME type matches Accept header.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter mime_type",
+        "name": "mime_type",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter accept",
+        "name": "accept",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of matches_accept",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def matches_accept(mime_type: str, accept: str) -> bool:\n    \"\"\"Check if MIME type matches Accept header.\"\"\"\n    accepts = [a.strip().split(\";\")[0] for a in accept.split(\",\")]\n    for a in accepts:\n        if a == \"*/*\":\n            return True\n        if a.endswith(\"/*\") and mime_type.startswith(a[:-1]):\n            return True\n        if a == mime_type:\n            return True\n    return False",
+  "metadata": {
+    "category": "comparison",
+    "created_at": "2026-01-10T12:22:33.763857+00:00",
+    "description": "Check if MIME type matches Accept header.",
+    "intent": "Check if MIME type matches Accept header.",
+    "language": "python",
+    "name": "matches_accept",
+    "source_file": "neurop_forge/sources/mime_utilities.py",
+    "source_line_end": 173,
+    "source_line_start": 163,
+    "tags": [
+      "accept",
+      "comparison",
+      "matches",
+      "mime_type"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:33.763895+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.37,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.8,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(mime_type) == string",
+      "mime_type is not None",
+      "type(accept) == string",
+      "accept is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(mime_type) == string",
+      "mime_type is not None",
+      "type(accept) == string",
+      "accept is not None"
+    ]
+  }
+}

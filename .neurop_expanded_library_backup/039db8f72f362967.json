@@ -1,0 +1,135 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "039db8f72f362967febc1874f3369f6d1c557f7b8a0e94edb0e44746bc6ab028",
+    "semantic_fingerprint": "0b49624def71c01cd8cdda4647c9ac95087e255c125f6b54c3dc45cc92c536b2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate advisory transaction lock SQL (auto-released on commit).",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_advisory_xact_lock",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_advisory_xact_lock(key: int) -> str:\n    \"\"\"Generate advisory transaction lock SQL (auto-released on commit).\"\"\"\n    return f\"SELECT pg_advisory_xact_lock({key})\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:26.359024+00:00",
+    "description": "Generate advisory transaction lock SQL (auto-released on commit).",
+    "intent": "Generate advisory transaction lock SQL (auto-released on commit).",
+    "language": "python",
+    "name": "generate_advisory_xact_lock",
+    "source_file": "neurop_forge/sources/transaction_helpers.py",
+    "source_line_end": 93,
+    "source_line_start": 91,
+    "tags": [
+      "advisory",
+      "generate",
+      "key",
+      "lock",
+      "string_manipulation",
+      "xact"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.359046+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(key) == integer",
+      "key is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(key) == integer",
+      "key is not None"
+    ]
+  }
+}

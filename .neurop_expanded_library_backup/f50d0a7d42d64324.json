@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f50d0a7d42d64324712c8ccf5c44d259ce013a82b848a3904dacce133492873b",
+    "semantic_fingerprint": "92ef137aad24ea17b33b4c68573768f94eb8978e608a96ff11cf2b73d4f52665",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get sessions to remove for user limit.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter sessions",
+        "name": "sessions",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter user_id",
+        "name": "user_id",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_sessions",
+        "name": "max_sessions",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of limit_user_sessions",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def limit_user_sessions(sessions: dict, user_id: str, max_sessions: int) -> list:\n    \"\"\"Get sessions to remove for user limit.\"\"\"\n    user_sessions = get_sessions_for_user(sessions, user_id)\n    if len(user_sessions) <= max_sessions:\n        return []\n    sorted_sessions = sorted(user_sessions, key=lambda s: s.get(\"created_at\", 0))\n    return [s[\"session_id\"] for s in sorted_sessions[:-max_sessions]]",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:34.643855+00:00",
+    "description": "Get sessions to remove for user limit.",
+    "intent": "Get sessions to remove for user limit.",
+    "language": "python",
+    "name": "limit_user_sessions",
+    "source_file": "neurop_forge/sources/session_utilities.py",
+    "source_line_end": 138,
+    "source_line_start": 132,
+    "tags": [
+      "limit",
+      "list_operation",
+      "max_sessions",
+      "sessions",
+      "user",
+      "user_id"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.643893+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(sessions) == dict",
+      "sessions is not None",
+      "type(user_id) == string",
+      "user_id is not None",
+      "type(max_sessions) == integer",
+      "max_sessions is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(sessions) == dict",
+      "sessions is not None",
+      "type(user_id) == string",
+      "user_id is not None",
+      "type(max_sessions) == integer",
+      "max_sessions is not None"
+    ]
+  }
+}

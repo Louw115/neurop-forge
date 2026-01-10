@@ -1,0 +1,144 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "03d09e15d4c9f2426b7d0409d3e14ebeda0e6e8ca6450cffeb76dd96aae21f43",
+    "semantic_fingerprint": "622101c8661dc76dc5d3ddc0f134df524fb68ff9505361adaac3b92d594fffdf",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Increment numeric suffix of slug.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter slug",
+        "name": "slug",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter separator",
+        "name": "separator",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of increment_slug",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def increment_slug(slug: str, separator: str) -> str:\n    \"\"\"Increment numeric suffix of slug.\"\"\"\n    info = extract_numeric_suffix(slug, separator)\n    if info[\"number\"] is not None:\n        return f\"{info['base']}{separator}{info['number'] + 1}\"\n    return f\"{slug}{separator}1\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:34.061124+00:00",
+    "description": "Increment numeric suffix of slug.",
+    "intent": "Increment numeric suffix of slug.",
+    "language": "python",
+    "name": "increment_slug",
+    "source_file": "neurop_forge/sources/slug_helpers.py",
+    "source_line_end": 138,
+    "source_line_start": 133,
+    "tags": [
+      "increment",
+      "separator",
+      "slug",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.061150+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(slug) == string",
+      "slug is not None",
+      "type(separator) == string",
+      "separator is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(slug) == string",
+      "slug is not None",
+      "type(separator) == string",
+      "separator is not None"
+    ]
+  }
+}

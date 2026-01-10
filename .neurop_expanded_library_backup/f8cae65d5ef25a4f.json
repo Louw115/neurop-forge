@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f8cae65d5ef25a4fdefbca09fe34a48d20f2edf98d08868a0f9551151160df92",
+    "semantic_fingerprint": "cd7c30eed2f0a06a1571ea5f48a9fc507f28f02c5d607603030b492ebbfd78e4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Assert string matches regex pattern.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter pattern",
+        "name": "pattern",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter message",
+        "name": "message",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of assert_matches_pattern",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def assert_matches_pattern(value: str, pattern: str, message: str) -> dict:\n    \"\"\"Assert string matches regex pattern.\"\"\"\n    import re\n    passed = bool(re.match(pattern, value))\n    return {\n        \"passed\": passed,\n        \"message\": message,\n        \"actual\": value,\n        \"expected\": f\"matches {pattern}\",\n        \"error\": None if passed else f\"Value does not match pattern {pattern}\"\n    }",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:27.810164+00:00",
+    "description": "Assert string matches regex pattern.",
+    "intent": "Assert string matches regex pattern.",
+    "language": "python",
+    "name": "assert_matches_pattern",
+    "source_file": "neurop_forge/sources/testing_utilities.py",
+    "source_line_end": 308,
+    "source_line_start": 298,
+    "tags": [
+      "assert",
+      "matches",
+      "message",
+      "pattern",
+      "validation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.810185+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == string",
+      "value is not None",
+      "type(pattern) == string",
+      "pattern is not None",
+      "type(message) == string",
+      "message is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(value) == string",
+      "value is not None",
+      "type(pattern) == string",
+      "pattern is not None",
+      "type(message) == string",
+      "message is not None"
+    ]
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a0f4c750a2db6bbab7852e9b902075d514a12dd0aa8b6d31a6aa93f453df8556",
+    "semantic_fingerprint": "c131f68805e6f1497b21b4f11aab51ef7f4c4331c5a106d9e67bbeec687bf320",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format bytes as human-readable string.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter bytes_value",
+        "name": "bytes_value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_bytes",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_bytes(bytes_value: int) -> str:\n    \"\"\"Format bytes as human-readable string.\"\"\"\n    if bytes_value < 0:\n        return \"0 B\"\n    units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB']\n    unit_index = 0\n    value = float(bytes_value)\n    while value >= 1024 and unit_index < len(units) - 1:\n        value /= 1024\n        unit_index += 1\n    if unit_index == 0:\n        return f\"{int(value)} {units[unit_index]}\"\n    return f\"{value:.2f} {units[unit_index]}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:24.342778+00:00",
+    "description": "Format bytes as human-readable string.",
+    "intent": "Format bytes as human-readable string.",
+    "language": "python",
+    "name": "format_bytes",
+    "source_file": "neurop_forge/sources/formatting_utilities.py",
+    "source_line_end": 62,
+    "source_line_start": 50,
+    "tags": [
+      "bytes",
+      "bytes_value",
+      "format",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:24.342797+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(bytes_value) == integer",
+      "bytes_value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(bytes_value) == integer",
+      "bytes_value is not None"
+    ]
+  }
+}

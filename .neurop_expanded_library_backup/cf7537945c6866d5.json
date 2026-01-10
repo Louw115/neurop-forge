@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic searching block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "cf7537945c6866d551303f423ec622825ac1c955d75e34ce9227fbca4b6085d8",
+    "semantic_fingerprint": "c4376d4dc70a66b5cf5ad3a6def78361cbe3d1d7e76c6dffac8c75c4a4f4eeeb",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Append value to list stored at key.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter ht",
+        "name": "ht",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of hash_table_append_to_list",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def hash_table_append_to_list(ht: dict, key: str, value) -> dict:\n    \"\"\"Append value to list stored at key.\"\"\"\n    current = hash_table_get_or_default(ht, key, [])\n    return hash_table_put(ht, key, list(current) + [value])",
+  "metadata": {
+    "category": "searching",
+    "created_at": "2026-01-10T12:22:30.567418+00:00",
+    "description": "Append value to list stored at key.",
+    "intent": "Append value to list stored at key.",
+    "language": "python",
+    "name": "hash_table_append_to_list",
+    "source_file": "neurop_forge/sources/hash_table.py",
+    "source_line_end": 198,
+    "source_line_start": 195,
+    "tags": [
+      "append",
+      "hash",
+      "ht",
+      "key",
+      "list",
+      "searching",
+      "table",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.567443+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.37,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.8,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(ht) == dict",
+      "ht is not None",
+      "type(key) == string",
+      "key is not None",
+      "value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(ht) == dict",
+      "ht is not None",
+      "type(key) == string",
+      "key is not None",
+      "value is not None"
+    ]
+  }
+}

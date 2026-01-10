@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "679cc7a19766e55b497e2e193f0bb2deb759deab86c7f7585659fda3fbecc8aa",
+    "semantic_fingerprint": "fd887821acea5a1dd59377b1d3ba9a76e29d0e8edd4ce654611fc198b3c31034",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get country code from IBAN.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter iban",
+        "name": "iban",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_iban_country",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_iban_country(iban: str) -> str:\n    \"\"\"Get country code from IBAN.\"\"\"\n    return iban.replace(\" \", \"\").upper()[:2]",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:32.644078+00:00",
+    "description": "Get country code from IBAN.",
+    "intent": "Get country code from IBAN.",
+    "language": "python",
+    "name": "get_iban_country",
+    "source_file": "neurop_forge/sources/bank_utilities.py",
+    "source_line_end": 40,
+    "source_line_start": 38,
+    "tags": [
+      "country",
+      "filtering",
+      "get",
+      "iban"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:32.644107+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(iban) == string",
+      "iban is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(iban) == string",
+      "iban is not None"
+    ]
+  }
+}

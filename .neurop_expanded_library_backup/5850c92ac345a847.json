@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic comparison block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5850c92ac345a847255a3fbad76a065f6ad96d0c2d92ec05f4ba7a41bedbcf7b",
+    "semantic_fingerprint": "51dda2c8145c4fc1d4cd7a1b7089f83e138d0517464e3e9f4ef0a5253f72affa",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Compare two slugs for equality (case-insensitive).",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter slug1",
+        "name": "slug1",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter slug2",
+        "name": "slug2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of compare_slugs",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def compare_slugs(slug1: str, slug2: str) -> bool:\n    \"\"\"Compare two slugs for equality (case-insensitive).\"\"\"\n    return normalize_slug(slug1.lower()) == normalize_slug(slug2.lower())",
+  "metadata": {
+    "category": "comparison",
+    "created_at": "2026-01-10T12:22:25.549492+00:00",
+    "description": "Compare two slugs for equality (case-insensitive).",
+    "intent": "Compare two slugs for equality (case-insensitive).",
+    "language": "python",
+    "name": "compare_slugs",
+    "source_file": "neurop_forge/sources/slug_utilities.py",
+    "source_line_end": 217,
+    "source_line_start": 215,
+    "tags": [
+      "compare",
+      "comparison",
+      "slug1",
+      "slug2",
+      "slugs"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.549517+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(slug1) == string",
+      "slug1 is not None",
+      "type(slug2) == string",
+      "slug2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(slug1) == string",
+      "slug1 is not None",
+      "type(slug2) == string",
+      "slug2 is not None"
+    ]
+  }
+}

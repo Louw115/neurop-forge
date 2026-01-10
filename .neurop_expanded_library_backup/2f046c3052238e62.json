@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2f046c3052238e6216145ea39d8c1b50949dd1f88c04b5f322b4152b74dcd085",
+    "semantic_fingerprint": "5dd3f6b1bd0cada7dbc9fb5f83d9f01c3b4f70768b0a450fa6c809efe053eacc",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract capture groups from the first match.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter pattern",
+        "name": "pattern",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Return value of extract_groups",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def extract_groups(text: str, pattern: str) -> tuple:\n    \"\"\"Extract capture groups from the first match.\"\"\"\n    try:\n        match = re.search(pattern, text)\n        return match.groups() if match else ()\n    except re.error:\n        return ()",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:24.802746+00:00",
+    "description": "Extract capture groups from the first match.",
+    "intent": "Extract capture groups from the first match.",
+    "language": "python",
+    "name": "extract_groups",
+    "source_file": "neurop_forge/sources/regex_utilities.py",
+    "source_line_end": 58,
+    "source_line_start": 52,
+    "tags": [
+      "extract",
+      "filtering",
+      "groups",
+      "pattern",
+      "text"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:24.802764+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None",
+      "type(pattern) == string",
+      "pattern is not None"
+    ],
+    "invariants": [],
+    "output_validators": [],
+    "postconditions": [],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None",
+      "type(pattern) == string",
+      "pattern is not None"
+    ]
+  }
+}

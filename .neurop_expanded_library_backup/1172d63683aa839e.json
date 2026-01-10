@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1172d63683aa839e45ef06d4a87537d149ede0f2c3ba9cabefcc60fc9199662b",
+    "semantic_fingerprint": "ccfeae478a625e5a40c1801528d3d2f205ed512888ff977f10e98a282c765385",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format seconds as human-readable duration.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seconds",
+        "name": "seconds",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_duration_seconds",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_duration_seconds(seconds: int) -> str:\n    \"\"\"Format seconds as human-readable duration.\"\"\"\n    if seconds < 0:\n        return \"0s\"\n    if seconds < 60:\n        return f\"{seconds}s\"\n    minutes = seconds // 60\n    secs = seconds % 60\n    if minutes < 60:\n        return f\"{minutes}m {secs}s\" if secs else f\"{minutes}m\"\n    hours = minutes // 60\n    mins = minutes % 60\n    if hours < 24:\n        parts = [f\"{hours}h\"]\n        if mins:\n            parts.append(f\"{mins}m\")\n        if secs:\n            parts.append(f\"{secs}s\")\n        return ' '.join(parts)\n    days = hours // 24\n    hrs = hours % 24\n    parts = [f\"{days}d\"]\n    if hrs:\n        parts.append(f\"{hrs}h\")\n    if mins:\n        parts.append(f\"{mins}m\")\n    return ' '.join(parts)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:24.350228+00:00",
+    "description": "Format seconds as human-readable duration.",
+    "intent": "Format seconds as human-readable duration.",
+    "language": "python",
+    "name": "format_duration_seconds",
+    "source_file": "neurop_forge/sources/formatting_utilities.py",
+    "source_line_end": 106,
+    "source_line_start": 80,
+    "tags": [
+      "duration",
+      "format",
+      "seconds",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:24.350256+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(seconds) == integer",
+      "seconds is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(seconds) == integer",
+      "seconds is not None"
+    ]
+  }
+}

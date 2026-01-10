@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "70f49d9f5c81a5b9f3861a7dd6c18403023205dcb72f5e956065cfe7ac93a55f",
+    "semantic_fingerprint": "9701343ec223f40d32b57fe3691ad3a093cfa981f7a4c874ad283299bfe604ab",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse Accept header into prioritized list of media types.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter accept",
+        "name": "accept",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of parse_accept_header",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_accept_header(accept: str) -> list:\n    \"\"\"Parse Accept header into prioritized list of media types.\"\"\"\n    import re\n    types = []\n    for part in accept.split(','):\n        part = part.strip()\n        match = re.match(r'([^;]+)(?:;\\s*q=([0-9.]+))?', part)\n        if match:\n            media_type = match.group(1).strip()\n            quality = float(match.group(2)) if match.group(2) else 1.0\n            types.append({\"type\": media_type, \"quality\": quality})\n    types.sort(key=lambda x: x[\"quality\"], reverse=True)\n    return types",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T12:22:26.950163+00:00",
+    "description": "Parse Accept header into prioritized list of media types.",
+    "intent": "Parse Accept header into prioritized list of media types.",
+    "language": "python",
+    "name": "parse_accept_header",
+    "source_file": "neurop_forge/sources/api_patterns.py",
+    "source_line_end": 367,
+    "source_line_start": 355,
+    "tags": [
+      "accept",
+      "header",
+      "parse",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.950188+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(accept) == string",
+      "accept is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(accept) == string",
+      "accept is not None"
+    ]
+  }
+}

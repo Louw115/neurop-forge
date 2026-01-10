@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "175fcc046f16c6561ca9afeb19d11d291f8925a951aba8c9a8a16fa883f96979",
+    "semantic_fingerprint": "cd5d1dcfd713f4d2620f4d9e325f602e66af889ad2b8c201f17b8f02feb940dc",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Apply quantity-based discount.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter quantity",
+        "name": "quantity",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter price",
+        "name": "price",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter discounts",
+        "name": "discounts",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of apply_quantity_discount",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def apply_quantity_discount(quantity: int, price: float, discounts: list) -> dict:\n    \"\"\"Apply quantity-based discount.\"\"\"\n    for discount in sorted(discounts, key=lambda d: -d[\"min_quantity\"]):\n        if quantity >= discount[\"min_quantity\"]:\n            rate = discount.get(\"percentage\", 0)\n            original = quantity * price\n            final = apply_percentage_discount(original, rate)\n            return {\n                \"quantity\": quantity,\n                \"unit_price\": price,\n                \"original\": original,\n                \"discount_percentage\": rate,\n                \"final\": final\n            }\n    return {\n        \"quantity\": quantity,\n        \"unit_price\": price,\n        \"original\": round(quantity * price, 2),\n        \"discount_percentage\": 0,\n        \"final\": round(quantity * price, 2)\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:34.436945+00:00",
+    "description": "Apply quantity-based discount.",
+    "intent": "Apply quantity-based discount.",
+    "language": "python",
+    "name": "apply_quantity_discount",
+    "source_file": "neurop_forge/sources/discount_utilities.py",
+    "source_line_end": 86,
+    "source_line_start": 66,
+    "tags": [
+      "apply",
+      "dict_operation",
+      "discount",
+      "discounts",
+      "price",
+      "quantity"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.436974+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(quantity) == integer",
+      "quantity is not None",
+      "type(price) == float",
+      "price is not None",
+      "type(discounts) == list",
+      "discounts is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(quantity) == integer",
+      "quantity is not None",
+      "type(price) == float",
+      "price is not None",
+      "type(discounts) == list",
+      "discounts is not None"
+    ]
+  }
+}

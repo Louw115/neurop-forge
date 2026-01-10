@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0cfd2f5d78919841c78c73ed1ceb3fec82a425bfd27ffe9fe107fe51128cf708",
+    "semantic_fingerprint": "0fd9b09c2f0d8f1c7e024290df87f904c82806c2d8f3ca5edfdf9e4c618139fe",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if a SQL type is text-based.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter sql_type",
+        "name": "sql_type",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_text_type",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_text_type(sql_type: str) -> bool:\n    \"\"\"Check if a SQL type is text-based.\"\"\"\n    text_types = {\n        \"TEXT\", \"VARCHAR\", \"CHAR\", \"CHARACTER VARYING\", \"CHARACTER\",\n        \"NVARCHAR\", \"NCHAR\", \"CLOB\", \"NCLOB\"\n    }\n    return sql_type.upper().split(\"(\")[0] in text_types",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:26.019042+00:00",
+    "description": "Check if a SQL type is text-based.",
+    "intent": "Check if a SQL type is text-based.",
+    "language": "python",
+    "name": "is_text_type",
+    "source_file": "neurop_forge/sources/sql_types.py",
+    "source_line_end": 86,
+    "source_line_start": 80,
+    "tags": [
+      "sql_type",
+      "text",
+      "type",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.019067+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(sql_type) == string",
+      "sql_type is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(sql_type) == string",
+      "sql_type is not None"
+    ]
+  }
+}

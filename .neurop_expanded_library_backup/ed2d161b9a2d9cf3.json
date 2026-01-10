@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ed2d161b9a2d9cf3816e9d191afb334d28d2359d39face66df4067684ef6d501",
+    "semantic_fingerprint": "2ba0f2b539e4bf01c6f263ea4e076341353eed29b3f2104358d904225030347a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "FIFO eviction - get first item.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter order",
+        "name": "order",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of fifo_evict",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def fifo_evict(order: list) -> dict:\n    \"\"\"FIFO eviction - get first item.\"\"\"\n    if not order:\n        return {\"order\": order, \"evicted\": None}\n    return {\"order\": order[1:], \"evicted\": order[0]}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:32.975448+00:00",
+    "description": "FIFO eviction - get first item.",
+    "intent": "FIFO eviction - get first item.",
+    "language": "python",
+    "name": "fifo_evict",
+    "source_file": "neurop_forge/sources/cache_strategies.py",
+    "source_line_end": 94,
+    "source_line_start": 90,
+    "tags": [
+      "dict_operation",
+      "evict",
+      "fifo",
+      "order"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:32.975472+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(order) == list",
+      "order is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(order) == list",
+      "order is not None"
+    ]
+  }
+}

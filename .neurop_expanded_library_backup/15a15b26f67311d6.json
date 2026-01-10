@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "15a15b26f67311d643760303bc0b1c1c70b8b3d80521c1d048cb83a27ea99c52",
+    "semantic_fingerprint": "8994c414ac70803ca96cb7880177446a82abfd6a8d6c065395ecee558b6ee5d2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format a value for CSV output.",
+    "inputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter null_string",
+        "name": "null_string",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_csv_value",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_csv_value(value, null_string: str) -> str:\n    \"\"\"Format a value for CSV output.\"\"\"\n    if value is None:\n        return null_string\n    str_value = str(value)\n    if '\"' in str_value or ',' in str_value or '\\n' in str_value:\n        return '\"' + str_value.replace('\"', '\"\"') + '\"'\n    return str_value",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:26.813411+00:00",
+    "description": "Format a value for CSV output.",
+    "intent": "Format a value for CSV output.",
+    "language": "python",
+    "name": "format_csv_value",
+    "source_file": "neurop_forge/sources/batch_operations.py",
+    "source_line_end": 234,
+    "source_line_start": 227,
+    "tags": [
+      "csv",
+      "format",
+      "null_string",
+      "string_manipulation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.813429+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "value is not None",
+      "type(null_string) == string",
+      "null_string is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "value is not None",
+      "type(null_string) == string",
+      "null_string is not None"
+    ]
+  }
+}

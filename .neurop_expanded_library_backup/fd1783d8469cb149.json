@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "fd1783d8469cb149b2f47c6803e7ed26064ab1b0733154e48d2bfbdd31c01ec8",
+    "semantic_fingerprint": "f0dbd05f2aaa44456564b41772a46da26d0c56faffed48b3fae5be6248d0d708",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate next run timestamp for interval schedule.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter interval_seconds",
+        "name": "interval_seconds",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter last_run_timestamp",
+        "name": "last_run_timestamp",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of calculate_interval_schedule",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_interval_schedule(interval_seconds: int, last_run_timestamp: int) -> int:\n    \"\"\"Calculate next run timestamp for interval schedule.\"\"\"\n    return last_run_timestamp + interval_seconds",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:29.231401+00:00",
+    "description": "Calculate next run timestamp for interval schedule.",
+    "intent": "Calculate next run timestamp for interval schedule.",
+    "language": "python",
+    "name": "calculate_interval_schedule",
+    "source_file": "neurop_forge/sources/scheduler_utilities.py",
+    "source_line_end": 70,
+    "source_line_start": 68,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "interval",
+      "interval_seconds",
+      "last_run_timestamp",
+      "schedule"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.231420+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(interval_seconds) == integer",
+      "interval_seconds is not None",
+      "type(last_run_timestamp) == integer",
+      "last_run_timestamp is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(interval_seconds) == integer",
+      "interval_seconds is not None",
+      "type(last_run_timestamp) == integer",
+      "last_run_timestamp is not None"
+    ]
+  }
+}

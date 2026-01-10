@@ -1,0 +1,144 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "691e113fdbca151e79e0a251cac22904eac6e85e8d8d70f0408aff6fb2a0d145",
+    "semantic_fingerprint": "e9a0d7b7de2d905649b46b7ed402add234024acc0558f6fffda31b9137dae51c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate password against rules.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter password",
+        "name": "password",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter rules",
+        "name": "rules",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of validate_password",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_password(password: str, rules: dict) -> dict:\n    \"\"\"Validate password against rules.\"\"\"\n    errors = []\n    if rules.get(\"min_length\") and not check_length(password, rules[\"min_length\"]):\n        errors.append(f\"Must be at least {rules['min_length']} characters\")\n    if rules.get(\"max_length\") and not check_max_length(password, rules[\"max_length\"]):\n        errors.append(f\"Must be at most {rules['max_length']} characters\")\n    if rules.get(\"require_uppercase\") and not has_uppercase(password):\n        errors.append(\"Must contain uppercase letter\")\n    if rules.get(\"require_lowercase\") and not has_lowercase(password):\n        errors.append(\"Must contain lowercase letter\")\n    if rules.get(\"require_digit\") and not has_digit(password):\n        errors.append(\"Must contain digit\")\n    if rules.get(\"require_special\") and not has_special_char(password):\n        errors.append(\"Must contain special character\")\n    return {\"valid\": len(errors) == 0, \"errors\": errors}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:33.803337+00:00",
+    "description": "Validate password against rules.",
+    "intent": "Validate password against rules.",
+    "language": "python",
+    "name": "validate_password",
+    "source_file": "neurop_forge/sources/password_utilities.py",
+    "source_line_end": 117,
+    "source_line_start": 102,
+    "tags": [
+      "password",
+      "rules",
+      "validate",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:33.803365+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(password) == string",
+      "password is not None",
+      "type(rules) == dict",
+      "rules is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(password) == string",
+      "password is not None",
+      "type(rules) == dict",
+      "rules is not None"
+    ]
+  }
+}

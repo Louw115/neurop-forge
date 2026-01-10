@@ -1,0 +1,156 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b482e04e02f31ad7bc2209548ccc921bda4e51ddb7fc1ac2439b258efda77151",
+    "semantic_fingerprint": "31ee009d360838d5862e94aa0f1c44b3e55b31a2865ff215f04d2da6174979f9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Cancel a workflow.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter workflow",
+        "name": "workflow",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter timestamp",
+        "name": "timestamp",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter reason",
+        "name": "reason",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of cancel_workflow",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def cancel_workflow(workflow: dict, timestamp: str, reason: str) -> dict:\n    \"\"\"Cancel a workflow.\"\"\"\n    result = dict(workflow)\n    result[\"status\"] = \"cancelled\"\n    result[\"cancelled_at\"] = timestamp\n    result[\"cancellation_reason\"] = reason\n    result[\"history\"] = list(workflow.get(\"history\", []))\n    result[\"history\"].append({\"action\": \"cancelled\", \"reason\": reason, \"timestamp\": timestamp})\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:28.637001+00:00",
+    "description": "Cancel a workflow.",
+    "intent": "Cancel a workflow.",
+    "language": "python",
+    "name": "cancel_workflow",
+    "source_file": "neurop_forge/sources/workflow_patterns.py",
+    "source_line_end": 81,
+    "source_line_start": 73,
+    "tags": [
+      "cancel",
+      "dict_operation",
+      "reason",
+      "timestamp",
+      "workflow"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.637023+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(workflow) == dict",
+      "workflow is not None",
+      "type(timestamp) == string",
+      "timestamp is not None",
+      "type(reason) == string",
+      "reason is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(workflow) == dict",
+      "workflow is not None",
+      "type(timestamp) == string",
+      "timestamp is not None",
+      "type(reason) == string",
+      "reason is not None"
+    ]
+  }
+}

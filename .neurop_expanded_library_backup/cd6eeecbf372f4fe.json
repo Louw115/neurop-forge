@@ -1,0 +1,132 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "cd6eeecbf372f4fea6f0302e467eb11e240fcc9d54e0c3466182e5ebe878520d",
+    "semantic_fingerprint": "c9e0727e62f8e104fa5d069213574f234ee85a495405decd61b2c8a9beb249c6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Anonymize user data.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter user",
+        "name": "user",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of anonymize_user",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def anonymize_user(user: dict) -> dict:\n    \"\"\"Anonymize user data.\"\"\"\n    return {\n        \"user_id\": user[\"user_id\"],\n        \"email\": f\"deleted_{user['user_id']}@deleted.local\",\n        \"active\": False,\n        \"verified\": False,\n        \"roles\": [],\n        \"deleted\": True\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:34.770891+00:00",
+    "description": "Anonymize user data.",
+    "intent": "Anonymize user data.",
+    "language": "python",
+    "name": "anonymize_user",
+    "source_file": "neurop_forge/sources/user_utilities.py",
+    "source_line_end": 177,
+    "source_line_start": 168,
+    "tags": [
+      "anonymize",
+      "dict_operation",
+      "user"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.770919+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(user) == dict",
+      "user is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(user) == dict",
+      "user is not None"
+    ]
+  }
+}

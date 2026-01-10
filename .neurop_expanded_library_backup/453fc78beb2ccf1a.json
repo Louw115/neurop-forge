@@ -1,0 +1,155 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "453fc78beb2ccf1a64afcfe7982f124bd061a09bb097d74feba4832790f0c9cb",
+    "semantic_fingerprint": "deaf1814592ac337cf0214574712f5aa9c65bf785ccb82c9baed5c974df33ae0",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if point is on line segment.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter point",
+        "name": "point",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter line",
+        "name": "line",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter tolerance",
+        "name": "tolerance",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of point_on_line",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def point_on_line(point: dict, line: dict, tolerance: float) -> bool:\n    \"\"\"Check if point is on line segment.\"\"\"\n    d1 = point_distance(line[\"p1\"], point)\n    d2 = point_distance(point, line[\"p2\"])\n    line_len = line_length(line)\n    return abs(d1 + d2 - line_len) <= tolerance",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:31.104586+00:00",
+    "description": "Check if point is on line segment.",
+    "intent": "Check if point is on line segment.",
+    "language": "python",
+    "name": "point_on_line",
+    "source_file": "neurop_forge/sources/geometry_utilities.py",
+    "source_line_end": 96,
+    "source_line_start": 91,
+    "tags": [
+      "line",
+      "point",
+      "tolerance",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.104608+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(point) == dict",
+      "point is not None",
+      "type(line) == dict",
+      "line is not None",
+      "type(tolerance) == float",
+      "tolerance is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(point) == dict",
+      "point is not None",
+      "type(line) == dict",
+      "line is not None",
+      "type(tolerance) == float",
+      "tolerance is not None"
+    ]
+  }
+}

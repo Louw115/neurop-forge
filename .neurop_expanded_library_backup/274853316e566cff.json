@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic searching block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "274853316e566cffc4d6e08ae976f6007033444f8353f44d23b39d5aac106864",
+    "semantic_fingerprint": "6e1d8f2097cde34cd2ab53de0e9cc17eab4e15fb1270a3dd1c02b3767cc4907b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Hash identifier for pseudonymization.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter salt",
+        "name": "salt",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of hash_identifier",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def hash_identifier(value: str, salt: str) -> str:\n    \"\"\"Hash identifier for pseudonymization.\"\"\"\n    combined = f\"{salt}{value}\"\n    return hashlib.sha256(combined.encode()).hexdigest()[:16]",
+  "metadata": {
+    "category": "searching",
+    "created_at": "2026-01-10T12:22:33.034770+00:00",
+    "description": "Hash identifier for pseudonymization.",
+    "intent": "Hash identifier for pseudonymization.",
+    "language": "python",
+    "name": "hash_identifier",
+    "source_file": "neurop_forge/sources/data_masking.py",
+    "source_line_end": 84,
+    "source_line_start": 81,
+    "tags": [
+      "hash",
+      "identifier",
+      "salt",
+      "searching",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:33.034798+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.37,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.8,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == string",
+      "value is not None",
+      "type(salt) == string",
+      "salt is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(value) == string",
+      "value is not None",
+      "type(salt) == string",
+      "salt is not None"
+    ]
+  }
+}

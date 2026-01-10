@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ad0f70f2c53a01a4c88bd4388644005efeccb8af9af5fdb41608fea0019d64d5",
+    "semantic_fingerprint": "fc20aad9bc82cbe7f357a4c68078829df3318b84d70405285fa41238a6e2b25c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Estimate time to replay events in seconds.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter event_count",
+        "name": "event_count",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter events_per_second",
+        "name": "events_per_second",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of estimate_replay_time",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def estimate_replay_time(event_count: int, events_per_second: int) -> int:\n    \"\"\"Estimate time to replay events in seconds.\"\"\"\n    if events_per_second <= 0:\n        return 0\n    return event_count // events_per_second",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:27.662865+00:00",
+    "description": "Estimate time to replay events in seconds.",
+    "intent": "Estimate time to replay events in seconds.",
+    "language": "python",
+    "name": "estimate_replay_time",
+    "source_file": "neurop_forge/sources/event_sourcing.py",
+    "source_line_end": 268,
+    "source_line_start": 264,
+    "tags": [
+      "arithmetic",
+      "estimate",
+      "event_count",
+      "events_per_second",
+      "replay",
+      "time"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.662885+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(event_count) == integer",
+      "event_count is not None",
+      "type(events_per_second) == integer",
+      "events_per_second is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(event_count) == integer",
+      "event_count is not None",
+      "type(events_per_second) == integer",
+      "events_per_second is not None"
+    ]
+  }
+}

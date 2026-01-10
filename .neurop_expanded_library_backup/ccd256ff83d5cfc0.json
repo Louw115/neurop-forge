@@ -1,0 +1,147 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ccd256ff83d5cfc0310e9ee129e99b5a24c4de2eef31ee32d8b5a4f7e6703e2d",
+    "semantic_fingerprint": "d4e041412b21a80172185069791351034e6ee5c59a45311a23b0adb3b3b867ad",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get common aspect ratio name.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter width",
+        "name": "width",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter height",
+        "name": "height",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_aspect_ratio_name",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_aspect_ratio_name(width: int, height: int) -> str:\n    \"\"\"Get common aspect ratio name.\"\"\"\n    ratio = calculate_aspect_ratio(width, height)\n    if abs(ratio - 1.0) < 0.01:\n        return \"1:1\"\n    elif abs(ratio - 1.33) < 0.05:\n        return \"4:3\"\n    elif abs(ratio - 1.5) < 0.05:\n        return \"3:2\"\n    elif abs(ratio - 1.78) < 0.05:\n        return \"16:9\"\n    elif abs(ratio - 2.35) < 0.1:\n        return \"21:9\"\n    return f\"{width}:{height}\"",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:28.937482+00:00",
+    "description": "Get common aspect ratio name.",
+    "intent": "Get common aspect ratio name.",
+    "language": "python",
+    "name": "get_aspect_ratio_name",
+    "source_file": "neurop_forge/sources/image_utilities.py",
+    "source_line_end": 32,
+    "source_line_start": 19,
+    "tags": [
+      "aspect",
+      "filtering",
+      "get",
+      "height",
+      "name",
+      "ratio",
+      "width"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.937510+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(width) == integer",
+      "width is not None",
+      "type(height) == integer",
+      "height is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(width) == integer",
+      "width is not None",
+      "type(height) == integer",
+      "height is not None"
+    ]
+  }
+}

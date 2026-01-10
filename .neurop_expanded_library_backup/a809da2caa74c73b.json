@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a809da2caa74c73bc80a47b33fb1d645e3cc2d6d452e9b5a4c2ad0431fdf88bc",
+    "semantic_fingerprint": "00e7a48474ab8718f43fef359da941b7dcc7f75f5f68e87315286f4844f9fbaf",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Set value at path (returns new dict).",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter data",
+        "name": "data",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter path",
+        "name": "path",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of set_path",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def set_path(data: dict, path: str, value) -> dict:\n    \"\"\"Set value at path (returns new dict).\"\"\"\n    keys = path.split(\".\")\n    if not keys:\n        return data\n    result = dict(data) if isinstance(data, dict) else {}\n    current = result\n    for key in keys[:-1]:\n        if key not in current or not isinstance(current[key], dict):\n            current[key] = {}\n        current[key] = dict(current[key])\n        current = current[key]\n    current[keys[-1]] = value\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:31.813682+00:00",
+    "description": "Set value at path (returns new dict).",
+    "intent": "Set value at path (returns new dict).",
+    "language": "python",
+    "name": "set_path",
+    "source_file": "neurop_forge/sources/json_utilities.py",
+    "source_line_end": 74,
+    "source_line_start": 61,
+    "tags": [
+      "data",
+      "dict_operation",
+      "path",
+      "set",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.813704+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(data) == dict",
+      "data is not None",
+      "type(path) == string",
+      "path is not None",
+      "value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(data) == dict",
+      "data is not None",
+      "type(path) == string",
+      "path is not None",
+      "value is not None"
+    ]
+  }
+}

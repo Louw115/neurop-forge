@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "be7152ff9ef1bde5df26f39cb66e12471890c011f49b72532ad0a5e5c8701784",
+    "semantic_fingerprint": "38986ee5d781e857e524b504de55828f0d836311884e8c8112f9a24da374249d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Distribute batches evenly among workers.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter batch_count",
+        "name": "batch_count",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter worker_count",
+        "name": "worker_count",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of distribute_batches_to_workers",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def distribute_batches_to_workers(batch_count: int, worker_count: int) -> list:\n    \"\"\"Distribute batches evenly among workers.\"\"\"\n    if worker_count <= 0:\n        return []\n    batches_per_worker = batch_count // worker_count\n    remainder = batch_count % worker_count\n    distribution = []\n    for i in range(worker_count):\n        count = batches_per_worker + (1 if i < remainder else 0)\n        distribution.append(count)\n    return distribution",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:26.811415+00:00",
+    "description": "Distribute batches evenly among workers.",
+    "intent": "Distribute batches evenly among workers.",
+    "language": "python",
+    "name": "distribute_batches_to_workers",
+    "source_file": "neurop_forge/sources/batch_operations.py",
+    "source_line_end": 202,
+    "source_line_start": 192,
+    "tags": [
+      "batch_count",
+      "batches",
+      "distribute",
+      "list_operation",
+      "worker_count",
+      "workers"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.811433+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(batch_count) == integer",
+      "batch_count is not None",
+      "type(worker_count) == integer",
+      "worker_count is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(batch_count) == integer",
+      "batch_count is not None",
+      "type(worker_count) == integer",
+      "worker_count is not None"
+    ]
+  }
+}

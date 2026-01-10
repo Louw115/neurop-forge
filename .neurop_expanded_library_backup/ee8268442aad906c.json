@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ee8268442aad906cd086c894d45f2c3c2b90f8774cad52281cf057d02766f7cf",
+    "semantic_fingerprint": "913130f85edbfa01a8857923a8e361ff1cfb342ea97575eeadef00ec7adbb6e0",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if request is a CORS preflight request.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter method",
+        "name": "method",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter origin_header",
+        "name": "origin_header",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter request_method_header",
+        "name": "request_method_header",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_cors_preflight",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_cors_preflight(method: str, origin_header: str, request_method_header: str) -> bool:\n    \"\"\"Check if request is a CORS preflight request.\"\"\"\n    return (method.upper() == \"OPTIONS\" and \n            bool(origin_header) and \n            bool(request_method_header))",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:26.957674+00:00",
+    "description": "Check if request is a CORS preflight request.",
+    "intent": "Check if request is a CORS preflight request.",
+    "language": "python",
+    "name": "is_cors_preflight",
+    "source_file": "neurop_forge/sources/api_patterns.py",
+    "source_line_end": 423,
+    "source_line_start": 419,
+    "tags": [
+      "cors",
+      "method",
+      "origin_header",
+      "preflight",
+      "request_method_header",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.957701+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(method) == string",
+      "method is not None",
+      "type(origin_header) == string",
+      "origin_header is not None",
+      "type(request_method_header) == string",
+      "request_method_header is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(method) == string",
+      "method is not None",
+      "type(origin_header) == string",
+      "origin_header is not None",
+      "type(request_method_header) == string",
+      "request_method_header is not None"
+    ]
+  }
+}

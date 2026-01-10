@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8af2589572e9c597436892804d534eaf96b6b864c12c5e338b34eb9b48ff3a53",
+    "semantic_fingerprint": "290c91bf66ec99e61f2b439b76f389389eee5e89d321e9196bc47ef2b9bb166c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Compute difference between two dictionaries.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter dict_a",
+        "name": "dict_a",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter dict_b",
+        "name": "dict_b",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of compute_dict_diff",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def compute_dict_diff(dict_a: dict, dict_b: dict) -> dict:\n    \"\"\"Compute difference between two dictionaries.\"\"\"\n    keys_a = set(dict_a.keys())\n    keys_b = set(dict_b.keys())\n    added = {k: dict_b[k] for k in keys_b - keys_a}\n    removed = {k: dict_a[k] for k in keys_a - keys_b}\n    common = keys_a & keys_b\n    modified = {}\n    unchanged = {}\n    for k in common:\n        if dict_a[k] != dict_b[k]:\n            modified[k] = {\"old\": dict_a[k], \"new\": dict_b[k]}\n        else:\n            unchanged[k] = dict_a[k]\n    return {\n        \"added\": added,\n        \"removed\": removed,\n        \"modified\": modified,\n        \"unchanged\": unchanged\n    }",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:30.915017+00:00",
+    "description": "Compute difference between two dictionaries.",
+    "intent": "Compute difference between two dictionaries.",
+    "language": "python",
+    "name": "compute_dict_diff",
+    "source_file": "neurop_forge/sources/diff_utilities.py",
+    "source_line_end": 154,
+    "source_line_start": 135,
+    "tags": [
+      "arithmetic",
+      "compute",
+      "dict",
+      "dict_a",
+      "dict_b",
+      "diff"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.915041+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(dict_a) == dict",
+      "dict_a is not None",
+      "type(dict_b) == dict",
+      "dict_b is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(dict_a) == dict",
+      "dict_a is not None",
+      "type(dict_b) == dict",
+      "dict_b is not None"
+    ]
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7f6aef59ab02f6457198d568a9030f3b7b5402994483ce8c1cc6456f5835ea56",
+    "semantic_fingerprint": "9274be5195655fca7c17bbeeb49a3b254cc20e2789a0c1f90f4bcbc09bd0391b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Sanitize a filename by removing unsafe characters.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter filename",
+        "name": "filename",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of sanitize_filename",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def sanitize_filename(filename: str) -> str:\n    \"\"\"Sanitize a filename by removing unsafe characters.\"\"\"\n    if not filename:\n        return \"\"\n    unsafe = '<>:\"/\\\\|?*\\x00'\n    result = ''.join(c for c in filename if c not in unsafe)\n    result = result.strip('. ')\n    return result or 'unnamed'",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:24.483107+00:00",
+    "description": "Sanitize a filename by removing unsafe characters.",
+    "intent": "Sanitize a filename by removing unsafe characters.",
+    "language": "python",
+    "name": "sanitize_filename",
+    "source_file": "neurop_forge/sources/security_utilities.py",
+    "source_line_end": 49,
+    "source_line_start": 42,
+    "tags": [
+      "filename",
+      "sanitize",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:24.483123+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(filename) == string",
+      "filename is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(filename) == string",
+      "filename is not None"
+    ]
+  }
+}

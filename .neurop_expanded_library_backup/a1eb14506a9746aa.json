@@ -1,0 +1,170 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a1eb14506a9746aaa766356812612b46ffb493eedb75cb1eb8432cbcc94025d9",
+    "semantic_fingerprint": "a74cf074e8d2fdec5d7487ef8839cb44b33b0fb53d6e5604673a73add2afae06",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Apply buy X get Y free discount.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter quantity",
+        "name": "quantity",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter buy_x",
+        "name": "buy_x",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter get_y",
+        "name": "get_y",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter price",
+        "name": "price",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of apply_buy_x_get_y",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def apply_buy_x_get_y(quantity: int, buy_x: int, get_y: int, price: float) -> dict:\n    \"\"\"Apply buy X get Y free discount.\"\"\"\n    if quantity < buy_x:\n        return {\"paid\": quantity, \"free\": 0, \"total\": round(quantity * price, 2)}\n    sets = quantity // (buy_x + get_y)\n    remaining = quantity % (buy_x + get_y)\n    paid = sets * buy_x + min(remaining, buy_x)\n    free = quantity - paid\n    return {\"paid\": paid, \"free\": free, \"total\": round(paid * price, 2)}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:34.429879+00:00",
+    "description": "Apply buy X get Y free discount.",
+    "intent": "Apply buy X get Y free discount.",
+    "language": "python",
+    "name": "apply_buy_x_get_y",
+    "source_file": "neurop_forge/sources/discount_utilities.py",
+    "source_line_end": 43,
+    "source_line_start": 35,
+    "tags": [
+      "apply",
+      "buy",
+      "buy_x",
+      "dict_operation",
+      "get",
+      "get_y",
+      "price",
+      "quantity"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.429906+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(quantity) == integer",
+      "quantity is not None",
+      "type(buy_x) == integer",
+      "buy_x is not None",
+      "type(get_y) == integer",
+      "get_y is not None",
+      "type(price) == float",
+      "price is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(quantity) == integer",
+      "quantity is not None",
+      "type(buy_x) == integer",
+      "buy_x is not None",
+      "type(get_y) == integer",
+      "get_y is not None",
+      "type(price) == float",
+      "price is not None"
+    ]
+  }
+}

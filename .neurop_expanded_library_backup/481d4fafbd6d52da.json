@@ -1,0 +1,117 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "481d4fafbd6d52dac9864e9bdda1b84cc2c274ca0f3144a96d01c1d8084a6431",
+    "semantic_fingerprint": "ad92b91d694dfdc6c0d1522a80597226501ab754933110aad16009eb851137bd",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a typical order processing state machine.",
+    "inputs": [],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_order_state_machine",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_order_state_machine() -> dict:\n    \"\"\"Build a typical order processing state machine.\"\"\"\n    return build_state_machine(\n        initial_state=\"pending\",\n        states=[\"pending\", \"confirmed\", \"processing\", \"shipped\", \"delivered\", \"cancelled\", \"refunded\"],\n        transitions={\n            \"pending\": [\"confirmed\", \"cancelled\"],\n            \"confirmed\": [\"processing\", \"cancelled\"],\n            \"processing\": [\"shipped\", \"cancelled\"],\n            \"shipped\": [\"delivered\"],\n            \"delivered\": [\"refunded\"],\n            \"cancelled\": [],\n            \"refunded\": []\n        }\n    )",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:27.554078+00:00",
+    "description": "Build a typical order processing state machine.",
+    "intent": "Build a typical order processing state machine.",
+    "language": "python",
+    "name": "build_order_state_machine",
+    "source_file": "neurop_forge/sources/state_machine.py",
+    "source_line_end": 158,
+    "source_line_start": 144,
+    "tags": [
+      "build",
+      "dict_operation",
+      "machine",
+      "order",
+      "state"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.554103+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": []
+  }
+}

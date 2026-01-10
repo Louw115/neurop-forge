@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b7f3329f250d3e48965b104f2352ee3cdb28fac4a33444c1f977d80e82983a38",
+    "semantic_fingerprint": "f755350f274fa2692af6316766de80c5e8b3080f9c33af035c0acb9e4ff2385f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract all table names from a query.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter query",
+        "name": "query",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of extract_table_names",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def extract_table_names(query: str) -> list:\n    \"\"\"Extract all table names from a query.\"\"\"\n    import re\n    tables = set()\n    from_matches = re.findall(r'\\bFROM\\s+([^\\s,;()]+)', query, re.IGNORECASE)\n    tables.update(from_matches)\n    join_matches = re.findall(r'\\bJOIN\\s+([^\\s,;()]+)', query, re.IGNORECASE)\n    tables.update(join_matches)\n    into_matches = re.findall(r'\\bINTO\\s+([^\\s,;()]+)', query, re.IGNORECASE)\n    tables.update(into_matches)\n    update_matches = re.findall(r'\\bUPDATE\\s+([^\\s,;()]+)', query, re.IGNORECASE)\n    tables.update(update_matches)\n    cleaned = {t.strip('\"').strip(\"'\") for t in tables}\n    keywords = {\"SELECT\", \"SET\", \"VALUES\", \"WHERE\", \"AND\", \"OR\"}\n    return [t for t in cleaned if t.upper() not in keywords]",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:26.176056+00:00",
+    "description": "Extract all table names from a query.",
+    "intent": "Extract all table names from a query.",
+    "language": "python",
+    "name": "extract_table_names",
+    "source_file": "neurop_forge/sources/query_helpers.py",
+    "source_line_end": 254,
+    "source_line_start": 240,
+    "tags": [
+      "extract",
+      "filtering",
+      "names",
+      "query",
+      "table"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.176082+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(query) == string",
+      "query is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(query) == string",
+      "query is not None"
+    ]
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b22c8f33b286c32592f2e8b9541fe2b6b0734d23d6be3d0e6f105559c5e57da9",
+    "semantic_fingerprint": "b3adb9425e853c790787c42d024291c23d71c2a8c0bc591df8435d9ecc054f37",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a MongoDB $unwind aggregation stage.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter field",
+        "name": "field",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter preserve_null",
+        "name": "preserve_null",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_mongodb_aggregate_unwind",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_mongodb_aggregate_unwind(field: str, preserve_null: bool) -> dict:\n    \"\"\"Build a MongoDB $unwind aggregation stage.\"\"\"\n    if preserve_null:\n        return {\"$unwind\": {\"path\": f\"${field}\", \"preserveNullAndEmptyArrays\": True}}\n    return {\"$unwind\": f\"${field}\"}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:26.584121+00:00",
+    "description": "Build a MongoDB $unwind aggregation stage.",
+    "intent": "Build a MongoDB $unwind aggregation stage.",
+    "language": "python",
+    "name": "build_mongodb_aggregate_unwind",
+    "source_file": "neurop_forge/sources/nosql_helpers.py",
+    "source_line_end": 151,
+    "source_line_start": 147,
+    "tags": [
+      "aggregate",
+      "build",
+      "dict_operation",
+      "field",
+      "mongodb",
+      "preserve_null",
+      "unwind"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.584149+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(field) == string",
+      "field is not None",
+      "type(preserve_null) == boolean",
+      "preserve_null is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(field) == string",
+      "field is not None",
+      "type(preserve_null) == boolean",
+      "preserve_null is not None"
+    ]
+  }
+}

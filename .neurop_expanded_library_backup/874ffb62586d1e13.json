@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "874ffb62586d1e13f53f30876620392f502581ae8896ebf55c34bdb88f473779",
+    "semantic_fingerprint": "041108aba2605b31a22d32ae482aead1ab890ec5dd51de211c542621469b9864",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format schedule as human-readable description.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter schedule",
+        "name": "schedule",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_schedule_description",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_schedule_description(schedule: dict) -> str:\n    \"\"\"Format schedule as human-readable description.\"\"\"\n    if schedule.get(\"type\") == \"one_time\":\n        return f\"Once at {schedule.get('run_at')}\"\n    cron = schedule.get(\"cron\", \"\")\n    return f\"Cron: {cron}\" if cron else \"Unknown schedule\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:29.254650+00:00",
+    "description": "Format schedule as human-readable description.",
+    "intent": "Format schedule as human-readable description.",
+    "language": "python",
+    "name": "format_schedule_description",
+    "source_file": "neurop_forge/sources/scheduler_utilities.py",
+    "source_line_end": 164,
+    "source_line_start": 159,
+    "tags": [
+      "description",
+      "format",
+      "schedule",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.254692+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(schedule) == dict",
+      "schedule is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(schedule) == dict",
+      "schedule is not None"
+    ]
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "19c3e42ebb83e8b14ee10da1881b3b58b7c10beec22ea7338a5da5033d0b2ef1",
+    "semantic_fingerprint": "b78213454647a563348892adeb6114e337379ff3e7da0561fb17feebc796addd",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate notification engagement rates.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter sent",
+        "name": "sent",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter opened",
+        "name": "opened",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter clicked",
+        "name": "clicked",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of calculate_engagement_rate",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_engagement_rate(sent: int, opened: int, clicked: int) -> dict:\n    \"\"\"Calculate notification engagement rates.\"\"\"\n    return {\n        \"open_rate\": (opened / sent * 100) if sent > 0 else 0,\n        \"click_rate\": (clicked / sent * 100) if sent > 0 else 0,\n        \"click_to_open_rate\": (clicked / opened * 100) if opened > 0 else 0\n    }",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:28.354220+00:00",
+    "description": "Calculate notification engagement rates.",
+    "intent": "Calculate notification engagement rates.",
+    "language": "python",
+    "name": "calculate_engagement_rate",
+    "source_file": "neurop_forge/sources/notification_patterns.py",
+    "source_line_end": 212,
+    "source_line_start": 206,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "clicked",
+      "engagement",
+      "opened",
+      "rate",
+      "sent"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.354244+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(sent) == integer",
+      "sent is not None",
+      "type(opened) == integer",
+      "opened is not None",
+      "type(clicked) == integer",
+      "clicked is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(sent) == integer",
+      "sent is not None",
+      "type(opened) == integer",
+      "opened is not None",
+      "type(clicked) == integer",
+      "clicked is not None"
+    ]
+  }
+}

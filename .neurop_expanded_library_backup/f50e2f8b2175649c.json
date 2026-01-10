@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic comparison block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f50e2f8b2175649c0e6e5e2fc0aa5e65dd06cbd53e25ae37b805f35c0fcd1531",
+    "semantic_fingerprint": "9fa5713fe6dd3f0580044336370f28da7098c5234a5de669e52ef9ac389cd0e0",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if value matches cron field pattern.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter field",
+        "name": "field",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of matches_cron_field",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def matches_cron_field(value: int, field: str) -> bool:\n    \"\"\"Check if value matches cron field pattern.\"\"\"\n    if field == \"*\":\n        return True\n    if field.isdigit():\n        return value == int(field)\n    if \",\" in field:\n        return value in [int(v) for v in field.split(\",\")]\n    if \"-\" in field:\n        start, end = field.split(\"-\")\n        return int(start) <= value <= int(end)\n    if \"/\" in field:\n        base, step = field.split(\"/\")\n        if base == \"*\":\n            return value % int(step) == 0\n    return False",
+  "metadata": {
+    "category": "comparison",
+    "created_at": "2026-01-10T12:22:29.227125+00:00",
+    "description": "Check if value matches cron field pattern.",
+    "intent": "Check if value matches cron field pattern.",
+    "language": "python",
+    "name": "matches_cron_field",
+    "source_file": "neurop_forge/sources/scheduler_utilities.py",
+    "source_line_end": 42,
+    "source_line_start": 27,
+    "tags": [
+      "comparison",
+      "cron",
+      "field",
+      "matches",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.227149+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.37,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.8,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == integer",
+      "value is not None",
+      "type(field) == string",
+      "field is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(value) == integer",
+      "value is not None",
+      "type(field) == string",
+      "field is not None"
+    ]
+  }
+}

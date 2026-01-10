@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "848b3c7ed737b9b965dd34fa991cb744bda0373237476e408bd4b4388c7d46d0",
+    "semantic_fingerprint": "39195be98f3617d66357d9c38764bd36010857f32478e08361ca54f99163bf4c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Convert a number to base62 ID.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter number",
+        "name": "number",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_base62_id",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_base62_id(number: int) -> str:\n    \"\"\"Convert a number to base62 ID.\"\"\"\n    if number == 0:\n        return '0'\n    alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'\n    result = []\n    while number > 0:\n        result.append(alphabet[number % 62])\n        number //= 62\n    return ''.join(reversed(result))",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T12:22:25.527482+00:00",
+    "description": "Convert a number to base62 ID.",
+    "intent": "Convert a number to base62 ID.",
+    "language": "python",
+    "name": "generate_base62_id",
+    "source_file": "neurop_forge/sources/slug_utilities.py",
+    "source_line_end": 120,
+    "source_line_start": 111,
+    "tags": [
+      "base62",
+      "generate",
+      "number",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.527510+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(number) == integer",
+      "number is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(number) == integer",
+      "number is not None"
+    ]
+  }
+}

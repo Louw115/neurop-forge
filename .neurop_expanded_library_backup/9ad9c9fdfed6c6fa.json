@@ -1,0 +1,132 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9ad9c9fdfed6c6faad4286c70193646a2ceb691b3622ecb3bd478c1ec1fa4ce6",
+    "semantic_fingerprint": "c24dfe13214e12ab5ae80d01e54da0624f3531f191be3643066755826c5765cd",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Simplify constant expressions in tree.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter tree",
+        "name": "tree",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of simplify_tree",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def simplify_tree(tree: dict) -> dict:\n    \"\"\"Simplify constant expressions in tree.\"\"\"\n    if tree[\"type\"] == \"value\":\n        return tree\n    left = simplify_tree(tree[\"left\"])\n    right = simplify_tree(tree[\"right\"])\n    if (left[\"type\"] == \"value\" and left[\"token\"][\"type\"] == \"number\" and\n        right[\"type\"] == \"value\" and right[\"token\"][\"type\"] == \"number\"):\n        result = evaluate_tree({\"type\": \"binary\", \"operator\": tree[\"operator\"], \"left\": left, \"right\": right}, {})\n        return {\"type\": \"value\", \"token\": {\"type\": \"number\", \"value\": result}}\n    return {\"type\": \"binary\", \"operator\": tree[\"operator\"], \"left\": left, \"right\": right}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:31.268265+00:00",
+    "description": "Simplify constant expressions in tree.",
+    "intent": "Simplify constant expressions in tree.",
+    "language": "python",
+    "name": "simplify_tree",
+    "source_file": "neurop_forge/sources/expression_parser.py",
+    "source_line_end": 169,
+    "source_line_start": 159,
+    "tags": [
+      "dict_operation",
+      "simplify",
+      "tree"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.268293+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(tree) == dict",
+      "tree is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(tree) == dict",
+      "tree is not None"
+    ]
+  }
+}

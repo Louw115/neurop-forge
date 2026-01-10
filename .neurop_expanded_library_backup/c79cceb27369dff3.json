@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c79cceb27369dff3374cf39c2a5c2ac5ed6211b9aecee1d4af35c6e29add4ca0",
+    "semantic_fingerprint": "316c673826b6598f4764fb2d98ee24c0c2091ce3e9dfe12b1c40f5ebecc38a8d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Filter items by predicate.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter predicate",
+        "name": "predicate",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of filter_items",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def filter_items(items: list, predicate) -> list:\n    \"\"\"Filter items by predicate.\"\"\"\n    return [item for item in items if predicate(item)]",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:33.388240+00:00",
+    "description": "Filter items by predicate.",
+    "intent": "Filter items by predicate.",
+    "language": "python",
+    "name": "filter_items",
+    "source_file": "neurop_forge/sources/iterator_utilities.py",
+    "source_line_end": 43,
+    "source_line_start": 41,
+    "tags": [
+      "filter",
+      "filtering",
+      "items",
+      "predicate"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:33.388264+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "predicate is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "predicate is not None"
+    ]
+  }
+}

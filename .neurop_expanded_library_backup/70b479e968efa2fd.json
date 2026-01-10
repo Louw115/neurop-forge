@@ -1,0 +1,132 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "70b479e968efa2fdc51e27115a2272e211b4c18e29fab1040829e5ffa6d77605",
+    "semantic_fingerprint": "97f2dd363e099180b9fa510719188f9b7da101f44e0a1c565d4921791ab9b108",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate parity (1 if odd number of set bits).",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of parity",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parity(value: int) -> int:\n    \"\"\"Calculate parity (1 if odd number of set bits).\"\"\"\n    result = 0\n    while value:\n        result ^= value & 1\n        value >>= 1\n    return result",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:30.171530+00:00",
+    "description": "Calculate parity (1 if odd number of set bits).",
+    "intent": "Calculate parity (1 if odd number of set bits).",
+    "language": "python",
+    "name": "parity",
+    "source_file": "neurop_forge/sources/bitwise_utilities.py",
+    "source_line_end": 203,
+    "source_line_start": 197,
+    "tags": [
+      "arithmetic",
+      "parity",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.171571+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == integer",
+      "value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(value) == integer",
+      "value is not None"
+    ]
+  }
+}

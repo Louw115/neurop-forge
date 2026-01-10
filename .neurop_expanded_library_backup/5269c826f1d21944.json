@@ -1,0 +1,170 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5269c826f1d219446a3fd011441a386ca80903525c0eb910b910bf96bdedeb6f",
+    "semantic_fingerprint": "90b0a5f7384abdaf344d0782f6e291ed62c96adfdaafbd2f893ea3a53e1ba469",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate date is within range.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter min_date",
+        "name": "min_date",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter max_date",
+        "name": "max_date",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter message",
+        "name": "message",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of validate_date_range",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_date_range(value: str, min_date: str, max_date: str, message: str) -> dict:\n    \"\"\"Validate date is within range.\"\"\"\n    is_valid = min_date <= value <= max_date\n    return {\"valid\": is_valid, \"error\": None if is_valid else message}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:29.317968+00:00",
+    "description": "Validate date is within range.",
+    "intent": "Validate date is within range.",
+    "language": "python",
+    "name": "validate_date_range",
+    "source_file": "neurop_forge/sources/form_utilities.py",
+    "source_line_end": 132,
+    "source_line_start": 129,
+    "tags": [
+      "date",
+      "max_date",
+      "message",
+      "min_date",
+      "range",
+      "validate",
+      "validation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.318013+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == string",
+      "value is not None",
+      "type(min_date) == string",
+      "min_date is not None",
+      "type(max_date) == string",
+      "max_date is not None",
+      "type(message) == string",
+      "message is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(value) == string",
+      "value is not None",
+      "type(min_date) == string",
+      "min_date is not None",
+      "type(max_date) == string",
+      "max_date is not None",
+      "type(message) == string",
+      "message is not None"
+    ]
+  }
+}

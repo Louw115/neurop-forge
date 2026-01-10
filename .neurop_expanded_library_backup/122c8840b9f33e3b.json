@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "122c8840b9f33e3bbe88e837c51f573888ee82f33e395b9914a8de41e5bb505a",
+    "semantic_fingerprint": "dd7028ea7aba85d7777124a790d162ee69d2dcdb224b71c0ca22e0f84a64e4a7",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format diff as unified diff.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter diff",
+        "name": "diff",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter context_lines",
+        "name": "context_lines",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_unified_diff",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_unified_diff(diff: list, context_lines: int) -> str:\n    \"\"\"Format diff as unified diff.\"\"\"\n    lines = []\n    for op in diff:\n        if op[\"op\"] == \"equal\":\n            lines.append(f\" {op['value']}\")\n        elif op[\"op\"] == \"insert\":\n            lines.append(f\"+{op['value']}\")\n        elif op[\"op\"] == \"delete\":\n            lines.append(f\"-{op['value']}\")\n    return \"\\n\".join(lines)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:30.904199+00:00",
+    "description": "Format diff as unified diff.",
+    "intent": "Format diff as unified diff.",
+    "language": "python",
+    "name": "format_unified_diff",
+    "source_file": "neurop_forge/sources/diff_utilities.py",
+    "source_line_end": 93,
+    "source_line_start": 83,
+    "tags": [
+      "context_lines",
+      "diff",
+      "format",
+      "string_manipulation",
+      "unified"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.904227+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(diff) == list",
+      "diff is not None",
+      "type(context_lines) == integer",
+      "context_lines is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(diff) == list",
+      "diff is not None",
+      "type(context_lines) == integer",
+      "context_lines is not None"
+    ]
+  }
+}

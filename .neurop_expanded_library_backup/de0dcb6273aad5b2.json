@@ -1,0 +1,156 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "de0dcb6273aad5b23e344149210514684fa7b2d4574535f26b8e94d9537ee8db",
+    "semantic_fingerprint": "4991420148b39c2decf52b5429395ee30be2fe8941efd6acd79a082945212720",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Merge values at path.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter obj",
+        "name": "obj",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter path",
+        "name": "path",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter new_values",
+        "name": "new_values",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of merge_at_path",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def merge_at_path(obj: dict, path: str, new_values: dict) -> dict:\n    \"\"\"Merge values at path.\"\"\"\n    existing = get_by_path(obj, path)\n    if isinstance(existing, dict):\n        merged = {**existing, **new_values}\n    else:\n        merged = new_values\n    return set_by_path(obj, path, merged)",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:33.953730+00:00",
+    "description": "Merge values at path.",
+    "intent": "Merge values at path.",
+    "language": "python",
+    "name": "merge_at_path",
+    "source_file": "neurop_forge/sources/json_path.py",
+    "source_line_end": 227,
+    "source_line_start": 220,
+    "tags": [
+      "dict_operation",
+      "merge",
+      "new_values",
+      "obj",
+      "path"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:33.953748+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(obj) == dict",
+      "obj is not None",
+      "type(path) == string",
+      "path is not None",
+      "type(new_values) == dict",
+      "new_values is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(obj) == dict",
+      "obj is not None",
+      "type(path) == string",
+      "path is not None",
+      "type(new_values) == dict",
+      "new_values is not None"
+    ]
+  }
+}

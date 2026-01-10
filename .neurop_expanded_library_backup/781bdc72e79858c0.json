@@ -1,0 +1,155 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "781bdc72e79858c0a4ca56ccb3037335374056746909f73769425fe056e3ef40",
+    "semantic_fingerprint": "f01bb9806782636c341e233df8887173c55fccac2902e83e010176838ad758a4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Put value in cache (evicts LRU if full).",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter cache",
+        "name": "cache",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of lru_put",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def lru_put(cache: dict, key: str, value) -> dict:\n    \"\"\"Put value in cache (evicts LRU if full).\"\"\"\n    items = dict(cache[\"items\"])\n    order = list(cache[\"order\"])\n    if key in items:\n        order = [k for k in order if k != key]\n        items[key] = value\n        order.append(key)\n        return {\n            \"capacity\": cache[\"capacity\"],\n            \"items\": items,\n            \"order\": order,\n            \"size\": cache[\"size\"]\n        }\n    if len(items) >= cache[\"capacity\"]:\n        evicted = order.pop(0)\n        del items[evicted]\n    items[key] = value\n    order.append(key)\n    return {\n        \"capacity\": cache[\"capacity\"],\n        \"items\": items,\n        \"order\": order,\n        \"size\": len(items)\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:30.652920+00:00",
+    "description": "Put value in cache (evicts LRU if full).",
+    "intent": "Put value in cache (evicts LRU if full).",
+    "language": "python",
+    "name": "lru_put",
+    "source_file": "neurop_forge/sources/lru_cache.py",
+    "source_line_end": 64,
+    "source_line_start": 40,
+    "tags": [
+      "cache",
+      "dict_operation",
+      "key",
+      "lru",
+      "put",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.652941+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(cache) == dict",
+      "cache is not None",
+      "type(key) == string",
+      "key is not None",
+      "value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(cache) == dict",
+      "cache is not None",
+      "type(key) == string",
+      "key is not None",
+      "value is not None"
+    ]
+  }
+}

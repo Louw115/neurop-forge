@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b06aa35f790db4b2074eae5e11bdf2f1adeae72444dee65a45b8a83f209e8aae",
+    "semantic_fingerprint": "5c6dd6abad6058b7f4fbc187e0dd6bd80e25e04e40d74a3550f12158ffe6ff70",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find the common path prefix of two paths.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter path1",
+        "name": "path1",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter path2",
+        "name": "path2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of common_prefix",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def common_prefix(path1: str, path2: str) -> str:\n    \"\"\"Find the common path prefix of two paths.\"\"\"\n    parts1 = split_path(path1)\n    parts2 = split_path(path2)\n    common = []\n    for p1, p2 in zip(parts1, parts2):\n        if p1 == p2:\n            common.append(p1)\n        else:\n            break\n    return '/'.join(common)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:23.964591+00:00",
+    "description": "Find the common path prefix of two paths.",
+    "intent": "Find the common path prefix of two paths.",
+    "language": "python",
+    "name": "common_prefix",
+    "source_file": "neurop_forge/sources/path_utilities.py",
+    "source_line_end": 180,
+    "source_line_start": 170,
+    "tags": [
+      "common",
+      "path1",
+      "path2",
+      "prefix",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:23.964610+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(path1) == string",
+      "path1 is not None",
+      "type(path2) == string",
+      "path2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(path1) == string",
+      "path1 is not None",
+      "type(path2) == string",
+      "path2 is not None"
+    ]
+  }
+}

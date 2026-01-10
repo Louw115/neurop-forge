@@ -1,0 +1,147 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4e245f55ef823ff2ff1e16733b1d22a51752169768a6f76bdc248c4d4d95b68a",
+    "semantic_fingerprint": "8dc73fded829a7971ab981026d57d52a32d4ebbb5b96ab27660904449842fdb3",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate cache hit rate percentage.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter hits",
+        "name": "hits",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter misses",
+        "name": "misses",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_cache_hit_rate",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_cache_hit_rate(hits: int, misses: int) -> float:\n    \"\"\"Calculate cache hit rate percentage.\"\"\"\n    total = hits + misses\n    if total <= 0:\n        return 0.0\n    return (hits / total) * 100",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:29.064497+00:00",
+    "description": "Calculate cache hit rate percentage.",
+    "intent": "Calculate cache hit rate percentage.",
+    "language": "python",
+    "name": "calculate_cache_hit_rate",
+    "source_file": "neurop_forge/sources/caching_patterns.py",
+    "source_line_end": 62,
+    "source_line_start": 57,
+    "tags": [
+      "arithmetic",
+      "cache",
+      "calculate",
+      "hit",
+      "hits",
+      "misses",
+      "rate"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.064523+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(hits) == integer",
+      "hits is not None",
+      "type(misses) == integer",
+      "misses is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(hits) == integer",
+      "hits is not None",
+      "type(misses) == integer",
+      "misses is not None"
+    ]
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "abe3d35a6f56bab2b3875030eb4d0e64fde148fea417582548609da4a6c06136",
+    "semantic_fingerprint": "e267e960bc37e634a9617847632e8c834e635020891891b41bada4ed4b371349",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if all values match predicate.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter ll",
+        "name": "ll",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter predicate",
+        "name": "predicate",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of list_all",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def list_all(ll: dict, predicate) -> bool:\n    \"\"\"Check if all values match predicate.\"\"\"\n    node = ll[\"head\"]\n    while node:\n        if not predicate(node[\"value\"]):\n            return False\n        node = node[\"next\"]\n    return True",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:30.517254+00:00",
+    "description": "Check if all values match predicate.",
+    "intent": "Check if all values match predicate.",
+    "language": "python",
+    "name": "list_all",
+    "source_file": "neurop_forge/sources/linked_list.py",
+    "source_line_end": 252,
+    "source_line_start": 245,
+    "tags": [
+      "all",
+      "list",
+      "ll",
+      "predicate",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.517273+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(ll) == dict",
+      "ll is not None",
+      "predicate is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(ll) == dict",
+      "ll is not None",
+      "predicate is not None"
+    ]
+  }
+}

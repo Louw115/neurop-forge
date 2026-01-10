@@ -1,0 +1,158 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0691a90975623c32a5829cd08d386167e99123f527111576d0177844bdfa9b9a",
+    "semantic_fingerprint": "896299cf565e53ddbf7eeb776d20daf091226dd9aa8d1c507b2539d77568fb04",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a parallel workflow step.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter step_id",
+        "name": "step_id",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter branches",
+        "name": "branches",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter join_type",
+        "name": "join_type",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_parallel_step",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_parallel_step(step_id: str, branches: list, join_type: str) -> dict:\n    \"\"\"Build a parallel workflow step.\"\"\"\n    return {\n        \"id\": step_id,\n        \"type\": \"parallel\",\n        \"branches\": branches,\n        \"join_type\": join_type,\n        \"branch_statuses\": {b: \"pending\" for b in branches}\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:28.662095+00:00",
+    "description": "Build a parallel workflow step.",
+    "intent": "Build a parallel workflow step.",
+    "language": "python",
+    "name": "build_parallel_step",
+    "source_file": "neurop_forge/sources/workflow_patterns.py",
+    "source_line_end": 202,
+    "source_line_start": 194,
+    "tags": [
+      "branches",
+      "build",
+      "dict_operation",
+      "join_type",
+      "parallel",
+      "step",
+      "step_id"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.662122+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(step_id) == string",
+      "step_id is not None",
+      "type(branches) == list",
+      "branches is not None",
+      "type(join_type) == string",
+      "join_type is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(step_id) == string",
+      "step_id is not None",
+      "type(branches) == list",
+      "branches is not None",
+      "type(join_type) == string",
+      "join_type is not None"
+    ]
+  }
+}

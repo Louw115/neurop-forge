@@ -1,0 +1,144 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4ed6894182b0531b30f4b39332d5db9060c9ba7af279015bc4827433f2415530",
+    "semantic_fingerprint": "9ec972318379dc798a1ca9992d6570295dbcd5c8e3a8e802332e66117cf715b3",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Clamp a page number to valid range.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter page",
+        "name": "page",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter total_pages",
+        "name": "total_pages",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of clamp_page",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def clamp_page(page: int, total_pages: int) -> int:\n    \"\"\"Clamp a page number to valid range.\"\"\"\n    return max(1, min(page, max(1, total_pages)))",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:25.451035+00:00",
+    "description": "Clamp a page number to valid range.",
+    "intent": "Clamp a page number to valid range.",
+    "language": "python",
+    "name": "clamp_page",
+    "source_file": "neurop_forge/sources/pagination_utilities.py",
+    "source_line_end": 75,
+    "source_line_start": 73,
+    "tags": [
+      "arithmetic",
+      "clamp",
+      "page",
+      "total_pages"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.451060+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(page) == integer",
+      "page is not None",
+      "type(total_pages) == integer",
+      "total_pages is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(page) == integer",
+      "page is not None",
+      "type(total_pages) == integer",
+      "total_pages is not None"
+    ]
+  }
+}

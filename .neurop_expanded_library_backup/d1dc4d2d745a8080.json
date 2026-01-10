@@ -1,0 +1,170 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d1dc4d2d745a8080d27b1698f5b987ca26df41cf6d3baf88a43b792179789150",
+    "semantic_fingerprint": "417140298586cab4bfe9f22734e362b351462cf2b72b119eb05b1607d4fd49ec",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format a connection error for logging.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter error_code",
+        "name": "error_code",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter error_message",
+        "name": "error_message",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter host",
+        "name": "host",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter port",
+        "name": "port",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_connection_error",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_connection_error(error_code: str, error_message: str, host: str, port: int) -> str:\n    \"\"\"Format a connection error for logging.\"\"\"\n    return f\"Connection failed to {host}:{port} - [{error_code}] {error_message}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:26.770814+00:00",
+    "description": "Format a connection error for logging.",
+    "intent": "Format a connection error for logging.",
+    "language": "python",
+    "name": "format_connection_error",
+    "source_file": "neurop_forge/sources/connection_pool.py",
+    "source_line_end": 169,
+    "source_line_start": 167,
+    "tags": [
+      "connection",
+      "error",
+      "error_code",
+      "error_message",
+      "format",
+      "host",
+      "port",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.770835+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(error_code) == string",
+      "error_code is not None",
+      "type(error_message) == string",
+      "error_message is not None",
+      "type(host) == string",
+      "host is not None",
+      "type(port) == integer",
+      "port is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(error_code) == string",
+      "error_code is not None",
+      "type(error_message) == string",
+      "error_message is not None",
+      "type(host) == string",
+      "host is not None",
+      "type(port) == integer",
+      "port is not None"
+    ]
+  }
+}

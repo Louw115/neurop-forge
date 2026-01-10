@@ -1,0 +1,168 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1a0446c4b24ce18c9fb856f0ef9112c41ade9779f09ee0b9b241539307351d1b",
+    "semantic_fingerprint": "0130b1d55cd851271cfccb42293bff4630639b9b2c67ba8c95738acee4e9db54",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Insert bits at position.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter bits",
+        "name": "bits",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter start",
+        "name": "start",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter count",
+        "name": "count",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of insert_bits",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def insert_bits(value: int, bits: int, start: int, count: int) -> int:\n    \"\"\"Insert bits at position.\"\"\"\n    mask = (1 << count) - 1\n    cleared = value & ~(mask << start)\n    return cleared | ((bits & mask) << start)",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:30.134287+00:00",
+    "description": "Insert bits at position.",
+    "intent": "Insert bits at position.",
+    "language": "python",
+    "name": "insert_bits",
+    "source_file": "neurop_forge/sources/bitwise_utilities.py",
+    "source_line_end": 142,
+    "source_line_start": 138,
+    "tags": [
+      "bits",
+      "count",
+      "insert",
+      "list_operation",
+      "start",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.134316+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == integer",
+      "value is not None",
+      "type(bits) == integer",
+      "bits is not None",
+      "type(start) == integer",
+      "start is not None",
+      "type(count) == integer",
+      "count is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(value) == integer",
+      "value is not None",
+      "type(bits) == integer",
+      "bits is not None",
+      "type(start) == integer",
+      "start is not None",
+      "type(count) == integer",
+      "count is not None"
+    ]
+  }
+}

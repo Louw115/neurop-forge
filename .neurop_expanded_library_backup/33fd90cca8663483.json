@@ -1,0 +1,182 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "33fd90cca86634838b45f1fca1891b0f0c679d16afd79bc0772b035baec8a399",
+    "semantic_fingerprint": "92181fe88d7e969370590204cbc686ccc7258e9d11dcc078612c0746d15479a7",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a conversion event.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter conversion_type",
+        "name": "conversion_type",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter currency",
+        "name": "currency",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter user_id",
+        "name": "user_id",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter timestamp",
+        "name": "timestamp",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_conversion_event",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_conversion_event(conversion_type: str, value: float, currency: str, user_id: str, timestamp: str) -> dict:\n    \"\"\"Build a conversion event.\"\"\"\n    return {\n        \"event\": \"conversion\",\n        \"properties\": {\n            \"type\": conversion_type,\n            \"value\": value,\n            \"currency\": currency\n        },\n        \"user_id\": user_id,\n        \"timestamp\": timestamp\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:28.380205+00:00",
+    "description": "Build a conversion event.",
+    "intent": "Build a conversion event.",
+    "language": "python",
+    "name": "build_conversion_event",
+    "source_file": "neurop_forge/sources/analytics_patterns.py",
+    "source_line_end": 48,
+    "source_line_start": 37,
+    "tags": [
+      "build",
+      "conversion",
+      "conversion_type",
+      "currency",
+      "dict_operation",
+      "event",
+      "timestamp",
+      "user_id",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.380225+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(conversion_type) == string",
+      "conversion_type is not None",
+      "type(value) == float",
+      "value is not None",
+      "type(currency) == string",
+      "currency is not None",
+      "type(user_id) == string",
+      "user_id is not None",
+      "type(timestamp) == string",
+      "timestamp is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(conversion_type) == string",
+      "conversion_type is not None",
+      "type(value) == float",
+      "value is not None",
+      "type(currency) == string",
+      "currency is not None",
+      "type(user_id) == string",
+      "user_id is not None",
+      "type(timestamp) == string",
+      "timestamp is not None"
+    ]
+  }
+}

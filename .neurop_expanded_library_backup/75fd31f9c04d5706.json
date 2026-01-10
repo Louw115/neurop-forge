@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "75fd31f9c04d570660840386a63c69cacf4ffce6cc7420b0a9eb88926685b541",
+    "semantic_fingerprint": "3d7f642e44b8a616b98e25d268b435bfa102228192a5944e18cd4d7a02954856",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate SET clause for incrementing version column.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter version_column",
+        "name": "version_column",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_version_increment",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_version_increment(version_column: str) -> str:\n    \"\"\"Generate SET clause for incrementing version column.\"\"\"\n    from neurop_forge.sources.sql_building import escape_sql_identifier\n    return f\"{escape_sql_identifier(version_column)} = {escape_sql_identifier(version_column)} + 1\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:26.389744+00:00",
+    "description": "Generate SET clause for incrementing version column.",
+    "intent": "Generate SET clause for incrementing version column.",
+    "language": "python",
+    "name": "generate_version_increment",
+    "source_file": "neurop_forge/sources/transaction_helpers.py",
+    "source_line_end": 242,
+    "source_line_start": 239,
+    "tags": [
+      "generate",
+      "increment",
+      "string_manipulation",
+      "version",
+      "version_column"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.389762+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(version_column) == string",
+      "version_column is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(version_column) == string",
+      "version_column is not None"
+    ]
+  }
+}

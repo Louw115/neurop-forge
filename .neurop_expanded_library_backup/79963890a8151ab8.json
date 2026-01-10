@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic utility block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "79963890a8151ab87c27c9a145aa6b343c2e59bacc138aff6b0421c499819dff",
+    "semantic_fingerprint": "14541565aae552036243c7595d4c9044f30f6c1792567c4027dd4878ffe01e29",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Remove PKCS7 padding from data.",
+    "inputs": [
+      {
+        "data_type": "bytes",
+        "default_value": null,
+        "description": "Parameter data",
+        "name": "data",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "bytes",
+        "default_value": null,
+        "description": "Return value of unpad_pkcs7",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def unpad_pkcs7(data: bytes) -> bytes:\n    \"\"\"Remove PKCS7 padding from data.\"\"\"\n    if not data:\n        return b''\n    padding_length = data[-1]\n    if padding_length == 0 or padding_length > len(data):\n        return data\n    if all(b == padding_length for b in data[-padding_length:]):\n        return data[:-padding_length]\n    return data",
+  "metadata": {
+    "category": "utility",
+    "created_at": "2026-01-10T12:22:24.715998+00:00",
+    "description": "Remove PKCS7 padding from data.",
+    "intent": "Remove PKCS7 padding from data.",
+    "language": "python",
+    "name": "unpad_pkcs7",
+    "source_file": "neurop_forge/sources/cryptography_helpers.py",
+    "source_line_end": 302,
+    "source_line_start": 293,
+    "tags": [
+      "data",
+      "pkcs7",
+      "unpad",
+      "utility"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:24.716017+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.295,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.3,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(data) == bytes",
+      "data is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == bytes"
+    ],
+    "postconditions": [
+      "type(result) == bytes"
+    ],
+    "preconditions": [
+      "type(data) == bytes",
+      "data is not None"
+    ]
+  }
+}

@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "75d60f5410505a9e1add459c475263c5e3cd778823d4159598a33e8f5bc4c8f0",
+    "semantic_fingerprint": "71e416d04a21a44f02f103955ba07ee19b20342892d03a8f7359c75253db9629",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find largest key <= given key.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter sl",
+        "name": "sl",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Return value of skip_list_floor",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def skip_list_floor(sl: dict, key):\n    \"\"\"Find largest key <= given key.\"\"\"\n    node = sl[\"head\"]\n    result = None\n    for i in range(sl[\"level\"] - 1, -1, -1):\n        while node[\"forward\"][i] and node[\"forward\"][i][\"key\"] <= key:\n            result = node[\"forward\"][i][\"key\"]\n            node = node[\"forward\"][i]\n    return result",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:30.873708+00:00",
+    "description": "Find largest key <= given key.",
+    "intent": "Find largest key <= given key.",
+    "language": "python",
+    "name": "skip_list_floor",
+    "source_file": "neurop_forge/sources/skip_list.py",
+    "source_line_end": 200,
+    "source_line_start": 192,
+    "tags": [
+      "filtering",
+      "floor",
+      "key",
+      "list",
+      "skip",
+      "sl"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.873728+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33925,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.595,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(sl) == dict",
+      "sl is not None",
+      "key is not None"
+    ],
+    "invariants": [],
+    "output_validators": [],
+    "postconditions": [],
+    "preconditions": [
+      "type(sl) == dict",
+      "sl is not None",
+      "key is not None"
+    ]
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "89c71c6db974f2950b801aa2a4ff3857fc288d2e4780a729de6d6aa39c5f657f",
+    "semantic_fingerprint": "9a55b3a943237fb91e0e987a37d88575b4b56357751a1a5117e351b59664f264",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build regex pattern from terms.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter terms",
+        "name": "terms",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter match_all",
+        "name": "match_all",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_search_pattern",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_search_pattern(terms: list, match_all: bool) -> str:\n    \"\"\"Build regex pattern from terms.\"\"\"\n    escaped = [re.escape(t) for t in terms]\n    if match_all:\n        return \"\".join(f\"(?=.*{t})\" for t in escaped)\n    return \"|\".join(escaped)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:34.985912+00:00",
+    "description": "Build regex pattern from terms.",
+    "intent": "Build regex pattern from terms.",
+    "language": "python",
+    "name": "build_search_pattern",
+    "source_file": "neurop_forge/sources/search_helpers.py",
+    "source_line_end": 55,
+    "source_line_start": 50,
+    "tags": [
+      "build",
+      "match_all",
+      "pattern",
+      "search",
+      "string_manipulation",
+      "terms"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.985937+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(terms) == list",
+      "terms is not None",
+      "type(match_all) == boolean",
+      "match_all is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(terms) == list",
+      "terms is not None",
+      "type(match_all) == boolean",
+      "match_all is not None"
+    ]
+  }
+}

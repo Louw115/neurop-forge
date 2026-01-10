@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic searching block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception",
+      "IndexError"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "77edbc4f99b53ca555e8779ab6897a734f40ce4bb88112c57d80f3956297ae5b",
+    "semantic_fingerprint": "baeb12189be49672611e0052e10fe7110c4b0a9ea1b8ae35e71039d4b78445d0",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find index of first matching item.",
+    "inputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter predicate",
+        "name": "predicate",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of index_of",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def index_of(predicate, items: list) -> int:\n    \"\"\"Find index of first matching item.\"\"\"\n    for i, item in enumerate(items):\n        if predicate(item):\n            return i\n    return -1",
+  "metadata": {
+    "category": "searching",
+    "created_at": "2026-01-10T12:22:31.398667+00:00",
+    "description": "Find index of first matching item.",
+    "intent": "Find index of first matching item.",
+    "language": "python",
+    "name": "index_of",
+    "source_file": "neurop_forge/sources/functional_utilities.py",
+    "source_line_end": 238,
+    "source_line_start": 233,
+    "tags": [
+      "index",
+      "items",
+      "predicate",
+      "searching"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.398693+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "predicate is not None",
+      "type(items) == list",
+      "items is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "predicate is not None",
+      "type(items) == list",
+      "items is not None"
+    ]
+  }
+}

@@ -1,0 +1,161 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception",
+      "KeyError"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2897da59bacccb7be64dd0d1dc0cc75938a1238b813ba7ac2dc1ee339311beb8",
+    "semantic_fingerprint": "7bee7f27918a98dd9f2007e5538bec308909e002e4fe4a3ca5da181537047076",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate SELECT ... FOR KEY SHARE SQL.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter table",
+        "name": "table",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter columns",
+        "name": "columns",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter where_column",
+        "name": "where_column",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_select_for_key_share",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_select_for_key_share(table: str, columns: list, where_column: str) -> str:\n    \"\"\"Generate SELECT ... FOR KEY SHARE SQL.\"\"\"\n    from neurop_forge.sources.sql_building import escape_sql_identifier, build_column_list\n    col_list = build_column_list(columns) if columns else \"*\"\n    return f\"SELECT {col_list} FROM {escape_sql_identifier(table)} WHERE {escape_sql_identifier(where_column)} = $1 FOR KEY SHARE\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:26.380684+00:00",
+    "description": "Generate SELECT ... FOR KEY SHARE SQL.",
+    "intent": "Generate SELECT ... FOR KEY SHARE SQL.",
+    "language": "python",
+    "name": "generate_select_for_key_share",
+    "source_file": "neurop_forge/sources/transaction_helpers.py",
+    "source_line_end": 194,
+    "source_line_start": 190,
+    "tags": [
+      "columns",
+      "for",
+      "generate",
+      "key",
+      "select",
+      "share",
+      "string_manipulation",
+      "table",
+      "where_column"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.380704+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(table) == string",
+      "table is not None",
+      "type(columns) == list",
+      "columns is not None",
+      "type(where_column) == string",
+      "where_column is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(table) == string",
+      "table is not None",
+      "type(columns) == list",
+      "columns is not None",
+      "type(where_column) == string",
+      "where_column is not None"
+    ]
+  }
+}

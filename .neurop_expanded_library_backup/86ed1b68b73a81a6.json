@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "86ed1b68b73a81a69147ec9680c14e42da8f13f308d9df7dd731bc8d47250166",
+    "semantic_fingerprint": "d31ef9de9ff9159d23011204ec3386220944f45084a4e750d6314a2f860f6291",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find longest common substring.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter s1",
+        "name": "s1",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter s2",
+        "name": "s2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of longest_common_substring",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def longest_common_substring(s1: str, s2: str) -> str:\n    \"\"\"Find longest common substring.\"\"\"\n    m, n = len(s1), len(s2)\n    dp = [[0] * (n + 1) for _ in range(m + 1)]\n    max_len = 0\n    end_pos = 0\n    for i in range(1, m + 1):\n        for j in range(1, n + 1):\n            if s1[i - 1] == s2[j - 1]:\n                dp[i][j] = dp[i - 1][j - 1] + 1\n                if dp[i][j] > max_len:\n                    max_len = dp[i][j]\n                    end_pos = i\n    return s1[end_pos - max_len:end_pos]",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:30.282594+00:00",
+    "description": "Find longest common substring.",
+    "intent": "Find longest common substring.",
+    "language": "python",
+    "name": "longest_common_substring",
+    "source_file": "neurop_forge/sources/string_distance.py",
+    "source_line_end": 145,
+    "source_line_start": 132,
+    "tags": [
+      "common",
+      "longest",
+      "s1",
+      "s2",
+      "string_manipulation",
+      "substring"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.282614+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(s1) == string",
+      "s1 is not None",
+      "type(s2) == string",
+      "s2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(s1) == string",
+      "s1 is not None",
+      "type(s2) == string",
+      "s2 is not None"
+    ]
+  }
+}

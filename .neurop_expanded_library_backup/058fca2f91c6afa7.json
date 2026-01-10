@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "058fca2f91c6afa721d10265ad3a2502e856bebf392b392b9fc45bd18619811f",
+    "semantic_fingerprint": "7d267ea362c58d7fbd25f764303fdd2b973df8ecc89b2dd348318f02134efb80",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate a deterministic webhook secret.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter length",
+        "name": "length",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter seed",
+        "name": "seed",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_webhook_secret",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_webhook_secret(length: int, seed: str) -> str:\n    \"\"\"Generate a deterministic webhook secret.\"\"\"\n    import hashlib\n    return hashlib.sha256(seed.encode()).hexdigest()[:length]",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:27.117827+00:00",
+    "description": "Generate a deterministic webhook secret.",
+    "intent": "Generate a deterministic webhook secret.",
+    "language": "python",
+    "name": "generate_webhook_secret",
+    "source_file": "neurop_forge/sources/webhook_patterns.py",
+    "source_line_end": 239,
+    "source_line_start": 236,
+    "tags": [
+      "generate",
+      "length",
+      "secret",
+      "seed",
+      "string_manipulation",
+      "webhook"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.117847+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(length) == integer",
+      "length is not None",
+      "type(seed) == string",
+      "seed is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(length) == integer",
+      "length is not None",
+      "type(seed) == string",
+      "seed is not None"
+    ]
+  }
+}

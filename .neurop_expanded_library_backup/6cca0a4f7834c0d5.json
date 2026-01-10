@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "6cca0a4f7834c0d506e596665d094a06174a9e7d644eb1cff1e0a1cb8f32e9ee",
+    "semantic_fingerprint": "0065507415bb4d92d1c032dc90982b514d071690e05fa3147d8cfeb914e3bca1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate mode(s).",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter values",
+        "name": "values",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of calculate_mode",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_mode(values: list) -> list:\n    \"\"\"Calculate mode(s).\"\"\"\n    if not values:\n        return []\n    counts = {}\n    for v in values:\n        counts[v] = counts.get(v, 0) + 1\n    max_count = max(counts.values())\n    return [k for k, c in counts.items() if c == max_count]",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:29.737124+00:00",
+    "description": "Calculate mode(s).",
+    "intent": "Calculate mode(s).",
+    "language": "python",
+    "name": "calculate_mode",
+    "source_file": "neurop_forge/sources/statistics_utilities.py",
+    "source_line_end": 39,
+    "source_line_start": 31,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "mode",
+      "values"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.737155+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(values) == list",
+      "values is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(values) == list",
+      "values is not None"
+    ]
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a824c3f5708e4fd8abd2d4401593588714c9f8f49362de6d0cfca16543f6e53a",
+    "semantic_fingerprint": "87efc66f0b8b48e99aba1effa9967696dec4ab698860001e48cbdf964546495f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate fuzzy match score.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter query",
+        "name": "query",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter target",
+        "name": "target",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of fuzzy_match_score",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def fuzzy_match_score(query: str, target: str) -> float:\n    \"\"\"Calculate fuzzy match score.\"\"\"\n    query = query.lower()\n    target = target.lower()\n    if query == target:\n        return 1.0\n    if query in target:\n        return 0.8\n    matches = sum(1 for c in query if c in target)\n    return matches / len(query) if query else 0",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:34.996691+00:00",
+    "description": "Calculate fuzzy match score.",
+    "intent": "Calculate fuzzy match score.",
+    "language": "python",
+    "name": "fuzzy_match_score",
+    "source_file": "neurop_forge/sources/search_helpers.py",
+    "source_line_end": 93,
+    "source_line_start": 84,
+    "tags": [
+      "arithmetic",
+      "fuzzy",
+      "match",
+      "query",
+      "score",
+      "target"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.996718+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(query) == string",
+      "query is not None",
+      "type(target) == string",
+      "target is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(query) == string",
+      "query is not None",
+      "type(target) == string",
+      "target is not None"
+    ]
+  }
+}

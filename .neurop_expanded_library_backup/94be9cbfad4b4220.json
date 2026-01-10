@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "94be9cbfad4b422047777ce8e0aec6f6b39b7b482f9ebee60acf8340cd3ab519",
+    "semantic_fingerprint": "b57bc21fd8333c96b4d304795886c4281afcbbe72cd455c2d8fd8ffeeea1bd43",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get the fixed window bucket for a timestamp.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter timestamp",
+        "name": "timestamp",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter window_size",
+        "name": "window_size",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of fixed_window_bucket",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def fixed_window_bucket(timestamp: int, window_size: int) -> int:\n    \"\"\"Get the fixed window bucket for a timestamp.\"\"\"\n    return timestamp // window_size",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:25.165109+00:00",
+    "description": "Get the fixed window bucket for a timestamp.",
+    "intent": "Get the fixed window bucket for a timestamp.",
+    "language": "python",
+    "name": "fixed_window_bucket",
+    "source_file": "neurop_forge/sources/rate_limiting.py",
+    "source_line_end": 60,
+    "source_line_start": 58,
+    "tags": [
+      "arithmetic",
+      "bucket",
+      "fixed",
+      "timestamp",
+      "window",
+      "window_size"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.165141+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(timestamp) == integer",
+      "timestamp is not None",
+      "type(window_size) == integer",
+      "window_size is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(timestamp) == integer",
+      "timestamp is not None",
+      "type(window_size) == integer",
+      "window_size is not None"
+    ]
+  }
+}

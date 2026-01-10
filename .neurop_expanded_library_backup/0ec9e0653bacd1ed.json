@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0ec9e0653bacd1ed7780545f968da6393dbc32236f1138c01897e42520614023",
+    "semantic_fingerprint": "5169a0d0080aa2192fe5b62097c2e884e81e853443021639b6e0fdda9cb972a9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Identify outliers using z-score method.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter values",
+        "name": "values",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter threshold",
+        "name": "threshold",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of identify_outliers_zscore",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def identify_outliers_zscore(values: list, threshold: float) -> list:\n    \"\"\"Identify outliers using z-score method.\"\"\"\n    z_scores = calculate_z_scores(values)\n    return [(i, v) for i, (v, z) in enumerate(zip(values, z_scores)) if abs(z) > threshold]",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:29.763100+00:00",
+    "description": "Identify outliers using z-score method.",
+    "intent": "Identify outliers using z-score method.",
+    "language": "python",
+    "name": "identify_outliers_zscore",
+    "source_file": "neurop_forge/sources/statistics_utilities.py",
+    "source_line_end": 175,
+    "source_line_start": 172,
+    "tags": [
+      "identify",
+      "list_operation",
+      "outliers",
+      "threshold",
+      "values",
+      "zscore"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.763119+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(values) == list",
+      "values is not None",
+      "type(threshold) == float",
+      "threshold is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(values) == list",
+      "values is not None",
+      "type(threshold) == float",
+      "threshold is not None"
+    ]
+  }
+}

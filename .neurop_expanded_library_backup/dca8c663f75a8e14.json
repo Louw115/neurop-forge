@@ -1,0 +1,159 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "dca8c663f75a8e141fd0155c2c85585295b66d448b99a7e403016c715971f21a",
+    "semantic_fingerprint": "fc1734ab3489c360571edf22e21c57f25db3f5a0f59df8cb10e1b034ef4698cd",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate approximate AUC-ROC score.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter predictions",
+        "name": "predictions",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter actuals",
+        "name": "actuals",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter thresholds",
+        "name": "thresholds",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_auc_roc_approx",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_auc_roc_approx(predictions: list, actuals: list, thresholds: int) -> float:\n    \"\"\"Calculate approximate AUC-ROC score.\"\"\"\n    auc = 0.0\n    prev_fpr = 1.0\n    prev_tpr = 1.0\n    for i in range(thresholds + 1):\n        threshold = i / thresholds\n        preds = [1 if p >= threshold else 0 for p in predictions]\n        tp = sum(1 for p, a in zip(preds, actuals) if p == 1 and a == 1)\n        fp = sum(1 for p, a in zip(preds, actuals) if p == 1 and a == 0)\n        tn = sum(1 for p, a in zip(preds, actuals) if p == 0 and a == 0)\n        fn = sum(1 for p, a in zip(preds, actuals) if p == 0 and a == 1)\n        tpr = tp / (tp + fn) if (tp + fn) > 0 else 0\n        fpr = fp / (fp + tn) if (fp + tn) > 0 else 0\n        auc += (prev_fpr - fpr) * (prev_tpr + tpr) / 2\n        prev_fpr, prev_tpr = fpr, tpr\n    return auc",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:28.063370+00:00",
+    "description": "Calculate approximate AUC-ROC score.",
+    "intent": "Calculate approximate AUC-ROC score.",
+    "language": "python",
+    "name": "calculate_auc_roc_approx",
+    "source_file": "neurop_forge/sources/ml_utilities.py",
+    "source_line_end": 306,
+    "source_line_start": 290,
+    "tags": [
+      "actuals",
+      "approx",
+      "arithmetic",
+      "auc",
+      "calculate",
+      "predictions",
+      "roc",
+      "thresholds"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.063393+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(predictions) == list",
+      "predictions is not None",
+      "type(actuals) == list",
+      "actuals is not None",
+      "type(thresholds) == integer",
+      "thresholds is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(predictions) == list",
+      "predictions is not None",
+      "type(actuals) == list",
+      "actuals is not None",
+      "type(thresholds) == integer",
+      "thresholds is not None"
+    ]
+  }
+}

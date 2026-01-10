@@ -1,0 +1,132 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "61ba575215c7ccc4be09eedb73fa06b5ca495f02a7b81cf9104cf3f065ccc82b",
+    "semantic_fingerprint": "1d5bc7f78098bd1b5f5395e57adf05eab709f415f8aa1c346a77add9b989fc90",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Normalize address formatting.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter address",
+        "name": "address",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of normalize_address",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def normalize_address(address: str) -> str:\n    \"\"\"Normalize address formatting.\"\"\"\n    address = \" \".join(address.split())\n    abbreviations = {\n        r'\\bStreet\\b': 'St',\n        r'\\bAvenue\\b': 'Ave',\n        r'\\bBoulevard\\b': 'Blvd',\n        r'\\bDrive\\b': 'Dr',\n        r'\\bRoad\\b': 'Rd',\n        r'\\bLane\\b': 'Ln',\n        r'\\bCourt\\b': 'Ct',\n        r'\\bPlace\\b': 'Pl',\n        r'\\bApartment\\b': 'Apt',\n        r'\\bSuite\\b': 'Ste',\n        r'\\bUnit\\b': '#'\n    }\n    for pattern, replacement in abbreviations.items():\n        address = re.sub(pattern, replacement, address, flags=re.IGNORECASE)\n    return address",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:34.206325+00:00",
+    "description": "Normalize address formatting.",
+    "intent": "Normalize address formatting.",
+    "language": "python",
+    "name": "normalize_address",
+    "source_file": "neurop_forge/sources/address_utilities.py",
+    "source_line_end": 77,
+    "source_line_start": 59,
+    "tags": [
+      "address",
+      "normalize",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.206346+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(address) == string",
+      "address is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(address) == string",
+      "address is not None"
+    ]
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c9161b69e77df49aff74cda292e8595c1a1c12b3df14127fa90d0ab9adf82329",
+    "semantic_fingerprint": "67b8cf656463002f7596bf0371de0229ae5a493231fb45164d1cf9031687f7b8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate cosine similarity using n-gram vectors.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter s1",
+        "name": "s1",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter s2",
+        "name": "s2",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter n",
+        "name": "n",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of cosine_similarity_strings",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def cosine_similarity_strings(s1: str, s2: str, n: int) -> float:\n    \"\"\"Calculate cosine similarity using n-gram vectors.\"\"\"\n    if not s1 or not s2:\n        return 0.0\n    ngrams1 = {}\n    for i in range(len(s1) - n + 1):\n        ng = s1[i:i + n]\n        ngrams1[ng] = ngrams1.get(ng, 0) + 1\n    ngrams2 = {}\n    for i in range(len(s2) - n + 1):\n        ng = s2[i:i + n]\n        ngrams2[ng] = ngrams2.get(ng, 0) + 1\n    all_ngrams = set(ngrams1.keys()) | set(ngrams2.keys())\n    dot_product = sum(ngrams1.get(ng, 0) * ngrams2.get(ng, 0) for ng in all_ngrams)\n    mag1 = sum(v ** 2 for v in ngrams1.values()) ** 0.5\n    mag2 = sum(v ** 2 for v in ngrams2.values()) ** 0.5\n    return dot_product / (mag1 * mag2) if mag1 > 0 and mag2 > 0 else 0.0",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:30.297493+00:00",
+    "description": "Calculate cosine similarity using n-gram vectors.",
+    "intent": "Calculate cosine similarity using n-gram vectors.",
+    "language": "python",
+    "name": "cosine_similarity_strings",
+    "source_file": "neurop_forge/sources/string_distance.py",
+    "source_line_end": 204,
+    "source_line_start": 188,
+    "tags": [
+      "arithmetic",
+      "cosine",
+      "n",
+      "s1",
+      "s2",
+      "similarity",
+      "strings"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.297521+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(s1) == string",
+      "s1 is not None",
+      "type(s2) == string",
+      "s2 is not None",
+      "type(n) == integer",
+      "n is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(s1) == string",
+      "s1 is not None",
+      "type(s2) == string",
+      "s2 is not None",
+      "type(n) == integer",
+      "n is not None"
+    ]
+  }
+}

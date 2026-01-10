@@ -1,0 +1,169 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "62f64a13f4b9b63948636e9b6da2fc020ab2d9691380f0a9b7fb3fa997a4124b",
+    "semantic_fingerprint": "f084ae56d887861477712b026158bd65187cd77ba5d5bea72cf98492c56ca7d1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a schedule definition.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter schedule_id",
+        "name": "schedule_id",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter cron_expression",
+        "name": "cron_expression",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter task_name",
+        "name": "task_name",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter enabled",
+        "name": "enabled",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_schedule",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_schedule(schedule_id: str, cron_expression: str, task_name: str, enabled: bool) -> dict:\n    \"\"\"Build a schedule definition.\"\"\"\n    cron = parse_cron_expression(cron_expression)\n    return {\n        \"id\": schedule_id,\n        \"cron\": cron_expression,\n        \"parsed_cron\": cron,\n        \"task\": task_name,\n        \"enabled\": enabled,\n        \"last_run\": None,\n        \"next_run\": None\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:29.229196+00:00",
+    "description": "Build a schedule definition.",
+    "intent": "Build a schedule definition.",
+    "language": "python",
+    "name": "build_schedule",
+    "source_file": "neurop_forge/sources/scheduler_utilities.py",
+    "source_line_end": 65,
+    "source_line_start": 54,
+    "tags": [
+      "build",
+      "cron_expression",
+      "dict_operation",
+      "enabled",
+      "schedule",
+      "schedule_id",
+      "task_name"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.229217+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(schedule_id) == string",
+      "schedule_id is not None",
+      "type(cron_expression) == string",
+      "cron_expression is not None",
+      "type(task_name) == string",
+      "task_name is not None",
+      "type(enabled) == boolean",
+      "enabled is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(schedule_id) == string",
+      "schedule_id is not None",
+      "type(cron_expression) == string",
+      "cron_expression is not None",
+      "type(task_name) == string",
+      "task_name is not None",
+      "type(enabled) == boolean",
+      "enabled is not None"
+    ]
+  }
+}

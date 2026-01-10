@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f11ab860d2f7182b31467ffd3e31a575d59f646a409a92a57290b32c0bedf4da",
+    "semantic_fingerprint": "94c5ba7abe92bb132c85c7938026656cd37cbe14d3d7dbb7990032e66f06ad5a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Detect if graph has a cycle.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter graph",
+        "name": "graph",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of detect_cycle",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def detect_cycle(graph: dict) -> bool:\n    \"\"\"Detect if graph has a cycle.\"\"\"\n    if not graph[\"directed\"]:\n        visited = set()\n        def dfs(node, parent):\n            visited.add(node)\n            adj = build_adjacency_list(graph)\n            for neighbor in adj.get(node, []):\n                if neighbor not in visited:\n                    if dfs(neighbor, node):\n                        return True\n                elif neighbor != parent:\n                    return True\n            return False\n        for node in graph[\"nodes\"]:\n            if node not in visited:\n                if dfs(node, None):\n                    return True\n        return False\n    else:\n        white, gray, black = set(graph[\"nodes\"].keys()), set(), set()\n        adj = build_adjacency_list(graph)\n        def dfs(node):\n            white.discard(node)\n            gray.add(node)\n            for neighbor in adj.get(node, []):\n                if neighbor in gray:\n                    return True\n                if neighbor in white and dfs(neighbor):\n                    return True\n            gray.discard(node)\n            black.add(node)\n            return False\n        while white:\n            if dfs(next(iter(white))):\n                return True\n        return False",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:28.728182+00:00",
+    "description": "Detect if graph has a cycle.",
+    "intent": "Detect if graph has a cycle.",
+    "language": "python",
+    "name": "detect_cycle",
+    "source_file": "neurop_forge/sources/graph_utilities.py",
+    "source_line_end": 216,
+    "source_line_start": 180,
+    "tags": [
+      "cycle",
+      "detect",
+      "graph",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.728212+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(graph) == dict",
+      "graph is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(graph) == dict",
+      "graph is not None"
+    ]
+  }
+}

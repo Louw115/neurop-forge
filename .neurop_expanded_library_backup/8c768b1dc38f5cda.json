@@ -1,0 +1,170 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8c768b1dc38f5cda8ce166955b4625fe1edfd30401fd4794fdfd61be9d396667",
+    "semantic_fingerprint": "a238a36c5537b4464b3c18188594c345518bab7349c7dfc4b8d3cff3c2e5f3ec",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Determine if pool should shrink based on idle connections.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_size",
+        "name": "current_size",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter min_size",
+        "name": "min_size",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter idle_connections",
+        "name": "idle_connections",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter idle_threshold",
+        "name": "idle_threshold",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of should_shrink_pool",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def should_shrink_pool(current_size: int, min_size: int, idle_connections: int, idle_threshold: int) -> bool:\n    \"\"\"Determine if pool should shrink based on idle connections.\"\"\"\n    return current_size > min_size and idle_connections > idle_threshold",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:26.736449+00:00",
+    "description": "Determine if pool should shrink based on idle connections.",
+    "intent": "Determine if pool should shrink based on idle connections.",
+    "language": "python",
+    "name": "should_shrink_pool",
+    "source_file": "neurop_forge/sources/connection_pool.py",
+    "source_line_end": 31,
+    "source_line_start": 29,
+    "tags": [
+      "current_size",
+      "idle_connections",
+      "idle_threshold",
+      "min_size",
+      "pool",
+      "should",
+      "shrink",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.736502+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(current_size) == integer",
+      "current_size is not None",
+      "type(min_size) == integer",
+      "min_size is not None",
+      "type(idle_connections) == integer",
+      "idle_connections is not None",
+      "type(idle_threshold) == integer",
+      "idle_threshold is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(current_size) == integer",
+      "current_size is not None",
+      "type(min_size) == integer",
+      "min_size is not None",
+      "type(idle_connections) == integer",
+      "idle_connections is not None",
+      "type(idle_threshold) == integer",
+      "idle_threshold is not None"
+    ]
+  }
+}

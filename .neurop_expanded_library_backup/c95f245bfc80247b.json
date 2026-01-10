@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c95f245bfc80247b33a4c7a2e58cb02a3c6703bb15bae61015001ebf8f7192e3",
+    "semantic_fingerprint": "9d95e7c9dcacc7cda7fff78ad395483cebcc263e86f780500b0e93c29b3f6c03",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Merge two configuration dictionaries (override takes precedence).",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter base",
+        "name": "base",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter override",
+        "name": "override",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of merge_configs",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def merge_configs(base: dict, override: dict) -> dict:\n    \"\"\"Merge two configuration dictionaries (override takes precedence).\"\"\"\n    result = dict(base)\n    for key, value in override.items():\n        if isinstance(value, dict) and isinstance(result.get(key), dict):\n            result[key] = merge_configs(result[key], value)\n        else:\n            result[key] = value\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:25.366770+00:00",
+    "description": "Merge two configuration dictionaries (override takes precedence).",
+    "intent": "Merge two configuration dictionaries (override takes precedence).",
+    "language": "python",
+    "name": "merge_configs",
+    "source_file": "neurop_forge/sources/configuration_utilities.py",
+    "source_line_end": 110,
+    "source_line_start": 102,
+    "tags": [
+      "base",
+      "configs",
+      "dict_operation",
+      "merge",
+      "override"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.366799+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(base) == dict",
+      "base is not None",
+      "type(override) == dict",
+      "override is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(base) == dict",
+      "base is not None",
+      "type(override) == dict",
+      "override is not None"
+    ]
+  }
+}

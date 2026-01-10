@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "20a8110ea38f360e2edb0b89dbf25f4b8eba19279f9fb474151223e37259a592",
+    "semantic_fingerprint": "7b16a7a0b8ce1959643146f59504dcdc383aee249694a88bb7c67c77b7d3cb59",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Convert float to approximate fraction.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_denom",
+        "name": "max_denom",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of float_to_fraction",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def float_to_fraction(value: float, max_denom: int) -> dict:\n    \"\"\"Convert float to approximate fraction.\"\"\"\n    if value == 0:\n        return {\"numerator\": 0, \"denominator\": 1}\n    sign = 1 if value >= 0 else -1\n    value = abs(value)\n    best_num, best_denom = 0, 1\n    best_error = abs(value)\n    for denom in range(1, max_denom + 1):\n        num = round(value * denom)\n        error = abs(value - num / denom)\n        if error < best_error:\n            best_error = error\n            best_num = num\n            best_denom = denom\n    return {\"numerator\": sign * best_num, \"denominator\": best_denom}",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T12:22:31.203746+00:00",
+    "description": "Convert float to approximate fraction.",
+    "intent": "Convert float to approximate fraction.",
+    "language": "python",
+    "name": "float_to_fraction",
+    "source_file": "neurop_forge/sources/base_conversion.py",
+    "source_line_end": 192,
+    "source_line_start": 177,
+    "tags": [
+      "float",
+      "fraction",
+      "max_denom",
+      "transformation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.203768+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == float",
+      "value is not None",
+      "type(max_denom) == integer",
+      "max_denom is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(value) == float",
+      "value is not None",
+      "type(max_denom) == integer",
+      "max_denom is not None"
+    ]
+  }
+}

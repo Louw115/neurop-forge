@@ -1,0 +1,159 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception",
+      "KeyError"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e97a17880e7556aa3ba202cecc11e9294057959eff9b4ec9094f63a702690951",
+    "semantic_fingerprint": "57ac1b1f9a132c0762d2d4ae2f700b0f9c79ce629863ecd3c6471bb188132eed",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a Redis key from parts.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter prefix",
+        "name": "prefix",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter parts",
+        "name": "parts",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter separator",
+        "name": "separator",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_redis_key",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_redis_key(prefix: str, parts: list, separator: str) -> str:\n    \"\"\"Build a Redis key from parts.\"\"\"\n    all_parts = [prefix] + [str(p) for p in parts]\n    return separator.join(all_parts)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:26.589470+00:00",
+    "description": "Build a Redis key from parts.",
+    "intent": "Build a Redis key from parts.",
+    "language": "python",
+    "name": "build_redis_key",
+    "source_file": "neurop_forge/sources/nosql_helpers.py",
+    "source_line_end": 179,
+    "source_line_start": 176,
+    "tags": [
+      "build",
+      "key",
+      "parts",
+      "prefix",
+      "redis",
+      "separator",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.589488+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(prefix) == string",
+      "prefix is not None",
+      "type(parts) == list",
+      "parts is not None",
+      "type(separator) == string",
+      "separator is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(prefix) == string",
+      "prefix is not None",
+      "type(parts) == list",
+      "parts is not None",
+      "type(separator) == string",
+      "separator is not None"
+    ]
+  }
+}

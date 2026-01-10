@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8478fa2ad2bc0ab589e26ac506691fada933d6e0bcf075aed984998b103f2e3f",
+    "semantic_fingerprint": "b7e43ede0564ee769ada415dfcd515dcebeda7584ecb452399fbd038796d6726",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get list of migrations to rollback to reach target state.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter applied_migrations",
+        "name": "applied_migrations",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter target",
+        "name": "target",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of get_migrations_to_rollback",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_migrations_to_rollback(applied_migrations: list, target: str) -> list:\n    \"\"\"Get list of migrations to rollback to reach target state.\"\"\"\n    sorted_applied = sort_migration_ids(applied_migrations)\n    if target not in sorted_applied:\n        return []\n    target_idx = sorted_applied.index(target)\n    return list(reversed(sorted_applied[target_idx + 1:]))",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:26.231603+00:00",
+    "description": "Get list of migrations to rollback to reach target state.",
+    "intent": "Get list of migrations to rollback to reach target state.",
+    "language": "python",
+    "name": "get_migrations_to_rollback",
+    "source_file": "neurop_forge/sources/migration_helpers.py",
+    "source_line_end": 57,
+    "source_line_start": 51,
+    "tags": [
+      "applied_migrations",
+      "filtering",
+      "get",
+      "migrations",
+      "rollback",
+      "target"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.231623+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(applied_migrations) == list",
+      "applied_migrations is not None",
+      "type(target) == string",
+      "target is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(applied_migrations) == list",
+      "applied_migrations is not None",
+      "type(target) == string",
+      "target is not None"
+    ]
+  }
+}

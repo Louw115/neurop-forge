@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "302fe3549ce3e641a0c4dc75788c96f2a5be6571d8211073df8a0fbbfe9c165c",
+    "semantic_fingerprint": "64b3ffbe1764b480e5aafe0c9380892a270b57700f0ee115929835fe24aa8353",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Convert to scientific notation.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter number",
+        "name": "number",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter precision",
+        "name": "precision",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of to_scientific_notation",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def to_scientific_notation(number: float, precision: int) -> str:\n    \"\"\"Convert to scientific notation.\"\"\"\n    if number == 0:\n        return \"0e+0\"\n    import math\n    exp = math.floor(math.log10(abs(number)))\n    mantissa = number / (10 ** exp)\n    return f\"{mantissa:.{precision}f}e{exp:+d}\"",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T12:22:31.215095+00:00",
+    "description": "Convert to scientific notation.",
+    "intent": "Convert to scientific notation.",
+    "language": "python",
+    "name": "to_scientific_notation",
+    "source_file": "neurop_forge/sources/base_conversion.py",
+    "source_line_end": 232,
+    "source_line_start": 225,
+    "tags": [
+      "notation",
+      "number",
+      "precision",
+      "scientific",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.215125+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(number) == float",
+      "number is not None",
+      "type(precision) == integer",
+      "precision is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(number) == float",
+      "number is not None",
+      "type(precision) == integer",
+      "precision is not None"
+    ]
+  }
+}

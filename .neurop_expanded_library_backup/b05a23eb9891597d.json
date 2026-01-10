@@ -1,0 +1,180 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b05a23eb9891597dbebf01d4c93dee9ccbb093973ea535b094895ba702d7f9c2",
+    "semantic_fingerprint": "533de90549f05e8129b76cfcedceee4a4ecdfef4a28f2826483f85e7dff690ad",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Evaluate a policy against a request.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter policy",
+        "name": "policy",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter principal",
+        "name": "principal",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter resource",
+        "name": "resource",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter action",
+        "name": "action",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter context",
+        "name": "context",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of evaluate_policy",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def evaluate_policy(policy: dict, principal: str, resource: str, action: str, context: dict) -> str:\n    \"\"\"Evaluate a policy against a request.\"\"\"\n    if principal not in policy[\"principals\"] and \"*\" not in policy[\"principals\"]:\n        return \"no_match\"\n    if resource not in policy[\"resources\"] and \"*\" not in policy[\"resources\"]:\n        return \"no_match\"\n    if action not in policy[\"actions\"] and \"*\" not in policy[\"actions\"]:\n        return \"no_match\"\n    return policy[\"effect\"]",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:27.938356+00:00",
+    "description": "Evaluate a policy against a request.",
+    "intent": "Evaluate a policy against a request.",
+    "language": "python",
+    "name": "evaluate_policy",
+    "source_file": "neurop_forge/sources/security_patterns.py",
+    "source_line_end": 142,
+    "source_line_start": 134,
+    "tags": [
+      "action",
+      "arithmetic",
+      "context",
+      "evaluate",
+      "policy",
+      "principal",
+      "resource"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.938376+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(policy) == dict",
+      "policy is not None",
+      "type(principal) == string",
+      "principal is not None",
+      "type(resource) == string",
+      "resource is not None",
+      "type(action) == string",
+      "action is not None",
+      "type(context) == dict",
+      "context is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(policy) == dict",
+      "policy is not None",
+      "type(principal) == string",
+      "principal is not None",
+      "type(resource) == string",
+      "resource is not None",
+      "type(action) == string",
+      "action is not None",
+      "type(context) == dict",
+      "context is not None"
+    ]
+  }
+}

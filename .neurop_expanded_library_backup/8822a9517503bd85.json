@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic aggregation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8822a9517503bd859594440fd1d479276fa118ebe89254dcbccb407200273670",
+    "semantic_fingerprint": "b5cd579277d8745448f3e107faaff667ed4e48e54e81ac19a0a8461ce942238e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Group child records by parent key.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter records",
+        "name": "records",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter parent_key",
+        "name": "parent_key",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter child_key",
+        "name": "child_key",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of group_by_parent",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def group_by_parent(records: list, parent_key: str, child_key: str) -> dict:\n    \"\"\"Group child records by parent key.\"\"\"\n    result = {}\n    for record in records:\n        parent_id = record.get(parent_key)\n        if parent_id not in result:\n            result[parent_id] = []\n        child_data = {k: v for k, v in record.items() if k != parent_key}\n        if any(v is not None for v in child_data.values()):\n            result[parent_id].append(child_data)\n    return result",
+  "metadata": {
+    "category": "aggregation",
+    "created_at": "2026-01-10T12:22:26.694187+00:00",
+    "description": "Group child records by parent key.",
+    "intent": "Group child records by parent key.",
+    "language": "python",
+    "name": "group_by_parent",
+    "source_file": "neurop_forge/sources/orm_patterns.py",
+    "source_line_end": 266,
+    "source_line_start": 256,
+    "tags": [
+      "aggregation",
+      "child_key",
+      "group",
+      "parent",
+      "parent_key",
+      "records"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.694217+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(records) == list",
+      "records is not None",
+      "type(parent_key) == string",
+      "parent_key is not None",
+      "type(child_key) == string",
+      "child_key is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(records) == list",
+      "records is not None",
+      "type(parent_key) == string",
+      "parent_key is not None",
+      "type(child_key) == string",
+      "child_key is not None"
+    ]
+  }
+}

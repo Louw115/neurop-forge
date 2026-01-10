@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "62b186b7fc516cf88e965c03cf22f5373f9a1d6066daf033b43e27bbeee63731",
+    "semantic_fingerprint": "a2c2a77db823b66b7ca56f461db630facb4dfaaa67e76f59b6f58bf52149869a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate a checksum for test data verification.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter data",
+        "name": "data",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of calculate_test_checksum",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_test_checksum(data: dict) -> str:\n    \"\"\"Calculate a checksum for test data verification.\"\"\"\n    import hashlib\n    import json\n    content = json.dumps(data, sort_keys=True)\n    return hashlib.sha256(content.encode()).hexdigest()[:16]",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:27.827466+00:00",
+    "description": "Calculate a checksum for test data verification.",
+    "intent": "Calculate a checksum for test data verification.",
+    "language": "python",
+    "name": "calculate_test_checksum",
+    "source_file": "neurop_forge/sources/testing_utilities.py",
+    "source_line_end": 402,
+    "source_line_start": 397,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "checksum",
+      "data",
+      "test"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.827491+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(data) == dict",
+      "data is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(data) == dict",
+      "data is not None"
+    ]
+  }
+}

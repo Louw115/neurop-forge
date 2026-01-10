@@ -1,0 +1,132 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ea5f143fdfd369340b6480240afeb4d722a1129cd1c4b641a6a8b58963782c51",
+    "semantic_fingerprint": "7b2cf8f64d1b3dbee3583a9d07adfa7904174b2f4449e3a92655a88821dfc0ef",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Convert to adjacency representation.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter ds",
+        "name": "ds",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of to_adjacency",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def to_adjacency(ds: dict) -> dict:\n    \"\"\"Convert to adjacency representation.\"\"\"\n    components = get_components(ds)\n    adjacency = {e: [] for e in ds[\"parent\"]}\n    for members in components.values():\n        for i, a in enumerate(members):\n            for b in members[i + 1:]:\n                adjacency[a].append(b)\n                adjacency[b].append(a)\n    return adjacency",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T12:22:30.805572+00:00",
+    "description": "Convert to adjacency representation.",
+    "intent": "Convert to adjacency representation.",
+    "language": "python",
+    "name": "to_adjacency",
+    "source_file": "neurop_forge/sources/disjoint_set.py",
+    "source_line_end": 218,
+    "source_line_start": 209,
+    "tags": [
+      "adjacency",
+      "ds",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.805591+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(ds) == dict",
+      "ds is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(ds) == dict",
+      "ds is not None"
+    ]
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1c0d00361a32e45f3193d5289fe20ecc735fe33614fb59124adbceb238aef45c",
+    "semantic_fingerprint": "170a4fe29bae51e3058d8768f115ecec968651793ea9b271228c30f5046a9fda",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Insert value at index.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter ll",
+        "name": "ll",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter index",
+        "name": "index",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of list_insert_at",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def list_insert_at(ll: dict, index: int, value) -> dict:\n    \"\"\"Insert value at index.\"\"\"\n    if index == 0:\n        return list_prepend(ll, value)\n    def insert_helper(node, i):\n        if node is None or i <= 0:\n            return create_node(value, node)\n        return create_node(node[\"value\"], insert_helper(node[\"next\"], i - 1))\n    return {\"head\": insert_helper(ll[\"head\"], index), \"size\": ll[\"size\"] + 1}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:30.498067+00:00",
+    "description": "Insert value at index.",
+    "intent": "Insert value at index.",
+    "language": "python",
+    "name": "list_insert_at",
+    "source_file": "neurop_forge/sources/linked_list.py",
+    "source_line_end": 169,
+    "source_line_start": 161,
+    "tags": [
+      "dict_operation",
+      "index",
+      "insert",
+      "list",
+      "ll",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.498096+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(ll) == dict",
+      "ll is not None",
+      "type(index) == integer",
+      "index is not None",
+      "value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(ll) == dict",
+      "ll is not None",
+      "type(index) == integer",
+      "index is not None",
+      "value is not None"
+    ]
+  }
+}

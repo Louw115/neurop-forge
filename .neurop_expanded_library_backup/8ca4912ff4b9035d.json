@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8ca4912ff4b9035de8ec83f0838f778d443084f92aed2e85f08014a0d6ca0341",
+    "semantic_fingerprint": "9bd749ed1b96b9e0e3b42bba5c797f476c321cc9076f21b476d39fdbe678d52a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get error severity level based on status code.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter status_code",
+        "name": "status_code",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_error_severity",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_error_severity(status_code: int) -> str:\n    \"\"\"Get error severity level based on status code.\"\"\"\n    if status_code < 400:\n        return \"info\"\n    if status_code < 500:\n        return \"warning\"\n    if status_code < 503:\n        return \"error\"\n    return \"critical\"",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:27.316896+00:00",
+    "description": "Get error severity level based on status code.",
+    "intent": "Get error severity level based on status code.",
+    "language": "python",
+    "name": "get_error_severity",
+    "source_file": "neurop_forge/sources/error_handling.py",
+    "source_line_end": 29,
+    "source_line_start": 21,
+    "tags": [
+      "error",
+      "filtering",
+      "get",
+      "severity",
+      "status_code"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.316914+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(status_code) == integer",
+      "status_code is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(status_code) == integer",
+      "status_code is not None"
+    ]
+  }
+}

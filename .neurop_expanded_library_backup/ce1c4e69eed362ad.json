@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ce1c4e69eed362ad629424450a15c2e511fec79e10c8c729d95c07babfaa4f4a",
+    "semantic_fingerprint": "a8f9580a8a05a04ff19e6a1543aa2a46a7962dcc7371c84e67c24b3b436cc18a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find longest match in LZ77 window.",
+    "inputs": [
+      {
+        "data_type": "bytes",
+        "default_value": null,
+        "description": "Parameter data",
+        "name": "data",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter position",
+        "name": "position",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter window_size",
+        "name": "window_size",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Return value of lz77_find_match",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def lz77_find_match(data: bytes, position: int, window_size: int) -> tuple:\n    \"\"\"Find longest match in LZ77 window.\"\"\"\n    best_length = 0\n    best_offset = 0\n    window_start = max(0, position - window_size)\n    for offset in range(1, position - window_start + 1):\n        length = 0\n        while (position + length < len(data) and \n               data[position + length] == data[position - offset + (length % offset)]):\n            length += 1\n            if length > 255:\n                break\n        if length > best_length:\n            best_length = length\n            best_offset = offset\n    return (best_offset, best_length)",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:28.805326+00:00",
+    "description": "Find longest match in LZ77 window.",
+    "intent": "Find longest match in LZ77 window.",
+    "language": "python",
+    "name": "lz77_find_match",
+    "source_file": "neurop_forge/sources/compression_utilities.py",
+    "source_line_end": 152,
+    "source_line_start": 137,
+    "tags": [
+      "data",
+      "filtering",
+      "find",
+      "lz77",
+      "match",
+      "position",
+      "window_size"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.805354+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33925,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.595,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(data) == bytes",
+      "data is not None",
+      "type(position) == integer",
+      "position is not None",
+      "type(window_size) == integer",
+      "window_size is not None"
+    ],
+    "invariants": [],
+    "output_validators": [],
+    "postconditions": [],
+    "preconditions": [
+      "type(data) == bytes",
+      "data is not None",
+      "type(position) == integer",
+      "position is not None",
+      "type(window_size) == integer",
+      "window_size is not None"
+    ]
+  }
+}

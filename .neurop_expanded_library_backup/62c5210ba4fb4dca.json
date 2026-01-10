@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "62c5210ba4fb4dcad66d43aa1960e261ba34c1a506fd12aaa6d4b169c46d4e3b",
+    "semantic_fingerprint": "95046ac54c8b199e79e24414638ae69dbb409750b1cac596226443d1d10da18d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format validation errors response.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter errors",
+        "name": "errors",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of format_validation_errors",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_validation_errors(errors: list) -> dict:\n    \"\"\"Format validation errors response.\"\"\"\n    return {\n        \"success\": False,\n        \"error\": {\n            \"code\": 422,\n            \"message\": \"Validation failed\",\n            \"details\": [\n                {\"field\": e.get(\"field\", \"\"), \"message\": e.get(\"message\", \"\")}\n                for e in errors\n            ]\n        }\n    }",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:27.266727+00:00",
+    "description": "Format validation errors response.",
+    "intent": "Format validation errors response.",
+    "language": "python",
+    "name": "format_validation_errors",
+    "source_file": "neurop_forge/sources/response_formatting.py",
+    "source_line_end": 161,
+    "source_line_start": 149,
+    "tags": [
+      "errors",
+      "format",
+      "string_manipulation",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.266745+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(errors) == list",
+      "errors is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(errors) == list",
+      "errors is not None"
+    ]
+  }
+}

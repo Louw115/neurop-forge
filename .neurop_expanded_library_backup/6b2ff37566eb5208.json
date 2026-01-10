@@ -1,0 +1,132 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "6b2ff37566eb5208625d786b2e28e51160dd76eb7360fc3b4ec6f85af6e34dea",
+    "semantic_fingerprint": "0b753c1c961372de6a4bb39fb00ce6da41b00ab6e499112d4ef956d6b114b883",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Reverse diff operations.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter diff",
+        "name": "diff",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of reverse_diff",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def reverse_diff(diff: list) -> list:\n    \"\"\"Reverse diff operations.\"\"\"\n    reversed_ops = []\n    for op in diff:\n        if op[\"op\"] == \"insert\":\n            reversed_ops.append({\"op\": \"delete\", \"value\": op[\"value\"]})\n        elif op[\"op\"] == \"delete\":\n            reversed_ops.append({\"op\": \"insert\", \"value\": op[\"value\"]})\n        else:\n            reversed_ops.append(op)\n    return reversed_ops",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:30.901311+00:00",
+    "description": "Reverse diff operations.",
+    "intent": "Reverse diff operations.",
+    "language": "python",
+    "name": "reverse_diff",
+    "source_file": "neurop_forge/sources/diff_utilities.py",
+    "source_line_end": 80,
+    "source_line_start": 70,
+    "tags": [
+      "diff",
+      "list_operation",
+      "reverse"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.901335+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(diff) == list",
+      "diff is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(diff) == list",
+      "diff is not None"
+    ]
+  }
+}

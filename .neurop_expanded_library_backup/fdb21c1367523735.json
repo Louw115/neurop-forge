@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "fdb21c13675237357171cf54cfb905afc7e315b53097d66778ebdd9af6b025ea",
+    "semantic_fingerprint": "3aa1d1f65266a57900c0bdb65c6e5b686c6ad437685b53b88eb364d9ab025a6a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Filter notifications after a date.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter notifications",
+        "name": "notifications",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter after_date",
+        "name": "after_date",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of filter_notifications_by_date",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def filter_notifications_by_date(notifications: list, after_date: str) -> list:\n    \"\"\"Filter notifications after a date.\"\"\"\n    return [n for n in notifications if n.get(\"created_at\", \"\") >= after_date]",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:28.344604+00:00",
+    "description": "Filter notifications after a date.",
+    "intent": "Filter notifications after a date.",
+    "language": "python",
+    "name": "filter_notifications_by_date",
+    "source_file": "neurop_forge/sources/notification_patterns.py",
+    "source_line_end": 164,
+    "source_line_start": 162,
+    "tags": [
+      "after_date",
+      "date",
+      "filter",
+      "filtering",
+      "notifications"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.344629+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(notifications) == list",
+      "notifications is not None",
+      "type(after_date) == string",
+      "after_date is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(notifications) == list",
+      "notifications is not None",
+      "type(after_date) == string",
+      "after_date is not None"
+    ]
+  }
+}

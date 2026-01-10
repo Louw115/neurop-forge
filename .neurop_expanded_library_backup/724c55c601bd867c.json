@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "724c55c601bd867c0f18deea4ff4468d72a115a2cea507817f3ab9517ae98361",
+    "semantic_fingerprint": "33d8acc6829d004e995f9797b3163067ef924c8065f22a5c7aa45bd1349b5daa",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate percentage change from previous value.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter values",
+        "name": "values",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of pct_change",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def pct_change(values: list) -> list:\n    \"\"\"Calculate percentage change from previous value.\"\"\"\n    if len(values) < 2:\n        return []\n    return [(values[i] - values[i-1]) / values[i-1] if values[i-1] != 0 else 0 \n            for i in range(1, len(values))]",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:24.784356+00:00",
+    "description": "Calculate percentage change from previous value.",
+    "intent": "Calculate percentage change from previous value.",
+    "language": "python",
+    "name": "pct_change",
+    "source_file": "neurop_forge/sources/data_transformation.py",
+    "source_line_end": 370,
+    "source_line_start": 365,
+    "tags": [
+      "change",
+      "list_operation",
+      "pct",
+      "values"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:24.784374+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(values) == list",
+      "values is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(values) == list",
+      "values is not None"
+    ]
+  }
+}

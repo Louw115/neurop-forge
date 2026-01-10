@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a63b9b3a274aa9837a8d3e492664aaa3a440b8a5db607eadb4a6213d0ba0f29a",
+    "semantic_fingerprint": "7e82ab5acd8e56e57a6d34f61678284bb222179892931579be54d66d6b63a96a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get sequence of edit operations to transform s1 to s2.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter s1",
+        "name": "s1",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter s2",
+        "name": "s2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of get_edit_operations",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_edit_operations(s1: str, s2: str) -> list:\n    \"\"\"Get sequence of edit operations to transform s1 to s2.\"\"\"\n    m, n = len(s1), len(s2)\n    dp = [[0] * (n + 1) for _ in range(m + 1)]\n    for i in range(m + 1):\n        dp[i][0] = i\n    for j in range(n + 1):\n        dp[0][j] = j\n    for i in range(1, m + 1):\n        for j in range(1, n + 1):\n            if s1[i - 1] == s2[j - 1]:\n                dp[i][j] = dp[i - 1][j - 1]\n            else:\n                dp[i][j] = 1 + min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1])\n    ops = []\n    i, j = m, n\n    while i > 0 or j > 0:\n        if i > 0 and j > 0 and s1[i - 1] == s2[j - 1]:\n            i -= 1\n            j -= 1\n        elif j > 0 and (i == 0 or dp[i][j - 1] <= dp[i - 1][j] and dp[i][j - 1] <= dp[i - 1][j - 1]):\n            ops.append({\"op\": \"insert\", \"char\": s2[j - 1], \"pos\": i})\n            j -= 1\n        elif i > 0 and (j == 0 or dp[i - 1][j] <= dp[i][j - 1] and dp[i - 1][j] <= dp[i - 1][j - 1]):\n            ops.append({\"op\": \"delete\", \"char\": s1[i - 1], \"pos\": i - 1})\n            i -= 1\n        else:\n            ops.append({\"op\": \"replace\", \"from\": s1[i - 1], \"to\": s2[j - 1], \"pos\": i - 1})\n            i -= 1\n            j -= 1\n    return list(reversed(ops))",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:30.310633+00:00",
+    "description": "Get sequence of edit operations to transform s1 to s2.",
+    "intent": "Get sequence of edit operations to transform s1 to s2.",
+    "language": "python",
+    "name": "get_edit_operations",
+    "source_file": "neurop_forge/sources/string_distance.py",
+    "source_line_end": 256,
+    "source_line_start": 226,
+    "tags": [
+      "edit",
+      "filtering",
+      "get",
+      "operations",
+      "s1",
+      "s2"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.310662+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(s1) == string",
+      "s1 is not None",
+      "type(s2) == string",
+      "s2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(s1) == string",
+      "s1 is not None",
+      "type(s2) == string",
+      "s2 is not None"
+    ]
+  }
+}

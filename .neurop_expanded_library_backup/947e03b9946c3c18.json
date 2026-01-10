@@ -1,0 +1,170 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "947e03b9946c3c182219efe2e6d230269dad1dcc05ced2bc15d603a2489b9752",
+    "semantic_fingerprint": "b657016c67336acb57eccc9614b46997b99349080522ab6c19688254166af330",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Determine if message should move to dead letter queue.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter message",
+        "name": "message",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_deliveries",
+        "name": "max_deliveries",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_age_seconds",
+        "name": "max_age_seconds",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter message_age",
+        "name": "message_age",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of should_move_to_dlq",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def should_move_to_dlq(message: dict, max_deliveries: int, max_age_seconds: int, message_age: int) -> bool:\n    \"\"\"Determine if message should move to dead letter queue.\"\"\"\n    if is_poison_message(message, max_deliveries):\n        return True\n    if max_age_seconds > 0 and message_age > max_age_seconds:\n        return True\n    return False",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:27.703563+00:00",
+    "description": "Determine if message should move to dead letter queue.",
+    "intent": "Determine if message should move to dead letter queue.",
+    "language": "python",
+    "name": "should_move_to_dlq",
+    "source_file": "neurop_forge/sources/queue_patterns.py",
+    "source_line_end": 134,
+    "source_line_start": 128,
+    "tags": [
+      "dlq",
+      "max_age_seconds",
+      "max_deliveries",
+      "message",
+      "message_age",
+      "move",
+      "should",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.703593+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(message) == dict",
+      "message is not None",
+      "type(max_deliveries) == integer",
+      "max_deliveries is not None",
+      "type(max_age_seconds) == integer",
+      "max_age_seconds is not None",
+      "type(message_age) == integer",
+      "message_age is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(message) == dict",
+      "message is not None",
+      "type(max_deliveries) == integer",
+      "max_deliveries is not None",
+      "type(max_age_seconds) == integer",
+      "max_age_seconds is not None",
+      "type(message_age) == integer",
+      "message_age is not None"
+    ]
+  }
+}

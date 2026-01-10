@@ -1,0 +1,156 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "944d2309f58733154bf733ee8e313db30312b0848f1530b6d93e81a5bf9be377",
+    "semantic_fingerprint": "8c472a21dd17311b98cc5a2cb352fff6b0b470c6c8bea954fec7b7305bfd8e43",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Redact text matching any of the given regex patterns.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter patterns",
+        "name": "patterns",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter replacement",
+        "name": "replacement",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of redact_patterns",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def redact_patterns(text: str, patterns: list, replacement: str) -> str:\n    \"\"\"Redact text matching any of the given regex patterns.\"\"\"\n    if not text:\n        return \"\"\n    result = text\n    for pattern in patterns:\n        try:\n            result = re.sub(pattern, replacement, result)\n        except re.error:\n            continue\n    return result",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:24.492340+00:00",
+    "description": "Redact text matching any of the given regex patterns.",
+    "intent": "Redact text matching any of the given regex patterns.",
+    "language": "python",
+    "name": "redact_patterns",
+    "source_file": "neurop_forge/sources/security_utilities.py",
+    "source_line_end": 116,
+    "source_line_start": 106,
+    "tags": [
+      "patterns",
+      "redact",
+      "replacement",
+      "string_manipulation",
+      "text"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:24.492367+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None",
+      "type(patterns) == list",
+      "patterns is not None",
+      "type(replacement) == string",
+      "replacement is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None",
+      "type(patterns) == list",
+      "patterns is not None",
+      "type(replacement) == string",
+      "replacement is not None"
+    ]
+  }
+}

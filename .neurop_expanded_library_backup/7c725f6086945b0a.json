@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7c725f6086945b0a801e165808486a04afea413d60f3cb45204733b3314c0435",
+    "semantic_fingerprint": "d4c5863d5e28ad1af3b00378b4526fa10c329f5fe3111656ca11c68f8408975c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if two UUIDs are equal (case-insensitive).",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter uuid1",
+        "name": "uuid1",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter uuid2",
+        "name": "uuid2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of uuids_equal",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def uuids_equal(uuid1: str, uuid2: str) -> bool:\n    \"\"\"Check if two UUIDs are equal (case-insensitive).\"\"\"\n    return normalize_uuid(uuid1) == normalize_uuid(uuid2)",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:24.922781+00:00",
+    "description": "Check if two UUIDs are equal (case-insensitive).",
+    "intent": "Check if two UUIDs are equal (case-insensitive).",
+    "language": "python",
+    "name": "uuids_equal",
+    "source_file": "neurop_forge/sources/uuid_utilities.py",
+    "source_line_end": 156,
+    "source_line_start": 154,
+    "tags": [
+      "equal",
+      "uuid1",
+      "uuid2",
+      "uuids",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:24.922798+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(uuid1) == string",
+      "uuid1 is not None",
+      "type(uuid2) == string",
+      "uuid2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(uuid1) == string",
+      "uuid1 is not None",
+      "type(uuid2) == string",
+      "uuid2 is not None"
+    ]
+  }
+}

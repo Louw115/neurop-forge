@@ -1,0 +1,158 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "cf53277048b2b99bf4746e878ac02e5e40b6ae3c65a8cfc28fb791c6a1c3ac7e",
+    "semantic_fingerprint": "0b2bad36a6cf6079402b8e7eb4317b1b08996098589098fb3e94cedbbbb7ac32",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find similar terms in dictionary.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter query",
+        "name": "query",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter dictionary",
+        "name": "dictionary",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_distance",
+        "name": "max_distance",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of find_similar_terms",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def find_similar_terms(query: str, dictionary: list, max_distance: int) -> list:\n    \"\"\"Find similar terms in dictionary.\"\"\"\n    similar = []\n    for word in dictionary:\n        distance = calculate_levenshtein_distance(query.lower(), word.lower())\n        if distance <= max_distance:\n            similar.append({\"term\": word, \"distance\": distance})\n    return sorted(similar, key=lambda x: x[\"distance\"])",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:28.542486+00:00",
+    "description": "Find similar terms in dictionary.",
+    "intent": "Find similar terms in dictionary.",
+    "language": "python",
+    "name": "find_similar_terms",
+    "source_file": "neurop_forge/sources/search_patterns.py",
+    "source_line_end": 196,
+    "source_line_start": 189,
+    "tags": [
+      "dictionary",
+      "filtering",
+      "find",
+      "max_distance",
+      "query",
+      "similar",
+      "terms"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.542507+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(query) == string",
+      "query is not None",
+      "type(dictionary) == list",
+      "dictionary is not None",
+      "type(max_distance) == integer",
+      "max_distance is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(query) == string",
+      "query is not None",
+      "type(dictionary) == list",
+      "dictionary is not None",
+      "type(max_distance) == integer",
+      "max_distance is not None"
+    ]
+  }
+}

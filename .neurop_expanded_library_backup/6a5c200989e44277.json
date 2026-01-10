@@ -1,0 +1,144 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "6a5c200989e4427711e12106e5424c167cb216216da9cd98e2d32ee46a62062a",
+    "semantic_fingerprint": "e1bf95691983d39bb28eb410cc546d35fb29aff911a3bdddcd88d8a24e464974",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Delete value at JSON path, returning new object.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter obj",
+        "name": "obj",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter path",
+        "name": "path",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of delete_by_path",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def delete_by_path(obj: dict, path: str) -> dict:\n    \"\"\"Delete value at JSON path, returning new object.\"\"\"\n    import json\n    result = json.loads(json.dumps(obj))\n    parts = parse_path(path)\n    if not parts:\n        return result\n    current = result\n    for part in parts[:-1]:\n        if isinstance(current, dict) and part in current:\n            current = current[part]\n        elif isinstance(current, list):\n            idx = int(part)\n            current = current[idx]\n        else:\n            return result\n    last = parts[-1]\n    if isinstance(current, dict) and last in current:\n        del current[last]\n    elif isinstance(current, list):\n        idx = int(last)\n        if 0 <= idx < len(current):\n            current.pop(idx)\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:33.933934+00:00",
+    "description": "Delete value at JSON path, returning new object.",
+    "intent": "Delete value at JSON path, returning new object.",
+    "language": "python",
+    "name": "delete_by_path",
+    "source_file": "neurop_forge/sources/json_path.py",
+    "source_line_end": 130,
+    "source_line_start": 107,
+    "tags": [
+      "delete",
+      "dict_operation",
+      "obj",
+      "path"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:33.933962+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(obj) == dict",
+      "obj is not None",
+      "type(path) == string",
+      "path is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(obj) == dict",
+      "obj is not None",
+      "type(path) == string",
+      "path is not None"
+    ]
+  }
+}

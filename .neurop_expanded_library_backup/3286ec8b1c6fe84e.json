@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3286ec8b1c6fe84ec0f1c4109226e1c4de4a1ad5d5c10a83c89decd56acfd535",
+    "semantic_fingerprint": "3312f0c21a6a92aaf4279044a8904b2fecd4c9851517d41ec320299a5124985d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get maximum item.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter buffer",
+        "name": "buffer",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Return value of ring_max",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def ring_max(buffer: dict):\n    \"\"\"Get maximum item.\"\"\"\n    items = [x for x in ring_to_list(buffer) if x is not None]\n    return max(items) if items else None",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:30.757930+00:00",
+    "description": "Get maximum item.",
+    "intent": "Get maximum item.",
+    "language": "python",
+    "name": "ring_max",
+    "source_file": "neurop_forge/sources/ring_buffer.py",
+    "source_line_end": 198,
+    "source_line_start": 195,
+    "tags": [
+      "buffer",
+      "filtering",
+      "max",
+      "ring"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.757944+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3235,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.48999999999999994,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(buffer) == dict",
+      "buffer is not None"
+    ],
+    "invariants": [],
+    "output_validators": [],
+    "postconditions": [],
+    "preconditions": [
+      "type(buffer) == dict",
+      "buffer is not None"
+    ]
+  }
+}

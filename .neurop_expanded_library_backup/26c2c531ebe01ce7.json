@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception",
+      "KeyError"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "26c2c531ebe01ce7fa112bcfabd1c0e650b775c3cd03db6a578ace8a393599c5",
+    "semantic_fingerprint": "af009c55fc21b1e6c8cdb5347e5e0e9bdc261ac0cab7ad8cf30ba85cef75ca1e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse an association key into components.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of parse_association_key",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_association_key(key: str) -> dict:\n    \"\"\"Parse an association key into components.\"\"\"\n    parts = key.split(\":\")\n    if len(parts) == 4:\n        return {\n            \"from_type\": parts[0],\n            \"from_id\": parts[1],\n            \"to_type\": parts[2],\n            \"to_id\": parts[3]\n        }\n    return {}",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T12:22:26.707559+00:00",
+    "description": "Parse an association key into components.",
+    "intent": "Parse an association key into components.",
+    "language": "python",
+    "name": "parse_association_key",
+    "source_file": "neurop_forge/sources/orm_patterns.py",
+    "source_line_end": 320,
+    "source_line_start": 310,
+    "tags": [
+      "association",
+      "key",
+      "parse",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.707585+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(key) == string",
+      "key is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(key) == string",
+      "key is not None"
+    ]
+  }
+}

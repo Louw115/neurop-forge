@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "405d442b9e326e9a24b493d763c55ea86cb094e8bb89d6239f294baf83c4a459",
+    "semantic_fingerprint": "137fc92dba3a368b1a5ed532efb3d76f7d1174bb6d4ecb873851580717499ab1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate a reply-to address.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter original_email",
+        "name": "original_email",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter reply_domain",
+        "name": "reply_domain",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_reply_to",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_reply_to(original_email: str, reply_domain: str) -> str:\n    \"\"\"Generate a reply-to address.\"\"\"\n    local = extract_local_part(original_email)\n    return f\"reply+{local}@{reply_domain}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:25.319511+00:00",
+    "description": "Generate a reply-to address.",
+    "intent": "Generate a reply-to address.",
+    "language": "python",
+    "name": "generate_reply_to",
+    "source_file": "neurop_forge/sources/email_utilities.py",
+    "source_line_end": 271,
+    "source_line_start": 268,
+    "tags": [
+      "generate",
+      "original_email",
+      "reply",
+      "reply_domain",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.319535+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(original_email) == string",
+      "original_email is not None",
+      "type(reply_domain) == string",
+      "reply_domain is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(original_email) == string",
+      "original_email is not None",
+      "type(reply_domain) == string",
+      "reply_domain is not None"
+    ]
+  }
+}

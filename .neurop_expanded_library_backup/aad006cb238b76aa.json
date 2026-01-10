@@ -1,0 +1,170 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "aad006cb238b76aa53aa6f586c3b58e877f0b69c7a68df4bcf3e47cc2346a289",
+    "semantic_fingerprint": "ecbb731b774492f74306080f30a679a2e7508f8ac43a5f958834f1c8435dad77",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build distributed trace context.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter trace_id",
+        "name": "trace_id",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter span_id",
+        "name": "span_id",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter parent_span_id",
+        "name": "parent_span_id",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter sampled",
+        "name": "sampled",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_trace_context",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_trace_context(trace_id: str, span_id: str, parent_span_id: str, sampled: bool) -> dict:\n    \"\"\"Build distributed trace context.\"\"\"\n    return {\n        \"trace_id\": trace_id,\n        \"span_id\": span_id,\n        \"parent_span_id\": parent_span_id,\n        \"sampled\": sampled\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:27.446792+00:00",
+    "description": "Build distributed trace context.",
+    "intent": "Build distributed trace context.",
+    "language": "python",
+    "name": "build_trace_context",
+    "source_file": "neurop_forge/sources/middleware_patterns.py",
+    "source_line_end": 296,
+    "source_line_start": 289,
+    "tags": [
+      "build",
+      "context",
+      "dict_operation",
+      "parent_span_id",
+      "sampled",
+      "span_id",
+      "trace",
+      "trace_id"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.446811+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(trace_id) == string",
+      "trace_id is not None",
+      "type(span_id) == string",
+      "span_id is not None",
+      "type(parent_span_id) == string",
+      "parent_span_id is not None",
+      "type(sampled) == boolean",
+      "sampled is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(trace_id) == string",
+      "trace_id is not None",
+      "type(span_id) == string",
+      "span_id is not None",
+      "type(parent_span_id) == string",
+      "parent_span_id is not None",
+      "type(sampled) == boolean",
+      "sampled is not None"
+    ]
+  }
+}

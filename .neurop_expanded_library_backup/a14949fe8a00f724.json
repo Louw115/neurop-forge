@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a14949fe8a00f7240b3e3063e933d85c57a5415b74723b349a68f8442b616886",
+    "semantic_fingerprint": "1ef77b1638156151fa82b290893b02acc5f3941de8e6ea420d09f874cc81c475",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add FOR SHARE to a SELECT query.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter query",
+        "name": "query",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of add_for_share",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def add_for_share(query: str) -> str:\n    \"\"\"Add FOR SHARE to a SELECT query.\"\"\"\n    import re\n    if not is_select_query(query) or re.search(r'\\bFOR\\s+SHARE\\b', query, re.IGNORECASE):\n        return query\n    return f\"{query.rstrip().rstrip(';')} FOR SHARE\"",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:26.191579+00:00",
+    "description": "Add FOR SHARE to a SELECT query.",
+    "intent": "Add FOR SHARE to a SELECT query.",
+    "language": "python",
+    "name": "add_for_share",
+    "source_file": "neurop_forge/sources/query_helpers.py",
+    "source_line_end": 340,
+    "source_line_start": 335,
+    "tags": [
+      "add",
+      "arithmetic",
+      "for",
+      "query",
+      "share"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.191597+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(query) == string",
+      "query is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(query) == string",
+      "query is not None"
+    ]
+  }
+}

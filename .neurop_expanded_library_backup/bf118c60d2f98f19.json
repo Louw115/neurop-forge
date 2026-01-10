@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic searching block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "bf118c60d2f98f19b3ab5ceafcc0f56e019d8850bd0512a8689d60970af48dea",
+    "semantic_fingerprint": "279441b311d118aebccbecd51e8920df2863f19cc1fd280d909e6d194d27491c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get all values.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter ht",
+        "name": "ht",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of hash_table_values",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def hash_table_values(ht: dict) -> list:\n    \"\"\"Get all values.\"\"\"\n    values = []\n    for bucket in ht[\"buckets\"]:\n        for k, v in bucket:\n            values.append(v)\n    return values",
+  "metadata": {
+    "category": "searching",
+    "created_at": "2026-01-10T12:22:30.542608+00:00",
+    "description": "Get all values.",
+    "intent": "Get all values.",
+    "language": "python",
+    "name": "hash_table_values",
+    "source_file": "neurop_forge/sources/hash_table.py",
+    "source_line_end": 82,
+    "source_line_start": 76,
+    "tags": [
+      "hash",
+      "ht",
+      "searching",
+      "table",
+      "values"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.542632+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.37,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.8,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(ht) == dict",
+      "ht is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(ht) == dict",
+      "ht is not None"
+    ]
+  }
+}

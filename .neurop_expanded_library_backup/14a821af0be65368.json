@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "14a821af0be653689d7f341af2e46d36218d66d22060174756177bb240e285d4",
+    "semantic_fingerprint": "2ebdd990bc0fe43518b77abf9f937daa08069a1c5db7f04b429bfe01716bcf0e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Merge two orders.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter order1",
+        "name": "order1",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter order2",
+        "name": "order2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of merge_orders",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def merge_orders(order1: dict, order2: dict) -> dict:\n    \"\"\"Merge two orders.\"\"\"\n    combined_items = order1.get(\"items\", []) + order2.get(\"items\", [])\n    return {\n        **order1,\n        \"items\": combined_items,\n        \"merged_from\": [order1[\"order_id\"], order2[\"order_id\"]]\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:34.587846+00:00",
+    "description": "Merge two orders.",
+    "intent": "Merge two orders.",
+    "language": "python",
+    "name": "merge_orders",
+    "source_file": "neurop_forge/sources/order_utilities.py",
+    "source_line_end": 130,
+    "source_line_start": 123,
+    "tags": [
+      "dict_operation",
+      "merge",
+      "order1",
+      "order2",
+      "orders"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.587873+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(order1) == dict",
+      "order1 is not None",
+      "type(order2) == dict",
+      "order2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(order1) == dict",
+      "order1 is not None",
+      "type(order2) == dict",
+      "order2 is not None"
+    ]
+  }
+}

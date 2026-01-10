@@ -1,0 +1,170 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "88c2398633eb9fae0167af5315daa53d84055b62376c91b4e981912d0175305c",
+    "semantic_fingerprint": "cd7e0d7f381bc77ca152568297b891ce529e0a50dd4b30c9630814a6e60126c1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Create a token bucket rate limiter.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter capacity",
+        "name": "capacity",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter refill_rate",
+        "name": "refill_rate",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter current_tokens",
+        "name": "current_tokens",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter last_refill",
+        "name": "last_refill",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of create_token_bucket",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def create_token_bucket(capacity: int, refill_rate: float, current_tokens: float, last_refill: float) -> dict:\n    \"\"\"Create a token bucket rate limiter.\"\"\"\n    return {\n        \"capacity\": capacity,\n        \"refill_rate\": refill_rate,\n        \"tokens\": current_tokens,\n        \"last_refill\": last_refill\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:30.934627+00:00",
+    "description": "Create a token bucket rate limiter.",
+    "intent": "Create a token bucket rate limiter.",
+    "language": "python",
+    "name": "create_token_bucket",
+    "source_file": "neurop_forge/sources/rate_limiter.py",
+    "source_line_end": 19,
+    "source_line_start": 12,
+    "tags": [
+      "bucket",
+      "capacity",
+      "create",
+      "current_tokens",
+      "dict_operation",
+      "last_refill",
+      "refill_rate",
+      "token"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.934648+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(capacity) == integer",
+      "capacity is not None",
+      "type(refill_rate) == float",
+      "refill_rate is not None",
+      "type(current_tokens) == float",
+      "current_tokens is not None",
+      "type(last_refill) == float",
+      "last_refill is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(capacity) == integer",
+      "capacity is not None",
+      "type(refill_rate) == float",
+      "refill_rate is not None",
+      "type(current_tokens) == float",
+      "current_tokens is not None",
+      "type(last_refill) == float",
+      "last_refill is not None"
+    ]
+  }
+}

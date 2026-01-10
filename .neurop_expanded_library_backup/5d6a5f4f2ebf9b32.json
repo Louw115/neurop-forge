@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5d6a5f4f2ebf9b32ac60d6888c697ed1c4b4e222d4e0fbb3272e47da30735f27",
+    "semantic_fingerprint": "978d48863a3dda97fd4a3c039e16463c3e56a200485a482b25e2691b0dd3f61a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if a JWT is expired at a given timestamp.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter token",
+        "name": "token",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_timestamp",
+        "name": "current_timestamp",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_jwt_expired_at",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_jwt_expired_at(token: str, current_timestamp: int) -> bool:\n    \"\"\"Check if a JWT is expired at a given timestamp.\"\"\"\n    exp = get_jwt_expiration(token)\n    if exp == 0:\n        return False\n    return current_timestamp >= exp",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:24.699970+00:00",
+    "description": "Check if a JWT is expired at a given timestamp.",
+    "intent": "Check if a JWT is expired at a given timestamp.",
+    "language": "python",
+    "name": "is_jwt_expired_at",
+    "source_file": "neurop_forge/sources/cryptography_helpers.py",
+    "source_line_end": 209,
+    "source_line_start": 204,
+    "tags": [
+      "current_timestamp",
+      "expired",
+      "jwt",
+      "token",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:24.700000+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(token) == string",
+      "token is not None",
+      "type(current_timestamp) == integer",
+      "current_timestamp is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(token) == string",
+      "token is not None",
+      "type(current_timestamp) == integer",
+      "current_timestamp is not None"
+    ]
+  }
+}

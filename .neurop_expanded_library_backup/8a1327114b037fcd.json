@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8a1327114b037fcd852125a26b39c1d42347e71fdb9b902de60c9c1a43c1016e",
+    "semantic_fingerprint": "f21759b38de0f614bdf47d9aff4c31e2558401e5639b59778a0be81093e73b5e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Convert fraction to decimal string.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter numerator",
+        "name": "numerator",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter denominator",
+        "name": "denominator",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter precision",
+        "name": "precision",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of fraction_to_decimal",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def fraction_to_decimal(numerator: int, denominator: int, precision: int) -> str:\n    \"\"\"Convert fraction to decimal string.\"\"\"\n    if denominator == 0:\n        return \"undefined\"\n    is_negative = (numerator < 0) != (denominator < 0)\n    numerator = abs(numerator)\n    denominator = abs(denominator)\n    integer_part = numerator // denominator\n    remainder = numerator % denominator\n    decimal_part = []\n    for _ in range(precision):\n        remainder *= 10\n        decimal_part.append(str(remainder // denominator))\n        remainder %= denominator\n    result = str(integer_part)\n    if decimal_part:\n        result += \".\" + \"\".join(decimal_part)\n    return (\"-\" if is_negative else \"\") + result",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T12:22:31.207619+00:00",
+    "description": "Convert fraction to decimal string.",
+    "intent": "Convert fraction to decimal string.",
+    "language": "python",
+    "name": "fraction_to_decimal",
+    "source_file": "neurop_forge/sources/base_conversion.py",
+    "source_line_end": 212,
+    "source_line_start": 195,
+    "tags": [
+      "decimal",
+      "denominator",
+      "fraction",
+      "numerator",
+      "precision",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.207649+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(numerator) == integer",
+      "numerator is not None",
+      "type(denominator) == integer",
+      "denominator is not None",
+      "type(precision) == integer",
+      "precision is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(numerator) == integer",
+      "numerator is not None",
+      "type(denominator) == integer",
+      "denominator is not None",
+      "type(precision) == integer",
+      "precision is not None"
+    ]
+  }
+}

@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3d936e970e88d7ee12077dd8b4a39932aa5df9f70ae7fa78a031855ea5fb26bd",
+    "semantic_fingerprint": "4013f1a50c8db3c545438219a3181af7295d8deecd02ab690d22bb548f1f7642",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Convert RGB to HSV.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter r",
+        "name": "r",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter g",
+        "name": "g",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter b",
+        "name": "b",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of rgb_to_hsv",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def rgb_to_hsv(r: int, g: int, b: int) -> dict:\n    \"\"\"Convert RGB to HSV.\"\"\"\n    r_norm = r / 255\n    g_norm = g / 255\n    b_norm = b / 255\n    max_c = max(r_norm, g_norm, b_norm)\n    min_c = min(r_norm, g_norm, b_norm)\n    v = max_c\n    d = max_c - min_c\n    s = 0 if max_c == 0 else d / max_c\n    if max_c == min_c:\n        h = 0\n    else:\n        if max_c == r_norm:\n            h = ((g_norm - b_norm) / d + (6 if g_norm < b_norm else 0)) / 6\n        elif max_c == g_norm:\n            h = ((b_norm - r_norm) / d + 2) / 6\n        else:\n            h = ((r_norm - g_norm) / d + 4) / 6\n    return {\"h\": round(h * 360), \"s\": round(s * 100), \"v\": round(v * 100)}",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T12:22:31.867413+00:00",
+    "description": "Convert RGB to HSV.",
+    "intent": "Convert RGB to HSV.",
+    "language": "python",
+    "name": "rgb_to_hsv",
+    "source_file": "neurop_forge/sources/color_math.py",
+    "source_line_end": 100,
+    "source_line_start": 81,
+    "tags": [
+      "b",
+      "g",
+      "hsv",
+      "r",
+      "rgb",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.867435+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(r) == integer",
+      "r is not None",
+      "type(g) == integer",
+      "g is not None",
+      "type(b) == integer",
+      "b is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(r) == integer",
+      "r is not None",
+      "type(g) == integer",
+      "g is not None",
+      "type(b) == integer",
+      "b is not None"
+    ]
+  }
+}

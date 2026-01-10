@@ -1,0 +1,170 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "6162555df9d2d9333e13fec47fef54e59a9f70d02b0100cef1d38e0aa9bbc6fa",
+    "semantic_fingerprint": "25762561c21693f08472a5c2c3f013f346d2fd996996815cbdb1e1d621c59579",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add caching headers to response.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter response_headers",
+        "name": "response_headers",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_age",
+        "name": "max_age",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter etag",
+        "name": "etag",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter last_modified",
+        "name": "last_modified",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of add_cache_headers",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def add_cache_headers(response_headers: dict, max_age: int, etag: str, last_modified: str) -> dict:\n    \"\"\"Add caching headers to response.\"\"\"\n    headers = dict(response_headers)\n    if max_age > 0:\n        headers[\"Cache-Control\"] = f\"max-age={max_age}\"\n    if etag:\n        headers[\"ETag\"] = f'\"{etag}\"'\n    if last_modified:\n        headers[\"Last-Modified\"] = last_modified\n    return headers",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:27.301129+00:00",
+    "description": "Add caching headers to response.",
+    "intent": "Add caching headers to response.",
+    "language": "python",
+    "name": "add_cache_headers",
+    "source_file": "neurop_forge/sources/response_formatting.py",
+    "source_line_end": 379,
+    "source_line_start": 370,
+    "tags": [
+      "add",
+      "arithmetic",
+      "cache",
+      "etag",
+      "headers",
+      "last_modified",
+      "max_age",
+      "response_headers"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.301158+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(response_headers) == dict",
+      "response_headers is not None",
+      "type(max_age) == integer",
+      "max_age is not None",
+      "type(etag) == string",
+      "etag is not None",
+      "type(last_modified) == string",
+      "last_modified is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(response_headers) == dict",
+      "response_headers is not None",
+      "type(max_age) == integer",
+      "max_age is not None",
+      "type(etag) == string",
+      "etag is not None",
+      "type(last_modified) == string",
+      "last_modified is not None"
+    ]
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "dffcb6738a0f54ff53ec749ef1367e6b58170296d7deafcf682a63805885ae30",
+    "semantic_fingerprint": "38fdb13f8fc86a3ca8d06a4d90c74b3a2ffc4a61ba17d2beeab25bef1b7da43a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add deterministic noise to number.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter noise_factor",
+        "name": "noise_factor",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seed",
+        "name": "seed",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of apply_noise_to_number",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def apply_noise_to_number(value: float, noise_factor: float, seed: int) -> float:\n    \"\"\"Add deterministic noise to number.\"\"\"\n    h = hashlib.sha256(f\"{seed}{value}\".encode()).digest()\n    random_val = (h[0] / 255.0) * 2 - 1\n    return value + value * noise_factor * random_val",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:33.050293+00:00",
+    "description": "Add deterministic noise to number.",
+    "intent": "Add deterministic noise to number.",
+    "language": "python",
+    "name": "apply_noise_to_number",
+    "source_file": "neurop_forge/sources/data_masking.py",
+    "source_line_end": 133,
+    "source_line_start": 129,
+    "tags": [
+      "apply",
+      "arithmetic",
+      "noise",
+      "noise_factor",
+      "number",
+      "seed",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:33.050320+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == float",
+      "value is not None",
+      "type(noise_factor) == float",
+      "noise_factor is not None",
+      "type(seed) == integer",
+      "seed is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(value) == float",
+      "value is not None",
+      "type(noise_factor) == float",
+      "noise_factor is not None",
+      "type(seed) == integer",
+      "seed is not None"
+    ]
+  }
+}

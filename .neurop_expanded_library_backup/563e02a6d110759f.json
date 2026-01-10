@@ -1,0 +1,144 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception",
+      "KeyError"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "563e02a6d110759f5ed53e11408d3ecf5b78e646328effd84971fe58419fd43a",
+    "semantic_fingerprint": "e20e1940e81f32b1ffa8b59929d2aa2bb94a6bae9e68258f1006da4b513fe01d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Map function over keys.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter obj",
+        "name": "obj",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter fn",
+        "name": "fn",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of map_keys",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def map_keys(obj: dict, fn) -> dict:\n    \"\"\"Map function over keys.\"\"\"\n    return {fn(k): v for k, v in obj.items()}",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T12:22:31.930049+00:00",
+    "description": "Map function over keys.",
+    "intent": "Map function over keys.",
+    "language": "python",
+    "name": "map_keys",
+    "source_file": "neurop_forge/sources/object_utilities.py",
+    "source_line_end": 113,
+    "source_line_start": 111,
+    "tags": [
+      "fn",
+      "keys",
+      "map",
+      "obj",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.930076+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(obj) == dict",
+      "obj is not None",
+      "fn is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(obj) == dict",
+      "obj is not None",
+      "fn is not None"
+    ]
+  }
+}

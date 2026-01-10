@@ -1,0 +1,170 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "872d95333a0a08feaf106035a8203feb639fddf58c5952af51fb0cd3bc018adc",
+    "semantic_fingerprint": "131f958816c3dc9c6c233b52d34238439c8b68f226dd9a78c8908add3f40318e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate new token count after refill.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter current_tokens",
+        "name": "current_tokens",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_tokens",
+        "name": "max_tokens",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter refill_rate",
+        "name": "refill_rate",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter elapsed_seconds",
+        "name": "elapsed_seconds",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of token_bucket_refill",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def token_bucket_refill(current_tokens: float, max_tokens: int, refill_rate: float, elapsed_seconds: float) -> float:\n    \"\"\"Calculate new token count after refill.\"\"\"\n    new_tokens = current_tokens + (refill_rate * elapsed_seconds)\n    return min(new_tokens, max_tokens)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:25.154792+00:00",
+    "description": "Calculate new token count after refill.",
+    "intent": "Calculate new token count after refill.",
+    "language": "python",
+    "name": "token_bucket_refill",
+    "source_file": "neurop_forge/sources/rate_limiting.py",
+    "source_line_end": 32,
+    "source_line_start": 29,
+    "tags": [
+      "arithmetic",
+      "bucket",
+      "current_tokens",
+      "elapsed_seconds",
+      "max_tokens",
+      "refill",
+      "refill_rate",
+      "token"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.154819+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(current_tokens) == float",
+      "current_tokens is not None",
+      "type(max_tokens) == integer",
+      "max_tokens is not None",
+      "type(refill_rate) == float",
+      "refill_rate is not None",
+      "type(elapsed_seconds) == float",
+      "elapsed_seconds is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(current_tokens) == float",
+      "current_tokens is not None",
+      "type(max_tokens) == integer",
+      "max_tokens is not None",
+      "type(refill_rate) == float",
+      "refill_rate is not None",
+      "type(elapsed_seconds) == float",
+      "elapsed_seconds is not None"
+    ]
+  }
+}

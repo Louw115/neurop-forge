@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic comparison block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "caf2c92da3e194662e422b3d1691db6e802fe6353fc668a701e5f027c42e8c49",
+    "semantic_fingerprint": "3b54c541e4a26385ec34c315a37143916f4bd67c9b6b096907c6a726fb256e01",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Compare two semantic versions. Returns -1, 0, or 1.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter v1",
+        "name": "v1",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter v2",
+        "name": "v2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of compare_semver",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def compare_semver(v1: str, v2: str) -> int:\n    \"\"\"Compare two semantic versions. Returns -1, 0, or 1.\"\"\"\n    p1 = parse_semver(v1)\n    p2 = parse_semver(v2)\n    for key in [\"major\", \"minor\", \"patch\"]:\n        if p1[key] < p2[key]:\n            return -1\n        if p1[key] > p2[key]:\n            return 1\n    return 0",
+  "metadata": {
+    "category": "comparison",
+    "created_at": "2026-01-10T12:22:27.848600+00:00",
+    "description": "Compare two semantic versions. Returns -1, 0, or 1.",
+    "intent": "Compare two semantic versions. Returns -1, 0, or 1.",
+    "language": "python",
+    "name": "compare_semver",
+    "source_file": "neurop_forge/sources/devops_utilities.py",
+    "source_line_end": 48,
+    "source_line_start": 39,
+    "tags": [
+      "compare",
+      "comparison",
+      "semver",
+      "v1",
+      "v2"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.848619+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(v1) == string",
+      "v1 is not None",
+      "type(v2) == string",
+      "v2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(v1) == string",
+      "v1 is not None",
+      "type(v2) == string",
+      "v2 is not None"
+    ]
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c6c74661c3e862780731f5a61be3f827d4b51fe455fc38582eeced6ea0c905f8",
+    "semantic_fingerprint": "899e9a5fbd685322e712c3641717c60c220e8d1386989fe803a04d11e396773d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Decode base64 string to bytes.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter b64_string",
+        "name": "b64_string",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "bytes",
+        "default_value": null,
+        "description": "Return value of base64_to_bytes",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def base64_to_bytes(b64_string: str) -> bytes:\n    \"\"\"Decode base64 string to bytes.\"\"\"\n    if not b64_string:\n        return b''\n    try:\n        return base64.b64decode(b64_string)\n    except Exception:\n        return b''",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:24.675692+00:00",
+    "description": "Decode base64 string to bytes.",
+    "intent": "Decode base64 string to bytes.",
+    "language": "python",
+    "name": "base64_to_bytes",
+    "source_file": "neurop_forge/sources/cryptography_helpers.py",
+    "source_line_end": 75,
+    "source_line_start": 68,
+    "tags": [
+      "b64_string",
+      "base64",
+      "bytes",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:24.675708+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33925,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.595,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(b64_string) == string",
+      "b64_string is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == bytes"
+    ],
+    "postconditions": [
+      "type(result) == bytes"
+    ],
+    "preconditions": [
+      "type(b64_string) == string",
+      "b64_string is not None"
+    ]
+  }
+}

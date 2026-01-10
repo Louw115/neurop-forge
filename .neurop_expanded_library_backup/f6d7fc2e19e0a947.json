@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f6d7fc2e19e0a9470abd4057014b8eba84fe183cd83b82b80894e85aa326e34f",
+    "semantic_fingerprint": "5538b581ef685a7c375b4a993f15ca2b49cae6aa2e7c7084a2ec9f9f5c2a78f3",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if user has any of the required permissions.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter user_permissions",
+        "name": "user_permissions",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter required_permissions",
+        "name": "required_permissions",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of has_any_permission",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def has_any_permission(user_permissions: list, required_permissions: list) -> bool:\n    \"\"\"Check if user has any of the required permissions.\"\"\"\n    return any(has_permission(user_permissions, req) for req in required_permissions)",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:27.933732+00:00",
+    "description": "Check if user has any of the required permissions.",
+    "intent": "Check if user has any of the required permissions.",
+    "language": "python",
+    "name": "has_any_permission",
+    "source_file": "neurop_forge/sources/security_patterns.py",
+    "source_line_end": 101,
+    "source_line_start": 99,
+    "tags": [
+      "any",
+      "has",
+      "permission",
+      "required_permissions",
+      "user_permissions",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.933749+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(user_permissions) == list",
+      "user_permissions is not None",
+      "type(required_permissions) == list",
+      "required_permissions is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(user_permissions) == list",
+      "user_permissions is not None",
+      "type(required_permissions) == list",
+      "required_permissions is not None"
+    ]
+  }
+}

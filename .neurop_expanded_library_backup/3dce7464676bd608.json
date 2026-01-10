@@ -1,0 +1,156 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3dce7464676bd608d5b57d9e0ea39cbc7a09907e0329174c9e3266ec80d3d0dc",
+    "semantic_fingerprint": "4c931c03c0b33b45139e11f3216fd33fcd24c54c87d2ae8fe0066a6c22baf7d3",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get autocomplete suggestions.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter trie",
+        "name": "trie",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter prefix",
+        "name": "prefix",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_results",
+        "name": "max_results",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of trie_autocomplete",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def trie_autocomplete(trie: dict, prefix: str, max_results: int) -> list:\n    \"\"\"Get autocomplete suggestions.\"\"\"\n    keys = trie_keys_with_prefix(trie, prefix)\n    return sorted(keys)[:max_results]",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:30.342154+00:00",
+    "description": "Get autocomplete suggestions.",
+    "intent": "Get autocomplete suggestions.",
+    "language": "python",
+    "name": "trie_autocomplete",
+    "source_file": "neurop_forge/sources/trie_utilities.py",
+    "source_line_end": 159,
+    "source_line_start": 156,
+    "tags": [
+      "autocomplete",
+      "list_operation",
+      "max_results",
+      "prefix",
+      "trie"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.342174+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(trie) == dict",
+      "trie is not None",
+      "type(prefix) == string",
+      "prefix is not None",
+      "type(max_results) == integer",
+      "max_results is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(trie) == dict",
+      "trie is not None",
+      "type(prefix) == string",
+      "prefix is not None",
+      "type(max_results) == integer",
+      "max_results is not None"
+    ]
+  }
+}

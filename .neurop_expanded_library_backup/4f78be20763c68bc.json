@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4f78be20763c68bc81ae78dd0662fb5d68de9f82f16f1166499d085a533de5d6",
+    "semantic_fingerprint": "4f3b489221326014cb472a86579c76612ab72e400a012ea40d9871309b8e0f04",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Concatenate two lists.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter ll1",
+        "name": "ll1",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter ll2",
+        "name": "ll2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of list_concat",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def list_concat(ll1: dict, ll2: dict) -> dict:\n    \"\"\"Concatenate two lists.\"\"\"\n    if ll1[\"head\"] is None:\n        return ll2\n    def concat_helper(node):\n        if node[\"next\"] is None:\n            return create_node(node[\"value\"], ll2[\"head\"])\n        return create_node(node[\"value\"], concat_helper(node[\"next\"]))\n    return {\"head\": concat_helper(ll1[\"head\"]), \"size\": ll1[\"size\"] + ll2[\"size\"]}",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:30.503660+00:00",
+    "description": "Concatenate two lists.",
+    "intent": "Concatenate two lists.",
+    "language": "python",
+    "name": "list_concat",
+    "source_file": "neurop_forge/sources/linked_list.py",
+    "source_line_end": 193,
+    "source_line_start": 185,
+    "tags": [
+      "concat",
+      "list",
+      "ll1",
+      "ll2",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.503680+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(ll1) == dict",
+      "ll1 is not None",
+      "type(ll2) == dict",
+      "ll2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(ll1) == dict",
+      "ll1 is not None",
+      "type(ll2) == dict",
+      "ll2 is not None"
+    ]
+  }
+}

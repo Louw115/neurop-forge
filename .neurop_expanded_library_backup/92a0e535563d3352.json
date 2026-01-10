@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "92a0e535563d3352fa90cdf637736c5cb1fd14e6caf52376c65b0e3a763b1421",
+    "semantic_fingerprint": "724a37aa8d8a0cef5596edce910dbe6444768f22590706cfc0f86e441a7e8ae0",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Update shipment tracking status.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter shipment",
+        "name": "shipment",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter status",
+        "name": "status",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter timestamp",
+        "name": "timestamp",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of update_tracking_status",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def update_tracking_status(shipment: dict, status: str, timestamp: int) -> dict:\n    \"\"\"Update shipment tracking status.\"\"\"\n    history = shipment.get(\"history\", [])\n    history.append({\"status\": status, \"timestamp\": timestamp})\n    return {**shipment, \"status\": status, \"history\": history}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:34.541647+00:00",
+    "description": "Update shipment tracking status.",
+    "intent": "Update shipment tracking status.",
+    "language": "python",
+    "name": "update_tracking_status",
+    "source_file": "neurop_forge/sources/shipping_utilities.py",
+    "source_line_end": 136,
+    "source_line_start": 132,
+    "tags": [
+      "dict_operation",
+      "shipment",
+      "status",
+      "timestamp",
+      "tracking",
+      "update"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.541668+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(shipment) == dict",
+      "shipment is not None",
+      "type(status) == string",
+      "status is not None",
+      "type(timestamp) == integer",
+      "timestamp is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(shipment) == dict",
+      "shipment is not None",
+      "type(status) == string",
+      "status is not None",
+      "type(timestamp) == integer",
+      "timestamp is not None"
+    ]
+  }
+}

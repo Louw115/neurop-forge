@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "15a14ac0e90b230e17d062723bda0641e23a42e06645c09fc631369424fd9710",
+    "semantic_fingerprint": "553bb15b4ee342bcb76297cdc55c38fa33b4246f1f02317d9105b4c6b8fd6d0e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Apply Atbash cipher.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of atbash_cipher",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def atbash_cipher(text: str) -> str:\n    \"\"\"Apply Atbash cipher.\"\"\"\n    result = []\n    for c in text:\n        if \"a\" <= c <= \"z\":\n            result.append(chr(ord(\"z\") - (ord(c) - ord(\"a\"))))\n        elif \"A\" <= c <= \"Z\":\n            result.append(chr(ord(\"Z\") - (ord(c) - ord(\"A\"))))\n        else:\n            result.append(c)\n    return \"\".join(result)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:32.245506+00:00",
+    "description": "Apply Atbash cipher.",
+    "intent": "Apply Atbash cipher.",
+    "language": "python",
+    "name": "atbash_cipher",
+    "source_file": "neurop_forge/sources/encoding_schemes.py",
+    "source_line_end": 153,
+    "source_line_start": 143,
+    "tags": [
+      "atbash",
+      "cipher",
+      "string_manipulation",
+      "text"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:32.245534+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None"
+    ]
+  }
+}

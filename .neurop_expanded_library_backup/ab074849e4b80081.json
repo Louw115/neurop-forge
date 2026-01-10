@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic comparison block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ab074849e4b80081226af5b718d927831228657a93567aedfe78c04f68a234d2",
+    "semantic_fingerprint": "0d7ec69c92b4f716c88843fa1f2a3442ebcb345b86ff5fd157a0e95a83387b2a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Compare isolation levels. Returns -1, 0, or 1.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter level1",
+        "name": "level1",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter level2",
+        "name": "level2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of compare_isolation_levels",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def compare_isolation_levels(level1: str, level2: str) -> int:\n    \"\"\"Compare isolation levels. Returns -1, 0, or 1.\"\"\"\n    s1 = get_isolation_level_strength(level1)\n    s2 = get_isolation_level_strength(level2)\n    if s1 < s2:\n        return -1\n    if s1 > s2:\n        return 1\n    return 0",
+  "metadata": {
+    "category": "comparison",
+    "created_at": "2026-01-10T12:22:26.366919+00:00",
+    "description": "Compare isolation levels. Returns -1, 0, or 1.",
+    "intent": "Compare isolation levels. Returns -1, 0, or 1.",
+    "language": "python",
+    "name": "compare_isolation_levels",
+    "source_file": "neurop_forge/sources/transaction_helpers.py",
+    "source_line_end": 138,
+    "source_line_start": 130,
+    "tags": [
+      "compare",
+      "comparison",
+      "isolation",
+      "level1",
+      "level2",
+      "levels"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.366944+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(level1) == string",
+      "level1 is not None",
+      "type(level2) == string",
+      "level2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(level1) == string",
+      "level1 is not None",
+      "type(level2) == string",
+      "level2 is not None"
+    ]
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic comparison block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7b4c66c6b8c3997aaa588ea19bdce4e81c72c6b180f2537012691f21e3568bcb",
+    "semantic_fingerprint": "dca8b969d59611df4c3145a387653e66c2a4e73af4430c466d76adc9b3a1069c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Compare if contacts are same person.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter c1",
+        "name": "c1",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter c2",
+        "name": "c2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of compare_contacts",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def compare_contacts(c1: dict, c2: dict) -> bool:\n    \"\"\"Compare if contacts are same person.\"\"\"\n    if c1.get(\"email\") and c2.get(\"email\"):\n        return c1[\"email\"].lower() == c2[\"email\"].lower()\n    if c1.get(\"phone\") and c2.get(\"phone\"):\n        return re.sub(r'\\D', '', c1[\"phone\"]) == re.sub(r'\\D', '', c2[\"phone\"])\n    return c1.get(\"name\", \"\").lower() == c2.get(\"name\", \"\").lower()",
+  "metadata": {
+    "category": "comparison",
+    "created_at": "2026-01-10T12:22:34.844135+00:00",
+    "description": "Compare if contacts are same person.",
+    "intent": "Compare if contacts are same person.",
+    "language": "python",
+    "name": "compare_contacts",
+    "source_file": "neurop_forge/sources/contact_utilities.py",
+    "source_line_end": 123,
+    "source_line_start": 117,
+    "tags": [
+      "c1",
+      "c2",
+      "compare",
+      "comparison",
+      "contacts"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.844157+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(c1) == dict",
+      "c1 is not None",
+      "type(c2) == dict",
+      "c2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(c1) == dict",
+      "c1 is not None",
+      "type(c2) == dict",
+      "c2 is not None"
+    ]
+  }
+}

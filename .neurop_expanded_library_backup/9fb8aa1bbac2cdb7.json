@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9fb8aa1bbac2cdb7fdcc05ca1f2522d8e1cd06b71fda7f138fc362d64c12f845",
+    "semantic_fingerprint": "4c21c4a1ff9cf7435b0f085a3fe90b7e5b5b7f9dc7f99bce623ebc92ff3b9cb6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if service delivers to PO boxes.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter service",
+        "name": "service",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter po_box_services",
+        "name": "po_box_services",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_po_box_allowed",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_po_box_allowed(service: str, po_box_services: list) -> bool:\n    \"\"\"Check if service delivers to PO boxes.\"\"\"\n    return service in po_box_services",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:34.525502+00:00",
+    "description": "Check if service delivers to PO boxes.",
+    "intent": "Check if service delivers to PO boxes.",
+    "language": "python",
+    "name": "is_po_box_allowed",
+    "source_file": "neurop_forge/sources/shipping_utilities.py",
+    "source_line_end": 64,
+    "source_line_start": 62,
+    "tags": [
+      "allowed",
+      "box",
+      "po_box_services",
+      "service",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.525518+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(service) == string",
+      "service is not None",
+      "type(po_box_services) == list",
+      "po_box_services is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(service) == string",
+      "service is not None",
+      "type(po_box_services) == list",
+      "po_box_services is not None"
+    ]
+  }
+}

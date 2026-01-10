@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0d7b7b79c11ba2e48f367d5660484c223ad518315075149908234cd1ef6a0cba",
+    "semantic_fingerprint": "5ba2ba9325387aba3ff32cb55abb384177939e23ce1e9e96adcb07182d5593c1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if two URLs have the same origin (scheme, host, port).",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter url1",
+        "name": "url1",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter url2",
+        "name": "url2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_same_origin",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_same_origin(url1: str, url2: str) -> bool:\n    \"\"\"Check if two URLs have the same origin (scheme, host, port).\"\"\"\n    p1 = parse_url(url1)\n    p2 = parse_url(url2)\n    return (\n        p1['scheme'].lower() == p2['scheme'].lower() and\n        p1['host'].lower() == p2['host'].lower() and\n        p1['port'] == p2['port']\n    )",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:24.185054+00:00",
+    "description": "Check if two URLs have the same origin (scheme, host, port).",
+    "intent": "Check if two URLs have the same origin (scheme, host, port).",
+    "language": "python",
+    "name": "is_same_origin",
+    "source_file": "neurop_forge/sources/url_utilities.py",
+    "source_line_end": 271,
+    "source_line_start": 263,
+    "tags": [
+      "origin",
+      "same",
+      "url1",
+      "url2",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:24.185081+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(url1) == string",
+      "url1 is not None",
+      "type(url2) == string",
+      "url2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(url1) == string",
+      "url1 is not None",
+      "type(url2) == string",
+      "url2 is not None"
+    ]
+  }
+}

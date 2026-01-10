@@ -1,0 +1,144 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0f56e780a2264b49f8a401ef2e9484463a88b0f9200ba57d156bfb55a34c700a",
+    "semantic_fingerprint": "6d3dd3e048b2c57b586fc642e9dc79ba13f7ab636813590ad44a297ff1f5277b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add water to bucket.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter bucket",
+        "name": "bucket",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter amount",
+        "name": "amount",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of add_to_bucket",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def add_to_bucket(bucket: dict, amount: float) -> dict:\n    \"\"\"Add water to bucket.\"\"\"\n    new_level = bucket[\"level\"] + amount\n    if new_level > bucket[\"capacity\"]:\n        return {\"success\": False, \"bucket\": bucket, \"overflow\": new_level - bucket[\"capacity\"]}\n    return {\"success\": True, \"bucket\": {**bucket, \"level\": new_level}, \"overflow\": 0}",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:34.148283+00:00",
+    "description": "Add water to bucket.",
+    "intent": "Add water to bucket.",
+    "language": "python",
+    "name": "add_to_bucket",
+    "source_file": "neurop_forge/sources/throttle_utilities.py",
+    "source_line_end": 202,
+    "source_line_start": 197,
+    "tags": [
+      "add",
+      "amount",
+      "arithmetic",
+      "bucket"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.148301+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(bucket) == dict",
+      "bucket is not None",
+      "type(amount) == float",
+      "amount is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(bucket) == dict",
+      "bucket is not None",
+      "type(amount) == float",
+      "amount is not None"
+    ]
+  }
+}

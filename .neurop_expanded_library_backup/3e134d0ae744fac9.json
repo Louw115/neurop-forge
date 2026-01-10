@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3e134d0ae744fac90ae218bce18c8fc84aa72a2cf80f2ad4c1163131eef3ac10",
+    "semantic_fingerprint": "dd7b09cc0a9a2d1647b0aafa9e87876a61b8c21e3a33e5f6f5f9e19254471d1e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Mark a notification as read.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter notification",
+        "name": "notification",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter timestamp",
+        "name": "timestamp",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of mark_notification_read",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def mark_notification_read(notification: dict, timestamp: str) -> dict:\n    \"\"\"Mark a notification as read.\"\"\"\n    result = dict(notification)\n    result[\"read\"] = True\n    result[\"read_at\"] = timestamp\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:28.340871+00:00",
+    "description": "Mark a notification as read.",
+    "intent": "Mark a notification as read.",
+    "language": "python",
+    "name": "mark_notification_read",
+    "source_file": "neurop_forge/sources/notification_patterns.py",
+    "source_line_end": 154,
+    "source_line_start": 149,
+    "tags": [
+      "dict_operation",
+      "mark",
+      "notification",
+      "read",
+      "timestamp"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.340909+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(notification) == dict",
+      "notification is not None",
+      "type(timestamp) == string",
+      "timestamp is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(notification) == dict",
+      "notification is not None",
+      "type(timestamp) == string",
+      "timestamp is not None"
+    ]
+  }
+}

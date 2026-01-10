@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a66533f280076f47d48f1247481e4822c4086366037f21f4525adcc6ed08c356",
+    "semantic_fingerprint": "8014422e60b228bbba293f0cf1fcea4c1902253a51c041feef050a8f26c940b1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Update LRU access order, return evicted key if any.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter order",
+        "name": "order",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_size",
+        "name": "max_size",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of lru_access",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def lru_access(order: list, key: str, max_size: int) -> dict:\n    \"\"\"Update LRU access order, return evicted key if any.\"\"\"\n    new_order = [k for k in order if k != key]\n    new_order.append(key)\n    evicted = None\n    if len(new_order) > max_size:\n        evicted = new_order.pop(0)\n    return {\"order\": new_order, \"evicted\": evicted}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:32.969206+00:00",
+    "description": "Update LRU access order, return evicted key if any.",
+    "intent": "Update LRU access order, return evicted key if any.",
+    "language": "python",
+    "name": "lru_access",
+    "source_file": "neurop_forge/sources/cache_strategies.py",
+    "source_line_end": 73,
+    "source_line_start": 66,
+    "tags": [
+      "access",
+      "dict_operation",
+      "key",
+      "lru",
+      "max_size",
+      "order"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:32.969235+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(order) == list",
+      "order is not None",
+      "type(key) == string",
+      "key is not None",
+      "type(max_size) == integer",
+      "max_size is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(order) == list",
+      "order is not None",
+      "type(key) == string",
+      "key is not None",
+      "type(max_size) == integer",
+      "max_size is not None"
+    ]
+  }
+}

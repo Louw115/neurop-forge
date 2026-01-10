@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e65b00eff069a85aad3029ed7cca2fafa427fcfe74569be51a32105423bea8dd",
+    "semantic_fingerprint": "0a9002929f7f6e75f4b59935bd5dec7da42a6b09ff2d9b29136adb601cbfd000",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if value is an integer.",
+    "inputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of is_integer",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_integer(value) -> dict:\n    \"\"\"Check if value is an integer.\"\"\"\n    valid = isinstance(value, int) and not isinstance(value, bool)\n    return {\"valid\": valid, \"error\": \"Must be an integer\" if not valid else None}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:32.100139+00:00",
+    "description": "Check if value is an integer.",
+    "intent": "Check if value is an integer.",
+    "language": "python",
+    "name": "is_integer",
+    "source_file": "neurop_forge/sources/validation_rules.py",
+    "source_line_end": 36,
+    "source_line_start": 33,
+    "tags": [
+      "integer",
+      "validation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:32.100165+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "value is not None"
+    ]
+  }
+}

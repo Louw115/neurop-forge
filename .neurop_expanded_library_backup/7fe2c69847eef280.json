@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7fe2c69847eef2802eef4dd962832323d916c9f20d30ccf7d86d84e3392d2dde",
+    "semantic_fingerprint": "584efc3d13e46f2b4fa74aab041310a63d420d82273767684e29fdddbb655f89",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Remove value at index.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter ll",
+        "name": "ll",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter index",
+        "name": "index",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of list_remove_at",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def list_remove_at(ll: dict, index: int) -> dict:\n    \"\"\"Remove value at index.\"\"\"\n    if index == 0 and ll[\"head\"]:\n        return list_tail(ll)\n    def remove_helper(node, i):\n        if node is None:\n            return None\n        if i == 0:\n            return node[\"next\"]\n        return create_node(node[\"value\"], remove_helper(node[\"next\"], i - 1))\n    return {\"head\": remove_helper(ll[\"head\"], index), \"size\": max(0, ll[\"size\"] - 1)}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:30.501027+00:00",
+    "description": "Remove value at index.",
+    "intent": "Remove value at index.",
+    "language": "python",
+    "name": "list_remove_at",
+    "source_file": "neurop_forge/sources/linked_list.py",
+    "source_line_end": 182,
+    "source_line_start": 172,
+    "tags": [
+      "dict_operation",
+      "index",
+      "list",
+      "ll",
+      "remove"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.501053+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(ll) == dict",
+      "ll is not None",
+      "type(index) == integer",
+      "index is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(ll) == dict",
+      "ll is not None",
+      "type(index) == integer",
+      "index is not None"
+    ]
+  }
+}

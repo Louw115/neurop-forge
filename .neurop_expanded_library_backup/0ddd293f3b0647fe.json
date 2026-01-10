@@ -1,0 +1,144 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0ddd293f3b0647fe0be0f67f8bc054471fe1533b06513f5880fdf088289ad52c",
+    "semantic_fingerprint": "00e3b71eadb83235aa75a35e96a036b6ac0c371b1d766be455effa52fab7eade",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add LIMIT clause.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter builder",
+        "name": "builder",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter limit",
+        "name": "limit",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of sql_limit",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def sql_limit(builder: dict, limit: int) -> dict:\n    \"\"\"Add LIMIT clause.\"\"\"\n    clause = f\"LIMIT {limit}\"\n    return {**builder, \"clauses\": builder[\"clauses\"] + [clause]}",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:31.533358+00:00",
+    "description": "Add LIMIT clause.",
+    "intent": "Add LIMIT clause.",
+    "language": "python",
+    "name": "sql_limit",
+    "source_file": "neurop_forge/sources/string_builder.py",
+    "source_line_end": 195,
+    "source_line_start": 192,
+    "tags": [
+      "arithmetic",
+      "builder",
+      "limit",
+      "sql"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.533400+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(builder) == dict",
+      "builder is not None",
+      "type(limit) == integer",
+      "limit is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(builder) == dict",
+      "builder is not None",
+      "type(limit) == integer",
+      "limit is not None"
+    ]
+  }
+}

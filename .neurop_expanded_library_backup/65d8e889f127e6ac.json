@@ -1,0 +1,132 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "65d8e889f127e6ac2bd792879b4fa94b03490a4d29ca3220c25d1c0060505e24",
+    "semantic_fingerprint": "a6a22428803d9d3100acf84cac4768c0023c36bcaacb432b711846f32fe25923",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Convert subnet mask to CIDR notation.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter netmask",
+        "name": "netmask",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of netmask_to_cidr",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def netmask_to_cidr(netmask: str) -> int:\n    \"\"\"Convert subnet mask to CIDR notation.\"\"\"\n    binary = ipv4_to_binary(netmask)\n    return binary.count('1')",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T12:22:32.451422+00:00",
+    "description": "Convert subnet mask to CIDR notation.",
+    "intent": "Convert subnet mask to CIDR notation.",
+    "language": "python",
+    "name": "netmask_to_cidr",
+    "source_file": "neurop_forge/sources/ip_utilities.py",
+    "source_line_end": 119,
+    "source_line_start": 116,
+    "tags": [
+      "cidr",
+      "netmask",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:32.451445+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(netmask) == string",
+      "netmask is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(netmask) == string",
+      "netmask is not None"
+    ]
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4547d88e0ac0cd5dbf13926ee74444510cf9e0136103f6ec8ae7e6dc861ef81b",
+    "semantic_fingerprint": "86ee5e59ed297c3cb6b0002e550b2cf2f094f143a030bcf21e71968f41c1b1ca",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Merge two query strings.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter query1",
+        "name": "query1",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter query2",
+        "name": "query2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of merge_query_strings",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def merge_query_strings(query1: str, query2: str) -> str:\n    \"\"\"Merge two query strings.\"\"\"\n    params1 = parse_query_string(query1)\n    params2 = parse_query_string(query2)\n    merged = {**params1, **params2}\n    return build_query_string(merged)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:33.974619+00:00",
+    "description": "Merge two query strings.",
+    "intent": "Merge two query strings.",
+    "language": "python",
+    "name": "merge_query_strings",
+    "source_file": "neurop_forge/sources/query_string.py",
+    "source_line_end": 83,
+    "source_line_start": 78,
+    "tags": [
+      "merge",
+      "query",
+      "query1",
+      "query2",
+      "string_manipulation",
+      "strings"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:33.974643+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(query1) == string",
+      "query1 is not None",
+      "type(query2) == string",
+      "query2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(query1) == string",
+      "query1 is not None",
+      "type(query2) == string",
+      "query2 is not None"
+    ]
+  }
+}

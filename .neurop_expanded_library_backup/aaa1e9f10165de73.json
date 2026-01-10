@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "aaa1e9f10165de7332f5c284cedc1b4de61817d259e2479d5d256ed33dcad763",
+    "semantic_fingerprint": "729ead96d079d4d1b4d9bfe2204f17f6c1eeff323061712e8eeff6e37d8e4b08",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Append value to end of list.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter ll",
+        "name": "ll",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of list_append",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def list_append(ll: dict, value) -> dict:\n    \"\"\"Append value to end of list.\"\"\"\n    new_node = create_node(value, None)\n    if ll[\"head\"] is None:\n        return {\"head\": new_node, \"size\": 1}\n    def append_to_end(node):\n        if node[\"next\"] is None:\n            return create_node(node[\"value\"], new_node)\n        return create_node(node[\"value\"], append_to_end(node[\"next\"]))\n    return {\"head\": append_to_end(ll[\"head\"]), \"size\": ll[\"size\"] + 1}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:30.472070+00:00",
+    "description": "Append value to end of list.",
+    "intent": "Append value to end of list.",
+    "language": "python",
+    "name": "list_append",
+    "source_file": "neurop_forge/sources/linked_list.py",
+    "source_line_end": 37,
+    "source_line_start": 28,
+    "tags": [
+      "append",
+      "list",
+      "list_operation",
+      "ll",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.472092+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(ll) == dict",
+      "ll is not None",
+      "value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(ll) == dict",
+      "ll is not None",
+      "value is not None"
+    ]
+  }
+}

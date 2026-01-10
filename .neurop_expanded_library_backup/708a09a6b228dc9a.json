@@ -1,0 +1,156 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "708a09a6b228dc9af22f463ab2ac2c897b1a953fecdf9713aca63c8fcb3b451f",
+    "semantic_fingerprint": "d08ba62c1601b543ac216a1ada6c0cfa4ca653755d6a462f3090395b92ea946a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Insert text at position (by parts).",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter builder",
+        "name": "builder",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter index",
+        "name": "index",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of insert",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def insert(builder: dict, index: int, text: str) -> dict:\n    \"\"\"Insert text at position (by parts).\"\"\"\n    parts = list(builder[\"parts\"])\n    if index <= 0:\n        parts.insert(0, text)\n    elif index >= len(parts):\n        parts.append(text)\n    else:\n        parts.insert(index, text)\n    return {\"parts\": parts, \"length\": builder[\"length\"] + len(text)}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:31.492364+00:00",
+    "description": "Insert text at position (by parts).",
+    "intent": "Insert text at position (by parts).",
+    "language": "python",
+    "name": "insert",
+    "source_file": "neurop_forge/sources/string_builder.py",
+    "source_line_end": 62,
+    "source_line_start": 53,
+    "tags": [
+      "builder",
+      "index",
+      "insert",
+      "list_operation",
+      "text"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.492384+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(builder) == dict",
+      "builder is not None",
+      "type(index) == integer",
+      "index is not None",
+      "type(text) == string",
+      "text is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(builder) == dict",
+      "builder is not None",
+      "type(index) == integer",
+      "index is not None",
+      "type(text) == string",
+      "text is not None"
+    ]
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic aggregation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0d301534b4bb5e49aba487d72dbf9adfa296467cedbd0cf080533cd011cfb301",
+    "semantic_fingerprint": "d7c3266c90529a189de60fb822fb64122f9229a0aad9f228c863215445639879",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Counting sort for integers.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_value",
+        "name": "max_value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of counting_sort",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def counting_sort(items: list, max_value: int) -> list:\n    \"\"\"Counting sort for integers.\"\"\"\n    count = [0] * (max_value + 1)\n    for item in items:\n        count[item] += 1\n    result = []\n    for i in range(max_value + 1):\n        result.extend([i] * count[i])\n    return result",
+  "metadata": {
+    "category": "aggregation",
+    "created_at": "2026-01-10T12:22:30.992191+00:00",
+    "description": "Counting sort for integers.",
+    "intent": "Counting sort for integers.",
+    "language": "python",
+    "name": "counting_sort",
+    "source_file": "neurop_forge/sources/sorting_algorithms.py",
+    "source_line_end": 121,
+    "source_line_start": 113,
+    "tags": [
+      "aggregation",
+      "counting",
+      "items",
+      "max_value",
+      "sort"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.992211+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "type(max_value) == integer",
+      "max_value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "type(max_value) == integer",
+      "max_value is not None"
+    ]
+  }
+}

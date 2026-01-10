@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ac930ada99b7b06ebc14401c87ac1823983bf45533a8a002041900615b735976",
+    "semantic_fingerprint": "072f97f3243d5e2334a220f78ee240cac3d460f57f0ab473dfb96d2fc52f0bc3",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse search operators (AND, OR, NOT).",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter query",
+        "name": "query",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of parse_search_operators",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_search_operators(query: str) -> dict:\n    \"\"\"Parse search operators (AND, OR, NOT).\"\"\"\n    result = {\"required\": [], \"optional\": [], \"excluded\": []}\n    for term in tokenize_query(query):\n        if term.startswith(\"+\"):\n            result[\"required\"].append(term[1:])\n        elif term.startswith(\"-\"):\n            result[\"excluded\"].append(term[1:])\n        else:\n            result[\"optional\"].append(term)\n    return result",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T12:22:34.983203+00:00",
+    "description": "Parse search operators (AND, OR, NOT).",
+    "intent": "Parse search operators (AND, OR, NOT).",
+    "language": "python",
+    "name": "parse_search_operators",
+    "source_file": "neurop_forge/sources/search_helpers.py",
+    "source_line_end": 47,
+    "source_line_start": 37,
+    "tags": [
+      "operators",
+      "parse",
+      "query",
+      "search",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.983229+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(query) == string",
+      "query is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(query) == string",
+      "query is not None"
+    ]
+  }
+}

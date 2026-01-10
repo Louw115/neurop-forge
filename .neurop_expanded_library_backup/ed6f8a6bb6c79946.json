@@ -1,0 +1,171 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ed6f8a6bb6c79946120b30eaf79e835ecc460f7c8e8b859bdd051d7702405882",
+    "semantic_fingerprint": "91c95ba69846c44c8d597e61996f63e522a66a8051f3572ab464e2eb2f25f03a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate distance using spherical law of cosines (less accurate than haversine).",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter lat1",
+        "name": "lat1",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter lon1",
+        "name": "lon1",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter lat2",
+        "name": "lat2",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter lon2",
+        "name": "lon2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_spherical_law_of_cosines",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_spherical_law_of_cosines(lat1: float, lon1: float, lat2: float, lon2: float) -> float:\n    \"\"\"Calculate distance using spherical law of cosines (less accurate than haversine).\"\"\"\n    earth_radius_km = 6371.0\n    lat1_rad = degrees_to_radians(lat1)\n    lat2_rad = degrees_to_radians(lat2)\n    delta_lon = degrees_to_radians(lon2 - lon1)\n    distance = math.acos(\n        math.sin(lat1_rad) * math.sin(lat2_rad) +\n        math.cos(lat1_rad) * math.cos(lat2_rad) * math.cos(delta_lon)\n    ) * earth_radius_km\n    return distance",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:25.053264+00:00",
+    "description": "Calculate distance using spherical law of cosines (less accurate than haversine).",
+    "intent": "Calculate distance using spherical law of cosines (less accurate than haversine).",
+    "language": "python",
+    "name": "calculate_spherical_law_of_cosines",
+    "source_file": "neurop_forge/sources/geolocation_utilities.py",
+    "source_line_end": 356,
+    "source_line_start": 346,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "cosines",
+      "lat1",
+      "lat2",
+      "law",
+      "lon1",
+      "lon2",
+      "spherical"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.053292+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(lat1) == float",
+      "lat1 is not None",
+      "type(lon1) == float",
+      "lon1 is not None",
+      "type(lat2) == float",
+      "lat2 is not None",
+      "type(lon2) == float",
+      "lon2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(lat1) == float",
+      "lat1 is not None",
+      "type(lon1) == float",
+      "lon1 is not None",
+      "type(lat2) == float",
+      "lat2 is not None",
+      "type(lon2) == float",
+      "lon2 is not None"
+    ]
+  }
+}

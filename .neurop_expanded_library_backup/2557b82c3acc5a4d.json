@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2557b82c3acc5a4d43d6ca96bb6be4c236bae2cf828fa0854d30174b15087a34",
+    "semantic_fingerprint": "dfd2386d06f9b72a45b12f3fda6f0a5ce5c1c7c83892c7e01206cc8727df839a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if current error rate indicates a spike.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter current_rate",
+        "name": "current_rate",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter baseline_rate",
+        "name": "baseline_rate",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter threshold_multiplier",
+        "name": "threshold_multiplier",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_error_spike",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_error_spike(current_rate: float, baseline_rate: float, threshold_multiplier: float) -> bool:\n    \"\"\"Check if current error rate indicates a spike.\"\"\"\n    if baseline_rate <= 0:\n        return current_rate > 0\n    return current_rate >= baseline_rate * threshold_multiplier",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:27.337974+00:00",
+    "description": "Check if current error rate indicates a spike.",
+    "intent": "Check if current error rate indicates a spike.",
+    "language": "python",
+    "name": "is_error_spike",
+    "source_file": "neurop_forge/sources/error_handling.py",
+    "source_line_end": 139,
+    "source_line_start": 135,
+    "tags": [
+      "baseline_rate",
+      "current_rate",
+      "error",
+      "spike",
+      "threshold_multiplier",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.338019+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(current_rate) == float",
+      "current_rate is not None",
+      "type(baseline_rate) == float",
+      "baseline_rate is not None",
+      "type(threshold_multiplier) == float",
+      "threshold_multiplier is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(current_rate) == float",
+      "current_rate is not None",
+      "type(baseline_rate) == float",
+      "baseline_rate is not None",
+      "type(threshold_multiplier) == float",
+      "threshold_multiplier is not None"
+    ]
+  }
+}

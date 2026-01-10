@@ -1,0 +1,169 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "612544b2688b11dfa1b92a1f8b06ac988ba9d45fa384edf7c2cd92a1d292c377",
+    "semantic_fingerprint": "fd46769ef1e07e1e3aaa85118ba36971f6d5658cfa0772df02231a801337b474",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if cache is stale but within tolerance for stale-while-revalidate.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter created_at",
+        "name": "created_at",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_age",
+        "name": "max_age",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter tolerance",
+        "name": "tolerance",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_time",
+        "name": "current_time",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_stale_within_tolerance",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_stale_within_tolerance(created_at: int, max_age: int, tolerance: int, current_time: int) -> bool:\n    \"\"\"Check if cache is stale but within tolerance for stale-while-revalidate.\"\"\"\n    if current_time <= created_at + max_age:\n        return False\n    return current_time <= created_at + max_age + tolerance",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:25.132914+00:00",
+    "description": "Check if cache is stale but within tolerance for stale-while-revalidate.",
+    "intent": "Check if cache is stale but within tolerance for stale-while-revalidate.",
+    "language": "python",
+    "name": "is_stale_within_tolerance",
+    "source_file": "neurop_forge/sources/caching_utilities.py",
+    "source_line_end": 293,
+    "source_line_start": 289,
+    "tags": [
+      "created_at",
+      "current_time",
+      "max_age",
+      "stale",
+      "tolerance",
+      "validation",
+      "within"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.132943+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(created_at) == integer",
+      "created_at is not None",
+      "type(max_age) == integer",
+      "max_age is not None",
+      "type(tolerance) == integer",
+      "tolerance is not None",
+      "type(current_time) == integer",
+      "current_time is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(created_at) == integer",
+      "created_at is not None",
+      "type(max_age) == integer",
+      "max_age is not None",
+      "type(tolerance) == integer",
+      "tolerance is not None",
+      "type(current_time) == integer",
+      "current_time is not None"
+    ]
+  }
+}

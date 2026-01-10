@@ -1,0 +1,169 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5a97ade871cf92e96df0edf3657cf712c0617d93b04e17236fbb899a427448bd",
+    "semantic_fingerprint": "addce957c9e431d717817bfe25262dc416849a5ee588c344a2fa7ef2c5ca37be",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Record an attempt in retry state.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter state",
+        "name": "state",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter success",
+        "name": "success",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter error",
+        "name": "error",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter delay",
+        "name": "delay",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of record_attempt",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def record_attempt(state: dict, success: bool, error: str, delay: float) -> dict:\n    \"\"\"Record an attempt in retry state.\"\"\"\n    errors = list(state[\"errors\"])\n    if not success:\n        errors.append({\"attempt\": state[\"attempt\"] + 1, \"error\": error})\n    return {\n        \"attempt\": state[\"attempt\"] + 1,\n        \"max_attempts\": state[\"max_attempts\"],\n        \"base_delay\": state[\"base_delay\"],\n        \"last_delay\": delay,\n        \"total_delay\": state[\"total_delay\"] + delay,\n        \"errors\": errors\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:31.447442+00:00",
+    "description": "Record an attempt in retry state.",
+    "intent": "Record an attempt in retry state.",
+    "language": "python",
+    "name": "record_attempt",
+    "source_file": "neurop_forge/sources/retry_patterns.py",
+    "source_line_end": 117,
+    "source_line_start": 105,
+    "tags": [
+      "attempt",
+      "delay",
+      "dict_operation",
+      "error",
+      "record",
+      "state",
+      "success"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.447471+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(state) == dict",
+      "state is not None",
+      "type(success) == boolean",
+      "success is not None",
+      "type(error) == string",
+      "error is not None",
+      "type(delay) == float",
+      "delay is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(state) == dict",
+      "state is not None",
+      "type(success) == boolean",
+      "success is not None",
+      "type(error) == string",
+      "error is not None",
+      "type(delay) == float",
+      "delay is not None"
+    ]
+  }
+}

@@ -1,0 +1,170 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "642d786fd5fb3cf017555b5dc5c8273b8ed1df23b0274bdc519959fb2589f7b2",
+    "semantic_fingerprint": "448fda0e7c0cfed794050008253b9584a8bc56fa499a593253d77eb3024e0a59",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build queue metrics.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter messages",
+        "name": "messages",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter processed_count",
+        "name": "processed_count",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter failed_count",
+        "name": "failed_count",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter time_window",
+        "name": "time_window",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_queue_metrics",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_queue_metrics(messages: list, processed_count: int, failed_count: int, time_window: int) -> dict:\n    \"\"\"Build queue metrics.\"\"\"\n    return {\n        \"depth\": calculate_queue_depth(messages),\n        \"throughput\": calculate_throughput(processed_count, time_window),\n        \"processed\": processed_count,\n        \"failed\": failed_count,\n        \"failure_rate\": (failed_count / max(processed_count, 1)) * 100\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:27.708313+00:00",
+    "description": "Build queue metrics.",
+    "intent": "Build queue metrics.",
+    "language": "python",
+    "name": "build_queue_metrics",
+    "source_file": "neurop_forge/sources/queue_patterns.py",
+    "source_line_end": 158,
+    "source_line_start": 150,
+    "tags": [
+      "build",
+      "dict_operation",
+      "failed_count",
+      "messages",
+      "metrics",
+      "processed_count",
+      "queue",
+      "time_window"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.708342+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(messages) == list",
+      "messages is not None",
+      "type(processed_count) == integer",
+      "processed_count is not None",
+      "type(failed_count) == integer",
+      "failed_count is not None",
+      "type(time_window) == integer",
+      "time_window is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(messages) == list",
+      "messages is not None",
+      "type(processed_count) == integer",
+      "processed_count is not None",
+      "type(failed_count) == integer",
+      "failed_count is not None",
+      "type(time_window) == integer",
+      "time_window is not None"
+    ]
+  }
+}

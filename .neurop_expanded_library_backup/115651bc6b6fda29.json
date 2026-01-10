@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "115651bc6b6fda299f88b5b37d894be174a223206bae776cd9a10a0efdc3a533",
+    "semantic_fingerprint": "674ae7b34dcf5ccfad7cc9c86016c16e87893c0ca563e93396448bdccc2967e7",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Stratified sampling across groups.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter groups",
+        "name": "groups",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter samples_per_group",
+        "name": "samples_per_group",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seed",
+        "name": "seed",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of stratified_sample",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def stratified_sample(groups: dict, samples_per_group: int, seed: int) -> list:\n    \"\"\"Stratified sampling across groups.\"\"\"\n    result = []\n    for i, (group_name, items) in enumerate(groups.items()):\n        group_samples = sample(items, min(samples_per_group, len(items)), seed + i)\n        result.extend(group_samples)\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:30.432374+00:00",
+    "description": "Stratified sampling across groups.",
+    "intent": "Stratified sampling across groups.",
+    "language": "python",
+    "name": "stratified_sample",
+    "source_file": "neurop_forge/sources/sampling_utilities.py",
+    "source_line_end": 116,
+    "source_line_start": 110,
+    "tags": [
+      "groups",
+      "list_operation",
+      "sample",
+      "samples_per_group",
+      "seed",
+      "stratified"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.432404+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(groups) == dict",
+      "groups is not None",
+      "type(samples_per_group) == integer",
+      "samples_per_group is not None",
+      "type(seed) == integer",
+      "seed is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(groups) == dict",
+      "groups is not None",
+      "type(samples_per_group) == integer",
+      "samples_per_group is not None",
+      "type(seed) == integer",
+      "seed is not None"
+    ]
+  }
+}

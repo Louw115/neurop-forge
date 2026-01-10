@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "10c6601115dca0ba96fc3106345858ad492093cee90216df1333d2d87a7b47ca",
+    "semantic_fingerprint": "9d55bf4bd8c815c3a41b447ed56dc5f8002cfe7a6f2d646104eff6470e62cc34",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Partition items by boolean predicate.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter predicate",
+        "name": "predicate",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of partition_by_boolean",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def partition_by_boolean(items: list, predicate) -> dict:\n    \"\"\"Partition items by boolean predicate.\"\"\"\n    true_items = []\n    false_items = []\n    for item in items:\n        if predicate(item):\n            true_items.append(item)\n        else:\n            false_items.append(item)\n    return {\"true\": true_items, \"false\": false_items}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:33.316570+00:00",
+    "description": "Partition items by boolean predicate.",
+    "intent": "Partition items by boolean predicate.",
+    "language": "python",
+    "name": "partition_by_boolean",
+    "source_file": "neurop_forge/sources/boolean_utilities.py",
+    "source_line_end": 216,
+    "source_line_start": 207,
+    "tags": [
+      "boolean",
+      "items",
+      "list_operation",
+      "partition",
+      "predicate"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:33.316597+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "predicate is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "predicate is not None"
+    ]
+  }
+}

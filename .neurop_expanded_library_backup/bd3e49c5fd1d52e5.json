@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "bd3e49c5fd1d52e59248b6912252eb41952496d24297f8f6d9cb2b7ffbdaa92f",
+    "semantic_fingerprint": "b50baa7dbd48491297cfe3fdad2782bdd644702c078b1d8aa934e125e9e99e0a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Select best compression encoding from Accept-Encoding header.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter accept_encoding",
+        "name": "accept_encoding",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter supported",
+        "name": "supported",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of select_compression_encoding",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def select_compression_encoding(accept_encoding: str, supported: list) -> str:\n    \"\"\"Select best compression encoding from Accept-Encoding header.\"\"\"\n    if not accept_encoding:\n        return \"\"\n    accepted = [e.strip().split(\";\")[0] for e in accept_encoding.split(\",\")]\n    for encoding in supported:\n        if encoding in accepted:\n            return encoding\n    return \"\"",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:27.422442+00:00",
+    "description": "Select best compression encoding from Accept-Encoding header.",
+    "intent": "Select best compression encoding from Accept-Encoding header.",
+    "language": "python",
+    "name": "select_compression_encoding",
+    "source_file": "neurop_forge/sources/middleware_patterns.py",
+    "source_line_end": 160,
+    "source_line_start": 152,
+    "tags": [
+      "accept_encoding",
+      "compression",
+      "encoding",
+      "filtering",
+      "select",
+      "supported"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.422462+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(accept_encoding) == string",
+      "accept_encoding is not None",
+      "type(supported) == list",
+      "supported is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(accept_encoding) == string",
+      "accept_encoding is not None",
+      "type(supported) == list",
+      "supported is not None"
+    ]
+  }
+}

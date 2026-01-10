@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f6f3944b5410580dd4f8821f26f803bddbf35096b482b01be3a1399cf395904c",
+    "semantic_fingerprint": "e25313aeac1433dd7baf15a6a0a0d32c214d0af05955e20fead2b61d42093e10",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate a table of contents from headings.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter markdown",
+        "name": "markdown",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_toc",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_toc(markdown: str) -> str:\n    \"\"\"Generate a table of contents from headings.\"\"\"\n    headings = extract_headings(markdown)\n    if not headings:\n        return \"\"\n    lines = [\"## Table of Contents\", \"\"]\n    for h in headings:\n        indent = \"  \" * (h['level'] - 1)\n        anchor = create_anchor(h['text'])\n        lines.append(f\"{indent}- [{h['text']}](#{anchor})\")\n    return '\\n'.join(lines)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:25.783942+00:00",
+    "description": "Generate a table of contents from headings.",
+    "intent": "Generate a table of contents from headings.",
+    "language": "python",
+    "name": "generate_toc",
+    "source_file": "neurop_forge/sources/markdown_utilities.py",
+    "source_line_end": 270,
+    "source_line_start": 260,
+    "tags": [
+      "generate",
+      "markdown",
+      "string_manipulation",
+      "toc"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.783968+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(markdown) == string",
+      "markdown is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(markdown) == string",
+      "markdown is not None"
+    ]
+  }
+}

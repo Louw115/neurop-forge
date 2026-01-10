@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0779f864e8dffd2e64c8489d269e5e78201bcf5847256566d24cd352edea7d59",
+    "semantic_fingerprint": "badcf4e0fa89d1c0d7fe5844b06437eb24393746ca9f1b75fc6d5f1f4490fbe2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if casting between types requires explicit CAST.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter from_type",
+        "name": "from_type",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter to_type",
+        "name": "to_type",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of requires_explicit_cast",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def requires_explicit_cast(from_type: str, to_type: str) -> bool:\n    \"\"\"Check if casting between types requires explicit CAST.\"\"\"\n    if can_cast_safely(from_type, to_type):\n        return False\n    return from_type.upper() != to_type.upper()",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:26.054220+00:00",
+    "description": "Check if casting between types requires explicit CAST.",
+    "intent": "Check if casting between types requires explicit CAST.",
+    "language": "python",
+    "name": "requires_explicit_cast",
+    "source_file": "neurop_forge/sources/sql_types.py",
+    "source_line_end": 231,
+    "source_line_start": 227,
+    "tags": [
+      "cast",
+      "explicit",
+      "from_type",
+      "requires",
+      "to_type",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.054252+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(from_type) == string",
+      "from_type is not None",
+      "type(to_type) == string",
+      "to_type is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(from_type) == string",
+      "from_type is not None",
+      "type(to_type) == string",
+      "to_type is not None"
+    ]
+  }
+}

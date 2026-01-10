@@ -1,0 +1,151 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": false,
+    "io_operations": [
+      "random"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "non_deterministic",
+    "side_effects": [
+      "random"
+    ],
+    "thread_safe": false
+  },
+  "failure_modes": {
+    "can_fail": true,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "raises_exception",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a59883e71aa7aadad6ee1544b8fc933d9c1d8f160088f7ff3c118cb5d747634c",
+    "semantic_fingerprint": "1be949a6e2658b256a866b61ade6ea5d17920f69eb5e19b61161d582f3688fb9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate deterministic Poisson random number.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seed",
+        "name": "seed",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter lam",
+        "name": "lam",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of random_poisson",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def random_poisson(seed: int, lam: float) -> int:\n    \"\"\"Generate deterministic Poisson random number.\"\"\"\n    import math\n    L = math.exp(-lam)\n    k = 0\n    p = 1.0\n    while p > L:\n        k += 1\n        p *= random_float(hash_seed(seed, f\"poisson_{k}\"))\n    return k - 1",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:32.527123+00:00",
+    "description": "Generate deterministic Poisson random number.",
+    "intent": "Generate deterministic Poisson random number.",
+    "language": "python",
+    "name": "random_poisson",
+    "source_file": "neurop_forge/sources/random_utilities.py",
+    "source_line_end": 131,
+    "source_line_start": 122,
+    "tags": [
+      "arithmetic",
+      "lam",
+      "poisson",
+      "random",
+      "seed"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 0.5,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:32.527170+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.265,
+    "risk_factors": [
+      "impure_function",
+      "non_deterministic",
+      "side_effects: random"
+    ],
+    "risk_level": "medium",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(seed) == integer",
+      "seed is not None",
+      "type(lam) == float",
+      "lam is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(seed) == integer",
+      "seed is not None",
+      "type(lam) == float",
+      "lam is not None"
+    ]
+  }
+}

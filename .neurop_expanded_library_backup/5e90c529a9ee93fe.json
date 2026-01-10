@@ -1,0 +1,132 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5e90c529a9ee93fe630d3111e3b0de17078a5de27402466237cf6599c17d9dc4",
+    "semantic_fingerprint": "087281375c06c5b4c574b8a6a5d91af50ce05af89b0efb845b2f6fcdf2456d0e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Remove all markdown formatting, leaving plain text.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter markdown",
+        "name": "markdown",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of strip_markdown",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def strip_markdown(markdown: str) -> str:\n    \"\"\"Remove all markdown formatting, leaving plain text.\"\"\"\n    text = markdown\n    text = re.sub(r'```.*?```', '', text, flags=re.DOTALL)\n    text = re.sub(r'`([^`]+)`', r'\\1', text)\n    text = re.sub(r'!\\[([^\\]]*)\\]\\([^)]+\\)', r'\\1', text)\n    text = re.sub(r'\\[([^\\]]+)\\]\\([^)]+\\)', r'\\1', text)\n    text = re.sub(r'^#{1,6}\\s+', '', text, flags=re.MULTILINE)\n    text = re.sub(r'\\*\\*\\*(.+?)\\*\\*\\*', r'\\1', text)\n    text = re.sub(r'\\*\\*(.+?)\\*\\*', r'\\1', text)\n    text = re.sub(r'\\*(.+?)\\*', r'\\1', text)\n    text = re.sub(r'~~(.+?)~~', r'\\1', text)\n    text = re.sub(r'^>\\s+', '', text, flags=re.MULTILINE)\n    text = re.sub(r'^[-*+]\\s+', '', text, flags=re.MULTILINE)\n    text = re.sub(r'^\\d+\\.\\s+', '', text, flags=re.MULTILINE)\n    text = re.sub(r'^---+$', '', text, flags=re.MULTILINE)\n    return text.strip()",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:25.767874+00:00",
+    "description": "Remove all markdown formatting, leaving plain text.",
+    "intent": "Remove all markdown formatting, leaving plain text.",
+    "language": "python",
+    "name": "strip_markdown",
+    "source_file": "neurop_forge/sources/markdown_utilities.py",
+    "source_line_end": 195,
+    "source_line_start": 179,
+    "tags": [
+      "markdown",
+      "string_manipulation",
+      "strip"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.767899+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(markdown) == string",
+      "markdown is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(markdown) == string",
+      "markdown is not None"
+    ]
+  }
+}

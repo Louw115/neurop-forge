@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9967953e9df468aafb6e134930e96872da195bc200dba65dc9f4ab26e572e798",
+    "semantic_fingerprint": "fbfa74d5840d6bdf8f9eb072b3652932606b6a46e9979e05eae8c3790f362bc9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Create initial retry state.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_attempts",
+        "name": "max_attempts",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter base_delay",
+        "name": "base_delay",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of create_retry_state",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def create_retry_state(max_attempts: int, base_delay: float) -> dict:\n    \"\"\"Create initial retry state.\"\"\"\n    return {\n        \"attempt\": 0,\n        \"max_attempts\": max_attempts,\n        \"base_delay\": base_delay,\n        \"last_delay\": 0,\n        \"total_delay\": 0,\n        \"errors\": []\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:31.444595+00:00",
+    "description": "Create initial retry state.",
+    "intent": "Create initial retry state.",
+    "language": "python",
+    "name": "create_retry_state",
+    "source_file": "neurop_forge/sources/retry_patterns.py",
+    "source_line_end": 102,
+    "source_line_start": 93,
+    "tags": [
+      "base_delay",
+      "create",
+      "dict_operation",
+      "max_attempts",
+      "retry",
+      "state"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.444619+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(max_attempts) == integer",
+      "max_attempts is not None",
+      "type(base_delay) == float",
+      "base_delay is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(max_attempts) == integer",
+      "max_attempts is not None",
+      "type(base_delay) == float",
+      "base_delay is not None"
+    ]
+  }
+}

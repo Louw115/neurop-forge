@@ -1,0 +1,132 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "096fa9e1a27ca8c06b00eb81ae085fa63ee672f3d7c54662638efc585eaaf10d",
+    "semantic_fingerprint": "0d83727de88193e19c2de35f9379aed89cc8117ba4a87efca79b7c94c3296b76",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Normalize locale to standard format (e.g., en-US).",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter locale",
+        "name": "locale",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of normalize_locale",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def normalize_locale(locale: str) -> str:\n    \"\"\"Normalize locale to standard format (e.g., en-US).\"\"\"\n    parts = locale.replace(\"_\", \"-\").split(\"-\")\n    lang = parts[0].lower()\n    if len(parts) > 1:\n        region = parts[1].upper()\n        return f\"{lang}-{region}\"\n    return lang",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:28.566745+00:00",
+    "description": "Normalize locale to standard format (e.g., en-US).",
+    "intent": "Normalize locale to standard format (e.g., en-US).",
+    "language": "python",
+    "name": "normalize_locale",
+    "source_file": "neurop_forge/sources/i18n_patterns.py",
+    "source_line_end": 30,
+    "source_line_start": 23,
+    "tags": [
+      "locale",
+      "normalize",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.566765+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(locale) == string",
+      "locale is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(locale) == string",
+      "locale is not None"
+    ]
+  }
+}

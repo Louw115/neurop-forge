@@ -1,0 +1,156 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0178f6454c55e374e3f138bd465c78b4f439ba09294f690420f8e95f5985e826",
+    "semantic_fingerprint": "05bc35456e9e0b0121b1e5ddaef0be35d30b43331a12d271dee354f0d8b1e621",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Sample k items without replacement.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter k",
+        "name": "k",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seed",
+        "name": "seed",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of sample",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def sample(items: list, k: int, seed: int) -> list:\n    \"\"\"Sample k items without replacement.\"\"\"\n    if k >= len(items):\n        return shuffle(items, seed)\n    result = []\n    remaining = list(items)\n    for i in range(k):\n        idx = _hash_seed(seed, i) % len(remaining)\n        result.append(remaining.pop(idx))\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:30.418654+00:00",
+    "description": "Sample k items without replacement.",
+    "intent": "Sample k items without replacement.",
+    "language": "python",
+    "name": "sample",
+    "source_file": "neurop_forge/sources/sampling_utilities.py",
+    "source_line_end": 57,
+    "source_line_start": 48,
+    "tags": [
+      "items",
+      "k",
+      "list_operation",
+      "sample",
+      "seed"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.418675+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "type(k) == integer",
+      "k is not None",
+      "type(seed) == integer",
+      "seed is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "type(k) == integer",
+      "k is not None",
+      "type(seed) == integer",
+      "seed is not None"
+    ]
+  }
+}

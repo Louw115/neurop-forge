@@ -1,0 +1,158 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "33e95c7bb27597d9090091b7b6f46c1ca8f5efccb3d80865c20b4ec32a7d4e18",
+    "semantic_fingerprint": "809cac45237d8f91c898a93f583ae0cc2a51eb1fc7924f23da2b6a958c5ede06",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Swap two rows.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter m",
+        "name": "m",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter row1",
+        "name": "row1",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter row2",
+        "name": "row2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of matrix_swap_rows",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def matrix_swap_rows(m: dict, row1: int, row2: int) -> dict:\n    \"\"\"Swap two rows.\"\"\"\n    new_rows = [list(r) for r in m[\"rows\"]]\n    new_rows[row1], new_rows[row2] = new_rows[row2], new_rows[row1]\n    return create_matrix(new_rows)",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:29.706946+00:00",
+    "description": "Swap two rows.",
+    "intent": "Swap two rows.",
+    "language": "python",
+    "name": "matrix_swap_rows",
+    "source_file": "neurop_forge/sources/matrix_utilities.py",
+    "source_line_end": 151,
+    "source_line_start": 147,
+    "tags": [
+      "dict_operation",
+      "m",
+      "matrix",
+      "row1",
+      "row2",
+      "rows",
+      "swap"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.706969+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(m) == dict",
+      "m is not None",
+      "type(row1) == integer",
+      "row1 is not None",
+      "type(row2) == integer",
+      "row2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(m) == dict",
+      "m is not None",
+      "type(row1) == integer",
+      "row1 is not None",
+      "type(row2) == integer",
+      "row2 is not None"
+    ]
+  }
+}

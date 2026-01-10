@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic aggregation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3fba18b13af945cbb06a6b905bbcb46991371498b8df48b8ea43ec6970f3e38d",
+    "semantic_fingerprint": "32daadd9ab2868e712c01754285a576851dddee99f547e0d47ed18d06be95fa5",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Count unique users from events.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter events",
+        "name": "events",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of count_unique_users",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def count_unique_users(events: list) -> int:\n    \"\"\"Count unique users from events.\"\"\"\n    users = {event.get(\"user_id\") for event in events if event.get(\"user_id\")}\n    return len(users)",
+  "metadata": {
+    "category": "aggregation",
+    "created_at": "2026-01-10T12:22:28.404037+00:00",
+    "description": "Count unique users from events.",
+    "intent": "Count unique users from events.",
+    "language": "python",
+    "name": "count_unique_users",
+    "source_file": "neurop_forge/sources/analytics_patterns.py",
+    "source_line_end": 165,
+    "source_line_start": 162,
+    "tags": [
+      "aggregation",
+      "count",
+      "events",
+      "unique",
+      "users"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.404055+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(events) == list",
+      "events is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(events) == list",
+      "events is not None"
+    ]
+  }
+}

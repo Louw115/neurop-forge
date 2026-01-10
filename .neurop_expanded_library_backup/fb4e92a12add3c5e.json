@@ -1,0 +1,132 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "fb4e92a12add3c5ea73d58117d14c192b4f5d406f8b438a67992dc5ef7b3d091",
+    "semantic_fingerprint": "62447a60b8563f6d3256f5364c49a9adff568b0aba8fe50b046b20a746cb808b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse semantic version string.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter version",
+        "name": "version",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of parse_version",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_version(version: str) -> dict:\n    \"\"\"Parse semantic version string.\"\"\"\n    pattern = r'^v?(\\d+)\\.(\\d+)\\.(\\d+)(?:-([a-zA-Z0-9.-]+))?(?:\\+([a-zA-Z0-9.-]+))?$'\n    match = re.match(pattern, version)\n    if not match:\n        return None\n    return {\n        \"major\": int(match.group(1)),\n        \"minor\": int(match.group(2)),\n        \"patch\": int(match.group(3)),\n        \"prerelease\": match.group(4) or \"\",\n        \"build\": match.group(5) or \"\"\n    }",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T12:22:32.566057+00:00",
+    "description": "Parse semantic version string.",
+    "intent": "Parse semantic version string.",
+    "language": "python",
+    "name": "parse_version",
+    "source_file": "neurop_forge/sources/semantic_version.py",
+    "source_line_end": 27,
+    "source_line_start": 15,
+    "tags": [
+      "parse",
+      "transformation",
+      "version"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:32.566087+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(version) == string",
+      "version is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(version) == string",
+      "version is not None"
+    ]
+  }
+}

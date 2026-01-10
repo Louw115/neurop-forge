@@ -1,0 +1,169 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "08819a1f0305788fae70d56b2143e76d158b673bd2992a13dcf24bf39a4c5787",
+    "semantic_fingerprint": "7e03acc78b6b3c861d3f858b78479a8b5f89d5c4afef4f687275d47a76dc4e88",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if card is expired.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter exp_month",
+        "name": "exp_month",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter exp_year",
+        "name": "exp_year",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_month",
+        "name": "current_month",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_year",
+        "name": "current_year",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_expired_card",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_expired_card(exp_month: int, exp_year: int, current_month: int, current_year: int) -> bool:\n    \"\"\"Check if card is expired.\"\"\"\n    if exp_year < current_year:\n        return True\n    if exp_year == current_year and exp_month < current_month:\n        return True\n    return False",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:32.693620+00:00",
+    "description": "Check if card is expired.",
+    "intent": "Check if card is expired.",
+    "language": "python",
+    "name": "is_expired_card",
+    "source_file": "neurop_forge/sources/bank_utilities.py",
+    "source_line_end": 213,
+    "source_line_start": 207,
+    "tags": [
+      "card",
+      "current_month",
+      "current_year",
+      "exp_month",
+      "exp_year",
+      "expired",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:32.693652+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(exp_month) == integer",
+      "exp_month is not None",
+      "type(exp_year) == integer",
+      "exp_year is not None",
+      "type(current_month) == integer",
+      "current_month is not None",
+      "type(current_year) == integer",
+      "current_year is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(exp_month) == integer",
+      "exp_month is not None",
+      "type(exp_year) == integer",
+      "exp_year is not None",
+      "type(current_month) == integer",
+      "current_month is not None",
+      "type(current_year) == integer",
+      "current_year is not None"
+    ]
+  }
+}

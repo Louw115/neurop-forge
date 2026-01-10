@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f92de29ef7bca572b985baba70e09fb7c9cd37edddeeea7aaa1128f3f85ab7ef",
+    "semantic_fingerprint": "2515c184da8c551766c8d71b2fff701a3ab15012832b133e24af67b68168fb48",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse phone into parts.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter phone",
+        "name": "phone",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of parse_phone_parts",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_phone_parts(phone: str) -> dict:\n    \"\"\"Parse phone into parts.\"\"\"\n    digits = extract_digits(phone)\n    return {\n        \"country_code\": \"1\" if len(digits) == 11 and digits[0] == \"1\" else \"\",\n        \"area_code\": get_area_code(phone),\n        \"exchange\": get_exchange(phone),\n        \"subscriber\": get_subscriber(phone),\n        \"full\": digits\n    }",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T12:22:34.318065+00:00",
+    "description": "Parse phone into parts.",
+    "intent": "Parse phone into parts.",
+    "language": "python",
+    "name": "parse_phone_parts",
+    "source_file": "neurop_forge/sources/phone_patterns.py",
+    "source_line_end": 150,
+    "source_line_start": 141,
+    "tags": [
+      "parse",
+      "parts",
+      "phone",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.318090+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(phone) == string",
+      "phone is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(phone) == string",
+      "phone is not None"
+    ]
+  }
+}

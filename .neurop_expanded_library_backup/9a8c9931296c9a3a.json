@@ -1,0 +1,170 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9a8c9931296c9a3addb732450d745fad201c2945cc7ab8ae2b4073e77e68a479",
+    "semantic_fingerprint": "33cf2292fdca1283350aac224eea675dc7dd3f9f17e5138ec9e76f2f859f604d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a RESTful endpoint path.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter base_path",
+        "name": "base_path",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter resource",
+        "name": "resource",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter resource_id",
+        "name": "resource_id",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter action",
+        "name": "action",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_rest_endpoint",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_rest_endpoint(base_path: str, resource: str, resource_id: str, action: str) -> str:\n    \"\"\"Build a RESTful endpoint path.\"\"\"\n    path = base_path.rstrip('/')\n    if resource:\n        path += f\"/{resource}\"\n    if resource_id:\n        path += f\"/{resource_id}\"\n    if action:\n        path += f\"/{action}\"\n    return path",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:26.884161+00:00",
+    "description": "Build a RESTful endpoint path.",
+    "intent": "Build a RESTful endpoint path.",
+    "language": "python",
+    "name": "build_rest_endpoint",
+    "source_file": "neurop_forge/sources/api_patterns.py",
+    "source_line_end": 21,
+    "source_line_start": 12,
+    "tags": [
+      "action",
+      "base_path",
+      "build",
+      "endpoint",
+      "resource",
+      "resource_id",
+      "rest",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.884184+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(base_path) == string",
+      "base_path is not None",
+      "type(resource) == string",
+      "resource is not None",
+      "type(resource_id) == string",
+      "resource_id is not None",
+      "type(action) == string",
+      "action is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(base_path) == string",
+      "base_path is not None",
+      "type(resource) == string",
+      "resource is not None",
+      "type(resource_id) == string",
+      "resource_id is not None",
+      "type(action) == string",
+      "action is not None"
+    ]
+  }
+}

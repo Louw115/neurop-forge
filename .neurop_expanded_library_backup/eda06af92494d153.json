@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "eda06af92494d153993d3511085b46ea89db502d259b78b089ed3a45f2ed1414",
+    "semantic_fingerprint": "bb2887870a87e857655b7bc1c89774a9fcda9d6bafe8fa7dac14f793e407a47a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate a deterministic test email.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seed",
+        "name": "seed",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_test_email",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_test_email(seed: int) -> str:\n    \"\"\"Generate a deterministic test email.\"\"\"\n    username = generate_test_string(8, seed).lower()\n    domain = generate_test_string(6, seed + 1000).lower()\n    return f\"{username}@{domain}.test\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:27.752657+00:00",
+    "description": "Generate a deterministic test email.",
+    "intent": "Generate a deterministic test email.",
+    "language": "python",
+    "name": "generate_test_email",
+    "source_file": "neurop_forge/sources/testing_utilities.py",
+    "source_line_end": 28,
+    "source_line_start": 24,
+    "tags": [
+      "email",
+      "generate",
+      "seed",
+      "string_manipulation",
+      "test"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.752676+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(seed) == integer",
+      "seed is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(seed) == integer",
+      "seed is not None"
+    ]
+  }
+}

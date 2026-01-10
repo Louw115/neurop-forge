@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d077da258cac44f6e412f3981305f3873866f30b33b0a717c220a6070623db7c",
+    "semantic_fingerprint": "b1c8b47aee0f48c7faec3f93bc6d7f6bd1405f1f8481103aada5c22c1b5f5ebf",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format duration as ISO 8601.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seconds",
+        "name": "seconds",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_duration_iso",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_duration_iso(seconds: int) -> str:\n    \"\"\"Format duration as ISO 8601.\"\"\"\n    hours = seconds // 3600\n    minutes = (seconds % 3600) // 60\n    secs = seconds % 60\n    return f\"PT{hours}H{minutes}M{secs}S\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:34.261232+00:00",
+    "description": "Format duration as ISO 8601.",
+    "intent": "Format duration as ISO 8601.",
+    "language": "python",
+    "name": "format_duration_iso",
+    "source_file": "neurop_forge/sources/duration_utilities.py",
+    "source_line_end": 119,
+    "source_line_start": 114,
+    "tags": [
+      "duration",
+      "format",
+      "iso",
+      "seconds",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.261256+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(seconds) == integer",
+      "seconds is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(seconds) == integer",
+      "seconds is not None"
+    ]
+  }
+}

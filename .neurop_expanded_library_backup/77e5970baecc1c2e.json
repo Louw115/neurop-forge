@@ -1,0 +1,132 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "77e5970baecc1c2ed6c6fabdc76192e0ee0d6f8c250ec13c7e0c3535d04b39bb",
+    "semantic_fingerprint": "6058acb2abb05e37e5bee92719d6b29f88270320a3907dea830d45ba7bad3a9f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if tag name is valid.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter tag",
+        "name": "tag",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_valid_tag",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_valid_tag(tag: str) -> bool:\n    \"\"\"Check if tag name is valid.\"\"\"\n    return bool(re.match(r'^[a-z][a-z0-9]*$', tag, re.IGNORECASE))",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:33.720572+00:00",
+    "description": "Check if tag name is valid.",
+    "intent": "Check if tag name is valid.",
+    "language": "python",
+    "name": "is_valid_tag",
+    "source_file": "neurop_forge/sources/html_utilities.py",
+    "source_line_end": 152,
+    "source_line_start": 150,
+    "tags": [
+      "tag",
+      "valid",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:33.720598+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(tag) == string",
+      "tag is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(tag) == string",
+      "tag is not None"
+    ]
+  }
+}

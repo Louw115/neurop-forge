@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic aggregation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4e5981f0123ab7ed6ef200b839793247883137dd654648666204cb2a02a2d928",
+    "semantic_fingerprint": "3062ffadac081739b919d0c2d729d81005c337b187f99c5ae4cdf3ecaf207c16",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Count the number of named placeholders (:name) in a query.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter query",
+        "name": "query",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of count_named_placeholders",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def count_named_placeholders(query: str) -> int:\n    \"\"\"Count the number of named placeholders (:name) in a query.\"\"\"\n    import re\n    matches = re.findall(r':([a-zA-Z_][a-zA-Z0-9_]*)', query)\n    return len(set(matches))",
+  "metadata": {
+    "category": "aggregation",
+    "created_at": "2026-01-10T12:22:25.969085+00:00",
+    "description": "Count the number of named placeholders (:name) in a query.",
+    "intent": "Count the number of named placeholders (:name) in a query.",
+    "language": "python",
+    "name": "count_named_placeholders",
+    "source_file": "neurop_forge/sources/sql_building.py",
+    "source_line_end": 451,
+    "source_line_start": 447,
+    "tags": [
+      "aggregation",
+      "count",
+      "named",
+      "placeholders",
+      "query"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.969110+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(query) == string",
+      "query is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(query) == string",
+      "query is not None"
+    ]
+  }
+}

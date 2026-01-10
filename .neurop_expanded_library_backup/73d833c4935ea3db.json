@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "73d833c4935ea3db02998f9865fcc841d3a574ec0a5076801c8f1f8a1cd8b1bf",
+    "semantic_fingerprint": "ea95f53f86f910cc8ddaae3c82aa435889516d33e4e5adefd99ea7cd3d79be0c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get short fingerprint of token.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter token",
+        "name": "token",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_token_fingerprint",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_token_fingerprint(token: str) -> str:\n    \"\"\"Get short fingerprint of token.\"\"\"\n    return hashlib.sha256(token.encode()).hexdigest()[:8]",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:34.693111+00:00",
+    "description": "Get short fingerprint of token.",
+    "intent": "Get short fingerprint of token.",
+    "language": "python",
+    "name": "get_token_fingerprint",
+    "source_file": "neurop_forge/sources/token_utilities.py",
+    "source_line_end": 157,
+    "source_line_start": 155,
+    "tags": [
+      "filtering",
+      "fingerprint",
+      "get",
+      "token"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.693143+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(token) == string",
+      "token is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(token) == string",
+      "token is not None"
+    ]
+  }
+}

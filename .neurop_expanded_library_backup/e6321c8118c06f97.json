@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e6321c8118c06f97f6b71c0e0d6a3188df0c5d21168497e4b87b597105f36432",
+    "semantic_fingerprint": "9200ecd414e7ad64d0b7468481dbc6dafab12c4d386c554969ed5df7b2f2c945",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Rabin-Karp pattern search algorithm.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter pattern",
+        "name": "pattern",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of rabin_karp_search",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def rabin_karp_search(text: str, pattern: str) -> list:\n    \"\"\"Rabin-Karp pattern search algorithm.\"\"\"\n    if not pattern or len(pattern) > len(text):\n        return []\n    d = 256\n    q = 101\n    m, n = len(pattern), len(text)\n    h = pow(d, m - 1) % q\n    p = t = 0\n    matches = []\n    for i in range(m):\n        p = (d * p + ord(pattern[i])) % q\n        t = (d * t + ord(text[i])) % q\n    for i in range(n - m + 1):\n        if p == t:\n            if text[i:i+m] == pattern:\n                matches.append(i)\n        if i < n - m:\n            t = (d * (t - ord(text[i]) * h) + ord(text[i + m])) % q\n            if t < 0:\n                t += q\n    return matches",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:33.195390+00:00",
+    "description": "Rabin-Karp pattern search algorithm.",
+    "intent": "Rabin-Karp pattern search algorithm.",
+    "language": "python",
+    "name": "rabin_karp_search",
+    "source_file": "neurop_forge/sources/string_algorithms.py",
+    "source_line_end": 234,
+    "source_line_start": 213,
+    "tags": [
+      "karp",
+      "list_operation",
+      "pattern",
+      "rabin",
+      "search",
+      "text"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:33.195418+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None",
+      "type(pattern) == string",
+      "pattern is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None",
+      "type(pattern) == string",
+      "pattern is not None"
+    ]
+  }
+}

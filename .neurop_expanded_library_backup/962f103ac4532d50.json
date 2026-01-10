@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "962f103ac4532d509bd63b2dda72248b2f2c1dfeeff724b056afeffa1156f82e",
+    "semantic_fingerprint": "569f686bd7e9c7d2bfa79031a4a04600d4c6c9a91eb44906c6b4d346c57d68ae",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract column names from a SELECT query (simple cases only).",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter select_query",
+        "name": "select_query",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of extract_column_names",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def extract_column_names(select_query: str) -> list:\n    \"\"\"Extract column names from a SELECT query (simple cases only).\"\"\"\n    import re\n    match = re.search(r'SELECT\\s+(.*?)\\s+FROM', select_query, re.IGNORECASE | re.DOTALL)\n    if not match:\n        return []\n    columns_str = match.group(1)\n    if columns_str.strip() == '*':\n        return ['*']\n    columns = []\n    for col in columns_str.split(','):\n        col = col.strip()\n        as_match = re.search(r'\\bAS\\s+[\"\\']?(\\w+)[\"\\']?\\s*$', col, re.IGNORECASE)\n        if as_match:\n            columns.append(as_match.group(1))\n        else:\n            parts = col.split('.')\n            columns.append(parts[-1].strip('\"').strip(\"'\").strip())\n    return columns",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:26.125852+00:00",
+    "description": "Extract column names from a SELECT query (simple cases only).",
+    "intent": "Extract column names from a SELECT query (simple cases only).",
+    "language": "python",
+    "name": "extract_column_names",
+    "source_file": "neurop_forge/sources/query_helpers.py",
+    "source_line_end": 83,
+    "source_line_start": 65,
+    "tags": [
+      "column",
+      "extract",
+      "filtering",
+      "names",
+      "select_query"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.125881+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(select_query) == string",
+      "select_query is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(select_query) == string",
+      "select_query is not None"
+    ]
+  }
+}

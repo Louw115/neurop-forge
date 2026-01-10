@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1e3c25d607d124a7abe7c6b5c04523051f017388af7e2fafad43ea34f096cdf9",
+    "semantic_fingerprint": "ee8a714dd20470217c79b9f21c4dd54e6bf62e785dbc59c2a82bd036a257794e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate weighted mean.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter values",
+        "name": "values",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter weights",
+        "name": "weights",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_weighted_mean",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_weighted_mean(values: list, weights: list) -> float:\n    \"\"\"Calculate weighted mean.\"\"\"\n    if not values or len(values) != len(weights):\n        return 0.0\n    total_weight = sum(weights)\n    if total_weight == 0:\n        return 0.0\n    return sum(v * w for v, w in zip(values, weights)) / total_weight",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:29.764921+00:00",
+    "description": "Calculate weighted mean.",
+    "intent": "Calculate weighted mean.",
+    "language": "python",
+    "name": "calculate_weighted_mean",
+    "source_file": "neurop_forge/sources/statistics_utilities.py",
+    "source_line_end": 185,
+    "source_line_start": 178,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "mean",
+      "values",
+      "weighted",
+      "weights"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.764940+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(values) == list",
+      "values is not None",
+      "type(weights) == list",
+      "weights is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(values) == list",
+      "values is not None",
+      "type(weights) == list",
+      "weights is not None"
+    ]
+  }
+}

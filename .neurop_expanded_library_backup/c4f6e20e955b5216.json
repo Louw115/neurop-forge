@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c4f6e20e955b5216536e6a57d74b78ec6cc47a1c411abb69b10b1d9b4088c1a4",
+    "semantic_fingerprint": "40d915f68350b2a46bc9ae17707346ad501f0373a1b42c8d7b3b7e460030a8e2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find a node by ID in tree.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter root",
+        "name": "root",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter node_id",
+        "name": "node_id",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of find_node",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def find_node(root: dict, node_id: str) -> dict:\n    \"\"\"Find a node by ID in tree.\"\"\"\n    if root.get(\"id\") == node_id:\n        return root\n    for child in root.get(\"children\", []):\n        found = find_node(child, node_id)\n        if found:\n            return found\n    return None",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:29.793535+00:00",
+    "description": "Find a node by ID in tree.",
+    "intent": "Find a node by ID in tree.",
+    "language": "python",
+    "name": "find_node",
+    "source_file": "neurop_forge/sources/tree_utilities.py",
+    "source_line_end": 54,
+    "source_line_start": 46,
+    "tags": [
+      "filtering",
+      "find",
+      "node",
+      "node_id",
+      "root"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.793554+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(root) == dict",
+      "root is not None",
+      "type(node_id) == string",
+      "node_id is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(root) == dict",
+      "root is not None",
+      "type(node_id) == string",
+      "node_id is not None"
+    ]
+  }
+}

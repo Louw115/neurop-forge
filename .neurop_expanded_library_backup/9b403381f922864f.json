@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9b403381f922864f853891c0b05d09494bec7781290439091d63fa90be1f819a",
+    "semantic_fingerprint": "ed5b824f5e4b3ef4982db2bbe6a9f16776343532ae192cc132906c98746ec0a4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a Cache-Control header from directives.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter directives",
+        "name": "directives",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_cache_control",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_cache_control(directives: dict) -> str:\n    \"\"\"Build a Cache-Control header from directives.\"\"\"\n    if not directives:\n        return \"\"\n    parts = []\n    for key, value in directives.items():\n        if value is True:\n            parts.append(key)\n        elif value is not False and value is not None:\n            parts.append(f\"{key}={value}\")\n    return \", \".join(parts)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:24.554210+00:00",
+    "description": "Build a Cache-Control header from directives.",
+    "intent": "Build a Cache-Control header from directives.",
+    "language": "python",
+    "name": "build_cache_control",
+    "source_file": "neurop_forge/sources/http_utilities.py",
+    "source_line_end": 250,
+    "source_line_start": 240,
+    "tags": [
+      "build",
+      "cache",
+      "control",
+      "directives",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:24.554234+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(directives) == dict",
+      "directives is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(directives) == dict",
+      "directives is not None"
+    ]
+  }
+}

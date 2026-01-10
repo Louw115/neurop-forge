@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1ef94fe74a0217bf05c3a796c1f62a39c13555558ad27993624d0688f64de1af",
+    "semantic_fingerprint": "a67d08c520a960b73f68e6e10924ad697dcd9d3232e8163a93423a6ca47a6485",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if user can review item.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter user_id",
+        "name": "user_id",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter item_id",
+        "name": "item_id",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter existing_reviews",
+        "name": "existing_reviews",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of can_review",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def can_review(user_id: str, item_id: str, existing_reviews: list) -> bool:\n    \"\"\"Check if user can review item.\"\"\"\n    for review in existing_reviews:\n        if review.get(\"reviewer_id\") == user_id and review.get(\"item_id\") == item_id:\n            return False\n    return True",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:35.054119+00:00",
+    "description": "Check if user can review item.",
+    "intent": "Check if user can review item.",
+    "language": "python",
+    "name": "can_review",
+    "source_file": "neurop_forge/sources/review_utilities.py",
+    "source_line_end": 139,
+    "source_line_start": 134,
+    "tags": [
+      "can",
+      "existing_reviews",
+      "item_id",
+      "review",
+      "user_id",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:35.054148+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(user_id) == string",
+      "user_id is not None",
+      "type(item_id) == string",
+      "item_id is not None",
+      "type(existing_reviews) == list",
+      "existing_reviews is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(user_id) == string",
+      "user_id is not None",
+      "type(item_id) == string",
+      "item_id is not None",
+      "type(existing_reviews) == list",
+      "existing_reviews is not None"
+    ]
+  }
+}

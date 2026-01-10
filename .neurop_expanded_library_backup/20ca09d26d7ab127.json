@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "20ca09d26d7ab127d5df6769c4c59c401e9a18e6f39ff230c6d3bd666fde31aa",
+    "semantic_fingerprint": "a5baea82f41234299e2950dbbe465f0784c18f5b4853cc9f554177024bbba3ea",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract client IP address considering proxies.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter headers",
+        "name": "headers",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter remote_addr",
+        "name": "remote_addr",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of extract_client_ip",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def extract_client_ip(headers: dict, remote_addr: str) -> str:\n    \"\"\"Extract client IP address considering proxies.\"\"\"\n    forwarded_for = headers.get(\"X-Forwarded-For\", \"\")\n    if forwarded_for:\n        return forwarded_for.split(\",\")[0].strip()\n    real_ip = headers.get(\"X-Real-IP\", \"\")\n    if real_ip:\n        return real_ip\n    return remote_addr",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:27.397511+00:00",
+    "description": "Extract client IP address considering proxies.",
+    "intent": "Extract client IP address considering proxies.",
+    "language": "python",
+    "name": "extract_client_ip",
+    "source_file": "neurop_forge/sources/middleware_patterns.py",
+    "source_line_end": 57,
+    "source_line_start": 49,
+    "tags": [
+      "client",
+      "extract",
+      "filtering",
+      "headers",
+      "remote_addr"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.397539+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(headers) == dict",
+      "headers is not None",
+      "type(remote_addr) == string",
+      "remote_addr is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(headers) == dict",
+      "headers is not None",
+      "type(remote_addr) == string",
+      "remote_addr is not None"
+    ]
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "44c8b2daab0fa31b71aabe453a6983fabfcefda0a53cb00638028194b54a1c5c",
+    "semantic_fingerprint": "ca06869698c21b9934750cd5cc1ff933281780906c9ffc1092d24ed2bf648f65",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate CREATE TABLE SQL from column definitions.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter table",
+        "name": "table",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter columns",
+        "name": "columns",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter primary_key",
+        "name": "primary_key",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_create_table_sql",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_create_table_sql(table: str, columns: list, primary_key: list) -> str:\n    \"\"\"Generate CREATE TABLE SQL from column definitions.\"\"\"\n    from neurop_forge.sources.sql_building import escape_sql_identifier\n    col_defs = \", \".join(columns)\n    if primary_key:\n        pk_cols = \", \".join(escape_sql_identifier(c) for c in primary_key)\n        col_defs += f\", PRIMARY KEY ({pk_cols})\"\n    return f\"CREATE TABLE {escape_sql_identifier(table)} ({col_defs})\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:26.251056+00:00",
+    "description": "Generate CREATE TABLE SQL from column definitions.",
+    "intent": "Generate CREATE TABLE SQL from column definitions.",
+    "language": "python",
+    "name": "generate_create_table_sql",
+    "source_file": "neurop_forge/sources/migration_helpers.py",
+    "source_line_end": 123,
+    "source_line_start": 116,
+    "tags": [
+      "columns",
+      "create",
+      "generate",
+      "primary_key",
+      "sql",
+      "string_manipulation",
+      "table"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.251084+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(table) == string",
+      "table is not None",
+      "type(columns) == list",
+      "columns is not None",
+      "type(primary_key) == list",
+      "primary_key is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(table) == string",
+      "table is not None",
+      "type(columns) == list",
+      "columns is not None",
+      "type(primary_key) == list",
+      "primary_key is not None"
+    ]
+  }
+}

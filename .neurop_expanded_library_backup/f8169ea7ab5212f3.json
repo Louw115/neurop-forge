@@ -1,0 +1,135 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f8169ea7ab5212f3d9033eab8a3d0e2690826979d27b0371b2915d35c7541d3d",
+    "semantic_fingerprint": "461ffb7aa53b09e63e47ad833cacbcce7a81d57fa03f8eca07cfdb27d35711d8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get the appropriate HTTP method for an action.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter action",
+        "name": "action",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_http_method_for_action",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_http_method_for_action(action: str) -> str:\n    \"\"\"Get the appropriate HTTP method for an action.\"\"\"\n    action_methods = {\n        \"list\": \"GET\",\n        \"get\": \"GET\",\n        \"show\": \"GET\",\n        \"create\": \"POST\",\n        \"store\": \"POST\",\n        \"update\": \"PUT\",\n        \"replace\": \"PUT\",\n        \"patch\": \"PATCH\",\n        \"modify\": \"PATCH\",\n        \"delete\": \"DELETE\",\n        \"destroy\": \"DELETE\",\n        \"search\": \"GET\",\n        \"export\": \"GET\",\n        \"import\": \"POST\",\n    }\n    return action_methods.get(action.lower(), \"GET\")",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:26.891233+00:00",
+    "description": "Get the appropriate HTTP method for an action.",
+    "intent": "Get the appropriate HTTP method for an action.",
+    "language": "python",
+    "name": "get_http_method_for_action",
+    "source_file": "neurop_forge/sources/api_patterns.py",
+    "source_line_end": 57,
+    "source_line_start": 39,
+    "tags": [
+      "action",
+      "filtering",
+      "for",
+      "get",
+      "http",
+      "method"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.891252+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(action) == string",
+      "action is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(action) == string",
+      "action is not None"
+    ]
+  }
+}

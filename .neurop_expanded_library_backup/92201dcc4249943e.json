@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "92201dcc4249943e65deee8c7a7621f260a2978d1fdd5f6c88c4f71d0a01f62c",
+    "semantic_fingerprint": "d68f5ff60203c3f24ceee339cf29c7ec5133560e54562576d3576263b10c584c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse a connection string into components.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter conn_str",
+        "name": "conn_str",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of parse_connection_string",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_connection_string(conn_str: str) -> dict:\n    \"\"\"Parse a connection string into components.\"\"\"\n    result = {'raw': conn_str}\n    if '://' in conn_str:\n        protocol, rest = conn_str.split('://', 1)\n        result['protocol'] = protocol\n        if '@' in rest:\n            auth, host_part = rest.rsplit('@', 1)\n            result['auth'] = auth\n            rest = host_part\n        if '/' in rest:\n            host_port, path = rest.split('/', 1)\n            result['path'] = path\n        else:\n            host_port = rest\n        if ':' in host_port:\n            host, port = host_port.rsplit(':', 1)\n            result['host'] = host\n            result['port'] = port\n        else:\n            result['host'] = host_port\n    return result",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:25.378972+00:00",
+    "description": "Parse a connection string into components.",
+    "intent": "Parse a connection string into components.",
+    "language": "python",
+    "name": "parse_connection_string",
+    "source_file": "neurop_forge/sources/configuration_utilities.py",
+    "source_line_end": 176,
+    "source_line_start": 155,
+    "tags": [
+      "conn_str",
+      "connection",
+      "parse",
+      "string",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.379021+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(conn_str) == string",
+      "conn_str is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(conn_str) == string",
+      "conn_str is not None"
+    ]
+  }
+}

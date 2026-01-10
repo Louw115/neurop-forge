@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "257ae0ac009aad2f6ae354c5827aaf4fbf73e8366f5c98243d28a567e56621e7",
+    "semantic_fingerprint": "db18d2a6ed9d505a151f41435bac3e339fc6089c47450eb53e2c0fa9d730a38a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate truth table row for operation.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter inputs",
+        "name": "inputs",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter operation",
+        "name": "operation",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of truth_table_row",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def truth_table_row(inputs: list, operation: str) -> dict:\n    \"\"\"Generate truth table row for operation.\"\"\"\n    if operation == \"and\":\n        result = all(inputs)\n    elif operation == \"or\":\n        result = any(inputs)\n    elif operation == \"xor\":\n        result = sum(inputs) % 2 == 1\n    else:\n        result = False\n    return {\"inputs\": inputs, \"result\": result}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:33.310620+00:00",
+    "description": "Generate truth table row for operation.",
+    "intent": "Generate truth table row for operation.",
+    "language": "python",
+    "name": "truth_table_row",
+    "source_file": "neurop_forge/sources/boolean_utilities.py",
+    "source_line_end": 189,
+    "source_line_start": 179,
+    "tags": [
+      "dict_operation",
+      "inputs",
+      "operation",
+      "row",
+      "table",
+      "truth"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:33.310639+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(inputs) == list",
+      "inputs is not None",
+      "type(operation) == string",
+      "operation is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(inputs) == list",
+      "inputs is not None",
+      "type(operation) == string",
+      "operation is not None"
+    ]
+  }
+}

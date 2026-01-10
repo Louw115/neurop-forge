@@ -1,0 +1,135 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2d886fb6e92c09ee9e7a7ae532cb11387a042bbd0e9f05f8e2c2d3e5152f8880",
+    "semantic_fingerprint": "f9b9be687a925faebbdd0b1a72923f8b2f6e0b9a549aa83feae8bbcaef3acd64",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get a default value literal for a SQL type.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter sql_type",
+        "name": "sql_type",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_default_value_literal",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_default_value_literal(sql_type: str) -> str:\n    \"\"\"Get a default value literal for a SQL type.\"\"\"\n    if is_numeric_type(sql_type):\n        return \"0\"\n    if is_text_type(sql_type):\n        return \"''\"\n    if is_boolean_type(sql_type):\n        return \"FALSE\"\n    if is_json_type(sql_type):\n        return \"'{}'\"\n    if sql_type.upper() == \"DATE\":\n        return \"CURRENT_DATE\"\n    if \"TIMESTAMP\" in sql_type.upper():\n        return \"CURRENT_TIMESTAMP\"\n    if sql_type.upper() == \"TIME\":\n        return \"CURRENT_TIME\"\n    if is_uuid_type(sql_type):\n        return \"gen_random_uuid()\"\n    return \"NULL\"",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:26.046538+00:00",
+    "description": "Get a default value literal for a SQL type.",
+    "intent": "Get a default value literal for a SQL type.",
+    "language": "python",
+    "name": "get_default_value_literal",
+    "source_file": "neurop_forge/sources/sql_types.py",
+    "source_line_end": 202,
+    "source_line_start": 184,
+    "tags": [
+      "default",
+      "filtering",
+      "get",
+      "literal",
+      "sql_type",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.046566+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(sql_type) == string",
+      "sql_type is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(sql_type) == string",
+      "sql_type is not None"
+    ]
+  }
+}

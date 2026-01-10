@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "22b9af3a83824f03422c2be213760ea3d894765608c0e39ab0938f822fb03ff4",
+    "semantic_fingerprint": "bdd7226774dbd4abeaab868743852abda34ece3c0e01f09bb2c82de33732bc46",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Remove parameter from query string.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter query",
+        "name": "query",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of remove_param",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def remove_param(query: str, key: str) -> str:\n    \"\"\"Remove parameter from query string.\"\"\"\n    params = parse_query_string(query)\n    if key in params:\n        del params[key]\n    return build_query_string(params)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:33.970708+00:00",
+    "description": "Remove parameter from query string.",
+    "intent": "Remove parameter from query string.",
+    "language": "python",
+    "name": "remove_param",
+    "source_file": "neurop_forge/sources/query_string.py",
+    "source_line_end": 63,
+    "source_line_start": 58,
+    "tags": [
+      "key",
+      "param",
+      "query",
+      "remove",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:33.970726+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(query) == string",
+      "query is not None",
+      "type(key) == string",
+      "key is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(query) == string",
+      "query is not None",
+      "type(key) == string",
+      "key is not None"
+    ]
+  }
+}

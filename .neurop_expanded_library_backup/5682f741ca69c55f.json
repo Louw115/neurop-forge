@@ -1,0 +1,132 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5682f741ca69c55f311df9467d9466fbea809f1a8b16b5991bc6dc800c431032",
+    "semantic_fingerprint": "a4c4f24bd420582880ae374c31d9d78813a386d916198e0bd8227a16c99005d9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate the Adler32 checksum of a string.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of adler32",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def adler32(text: str) -> int:\n    \"\"\"Calculate the Adler32 checksum of a string.\"\"\"\n    import zlib\n    if not text:\n        return 1\n    return zlib.adler32(text.encode('utf-8')) & 0xffffffff",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:24.113673+00:00",
+    "description": "Calculate the Adler32 checksum of a string.",
+    "intent": "Calculate the Adler32 checksum of a string.",
+    "language": "python",
+    "name": "adler32",
+    "source_file": "neurop_forge/sources/encoding_utilities.py",
+    "source_line_end": 215,
+    "source_line_start": 210,
+    "tags": [
+      "adler32",
+      "arithmetic",
+      "text"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:24.113698+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None"
+    ]
+  }
+}

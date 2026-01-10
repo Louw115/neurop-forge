@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "6bd89fdb613103f1597909897995f1dca5f88085f0e2fcbc94d0015e1a402eca",
+    "semantic_fingerprint": "8d7ad4d7e0bdc5095f93cb702ec9da17dbc286b53ec8bb3964651502092c1c1c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Remove SQL comments from a query.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter query",
+        "name": "query",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of remove_comments",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def remove_comments(query: str) -> str:\n    \"\"\"Remove SQL comments from a query.\"\"\"\n    import re\n    query = re.sub(r'--[^\\n]*', '', query)\n    query = re.sub(r'/\\*.*?\\*/', '', query, flags=re.DOTALL)\n    return query.strip()",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:26.106644+00:00",
+    "description": "Remove SQL comments from a query.",
+    "intent": "Remove SQL comments from a query.",
+    "language": "python",
+    "name": "remove_comments",
+    "source_file": "neurop_forge/sources/query_helpers.py",
+    "source_line_end": 22,
+    "source_line_start": 17,
+    "tags": [
+      "comments",
+      "query",
+      "remove",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.106676+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(query) == string",
+      "query is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(query) == string",
+      "query is not None"
+    ]
+  }
+}

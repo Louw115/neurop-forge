@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b803a6b08199265096e5da1cd2c1b2d35b694ca5c994ee376611a992cca72f0f",
+    "semantic_fingerprint": "e0c577c99681e0e864f2e7048b7433a0f7a982841fc74a0f9301d9c4d7682a26",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get top n most frequent words.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter n",
+        "name": "n",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of top_words",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def top_words(text: str, n: int) -> list:\n    \"\"\"Get top n most frequent words.\"\"\"\n    freq = get_word_frequency(text)\n    sorted_words = sorted(freq.items(), key=lambda x: -x[1])\n    return sorted_words[:n]",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:32.938591+00:00",
+    "description": "Get top n most frequent words.",
+    "intent": "Get top n most frequent words.",
+    "language": "python",
+    "name": "top_words",
+    "source_file": "neurop_forge/sources/document_utilities.py",
+    "source_line_end": 165,
+    "source_line_start": 161,
+    "tags": [
+      "list_operation",
+      "n",
+      "text",
+      "top",
+      "words"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:32.938616+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None",
+      "type(n) == integer",
+      "n is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None",
+      "type(n) == integer",
+      "n is not None"
+    ]
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "093ee276b6ac45943fa126ddeaf39130e040a32b8d19809c563867b3a3de1ee8",
+    "semantic_fingerprint": "f769156e8ce9a6cfac750082d071cd52f28f4096be42bd59e65f66228490d109",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Sanitize phone input by removing invalid characters.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter phone",
+        "name": "phone",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of sanitize_phone_input",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def sanitize_phone_input(phone: str) -> str:\n    \"\"\"Sanitize phone input by removing invalid characters.\"\"\"\n    allowed = set('0123456789+()-. ')\n    return ''.join(c for c in phone if c in allowed)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:25.724190+00:00",
+    "description": "Sanitize phone input by removing invalid characters.",
+    "intent": "Sanitize phone input by removing invalid characters.",
+    "language": "python",
+    "name": "sanitize_phone_input",
+    "source_file": "neurop_forge/sources/phone_utilities.py",
+    "source_line_end": 315,
+    "source_line_start": 312,
+    "tags": [
+      "input",
+      "phone",
+      "sanitize",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.724207+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(phone) == string",
+      "phone is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(phone) == string",
+      "phone is not None"
+    ]
+  }
+}

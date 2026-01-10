@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "76c88209d3809bbabea2f583ab047702bc88b374fb97115e938d3f7477e458e6",
+    "semantic_fingerprint": "2f7f5f7efb407938e286fbf471c55b36ac79a596fa7b039e8339d49d1cf59795",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get all reviews by user.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter reviews",
+        "name": "reviews",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter user_id",
+        "name": "user_id",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of get_user_reviews",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_user_reviews(reviews: list, user_id: str) -> list:\n    \"\"\"Get all reviews by user.\"\"\"\n    return [r for r in reviews if r.get(\"reviewer_id\") == user_id]",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:35.055577+00:00",
+    "description": "Get all reviews by user.",
+    "intent": "Get all reviews by user.",
+    "language": "python",
+    "name": "get_user_reviews",
+    "source_file": "neurop_forge/sources/review_utilities.py",
+    "source_line_end": 144,
+    "source_line_start": 142,
+    "tags": [
+      "filtering",
+      "get",
+      "reviews",
+      "user",
+      "user_id"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:35.055594+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(reviews) == list",
+      "reviews is not None",
+      "type(user_id) == string",
+      "user_id is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(reviews) == list",
+      "reviews is not None",
+      "type(user_id) == string",
+      "user_id is not None"
+    ]
+  }
+}

@@ -1,0 +1,182 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "18eeba2b87783b6486483414270e98e8e4849bf22f930e58767d8fdc3ff1c28c",
+    "semantic_fingerprint": "39cd463cf9ea9c62bb7d3d93a5fe0633768967bb436e75dda551fd2401c28648",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate ALTER TABLE ADD COLUMN SQL.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter table",
+        "name": "table",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter column",
+        "name": "column",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter data_type",
+        "name": "data_type",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter nullable",
+        "name": "nullable",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter default",
+        "name": "default",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_add_column_sql",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_add_column_sql(table: str, column: str, data_type: str, nullable: bool, default: str) -> str:\n    \"\"\"Generate ALTER TABLE ADD COLUMN SQL.\"\"\"\n    from neurop_forge.sources.sql_building import escape_sql_identifier\n    parts = [f\"ALTER TABLE {escape_sql_identifier(table)} ADD COLUMN {escape_sql_identifier(column)} {data_type}\"]\n    if not nullable:\n        parts.append(\"NOT NULL\")\n    if default:\n        parts.append(f\"DEFAULT {default}\")\n    return \" \".join(parts)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:26.234844+00:00",
+    "description": "Generate ALTER TABLE ADD COLUMN SQL.",
+    "intent": "Generate ALTER TABLE ADD COLUMN SQL.",
+    "language": "python",
+    "name": "generate_add_column_sql",
+    "source_file": "neurop_forge/sources/migration_helpers.py",
+    "source_line_end": 68,
+    "source_line_start": 60,
+    "tags": [
+      "add",
+      "column",
+      "data_type",
+      "default",
+      "generate",
+      "nullable",
+      "sql",
+      "string_manipulation",
+      "table"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.234875+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(table) == string",
+      "table is not None",
+      "type(column) == string",
+      "column is not None",
+      "type(data_type) == string",
+      "data_type is not None",
+      "type(nullable) == boolean",
+      "nullable is not None",
+      "type(default) == string",
+      "default is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(table) == string",
+      "table is not None",
+      "type(column) == string",
+      "column is not None",
+      "type(data_type) == string",
+      "data_type is not None",
+      "type(nullable) == boolean",
+      "nullable is not None",
+      "type(default) == string",
+      "default is not None"
+    ]
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c671d44299c5fb2ffedb49a81a500c53c1d49c049a29c7cf9464d0da5a3e2bf8",
+    "semantic_fingerprint": "eebd6cc2d0e8b960cc9292b4fb674e148caccd07802ce9e02a2a26233c68267b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get fallback locale chain.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter locale",
+        "name": "locale",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of get_fallback_locales",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_fallback_locales(locale: str) -> list:\n    \"\"\"Get fallback locale chain.\"\"\"\n    parsed = parse_locale(locale)\n    fallbacks = []\n    if parsed[\"region\"]:\n        fallbacks.append(format_locale(parsed[\"language\"], parsed[\"region\"]))\n    fallbacks.append(parsed[\"language\"])\n    if parsed[\"language\"] != \"en\":\n        fallbacks.append(\"en\")\n    return fallbacks",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:34.942677+00:00",
+    "description": "Get fallback locale chain.",
+    "intent": "Get fallback locale chain.",
+    "language": "python",
+    "name": "get_fallback_locales",
+    "source_file": "neurop_forge/sources/locale_utilities.py",
+    "source_line_end": 75,
+    "source_line_start": 66,
+    "tags": [
+      "fallback",
+      "filtering",
+      "get",
+      "locale",
+      "locales"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.942702+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(locale) == string",
+      "locale is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(locale) == string",
+      "locale is not None"
+    ]
+  }
+}

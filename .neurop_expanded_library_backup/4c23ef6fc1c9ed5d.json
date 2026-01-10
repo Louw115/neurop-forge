@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4c23ef6fc1c9ed5dbed92d09ee4f250042d6e86a466c0214825cf3d507c4893a",
+    "semantic_fingerprint": "e9a4971a290c27e377a9516ccd295b4d4590db8715efce96d36c4d18a5fbbb01",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate normalized Levenshtein similarity (0-1).",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter s1",
+        "name": "s1",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter s2",
+        "name": "s2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of normalized_levenshtein",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def normalized_levenshtein(s1: str, s2: str) -> float:\n    \"\"\"Calculate normalized Levenshtein similarity (0-1).\"\"\"\n    max_len = max(len(s1), len(s2))\n    if max_len == 0:\n        return 1.0\n    return 1 - levenshtein_distance(s1, s2) / max_len",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:30.284820+00:00",
+    "description": "Calculate normalized Levenshtein similarity (0-1).",
+    "intent": "Calculate normalized Levenshtein similarity (0-1).",
+    "language": "python",
+    "name": "normalized_levenshtein",
+    "source_file": "neurop_forge/sources/string_distance.py",
+    "source_line_end": 153,
+    "source_line_start": 148,
+    "tags": [
+      "arithmetic",
+      "levenshtein",
+      "normalized",
+      "s1",
+      "s2"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.284846+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(s1) == string",
+      "s1 is not None",
+      "type(s2) == string",
+      "s2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(s1) == string",
+      "s1 is not None",
+      "type(s2) == string",
+      "s2 is not None"
+    ]
+  }
+}

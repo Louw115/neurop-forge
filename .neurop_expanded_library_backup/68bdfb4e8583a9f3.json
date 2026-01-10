@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "68bdfb4e8583a9f3ca5141c3299341fce6a267b8fe9ebf5513bf5b433b1bd878",
+    "semantic_fingerprint": "58b80dd2fc75386874bf444dde1c63a991e4f115e732d29a8df6ca3b48afee97",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get key-value pairs in range [lo, hi].",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter sl",
+        "name": "sl",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter lo",
+        "name": "lo",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter hi",
+        "name": "hi",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of skip_list_range",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def skip_list_range(sl: dict, lo, hi) -> list:\n    \"\"\"Get key-value pairs in range [lo, hi].\"\"\"\n    result = []\n    node = sl[\"head\"]\n    for i in range(sl[\"level\"] - 1, -1, -1):\n        while node[\"forward\"][i] and node[\"forward\"][i][\"key\"] < lo:\n            node = node[\"forward\"][i]\n    node = node[\"forward\"][0]\n    while node and node[\"key\"] <= hi:\n        result.append((node[\"key\"], node[\"value\"]))\n        node = node[\"forward\"][0]\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:30.871325+00:00",
+    "description": "Get key-value pairs in range [lo, hi].",
+    "intent": "Get key-value pairs in range [lo, hi].",
+    "language": "python",
+    "name": "skip_list_range",
+    "source_file": "neurop_forge/sources/skip_list.py",
+    "source_line_end": 189,
+    "source_line_start": 178,
+    "tags": [
+      "hi",
+      "list",
+      "list_operation",
+      "lo",
+      "range",
+      "skip",
+      "sl"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.871353+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(sl) == dict",
+      "sl is not None",
+      "lo is not None",
+      "hi is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(sl) == dict",
+      "sl is not None",
+      "lo is not None",
+      "hi is not None"
+    ]
+  }
+}

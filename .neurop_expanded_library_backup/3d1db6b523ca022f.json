@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3d1db6b523ca022fbb14182fc3cb2ac26619df93f40353048b996d3056282aa3",
+    "semantic_fingerprint": "c3e63893f251bb030b8f187f09a9dabdbd7c52c4bc1aa18211e80612786aef49",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add jitter to delay to prevent thundering herd.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter delay",
+        "name": "delay",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter jitter_percent",
+        "name": "jitter_percent",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seed",
+        "name": "seed",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of add_jitter",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def add_jitter(delay: int, jitter_percent: float, seed: int) -> int:\n    \"\"\"Add jitter to delay to prevent thundering herd.\"\"\"\n    import hashlib\n    hash_val = hashlib.sha256(str(seed).encode()).digest()\n    jitter_factor = (hash_val[0] / 255.0 - 0.5) * 2 * (jitter_percent / 100)\n    return int(delay * (1 + jitter_factor))",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:29.271118+00:00",
+    "description": "Add jitter to delay to prevent thundering herd.",
+    "intent": "Add jitter to delay to prevent thundering herd.",
+    "language": "python",
+    "name": "add_jitter",
+    "source_file": "neurop_forge/sources/scheduler_utilities.py",
+    "source_line_end": 228,
+    "source_line_start": 223,
+    "tags": [
+      "add",
+      "arithmetic",
+      "delay",
+      "jitter",
+      "jitter_percent",
+      "seed"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.271147+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(delay) == integer",
+      "delay is not None",
+      "type(jitter_percent) == float",
+      "jitter_percent is not None",
+      "type(seed) == integer",
+      "seed is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(delay) == integer",
+      "delay is not None",
+      "type(jitter_percent) == float",
+      "jitter_percent is not None",
+      "type(seed) == integer",
+      "seed is not None"
+    ]
+  }
+}

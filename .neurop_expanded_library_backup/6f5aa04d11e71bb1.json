@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "6f5aa04d11e71bb188ee7e7539c349219168dd5101ef11002a9d3ab1c56ccd6e",
+    "semantic_fingerprint": "4c3a26053a85fc9a076f8562217d7ac66cbba8400ce73f6b7e8ea5019f402409",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Round time to nearest minute.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter time",
+        "name": "time",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of round_to_minute",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def round_to_minute(time: dict) -> dict:\n    \"\"\"Round time to nearest minute.\"\"\"\n    if time[\"seconds\"] >= 30:\n        return add_seconds(time, 60 - time[\"seconds\"])\n    return {\"hours\": time[\"hours\"], \"minutes\": time[\"minutes\"], \"seconds\": 0}",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:31.701330+00:00",
+    "description": "Round time to nearest minute.",
+    "intent": "Round time to nearest minute.",
+    "language": "python",
+    "name": "round_to_minute",
+    "source_file": "neurop_forge/sources/time_utilities.py",
+    "source_line_end": 158,
+    "source_line_start": 154,
+    "tags": [
+      "arithmetic",
+      "minute",
+      "round",
+      "time"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.701355+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(time) == dict",
+      "time is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(time) == dict",
+      "time is not None"
+    ]
+  }
+}

@@ -1,0 +1,171 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b50eb452147c185c4c87ddebd0e0ebe1c3b3ebfcbed3d0e9a5a267869b57c4a9",
+    "semantic_fingerprint": "ec32025eb187f219f0dfb8f5e8da9d7936919f1e7317e0153b8a86666f666322",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format a cursor-paginated response.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter next_cursor",
+        "name": "next_cursor",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter prev_cursor",
+        "name": "prev_cursor",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter has_more",
+        "name": "has_more",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of format_cursor_paginated_response",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_cursor_paginated_response(items: list, next_cursor: str, prev_cursor: str, has_more: bool) -> dict:\n    \"\"\"Format a cursor-paginated response.\"\"\"\n    return {\n        \"success\": True,\n        \"data\": items,\n        \"meta\": {\n            \"has_more\": has_more,\n            \"next_cursor\": next_cursor,\n            \"prev_cursor\": prev_cursor\n        }\n    }",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:27.256845+00:00",
+    "description": "Format a cursor-paginated response.",
+    "intent": "Format a cursor-paginated response.",
+    "language": "python",
+    "name": "format_cursor_paginated_response",
+    "source_file": "neurop_forge/sources/response_formatting.py",
+    "source_line_end": 84,
+    "source_line_start": 74,
+    "tags": [
+      "cursor",
+      "format",
+      "has_more",
+      "items",
+      "next_cursor",
+      "paginated",
+      "prev_cursor",
+      "response",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.256865+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "type(next_cursor) == string",
+      "next_cursor is not None",
+      "type(prev_cursor) == string",
+      "prev_cursor is not None",
+      "type(has_more) == boolean",
+      "has_more is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "type(next_cursor) == string",
+      "next_cursor is not None",
+      "type(prev_cursor) == string",
+      "prev_cursor is not None",
+      "type(has_more) == boolean",
+      "has_more is not None"
+    ]
+  }
+}

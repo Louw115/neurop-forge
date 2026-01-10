@@ -1,0 +1,135 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f00e7f08f657db4ade6d65b48003f48de62c762b5ec6d3c08f69dfa16fdb1e30",
+    "semantic_fingerprint": "430eb7e7421fc4984dac4019a5dc335514890208ea2e663e3bc358a7bf542196",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build trie from list of words.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter words",
+        "name": "words",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_trie_from_list",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_trie_from_list(words: list) -> dict:\n    \"\"\"Build trie from list of words.\"\"\"\n    trie = create_trie()\n    for word in words:\n        trie = trie_insert(trie, word, word)\n    return trie",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:30.343469+00:00",
+    "description": "Build trie from list of words.",
+    "intent": "Build trie from list of words.",
+    "language": "python",
+    "name": "build_trie_from_list",
+    "source_file": "neurop_forge/sources/trie_utilities.py",
+    "source_line_end": 192,
+    "source_line_start": 187,
+    "tags": [
+      "build",
+      "dict_operation",
+      "from",
+      "list",
+      "trie",
+      "words"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.343487+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(words) == list",
+      "words is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(words) == list",
+      "words is not None"
+    ]
+  }
+}

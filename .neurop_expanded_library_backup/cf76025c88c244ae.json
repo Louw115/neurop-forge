@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "cf76025c88c244ae9856534ff9288504cd3d0fe633c6cd2fff1fa3061e7763f9",
+    "semantic_fingerprint": "31c66782f05941f33204ffb1ddb7ff78dba8b4e1edb914104544ca470207dc32",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Detect potentially suspicious activity patterns.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter audit_records",
+        "name": "audit_records",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter threshold_per_minute",
+        "name": "threshold_per_minute",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of detect_suspicious_activity",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def detect_suspicious_activity(audit_records: list, threshold_per_minute: int) -> list:\n    \"\"\"Detect potentially suspicious activity patterns.\"\"\"\n    by_user_minute = {}\n    suspicious = []\n    for record in audit_records:\n        user = record.get(\"user_id\", \"\")\n        timestamp = record.get(\"timestamp\", \"\")[:16]\n        key = f\"{user}:{timestamp}\"\n        by_user_minute[key] = by_user_minute.get(key, 0) + 1\n    for key, count in by_user_minute.items():\n        if count > threshold_per_minute:\n            user, minute = key.split(\":\")\n            suspicious.append({\"user_id\": user, \"minute\": minute, \"count\": count})\n    return suspicious",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:26.867131+00:00",
+    "description": "Detect potentially suspicious activity patterns.",
+    "intent": "Detect potentially suspicious activity patterns.",
+    "language": "python",
+    "name": "detect_suspicious_activity",
+    "source_file": "neurop_forge/sources/audit_logging.py",
+    "source_line_end": 283,
+    "source_line_start": 270,
+    "tags": [
+      "activity",
+      "audit_records",
+      "detect",
+      "list_operation",
+      "suspicious",
+      "threshold_per_minute"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.867151+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(audit_records) == list",
+      "audit_records is not None",
+      "type(threshold_per_minute) == integer",
+      "threshold_per_minute is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(audit_records) == list",
+      "audit_records is not None",
+      "type(threshold_per_minute) == integer",
+      "threshold_per_minute is not None"
+    ]
+  }
+}

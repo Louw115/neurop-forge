@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "fb66a7248f8c3442d689fc017c7acedf4cd8fe26e72b6541fb3eb1baebe7da16",
+    "semantic_fingerprint": "605c495da2c8fe0cd530e94b0c65192c08becd9cf468215b740a2e87e62f36d1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Compute difference between two lists (by index).",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter list_a",
+        "name": "list_a",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter list_b",
+        "name": "list_b",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of compute_list_diff",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def compute_list_diff(list_a: list, list_b: list) -> dict:\n    \"\"\"Compute difference between two lists (by index).\"\"\"\n    max_len = max(len(list_a), len(list_b))\n    added = []\n    removed = []\n    modified = []\n    unchanged = []\n    for i in range(max_len):\n        if i >= len(list_a):\n            added.append({\"index\": i, \"value\": list_b[i]})\n        elif i >= len(list_b):\n            removed.append({\"index\": i, \"value\": list_a[i]})\n        elif list_a[i] != list_b[i]:\n            modified.append({\"index\": i, \"old\": list_a[i], \"new\": list_b[i]})\n        else:\n            unchanged.append({\"index\": i, \"value\": list_a[i]})\n    return {\n        \"added\": added,\n        \"removed\": removed,\n        \"modified\": modified,\n        \"unchanged\": unchanged\n    }",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:30.920091+00:00",
+    "description": "Compute difference between two lists (by index).",
+    "intent": "Compute difference between two lists (by index).",
+    "language": "python",
+    "name": "compute_list_diff",
+    "source_file": "neurop_forge/sources/diff_utilities.py",
+    "source_line_end": 191,
+    "source_line_start": 170,
+    "tags": [
+      "arithmetic",
+      "compute",
+      "diff",
+      "list",
+      "list_a",
+      "list_b"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.920110+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(list_a) == list",
+      "list_a is not None",
+      "type(list_b) == list",
+      "list_b is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(list_a) == list",
+      "list_a is not None",
+      "type(list_b) == list",
+      "list_b is not None"
+    ]
+  }
+}

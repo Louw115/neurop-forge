@@ -1,0 +1,158 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "05a1c5bdb370e3e90e5395eba977d9aac32cf302c970ee25a786edd29e6b81db",
+    "semantic_fingerprint": "93f8819d21c1f66c08f5eaf6c8bebb19d0bb67645d2dc5db460cbbf3413ea372",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate DROP TABLE SQL.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter table",
+        "name": "table",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter if_exists",
+        "name": "if_exists",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter cascade",
+        "name": "cascade",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_drop_table_sql",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_drop_table_sql(table: str, if_exists: bool, cascade: bool) -> str:\n    \"\"\"Generate DROP TABLE SQL.\"\"\"\n    from neurop_forge.sources.sql_building import escape_sql_identifier\n    parts = [\"DROP TABLE\"]\n    if if_exists:\n        parts.append(\"IF EXISTS\")\n    parts.append(escape_sql_identifier(table))\n    if cascade:\n        parts.append(\"CASCADE\")\n    return \" \".join(parts)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:26.253788+00:00",
+    "description": "Generate DROP TABLE SQL.",
+    "intent": "Generate DROP TABLE SQL.",
+    "language": "python",
+    "name": "generate_drop_table_sql",
+    "source_file": "neurop_forge/sources/migration_helpers.py",
+    "source_line_end": 135,
+    "source_line_start": 126,
+    "tags": [
+      "cascade",
+      "drop",
+      "generate",
+      "if_exists",
+      "sql",
+      "string_manipulation",
+      "table"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.253815+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(table) == string",
+      "table is not None",
+      "type(if_exists) == boolean",
+      "if_exists is not None",
+      "type(cascade) == boolean",
+      "cascade is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(table) == string",
+      "table is not None",
+      "type(if_exists) == boolean",
+      "if_exists is not None",
+      "type(cascade) == boolean",
+      "cascade is not None"
+    ]
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "088fe84cd46b4375942046388773e4b71008a0fd2da4936bac4469320af286a0",
+    "semantic_fingerprint": "18b97c5d7d7a6f974847ea47bc4caed48a4b5e42af6bdb8d0c1676ff4ade9f6f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate the frequency of each word in a text.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of word_frequency",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def word_frequency(text: str) -> dict:\n    \"\"\"Calculate the frequency of each word in a text.\"\"\"\n    if not text:\n        return {}\n    words = text.lower().split()\n    freq = {}\n    for word in words:\n        cleaned = ''.join(c for c in word if c.isalnum())\n        if cleaned:\n            freq[cleaned] = freq.get(cleaned, 0) + 1\n    return freq",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:24.220847+00:00",
+    "description": "Calculate the frequency of each word in a text.",
+    "intent": "Calculate the frequency of each word in a text.",
+    "language": "python",
+    "name": "word_frequency",
+    "source_file": "neurop_forge/sources/text_analysis.py",
+    "source_line_end": 118,
+    "source_line_start": 108,
+    "tags": [
+      "dict_operation",
+      "frequency",
+      "text",
+      "word"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:24.220870+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None"
+    ]
+  }
+}

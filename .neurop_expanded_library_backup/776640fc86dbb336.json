@@ -1,0 +1,156 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "776640fc86dbb3362c83c98f34d1533febb8e223468da615ec715fcc1d81cbff",
+    "semantic_fingerprint": "33a810fc2499804ef9bf110f4ac59232af7c22d350ecff20b7a215c6c48a5608",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate the day of week (0=Monday, 6=Sunday) using Zeller's formula.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter year",
+        "name": "year",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter month",
+        "name": "month",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter day",
+        "name": "day",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of day_of_week",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def day_of_week(year: int, month: int, day: int) -> int:\n    \"\"\"Calculate the day of week (0=Monday, 6=Sunday) using Zeller's formula.\"\"\"\n    if month < 3:\n        month += 12\n        year -= 1\n    k = year % 100\n    j = year // 100\n    h = (day + (13 * (month + 1)) // 5 + k + k // 4 + j // 4 - 2 * j) % 7\n    return (h + 5) % 7",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:23.836425+00:00",
+    "description": "Calculate the day of week (0=Monday, 6=Sunday) using Zeller's formula.",
+    "intent": "Calculate the day of week (0=Monday, 6=Sunday) using Zeller's formula.",
+    "language": "python",
+    "name": "day_of_week",
+    "source_file": "neurop_forge/sources/datetime_utilities.py",
+    "source_line_end": 59,
+    "source_line_start": 51,
+    "tags": [
+      "arithmetic",
+      "day",
+      "month",
+      "week",
+      "year"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:23.836445+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(year) == integer",
+      "year is not None",
+      "type(month) == integer",
+      "month is not None",
+      "type(day) == integer",
+      "day is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(year) == integer",
+      "year is not None",
+      "type(month) == integer",
+      "month is not None",
+      "type(day) == integer",
+      "day is not None"
+    ]
+  }
+}

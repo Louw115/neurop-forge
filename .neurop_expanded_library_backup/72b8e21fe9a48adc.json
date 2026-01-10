@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "72b8e21fe9a48adc418ad3e86bccf0382e264d3e899205b9f696f605d23e9dc0",
+    "semantic_fingerprint": "02067f16e96e9dea2356f61dff1e90627117e781152065eb479ee686f0c83989",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Filter a model dict to only allowed fields.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter model",
+        "name": "model",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter allowed_fields",
+        "name": "allowed_fields",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of filter_model_fields",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def filter_model_fields(model: dict, allowed_fields: list) -> dict:\n    \"\"\"Filter a model dict to only allowed fields.\"\"\"\n    return {k: v for k, v in model.items() if k in allowed_fields}",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:26.667817+00:00",
+    "description": "Filter a model dict to only allowed fields.",
+    "intent": "Filter a model dict to only allowed fields.",
+    "language": "python",
+    "name": "filter_model_fields",
+    "source_file": "neurop_forge/sources/orm_patterns.py",
+    "source_line_end": 109,
+    "source_line_start": 107,
+    "tags": [
+      "allowed_fields",
+      "fields",
+      "filter",
+      "filtering",
+      "model"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.667837+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(model) == dict",
+      "model is not None",
+      "type(allowed_fields) == list",
+      "allowed_fields is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(model) == dict",
+      "model is not None",
+      "type(allowed_fields) == list",
+      "allowed_fields is not None"
+    ]
+  }
+}

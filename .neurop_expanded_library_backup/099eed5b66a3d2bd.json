@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "099eed5b66a3d2bd621d93ca69c849548ca6602baff79b92ce426700d3d70314",
+    "semantic_fingerprint": "83d8ad30b7a6e4ea80a0f1ab67db660ef0cb7e7b1700e91a86281c285ea60c83",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Push item to ring buffer.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter buffer",
+        "name": "buffer",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter item",
+        "name": "item",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of ring_push",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def ring_push(buffer: dict, item) -> dict:\n    \"\"\"Push item to ring buffer.\"\"\"\n    items = list(buffer[\"items\"])\n    items[buffer[\"tail\"]] = item\n    new_tail = (buffer[\"tail\"] + 1) % buffer[\"capacity\"]\n    if buffer[\"full\"]:\n        new_head = (buffer[\"head\"] + 1) % buffer[\"capacity\"]\n        new_size = buffer[\"capacity\"]\n    else:\n        new_head = buffer[\"head\"]\n        new_size = buffer[\"size\"] + 1\n    return {\n        \"items\": items,\n        \"capacity\": buffer[\"capacity\"],\n        \"head\": new_head,\n        \"tail\": new_tail,\n        \"size\": new_size,\n        \"full\": new_size == buffer[\"capacity\"]\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:30.728371+00:00",
+    "description": "Push item to ring buffer.",
+    "intent": "Push item to ring buffer.",
+    "language": "python",
+    "name": "ring_push",
+    "source_file": "neurop_forge/sources/ring_buffer.py",
+    "source_line_end": 42,
+    "source_line_start": 24,
+    "tags": [
+      "buffer",
+      "item",
+      "list_operation",
+      "push",
+      "ring"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.728391+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(buffer) == dict",
+      "buffer is not None",
+      "item is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(buffer) == dict",
+      "buffer is not None",
+      "item is not None"
+    ]
+  }
+}

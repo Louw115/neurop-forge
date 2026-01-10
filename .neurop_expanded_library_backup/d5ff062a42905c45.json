@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d5ff062a42905c454c2743e2914d64edc6d2f84a4579dd87b4e5f04373ee9f22",
+    "semantic_fingerprint": "fa8eb7f34865fe9e88457a8bb85169eda2aa336223a7eb53ed45017159a91054",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Mark schedule as executed.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter schedule",
+        "name": "schedule",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter timestamp",
+        "name": "timestamp",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of mark_schedule_executed",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def mark_schedule_executed(schedule: dict, timestamp: str) -> dict:\n    \"\"\"Mark schedule as executed.\"\"\"\n    result = dict(schedule)\n    result[\"last_run\"] = timestamp\n    if schedule.get(\"type\") == \"one_time\":\n        result[\"executed\"] = True\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:29.249179+00:00",
+    "description": "Mark schedule as executed.",
+    "intent": "Mark schedule as executed.",
+    "language": "python",
+    "name": "mark_schedule_executed",
+    "source_file": "neurop_forge/sources/scheduler_utilities.py",
+    "source_line_end": 147,
+    "source_line_start": 141,
+    "tags": [
+      "dict_operation",
+      "executed",
+      "mark",
+      "schedule",
+      "timestamp"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.249208+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(schedule) == dict",
+      "schedule is not None",
+      "type(timestamp) == string",
+      "timestamp is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(schedule) == dict",
+      "schedule is not None",
+      "type(timestamp) == string",
+      "timestamp is not None"
+    ]
+  }
+}

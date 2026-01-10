@@ -1,0 +1,135 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0a59febc922acfe530aa2eefec3b6eaa897fc657684474c480524dc00877f83b",
+    "semantic_fingerprint": "2dba31558bd83bb8cc302435cff3823d91426a973718b0cf4b2bfd381d6a447a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get the expiry timestamp from a JWT.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter token",
+        "name": "token",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of get_jwt_expiry_timestamp",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_jwt_expiry_timestamp(token: str) -> int:\n    \"\"\"Get the expiry timestamp from a JWT.\"\"\"\n    payload = parse_jwt_payload(token)\n    return int(payload.get(\"exp\", 0))",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:27.010267+00:00",
+    "description": "Get the expiry timestamp from a JWT.",
+    "intent": "Get the expiry timestamp from a JWT.",
+    "language": "python",
+    "name": "get_jwt_expiry_timestamp",
+    "source_file": "neurop_forge/sources/auth_patterns.py",
+    "source_line_end": 102,
+    "source_line_start": 99,
+    "tags": [
+      "expiry",
+      "filtering",
+      "get",
+      "jwt",
+      "timestamp",
+      "token"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.010286+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(token) == string",
+      "token is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(token) == string",
+      "token is not None"
+    ]
+  }
+}

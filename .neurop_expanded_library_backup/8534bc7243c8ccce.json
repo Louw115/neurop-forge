@@ -1,0 +1,144 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8534bc7243c8ccce8d543edeb8323a51bf9a0cbf2ad8387833bbb4074cc108fe",
+    "semantic_fingerprint": "f90b3e817d150c150974a9b6925de1ffef6c7b46bbfeb994728b54ddaa4c38f6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Apply diff operations to original list.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter original",
+        "name": "original",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter diff",
+        "name": "diff",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of apply_diff",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def apply_diff(original: list, diff: list) -> list:\n    \"\"\"Apply diff operations to original list.\"\"\"\n    result = []\n    for op in diff:\n        if op[\"op\"] == \"equal\":\n            result.append(op[\"value\"])\n        elif op[\"op\"] == \"insert\":\n            result.append(op[\"value\"])\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:30.899241+00:00",
+    "description": "Apply diff operations to original list.",
+    "intent": "Apply diff operations to original list.",
+    "language": "python",
+    "name": "apply_diff",
+    "source_file": "neurop_forge/sources/diff_utilities.py",
+    "source_line_end": 67,
+    "source_line_start": 59,
+    "tags": [
+      "apply",
+      "diff",
+      "list_operation",
+      "original"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.899264+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(original) == list",
+      "original is not None",
+      "type(diff) == list",
+      "diff is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(original) == list",
+      "original is not None",
+      "type(diff) == list",
+      "diff is not None"
+    ]
+  }
+}

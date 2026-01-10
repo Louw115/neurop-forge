@@ -87,7 +87,11 @@ class BlockCompatibilityTester:
         if registry_file.exists():
             with open(registry_file) as f:
                 registry = json.load(f)
-            self._verified_ids = set(registry.get("verified_blocks", {}).keys())
+            verified_blocks = registry.get("verified_blocks", [])
+            if isinstance(verified_blocks, dict):
+                self._verified_ids = set(verified_blocks.keys())
+            else:
+                self._verified_ids = set(verified_blocks)
         
         tier_file = self.registry_path / "tier_registry.json"
         if tier_file.exists():

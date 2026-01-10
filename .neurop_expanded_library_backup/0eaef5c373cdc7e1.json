@@ -1,0 +1,182 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0eaef5c373cdc7e1c106484c13151ab6504c6ca7ec6615387eaac6c00f916029",
+    "semantic_fingerprint": "98081c831fd18420a977deac9229a75d7635011f864be40e3f72c5826c5de3c8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build request metadata for logging/tracing.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter method",
+        "name": "method",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter path",
+        "name": "path",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter query_params",
+        "name": "query_params",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter headers",
+        "name": "headers",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter body_size",
+        "name": "body_size",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_request_metadata",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_request_metadata(method: str, path: str, query_params: dict, headers: dict, body_size: int) -> dict:\n    \"\"\"Build request metadata for logging/tracing.\"\"\"\n    return {\n        \"method\": method,\n        \"path\": path,\n        \"query_params\": query_params,\n        \"content_length\": body_size,\n        \"content_type\": headers.get(\"Content-Type\", \"\"),\n        \"accept\": headers.get(\"Accept\", \"\")\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:27.443178+00:00",
+    "description": "Build request metadata for logging/tracing.",
+    "intent": "Build request metadata for logging/tracing.",
+    "language": "python",
+    "name": "build_request_metadata",
+    "source_file": "neurop_forge/sources/middleware_patterns.py",
+    "source_line_end": 276,
+    "source_line_start": 267,
+    "tags": [
+      "body_size",
+      "build",
+      "dict_operation",
+      "headers",
+      "metadata",
+      "method",
+      "path",
+      "query_params",
+      "request"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.443207+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(method) == string",
+      "method is not None",
+      "type(path) == string",
+      "path is not None",
+      "type(query_params) == dict",
+      "query_params is not None",
+      "type(headers) == dict",
+      "headers is not None",
+      "type(body_size) == integer",
+      "body_size is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(method) == string",
+      "method is not None",
+      "type(path) == string",
+      "path is not None",
+      "type(query_params) == dict",
+      "query_params is not None",
+      "type(headers) == dict",
+      "headers is not None",
+      "type(body_size) == integer",
+      "body_size is not None"
+    ]
+  }
+}

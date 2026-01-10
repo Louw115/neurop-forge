@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2cd2fa58ce1637c515073457588501ae39bd0cd311622441cc632946aac3a744",
+    "semantic_fingerprint": "e4933b11757a014223fa8c15e68ea20544f69edc7c3575c1c9eac63c75be06c8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Search for a key.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter sl",
+        "name": "sl",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Return value of skip_list_search",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def skip_list_search(sl: dict, key):\n    \"\"\"Search for a key.\"\"\"\n    node = sl[\"head\"]\n    for i in range(sl[\"level\"] - 1, -1, -1):\n        while node[\"forward\"][i] and node[\"forward\"][i][\"key\"] < key:\n            node = node[\"forward\"][i]\n    node = node[\"forward\"][0]\n    if node and node[\"key\"] == key:\n        return node[\"value\"]\n    return None",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:30.816638+00:00",
+    "description": "Search for a key.",
+    "intent": "Search for a key.",
+    "language": "python",
+    "name": "skip_list_search",
+    "source_file": "neurop_forge/sources/skip_list.py",
+    "source_line_end": 46,
+    "source_line_start": 37,
+    "tags": [
+      "filtering",
+      "key",
+      "list",
+      "search",
+      "skip",
+      "sl"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.816657+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33925,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.595,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(sl) == dict",
+      "sl is not None",
+      "key is not None"
+    ],
+    "invariants": [],
+    "output_validators": [],
+    "postconditions": [],
+    "preconditions": [
+      "type(sl) == dict",
+      "sl is not None",
+      "key is not None"
+    ]
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3b4dd9702531720043a85b16ecdfa8815562c8f5531feb25ed879013a5695dab",
+    "semantic_fingerprint": "cd040016517fac12f4997d9766d0e0b5c2a782ad5b46548b17921704339f6d6a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get standard error message for HTTP status code.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter status_code",
+        "name": "status_code",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_standard_error_message",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_standard_error_message(status_code: int) -> str:\n    \"\"\"Get standard error message for HTTP status code.\"\"\"\n    messages = {\n        400: \"Bad Request\",\n        401: \"Unauthorized\",\n        402: \"Payment Required\",\n        403: \"Forbidden\",\n        404: \"Not Found\",\n        405: \"Method Not Allowed\",\n        406: \"Not Acceptable\",\n        407: \"Proxy Authentication Required\",\n        408: \"Request Timeout\",\n        409: \"Conflict\",\n        410: \"Gone\",\n        411: \"Length Required\",\n        412: \"Precondition Failed\",\n        413: \"Payload Too Large\",\n        414: \"URI Too Long\",\n        415: \"Unsupported Media Type\",\n        416: \"Range Not Satisfiable\",\n        417: \"Expectation Failed\",\n        418: \"I'm a teapot\",\n        422: \"Unprocessable Entity\",\n        423: \"Locked\",\n        429: \"Too Many Requests\",\n        500: \"Internal Server Error\",\n        501: \"Not Implemented\",\n        502: \"Bad Gateway\",\n        503: \"Service Unavailable\",\n        504: \"Gateway Timeout\"\n    }\n    return messages.get(status_code, \"Unknown Error\")",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:27.322775+00:00",
+    "description": "Get standard error message for HTTP status code.",
+    "intent": "Get standard error message for HTTP status code.",
+    "language": "python",
+    "name": "get_standard_error_message",
+    "source_file": "neurop_forge/sources/error_handling.py",
+    "source_line_end": 79,
+    "source_line_start": 48,
+    "tags": [
+      "error",
+      "filtering",
+      "get",
+      "message",
+      "standard",
+      "status_code"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.322793+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(status_code) == integer",
+      "status_code is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(status_code) == integer",
+      "status_code is not None"
+    ]
+  }
+}

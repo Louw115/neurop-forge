@@ -1,0 +1,156 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "85393586adaa3b17c38878b5d287e9a8f39dafa806a958ac3466a6cf92ee1df6",
+    "semantic_fingerprint": "52d989d651a44a542f8503a97e043ebb4c88318be1079a350fcf6df61cc8127b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if a page would be empty.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter page",
+        "name": "page",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter page_size",
+        "name": "page_size",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter total_items",
+        "name": "total_items",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_page_empty",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_page_empty(page: int, page_size: int, total_items: int) -> bool:\n    \"\"\"Check if a page would be empty.\"\"\"\n    return get_items_on_page(page, page_size, total_items) == 0",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:25.489960+00:00",
+    "description": "Check if a page would be empty.",
+    "intent": "Check if a page would be empty.",
+    "language": "python",
+    "name": "is_page_empty",
+    "source_file": "neurop_forge/sources/pagination_utilities.py",
+    "source_line_end": 260,
+    "source_line_start": 258,
+    "tags": [
+      "empty",
+      "page",
+      "page_size",
+      "total_items",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.490000+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(page) == integer",
+      "page is not None",
+      "type(page_size) == integer",
+      "page_size is not None",
+      "type(total_items) == integer",
+      "total_items is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(page) == integer",
+      "page is not None",
+      "type(page_size) == integer",
+      "page_size is not None",
+      "type(total_items) == integer",
+      "total_items is not None"
+    ]
+  }
+}

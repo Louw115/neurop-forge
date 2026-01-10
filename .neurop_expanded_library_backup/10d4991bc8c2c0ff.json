@@ -1,0 +1,144 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "10d4991bc8c2c0ff574a7cc44a67030762a1f0e518f9172131ff9ca9b4f2d45b",
+    "semantic_fingerprint": "d11b6f1d233b9c6b15f947d977c192ae0afd7a2425a218f35cfea8578ead0b5c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Assign values to bins (returns bin indices).",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter values",
+        "name": "values",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter num_bins",
+        "name": "num_bins",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of bin_values",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def bin_values(values: list, num_bins: int) -> list:\n    \"\"\"Assign values to bins (returns bin indices).\"\"\"\n    if not values or num_bins <= 0:\n        return []\n    min_val = min(values)\n    max_val = max(values)\n    if min_val == max_val:\n        return [0] * len(values)\n    bin_width = (max_val - min_val) / num_bins\n    return [min(int((v - min_val) / bin_width), num_bins - 1) for v in values]",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:24.740504+00:00",
+    "description": "Assign values to bins (returns bin indices).",
+    "intent": "Assign values to bins (returns bin indices).",
+    "language": "python",
+    "name": "bin_values",
+    "source_file": "neurop_forge/sources/data_transformation.py",
+    "source_line_end": 73,
+    "source_line_start": 64,
+    "tags": [
+      "bin",
+      "list_operation",
+      "num_bins",
+      "values"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:24.740529+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(values) == list",
+      "values is not None",
+      "type(num_bins) == integer",
+      "num_bins is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(values) == list",
+      "values is not None",
+      "type(num_bins) == integer",
+      "num_bins is not None"
+    ]
+  }
+}

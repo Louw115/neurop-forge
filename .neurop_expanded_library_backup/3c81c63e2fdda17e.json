@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3c81c63e2fdda17e002e5c048fdd7f89648eb7c2e45cecd54597f25624a88153",
+    "semantic_fingerprint": "696196b8929e4e743c38bea4b0e6d9efa1bac5122f02b7faa6f470ec02c40002",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Increment the trailing number in a slug.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter slug",
+        "name": "slug",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of increment_slug_number",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def increment_slug_number(slug: str) -> str:\n    \"\"\"Increment the trailing number in a slug.\"\"\"\n    match = re.search(r'-(\\d+)$', slug)\n    if match:\n        num = int(match.group(1)) + 1\n        return slug[:match.start()] + f\"-{num}\"\n    return f\"{slug}-1\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:25.546368+00:00",
+    "description": "Increment the trailing number in a slug.",
+    "intent": "Increment the trailing number in a slug.",
+    "language": "python",
+    "name": "increment_slug_number",
+    "source_file": "neurop_forge/sources/slug_utilities.py",
+    "source_line_end": 205,
+    "source_line_start": 199,
+    "tags": [
+      "increment",
+      "number",
+      "slug",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.546386+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(slug) == string",
+      "slug is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(slug) == string",
+      "slug is not None"
+    ]
+  }
+}

@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "aaba5c8d67dda0f2e3d2937c63231191a7fd701d4b65ca4cedd695547f1bb195",
+    "semantic_fingerprint": "80f31f11cc982b2a2b4e8121ac49cf950859746da9ae43940b4f8b372a9da6a2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add parameter to query string.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter query",
+        "name": "query",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of add_param",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def add_param(query: str, key: str, value: str) -> str:\n    \"\"\"Add parameter to query string.\"\"\"\n    params = parse_query_string(query)\n    params[key] = value\n    return build_query_string(params)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:33.969372+00:00",
+    "description": "Add parameter to query string.",
+    "intent": "Add parameter to query string.",
+    "language": "python",
+    "name": "add_param",
+    "source_file": "neurop_forge/sources/query_string.py",
+    "source_line_end": 55,
+    "source_line_start": 51,
+    "tags": [
+      "add",
+      "arithmetic",
+      "key",
+      "param",
+      "query",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:33.969392+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(query) == string",
+      "query is not None",
+      "type(key) == string",
+      "key is not None",
+      "type(value) == string",
+      "value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(query) == string",
+      "query is not None",
+      "type(key) == string",
+      "key is not None",
+      "type(value) == string",
+      "value is not None"
+    ]
+  }
+}

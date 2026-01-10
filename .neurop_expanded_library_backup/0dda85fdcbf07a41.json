@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0dda85fdcbf07a417c02f161d06c5e7719211515e19274d34cc78b67eb98954b",
+    "semantic_fingerprint": "91ddcacf6da6661f67f7e9ae1ef8e247a2ccc0074162387f002ac971c3a42a5a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build summary statistics.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter values",
+        "name": "values",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_summary_statistics",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_summary_statistics(values: list) -> dict:\n    \"\"\"Build summary statistics.\"\"\"\n    return {\n        \"count\": len(values),\n        \"mean\": calculate_mean(values),\n        \"median\": calculate_median(values),\n        \"std_dev\": calculate_std_dev(values, True),\n        \"variance\": calculate_variance(values, True),\n        \"min\": min(values) if values else 0,\n        \"max\": max(values) if values else 0,\n        \"range\": calculate_range(values),\n        \"quartiles\": calculate_quartiles(values)\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:29.778133+00:00",
+    "description": "Build summary statistics.",
+    "intent": "Build summary statistics.",
+    "language": "python",
+    "name": "build_summary_statistics",
+    "source_file": "neurop_forge/sources/statistics_utilities.py",
+    "source_line_end": 249,
+    "source_line_start": 237,
+    "tags": [
+      "build",
+      "dict_operation",
+      "statistics",
+      "summary",
+      "values"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.778153+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(values) == list",
+      "values is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(values) == list",
+      "values is not None"
+    ]
+  }
+}

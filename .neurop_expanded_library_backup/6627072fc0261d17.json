@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "6627072fc0261d176ced6188a6e6a43111b818afdb5c231c9cda95ba3945e622",
+    "semantic_fingerprint": "485d8966bb6f030ddfa3b99aa745f3f53d72368b188174d89bf03fd8d14ed68d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get list of missing permissions.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter user_permissions",
+        "name": "user_permissions",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter required_permissions",
+        "name": "required_permissions",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of get_missing_permissions",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_missing_permissions(user_permissions: list, required_permissions: list) -> list:\n    \"\"\"Get list of missing permissions.\"\"\"\n    return [req for req in required_permissions if not has_permission(user_permissions, req)]",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:29.383479+00:00",
+    "description": "Get list of missing permissions.",
+    "intent": "Get list of missing permissions.",
+    "language": "python",
+    "name": "get_missing_permissions",
+    "source_file": "neurop_forge/sources/permission_utilities.py",
+    "source_line_end": 95,
+    "source_line_start": 93,
+    "tags": [
+      "filtering",
+      "get",
+      "missing",
+      "permissions",
+      "required_permissions",
+      "user_permissions"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.383506+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(user_permissions) == list",
+      "user_permissions is not None",
+      "type(required_permissions) == list",
+      "required_permissions is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(user_permissions) == list",
+      "user_permissions is not None",
+      "type(required_permissions) == list",
+      "required_permissions is not None"
+    ]
+  }
+}

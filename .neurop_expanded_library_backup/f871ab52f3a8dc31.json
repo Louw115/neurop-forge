@@ -1,0 +1,135 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f871ab52f3a8dc31c30670cdb8308b732eb74997f03fa1388f33102d9e19a004",
+    "semantic_fingerprint": "f06297a5b091684812df9f5833e02988a93b9b248683b1f5bb0f73de6ebc6eb7",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build filter query string from conditions.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter filters",
+        "name": "filters",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_filter_query_string",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_filter_query_string(filters: list) -> str:\n    \"\"\"Build filter query string from conditions.\"\"\"\n    parts = []\n    for f in filters:\n        field = f.get(\"field\", \"\")\n        operator = f.get(\"operator\", \"eq\")\n        value = f.get(\"value\", \"\")\n        if operator == \"eq\":\n            parts.append(f\"filter[{field}]={value}\")\n        else:\n            parts.append(f\"filter[{field}__{operator}]={value}\")\n    return \"&\".join(parts)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:26.934096+00:00",
+    "description": "Build filter query string from conditions.",
+    "intent": "Build filter query string from conditions.",
+    "language": "python",
+    "name": "build_filter_query_string",
+    "source_file": "neurop_forge/sources/api_patterns.py",
+    "source_line_end": 293,
+    "source_line_start": 282,
+    "tags": [
+      "build",
+      "filter",
+      "filters",
+      "query",
+      "string",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.934120+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(filters) == list",
+      "filters is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(filters) == list",
+      "filters is not None"
+    ]
+  }
+}

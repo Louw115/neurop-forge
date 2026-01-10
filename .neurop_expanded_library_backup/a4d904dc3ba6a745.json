@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a4d904dc3ba6a7455b9c2840e6c052d44462b320a712d1d66d1f9902f006d373",
+    "semantic_fingerprint": "841b8a991e670c1e74f596fc9c8a84e0240aa4afa0d025e849843ec6761d7704",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Apply a state transition (returns new machine state).",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter machine",
+        "name": "machine",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter to_state",
+        "name": "to_state",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of apply_transition",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def apply_transition(machine: dict, to_state: str) -> dict:\n    \"\"\"Apply a state transition (returns new machine state).\"\"\"\n    current = get_current_state(machine)\n    if not can_transition(machine, current, to_state):\n        return machine\n    result = dict(machine)\n    result[\"current_state\"] = to_state\n    result[\"previous_state\"] = current\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:27.533597+00:00",
+    "description": "Apply a state transition (returns new machine state).",
+    "intent": "Apply a state transition (returns new machine state).",
+    "language": "python",
+    "name": "apply_transition",
+    "source_file": "neurop_forge/sources/state_machine.py",
+    "source_line_end": 52,
+    "source_line_start": 44,
+    "tags": [
+      "apply",
+      "dict_operation",
+      "machine",
+      "to_state",
+      "transition"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.533621+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(machine) == dict",
+      "machine is not None",
+      "type(to_state) == string",
+      "to_state is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(machine) == dict",
+      "machine is not None",
+      "type(to_state) == string",
+      "to_state is not None"
+    ]
+  }
+}

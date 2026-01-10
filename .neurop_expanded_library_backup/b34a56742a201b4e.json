@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception",
+      "KeyError"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b34a56742a201b4e6e0ba2a0a707bb048aaa091458ae0edd728c737b5c192b1b",
+    "semantic_fingerprint": "6c01a9417e631988b6ff5bab55932bde3b3f19ce0bb9aed6d97d773c164108c3",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Remove duplicate dicts based on a key field (keeps first).",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter data",
+        "name": "data",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of remove_duplicates_by_key",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def remove_duplicates_by_key(data: list, key: str) -> list:\n    \"\"\"Remove duplicate dicts based on a key field (keeps first).\"\"\"\n    seen = set()\n    result = []\n    for item in data:\n        if key in item:\n            if item[key] not in seen:\n                seen.add(item[key])\n                result.append(item)\n        else:\n            result.append(item)\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:24.772555+00:00",
+    "description": "Remove duplicate dicts based on a key field (keeps first).",
+    "intent": "Remove duplicate dicts based on a key field (keeps first).",
+    "language": "python",
+    "name": "remove_duplicates_by_key",
+    "source_file": "neurop_forge/sources/data_transformation.py",
+    "source_line_end": 317,
+    "source_line_start": 306,
+    "tags": [
+      "data",
+      "duplicates",
+      "key",
+      "list_operation",
+      "remove"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:24.772574+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(data) == list",
+      "data is not None",
+      "type(key) == string",
+      "key is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(data) == list",
+      "data is not None",
+      "type(key) == string",
+      "key is not None"
+    ]
+  }
+}

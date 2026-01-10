@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "fbf205a9f564f33d03fc5ac72fff3606d6e76be76e161f1db1d2217b933036c2",
+    "semantic_fingerprint": "dc4d6680d401e4058c8ee75d3edd911554a686a64b9507356b3b5c7f3f7117b8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if granted scopes include all required scopes.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter granted_scopes",
+        "name": "granted_scopes",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter required_scopes",
+        "name": "required_scopes",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of has_required_scopes",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def has_required_scopes(granted_scopes: list, required_scopes: list) -> bool:\n    \"\"\"Check if granted scopes include all required scopes.\"\"\"\n    granted_set = set(granted_scopes)\n    required_set = set(required_scopes)\n    return required_set.issubset(granted_set)",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:27.034312+00:00",
+    "description": "Check if granted scopes include all required scopes.",
+    "intent": "Check if granted scopes include all required scopes.",
+    "language": "python",
+    "name": "has_required_scopes",
+    "source_file": "neurop_forge/sources/auth_patterns.py",
+    "source_line_end": 260,
+    "source_line_start": 256,
+    "tags": [
+      "granted_scopes",
+      "has",
+      "required",
+      "required_scopes",
+      "scopes",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.034330+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(granted_scopes) == list",
+      "granted_scopes is not None",
+      "type(required_scopes) == list",
+      "required_scopes is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(granted_scopes) == list",
+      "granted_scopes is not None",
+      "type(required_scopes) == list",
+      "required_scopes is not None"
+    ]
+  }
+}

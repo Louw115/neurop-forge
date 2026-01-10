@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "36e3a2bfab5f66e18211bb069deb15d7cc2cc24abf22b88cdc0f42d569fc40a8",
+    "semantic_fingerprint": "e2203e9d1081dff49b1e373705557993c71852dbbc5f46880d2c5393dc6f09ad",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if version satisfies simple range.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter version",
+        "name": "version",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter range_spec",
+        "name": "range_spec",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of satisfies_range",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def satisfies_range(version: str, range_spec: str) -> bool:\n    \"\"\"Check if version satisfies simple range.\"\"\"\n    if range_spec.startswith('>='):\n        return not is_less(version, range_spec[2:].strip())\n    if range_spec.startswith('<='):\n        return not is_greater(version, range_spec[2:].strip())\n    if range_spec.startswith('>'):\n        return is_greater(version, range_spec[1:].strip())\n    if range_spec.startswith('<'):\n        return is_less(version, range_spec[1:].strip())\n    if range_spec.startswith('='):\n        return is_equal(version, range_spec[1:].strip())\n    if range_spec.startswith('^'):\n        base = parse_version(range_spec[1:].strip())\n        v = parse_version(version)\n        if not base or not v:\n            return False\n        if v['major'] != base['major']:\n            return False\n        return not is_less(version, range_spec[1:].strip())\n    if range_spec.startswith('~'):\n        base = parse_version(range_spec[1:].strip())\n        v = parse_version(version)\n        if not base or not v:\n            return False\n        if v['major'] != base['major'] or v['minor'] != base['minor']:\n            return False\n        return not is_less(version, range_spec[1:].strip())\n    return is_equal(version, range_spec)",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:32.612424+00:00",
+    "description": "Check if version satisfies simple range.",
+    "intent": "Check if version satisfies simple range.",
+    "language": "python",
+    "name": "satisfies_range",
+    "source_file": "neurop_forge/sources/semantic_version.py",
+    "source_line_end": 173,
+    "source_line_start": 145,
+    "tags": [
+      "range",
+      "range_spec",
+      "satisfies",
+      "validation",
+      "version"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:32.612453+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(version) == string",
+      "version is not None",
+      "type(range_spec) == string",
+      "range_spec is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(version) == string",
+      "version is not None",
+      "type(range_spec) == string",
+      "range_spec is not None"
+    ]
+  }
+}

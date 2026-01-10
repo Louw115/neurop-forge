@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5da536d83c18b885f111e1f7a3a5f6a507c616bf0561379c33b4db589906c3d5",
+    "semantic_fingerprint": "f7a6735a388b84b98f8843d5e8038da8a66167f939def3af60ea7d38734e53a9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Decode base64 payload.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter encoded",
+        "name": "encoded",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of decode_token_base64",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def decode_token_base64(encoded: str) -> str:\n    \"\"\"Decode base64 payload.\"\"\"\n    try:\n        return base64.urlsafe_b64decode(encoded.encode()).decode()\n    except:\n        return \"\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:34.673132+00:00",
+    "description": "Decode base64 payload.",
+    "intent": "Decode base64 payload.",
+    "language": "python",
+    "name": "decode_token_base64",
+    "source_file": "neurop_forge/sources/token_utilities.py",
+    "source_line_end": 86,
+    "source_line_start": 81,
+    "tags": [
+      "base64",
+      "decode",
+      "encoded",
+      "string_manipulation",
+      "token"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.673158+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(encoded) == string",
+      "encoded is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(encoded) == string",
+      "encoded is not None"
+    ]
+  }
+}

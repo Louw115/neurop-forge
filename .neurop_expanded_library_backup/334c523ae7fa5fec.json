@@ -1,0 +1,156 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "334c523ae7fa5fec4f802048936d0779b15470ef46d51f443749137d94e5e5ff",
+    "semantic_fingerprint": "0cb000981d86b3dfed3347bb7c5fe7e3f7ae78734ec1f522babb7beaab7fc600",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format a value as an XML element.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter tag",
+        "name": "tag",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter attributes",
+        "name": "attributes",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_xml_element",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_xml_element(tag: str, value, attributes: dict) -> str:\n    \"\"\"Format a value as an XML element.\"\"\"\n    attrs = \" \".join(f'{k}=\"{v}\"' for k, v in attributes.items())\n    if attrs:\n        attrs = \" \" + attrs\n    if isinstance(value, dict):\n        children = \"\".join(format_xml_element(k, v, {}) for k, v in value.items())\n        return f\"<{tag}{attrs}>{children}</{tag}>\"\n    elif isinstance(value, list):\n        children = \"\".join(format_xml_element(\"item\", v, {}) for v in value)\n        return f\"<{tag}{attrs}>{children}</{tag}>\"\n    else:\n        escaped = str(value).replace(\"&\", \"&amp;\").replace(\"<\", \"&lt;\").replace(\">\", \"&gt;\")\n        return f\"<{tag}{attrs}>{escaped}</{tag}>\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:27.294539+00:00",
+    "description": "Format a value as an XML element.",
+    "intent": "Format a value as an XML element.",
+    "language": "python",
+    "name": "format_xml_element",
+    "source_file": "neurop_forge/sources/response_formatting.py",
+    "source_line_end": 353,
+    "source_line_start": 340,
+    "tags": [
+      "attributes",
+      "element",
+      "format",
+      "string_manipulation",
+      "tag",
+      "value",
+      "xml"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.294567+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(tag) == string",
+      "tag is not None",
+      "value is not None",
+      "type(attributes) == dict",
+      "attributes is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(tag) == string",
+      "tag is not None",
+      "value is not None",
+      "type(attributes) == dict",
+      "attributes is not None"
+    ]
+  }
+}

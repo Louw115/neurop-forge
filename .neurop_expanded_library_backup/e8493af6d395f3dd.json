@@ -1,0 +1,158 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e8493af6d395f3dd1c7e6f670c8b4a0816e1e36f855da3a9d1e289cb3569ee28",
+    "semantic_fingerprint": "b447a30a07f2f21610dc8ece2d5a0293cdf8745620555578098932907b2ba1c2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Create search result context snippet.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter query",
+        "name": "query",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter context_size",
+        "name": "context_size",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of create_search_context",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def create_search_context(query: str, text: str, context_size: int) -> str:\n    \"\"\"Create search result context snippet.\"\"\"\n    query_lower = query.lower()\n    text_lower = text.lower()\n    pos = text_lower.find(query_lower)\n    if pos == -1:\n        return text[:context_size * 2]\n    start = max(0, pos - context_size)\n    end = min(len(text), pos + len(query) + context_size)\n    snippet = text[start:end]\n    if start > 0:\n        snippet = \"...\" + snippet\n    if end < len(text):\n        snippet = snippet + \"...\"\n    return snippet",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:35.015058+00:00",
+    "description": "Create search result context snippet.",
+    "intent": "Create search result context snippet.",
+    "language": "python",
+    "name": "create_search_context",
+    "source_file": "neurop_forge/sources/search_helpers.py",
+    "source_line_end": 157,
+    "source_line_start": 143,
+    "tags": [
+      "context",
+      "context_size",
+      "create",
+      "query",
+      "search",
+      "string_manipulation",
+      "text"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:35.015096+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(query) == string",
+      "query is not None",
+      "type(text) == string",
+      "text is not None",
+      "type(context_size) == integer",
+      "context_size is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(query) == string",
+      "query is not None",
+      "type(text) == string",
+      "text is not None",
+      "type(context_size) == integer",
+      "context_size is not None"
+    ]
+  }
+}

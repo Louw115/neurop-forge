@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ba69b5a3c1479c35af9c2528e35067950f56c69bd2b50d5031fe91208939ad1c",
+    "semantic_fingerprint": "3b1dfe70dc8bd3dbbd462d44b36dac0ca4f0c39cf85082495ac0b6fca3a0055b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate minimum numeric value.",
+    "inputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter min_val",
+        "name": "min_val",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter message",
+        "name": "message",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of validate_min_value",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_min_value(value, min_val, message: str) -> dict:\n    \"\"\"Validate minimum numeric value.\"\"\"\n    try:\n        is_valid = float(value) >= min_val\n        return {\"valid\": is_valid, \"error\": None if is_valid else message}\n    except (ValueError, TypeError):\n        return {\"valid\": False, \"error\": message}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:29.308566+00:00",
+    "description": "Validate minimum numeric value.",
+    "intent": "Validate minimum numeric value.",
+    "language": "python",
+    "name": "validate_min_value",
+    "source_file": "neurop_forge/sources/form_utilities.py",
+    "source_line_end": 101,
+    "source_line_start": 95,
+    "tags": [
+      "message",
+      "min",
+      "min_val",
+      "validate",
+      "validation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.308594+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "value is not None",
+      "min_val is not None",
+      "type(message) == string",
+      "message is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "value is not None",
+      "min_val is not None",
+      "type(message) == string",
+      "message is not None"
+    ]
+  }
+}

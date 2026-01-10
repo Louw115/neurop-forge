@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7e6c6fff32cc045ba9751da6a34422b9d80a24bd3816d29cb495697596156882",
+    "semantic_fingerprint": "5616bebb357a6797538f49861c143864d8fc4f86b5558f8346844db2d71ff029",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate upload progress percentage.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter bytes_uploaded",
+        "name": "bytes_uploaded",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter total_bytes",
+        "name": "total_bytes",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_upload_progress",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_upload_progress(bytes_uploaded: int, total_bytes: int) -> float:\n    \"\"\"Calculate upload progress percentage.\"\"\"\n    if total_bytes <= 0:\n        return 0.0\n    return min(100.0, (bytes_uploaded / total_bytes) * 100)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:28.490858+00:00",
+    "description": "Calculate upload progress percentage.",
+    "intent": "Calculate upload progress percentage.",
+    "language": "python",
+    "name": "calculate_upload_progress",
+    "source_file": "neurop_forge/sources/file_utilities.py",
+    "source_line_end": 251,
+    "source_line_start": 247,
+    "tags": [
+      "arithmetic",
+      "bytes_uploaded",
+      "calculate",
+      "progress",
+      "total_bytes",
+      "upload"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.490893+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(bytes_uploaded) == integer",
+      "bytes_uploaded is not None",
+      "type(total_bytes) == integer",
+      "total_bytes is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(bytes_uploaded) == integer",
+      "bytes_uploaded is not None",
+      "type(total_bytes) == integer",
+      "total_bytes is not None"
+    ]
+  }
+}

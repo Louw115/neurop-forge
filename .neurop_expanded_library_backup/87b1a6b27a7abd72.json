@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "87b1a6b27a7abd729ccd6ec53314da95612dcf8432047500ccee6c2f1677ae6e",
+    "semantic_fingerprint": "b09c24f7fa39f1df1c10adb14d73de9b7fc791e74af4e996645f0fb64745ce12",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if path exists.",
+    "inputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter data",
+        "name": "data",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter path",
+        "name": "path",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of has_path",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def has_path(data, path: str) -> bool:\n    \"\"\"Check if path exists.\"\"\"\n    keys = path.split(\".\")\n    current = data\n    for key in keys:\n        if isinstance(current, dict) and key in current:\n            current = current[key]\n        elif isinstance(current, list):\n            try:\n                current = current[int(key)]\n            except (ValueError, IndexError):\n                return False\n        else:\n            return False\n    return True",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:31.818486+00:00",
+    "description": "Check if path exists.",
+    "intent": "Check if path exists.",
+    "language": "python",
+    "name": "has_path",
+    "source_file": "neurop_forge/sources/json_utilities.py",
+    "source_line_end": 108,
+    "source_line_start": 94,
+    "tags": [
+      "data",
+      "has",
+      "path",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.818505+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "data is not None",
+      "type(path) == string",
+      "path is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "data is not None",
+      "type(path) == string",
+      "path is not None"
+    ]
+  }
+}

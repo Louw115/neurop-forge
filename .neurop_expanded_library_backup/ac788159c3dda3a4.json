@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ac788159c3dda3a47928edcc9c81eef073362b1edb3bb1245fb17a83b019702f",
+    "semantic_fingerprint": "64a916caf54a8cb07a69d8cc1d0a9f6893ef0372c27a76c49600249a92c1c935",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Wrap a query in EXISTS to check for rows.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter query",
+        "name": "query",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of wrap_in_exists",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def wrap_in_exists(query: str) -> str:\n    \"\"\"Wrap a query in EXISTS to check for rows.\"\"\"\n    cleaned = query.rstrip().rstrip(';')\n    return f\"SELECT EXISTS ({cleaned})\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:26.171539+00:00",
+    "description": "Wrap a query in EXISTS to check for rows.",
+    "intent": "Wrap a query in EXISTS to check for rows.",
+    "language": "python",
+    "name": "wrap_in_exists",
+    "source_file": "neurop_forge/sources/query_helpers.py",
+    "source_line_end": 223,
+    "source_line_start": 220,
+    "tags": [
+      "exists",
+      "query",
+      "string_manipulation",
+      "wrap"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.171566+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(query) == string",
+      "query is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(query) == string",
+      "query is not None"
+    ]
+  }
+}

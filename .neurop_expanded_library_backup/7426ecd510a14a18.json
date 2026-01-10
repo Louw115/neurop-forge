@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7426ecd510a14a180072bb71695153d5af888255fe353ea181ddddea759ee2ef",
+    "semantic_fingerprint": "6dd6d863a6b9e4ae613835718b839dcc4bcebc883d59511b8a90806e0ef14322",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a fully qualified column reference (table.column).",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter table_alias",
+        "name": "table_alias",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter column",
+        "name": "column",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_qualified_column",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_qualified_column(table_alias: str, column: str) -> str:\n    \"\"\"Build a fully qualified column reference (table.column).\"\"\"\n    return f\"{escape_sql_identifier(table_alias)}.{escape_sql_identifier(column)}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:25.911939+00:00",
+    "description": "Build a fully qualified column reference (table.column).",
+    "intent": "Build a fully qualified column reference (table.column).",
+    "language": "python",
+    "name": "build_qualified_column",
+    "source_file": "neurop_forge/sources/sql_building.py",
+    "source_line_end": 285,
+    "source_line_start": 283,
+    "tags": [
+      "build",
+      "column",
+      "qualified",
+      "string_manipulation",
+      "table_alias"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.911968+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(table_alias) == string",
+      "table_alias is not None",
+      "type(column) == string",
+      "column is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(table_alias) == string",
+      "table_alias is not None",
+      "type(column) == string",
+      "column is not None"
+    ]
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4f1070e1bea8de67f5f0ecb558fa1db2b82c8adfa5fa4b9c798ba8059f80e625",
+    "semantic_fingerprint": "5887a9152448fc9881815d935c36b89aefddf697566ddad4d7afb5b2b1c746cc",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Apply discount to get final price.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter original",
+        "name": "original",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter discount_percent",
+        "name": "discount_percent",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of apply_discount",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def apply_discount(original: float, discount_percent: float) -> float:\n    \"\"\"Apply discount to get final price.\"\"\"\n    return round_to_cents(original * (1 - discount_percent / 100))",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:25.593664+00:00",
+    "description": "Apply discount to get final price.",
+    "intent": "Apply discount to get final price.",
+    "language": "python",
+    "name": "apply_discount",
+    "source_file": "neurop_forge/sources/money_utilities.py",
+    "source_line_end": 111,
+    "source_line_start": 109,
+    "tags": [
+      "apply",
+      "arithmetic",
+      "discount",
+      "discount_percent",
+      "original"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.593683+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(original) == float",
+      "original is not None",
+      "type(discount_percent) == float",
+      "discount_percent is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(original) == float",
+      "original is not None",
+      "type(discount_percent) == float",
+      "discount_percent is not None"
+    ]
+  }
+}

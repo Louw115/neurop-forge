@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8701db8c769b032131fe368cb368cbd6ec6f6f994367d077c740c154880af751",
+    "semantic_fingerprint": "aaa0af8e33fc8aff459e7a18e12154bf3d4d4683bd990eed98fca8fbacaf3af2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate Pearson correlation coefficient.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter x",
+        "name": "x",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter y",
+        "name": "y",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_correlation",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_correlation(x: list, y: list) -> float:\n    \"\"\"Calculate Pearson correlation coefficient.\"\"\"\n    if len(x) != len(y) or len(x) < 2:\n        return 0.0\n    cov = calculate_covariance(x, y, True)\n    std_x = calculate_std_dev(x, True)\n    std_y = calculate_std_dev(y, True)\n    if std_x == 0 or std_y == 0:\n        return 0.0\n    return cov / (std_x * std_y)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:29.755699+00:00",
+    "description": "Calculate Pearson correlation coefficient.",
+    "intent": "Calculate Pearson correlation coefficient.",
+    "language": "python",
+    "name": "calculate_correlation",
+    "source_file": "neurop_forge/sources/statistics_utilities.py",
+    "source_line_end": 143,
+    "source_line_start": 134,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "correlation",
+      "x",
+      "y"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.755718+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(x) == list",
+      "x is not None",
+      "type(y) == list",
+      "y is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(x) == list",
+      "x is not None",
+      "type(y) == list",
+      "y is not None"
+    ]
+  }
+}

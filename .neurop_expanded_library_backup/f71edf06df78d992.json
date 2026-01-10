@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f71edf06df78d9929530d42b1eb7a69ba90d13ebf60efa0aa3c4468317909c3c",
+    "semantic_fingerprint": "2ac956054f7e7919695153e273345e0a1ba2b66361afd4e20396c0de9dbde012",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if LRU eviction should occur.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter cache_size",
+        "name": "cache_size",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_size",
+        "name": "max_size",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of lru_should_evict",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def lru_should_evict(cache_size: int, max_size: int) -> bool:\n    \"\"\"Check if LRU eviction should occur.\"\"\"\n    return cache_size >= max_size",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:25.106179+00:00",
+    "description": "Check if LRU eviction should occur.",
+    "intent": "Check if LRU eviction should occur.",
+    "language": "python",
+    "name": "lru_should_evict",
+    "source_file": "neurop_forge/sources/caching_utilities.py",
+    "source_line_end": 179,
+    "source_line_start": 177,
+    "tags": [
+      "cache_size",
+      "evict",
+      "lru",
+      "max_size",
+      "should",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.106201+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(cache_size) == integer",
+      "cache_size is not None",
+      "type(max_size) == integer",
+      "max_size is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(cache_size) == integer",
+      "cache_size is not None",
+      "type(max_size) == integer",
+      "max_size is not None"
+    ]
+  }
+}

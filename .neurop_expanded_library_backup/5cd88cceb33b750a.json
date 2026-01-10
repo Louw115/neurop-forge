@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5cd88cceb33b750a2b0dea55a9516003525d0a668e6ebf0eae94eac1f92188be",
+    "semantic_fingerprint": "4fa79446029bc9e41ee411e58c86c54cd6017e4479eb8c26d8578fa7999042ae",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Unpack integers from byte-aligned groups.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter packed",
+        "name": "packed",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter bit_width",
+        "name": "bit_width",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter count",
+        "name": "count",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of unpack_integers",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def unpack_integers(packed: list, bit_width: int, count: int) -> list:\n    \"\"\"Unpack integers from byte-aligned groups.\"\"\"\n    result = []\n    buffer = 0\n    bits_in_buffer = 0\n    byte_idx = 0\n    for _ in range(count):\n        while bits_in_buffer < bit_width and byte_idx < len(packed):\n            buffer = (buffer << 8) | packed[byte_idx]\n            bits_in_buffer += 8\n            byte_idx += 1\n        bits_in_buffer -= bit_width\n        result.append((buffer >> bits_in_buffer) & ((1 << bit_width) - 1))\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:28.817640+00:00",
+    "description": "Unpack integers from byte-aligned groups.",
+    "intent": "Unpack integers from byte-aligned groups.",
+    "language": "python",
+    "name": "unpack_integers",
+    "source_file": "neurop_forge/sources/compression_utilities.py",
+    "source_line_end": 217,
+    "source_line_start": 204,
+    "tags": [
+      "bit_width",
+      "count",
+      "integers",
+      "list_operation",
+      "packed",
+      "unpack"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.817658+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(packed) == list",
+      "packed is not None",
+      "type(bit_width) == integer",
+      "bit_width is not None",
+      "type(count) == integer",
+      "count is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(packed) == list",
+      "packed is not None",
+      "type(bit_width) == integer",
+      "bit_width is not None",
+      "type(count) == integer",
+      "count is not None"
+    ]
+  }
+}

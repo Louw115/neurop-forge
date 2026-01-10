@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "018f20cadeab4b6aa39986a34264ff5849c7571ec57ece1aa0eaf4820cef4c4a",
+    "semantic_fingerprint": "003eb3f4b3aad55bbc16461243987061a97bd9e27202c4baeb378e276e5ecbc7",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if address has unit/apartment number.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter address",
+        "name": "address",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of has_unit_number",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def has_unit_number(address: str) -> bool:\n    \"\"\"Check if address has unit/apartment number.\"\"\"\n    patterns = [r'\\bApt\\.?\\s*\\d', r'\\bSte\\.?\\s*\\d', r'\\bUnit\\s*\\d', r'#\\s*\\d']\n    return any(re.search(p, address, re.IGNORECASE) for p in patterns)",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:34.218101+00:00",
+    "description": "Check if address has unit/apartment number.",
+    "intent": "Check if address has unit/apartment number.",
+    "language": "python",
+    "name": "has_unit_number",
+    "source_file": "neurop_forge/sources/address_utilities.py",
+    "source_line_end": 131,
+    "source_line_start": 128,
+    "tags": [
+      "address",
+      "has",
+      "number",
+      "unit",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.218123+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(address) == string",
+      "address is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(address) == string",
+      "address is not None"
+    ]
+  }
+}

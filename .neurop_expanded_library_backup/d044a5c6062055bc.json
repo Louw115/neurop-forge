@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic aggregation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d044a5c6062055bc2dc533d426906009406d6d8947aaa2789d676508914e3f58",
+    "semantic_fingerprint": "210d94f51e4d8993c085c5ed54d611a52c45fec0a45e94dcd9fff750837efa9a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Count total nodes in trie.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter trie",
+        "name": "trie",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of trie_node_count",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def trie_node_count(trie: dict) -> int:\n    \"\"\"Count total nodes in trie.\"\"\"\n    def count_nodes(node: dict) -> int:\n        return 1 + sum(count_nodes(child) for child in node[\"children\"].values())\n    return count_nodes(trie[\"root\"])",
+  "metadata": {
+    "category": "aggregation",
+    "created_at": "2026-01-10T12:22:30.350532+00:00",
+    "description": "Count total nodes in trie.",
+    "intent": "Count total nodes in trie.",
+    "language": "python",
+    "name": "trie_node_count",
+    "source_file": "neurop_forge/sources/trie_utilities.py",
+    "source_line_end": 229,
+    "source_line_start": 225,
+    "tags": [
+      "aggregation",
+      "count",
+      "node",
+      "trie"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.350552+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(trie) == dict",
+      "trie is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(trie) == dict",
+      "trie is not None"
+    ]
+  }
+}

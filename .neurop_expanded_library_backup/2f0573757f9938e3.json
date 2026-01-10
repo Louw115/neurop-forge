@@ -1,0 +1,144 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2f0573757f9938e39303f1b111c9a73bf4f0103d8d0b03c2637ea1d03fbcd69c",
+    "semantic_fingerprint": "c44f8c07dc273f41b48217132e8ad617c1d57b5a0552981e414fa2d1f7e5928b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add a percentage to an amount.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter amount",
+        "name": "amount",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter percentage",
+        "name": "percentage",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of add_percentage",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def add_percentage(amount: float, percentage: float) -> float:\n    \"\"\"Add a percentage to an amount.\"\"\"\n    return round_to_cents(amount * (1 + percentage / 100))",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:25.586615+00:00",
+    "description": "Add a percentage to an amount.",
+    "intent": "Add a percentage to an amount.",
+    "language": "python",
+    "name": "add_percentage",
+    "source_file": "neurop_forge/sources/money_utilities.py",
+    "source_line_end": 81,
+    "source_line_start": 79,
+    "tags": [
+      "add",
+      "amount",
+      "arithmetic",
+      "percentage"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.586631+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(amount) == float",
+      "amount is not None",
+      "type(percentage) == float",
+      "percentage is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(amount) == float",
+      "amount is not None",
+      "type(percentage) == float",
+      "percentage is not None"
+    ]
+  }
+}

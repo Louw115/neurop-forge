@@ -1,0 +1,170 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e42ace82e35fff9fe56796956d39460e16aecf864a6f2a07149fb1d98e6a1425",
+    "semantic_fingerprint": "cf741f5af5a5fb8fd9719a31787e226dfe90edeb20f4a19a50526f0fac8edc76",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if cache should be proactively refreshed (before expiry).",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter created_at",
+        "name": "created_at",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter ttl_seconds",
+        "name": "ttl_seconds",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_time",
+        "name": "current_time",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter refresh_threshold",
+        "name": "refresh_threshold",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of should_refresh_cache",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def should_refresh_cache(created_at: int, ttl_seconds: int, current_time: int, refresh_threshold: float) -> bool:\n    \"\"\"Check if cache should be proactively refreshed (before expiry).\"\"\"\n    remaining = remaining_ttl(created_at, ttl_seconds, current_time)\n    threshold = ttl_seconds * refresh_threshold\n    return remaining < threshold",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:25.104552+00:00",
+    "description": "Check if cache should be proactively refreshed (before expiry).",
+    "intent": "Check if cache should be proactively refreshed (before expiry).",
+    "language": "python",
+    "name": "should_refresh_cache",
+    "source_file": "neurop_forge/sources/caching_utilities.py",
+    "source_line_end": 162,
+    "source_line_start": 158,
+    "tags": [
+      "cache",
+      "created_at",
+      "current_time",
+      "refresh",
+      "refresh_threshold",
+      "should",
+      "ttl_seconds",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.104571+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(created_at) == integer",
+      "created_at is not None",
+      "type(ttl_seconds) == integer",
+      "ttl_seconds is not None",
+      "type(current_time) == integer",
+      "current_time is not None",
+      "type(refresh_threshold) == float",
+      "refresh_threshold is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(created_at) == integer",
+      "created_at is not None",
+      "type(ttl_seconds) == integer",
+      "ttl_seconds is not None",
+      "type(current_time) == integer",
+      "current_time is not None",
+      "type(refresh_threshold) == float",
+      "refresh_threshold is not None"
+    ]
+  }
+}

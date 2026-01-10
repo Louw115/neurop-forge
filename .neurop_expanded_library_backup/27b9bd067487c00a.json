@@ -1,0 +1,158 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "27b9bd067487c00afb594cb0fe39adf43fecb752506b30fdad3d8afb4408d8eb",
+    "semantic_fingerprint": "0f0be8b76588b10be7e9d08fafa5c4138765d1ee76b1c164fdb67415afcae69c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Safely compute weighted average.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter values",
+        "name": "values",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter weights",
+        "name": "weights",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter default",
+        "name": "default",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of safe_weighted_average",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def safe_weighted_average(values: list, weights: list, default: float) -> float:\n    \"\"\"Safely compute weighted average.\"\"\"\n    if not values or not weights or len(values) != len(weights):\n        return default\n    total_weight = sum(weights)\n    if total_weight == 0:\n        return default\n    return sum(v * w for v, w in zip(values, weights)) / total_weight",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:33.494432+00:00",
+    "description": "Safely compute weighted average.",
+    "intent": "Safely compute weighted average.",
+    "language": "python",
+    "name": "safe_weighted_average",
+    "source_file": "neurop_forge/sources/safe_math.py",
+    "source_line_end": 181,
+    "source_line_start": 174,
+    "tags": [
+      "arithmetic",
+      "average",
+      "default",
+      "safe",
+      "values",
+      "weighted",
+      "weights"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:33.494460+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(values) == list",
+      "values is not None",
+      "type(weights) == list",
+      "weights is not None",
+      "type(default) == float",
+      "default is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(values) == list",
+      "values is not None",
+      "type(weights) == list",
+      "weights is not None",
+      "type(default) == float",
+      "default is not None"
+    ]
+  }
+}

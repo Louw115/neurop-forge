@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "fb251245ff5ef7a8e3758d547dea9a38d4a0a1d5b53bce9805fb51fcd87207d8",
+    "semantic_fingerprint": "3f31f3bd0179affc0da5fd245e147c1b9f3ad55d2728c5a18bb5fb96c8b63c2c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Select connection using LIFO (newest first) strategy.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter connection_ages",
+        "name": "connection_ages",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of select_connection_lifo",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def select_connection_lifo(connection_ages: list) -> int:\n    \"\"\"Select connection using LIFO (newest first) strategy.\"\"\"\n    if not connection_ages:\n        return -1\n    return connection_ages.index(max(connection_ages))",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:26.779917+00:00",
+    "description": "Select connection using LIFO (newest first) strategy.",
+    "intent": "Select connection using LIFO (newest first) strategy.",
+    "language": "python",
+    "name": "select_connection_lifo",
+    "source_file": "neurop_forge/sources/connection_pool.py",
+    "source_line_end": 210,
+    "source_line_start": 206,
+    "tags": [
+      "connection",
+      "connection_ages",
+      "filtering",
+      "lifo",
+      "select"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.779942+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(connection_ages) == list",
+      "connection_ages is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(connection_ages) == list",
+      "connection_ages is not None"
+    ]
+  }
+}

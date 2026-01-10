@@ -1,0 +1,158 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "6e69aefcea57635e766f745378692a490a95551d93da7560ab5e2d734193c031",
+    "semantic_fingerprint": "95f293fdb293df3c0b49055ced74af67a56cacdbc8f73ffebda7e27e97a800dc",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a condition for polymorphic associations.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter type_column",
+        "name": "type_column",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter type_value",
+        "name": "type_value",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter id_column",
+        "name": "id_column",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_polymorphic_condition",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_polymorphic_condition(type_column: str, type_value: str, id_column: str) -> str:\n    \"\"\"Build a condition for polymorphic associations.\"\"\"\n    from neurop_forge.sources.sql_building import escape_sql_identifier, escape_sql_string\n    return f\"{escape_sql_identifier(type_column)} = '{escape_sql_string(type_value)}' AND {escape_sql_identifier(id_column)} = $1\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:26.702333+00:00",
+    "description": "Build a condition for polymorphic associations.",
+    "intent": "Build a condition for polymorphic associations.",
+    "language": "python",
+    "name": "build_polymorphic_condition",
+    "source_file": "neurop_forge/sources/orm_patterns.py",
+    "source_line_end": 302,
+    "source_line_start": 299,
+    "tags": [
+      "build",
+      "condition",
+      "id_column",
+      "polymorphic",
+      "string_manipulation",
+      "type_column",
+      "type_value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.702361+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(type_column) == string",
+      "type_column is not None",
+      "type(type_value) == string",
+      "type_value is not None",
+      "type(id_column) == string",
+      "id_column is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(type_column) == string",
+      "type_column is not None",
+      "type(type_value) == string",
+      "type_value is not None",
+      "type(id_column) == string",
+      "id_column is not None"
+    ]
+  }
+}

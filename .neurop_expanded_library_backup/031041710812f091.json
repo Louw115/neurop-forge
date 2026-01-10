@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "031041710812f091d9064d07e565add21f3883c2ec8e119bc8c24e9fb951f3f4",
+    "semantic_fingerprint": "4193e4ecc4a0c0812d2a8e9e12b2f5474d2363b9954e8638cad4d84319fd8d0b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if phone number has valid length.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter phone",
+        "name": "phone",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter min_length",
+        "name": "min_length",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_length",
+        "name": "max_length",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_valid_phone_length",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_valid_phone_length(phone: str, min_length: int, max_length: int) -> bool:\n    \"\"\"Check if phone number has valid length.\"\"\"\n    digits = normalize_phone(phone)\n    return min_length <= len(digits) <= max_length",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:25.672125+00:00",
+    "description": "Check if phone number has valid length.",
+    "intent": "Check if phone number has valid length.",
+    "language": "python",
+    "name": "is_valid_phone_length",
+    "source_file": "neurop_forge/sources/phone_utilities.py",
+    "source_line_end": 29,
+    "source_line_start": 26,
+    "tags": [
+      "length",
+      "max_length",
+      "min_length",
+      "phone",
+      "valid",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.672164+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(phone) == string",
+      "phone is not None",
+      "type(min_length) == integer",
+      "min_length is not None",
+      "type(max_length) == integer",
+      "max_length is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(phone) == string",
+      "phone is not None",
+      "type(min_length) == integer",
+      "min_length is not None",
+      "type(max_length) == integer",
+      "max_length is not None"
+    ]
+  }
+}

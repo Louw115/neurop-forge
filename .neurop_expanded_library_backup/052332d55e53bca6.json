@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "052332d55e53bca6c89439fd837b885d171d69d1ccfb5694f45a3483c973c1d3",
+    "semantic_fingerprint": "378844d8034a0c97eaa3796348f4a90de1f88f31990a78e0da4c1228bce8e3b7",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse socket address string.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter address",
+        "name": "address",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of parse_socket_address",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_socket_address(address: str) -> dict:\n    \"\"\"Parse socket address string.\"\"\"\n    if address.startswith(\"[\"):\n        end = address.find(\"]\")\n        host = address[1:end]\n        port = int(address[end + 2:]) if end + 2 < len(address) else 0\n    else:\n        parts = address.rsplit(\":\", 1)\n        host = parts[0]\n        port = int(parts[1]) if len(parts) > 1 else 0\n    return {\"host\": host, \"port\": port}",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T12:22:29.027175+00:00",
+    "description": "Parse socket address string.",
+    "intent": "Parse socket address string.",
+    "language": "python",
+    "name": "parse_socket_address",
+    "source_file": "neurop_forge/sources/network_utilities.py",
+    "source_line_end": 163,
+    "source_line_start": 153,
+    "tags": [
+      "address",
+      "parse",
+      "socket",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.027194+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(address) == string",
+      "address is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(address) == string",
+      "address is not None"
+    ]
+  }
+}

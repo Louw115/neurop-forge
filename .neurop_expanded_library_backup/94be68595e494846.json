@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "94be68595e494846565dd3bab447c03da306618e94635f04bb470cd615da5803",
+    "semantic_fingerprint": "79c4c399ab8e2f99f5c245e14f39b3f3d2dc9b0e47ae68e6331ea942d256156c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate a nonce for digest authentication.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter timestamp",
+        "name": "timestamp",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter secret",
+        "name": "secret",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_nonce",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_nonce(timestamp: str, secret: str) -> str:\n    \"\"\"Generate a nonce for digest authentication.\"\"\"\n    import hashlib\n    combined = f\"{timestamp}:{secret}\"\n    return hashlib.md5(combined.encode()).hexdigest()",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:27.048059+00:00",
+    "description": "Generate a nonce for digest authentication.",
+    "intent": "Generate a nonce for digest authentication.",
+    "language": "python",
+    "name": "generate_nonce",
+    "source_file": "neurop_forge/sources/auth_patterns.py",
+    "source_line_end": 325,
+    "source_line_start": 321,
+    "tags": [
+      "generate",
+      "nonce",
+      "secret",
+      "string_manipulation",
+      "timestamp"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.048087+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(timestamp) == string",
+      "timestamp is not None",
+      "type(secret) == string",
+      "secret is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(timestamp) == string",
+      "timestamp is not None",
+      "type(secret) == string",
+      "secret is not None"
+    ]
+  }
+}

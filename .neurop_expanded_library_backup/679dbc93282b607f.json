@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "679dbc93282b607f9071598b31eaff1170be6c4e9aa5b3a6434d5c7212bae25f",
+    "semantic_fingerprint": "fe67727c9e4a419d90d9e77ccd5757d657d23ea926b070ff971342dcf0f624d4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Update subscription position.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter subscription",
+        "name": "subscription",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter last_processed",
+        "name": "last_processed",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of update_subscription_position",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def update_subscription_position(subscription: dict, last_processed: int) -> dict:\n    \"\"\"Update subscription position.\"\"\"\n    result = dict(subscription)\n    result[\"last_processed\"] = last_processed\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:27.661494+00:00",
+    "description": "Update subscription position.",
+    "intent": "Update subscription position.",
+    "language": "python",
+    "name": "update_subscription_position",
+    "source_file": "neurop_forge/sources/event_sourcing.py",
+    "source_line_end": 261,
+    "source_line_start": 257,
+    "tags": [
+      "dict_operation",
+      "last_processed",
+      "position",
+      "subscription",
+      "update"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.661520+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(subscription) == dict",
+      "subscription is not None",
+      "type(last_processed) == integer",
+      "last_processed is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(subscription) == dict",
+      "subscription is not None",
+      "type(last_processed) == integer",
+      "last_processed is not None"
+    ]
+  }
+}

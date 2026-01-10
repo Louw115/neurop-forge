@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b5609ed8571325ca7718695ebc6f11f4fd73cc7c37a60682a52840a3f7bc498b",
+    "semantic_fingerprint": "ef973af88b9475e5de5f8734c5c870aee9d9970386a3d612b1972b7ed4342de5",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format items as HTML list.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter list_type",
+        "name": "list_type",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_as_html_list",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_as_html_list(items: list, list_type: str) -> str:\n    \"\"\"Format items as HTML list.\"\"\"\n    tag = \"ol\" if list_type == \"ordered\" else \"ul\"\n    items_html = \"\".join(f\"<li>{item}</li>\" for item in items)\n    return f\"<{tag}>{items_html}</{tag}>\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:29.566546+00:00",
+    "description": "Format items as HTML list.",
+    "intent": "Format items as HTML list.",
+    "language": "python",
+    "name": "format_as_html_list",
+    "source_file": "neurop_forge/sources/template_utilities.py",
+    "source_line_end": 130,
+    "source_line_start": 126,
+    "tags": [
+      "format",
+      "html",
+      "items",
+      "list",
+      "list_type",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.566565+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "type(list_type) == string",
+      "list_type is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "type(list_type) == string",
+      "list_type is not None"
+    ]
+  }
+}

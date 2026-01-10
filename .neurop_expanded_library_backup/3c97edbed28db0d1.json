@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3c97edbed28db0d1941ad8a6ba1aacbdab1d1c467ec07de0844319667de5b249",
+    "semantic_fingerprint": "31173a8f31c662e28ef00b5da0aaa8e79b9ec2ef50ed9bc5e5f05f44f45b298d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Convert RGB to HSL (hue, saturation, lightness).",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter r",
+        "name": "r",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter g",
+        "name": "g",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter b",
+        "name": "b",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Return value of rgb_to_hsl",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def rgb_to_hsl(r: int, g: int, b: int) -> tuple:\n    \"\"\"Convert RGB to HSL (hue, saturation, lightness).\"\"\"\n    r, g, b = r / 255.0, g / 255.0, b / 255.0\n    max_c = max(r, g, b)\n    min_c = min(r, g, b)\n    l = (max_c + min_c) / 2.0\n    \n    if max_c == min_c:\n        h = s = 0.0\n    else:\n        d = max_c - min_c\n        s = d / (2.0 - max_c - min_c) if l > 0.5 else d / (max_c + min_c)\n        if max_c == r:\n            h = (g - b) / d + (6.0 if g < b else 0.0)\n        elif max_c == g:\n            h = (b - r) / d + 2.0\n        else:\n            h = (r - g) / d + 4.0\n        h /= 6.0\n    \n    return (round(h * 360), round(s * 100), round(l * 100))",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T12:22:24.269088+00:00",
+    "description": "Convert RGB to HSL (hue, saturation, lightness).",
+    "intent": "Convert RGB to HSL (hue, saturation, lightness).",
+    "language": "python",
+    "name": "rgb_to_hsl",
+    "source_file": "neurop_forge/sources/color_utilities.py",
+    "source_line_end": 65,
+    "source_line_start": 45,
+    "tags": [
+      "b",
+      "g",
+      "hsl",
+      "r",
+      "rgb",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:24.269119+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(r) == integer",
+      "r is not None",
+      "type(g) == integer",
+      "g is not None",
+      "type(b) == integer",
+      "b is not None"
+    ],
+    "invariants": [],
+    "output_validators": [],
+    "postconditions": [],
+    "preconditions": [
+      "type(r) == integer",
+      "r is not None",
+      "type(g) == integer",
+      "g is not None",
+      "type(b) == integer",
+      "b is not None"
+    ]
+  }
+}

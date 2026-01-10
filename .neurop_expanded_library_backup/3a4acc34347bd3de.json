@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic comparison block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3a4acc34347bd3de771fc5e4944719be2aedb07861d1d08210e46469e036bba7",
+    "semantic_fingerprint": "25dde860d957d3df8ace06a5b83e8841c02d12b8ed0bd60f488aa9ccb00613c6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Compare two IP addresses. Returns -1, 0, or 1.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter ip1",
+        "name": "ip1",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter ip2",
+        "name": "ip2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of compare_ips",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def compare_ips(ip1: str, ip2: str) -> int:\n    \"\"\"Compare two IP addresses. Returns -1, 0, or 1.\"\"\"\n    int1 = ipv4_to_int(ip1)\n    int2 = ipv4_to_int(ip2)\n    if int1 < int2:\n        return -1\n    elif int1 > int2:\n        return 1\n    return 0",
+  "metadata": {
+    "category": "comparison",
+    "created_at": "2026-01-10T12:22:32.466662+00:00",
+    "description": "Compare two IP addresses. Returns -1, 0, or 1.",
+    "intent": "Compare two IP addresses. Returns -1, 0, or 1.",
+    "language": "python",
+    "name": "compare_ips",
+    "source_file": "neurop_forge/sources/ip_utilities.py",
+    "source_line_end": 170,
+    "source_line_start": 162,
+    "tags": [
+      "compare",
+      "comparison",
+      "ip1",
+      "ip2",
+      "ips"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:32.466691+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(ip1) == string",
+      "ip1 is not None",
+      "type(ip2) == string",
+      "ip2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(ip1) == string",
+      "ip1 is not None",
+      "type(ip2) == string",
+      "ip2 is not None"
+    ]
+  }
+}

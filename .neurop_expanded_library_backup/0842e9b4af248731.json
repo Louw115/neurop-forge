@@ -1,0 +1,158 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0842e9b4af248731c5c9f90ce287063054105946ba60e19416fd294874daa7b7",
+    "semantic_fingerprint": "25c4c6524087eeef100034423cbab375bc10d1761cbbd6ce6ccd6944ea56ca80",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate overlap coefficient using n-grams.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter s1",
+        "name": "s1",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter s2",
+        "name": "s2",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter n",
+        "name": "n",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of overlap_coefficient_strings",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def overlap_coefficient_strings(s1: str, s2: str, n: int) -> float:\n    \"\"\"Calculate overlap coefficient using n-grams.\"\"\"\n    if not s1 or not s2:\n        return 0.0\n    ngrams1 = set(s1[i:i + n] for i in range(len(s1) - n + 1))\n    ngrams2 = set(s2[i:i + n] for i in range(len(s2) - n + 1))\n    intersection = len(ngrams1 & ngrams2)\n    min_size = min(len(ngrams1), len(ngrams2))\n    return intersection / min_size if min_size > 0 else 0.0",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:30.292827+00:00",
+    "description": "Calculate overlap coefficient using n-grams.",
+    "intent": "Calculate overlap coefficient using n-grams.",
+    "language": "python",
+    "name": "overlap_coefficient_strings",
+    "source_file": "neurop_forge/sources/string_distance.py",
+    "source_line_end": 185,
+    "source_line_start": 177,
+    "tags": [
+      "arithmetic",
+      "coefficient",
+      "n",
+      "overlap",
+      "s1",
+      "s2",
+      "strings"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.292854+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(s1) == string",
+      "s1 is not None",
+      "type(s2) == string",
+      "s2 is not None",
+      "type(n) == integer",
+      "n is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(s1) == string",
+      "s1 is not None",
+      "type(s2) == string",
+      "s2 is not None",
+      "type(n) == integer",
+      "n is not None"
+    ]
+  }
+}

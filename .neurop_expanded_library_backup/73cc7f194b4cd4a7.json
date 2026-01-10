@@ -1,0 +1,144 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "73cc7f194b4cd4a77c8fd1f9fe6f1de29dae1bc9f029ea8734a7d87abb5c414e",
+    "semantic_fingerprint": "f8b12c215acf1dde2c7ad06f154b05188b3931f4c12ce2bc52390e607a9dc7d4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate percentile value.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter values",
+        "name": "values",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter percentile",
+        "name": "percentile",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_percentile",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_percentile(values: list, percentile: float) -> float:\n    \"\"\"Calculate percentile value.\"\"\"\n    if not values:\n        return 0.0\n    sorted_values = sorted(values)\n    index = (percentile / 100) * (len(sorted_values) - 1)\n    lower = int(index)\n    upper = min(lower + 1, len(sorted_values) - 1)\n    fraction = index - lower\n    return sorted_values[lower] + (sorted_values[upper] - sorted_values[lower]) * fraction",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:28.419016+00:00",
+    "description": "Calculate percentile value.",
+    "intent": "Calculate percentile value.",
+    "language": "python",
+    "name": "calculate_percentile",
+    "source_file": "neurop_forge/sources/analytics_patterns.py",
+    "source_line_end": 253,
+    "source_line_start": 244,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "percentile",
+      "values"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.419036+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(values) == list",
+      "values is not None",
+      "type(percentile) == float",
+      "percentile is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(values) == list",
+      "values is not None",
+      "type(percentile) == float",
+      "percentile is not None"
+    ]
+  }
+}

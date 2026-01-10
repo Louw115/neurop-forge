@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2b6ecbaa28f00937e0e742d9ba91b97d86269c9055e98e5050aa6cd4945c7322",
+    "semantic_fingerprint": "2f0ed582342b5815ad9f981d25671abeaaea458dc302c8a282476d9e4468fcce",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if concurrent connection limit is reached.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter active_connections",
+        "name": "active_connections",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_connections",
+        "name": "max_connections",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_concurrent_limit_reached",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_concurrent_limit_reached(active_connections: int, max_connections: int) -> bool:\n    \"\"\"Check if concurrent connection limit is reached.\"\"\"\n    return active_connections >= max_connections",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:25.217223+00:00",
+    "description": "Check if concurrent connection limit is reached.",
+    "intent": "Check if concurrent connection limit is reached.",
+    "language": "python",
+    "name": "is_concurrent_limit_reached",
+    "source_file": "neurop_forge/sources/rate_limiting.py",
+    "source_line_end": 208,
+    "source_line_start": 206,
+    "tags": [
+      "active_connections",
+      "concurrent",
+      "limit",
+      "max_connections",
+      "reached",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.217248+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(active_connections) == integer",
+      "active_connections is not None",
+      "type(max_connections) == integer",
+      "max_connections is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(active_connections) == integer",
+      "active_connections is not None",
+      "type(max_connections) == integer",
+      "max_connections is not None"
+    ]
+  }
+}

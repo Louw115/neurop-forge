@@ -1,0 +1,165 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic utility block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "dd551c589006f99b7e87b8c114156f0c91d4c6d9cde0f19d26bad0e56f4c0177",
+    "semantic_fingerprint": "a6c784e2dde4bc4f6571a35e70c94c02598d74d034c6406311eb281c8dcf29c3",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Lighten a color by a percentage (0.0 to 1.0).",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter r",
+        "name": "r",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter g",
+        "name": "g",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter b",
+        "name": "b",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter amount",
+        "name": "amount",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Return value of lighten_color",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def lighten_color(r: int, g: int, b: int, amount: float) -> tuple:\n    \"\"\"Lighten a color by a percentage (0.0 to 1.0).\"\"\"\n    amount = max(0.0, min(1.0, amount))\n    r = round(r + (255 - r) * amount)\n    g = round(g + (255 - g) * amount)\n    b = round(b + (255 - b) * amount)\n    return (r, g, b)",
+  "metadata": {
+    "category": "utility",
+    "created_at": "2026-01-10T12:22:24.286703+00:00",
+    "description": "Lighten a color by a percentage (0.0 to 1.0).",
+    "intent": "Lighten a color by a percentage (0.0 to 1.0).",
+    "language": "python",
+    "name": "lighten_color",
+    "source_file": "neurop_forge/sources/color_utilities.py",
+    "source_line_end": 134,
+    "source_line_start": 128,
+    "tags": [
+      "amount",
+      "b",
+      "color",
+      "g",
+      "lighten",
+      "r",
+      "utility"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:24.286732+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.295,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.3,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(r) == integer",
+      "r is not None",
+      "type(g) == integer",
+      "g is not None",
+      "type(b) == integer",
+      "b is not None",
+      "type(amount) == float",
+      "amount is not None"
+    ],
+    "invariants": [],
+    "output_validators": [],
+    "postconditions": [],
+    "preconditions": [
+      "type(r) == integer",
+      "r is not None",
+      "type(g) == integer",
+      "g is not None",
+      "type(b) == integer",
+      "b is not None",
+      "type(amount) == float",
+      "amount is not None"
+    ]
+  }
+}

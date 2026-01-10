@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4fe05ec115c0399fa5749073e344ce21a0a0eba0ca75a0a9a6310e1a23a2d069",
+    "semantic_fingerprint": "b87016dcbd0b896beeafffdc02414254cfa938c05857fe28e9f841561588e5de",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract Instagram handle from URL.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter url",
+        "name": "url",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of extract_instagram_handle",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def extract_instagram_handle(url: str) -> str:\n    \"\"\"Extract Instagram handle from URL.\"\"\"\n    match = re.search(r'instagram\\.com/(@?\\w+)', url, re.IGNORECASE)\n    return match.group(1) if match else \"\"",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:32.810953+00:00",
+    "description": "Extract Instagram handle from URL.",
+    "intent": "Extract Instagram handle from URL.",
+    "language": "python",
+    "name": "extract_instagram_handle",
+    "source_file": "neurop_forge/sources/social_utilities.py",
+    "source_line_end": 151,
+    "source_line_start": 148,
+    "tags": [
+      "extract",
+      "filtering",
+      "handle",
+      "instagram",
+      "url"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:32.810977+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(url) == string",
+      "url is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(url) == string",
+      "url is not None"
+    ]
+  }
+}

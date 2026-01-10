@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception",
+      "KeyError"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e3b08f3b8f4e6200de947b3e25941859262fce4931aaf834a8df177598cae055",
+    "semantic_fingerprint": "9c8594ee62528ff19dcd6e26ef2cb5332c5059c14587e36fb88f4c4769c1e328",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate which partition a key belongs to.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter num_partitions",
+        "name": "num_partitions",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of partition_key",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def partition_key(key: str, num_partitions: int) -> int:\n    \"\"\"Calculate which partition a key belongs to.\"\"\"\n    hash_value = int(hashlib.md5(key.encode()).hexdigest(), 16)\n    return hash_value % num_partitions",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:25.135267+00:00",
+    "description": "Calculate which partition a key belongs to.",
+    "intent": "Calculate which partition a key belongs to.",
+    "language": "python",
+    "name": "partition_key",
+    "source_file": "neurop_forge/sources/caching_utilities.py",
+    "source_line_end": 299,
+    "source_line_start": 296,
+    "tags": [
+      "key",
+      "list_operation",
+      "num_partitions",
+      "partition"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.135294+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(key) == string",
+      "key is not None",
+      "type(num_partitions) == integer",
+      "num_partitions is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(key) == string",
+      "key is not None",
+      "type(num_partitions) == integer",
+      "num_partitions is not None"
+    ]
+  }
+}

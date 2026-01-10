@@ -1,0 +1,144 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3b5e5e4914dbf1b5c101e5d5e67e0c01cc437453e5993855c3bc6a44294febef",
+    "semantic_fingerprint": "3f402c4f65e532fc5a83406cd92b1ae85f52a0d4cefbe14358ca27fb25a5a797",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add a permission to a role.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter role",
+        "name": "role",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter permission",
+        "name": "permission",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of add_permission_to_role",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def add_permission_to_role(role: dict, permission: str) -> dict:\n    \"\"\"Add a permission to a role.\"\"\"\n    result = dict(role)\n    result[\"permissions\"] = list(role.get(\"permissions\", []))\n    if permission not in result[\"permissions\"]:\n        result[\"permissions\"].append(permission)\n    return result",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:29.369662+00:00",
+    "description": "Add a permission to a role.",
+    "intent": "Add a permission to a role.",
+    "language": "python",
+    "name": "add_permission_to_role",
+    "source_file": "neurop_forge/sources/permission_utilities.py",
+    "source_line_end": 41,
+    "source_line_start": 35,
+    "tags": [
+      "add",
+      "arithmetic",
+      "permission",
+      "role"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.369690+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(role) == dict",
+      "role is not None",
+      "type(permission) == string",
+      "permission is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(role) == dict",
+      "role is not None",
+      "type(permission) == string",
+      "permission is not None"
+    ]
+  }
+}

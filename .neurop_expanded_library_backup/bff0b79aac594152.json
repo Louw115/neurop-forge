@@ -1,0 +1,181 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "bff0b79aac5941524aa97cc26ed781ac95516a50df62abe83d36e299196b67a2",
+    "semantic_fingerprint": "74db617a2ec610e71562f0bdb6660943bbcc57c173426e4d9c76f6f04a56af23",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Map a value from one range to another.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter in_min",
+        "name": "in_min",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter in_max",
+        "name": "in_max",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter out_min",
+        "name": "out_min",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter out_max",
+        "name": "out_max",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of map_range",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def map_range(value: float, in_min: float, in_max: float, out_min: float, out_max: float) -> float:\n    \"\"\"Map a value from one range to another.\"\"\"\n    if in_max == in_min:\n        return out_min\n    return (value - in_min) * (out_max - out_min) / (in_max - in_min) + out_min",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T12:22:23.913700+00:00",
+    "description": "Map a value from one range to another.",
+    "intent": "Map a value from one range to another.",
+    "language": "python",
+    "name": "map_range",
+    "source_file": "neurop_forge/sources/math_statistics.py",
+    "source_line_end": 242,
+    "source_line_start": 238,
+    "tags": [
+      "in_max",
+      "in_min",
+      "map",
+      "out_max",
+      "out_min",
+      "range",
+      "transformation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:23.913722+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == float",
+      "value is not None",
+      "type(in_min) == float",
+      "in_min is not None",
+      "type(in_max) == float",
+      "in_max is not None",
+      "type(out_min) == float",
+      "out_min is not None",
+      "type(out_max) == float",
+      "out_max is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(value) == float",
+      "value is not None",
+      "type(in_min) == float",
+      "in_min is not None",
+      "type(in_max) == float",
+      "in_max is not None",
+      "type(out_min) == float",
+      "out_min is not None",
+      "type(out_max) == float",
+      "out_max is not None"
+    ]
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "10d98d3e42ef0e89135b8805ee5feb63de6239358e26ecb54de7e8da3c94dd8a",
+    "semantic_fingerprint": "668f7a1bc5d337d5abbf37036e47816f5e4224291e045c23775d48f80757378d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Reconstruct a record's state at a specific time using audit trail.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter audit_records",
+        "name": "audit_records",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter target_timestamp",
+        "name": "target_timestamp",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of reconstruct_record_at_time",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def reconstruct_record_at_time(audit_records: list, target_timestamp: str) -> dict:\n    \"\"\"Reconstruct a record's state at a specific time using audit trail.\"\"\"\n    sorted_records = sorted(audit_records, key=lambda r: r.get(\"timestamp\", \"\"))\n    current_state = {}\n    for record in sorted_records:\n        if record.get(\"timestamp\", \"\") > target_timestamp:\n            break\n        operation = record.get(\"operation\")\n        if operation == \"INSERT\":\n            current_state = dict(record.get(\"new_values\", {}))\n        elif operation == \"UPDATE\":\n            current_state.update(record.get(\"new_values\", {}))\n        elif operation == \"DELETE\":\n            current_state = {}\n    return current_state",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:26.859151+00:00",
+    "description": "Reconstruct a record's state at a specific time using audit trail.",
+    "intent": "Reconstruct a record's state at a specific time using audit trail.",
+    "language": "python",
+    "name": "reconstruct_record_at_time",
+    "source_file": "neurop_forge/sources/audit_logging.py",
+    "source_line_end": 236,
+    "source_line_start": 222,
+    "tags": [
+      "audit_records",
+      "dict_operation",
+      "reconstruct",
+      "record",
+      "target_timestamp",
+      "time"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.859178+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(audit_records) == list",
+      "audit_records is not None",
+      "type(target_timestamp) == string",
+      "target_timestamp is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(audit_records) == list",
+      "audit_records is not None",
+      "type(target_timestamp) == string",
+      "target_timestamp is not None"
+    ]
+  }
+}

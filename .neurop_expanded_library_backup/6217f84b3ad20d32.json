@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "6217f84b3ad20d322455a67f7591a62f70067262c74ab28f76c8b2f5a0c7cf21",
+    "semantic_fingerprint": "339a5b79684125573024b8eab5ebf9179d1cbec5a0c0bbf20aff2cfe88c63ce6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Merge translation dictionaries.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter base",
+        "name": "base",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter override",
+        "name": "override",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of merge_translations",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def merge_translations(base: dict, override: dict) -> dict:\n    \"\"\"Merge translation dictionaries.\"\"\"\n    result = dict(base)\n    for key, value in override.items():\n        if isinstance(value, dict) and isinstance(result.get(key), dict):\n            result[key] = merge_translations(result[key], value)\n        else:\n            result[key] = value\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:28.609478+00:00",
+    "description": "Merge translation dictionaries.",
+    "intent": "Merge translation dictionaries.",
+    "language": "python",
+    "name": "merge_translations",
+    "source_file": "neurop_forge/sources/i18n_patterns.py",
+    "source_line_end": 191,
+    "source_line_start": 183,
+    "tags": [
+      "base",
+      "dict_operation",
+      "merge",
+      "override",
+      "translations"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.609505+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(base) == dict",
+      "base is not None",
+      "type(override) == dict",
+      "override is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(base) == dict",
+      "base is not None",
+      "type(override) == dict",
+      "override is not None"
+    ]
+  }
+}

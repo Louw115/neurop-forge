@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8c769a28e4f3fdbe8d9a8522288458a87b1b55a4af9dc0d2977627ef947d6548",
+    "semantic_fingerprint": "529c072e41258ad6c895e6ebf54874ded10363ab4d6615a866ac152bb1694219",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Create HTML table.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter headers",
+        "name": "headers",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter rows",
+        "name": "rows",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of create_table",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def create_table(headers: list, rows: list) -> str:\n    \"\"\"Create HTML table.\"\"\"\n    thead = \"<thead><tr>\" + \"\".join(f\"<th>{escape_html(str(h))}</th>\" for h in headers) + \"</tr></thead>\"\n    tbody_rows = \"\"\n    for row in rows:\n        tbody_rows += \"<tr>\" + \"\".join(f\"<td>{escape_html(str(cell))}</td>\" for cell in row) + \"</tr>\"\n    tbody = f\"<tbody>{tbody_rows}</tbody>\"\n    return f\"<table>{thead}{tbody}</table>\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:33.637269+00:00",
+    "description": "Create HTML table.",
+    "intent": "Create HTML table.",
+    "language": "python",
+    "name": "create_table",
+    "source_file": "neurop_forge/sources/html_utilities.py",
+    "source_line_end": 106,
+    "source_line_start": 99,
+    "tags": [
+      "create",
+      "headers",
+      "rows",
+      "string_manipulation",
+      "table"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:33.637299+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(headers) == list",
+      "headers is not None",
+      "type(rows) == list",
+      "rows is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(headers) == list",
+      "headers is not None",
+      "type(rows) == list",
+      "rows is not None"
+    ]
+  }
+}

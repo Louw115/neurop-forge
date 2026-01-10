@@ -1,0 +1,182 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "75383fe806e2d39ecdddece0e4b2763614a46f41444242dd26c1794397922de9",
+    "semantic_fingerprint": "b50cd32b300b1cd17377cf5658bdb86b41c1389b7939279054302fc844cb83e2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a subquery to count children.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter parent_table",
+        "name": "parent_table",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter child_table",
+        "name": "child_table",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter fk_column",
+        "name": "fk_column",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter pk_column",
+        "name": "pk_column",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter alias",
+        "name": "alias",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_count_subquery",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_count_subquery(parent_table: str, child_table: str, fk_column: str, pk_column: str, alias: str) -> str:\n    \"\"\"Build a subquery to count children.\"\"\"\n    from neurop_forge.sources.sql_building import escape_sql_identifier\n    return f\"\"\"(\n    SELECT COUNT(*) FROM {escape_sql_identifier(child_table)}\n    WHERE {escape_sql_identifier(child_table)}.{escape_sql_identifier(fk_column)} = {escape_sql_identifier(parent_table)}.{escape_sql_identifier(pk_column)}\n) AS {escape_sql_identifier(alias)}\"\"\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:26.696913+00:00",
+    "description": "Build a subquery to count children.",
+    "intent": "Build a subquery to count children.",
+    "language": "python",
+    "name": "build_count_subquery",
+    "source_file": "neurop_forge/sources/orm_patterns.py",
+    "source_line_end": 284,
+    "source_line_start": 278,
+    "tags": [
+      "alias",
+      "build",
+      "child_table",
+      "count",
+      "fk_column",
+      "parent_table",
+      "pk_column",
+      "string_manipulation",
+      "subquery"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.696941+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(parent_table) == string",
+      "parent_table is not None",
+      "type(child_table) == string",
+      "child_table is not None",
+      "type(fk_column) == string",
+      "fk_column is not None",
+      "type(pk_column) == string",
+      "pk_column is not None",
+      "type(alias) == string",
+      "alias is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(parent_table) == string",
+      "parent_table is not None",
+      "type(child_table) == string",
+      "child_table is not None",
+      "type(fk_column) == string",
+      "fk_column is not None",
+      "type(pk_column) == string",
+      "pk_column is not None",
+      "type(alias) == string",
+      "alias is not None"
+    ]
+  }
+}

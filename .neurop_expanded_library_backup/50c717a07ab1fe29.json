@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "50c717a07ab1fe29ada88f4f6044ab9be920d8a4f71d63f84d9b0f754d44971b",
+    "semantic_fingerprint": "1359b2f2b1da4c85039956fd219fd56dc4ea5d018c07334a7e5719203948ba23",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate compound taxes (each on previous).",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter amount",
+        "name": "amount",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter rates",
+        "name": "rates",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of calculate_compound_tax",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_compound_tax(amount: float, rates: list) -> dict:\n    \"\"\"Calculate compound taxes (each on previous).\"\"\"\n    current = amount\n    taxes = []\n    for rate in rates:\n        tax = round(current * rate / 100, 2)\n        taxes.append(tax)\n        current += tax\n    return {\n        \"subtotal\": amount,\n        \"taxes\": taxes,\n        \"total\": current\n    }",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:34.377108+00:00",
+    "description": "Calculate compound taxes (each on previous).",
+    "intent": "Calculate compound taxes (each on previous).",
+    "language": "python",
+    "name": "calculate_compound_tax",
+    "source_file": "neurop_forge/sources/tax_utilities.py",
+    "source_line_end": 46,
+    "source_line_start": 34,
+    "tags": [
+      "amount",
+      "arithmetic",
+      "calculate",
+      "compound",
+      "rates",
+      "tax"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.377134+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(amount) == float",
+      "amount is not None",
+      "type(rates) == list",
+      "rates is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(amount) == float",
+      "amount is not None",
+      "type(rates) == list",
+      "rates is not None"
+    ]
+  }
+}

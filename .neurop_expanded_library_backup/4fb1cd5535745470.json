@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4fb1cd55357454700d94a223047630d62ed5b1105ddc434489dec423844994cb",
+    "semantic_fingerprint": "38634c60cdea4a8a12f10687f7ad1b763e920e893e94b52350e754bb90486f41",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add item to front of deque.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter deque",
+        "name": "deque",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter item",
+        "name": "item",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of deque_push_front",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def deque_push_front(deque: dict, item) -> dict:\n    \"\"\"Add item to front of deque.\"\"\"\n    return {\n        \"items\": [item] + list(deque[\"items\"]),\n        \"size\": deque[\"size\"] + 1\n    }",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:29.976773+00:00",
+    "description": "Add item to front of deque.",
+    "intent": "Add item to front of deque.",
+    "language": "python",
+    "name": "deque_push_front",
+    "source_file": "neurop_forge/sources/queue_utilities.py",
+    "source_line_end": 79,
+    "source_line_start": 74,
+    "tags": [
+      "arithmetic",
+      "deque",
+      "front",
+      "item",
+      "push"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.976802+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(deque) == dict",
+      "deque is not None",
+      "item is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(deque) == dict",
+      "deque is not None",
+      "item is not None"
+    ]
+  }
+}

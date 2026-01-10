@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "bd0be36960b1713552dea4ac053f7ab726fc24067dd2b1d042f9f747fdad523d",
+    "semantic_fingerprint": "8ba91e66eebe23a79eccce15518734c44496004016ed70be6c5bd2c27436b860",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build metric aggregation summary.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter values",
+        "name": "values",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_metric_aggregation",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_metric_aggregation(values: list) -> dict:\n    \"\"\"Build metric aggregation summary.\"\"\"\n    if not values:\n        return {\"count\": 0, \"sum\": 0, \"min\": 0, \"max\": 0, \"avg\": 0}\n    return {\n        \"count\": len(values),\n        \"sum\": sum(values),\n        \"min\": min(values),\n        \"max\": max(values),\n        \"avg\": sum(values) / len(values)\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:28.916324+00:00",
+    "description": "Build metric aggregation summary.",
+    "intent": "Build metric aggregation summary.",
+    "language": "python",
+    "name": "build_metric_aggregation",
+    "source_file": "neurop_forge/sources/metrics_patterns.py",
+    "source_line_end": 242,
+    "source_line_start": 232,
+    "tags": [
+      "aggregation",
+      "build",
+      "dict_operation",
+      "metric",
+      "values"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.916352+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(values) == list",
+      "values is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(values) == list",
+      "values is not None"
+    ]
+  }
+}

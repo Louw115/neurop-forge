@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a29dd4d6b9f2222701dea083ba40d929fb0de1903ca440d860d551b735459431",
+    "semantic_fingerprint": "952e86e58eebd553d91e4514cfbfc80b85e7083fb1f6ff85beb23c0102959478",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate a consistent avatar color from name.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter name",
+        "name": "name",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_avatar_color",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_avatar_color(name: str) -> str:\n    \"\"\"Generate a consistent avatar color from name.\"\"\"\n    import hashlib\n    colors = [\n        \"#F44336\", \"#E91E63\", \"#9C27B0\", \"#673AB7\", \"#3F51B5\",\n        \"#2196F3\", \"#03A9F4\", \"#00BCD4\", \"#009688\", \"#4CAF50\",\n        \"#8BC34A\", \"#CDDC39\", \"#FFC107\", \"#FF9800\", \"#FF5722\"\n    ]\n    hash_val = hashlib.sha256(name.encode()).digest()\n    index = hash_val[0] % len(colors)\n    return colors[index]",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:28.104019+00:00",
+    "description": "Generate a consistent avatar color from name.",
+    "intent": "Generate a consistent avatar color from name.",
+    "language": "python",
+    "name": "generate_avatar_color",
+    "source_file": "neurop_forge/sources/ui_patterns.py",
+    "source_line_end": 121,
+    "source_line_start": 111,
+    "tags": [
+      "avatar",
+      "color",
+      "generate",
+      "name",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.104043+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(name) == string",
+      "name is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(name) == string",
+      "name is not None"
+    ]
+  }
+}

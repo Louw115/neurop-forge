@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7bce5b2e5983f66d5d94b5c7d7f437e2dc64c260d8e806d118339ce8037bb144",
+    "semantic_fingerprint": "9089a59df192f929467a525c947583a9c49833b68348b97dd769e727f59f260f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Increment cache hit counter.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter entry",
+        "name": "entry",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of increment_cache_hits",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def increment_cache_hits(entry: dict) -> dict:\n    \"\"\"Increment cache hit counter.\"\"\"\n    result = dict(entry)\n    result[\"hits\"] = entry.get(\"hits\", 0) + 1\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:29.062912+00:00",
+    "description": "Increment cache hit counter.",
+    "intent": "Increment cache hit counter.",
+    "language": "python",
+    "name": "increment_cache_hits",
+    "source_file": "neurop_forge/sources/caching_patterns.py",
+    "source_line_end": 54,
+    "source_line_start": 50,
+    "tags": [
+      "cache",
+      "dict_operation",
+      "entry",
+      "hits",
+      "increment"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.062931+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(entry) == dict",
+      "entry is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(entry) == dict",
+      "entry is not None"
+    ]
+  }
+}

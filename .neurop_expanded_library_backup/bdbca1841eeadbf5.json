@@ -1,0 +1,135 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "bdbca1841eeadbf5d0233ca9d37843b62dbcf55e2c76dc2fcb3d8029e8c6c992",
+    "semantic_fingerprint": "0215935a811d8b214e8a02cb8296e962ea09ce45d0f319511f9e9a3443ee2d49",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build SQL for inserting audit records.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter audit_table",
+        "name": "audit_table",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_audit_insert_sql",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_audit_insert_sql(audit_table: str) -> str:\n    \"\"\"Build SQL for inserting audit records.\"\"\"\n    from neurop_forge.sources.sql_building import escape_sql_identifier\n    columns = [\"table_name\", \"operation\", \"record_id\", \"user_id\", \"timestamp\", \"old_values\", \"new_values\"]\n    col_list = \", \".join(escape_sql_identifier(c) for c in columns)\n    placeholders = \", \".join(f\"${i+1}\" for i in range(len(columns)))\n    return f\"INSERT INTO {escape_sql_identifier(audit_table)} ({col_list}) VALUES ({placeholders})\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:26.836247+00:00",
+    "description": "Build SQL for inserting audit records.",
+    "intent": "Build SQL for inserting audit records.",
+    "language": "python",
+    "name": "build_audit_insert_sql",
+    "source_file": "neurop_forge/sources/audit_logging.py",
+    "source_line_end": 98,
+    "source_line_start": 92,
+    "tags": [
+      "audit",
+      "audit_table",
+      "build",
+      "insert",
+      "sql",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.836267+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(audit_table) == string",
+      "audit_table is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(audit_table) == string",
+      "audit_table is not None"
+    ]
+  }
+}

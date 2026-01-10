@@ -1,0 +1,158 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8dcf1d29de7591473d1171377c018874dfb2e4c5d66278b6710acf1e366d8e87",
+    "semantic_fingerprint": "168125c6ded0a67fbc5f61e305607f883661741e6732e4e7ea0a0a4577821620",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Estimate cache entry size in bytes.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter value_size",
+        "name": "value_size",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter overhead_bytes",
+        "name": "overhead_bytes",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of estimate_entry_size",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def estimate_entry_size(key: str, value_size: int, overhead_bytes: int) -> int:\n    \"\"\"Estimate cache entry size in bytes.\"\"\"\n    return len(key.encode()) + value_size + overhead_bytes",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:29.091881+00:00",
+    "description": "Estimate cache entry size in bytes.",
+    "intent": "Estimate cache entry size in bytes.",
+    "language": "python",
+    "name": "estimate_entry_size",
+    "source_file": "neurop_forge/sources/caching_patterns.py",
+    "source_line_end": 206,
+    "source_line_start": 204,
+    "tags": [
+      "arithmetic",
+      "entry",
+      "estimate",
+      "key",
+      "overhead_bytes",
+      "size",
+      "value_size"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.091909+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(key) == string",
+      "key is not None",
+      "type(value_size) == integer",
+      "value_size is not None",
+      "type(overhead_bytes) == integer",
+      "overhead_bytes is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(key) == string",
+      "key is not None",
+      "type(value_size) == integer",
+      "value_size is not None",
+      "type(overhead_bytes) == integer",
+      "overhead_bytes is not None"
+    ]
+  }
+}

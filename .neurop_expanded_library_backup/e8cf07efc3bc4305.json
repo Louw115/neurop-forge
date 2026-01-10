@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e8cf07efc3bc43054896ed97b9d297e91fa0720c6e4a3f512fe51d0d70ef438d",
+    "semantic_fingerprint": "5c0c73052817c510df28c37d39b495b13a1c714aae65bf37be5c43af18d209a9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get maximum key.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter sl",
+        "name": "sl",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Return value of skip_list_max",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def skip_list_max(sl: dict):\n    \"\"\"Get maximum key.\"\"\"\n    node = sl[\"head\"]\n    for i in range(sl[\"level\"] - 1, -1, -1):\n        while node[\"forward\"][i]:\n            node = node[\"forward\"][i]\n    return node[\"key\"] if node[\"key\"] is not None else None",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:30.832534+00:00",
+    "description": "Get maximum key.",
+    "intent": "Get maximum key.",
+    "language": "python",
+    "name": "skip_list_max",
+    "source_file": "neurop_forge/sources/skip_list.py",
+    "source_line_end": 145,
+    "source_line_start": 139,
+    "tags": [
+      "filtering",
+      "list",
+      "max",
+      "skip",
+      "sl"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.832550+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3235,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.48999999999999994,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(sl) == dict",
+      "sl is not None"
+    ],
+    "invariants": [],
+    "output_validators": [],
+    "postconditions": [],
+    "preconditions": [
+      "type(sl) == dict",
+      "sl is not None"
+    ]
+  }
+}

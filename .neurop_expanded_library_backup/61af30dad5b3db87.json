@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "61af30dad5b3db878368fc61c6b1014523f66d8c8f5cd4b69ae1cf0ab9535525",
+    "semantic_fingerprint": "29cac428a4847de1000038b2427f27d67dcc2a4d029bf8b0490b490ef6a51736",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if current time is during quiet hours.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_hour",
+        "name": "current_hour",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter quiet_start",
+        "name": "quiet_start",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter quiet_end",
+        "name": "quiet_end",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_quiet_hours",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_quiet_hours(current_hour: int, quiet_start: int, quiet_end: int) -> bool:\n    \"\"\"Check if current time is during quiet hours.\"\"\"\n    if quiet_start <= quiet_end:\n        return quiet_start <= current_hour < quiet_end\n    return current_hour >= quiet_start or current_hour < quiet_end",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:28.330362+00:00",
+    "description": "Check if current time is during quiet hours.",
+    "intent": "Check if current time is during quiet hours.",
+    "language": "python",
+    "name": "is_quiet_hours",
+    "source_file": "neurop_forge/sources/notification_patterns.py",
+    "source_line_end": 104,
+    "source_line_start": 100,
+    "tags": [
+      "current_hour",
+      "hours",
+      "quiet",
+      "quiet_end",
+      "quiet_start",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.330389+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(current_hour) == integer",
+      "current_hour is not None",
+      "type(quiet_start) == integer",
+      "quiet_start is not None",
+      "type(quiet_end) == integer",
+      "quiet_end is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(current_hour) == integer",
+      "current_hour is not None",
+      "type(quiet_start) == integer",
+      "quiet_start is not None",
+      "type(quiet_end) == integer",
+      "quiet_end is not None"
+    ]
+  }
+}

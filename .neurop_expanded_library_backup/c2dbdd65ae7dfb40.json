@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c2dbdd65ae7dfb40fd6a528f1a0483b5571dfc8f4c99765a304eb82f316e17a3",
+    "semantic_fingerprint": "2246dad985799911b38b2ac6e1d772973f1c6814407cd57ced1714110f7e0c3f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if a MIME type represents text content.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter mime_type",
+        "name": "mime_type",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_text_mime_type",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_text_mime_type(mime_type: str) -> bool:\n    \"\"\"Check if a MIME type represents text content.\"\"\"\n    mime_type = mime_type.lower().split(';')[0].strip()\n    if mime_type.startswith(\"text/\"):\n        return True\n    text_types = [\n        \"application/json\",\n        \"application/javascript\",\n        \"application/xml\",\n        \"application/xhtml+xml\",\n    ]\n    return mime_type in text_types",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:24.543773+00:00",
+    "description": "Check if a MIME type represents text content.",
+    "intent": "Check if a MIME type represents text content.",
+    "language": "python",
+    "name": "is_text_mime_type",
+    "source_file": "neurop_forge/sources/http_utilities.py",
+    "source_line_end": 193,
+    "source_line_start": 182,
+    "tags": [
+      "mime",
+      "mime_type",
+      "text",
+      "type",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:24.543790+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(mime_type) == string",
+      "mime_type is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(mime_type) == string",
+      "mime_type is not None"
+    ]
+  }
+}

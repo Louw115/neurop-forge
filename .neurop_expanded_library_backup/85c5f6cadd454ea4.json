@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "85c5f6cadd454ea4b2042b5c4fd2ac4c6a1f4ac62d0e67505fee2c2d036d06a5",
+    "semantic_fingerprint": "a0f64780fba54f09939a109f2956efe483d43b34fcdab1a1aa56b765fa005b43",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format relative time (e.g., '5 minutes ago').",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seconds_ago",
+        "name": "seconds_ago",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_relative_time",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_relative_time(seconds_ago: int) -> str:\n    \"\"\"Format relative time (e.g., '5 minutes ago').\"\"\"\n    if seconds_ago < 60:\n        return \"just now\"\n    elif seconds_ago < 3600:\n        minutes = seconds_ago // 60\n        return f\"{minutes} minute{'s' if minutes != 1 else ''} ago\"\n    elif seconds_ago < 86400:\n        hours = seconds_ago // 3600\n        return f\"{hours} hour{'s' if hours != 1 else ''} ago\"\n    elif seconds_ago < 604800:\n        days = seconds_ago // 86400\n        return f\"{days} day{'s' if days != 1 else ''} ago\"\n    elif seconds_ago < 2592000:\n        weeks = seconds_ago // 604800\n        return f\"{weeks} week{'s' if weeks != 1 else ''} ago\"\n    elif seconds_ago < 31536000:\n        months = seconds_ago // 2592000\n        return f\"{months} month{'s' if months != 1 else ''} ago\"\n    else:\n        years = seconds_ago // 31536000\n        return f\"{years} year{'s' if years != 1 else ''} ago\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:28.090256+00:00",
+    "description": "Format relative time (e.g., '5 minutes ago').",
+    "intent": "Format relative time (e.g., '5 minutes ago').",
+    "language": "python",
+    "name": "format_relative_time",
+    "source_file": "neurop_forge/sources/ui_patterns.py",
+    "source_line_end": 66,
+    "source_line_start": 45,
+    "tags": [
+      "format",
+      "relative",
+      "seconds_ago",
+      "string_manipulation",
+      "time"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.090284+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(seconds_ago) == integer",
+      "seconds_ago is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(seconds_ago) == integer",
+      "seconds_ago is not None"
+    ]
+  }
+}

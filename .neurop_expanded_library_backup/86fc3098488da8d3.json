@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "86fc3098488da8d33ae2b78cfa35c236ac29421050feb9f36a32c5b03c69e132",
+    "semantic_fingerprint": "5498c12e0f7d87cb53aedf777f40649b2fa3da6829191f6cba9db846b6293319",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Create repeat pattern.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter pattern",
+        "name": "pattern",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter min_count",
+        "name": "min_count",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_count",
+        "name": "max_count",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of create_repeat",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def create_repeat(pattern: str, min_count: int, max_count: int) -> str:\n    \"\"\"Create repeat pattern.\"\"\"\n    if max_count == -1:\n        if min_count == 0:\n            return f\"(?:{pattern})*\"\n        elif min_count == 1:\n            return f\"(?:{pattern})+\"\n        else:\n            return f\"(?:{pattern}){{{min_count},}}\"\n    return f\"(?:{pattern}){{{min_count},{max_count}}}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:33.094641+00:00",
+    "description": "Create repeat pattern.",
+    "intent": "Create repeat pattern.",
+    "language": "python",
+    "name": "create_repeat",
+    "source_file": "neurop_forge/sources/regex_helpers.py",
+    "source_line_end": 79,
+    "source_line_start": 70,
+    "tags": [
+      "create",
+      "max_count",
+      "min_count",
+      "pattern",
+      "repeat",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:33.094679+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(pattern) == string",
+      "pattern is not None",
+      "type(min_count) == integer",
+      "min_count is not None",
+      "type(max_count) == integer",
+      "max_count is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(pattern) == string",
+      "pattern is not None",
+      "type(min_count) == integer",
+      "min_count is not None",
+      "type(max_count) == integer",
+      "max_count is not None"
+    ]
+  }
+}

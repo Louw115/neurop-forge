@@ -1,0 +1,155 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "13ed1c75838a51fc9aaf5308b56d8dd7c44beeba3abb17177d346e8fa75b54a6",
+    "semantic_fingerprint": "c316d0f919916effcf29d4d68b160189741f61711311324f915aa88f5cc7ced9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Filter results by facet value.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter results",
+        "name": "results",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter field",
+        "name": "field",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of filter_by_facet",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def filter_by_facet(results: list, field: str, value) -> list:\n    \"\"\"Filter results by facet value.\"\"\"\n    return [r for r in results if r.get(field) == value]",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:28.535285+00:00",
+    "description": "Filter results by facet value.",
+    "intent": "Filter results by facet value.",
+    "language": "python",
+    "name": "filter_by_facet",
+    "source_file": "neurop_forge/sources/search_patterns.py",
+    "source_line_end": 159,
+    "source_line_start": 157,
+    "tags": [
+      "facet",
+      "field",
+      "filter",
+      "filtering",
+      "results",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.535308+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(results) == list",
+      "results is not None",
+      "type(field) == string",
+      "field is not None",
+      "value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(results) == list",
+      "results is not None",
+      "type(field) == string",
+      "field is not None",
+      "value is not None"
+    ]
+  }
+}

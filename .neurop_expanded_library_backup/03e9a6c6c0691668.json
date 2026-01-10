@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "03e9a6c6c06916686b3b10ab7474b78910b4d32c5d5e68c8567090e19727400e",
+    "semantic_fingerprint": "3e09b5acabfb54e67d6642759b2a9301326533cbdd33f1d8750be565e2cbf762",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if password has enough entropy.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter password",
+        "name": "password",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter min_entropy",
+        "name": "min_entropy",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_strong_enough",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_strong_enough(password: str, min_entropy: float) -> bool:\n    \"\"\"Check if password has enough entropy.\"\"\"\n    return entropy_bits(password) >= min_entropy",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:33.825582+00:00",
+    "description": "Check if password has enough entropy.",
+    "intent": "Check if password has enough entropy.",
+    "language": "python",
+    "name": "is_strong_enough",
+    "source_file": "neurop_forge/sources/password_utilities.py",
+    "source_line_end": 198,
+    "source_line_start": 196,
+    "tags": [
+      "enough",
+      "min_entropy",
+      "password",
+      "strong",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:33.825608+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(password) == string",
+      "password is not None",
+      "type(min_entropy) == float",
+      "min_entropy is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(password) == string",
+      "password is not None",
+      "type(min_entropy) == float",
+      "min_entropy is not None"
+    ]
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ef73b87e33378628abbae92081b1c0c6d1953422574ef7b2da7394a7b04d280a",
+    "semantic_fingerprint": "54b8e20564b9bea3a748ab19f813c13882502233325cf92d9ebec398a19aeacb",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse tokens into expression tree.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter tokens",
+        "name": "tokens",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of parse_expression_tree",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_expression_tree(tokens: list) -> dict:\n    \"\"\"Parse tokens into expression tree.\"\"\"\n    postfix = infix_to_postfix(tokens)\n    stack = []\n    for token in postfix:\n        if token[\"type\"] == \"number\" or token[\"type\"] == \"identifier\":\n            stack.append({\"type\": \"value\", \"token\": token})\n        elif token[\"type\"] == \"operator\":\n            if len(stack) >= 2:\n                right = stack.pop()\n                left = stack.pop()\n                stack.append({\"type\": \"binary\", \"operator\": token[\"value\"], \"left\": left, \"right\": right})\n    return stack[0] if stack else {\"type\": \"value\", \"token\": {\"type\": \"number\", \"value\": 0}}",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T12:22:31.259047+00:00",
+    "description": "Parse tokens into expression tree.",
+    "intent": "Parse tokens into expression tree.",
+    "language": "python",
+    "name": "parse_expression_tree",
+    "source_file": "neurop_forge/sources/expression_parser.py",
+    "source_line_end": 133,
+    "source_line_start": 121,
+    "tags": [
+      "expression",
+      "parse",
+      "tokens",
+      "transformation",
+      "tree"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.259076+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(tokens) == list",
+      "tokens is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(tokens) == list",
+      "tokens is not None"
+    ]
+  }
+}

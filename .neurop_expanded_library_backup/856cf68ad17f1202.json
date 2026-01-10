@@ -1,0 +1,163 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": false,
+    "io_operations": [
+      "time"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "non_deterministic",
+    "side_effects": [
+      "time"
+    ],
+    "thread_safe": false
+  },
+  "failure_modes": {
+    "can_fail": true,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "raises_exception",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "856cf68ad17f1202fcd0911d3f3a8ad726ac4fe24be948883ccc01345b25910e",
+    "semantic_fingerprint": "a037a7eab6d1f2224db58b84411647b959b629f7b6bf2cb05f3d353942007bb7",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if token needs refresh (expires within buffer period).",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter token",
+        "name": "token",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_timestamp",
+        "name": "current_timestamp",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter buffer_seconds",
+        "name": "buffer_seconds",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_token_refresh_needed",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_token_refresh_needed(token: str, current_timestamp: int, buffer_seconds: int) -> bool:\n    \"\"\"Check if token needs refresh (expires within buffer period).\"\"\"\n    exp = get_jwt_expiry_timestamp(token)\n    if exp == 0:\n        return False\n    return (exp - current_timestamp) <= buffer_seconds",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:27.021699+00:00",
+    "description": "Check if token needs refresh (expires within buffer period).",
+    "intent": "Check if token needs refresh (expires within buffer period).",
+    "language": "python",
+    "name": "is_token_refresh_needed",
+    "source_file": "neurop_forge/sources/auth_patterns.py",
+    "source_line_end": 164,
+    "source_line_start": 159,
+    "tags": [
+      "buffer_seconds",
+      "current_timestamp",
+      "needed",
+      "refresh",
+      "token",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 0.5,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.021717+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.31,
+    "risk_factors": [
+      "impure_function",
+      "non_deterministic",
+      "side_effects: time"
+    ],
+    "risk_level": "medium",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(token) == string",
+      "token is not None",
+      "type(current_timestamp) == integer",
+      "current_timestamp is not None",
+      "type(buffer_seconds) == integer",
+      "buffer_seconds is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(token) == string",
+      "token is not None",
+      "type(current_timestamp) == integer",
+      "current_timestamp is not None",
+      "type(buffer_seconds) == integer",
+      "buffer_seconds is not None"
+    ]
+  }
+}

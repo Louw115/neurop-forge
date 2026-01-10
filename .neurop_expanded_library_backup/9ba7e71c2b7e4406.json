@@ -1,0 +1,144 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9ba7e71c2b7e440618cce95701355a53ddf37b61969a324d013e4ec62ae68c24",
+    "semantic_fingerprint": "868faa0372d5a53ca3fa95fbc62df5f10238a12cce947d39a1d6e2601b4872f6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Evaluate expression tree.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter tree",
+        "name": "tree",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter variables",
+        "name": "variables",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of evaluate_tree",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def evaluate_tree(tree: dict, variables: dict) -> float:\n    \"\"\"Evaluate expression tree.\"\"\"\n    if tree[\"type\"] == \"value\":\n        token = tree[\"token\"]\n        if token[\"type\"] == \"number\":\n            return token[\"value\"]\n        return variables.get(token[\"value\"], 0)\n    left = evaluate_tree(tree[\"left\"], variables)\n    right = evaluate_tree(tree[\"right\"], variables)\n    op = tree[\"operator\"]\n    if op == \"+\":\n        return left + right\n    elif op == \"-\":\n        return left - right\n    elif op == \"*\":\n        return left * right\n    elif op == \"/\":\n        return left / right if right != 0 else 0\n    elif op == \"^\":\n        return left ** right\n    return 0",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:31.263637+00:00",
+    "description": "Evaluate expression tree.",
+    "intent": "Evaluate expression tree.",
+    "language": "python",
+    "name": "evaluate_tree",
+    "source_file": "neurop_forge/sources/expression_parser.py",
+    "source_line_end": 156,
+    "source_line_start": 136,
+    "tags": [
+      "arithmetic",
+      "evaluate",
+      "tree",
+      "variables"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.263667+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(tree) == dict",
+      "tree is not None",
+      "type(variables) == dict",
+      "variables is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(tree) == dict",
+      "tree is not None",
+      "type(variables) == dict",
+      "variables is not None"
+    ]
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "960efa591bb4934999b0e6aedf8773b2ebe7668dfe14c5670cce73bae1fff1a5",
+    "semantic_fingerprint": "11bc87480567dcab15d3c1535092bfea80d62e3b0c397c21bd42a59c0a78c6dc",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Convert binary string to text.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter binary",
+        "name": "binary",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of binary_to_text",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def binary_to_text(binary: str) -> str:\n    \"\"\"Convert binary string to text.\"\"\"\n    chars = [binary[i:i+8] for i in range(0, len(binary), 8)]\n    return \"\".join(chr(int(c, 2)) for c in chars)",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T12:22:32.259197+00:00",
+    "description": "Convert binary string to text.",
+    "intent": "Convert binary string to text.",
+    "language": "python",
+    "name": "binary_to_text",
+    "source_file": "neurop_forge/sources/encoding_schemes.py",
+    "source_line_end": 179,
+    "source_line_start": 176,
+    "tags": [
+      "binary",
+      "text",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:32.259222+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(binary) == string",
+      "binary is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(binary) == string",
+      "binary is not None"
+    ]
+  }
+}

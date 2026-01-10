@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "348567752379adda6474226b8c1fd6019ce2b8e1ef7ee7fe0b120df0c0b4f915",
+    "semantic_fingerprint": "0fa4c71fe414b98a9662d5ac994e45a1fa4edb41593bb32c76bfb577d5c7d8ac",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Convert integer to string in given base.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter number",
+        "name": "number",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter base",
+        "name": "base",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of to_base",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def to_base(number: int, base: int) -> str:\n    \"\"\"Convert integer to string in given base.\"\"\"\n    if number == 0:\n        return \"0\"\n    if base < 2 or base > 62:\n        return \"\"\n    is_negative = number < 0\n    number = abs(number)\n    result = []\n    while number > 0:\n        result.append(DIGITS[number % base])\n        number //= base\n    if is_negative:\n        result.append(\"-\")\n    return \"\".join(reversed(result))",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T12:22:31.155222+00:00",
+    "description": "Convert integer to string in given base.",
+    "intent": "Convert integer to string in given base.",
+    "language": "python",
+    "name": "to_base",
+    "source_file": "neurop_forge/sources/base_conversion.py",
+    "source_line_end": 29,
+    "source_line_start": 15,
+    "tags": [
+      "base",
+      "number",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.155252+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(number) == integer",
+      "number is not None",
+      "type(base) == integer",
+      "base is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(number) == integer",
+      "number is not None",
+      "type(base) == integer",
+      "base is not None"
+    ]
+  }
+}

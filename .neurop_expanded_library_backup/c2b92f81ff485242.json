@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c2b92f81ff4852421b8aa0e7e1edfc7972e3bfa3d6d8922530c6515d357a901d",
+    "semantic_fingerprint": "cdfad80aacfd2aa32a42095821d5925cc6535aee9a8f6897fa47f4823481e254",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find longest common suffix of strings.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter strings",
+        "name": "strings",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of longest_common_suffix",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def longest_common_suffix(strings: list) -> str:\n    \"\"\"Find longest common suffix of strings.\"\"\"\n    if not strings:\n        return \"\"\n    suffix = strings[0]\n    for s in strings[1:]:\n        while not s.endswith(suffix):\n            suffix = suffix[1:]\n            if not suffix:\n                return \"\"\n    return suffix",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:33.147047+00:00",
+    "description": "Find longest common suffix of strings.",
+    "intent": "Find longest common suffix of strings.",
+    "language": "python",
+    "name": "longest_common_suffix",
+    "source_file": "neurop_forge/sources/string_algorithms.py",
+    "source_line_end": 35,
+    "source_line_start": 25,
+    "tags": [
+      "common",
+      "longest",
+      "string_manipulation",
+      "strings",
+      "suffix"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:33.147073+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(strings) == list",
+      "strings is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(strings) == list",
+      "strings is not None"
+    ]
+  }
+}

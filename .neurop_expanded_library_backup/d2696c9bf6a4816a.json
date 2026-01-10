@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic comparison block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d2696c9bf6a4816aef591fe203f033cc3be543970d8e959e4214c3d18fdb4af4",
+    "semantic_fingerprint": "d12e7461dab0c06ebfa8d8bc0ec0d009f060bd1dc2345fed549344fcb972e2db",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Compare two UUIDs. Returns -1, 0, or 1.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter uuid1",
+        "name": "uuid1",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter uuid2",
+        "name": "uuid2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of compare_uuids",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def compare_uuids(uuid1: str, uuid2: str) -> int:\n    \"\"\"Compare two UUIDs. Returns -1, 0, or 1.\"\"\"\n    n1 = normalize_uuid(uuid1)\n    n2 = normalize_uuid(uuid2)\n    if not n1 or not n2:\n        return 0\n    if n1 < n2:\n        return -1\n    elif n1 > n2:\n        return 1\n    return 0",
+  "metadata": {
+    "category": "comparison",
+    "created_at": "2026-01-10T12:22:24.921473+00:00",
+    "description": "Compare two UUIDs. Returns -1, 0, or 1.",
+    "intent": "Compare two UUIDs. Returns -1, 0, or 1.",
+    "language": "python",
+    "name": "compare_uuids",
+    "source_file": "neurop_forge/sources/uuid_utilities.py",
+    "source_line_end": 151,
+    "source_line_start": 141,
+    "tags": [
+      "compare",
+      "comparison",
+      "uuid1",
+      "uuid2",
+      "uuids"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:24.921493+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(uuid1) == string",
+      "uuid1 is not None",
+      "type(uuid2) == string",
+      "uuid2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(uuid1) == string",
+      "uuid1 is not None",
+      "type(uuid2) == string",
+      "uuid2 is not None"
+    ]
+  }
+}

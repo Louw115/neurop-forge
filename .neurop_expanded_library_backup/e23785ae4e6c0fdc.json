@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic comparison block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e23785ae4e6c0fdcaa2aa69ee755f6dc3ade7ce3288ea69626f900c8d80b271f",
+    "semantic_fingerprint": "0045b37c9465573cfa3105f6f01b24571f1b17bbb6fbb681b23a176810772101",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Constant-time comparison of checksums.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter checksum1",
+        "name": "checksum1",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter checksum2",
+        "name": "checksum2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of compare_checksums",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def compare_checksums(checksum1: str, checksum2: str) -> bool:\n    \"\"\"Constant-time comparison of checksums.\"\"\"\n    if len(checksum1) != len(checksum2):\n        return False\n    result = 0\n    for a, b in zip(checksum1.lower(), checksum2.lower()):\n        result |= ord(a) ^ ord(b)\n    return result == 0",
+  "metadata": {
+    "category": "comparison",
+    "created_at": "2026-01-10T12:22:31.332388+00:00",
+    "description": "Constant-time comparison of checksums.",
+    "intent": "Constant-time comparison of checksums.",
+    "language": "python",
+    "name": "compare_checksums",
+    "source_file": "neurop_forge/sources/checksum_utilities.py",
+    "source_line_end": 225,
+    "source_line_start": 218,
+    "tags": [
+      "checksum1",
+      "checksum2",
+      "checksums",
+      "compare",
+      "comparison"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.332414+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(checksum1) == string",
+      "checksum1 is not None",
+      "type(checksum2) == string",
+      "checksum2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(checksum1) == string",
+      "checksum1 is not None",
+      "type(checksum2) == string",
+      "checksum2 is not None"
+    ]
+  }
+}

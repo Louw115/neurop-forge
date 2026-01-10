@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "6d9873e123693e3656cd8fee96a000115d84dbd2ffaf68c328ae6202d9b92985",
+    "semantic_fingerprint": "b5574c989ba4883bec17f82eb660b5c91c3789d839b56b7742d7ef7fbf01f9b2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate Jaro similarity.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter s1",
+        "name": "s1",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter s2",
+        "name": "s2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of jaro_similarity",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def jaro_similarity(s1: str, s2: str) -> float:\n    \"\"\"Calculate Jaro similarity.\"\"\"\n    if s1 == s2:\n        return 1.0\n    if not s1 or not s2:\n        return 0.0\n    match_distance = max(len(s1), len(s2)) // 2 - 1\n    if match_distance < 0:\n        match_distance = 0\n    s1_matches = [False] * len(s1)\n    s2_matches = [False] * len(s2)\n    matches = 0\n    transpositions = 0\n    for i in range(len(s1)):\n        start = max(0, i - match_distance)\n        end = min(i + match_distance + 1, len(s2))\n        for j in range(start, end):\n            if s2_matches[j] or s1[i] != s2[j]:\n                continue\n            s1_matches[i] = True\n            s2_matches[j] = True\n            matches += 1\n            break\n    if matches == 0:\n        return 0.0\n    k = 0\n    for i in range(len(s1)):\n        if not s1_matches[i]:\n            continue\n        while not s2_matches[k]:\n            k += 1\n        if s1[i] != s2[k]:\n            transpositions += 1\n        k += 1\n    return (matches / len(s1) + matches / len(s2) + (matches - transpositions / 2) / matches) / 3",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:30.264484+00:00",
+    "description": "Calculate Jaro similarity.",
+    "intent": "Calculate Jaro similarity.",
+    "language": "python",
+    "name": "jaro_similarity",
+    "source_file": "neurop_forge/sources/string_distance.py",
+    "source_line_end": 71,
+    "source_line_start": 37,
+    "tags": [
+      "arithmetic",
+      "jaro",
+      "s1",
+      "s2",
+      "similarity"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.264511+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(s1) == string",
+      "s1 is not None",
+      "type(s2) == string",
+      "s2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(s1) == string",
+      "s1 is not None",
+      "type(s2) == string",
+      "s2 is not None"
+    ]
+  }
+}

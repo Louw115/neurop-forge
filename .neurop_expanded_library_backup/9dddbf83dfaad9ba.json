@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9dddbf83dfaad9baf5888de911bf258308dba1f57e6d7865ecb48663ccf5aa9d",
+    "semantic_fingerprint": "24ff56c2f56bea5e0f3f4d2523c8449a248d23c6a0928d2dc8683db3d6fc5fb4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Reshape a 1D array to a matrix.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter arr",
+        "name": "arr",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter rows",
+        "name": "rows",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter cols",
+        "name": "cols",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of reshape_to_matrix",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def reshape_to_matrix(arr: list, rows: int, cols: int) -> list:\n    \"\"\"Reshape a 1D array to a matrix.\"\"\"\n    if len(arr) != rows * cols:\n        return []\n    return [arr[i * cols:(i + 1) * cols] for i in range(rows)]",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:24.458899+00:00",
+    "description": "Reshape a 1D array to a matrix.",
+    "intent": "Reshape a 1D array to a matrix.",
+    "language": "python",
+    "name": "reshape_to_matrix",
+    "source_file": "neurop_forge/sources/array_operations.py",
+    "source_line_end": 207,
+    "source_line_start": 203,
+    "tags": [
+      "arr",
+      "cols",
+      "list_operation",
+      "matrix",
+      "reshape",
+      "rows"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:24.458917+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(arr) == list",
+      "arr is not None",
+      "type(rows) == integer",
+      "rows is not None",
+      "type(cols) == integer",
+      "cols is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(arr) == list",
+      "arr is not None",
+      "type(rows) == integer",
+      "rows is not None",
+      "type(cols) == integer",
+      "cols is not None"
+    ]
+  }
+}

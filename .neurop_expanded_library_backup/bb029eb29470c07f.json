@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "bb029eb29470c07fc8120a10bb3821cc191f116f99f50c39c46777755d88220c",
+    "semantic_fingerprint": "406732c339f1e947c80db0c0021360d9e02439f1ad992596799ace939dd88cd3",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get cache statistics.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter cache",
+        "name": "cache",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of lru_get_stats",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def lru_get_stats(cache: dict) -> dict:\n    \"\"\"Get cache statistics.\"\"\"\n    return {\n        \"size\": cache[\"size\"],\n        \"capacity\": cache[\"capacity\"],\n        \"utilization\": cache[\"size\"] / cache[\"capacity\"] if cache[\"capacity\"] > 0 else 0,\n        \"lru_key\": lru_lru_key(cache),\n        \"mru_key\": lru_mru_key(cache)\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:30.673315+00:00",
+    "description": "Get cache statistics.",
+    "intent": "Get cache statistics.",
+    "language": "python",
+    "name": "lru_get_stats",
+    "source_file": "neurop_forge/sources/lru_cache.py",
+    "source_line_end": 174,
+    "source_line_start": 166,
+    "tags": [
+      "cache",
+      "dict_operation",
+      "get",
+      "lru",
+      "stats"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.673337+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(cache) == dict",
+      "cache is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(cache) == dict",
+      "cache is not None"
+    ]
+  }
+}

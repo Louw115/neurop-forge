@@ -1,0 +1,181 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2de3562766b75104b4c65404d581a648a608892cb3967d76327ca5e2ad1fedf2",
+    "semantic_fingerprint": "2b037cfc04d720f80a53a2edbe1b31370dcce91cfcca9b7d4a54db55a213b251",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Create review record.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter reviewer_id",
+        "name": "reviewer_id",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter item_id",
+        "name": "item_id",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter rating",
+        "name": "rating",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter timestamp",
+        "name": "timestamp",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of create_review",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def create_review(reviewer_id: str, item_id: str, rating: int, text: str, timestamp: int) -> dict:\n    \"\"\"Create review record.\"\"\"\n    return {\n        \"review_id\": generate_review_id(reviewer_id, item_id, timestamp),\n        \"reviewer_id\": reviewer_id,\n        \"item_id\": item_id,\n        \"rating\": rating,\n        \"text\": text,\n        \"timestamp\": timestamp,\n        \"helpful_count\": 0,\n        \"verified\": False\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:35.028828+00:00",
+    "description": "Create review record.",
+    "intent": "Create review record.",
+    "language": "python",
+    "name": "create_review",
+    "source_file": "neurop_forge/sources/review_utilities.py",
+    "source_line_end": 26,
+    "source_line_start": 15,
+    "tags": [
+      "create",
+      "dict_operation",
+      "item_id",
+      "rating",
+      "review",
+      "reviewer_id",
+      "text",
+      "timestamp"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:35.028849+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(reviewer_id) == string",
+      "reviewer_id is not None",
+      "type(item_id) == string",
+      "item_id is not None",
+      "type(rating) == integer",
+      "rating is not None",
+      "type(text) == string",
+      "text is not None",
+      "type(timestamp) == integer",
+      "timestamp is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(reviewer_id) == string",
+      "reviewer_id is not None",
+      "type(item_id) == string",
+      "item_id is not None",
+      "type(rating) == integer",
+      "rating is not None",
+      "type(text) == string",
+      "text is not None",
+      "type(timestamp) == integer",
+      "timestamp is not None"
+    ]
+  }
+}

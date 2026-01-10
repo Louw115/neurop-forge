@@ -1,0 +1,158 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e62890b18bdca42122a96de20143b17d66c2c173d8e57422ce6b8c957d940a2d",
+    "semantic_fingerprint": "70fd083e0447503285f64591392e4a4504f0078f8a11c48f49163108e65082d4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Create email verification token.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter user_id",
+        "name": "user_id",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter email",
+        "name": "email",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter secret",
+        "name": "secret",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of create_email_verification_token",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def create_email_verification_token(user_id: str, email: str, secret: str) -> str:\n    \"\"\"Create email verification token.\"\"\"\n    data = f\"{user_id}{email}{secret}\"\n    return hashlib.sha256(data.encode()).hexdigest()[:32]",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:34.688514+00:00",
+    "description": "Create email verification token.",
+    "intent": "Create email verification token.",
+    "language": "python",
+    "name": "create_email_verification_token",
+    "source_file": "neurop_forge/sources/token_utilities.py",
+    "source_line_end": 145,
+    "source_line_start": 142,
+    "tags": [
+      "create",
+      "email",
+      "secret",
+      "string_manipulation",
+      "token",
+      "user_id",
+      "verification"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.688544+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(user_id) == string",
+      "user_id is not None",
+      "type(email) == string",
+      "email is not None",
+      "type(secret) == string",
+      "secret is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(user_id) == string",
+      "user_id is not None",
+      "type(email) == string",
+      "email is not None",
+      "type(secret) == string",
+      "secret is not None"
+    ]
+  }
+}

@@ -1,0 +1,170 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "16f74a6906fd9301ec1e00a1784e2d370a51efcdb912cc08e0dcf5a511ea323e",
+    "semantic_fingerprint": "cd02be696494f0c4d5c4cdcb61effa9d5ea26cf67ed9f5421d6153e84e62cefd",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate adaptive rate limit based on success rate.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_limit",
+        "name": "current_limit",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter success_rate",
+        "name": "success_rate",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter min_limit",
+        "name": "min_limit",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_limit",
+        "name": "max_limit",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of calculate_adaptive_limit",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_adaptive_limit(current_limit: int, success_rate: float, min_limit: int, max_limit: int) -> int:\n    \"\"\"Calculate adaptive rate limit based on success rate.\"\"\"\n    if success_rate >= 0.95:\n        new_limit = int(current_limit * 1.1)\n    elif success_rate < 0.8:\n        new_limit = int(current_limit * 0.9)\n    else:\n        new_limit = current_limit\n    return max(min_limit, min(new_limit, max_limit))",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:25.222720+00:00",
+    "description": "Calculate adaptive rate limit based on success rate.",
+    "intent": "Calculate adaptive rate limit based on success rate.",
+    "language": "python",
+    "name": "calculate_adaptive_limit",
+    "source_file": "neurop_forge/sources/rate_limiting.py",
+    "source_line_end": 229,
+    "source_line_start": 221,
+    "tags": [
+      "adaptive",
+      "arithmetic",
+      "calculate",
+      "current_limit",
+      "limit",
+      "max_limit",
+      "min_limit",
+      "success_rate"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.222747+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(current_limit) == integer",
+      "current_limit is not None",
+      "type(success_rate) == float",
+      "success_rate is not None",
+      "type(min_limit) == integer",
+      "min_limit is not None",
+      "type(max_limit) == integer",
+      "max_limit is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(current_limit) == integer",
+      "current_limit is not None",
+      "type(success_rate) == float",
+      "success_rate is not None",
+      "type(min_limit) == integer",
+      "min_limit is not None",
+      "type(max_limit) == integer",
+      "max_limit is not None"
+    ]
+  }
+}

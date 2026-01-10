@@ -1,0 +1,170 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "fb320a0811fa40014f1922c18d6517fff4ebf126a2c6f029761de68894903dbf",
+    "semantic_fingerprint": "15bf93ae00017419aa24155e7d149daa77908a877f8978efafddc705c68575de",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if request should bypass maintenance mode.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter ip",
+        "name": "ip",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter allowed_ips",
+        "name": "allowed_ips",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter bypass_header",
+        "name": "bypass_header",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter bypass_value",
+        "name": "bypass_value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of should_bypass_maintenance",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def should_bypass_maintenance(ip: str, allowed_ips: list, bypass_header: str, bypass_value: str) -> bool:\n    \"\"\"Check if request should bypass maintenance mode.\"\"\"\n    if ip in allowed_ips:\n        return True\n    return False",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:27.436137+00:00",
+    "description": "Check if request should bypass maintenance mode.",
+    "intent": "Check if request should bypass maintenance mode.",
+    "language": "python",
+    "name": "should_bypass_maintenance",
+    "source_file": "neurop_forge/sources/middleware_patterns.py",
+    "source_line_end": 227,
+    "source_line_start": 223,
+    "tags": [
+      "allowed_ips",
+      "bypass",
+      "bypass_header",
+      "bypass_value",
+      "ip",
+      "maintenance",
+      "should",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.436158+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(ip) == string",
+      "ip is not None",
+      "type(allowed_ips) == list",
+      "allowed_ips is not None",
+      "type(bypass_header) == string",
+      "bypass_header is not None",
+      "type(bypass_value) == string",
+      "bypass_value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(ip) == string",
+      "ip is not None",
+      "type(allowed_ips) == list",
+      "allowed_ips is not None",
+      "type(bypass_header) == string",
+      "bypass_header is not None",
+      "type(bypass_value) == string",
+      "bypass_value is not None"
+    ]
+  }
+}

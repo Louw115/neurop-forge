@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "749a3fde33f7cd988457587b37e0e50a1a0ccd985b5da5c165e8c351a299e42e",
+    "semantic_fingerprint": "61202d4d103292db065fb37ab5b0c0bc06b3483b651ad0949f4b51f6c612772d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Push to max stack.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter stack",
+        "name": "stack",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter item",
+        "name": "item",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of max_stack_push",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def max_stack_push(stack: dict, item) -> dict:\n    \"\"\"Push to max stack.\"\"\"\n    items = list(stack[\"items\"]) + [item]\n    maxs = list(stack[\"maxs\"])\n    if not maxs or item >= maxs[-1]:\n        maxs.append(item)\n    else:\n        maxs.append(maxs[-1])\n    return {\"items\": items, \"maxs\": maxs}",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:30.072413+00:00",
+    "description": "Push to max stack.",
+    "intent": "Push to max stack.",
+    "language": "python",
+    "name": "max_stack_push",
+    "source_file": "neurop_forge/sources/stack_utilities.py",
+    "source_line_end": 192,
+    "source_line_start": 184,
+    "tags": [
+      "arithmetic",
+      "item",
+      "max",
+      "push",
+      "stack"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.072441+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(stack) == dict",
+      "stack is not None",
+      "item is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(stack) == dict",
+      "stack is not None",
+      "item is not None"
+    ]
+  }
+}

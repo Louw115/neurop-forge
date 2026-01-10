@@ -1,0 +1,147 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ed7df498b6e84f76ff2607b0d7bc2b437c90a0dda003c3cd85de697a1b1df31c",
+    "semantic_fingerprint": "73eb128af399b2870104fb9b4c5bef12b064bbde457381e48ce5bf739ae5f4c3",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Select connection using round-robin strategy.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_index",
+        "name": "current_index",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter pool_size",
+        "name": "pool_size",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of select_connection_round_robin",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def select_connection_round_robin(current_index: int, pool_size: int) -> int:\n    \"\"\"Select connection using round-robin strategy.\"\"\"\n    if pool_size <= 0:\n        return -1\n    return (current_index + 1) % pool_size",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:26.781693+00:00",
+    "description": "Select connection using round-robin strategy.",
+    "intent": "Select connection using round-robin strategy.",
+    "language": "python",
+    "name": "select_connection_round_robin",
+    "source_file": "neurop_forge/sources/connection_pool.py",
+    "source_line_end": 217,
+    "source_line_start": 213,
+    "tags": [
+      "connection",
+      "current_index",
+      "filtering",
+      "pool_size",
+      "robin",
+      "round",
+      "select"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.781713+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(current_index) == integer",
+      "current_index is not None",
+      "type(pool_size) == integer",
+      "pool_size is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(current_index) == integer",
+      "current_index is not None",
+      "type(pool_size) == integer",
+      "pool_size is not None"
+    ]
+  }
+}

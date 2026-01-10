@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f19be53d0257d293a19c43c687650e43a78bf67a88556e0869977acbf53d4c10",
+    "semantic_fingerprint": "1f46140e1a92ce254a5d18dc6c168d26351dce78a16a231592b212358d9a3ded",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate a unique slug by appending numbers if needed.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter base_slug",
+        "name": "base_slug",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter existing_slugs",
+        "name": "existing_slugs",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of unique_slug",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def unique_slug(base_slug: str, existing_slugs: list) -> str:\n    \"\"\"Generate a unique slug by appending numbers if needed.\"\"\"\n    if base_slug not in existing_slugs:\n        return base_slug\n    counter = 1\n    while f\"{base_slug}-{counter}\" in existing_slugs:\n        counter += 1\n    return f\"{base_slug}-{counter}\"",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:25.520180+00:00",
+    "description": "Generate a unique slug by appending numbers if needed.",
+    "intent": "Generate a unique slug by appending numbers if needed.",
+    "language": "python",
+    "name": "unique_slug",
+    "source_file": "neurop_forge/sources/slug_utilities.py",
+    "source_line_end": 91,
+    "source_line_start": 84,
+    "tags": [
+      "base_slug",
+      "existing_slugs",
+      "list_operation",
+      "slug",
+      "unique"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.520207+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(base_slug) == string",
+      "base_slug is not None",
+      "type(existing_slugs) == list",
+      "existing_slugs is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(base_slug) == string",
+      "base_slug is not None",
+      "type(existing_slugs) == list",
+      "existing_slugs is not None"
+    ]
+  }
+}

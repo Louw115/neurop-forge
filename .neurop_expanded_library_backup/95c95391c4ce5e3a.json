@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "95c95391c4ce5e3a5a2517c1b2f2c89bcd13c491506ff5500b05b726643c1a35",
+    "semantic_fingerprint": "480a4831418f7e64cfa11847d198bf0572f1436b311db8f88fd2e38c3f6bd82e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse Range header.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter header",
+        "name": "header",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of parse_range",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_range(header: str) -> dict:\n    \"\"\"Parse Range header.\"\"\"\n    if not header.startswith(\"bytes=\"):\n        return None\n    ranges = []\n    for r in header[6:].split(\",\"):\n        if \"-\" in r:\n            start, end = r.split(\"-\", 1)\n            ranges.append({\n                \"start\": int(start) if start else None,\n                \"end\": int(end) if end else None\n            })\n    return {\"unit\": \"bytes\", \"ranges\": ranges}",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T12:22:32.758466+00:00",
+    "description": "Parse Range header.",
+    "intent": "Parse Range header.",
+    "language": "python",
+    "name": "parse_range",
+    "source_file": "neurop_forge/sources/protocol_utilities.py",
+    "source_line_end": 243,
+    "source_line_start": 231,
+    "tags": [
+      "header",
+      "parse",
+      "range",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:32.758494+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(header) == string",
+      "header is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(header) == string",
+      "header is not None"
+    ]
+  }
+}

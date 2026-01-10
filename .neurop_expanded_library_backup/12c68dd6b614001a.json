@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "12c68dd6b614001ab52eb3878205928c4d8741add636ce822092d2d257646f75",
+    "semantic_fingerprint": "6f3e54a9a16471b4d3906031a3c0bd8a72429c474d3f862738d7f0b8ed86bf0b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add causation link to event.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter event",
+        "name": "event",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter cause_event_id",
+        "name": "cause_event_id",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of add_causation",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def add_causation(event: dict, cause_event_id: str) -> dict:\n    \"\"\"Add causation link to event.\"\"\"\n    return {**event, \"caused_by\": cause_event_id}",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:33.258529+00:00",
+    "description": "Add causation link to event.",
+    "intent": "Add causation link to event.",
+    "language": "python",
+    "name": "add_causation",
+    "source_file": "neurop_forge/sources/event_utilities.py",
+    "source_line_end": 187,
+    "source_line_start": 185,
+    "tags": [
+      "add",
+      "arithmetic",
+      "causation",
+      "cause_event_id",
+      "event"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:33.258554+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(event) == dict",
+      "event is not None",
+      "type(cause_event_id) == string",
+      "cause_event_id is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(event) == dict",
+      "event is not None",
+      "type(cause_event_id) == string",
+      "cause_event_id is not None"
+    ]
+  }
+}

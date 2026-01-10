@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b2590d2b76415ee5c52b40b4991c75137ef7e19ef2bb1826d62b45b075774a81",
+    "semantic_fingerprint": "03234532f8dbc0d542e039b60c6d483223a1557b30fc2f8e9f8380fef529c300",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Suggest upsell products within price range.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter current_price",
+        "name": "current_price",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter upsell_products",
+        "name": "upsell_products",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter max_increase_percent",
+        "name": "max_increase_percent",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of suggest_upsell",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def suggest_upsell(current_price: float, upsell_products: list, max_increase_percent: float) -> list:\n    \"\"\"Suggest upsell products within price range.\"\"\"\n    max_price = current_price * (1 + max_increase_percent / 100)\n    return [p for p in upsell_products if current_price < p.get(\"price\", 0) <= max_price]",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:28.270185+00:00",
+    "description": "Suggest upsell products within price range.",
+    "intent": "Suggest upsell products within price range.",
+    "language": "python",
+    "name": "suggest_upsell",
+    "source_file": "neurop_forge/sources/ecommerce_patterns.py",
+    "source_line_end": 254,
+    "source_line_start": 251,
+    "tags": [
+      "current_price",
+      "list_operation",
+      "max_increase_percent",
+      "suggest",
+      "upsell",
+      "upsell_products"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.270215+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(current_price) == float",
+      "current_price is not None",
+      "type(upsell_products) == list",
+      "upsell_products is not None",
+      "type(max_increase_percent) == float",
+      "max_increase_percent is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(current_price) == float",
+      "current_price is not None",
+      "type(upsell_products) == list",
+      "upsell_products is not None",
+      "type(max_increase_percent) == float",
+      "max_increase_percent is not None"
+    ]
+  }
+}

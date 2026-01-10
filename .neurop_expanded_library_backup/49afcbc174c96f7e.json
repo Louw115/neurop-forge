@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "49afcbc174c96f7eb30404f7dd139a0daff54b5d5faad37ab6244506e9a70c76",
+    "semantic_fingerprint": "9a07ae3e78d69c8d266c83417081852e784659b036603c38a6fcb5571f920b35",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get name of ASCII character.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter char",
+        "name": "char",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_char_name",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_char_name(char: str) -> str:\n    \"\"\"Get name of ASCII character.\"\"\"\n    code = ord(char)\n    names = {\n        0: \"NUL\", 7: \"BEL\", 8: \"BS\", 9: \"TAB\", 10: \"LF\",\n        13: \"CR\", 27: \"ESC\", 32: \"SPACE\", 127: \"DEL\"\n    }\n    if code in names:\n        return names[code]\n    if is_printable_ascii(char):\n        return char\n    return f\"0x{code:02X}\"",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:33.529149+00:00",
+    "description": "Get name of ASCII character.",
+    "intent": "Get name of ASCII character.",
+    "language": "python",
+    "name": "get_char_name",
+    "source_file": "neurop_forge/sources/ascii_utilities.py",
+    "source_line_end": 101,
+    "source_line_start": 90,
+    "tags": [
+      "char",
+      "filtering",
+      "get",
+      "name"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:33.529168+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(char) == string",
+      "char is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(char) == string",
+      "char is not None"
+    ]
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2baf0101ed6852640aa61313f6507ce0c01c8b25a04c6ac923a078ac2d45c78e",
+    "semantic_fingerprint": "047119f841fd5c2174efbbd0fe5ad2d94779c1ceb2c765ef4d06a6cff9bb5a1f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate delay needed to stay under rate limit.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter current_rate",
+        "name": "current_rate",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter max_rate",
+        "name": "max_rate",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of calculate_rate_limit_delay",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_rate_limit_delay(current_rate: float, max_rate: float) -> int:\n    \"\"\"Calculate delay needed to stay under rate limit.\"\"\"\n    if current_rate <= max_rate:\n        return 0\n    return int(1000 / max_rate)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:27.507891+00:00",
+    "description": "Calculate delay needed to stay under rate limit.",
+    "intent": "Calculate delay needed to stay under rate limit.",
+    "language": "python",
+    "name": "calculate_rate_limit_delay",
+    "source_file": "neurop_forge/sources/job_scheduling.py",
+    "source_line_end": 264,
+    "source_line_start": 260,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "current_rate",
+      "delay",
+      "limit",
+      "max_rate",
+      "rate"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.507917+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(current_rate) == float",
+      "current_rate is not None",
+      "type(max_rate) == float",
+      "max_rate is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(current_rate) == float",
+      "current_rate is not None",
+      "type(max_rate) == float",
+      "max_rate is not None"
+    ]
+  }
+}

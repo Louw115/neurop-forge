@@ -1,0 +1,144 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ae4dfc286732de0f503b72c18c964e86eadae075c418d79b88c3d34a5791136e",
+    "semantic_fingerprint": "4a081c7936040b6a887942815461bcf58aa6474e84b9668c7c556c085c6e03bb",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Interleave two arrays.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter arr1",
+        "name": "arr1",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter arr2",
+        "name": "arr2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of interleave",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def interleave(arr1: list, arr2: list) -> list:\n    \"\"\"Interleave two arrays.\"\"\"\n    result = []\n    for i in range(max(len(arr1), len(arr2))):\n        if i < len(arr1):\n            result.append(arr1[i])\n        if i < len(arr2):\n            result.append(arr2[i])\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:32.004666+00:00",
+    "description": "Interleave two arrays.",
+    "intent": "Interleave two arrays.",
+    "language": "python",
+    "name": "interleave",
+    "source_file": "neurop_forge/sources/array_algorithms.py",
+    "source_line_end": 147,
+    "source_line_start": 139,
+    "tags": [
+      "arr1",
+      "arr2",
+      "interleave",
+      "list_operation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:32.004692+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(arr1) == list",
+      "arr1 is not None",
+      "type(arr2) == list",
+      "arr2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(arr1) == list",
+      "arr1 is not None",
+      "type(arr2) == list",
+      "arr2 is not None"
+    ]
+  }
+}

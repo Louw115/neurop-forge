@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b534b989dec84b366bdd912d5d3fb5d6f7e4ae3977a1c73f122e7831b81152b6",
+    "semantic_fingerprint": "df92072c3d019b1fe45e5e76b25b7df26094091998f889927a7cd3d9afa6ae0f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if a field name matches sensitive patterns.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter field_name",
+        "name": "field_name",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter sensitive_patterns",
+        "name": "sensitive_patterns",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_sensitive_field",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_sensitive_field(field_name: str, sensitive_patterns: list) -> bool:\n    \"\"\"Check if a field name matches sensitive patterns.\"\"\"\n    field_lower = field_name.lower()\n    for pattern in sensitive_patterns:\n        if pattern.lower() in field_lower:\n            return True\n    return False",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:26.830204+00:00",
+    "description": "Check if a field name matches sensitive patterns.",
+    "intent": "Check if a field name matches sensitive patterns.",
+    "language": "python",
+    "name": "is_sensitive_field",
+    "source_file": "neurop_forge/sources/audit_logging.py",
+    "source_line_end": 66,
+    "source_line_start": 60,
+    "tags": [
+      "field",
+      "field_name",
+      "sensitive",
+      "sensitive_patterns",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.830224+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(field_name) == string",
+      "field_name is not None",
+      "type(sensitive_patterns) == list",
+      "sensitive_patterns is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(field_name) == string",
+      "field_name is not None",
+      "type(sensitive_patterns) == list",
+      "sensitive_patterns is not None"
+    ]
+  }
+}

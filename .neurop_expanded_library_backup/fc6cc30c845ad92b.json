@@ -1,0 +1,158 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "fc6cc30c845ad92be9545052684c72316562fb63f2c88a81ad564fbd698735f9",
+    "semantic_fingerprint": "f4b0af823ee5ada2de3a42bbc4c03c17e460fbcc325fa02c44a7b32be3c3e91f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate a CHECK constraint for string length.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter column",
+        "name": "column",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter min_len",
+        "name": "min_len",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_len",
+        "name": "max_len",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_length_check",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_length_check(column: str, min_len: int, max_len: int) -> str:\n    \"\"\"Generate a CHECK constraint for string length.\"\"\"\n    from neurop_forge.sources.sql_building import escape_sql_identifier\n    return f\"CHECK (LENGTH({escape_sql_identifier(column)}) >= {min_len} AND LENGTH({escape_sql_identifier(column)}) <= {max_len})\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:26.501105+00:00",
+    "description": "Generate a CHECK constraint for string length.",
+    "intent": "Generate a CHECK constraint for string length.",
+    "language": "python",
+    "name": "generate_length_check",
+    "source_file": "neurop_forge/sources/data_integrity.py",
+    "source_line_end": 262,
+    "source_line_start": 259,
+    "tags": [
+      "check",
+      "column",
+      "generate",
+      "length",
+      "max_len",
+      "min_len",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.501144+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(column) == string",
+      "column is not None",
+      "type(min_len) == integer",
+      "min_len is not None",
+      "type(max_len) == integer",
+      "max_len is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(column) == string",
+      "column is not None",
+      "type(min_len) == integer",
+      "min_len is not None",
+      "type(max_len) == integer",
+      "max_len is not None"
+    ]
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "79ae098853f70569b386828a72e2fdb0d6448c951ad053770f3435e2f5721c80",
+    "semantic_fingerprint": "32236d666267446a72f1a38ef62a06d33fc74ebad820a08d5a65d5321e2006f4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate UUID format.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of validate_uuid_format",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_uuid_format(value: str) -> dict:\n    \"\"\"Validate UUID format.\"\"\"\n    import re\n    pattern = r'^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'\n    if not re.match(pattern, value.lower()):\n        return {\"valid\": False, \"error\": \"Invalid UUID format\"}\n    return {\"valid\": True, \"error\": None}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:27.177129+00:00",
+    "description": "Validate UUID format.",
+    "intent": "Validate UUID format.",
+    "language": "python",
+    "name": "validate_uuid_format",
+    "source_file": "neurop_forge/sources/request_validation.py",
+    "source_line_end": 99,
+    "source_line_start": 93,
+    "tags": [
+      "format",
+      "uuid",
+      "validate",
+      "validation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.177148+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == string",
+      "value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(value) == string",
+      "value is not None"
+    ]
+  }
+}

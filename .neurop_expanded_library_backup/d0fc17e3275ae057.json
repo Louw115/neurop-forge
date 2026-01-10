@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d0fc17e3275ae057f13778e108faeae2e2e231068f2b5f40b9e1f227a90cafa8",
+    "semantic_fingerprint": "d17f2526ca4bb3425dac8fb304b90b0114eb205e0bf9954eaaede9ffaed42d5e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add country code if missing.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter phone",
+        "name": "phone",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter country_code",
+        "name": "country_code",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of add_country_code",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def add_country_code(phone: str, country_code: str) -> str:\n    \"\"\"Add country code if missing.\"\"\"\n    digits = extract_digits(phone)\n    if not digits.startswith(country_code):\n        return country_code + digits\n    return digits",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:34.305587+00:00",
+    "description": "Add country code if missing.",
+    "intent": "Add country code if missing.",
+    "language": "python",
+    "name": "add_country_code",
+    "source_file": "neurop_forge/sources/phone_patterns.py",
+    "source_line_end": 98,
+    "source_line_start": 93,
+    "tags": [
+      "add",
+      "arithmetic",
+      "code",
+      "country",
+      "country_code",
+      "phone"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.305613+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(phone) == string",
+      "phone is not None",
+      "type(country_code) == string",
+      "country_code is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(phone) == string",
+      "phone is not None",
+      "type(country_code) == string",
+      "country_code is not None"
+    ]
+  }
+}

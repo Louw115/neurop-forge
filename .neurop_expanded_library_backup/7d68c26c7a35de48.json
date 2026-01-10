@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7d68c26c7a35de488d1fd5f98510e00af301516e6bd41bad0dde4f8d091db2b8",
+    "semantic_fingerprint": "99fb1c83960640ddd7c8cade9d11fa6bd749e30222bf9abc38f11f21267ef3a0",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Filter content items by type.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter content_type",
+        "name": "content_type",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of filter_content_by_type",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def filter_content_by_type(items: list, content_type: str) -> list:\n    \"\"\"Filter content items by type.\"\"\"\n    return [item for item in items if item.get(\"type\") == content_type]",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:29.514059+00:00",
+    "description": "Filter content items by type.",
+    "intent": "Filter content items by type.",
+    "language": "python",
+    "name": "filter_content_by_type",
+    "source_file": "neurop_forge/sources/content_utilities.py",
+    "source_line_end": 169,
+    "source_line_start": 167,
+    "tags": [
+      "content",
+      "content_type",
+      "filter",
+      "filtering",
+      "items",
+      "type"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.514085+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "type(content_type) == string",
+      "content_type is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "type(content_type) == string",
+      "content_type is not None"
+    ]
+  }
+}

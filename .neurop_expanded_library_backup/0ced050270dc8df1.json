@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0ced050270dc8df1bf8f0980f0cc38ef5b0edf2fcd9d04ead4ca03c7620e6f0b",
+    "semantic_fingerprint": "f0b023354f3e626fd6564445ae50c75b37a1c83d797e0d58739e42ca1ffcac00",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Sum each column of a matrix.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter matrix",
+        "name": "matrix",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of matrix_column_sum",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def matrix_column_sum(matrix: list) -> list:\n    \"\"\"Sum each column of a matrix.\"\"\"\n    if not matrix or not matrix[0]:\n        return []\n    cols = len(matrix[0])\n    return [sum(matrix[r][c] for r in range(len(matrix))) for c in range(cols)]",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:24.456074+00:00",
+    "description": "Sum each column of a matrix.",
+    "intent": "Sum each column of a matrix.",
+    "language": "python",
+    "name": "matrix_column_sum",
+    "source_file": "neurop_forge/sources/array_operations.py",
+    "source_line_end": 193,
+    "source_line_start": 188,
+    "tags": [
+      "arithmetic",
+      "column",
+      "matrix",
+      "sum"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:24.456096+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(matrix) == list",
+      "matrix is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(matrix) == list",
+      "matrix is not None"
+    ]
+  }
+}

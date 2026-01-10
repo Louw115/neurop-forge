@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "715c6e0b03b335c634f22613dea49656df7be4f4249d67e722992ab3ca6154d1",
+    "semantic_fingerprint": "ecdb2128b76c12ecaf618dc7ad421e29d34cf8b6556078a6bdddf36227a0512b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Topological sort for DAG.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter graph",
+        "name": "graph",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of topological_sort",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def topological_sort(graph: dict) -> list:\n    \"\"\"Topological sort for DAG.\"\"\"\n    if not graph[\"directed\"]:\n        return []\n    in_degree = {node: 0 for node in graph[\"nodes\"]}\n    for edge in graph[\"edges\"]:\n        in_degree[edge[\"to\"]] += 1\n    queue = [node for node, deg in in_degree.items() if deg == 0]\n    result = []\n    while queue:\n        node = queue.pop(0)\n        result.append(node)\n        for edge in graph[\"edges\"]:\n            if edge[\"from\"] == node:\n                in_degree[edge[\"to\"]] -= 1\n                if in_degree[edge[\"to\"]] == 0:\n                    queue.append(edge[\"to\"])\n    return result if len(result) == len(graph[\"nodes\"]) else []",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:28.735173+00:00",
+    "description": "Topological sort for DAG.",
+    "intent": "Topological sort for DAG.",
+    "language": "python",
+    "name": "topological_sort",
+    "source_file": "neurop_forge/sources/graph_utilities.py",
+    "source_line_end": 236,
+    "source_line_start": 219,
+    "tags": [
+      "graph",
+      "list_operation",
+      "sort",
+      "topological"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.735201+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(graph) == dict",
+      "graph is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(graph) == dict",
+      "graph is not None"
+    ]
+  }
+}

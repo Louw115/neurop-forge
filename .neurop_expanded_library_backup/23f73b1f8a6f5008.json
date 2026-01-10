@@ -1,0 +1,135 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic searching block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "23f73b1f8a6f5008bc1b8987fbae79e57ad9b736324cc5a065f94b35cfcaab29",
+    "semantic_fingerprint": "6d265e40b6337a9fc4365827e1d4513803645d1e2cfe384641aa988c2a43c149",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if text contains common SQL injection patterns.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of contains_sql_injection_patterns",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def contains_sql_injection_patterns(text: str) -> bool:\n    \"\"\"Check if text contains common SQL injection patterns.\"\"\"\n    if not text:\n        return False\n    patterns = [\n        r\"('\\s*OR\\s+')\",\n        r\"('\\s*AND\\s+')\",\n        r\"(--\\s*$)\",\n        r\"(;\\s*DROP\\s+)\",\n        r\"(;\\s*DELETE\\s+)\",\n        r\"(UNION\\s+SELECT)\",\n        r\"(INSERT\\s+INTO)\",\n        r\"(UPDATE\\s+\\w+\\s+SET)\",\n    ]\n    text_upper = text.upper()\n    for pattern in patterns:\n        if re.search(pattern, text_upper, re.IGNORECASE):\n            return True\n    return False",
+  "metadata": {
+    "category": "searching",
+    "created_at": "2026-01-10T12:22:24.507437+00:00",
+    "description": "Check if text contains common SQL injection patterns.",
+    "intent": "Check if text contains common SQL injection patterns.",
+    "language": "python",
+    "name": "contains_sql_injection_patterns",
+    "source_file": "neurop_forge/sources/security_utilities.py",
+    "source_line_end": 200,
+    "source_line_start": 182,
+    "tags": [
+      "contains",
+      "injection",
+      "patterns",
+      "searching",
+      "sql",
+      "text"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:24.507455+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.37,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.8,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None"
+    ]
+  }
+}

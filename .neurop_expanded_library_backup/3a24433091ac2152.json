@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3a24433091ac215200be49793b5fb5841697245adac9c2e8edfab5bdbfe65aa2",
+    "semantic_fingerprint": "359386a7724b187452d8b772393a377b1cf35b64f409bbe8028e823a7afe850b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Delete nested key, returning new object.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter obj",
+        "name": "obj",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter path",
+        "name": "path",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of delete_nested",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def delete_nested(obj: dict, path: str) -> dict:\n    \"\"\"Delete nested key, returning new object.\"\"\"\n    keys = path.split(\".\")\n    if len(keys) == 1:\n        return delete_key(obj, keys[0])\n    result = dict(obj)\n    current = result\n    for key in keys[:-1]:\n        if key not in current:\n            return result\n        current[key] = dict(current[key])\n        current = current[key]\n    if keys[-1] in current:\n        del current[keys[-1]]\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:31.919430+00:00",
+    "description": "Delete nested key, returning new object.",
+    "intent": "Delete nested key, returning new object.",
+    "language": "python",
+    "name": "delete_nested",
+    "source_file": "neurop_forge/sources/object_utilities.py",
+    "source_line_end": 77,
+    "source_line_start": 63,
+    "tags": [
+      "delete",
+      "dict_operation",
+      "nested",
+      "obj",
+      "path"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.919457+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(obj) == dict",
+      "obj is not None",
+      "type(path) == string",
+      "path is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(obj) == dict",
+      "obj is not None",
+      "type(path) == string",
+      "path is not None"
+    ]
+  }
+}

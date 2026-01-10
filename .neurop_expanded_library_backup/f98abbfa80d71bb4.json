@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f98abbfa80d71bb4044c3caf5beba7b2f2a078dd163fdf5f24d6abcb782e0aab",
+    "semantic_fingerprint": "feedfb94f28e30512cf00eab93a40c698b29a3fa925fdc2dd0df70041e8b75d4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if file is audio.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter filename",
+        "name": "filename",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_audio_file",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_audio_file(filename: str) -> bool:\n    \"\"\"Check if file is audio.\"\"\"\n    ext = get_file_extension(filename)\n    return ext in {\"mp3\", \"wav\", \"ogg\", \"flac\", \"aac\", \"m4a\"}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:28.459291+00:00",
+    "description": "Check if file is audio.",
+    "intent": "Check if file is audio.",
+    "language": "python",
+    "name": "is_audio_file",
+    "source_file": "neurop_forge/sources/file_utilities.py",
+    "source_line_end": 120,
+    "source_line_start": 117,
+    "tags": [
+      "audio",
+      "file",
+      "filename",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.459316+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(filename) == string",
+      "filename is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(filename) == string",
+      "filename is not None"
+    ]
+  }
+}

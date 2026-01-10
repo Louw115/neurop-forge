@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "078d9a540a018e7f3779cddecda1fb561876465300b0775e16f94b8ef9d577c9",
+    "semantic_fingerprint": "cb3c9128350d5d1c013db7282e332e1743cf9f004aa90b072362ceb068c7a0d6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate that the number of placeholders matches parameter count.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter query",
+        "name": "query",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter param_count",
+        "name": "param_count",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of validate_placeholder_count",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_placeholder_count(query: str, param_count: int) -> bool:\n    \"\"\"Validate that the number of placeholders matches parameter count.\"\"\"\n    import re\n    dollar_placeholders = re.findall(r'\\$(\\d+)', query)\n    if dollar_placeholders:\n        max_placeholder = max(int(p) for p in dollar_placeholders)\n        return max_placeholder == param_count\n    question_marks = query.count('?')\n    if question_marks > 0:\n        return question_marks == param_count\n    percent_s = query.count('%s')\n    if percent_s > 0:\n        return percent_s == param_count\n    return param_count == 0",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:26.181953+00:00",
+    "description": "Validate that the number of placeholders matches parameter count.",
+    "intent": "Validate that the number of placeholders matches parameter count.",
+    "language": "python",
+    "name": "validate_placeholder_count",
+    "source_file": "neurop_forge/sources/query_helpers.py",
+    "source_line_end": 294,
+    "source_line_start": 281,
+    "tags": [
+      "count",
+      "param_count",
+      "placeholder",
+      "query",
+      "validate",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.181972+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(query) == string",
+      "query is not None",
+      "type(param_count) == integer",
+      "param_count is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(query) == string",
+      "query is not None",
+      "type(param_count) == integer",
+      "param_count is not None"
+    ]
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "681681008ffeea2797c41047f50783f1e9d92f042e1ae44ec11991842eee66e8",
+    "semantic_fingerprint": "4e7d64e8a28ab3802823c8cc210f2d6db55beb4d89c8ac8d75f537d3ee6b47bc",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Update user email.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter user",
+        "name": "user",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter new_email",
+        "name": "new_email",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of update_email",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def update_email(user: dict, new_email: str) -> dict:\n    \"\"\"Update user email.\"\"\"\n    return {**user, \"email\": normalize_email(new_email), \"verified\": False}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:34.740950+00:00",
+    "description": "Update user email.",
+    "intent": "Update user email.",
+    "language": "python",
+    "name": "update_email",
+    "source_file": "neurop_forge/sources/user_utilities.py",
+    "source_line_end": 114,
+    "source_line_start": 112,
+    "tags": [
+      "dict_operation",
+      "email",
+      "new_email",
+      "update",
+      "user"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.740979+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(user) == dict",
+      "user is not None",
+      "type(new_email) == string",
+      "new_email is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(user) == dict",
+      "user is not None",
+      "type(new_email) == string",
+      "new_email is not None"
+    ]
+  }
+}

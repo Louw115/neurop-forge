@@ -1,0 +1,147 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception",
+      "KeyError"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b8a5c9716a41f1a14a0ad41f6ed7b646b02f7f64a12f30d1f3eb8e4106818dc7",
+    "semantic_fingerprint": "5c494d137b64f04694749b6805758b47b34da6489d2de10c4b7cf737fb02e1b9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build an idempotency key for webhook delivery.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter event_id",
+        "name": "event_id",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter endpoint",
+        "name": "endpoint",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_idempotency_key",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_idempotency_key(event_id: str, endpoint: str) -> str:\n    \"\"\"Build an idempotency key for webhook delivery.\"\"\"\n    import hashlib\n    combined = f\"{event_id}:{endpoint}\"\n    return hashlib.sha256(combined.encode()).hexdigest()[:32]",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:27.136408+00:00",
+    "description": "Build an idempotency key for webhook delivery.",
+    "intent": "Build an idempotency key for webhook delivery.",
+    "language": "python",
+    "name": "build_idempotency_key",
+    "source_file": "neurop_forge/sources/webhook_patterns.py",
+    "source_line_end": 298,
+    "source_line_start": 294,
+    "tags": [
+      "build",
+      "endpoint",
+      "event_id",
+      "idempotency",
+      "key",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.136434+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(event_id) == string",
+      "event_id is not None",
+      "type(endpoint) == string",
+      "endpoint is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(event_id) == string",
+      "event_id is not None",
+      "type(endpoint) == string",
+      "endpoint is not None"
+    ]
+  }
+}

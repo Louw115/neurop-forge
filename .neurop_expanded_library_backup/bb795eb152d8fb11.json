@@ -1,0 +1,166 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "bb795eb152d8fb119f1c860476ce06d2804fec2bb16653b826dbb25949dbf89b",
+    "semantic_fingerprint": "04fc5198afe3efc4fd9a357ae2b114e9db9cb0777afe4b789db84444dd24a0f0",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse page parameters from strings.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter page_str",
+        "name": "page_str",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter size_str",
+        "name": "size_str",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter default_size",
+        "name": "default_size",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_size",
+        "name": "max_size",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Return value of parse_page_params",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_page_params(page_str: str, size_str: str, default_size: int, max_size: int) -> tuple:\n    \"\"\"Parse page parameters from strings.\"\"\"\n    try:\n        page = max(1, int(page_str) if page_str else 1)\n    except ValueError:\n        page = 1\n    try:\n        size = int(size_str) if size_str else default_size\n        size = max(1, min(size, max_size))\n    except ValueError:\n        size = default_size\n    return (page, size)",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T12:22:25.467912+00:00",
+    "description": "Parse page parameters from strings.",
+    "intent": "Parse page parameters from strings.",
+    "language": "python",
+    "name": "parse_page_params",
+    "source_file": "neurop_forge/sources/pagination_utilities.py",
+    "source_line_end": 195,
+    "source_line_start": 184,
+    "tags": [
+      "default_size",
+      "max_size",
+      "page",
+      "page_str",
+      "params",
+      "parse",
+      "size_str",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.467941+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(page_str) == string",
+      "page_str is not None",
+      "type(size_str) == string",
+      "size_str is not None",
+      "type(default_size) == integer",
+      "default_size is not None",
+      "type(max_size) == integer",
+      "max_size is not None"
+    ],
+    "invariants": [],
+    "output_validators": [],
+    "postconditions": [],
+    "preconditions": [
+      "type(page_str) == string",
+      "page_str is not None",
+      "type(size_str) == string",
+      "size_str is not None",
+      "type(default_size) == integer",
+      "default_size is not None",
+      "type(max_size) == integer",
+      "max_size is not None"
+    ]
+  }
+}

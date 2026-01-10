@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3270d60ffd5b9b55536c583fd1b96b001f8d0d2523d31ba4bfd8e9a7a6a12966",
+    "semantic_fingerprint": "49e9551244697a7f68b4d373d99002af8c117ee73ae10906dd657462f4a6f44b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse an ETag header.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter header",
+        "name": "header",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of parse_etag",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_etag(header: str) -> dict:\n    \"\"\"Parse an ETag header.\"\"\"\n    if not header:\n        return {\"value\": \"\", \"weak\": False}\n    weak = header.startswith('W/')\n    if weak:\n        header = header[2:]\n    value = header.strip('\"')\n    return {\"value\": value, \"weak\": weak}",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T12:22:24.583747+00:00",
+    "description": "Parse an ETag header.",
+    "intent": "Parse an ETag header.",
+    "language": "python",
+    "name": "parse_etag",
+    "source_file": "neurop_forge/sources/http_utilities.py",
+    "source_line_end": 402,
+    "source_line_start": 394,
+    "tags": [
+      "etag",
+      "header",
+      "parse",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:24.583772+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(header) == string",
+      "header is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(header) == string",
+      "header is not None"
+    ]
+  }
+}

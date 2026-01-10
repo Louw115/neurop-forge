@@ -1,0 +1,169 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c6d84afd18ab112cac642b02cf5e098ffab8d8042b5fd852646cb6928a411bbc",
+    "semantic_fingerprint": "50896ddac5d09006470f7922c03519fd0d580cc5f8c94a89de2fb52b3d68d57f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Adjust hue by degrees.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter r",
+        "name": "r",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter g",
+        "name": "g",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter b",
+        "name": "b",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter degrees",
+        "name": "degrees",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of adjust_hue",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def adjust_hue(r: int, g: int, b: int, degrees: int) -> dict:\n    \"\"\"Adjust hue by degrees.\"\"\"\n    hsl = rgb_to_hsl(r, g, b)\n    new_h = (hsl[\"h\"] + degrees) % 360\n    return hsl_to_rgb(new_h, hsl[\"s\"], hsl[\"l\"])",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:31.895293+00:00",
+    "description": "Adjust hue by degrees.",
+    "intent": "Adjust hue by degrees.",
+    "language": "python",
+    "name": "adjust_hue",
+    "source_file": "neurop_forge/sources/color_math.py",
+    "source_line_end": 232,
+    "source_line_start": 228,
+    "tags": [
+      "adjust",
+      "b",
+      "degrees",
+      "dict_operation",
+      "g",
+      "hue",
+      "r"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.895327+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(r) == integer",
+      "r is not None",
+      "type(g) == integer",
+      "g is not None",
+      "type(b) == integer",
+      "b is not None",
+      "type(degrees) == integer",
+      "degrees is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(r) == integer",
+      "r is not None",
+      "type(g) == integer",
+      "g is not None",
+      "type(b) == integer",
+      "b is not None",
+      "type(degrees) == integer",
+      "degrees is not None"
+    ]
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b8eef041c9f5d37fb522d163057e1a3710c868c4af0e0248bd5658a90810d56f",
+    "semantic_fingerprint": "31e730f71a2b0fb548871e71afb4e00cbf9ad06ca3352d60e0e73eef21047652",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse the header portion of a JWT (without verification).",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter token",
+        "name": "token",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of parse_jwt_header",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_jwt_header(token: str) -> dict:\n    \"\"\"Parse the header portion of a JWT (without verification).\"\"\"\n    import base64\n    import json\n    try:\n        parts = token.split('.')\n        if len(parts) != 3:\n            return {}\n        header = parts[0]\n        padding = 4 - len(header) % 4\n        if padding != 4:\n            header += '=' * padding\n        decoded = base64.urlsafe_b64decode(header)\n        return json.loads(decoded)\n    except Exception:\n        return {}",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T12:22:27.002865+00:00",
+    "description": "Parse the header portion of a JWT (without verification).",
+    "intent": "Parse the header portion of a JWT (without verification).",
+    "language": "python",
+    "name": "parse_jwt_header",
+    "source_file": "neurop_forge/sources/auth_patterns.py",
+    "source_line_end": 63,
+    "source_line_start": 48,
+    "tags": [
+      "header",
+      "jwt",
+      "parse",
+      "token",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.002887+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(token) == string",
+      "token is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(token) == string",
+      "token is not None"
+    ]
+  }
+}

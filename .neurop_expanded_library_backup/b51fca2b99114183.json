@@ -1,0 +1,171 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b51fca2b991141833ede8e84cad2bdebbf28abd96f68be9bc2e3108527792f19",
+    "semantic_fingerprint": "1c7ecfb6872dfd85be51307508d86b5bdef9d47b80b8939cb4f122a0823442e2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate maximum possible total delay.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter base_delay",
+        "name": "base_delay",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_attempts",
+        "name": "max_attempts",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter strategy",
+        "name": "strategy",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter max_delay",
+        "name": "max_delay",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_total_max_delay",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_total_max_delay(base_delay: float, max_attempts: int, strategy: str, max_delay: float) -> float:\n    \"\"\"Calculate maximum possible total delay.\"\"\"\n    total = 0\n    for attempt in range(1, max_attempts + 1):\n        delay = get_next_delay(\n            {\"attempt\": attempt - 1, \"base_delay\": base_delay, \"max_attempts\": max_attempts},\n            strategy,\n            max_delay\n        )\n        total += delay\n    return total",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:31.457368+00:00",
+    "description": "Calculate maximum possible total delay.",
+    "intent": "Calculate maximum possible total delay.",
+    "language": "python",
+    "name": "calculate_total_max_delay",
+    "source_file": "neurop_forge/sources/retry_patterns.py",
+    "source_line_end": 163,
+    "source_line_start": 153,
+    "tags": [
+      "arithmetic",
+      "base_delay",
+      "calculate",
+      "delay",
+      "max",
+      "max_attempts",
+      "max_delay",
+      "strategy",
+      "total"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.457394+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(base_delay) == float",
+      "base_delay is not None",
+      "type(max_attempts) == integer",
+      "max_attempts is not None",
+      "type(strategy) == string",
+      "strategy is not None",
+      "type(max_delay) == float",
+      "max_delay is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(base_delay) == float",
+      "base_delay is not None",
+      "type(max_attempts) == integer",
+      "max_attempts is not None",
+      "type(strategy) == string",
+      "strategy is not None",
+      "type(max_delay) == float",
+      "max_delay is not None"
+    ]
+  }
+}

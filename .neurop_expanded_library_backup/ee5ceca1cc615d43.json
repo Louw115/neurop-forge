@@ -1,0 +1,148 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic aggregation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ee5ceca1cc615d439713a25ecc42f4a7516ada94fbf1b2a1c5295bdb95bb84ae",
+    "semantic_fingerprint": "79ea9328b086f435556a9c92d1dea1b2eb7654019f747ec7bc92bcc78f1a7c91",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Reduce items to single value.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter reducer",
+        "name": "reducer",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter initial",
+        "name": "initial",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Return value of reduce_items",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def reduce_items(items: list, reducer, initial):\n    \"\"\"Reduce items to single value.\"\"\"\n    result = initial\n    for item in items:\n        result = reducer(result, item)\n    return result",
+  "metadata": {
+    "category": "aggregation",
+    "created_at": "2026-01-10T12:22:33.393406+00:00",
+    "description": "Reduce items to single value.",
+    "intent": "Reduce items to single value.",
+    "language": "python",
+    "name": "reduce_items",
+    "source_file": "neurop_forge/sources/iterator_utilities.py",
+    "source_line_end": 69,
+    "source_line_start": 64,
+    "tags": [
+      "aggregation",
+      "initial",
+      "items",
+      "reduce",
+      "reducer"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:33.393430+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "reducer is not None",
+      "initial is not None"
+    ],
+    "invariants": [],
+    "output_validators": [],
+    "postconditions": [],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "reducer is not None",
+      "initial is not None"
+    ]
+  }
+}

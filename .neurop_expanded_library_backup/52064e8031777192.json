@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "52064e803177719231f426c80e65e301f33937616567828b58ffb1dcc0c11fad",
+    "semantic_fingerprint": "8412e0e5090232f64b53fd4dd5175270bef34f7bbc81b443eb134d813f157478",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Mask phone in contact.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter contact",
+        "name": "contact",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of mask_contact_phone",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def mask_contact_phone(contact: dict) -> dict:\n    \"\"\"Mask phone in contact.\"\"\"\n    phone = contact.get(\"phone\", \"\")\n    digits = re.sub(r'\\D', '', phone)\n    if len(digits) >= 4:\n        masked = \"***-***-\" + digits[-4:]\n    else:\n        masked = \"***\"\n    return {**contact, \"phone\": masked}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:34.838375+00:00",
+    "description": "Mask phone in contact.",
+    "intent": "Mask phone in contact.",
+    "language": "python",
+    "name": "mask_contact_phone",
+    "source_file": "neurop_forge/sources/contact_utilities.py",
+    "source_line_end": 102,
+    "source_line_start": 94,
+    "tags": [
+      "contact",
+      "dict_operation",
+      "mask",
+      "phone"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.838401+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(contact) == dict",
+      "contact is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(contact) == dict",
+      "contact is not None"
+    ]
+  }
+}

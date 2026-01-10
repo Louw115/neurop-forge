@@ -65,6 +65,12 @@ from neurop_forge.runtime.executor import GraphExecutor
 from neurop_forge.runtime.result import ExecutionResult, ExecutionStatus
 from neurop_forge.runtime.guards import RetryPolicy
 
+from neurop_forge.deduplication import (
+    DeduplicationProcessor,
+    DeduplicationPolicy,
+    DeduplicationReport,
+)
+
 
 class NeuropForge:
     """
@@ -465,6 +471,117 @@ class NeuropForge:
             graph=graph,
             initial_inputs=inputs or {},
         )
+
+    def deduplicate_library(
+        self,
+        policy: DeduplicationPolicy = DeduplicationPolicy.KEEP_BEST,
+        execute: bool = True,
+        rebuild_registries: bool = True,
+        swap_in_place: bool = True,
+    ) -> Dict[str, Any]:
+        """
+        Deduplicate the block library by removing or namespacing duplicate blocks.
+        
+        This is typically called after batch ingestion to clean up duplicates.
+        
+        Args:
+            policy: Deduplication strategy (KEEP_BEST, NAMESPACE, QUARANTINE)
+            execute: If True, creates deduplicated library; False for dry-run
+            rebuild_registries: If True, rebuilds verified/tier registries after dedup
+            swap_in_place: If True, replaces original library with deduplicated version
+            
+        Returns:
+            Deduplication result with statistics
+        """
+        import shutil
+        
+        output_path = Path(f"{self._storage_path}_deduplicated")
+        processor = DeduplicationProcessor(
+            library_path=Path(self._storage_path),
+            output_path=output_path,
+            policy=policy,
+        )
+        
+        result = processor.run(execute=execute)
+        
+        if execute:
+            surviving_ids = self._collect_surviving_block_ids(output_path)
+            
+            if rebuild_registries:
+                self._rebuild_registries_after_dedup(surviving_ids)
+            
+            if swap_in_place:
+                original_path = Path(self._storage_path)
+                backup_path = Path(f"{self._storage_path}_backup")
+                
+                if backup_path.exists():
+                    shutil.rmtree(backup_path)
+                if original_path.exists():
+                    shutil.move(str(original_path), str(backup_path))
+                shutil.move(str(output_path), str(original_path))
+                
+                self._load_existing_blocks()
+        
+        report = DeduplicationReport(processor.get_hasher(), result)
+        
+        return {
+            "success": True,
+            "executed": execute,
+            "original_count": result.original_count,
+            "final_count": result.final_count,
+            "blocks_removed": result.blocks_removed,
+            "blocks_renamed": result.blocks_renamed,
+            "reduction_percent": round((result.blocks_removed / result.original_count) * 100, 1) if result.original_count > 0 else 0,
+            "output_path": str(self._storage_path) if execute and swap_in_place else str(output_path) if execute else None,
+            "summary": report.generate_summary(),
+        }
+
+    def _collect_surviving_block_ids(self, output_path: Path) -> set:
+        """Collect full block identity hashes from deduplicated library."""
+        surviving_ids = set()
+        if output_path.exists():
+            for f in output_path.glob("*.json"):
+                try:
+                    with open(f) as fp:
+                        block_data = json.load(fp)
+                    block_id = block_data.get("identity", {}).get("hash_value", "")
+                    if block_id:
+                        surviving_ids.add(block_id)
+                except Exception:
+                    surviving_ids.add(f.stem)
+        return surviving_ids
+
+    def _rebuild_registries_after_dedup(self, surviving_ids: set) -> None:
+        """Rebuild verified and tier registries after deduplication."""
+        verified_dir = Path(".neurop_verified")
+        if not verified_dir.exists():
+            return
+        
+        registry_path = verified_dir / "registry.json"
+        tier_path = verified_dir / "tier_registry.json"
+        
+        if registry_path.exists():
+            with open(registry_path) as f:
+                registry = json.load(f)
+            
+            new_verified = [bid for bid in registry.get("verified_blocks", []) if bid in surviving_ids]
+            registry["verified_blocks"] = new_verified
+            registry["total_verified"] = len(new_verified)
+            
+            with open(registry_path, "w") as f:
+                json.dump(registry, f, indent=2)
+        
+        if tier_path.exists():
+            with open(tier_path) as f:
+                tiers = json.load(f)
+            
+            new_tier_a = [bid for bid in tiers.get("tier_a", []) if bid in surviving_ids]
+            new_tier_b = [bid for bid in tiers.get("tier_b", []) if bid in surviving_ids]
+            tiers["tier_a"] = new_tier_a
+            tiers["tier_b"] = new_tier_b
+            
+            with open(tier_path, "w") as f:
+                json.dump(tiers, f, indent=2)
 
 
 def run_production_validation():

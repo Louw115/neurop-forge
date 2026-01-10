@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "031c3a992f4c0d26eba4d7842a244c584d0fdd1880ed29992c5bd33ce00bde7e",
+    "semantic_fingerprint": "eee12994d7cf1dee27a13ca55179d7514f357c557f1a9d876d6d7e7096ba745b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Mask a credit card number showing only last 4 digits.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter number",
+        "name": "number",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of mask_credit_card",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def mask_credit_card(number: str) -> str:\n    \"\"\"Mask a credit card number showing only last 4 digits.\"\"\"\n    digits = ''.join(c for c in number if c.isdigit())\n    if len(digits) >= 4:\n        return '*' * (len(digits) - 4) + digits[-4:]\n    return '*' * len(digits)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:24.364004+00:00",
+    "description": "Mask a credit card number showing only last 4 digits.",
+    "intent": "Mask a credit card number showing only last 4 digits.",
+    "language": "python",
+    "name": "mask_credit_card",
+    "source_file": "neurop_forge/sources/formatting_utilities.py",
+    "source_line_end": 158,
+    "source_line_start": 153,
+    "tags": [
+      "card",
+      "credit",
+      "mask",
+      "number",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:24.364029+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(number) == string",
+      "number is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(number) == string",
+      "number is not None"
+    ]
+  }
+}

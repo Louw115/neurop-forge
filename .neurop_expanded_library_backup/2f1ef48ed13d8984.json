@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2f1ef48ed13d8984a1c2f6ca32b94e94a77855b4ce1248e4ba3da5a8c97211c1",
+    "semantic_fingerprint": "c71cf77fe713475f5e1feff52697ad6cb1de46c0b4aa7a5c90af47566c6fe2c5",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check all limiters in composite.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter composite",
+        "name": "composite",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter check_fn",
+        "name": "check_fn",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of composite_allow",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def composite_allow(composite: dict, check_fn) -> dict:\n    \"\"\"Check all limiters in composite.\"\"\"\n    results = [check_fn(limiter) for limiter in composite[\"limiters\"]]\n    all_allowed = all(r[\"allowed\"] for r in results)\n    min_remaining = min(r.get(\"remaining\", float(\"inf\")) for r in results)\n    return {\n        \"allowed\": all_allowed,\n        \"remaining\": min_remaining,\n        \"results\": results\n    }",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:30.964578+00:00",
+    "description": "Check all limiters in composite.",
+    "intent": "Check all limiters in composite.",
+    "language": "python",
+    "name": "composite_allow",
+    "source_file": "neurop_forge/sources/rate_limiter.py",
+    "source_line_end": 220,
+    "source_line_start": 211,
+    "tags": [
+      "allow",
+      "check_fn",
+      "composite",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.964596+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(composite) == dict",
+      "composite is not None",
+      "check_fn is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(composite) == dict",
+      "composite is not None",
+      "check_fn is not None"
+    ]
+  }
+}

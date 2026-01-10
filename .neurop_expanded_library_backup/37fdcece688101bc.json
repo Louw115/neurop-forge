@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic comparison block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "37fdcece688101bca85aab4a9b54e62c5629e79c8d4989aa91edb7abc64478f6",
+    "semantic_fingerprint": "86e9f2437320f8ebdd80af2d1df7063b9bb1930cb5785a9aa2e11f2a0bbdca2e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Match requested locale to available ones.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter requested",
+        "name": "requested",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter available",
+        "name": "available",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of match_locale",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def match_locale(requested: str, available: list) -> str:\n    \"\"\"Match requested locale to available ones.\"\"\"\n    fallbacks = get_fallback_locales(requested)\n    for fallback in fallbacks:\n        if fallback in available:\n            return fallback\n        for avail in available:\n            if avail.startswith(fallback):\n                return avail\n    return available[0] if available else \"\"",
+  "metadata": {
+    "category": "comparison",
+    "created_at": "2026-01-10T12:22:34.945167+00:00",
+    "description": "Match requested locale to available ones.",
+    "intent": "Match requested locale to available ones.",
+    "language": "python",
+    "name": "match_locale",
+    "source_file": "neurop_forge/sources/locale_utilities.py",
+    "source_line_end": 87,
+    "source_line_start": 78,
+    "tags": [
+      "available",
+      "comparison",
+      "locale",
+      "match",
+      "requested"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.945194+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.37,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.8,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(requested) == string",
+      "requested is not None",
+      "type(available) == list",
+      "available is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(requested) == string",
+      "requested is not None",
+      "type(available) == list",
+      "available is not None"
+    ]
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0cc8413ccd4fe1651c17c84cc58defd2d410ca81b4535b77ae0952d4c3857569",
+    "semantic_fingerprint": "887280b3952b9d15c1fd28b16e3dfaad93637882676aefde7322cb5bbabba730",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Assert value is None.",
+    "inputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter message",
+        "name": "message",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of assert_none",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def assert_none(value, message: str) -> dict:\n    \"\"\"Assert value is None.\"\"\"\n    return {\n        \"passed\": value is None,\n        \"message\": message,\n        \"actual\": str(value),\n        \"expected\": \"None\",\n        \"error\": None if value is None else f\"Expected None, got {value}\"\n    }",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:27.784493+00:00",
+    "description": "Assert value is None.",
+    "intent": "Assert value is None.",
+    "language": "python",
+    "name": "assert_none",
+    "source_file": "neurop_forge/sources/testing_utilities.py",
+    "source_line_end": 174,
+    "source_line_start": 166,
+    "tags": [
+      "assert",
+      "message",
+      "none",
+      "validation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.784523+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "value is not None",
+      "type(message) == string",
+      "message is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "value is not None",
+      "type(message) == string",
+      "message is not None"
+    ]
+  }
+}

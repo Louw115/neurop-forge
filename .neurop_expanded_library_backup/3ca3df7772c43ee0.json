@@ -1,0 +1,177 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3ca3df7772c43ee0a66f68840c67de80721bb61015213fbb23be7cba93a73768",
+    "semantic_fingerprint": "ad2b0bce9d73843e0d385ff32b21c4c4b1b99cfe7e57b5d50581051976f0a67c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Interpolate a point along the great circle path.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter lat1",
+        "name": "lat1",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter lon1",
+        "name": "lon1",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter lat2",
+        "name": "lat2",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter lon2",
+        "name": "lon2",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter fraction",
+        "name": "fraction",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Return value of interpolate_point",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def interpolate_point(lat1: float, lon1: float, lat2: float, lon2: float, fraction: float) -> tuple:\n    \"\"\"Interpolate a point along the great circle path.\"\"\"\n    if fraction <= 0:\n        return (lat1, lon1)\n    if fraction >= 1:\n        return (lat2, lon2)\n    distance = haversine_distance(lat1, lon1, lat2, lon2)\n    bearing = calculate_bearing(lat1, lon1, lat2, lon2)\n    return destination_point(lat1, lon1, bearing, distance * fraction)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:25.029917+00:00",
+    "description": "Interpolate a point along the great circle path.",
+    "intent": "Interpolate a point along the great circle path.",
+    "language": "python",
+    "name": "interpolate_point",
+    "source_file": "neurop_forge/sources/geolocation_utilities.py",
+    "source_line_end": 280,
+    "source_line_start": 272,
+    "tags": [
+      "fraction",
+      "interpolate",
+      "lat1",
+      "lat2",
+      "lon1",
+      "lon2",
+      "point",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.029937+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(lat1) == float",
+      "lat1 is not None",
+      "type(lon1) == float",
+      "lon1 is not None",
+      "type(lat2) == float",
+      "lat2 is not None",
+      "type(lon2) == float",
+      "lon2 is not None",
+      "type(fraction) == float",
+      "fraction is not None"
+    ],
+    "invariants": [],
+    "output_validators": [],
+    "postconditions": [],
+    "preconditions": [
+      "type(lat1) == float",
+      "lat1 is not None",
+      "type(lon1) == float",
+      "lon1 is not None",
+      "type(lat2) == float",
+      "lat2 is not None",
+      "type(lon2) == float",
+      "lon2 is not None",
+      "type(fraction) == float",
+      "fraction is not None"
+    ]
+  }
+}

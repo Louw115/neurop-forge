@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b5da427d10744846ae36134d875bf013d80b658d30f02dc8627a5ca49f448d64",
+    "semantic_fingerprint": "5fbda7a5fa8dc5d80e165bfcbcce0b9344da03878db6545d8a65b597452ba06e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate a test address.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seed",
+        "name": "seed",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of generate_test_address",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_test_address(seed: int) -> dict:\n    \"\"\"Generate a test address.\"\"\"\n    streets = [\"Main St\", \"Oak Ave\", \"Maple Dr\", \"Pine Rd\", \"Cedar Ln\"]\n    cities = [\"Springfield\", \"Riverside\", \"Georgetown\", \"Fairview\", \"Madison\"]\n    states = [\"CA\", \"NY\", \"TX\", \"FL\", \"IL\"]\n    import hashlib\n    hash_val = hashlib.sha256(f\"addr:{seed}\".encode()).digest()\n    return {\n        \"street\": f\"{(hash_val[0] % 999) + 1} {streets[hash_val[1] % len(streets)]}\",\n        \"city\": cities[hash_val[2] % len(cities)],\n        \"state\": states[hash_val[3] % len(states)],\n        \"zip\": f\"{10000 + (int.from_bytes(hash_val[4:6], 'big') % 90000)}\"\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:27.824434+00:00",
+    "description": "Generate a test address.",
+    "intent": "Generate a test address.",
+    "language": "python",
+    "name": "generate_test_address",
+    "source_file": "neurop_forge/sources/testing_utilities.py",
+    "source_line_end": 394,
+    "source_line_start": 382,
+    "tags": [
+      "address",
+      "dict_operation",
+      "generate",
+      "seed",
+      "test"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.824455+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(seed) == integer",
+      "seed is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(seed) == integer",
+      "seed is not None"
+    ]
+  }
+}

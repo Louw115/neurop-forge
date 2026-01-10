@@ -1,0 +1,135 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "be1cf269844dd10b710a8f341ecda2939bc4954117cb0ce0162e2598dd89a86c",
+    "semantic_fingerprint": "058ef49bd53a4b27760186ec8e950d7f97cacc56ba47c36443e5f8e6de776b97",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate credit card number using Luhn algorithm.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter number",
+        "name": "number",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of validate_credit_card_luhn",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_credit_card_luhn(number: str) -> dict:\n    \"\"\"Validate credit card number using Luhn algorithm.\"\"\"\n    digits = [int(d) for d in number if d.isdigit()]\n    if len(digits) < 13 or len(digits) > 19:\n        return {\"valid\": False, \"error\": \"Invalid card number length\"}\n    checksum = 0\n    for i, digit in enumerate(reversed(digits)):\n        if i % 2 == 1:\n            digit *= 2\n            if digit > 9:\n                digit -= 9\n        checksum += digit\n    if checksum % 10 != 0:\n        return {\"valid\": False, \"error\": \"Invalid card number\"}\n    return {\"valid\": True, \"error\": None}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:27.200002+00:00",
+    "description": "Validate credit card number using Luhn algorithm.",
+    "intent": "Validate credit card number using Luhn algorithm.",
+    "language": "python",
+    "name": "validate_credit_card_luhn",
+    "source_file": "neurop_forge/sources/request_validation.py",
+    "source_line_end": 183,
+    "source_line_start": 169,
+    "tags": [
+      "card",
+      "credit",
+      "luhn",
+      "number",
+      "validate",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.200030+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(number) == string",
+      "number is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(number) == string",
+      "number is not None"
+    ]
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b5f082f28eade9723cc063850cc230416c5fbdb593e0e4483d9822fef7a88926",
+    "semantic_fingerprint": "324c89658283535747f45f08e84b1eed726e9b5d354ec13b6e3730919bd7f97f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate angle between two vectors in radians.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter v1",
+        "name": "v1",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter v2",
+        "name": "v2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of vector_angle",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def vector_angle(v1: dict, v2: dict) -> float:\n    \"\"\"Calculate angle between two vectors in radians.\"\"\"\n    import math\n    cos_sim = vector_cosine_similarity(v1, v2)\n    return math.acos(max(-1, min(1, cos_sim)))",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:29.609014+00:00",
+    "description": "Calculate angle between two vectors in radians.",
+    "intent": "Calculate angle between two vectors in radians.",
+    "language": "python",
+    "name": "vector_angle",
+    "source_file": "neurop_forge/sources/vector_utilities.py",
+    "source_line_end": 89,
+    "source_line_start": 85,
+    "tags": [
+      "angle",
+      "arithmetic",
+      "v1",
+      "v2",
+      "vector"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.609033+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(v1) == dict",
+      "v1 is not None",
+      "type(v2) == dict",
+      "v2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(v1) == dict",
+      "v1 is not None",
+      "type(v2) == dict",
+      "v2 is not None"
+    ]
+  }
+}

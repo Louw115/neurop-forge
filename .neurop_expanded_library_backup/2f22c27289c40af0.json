@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2f22c27289c40af01a7b01e0eaf0bcbf734b30f2b01d1361e12913b03962b9b3",
+    "semantic_fingerprint": "6f8c4bf794a112fa2e720ffa4bbd5de30846d113b59a96708569c914a1049177",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate jobs per second throughput.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter completed_count",
+        "name": "completed_count",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter time_window_seconds",
+        "name": "time_window_seconds",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_throughput",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_throughput(completed_count: int, time_window_seconds: int) -> float:\n    \"\"\"Calculate jobs per second throughput.\"\"\"\n    if time_window_seconds <= 0:\n        return 0.0\n    return completed_count / time_window_seconds",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:27.499051+00:00",
+    "description": "Calculate jobs per second throughput.",
+    "intent": "Calculate jobs per second throughput.",
+    "language": "python",
+    "name": "calculate_throughput",
+    "source_file": "neurop_forge/sources/job_scheduling.py",
+    "source_line_end": 225,
+    "source_line_start": 221,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "completed_count",
+      "throughput",
+      "time_window_seconds"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.499070+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(completed_count) == integer",
+      "completed_count is not None",
+      "type(time_window_seconds) == integer",
+      "time_window_seconds is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(completed_count) == integer",
+      "completed_count is not None",
+      "type(time_window_seconds) == integer",
+      "time_window_seconds is not None"
+    ]
+  }
+}

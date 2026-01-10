@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "49526bf79c927365a6af08ed3b5634bc9ac869e298a10d525a53e2280a998fea",
+    "semantic_fingerprint": "ccb478581550a376472292b6065940b9168271db267a75f328409a308a7a253a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format number in compact form (e.g., 1.2K, 3.4M).",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter number",
+        "name": "number",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_number_compact",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_number_compact(number: float) -> str:\n    \"\"\"Format number in compact form (e.g., 1.2K, 3.4M).\"\"\"\n    if abs(number) >= 1_000_000_000:\n        return f\"{number/1_000_000_000:.1f}B\"\n    elif abs(number) >= 1_000_000:\n        return f\"{number/1_000_000:.1f}M\"\n    elif abs(number) >= 1_000:\n        return f\"{number/1_000:.1f}K\"\n    return str(int(number))",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:28.093792+00:00",
+    "description": "Format number in compact form (e.g., 1.2K, 3.4M).",
+    "intent": "Format number in compact form (e.g., 1.2K, 3.4M).",
+    "language": "python",
+    "name": "format_number_compact",
+    "source_file": "neurop_forge/sources/ui_patterns.py",
+    "source_line_end": 77,
+    "source_line_start": 69,
+    "tags": [
+      "compact",
+      "format",
+      "number",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.093819+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(number) == float",
+      "number is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(number) == float",
+      "number is not None"
+    ]
+  }
+}

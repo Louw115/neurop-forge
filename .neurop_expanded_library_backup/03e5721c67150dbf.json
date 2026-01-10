@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "03e5721c67150dbfaf221d05be3c2804b7d6f58f7a89a620860460f476c66c49",
+    "semantic_fingerprint": "7ffffa25a8fa7041013debc249e6b084a7de77aef84691c7e0ccf22066abbc38",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find a path between two states (BFS).",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter machine",
+        "name": "machine",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter from_state",
+        "name": "from_state",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter to_state",
+        "name": "to_state",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of find_path",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def find_path(machine: dict, from_state: str, to_state: str) -> list:\n    \"\"\"Find a path between two states (BFS).\"\"\"\n    if from_state == to_state:\n        return [from_state]\n    transitions = machine.get(\"transitions\", {})\n    visited = {from_state}\n    queue = [[from_state]]\n    while queue:\n        path = queue.pop(0)\n        current = path[-1]\n        for next_state in transitions.get(current, []):\n            if next_state == to_state:\n                return path + [next_state]\n            if next_state not in visited:\n                visited.add(next_state)\n                queue.append(path + [next_state])\n    return []",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:27.547067+00:00",
+    "description": "Find a path between two states (BFS).",
+    "intent": "Find a path between two states (BFS).",
+    "language": "python",
+    "name": "find_path",
+    "source_file": "neurop_forge/sources/state_machine.py",
+    "source_line_end": 122,
+    "source_line_start": 106,
+    "tags": [
+      "filtering",
+      "find",
+      "from_state",
+      "machine",
+      "path",
+      "to_state"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.547088+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(machine) == dict",
+      "machine is not None",
+      "type(from_state) == string",
+      "from_state is not None",
+      "type(to_state) == string",
+      "to_state is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(machine) == dict",
+      "machine is not None",
+      "type(from_state) == string",
+      "from_state is not None",
+      "type(to_state) == string",
+      "to_state is not None"
+    ]
+  }
+}

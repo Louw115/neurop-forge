@@ -1,0 +1,169 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c040ce6ef7f25f96a93e111d7f26d43e0aea9e515e3d6a7b5aa941e2b557445a",
+    "semantic_fingerprint": "373dc7408e379eece51c7a4a8d88454d0f7a2ad2e63f1fdd05c68415dc54d47e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate TF-IDF score.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter term_frequency",
+        "name": "term_frequency",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter doc_length",
+        "name": "doc_length",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter doc_count",
+        "name": "doc_count",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter total_docs",
+        "name": "total_docs",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_tfidf",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_tfidf(term_frequency: int, doc_length: int, doc_count: int, total_docs: int) -> float:\n    \"\"\"Calculate TF-IDF score.\"\"\"\n    if doc_length <= 0:\n        return 0.0\n    tf = term_frequency / doc_length\n    idf = calculate_idf(doc_count, total_docs)\n    return tf * idf",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:28.552780+00:00",
+    "description": "Calculate TF-IDF score.",
+    "intent": "Calculate TF-IDF score.",
+    "language": "python",
+    "name": "calculate_tfidf",
+    "source_file": "neurop_forge/sources/search_patterns.py",
+    "source_line_end": 267,
+    "source_line_start": 261,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "doc_count",
+      "doc_length",
+      "term_frequency",
+      "tfidf",
+      "total_docs"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.552798+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(term_frequency) == integer",
+      "term_frequency is not None",
+      "type(doc_length) == integer",
+      "doc_length is not None",
+      "type(doc_count) == integer",
+      "doc_count is not None",
+      "type(total_docs) == integer",
+      "total_docs is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(term_frequency) == integer",
+      "term_frequency is not None",
+      "type(doc_length) == integer",
+      "doc_length is not None",
+      "type(doc_count) == integer",
+      "doc_count is not None",
+      "type(total_docs) == integer",
+      "total_docs is not None"
+    ]
+  }
+}

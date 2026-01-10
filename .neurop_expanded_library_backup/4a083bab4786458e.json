@@ -1,0 +1,158 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4a083bab4786458e3afcb545a2eef9a6a54788bd7e0ebb099513ee15cda0395e",
+    "semantic_fingerprint": "49b9d9d70bbb110d5c321104233351168cce010cb09e91b4ef3e19267c6f99ad",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Convert flat list to tree structure.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter id_field",
+        "name": "id_field",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter parent_field",
+        "name": "parent_field",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of flat_list_to_tree",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def flat_list_to_tree(items: list, id_field: str, parent_field: str) -> list:\n    \"\"\"Convert flat list to tree structure.\"\"\"\n    by_id = {item[id_field]: dict(item) for item in items}\n    for item in by_id.values():\n        item[\"children\"] = []\n    roots = []\n    for item in by_id.values():\n        parent_id = item.get(parent_field)\n        if parent_id and parent_id in by_id:\n            by_id[parent_id][\"children\"].append(item)\n        else:\n            roots.append(item)\n    return roots",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T12:22:29.820395+00:00",
+    "description": "Convert flat list to tree structure.",
+    "intent": "Convert flat list to tree structure.",
+    "language": "python",
+    "name": "flat_list_to_tree",
+    "source_file": "neurop_forge/sources/tree_utilities.py",
+    "source_line_end": 195,
+    "source_line_start": 183,
+    "tags": [
+      "flat",
+      "id_field",
+      "items",
+      "list",
+      "parent_field",
+      "transformation",
+      "tree"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.820421+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "type(id_field) == string",
+      "id_field is not None",
+      "type(parent_field) == string",
+      "parent_field is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "type(id_field) == string",
+      "id_field is not None",
+      "type(parent_field) == string",
+      "parent_field is not None"
+    ]
+  }
+}

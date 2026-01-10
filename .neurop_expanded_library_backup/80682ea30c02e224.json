@@ -1,0 +1,132 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "80682ea30c02e224a63f97540192d9c9ac8925f8c6f662a88f599e48cb277662",
+    "semantic_fingerprint": "32cd09ac069011952b50be149f907867d8b095e654bef29c21227e36b276cc23",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Remove common leading whitespace.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of dedent",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def dedent(text: str) -> str:\n    \"\"\"Remove common leading whitespace.\"\"\"\n    lines = text.split('\\n')\n    non_empty = [l for l in lines if l.strip()]\n    if not non_empty:\n        return text\n    min_indent = min(len(l) - len(l.lstrip()) for l in non_empty)\n    return '\\n'.join(l[min_indent:] if len(l) >= min_indent else l for l in lines)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:32.407042+00:00",
+    "description": "Remove common leading whitespace.",
+    "intent": "Remove common leading whitespace.",
+    "language": "python",
+    "name": "dedent",
+    "source_file": "neurop_forge/sources/text_transforms.py",
+    "source_line_end": 235,
+    "source_line_start": 228,
+    "tags": [
+      "dedent",
+      "string_manipulation",
+      "text"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:32.407069+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None"
+    ]
+  }
+}

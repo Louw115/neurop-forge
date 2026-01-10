@@ -1,0 +1,151 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "58d54dc35d035a8e6a829da3a09c526da5d4899fdeab487679a04f78db4773c5",
+    "semantic_fingerprint": "4b53cb53d048b261ce6154191bcad16276db872775b519260942bef1480130e0",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get nested value by dot notation path.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter obj",
+        "name": "obj",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter path",
+        "name": "path",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter default",
+        "name": "default",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Return value of get_nested",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_nested(obj: dict, path: str, default):\n    \"\"\"Get nested value by dot notation path.\"\"\"\n    keys = path.split(\".\")\n    current = obj\n    for key in keys:\n        if isinstance(current, dict) and key in current:\n            current = current[key]\n        else:\n            return default\n    return current",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:31.907888+00:00",
+    "description": "Get nested value by dot notation path.",
+    "intent": "Get nested value by dot notation path.",
+    "language": "python",
+    "name": "get_nested",
+    "source_file": "neurop_forge/sources/object_utilities.py",
+    "source_line_end": 21,
+    "source_line_start": 12,
+    "tags": [
+      "default",
+      "filtering",
+      "get",
+      "nested",
+      "obj",
+      "path"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.907909+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(obj) == dict",
+      "obj is not None",
+      "type(path) == string",
+      "path is not None",
+      "default is not None"
+    ],
+    "invariants": [],
+    "output_validators": [],
+    "postconditions": [],
+    "preconditions": [
+      "type(obj) == dict",
+      "obj is not None",
+      "type(path) == string",
+      "path is not None",
+      "default is not None"
+    ]
+  }
+}

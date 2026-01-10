@@ -1,0 +1,156 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic sorting block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "bcc04ba33f6467df9f9cf2f255fd378593f27851676db1a850455d3201d6a521",
+    "semantic_fingerprint": "386de6a27c5a41f8476cb75079196a45a4776ba46c7ffa162760fbafa6bea8c9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Rank search results by score.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter results",
+        "name": "results",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter score_key",
+        "name": "score_key",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter descending",
+        "name": "descending",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of rank_results",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def rank_results(results: list, score_key: str, descending: bool) -> list:\n    \"\"\"Rank search results by score.\"\"\"\n    return sorted(results, key=lambda x: x.get(score_key, 0), reverse=descending)",
+  "metadata": {
+    "category": "sorting",
+    "created_at": "2026-01-10T12:22:28.525020+00:00",
+    "description": "Rank search results by score.",
+    "intent": "Rank search results by score.",
+    "language": "python",
+    "name": "rank_results",
+    "source_file": "neurop_forge/sources/search_patterns.py",
+    "source_line_end": 97,
+    "source_line_start": 95,
+    "tags": [
+      "descending",
+      "rank",
+      "results",
+      "score_key",
+      "sorting"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.525040+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(results) == list",
+      "results is not None",
+      "type(score_key) == string",
+      "score_key is not None",
+      "type(descending) == boolean",
+      "descending is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(results) == list",
+      "results is not None",
+      "type(score_key) == string",
+      "score_key is not None",
+      "type(descending) == boolean",
+      "descending is not None"
+    ]
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b69312ac5f743cb40389525b8c4fb6d79a0e8e5f2c58f9e59293f2c80d7d6440",
+    "semantic_fingerprint": "13db766a888a170e30b14b92876cea29eef1768c18a12eb038927be6178e4939",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Filter table data by column values.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter data",
+        "name": "data",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter filters",
+        "name": "filters",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of filter_table_data",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def filter_table_data(data: list, filters: dict) -> list:\n    \"\"\"Filter table data by column values.\"\"\"\n    result = data\n    for key, value in filters.items():\n        if value:\n            result = [row for row in result if str(value).lower() in str(row.get(key, \"\")).lower()]\n    return result",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:28.137062+00:00",
+    "description": "Filter table data by column values.",
+    "intent": "Filter table data by column values.",
+    "language": "python",
+    "name": "filter_table_data",
+    "source_file": "neurop_forge/sources/ui_patterns.py",
+    "source_line_end": 235,
+    "source_line_start": 229,
+    "tags": [
+      "data",
+      "filter",
+      "filtering",
+      "filters",
+      "table"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.137090+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(data) == list",
+      "data is not None",
+      "type(filters) == dict",
+      "filters is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(data) == list",
+      "data is not None",
+      "type(filters) == dict",
+      "filters is not None"
+    ]
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8b58f3accbbe4fd965fcee88850b3364bbe60e66cd713a6a72e96534d1381780",
+    "semantic_fingerprint": "d0280b1aa2e72556abefe336876cb65cb3fab3a6c7b05d3bfe51e514283db15d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get differences between two JSON objects.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter obj1",
+        "name": "obj1",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter obj2",
+        "name": "obj2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of diff_json",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def diff_json(obj1: dict, obj2: dict) -> dict:\n    \"\"\"Get differences between two JSON objects.\"\"\"\n    added = {}\n    removed = {}\n    modified = {}\n    for key in obj2:\n        if key not in obj1:\n            added[key] = obj2[key]\n        elif obj1[key] != obj2[key]:\n            modified[key] = {\"old\": obj1[key], \"new\": obj2[key]}\n    for key in obj1:\n        if key not in obj2:\n            removed[key] = obj1[key]\n    return {\"added\": added, \"removed\": removed, \"modified\": modified}",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:31.828600+00:00",
+    "description": "Get differences between two JSON objects.",
+    "intent": "Get differences between two JSON objects.",
+    "language": "python",
+    "name": "diff_json",
+    "source_file": "neurop_forge/sources/json_utilities.py",
+    "source_line_end": 167,
+    "source_line_start": 154,
+    "tags": [
+      "arithmetic",
+      "diff",
+      "json",
+      "obj1",
+      "obj2"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.828621+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(obj1) == dict",
+      "obj1 is not None",
+      "type(obj2) == dict",
+      "obj2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(obj1) == dict",
+      "obj1 is not None",
+      "type(obj2) == dict",
+      "obj2 is not None"
+    ]
+  }
+}

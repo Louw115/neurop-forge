@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1f819eebf2e13e2f2fa059216ec8d39b4316661bdaae24331227f4bc0fcad2bc",
+    "semantic_fingerprint": "ee056eb990bbc0ac362140183dda834ea5d6455351ed7f0fa78643912d928924",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if deployment is complete.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter ready",
+        "name": "ready",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter desired",
+        "name": "desired",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter updated",
+        "name": "updated",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_deployment_complete",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_deployment_complete(ready: int, desired: int, updated: int) -> bool:\n    \"\"\"Check if deployment is complete.\"\"\"\n    return ready == desired == updated and desired > 0",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:27.901588+00:00",
+    "description": "Check if deployment is complete.",
+    "intent": "Check if deployment is complete.",
+    "language": "python",
+    "name": "is_deployment_complete",
+    "source_file": "neurop_forge/sources/devops_utilities.py",
+    "source_line_end": 328,
+    "source_line_start": 326,
+    "tags": [
+      "complete",
+      "deployment",
+      "desired",
+      "ready",
+      "updated",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.901607+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(ready) == integer",
+      "ready is not None",
+      "type(desired) == integer",
+      "desired is not None",
+      "type(updated) == integer",
+      "updated is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(ready) == integer",
+      "ready is not None",
+      "type(desired) == integer",
+      "desired is not None",
+      "type(updated) == integer",
+      "updated is not None"
+    ]
+  }
+}

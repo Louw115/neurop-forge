@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ceca0efce1f8305ec69806d54db3a847a6e6a1216249649dfaa6b741c32adbc7",
+    "semantic_fingerprint": "68f9723848ef130a58d37339ad1588edf99485fc10988bc8029505659e0a603c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get node at prefix position.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter trie",
+        "name": "trie",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter prefix",
+        "name": "prefix",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of trie_get_node",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def trie_get_node(trie: dict, prefix: str) -> dict:\n    \"\"\"Get node at prefix position.\"\"\"\n    node = trie[\"root\"]\n    for char in prefix:\n        if char not in node[\"children\"]:\n            return None\n        node = node[\"children\"][char]\n    return node",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:30.332623+00:00",
+    "description": "Get node at prefix position.",
+    "intent": "Get node at prefix position.",
+    "language": "python",
+    "name": "trie_get_node",
+    "source_file": "neurop_forge/sources/trie_utilities.py",
+    "source_line_end": 74,
+    "source_line_start": 67,
+    "tags": [
+      "dict_operation",
+      "get",
+      "node",
+      "prefix",
+      "trie"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.332642+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(trie) == dict",
+      "trie is not None",
+      "type(prefix) == string",
+      "prefix is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(trie) == dict",
+      "trie is not None",
+      "type(prefix) == string",
+      "prefix is not None"
+    ]
+  }
+}

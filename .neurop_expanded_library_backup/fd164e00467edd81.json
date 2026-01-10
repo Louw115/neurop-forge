@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "fd164e00467edd81cf8485b1662f5ff2afaa609f44f4e1c4f1f905b1dce83b93",
+    "semantic_fingerprint": "08da248aa251c7fd466ae24837d373a85fa5424008851feb9a50c32f67c0f61c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Split tax proportionally by rates.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter total_tax",
+        "name": "total_tax",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter rates",
+        "name": "rates",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of split_tax",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def split_tax(total_tax: float, rates: list) -> list:\n    \"\"\"Split tax proportionally by rates.\"\"\"\n    total_rate = sum(rates)\n    if total_rate == 0:\n        return [0] * len(rates)\n    return [round(total_tax * rate / total_rate, 2) for rate in rates]",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:34.401507+00:00",
+    "description": "Split tax proportionally by rates.",
+    "intent": "Split tax proportionally by rates.",
+    "language": "python",
+    "name": "split_tax",
+    "source_file": "neurop_forge/sources/tax_utilities.py",
+    "source_line_end": 140,
+    "source_line_start": 135,
+    "tags": [
+      "rates",
+      "split",
+      "string_manipulation",
+      "tax",
+      "total_tax"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.401529+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(total_tax) == float",
+      "total_tax is not None",
+      "type(rates) == list",
+      "rates is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(total_tax) == float",
+      "total_tax is not None",
+      "type(rates) == list",
+      "rates is not None"
+    ]
+  }
+}

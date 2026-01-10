@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "56ead502f204f03a3b6dd49023879bd55750b1e139b8b3d795ed9790cb2ac08a",
+    "semantic_fingerprint": "dba880a16735d9e3a04e414dfbcaad56dfd9c43ecddbec3cb03ab771b875cc98",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Partition set based on predicate.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter predicate",
+        "name": "predicate",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of set_partition",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def set_partition(items: list, predicate) -> dict:\n    \"\"\"Partition set based on predicate.\"\"\"\n    items = list(set(items))\n    true_set = []\n    false_set = []\n    for item in items:\n        if predicate(item):\n            true_set.append(item)\n        else:\n            false_set.append(item)\n    return {\"matches\": true_set, \"non_matches\": false_set}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:29.930124+00:00",
+    "description": "Partition set based on predicate.",
+    "intent": "Partition set based on predicate.",
+    "language": "python",
+    "name": "set_partition",
+    "source_file": "neurop_forge/sources/set_utilities.py",
+    "source_line_end": 201,
+    "source_line_start": 191,
+    "tags": [
+      "items",
+      "list_operation",
+      "partition",
+      "predicate",
+      "set"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.930145+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "predicate is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "predicate is not None"
+    ]
+  }
+}

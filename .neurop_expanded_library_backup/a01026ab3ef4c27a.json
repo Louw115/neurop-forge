@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a01026ab3ef4c27a5fa0bb8d22028c6718bd1b3bef05a97c69b6ca97c14ad584",
+    "semantic_fingerprint": "a95793fcce31d23264a6981a54b30962a5c8b40f412318c5b562f7c75562dbd4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate statistics from audit records.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter audit_records",
+        "name": "audit_records",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of calculate_audit_statistics",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_audit_statistics(audit_records: list) -> dict:\n    \"\"\"Calculate statistics from audit records.\"\"\"\n    total = len(audit_records)\n    by_operation = {}\n    by_table = {}\n    by_user = {}\n    for record in audit_records:\n        op = record.get(\"operation\", \"UNKNOWN\")\n        table = record.get(\"table_name\", \"UNKNOWN\")\n        user = record.get(\"user_id\", \"UNKNOWN\")\n        by_operation[op] = by_operation.get(op, 0) + 1\n        by_table[table] = by_table.get(table, 0) + 1\n        by_user[user] = by_user.get(user, 0) + 1\n    return {\n        \"total_records\": total,\n        \"by_operation\": by_operation,\n        \"by_table\": by_table,\n        \"by_user\": by_user\n    }",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:26.862617+00:00",
+    "description": "Calculate statistics from audit records.",
+    "intent": "Calculate statistics from audit records.",
+    "language": "python",
+    "name": "calculate_audit_statistics",
+    "source_file": "neurop_forge/sources/audit_logging.py",
+    "source_line_end": 257,
+    "source_line_start": 239,
+    "tags": [
+      "arithmetic",
+      "audit",
+      "audit_records",
+      "calculate",
+      "statistics"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.862643+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(audit_records) == list",
+      "audit_records is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(audit_records) == list",
+      "audit_records is not None"
+    ]
+  }
+}

@@ -1,0 +1,170 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0a013b6f8ce5d931c0c9583cf73170c0d543760a041d654174c091589aef914b",
+    "semantic_fingerprint": "26476e4092a25525d010da55e95f94e426e8161ea75256404159399f3294cbce",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Detect if value is an anomaly using z-score.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter mean",
+        "name": "mean",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter std",
+        "name": "std",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter threshold",
+        "name": "threshold",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of detect_anomaly_zscore",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def detect_anomaly_zscore(value: float, mean: float, std: float, threshold: float) -> bool:\n    \"\"\"Detect if value is an anomaly using z-score.\"\"\"\n    if std == 0:\n        return False\n    z_score = abs((value - mean) / std)\n    return z_score > threshold",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:28.417116+00:00",
+    "description": "Detect if value is an anomaly using z-score.",
+    "intent": "Detect if value is an anomaly using z-score.",
+    "language": "python",
+    "name": "detect_anomaly_zscore",
+    "source_file": "neurop_forge/sources/analytics_patterns.py",
+    "source_line_end": 241,
+    "source_line_start": 236,
+    "tags": [
+      "anomaly",
+      "detect",
+      "mean",
+      "std",
+      "threshold",
+      "validation",
+      "value",
+      "zscore"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.417138+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == float",
+      "value is not None",
+      "type(mean) == float",
+      "mean is not None",
+      "type(std) == float",
+      "std is not None",
+      "type(threshold) == float",
+      "threshold is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(value) == float",
+      "value is not None",
+      "type(mean) == float",
+      "mean is not None",
+      "type(std) == float",
+      "std is not None",
+      "type(threshold) == float",
+      "threshold is not None"
+    ]
+  }
+}

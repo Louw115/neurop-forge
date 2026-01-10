@@ -1,0 +1,158 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c766c81a43ae60dbc147871c044093b1a23c5f40c1850059dc2a6871f2c26093",
+    "semantic_fingerprint": "b1e52c51080a12ec5407624d1fe9c84b96b32aff90851ce220873817cb7c44eb",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get triadic colors (three evenly spaced colors).",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter r",
+        "name": "r",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter g",
+        "name": "g",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter b",
+        "name": "b",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of get_triadic_colors",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_triadic_colors(r: int, g: int, b: int) -> list:\n    \"\"\"Get triadic colors (three evenly spaced colors).\"\"\"\n    h, s, l = rgb_to_hsl(r, g, b)\n    return [\n        hsl_to_rgb(h, s, l),\n        hsl_to_rgb((h + 120) % 360, s, l),\n        hsl_to_rgb((h + 240) % 360, s, l),\n    ]",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:24.304519+00:00",
+    "description": "Get triadic colors (three evenly spaced colors).",
+    "intent": "Get triadic colors (three evenly spaced colors).",
+    "language": "python",
+    "name": "get_triadic_colors",
+    "source_file": "neurop_forge/sources/color_utilities.py",
+    "source_line_end": 185,
+    "source_line_start": 178,
+    "tags": [
+      "b",
+      "colors",
+      "filtering",
+      "g",
+      "get",
+      "r",
+      "triadic"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:24.304543+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(r) == integer",
+      "r is not None",
+      "type(g) == integer",
+      "g is not None",
+      "type(b) == integer",
+      "b is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(r) == integer",
+      "r is not None",
+      "type(g) == integer",
+      "g is not None",
+      "type(b) == integer",
+      "b is not None"
+    ]
+  }
+}

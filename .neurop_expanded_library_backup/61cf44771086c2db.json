@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "61cf44771086c2dbf84361711d5db5b1b079690e6b653395d0fcae05171c67f0",
+    "semantic_fingerprint": "0f66c67a21a965ee75452ea724bab8a8a983bf94809063b03e40f344ebeded30",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if review needs moderation.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter review",
+        "name": "review",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter min_length",
+        "name": "min_length",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter flagged_words",
+        "name": "flagged_words",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of needs_moderation",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def needs_moderation(review: dict, min_length: int, flagged_words: list) -> bool:\n    \"\"\"Check if review needs moderation.\"\"\"\n    text = review.get(\"text\", \"\").lower()\n    if len(text) < min_length:\n        return True\n    for word in flagged_words:\n        if word.lower() in text:\n            return True\n    return False",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:35.059933+00:00",
+    "description": "Check if review needs moderation.",
+    "intent": "Check if review needs moderation.",
+    "language": "python",
+    "name": "needs_moderation",
+    "source_file": "neurop_forge/sources/review_utilities.py",
+    "source_line_end": 165,
+    "source_line_start": 157,
+    "tags": [
+      "flagged_words",
+      "min_length",
+      "moderation",
+      "needs",
+      "review",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:35.059953+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(review) == dict",
+      "review is not None",
+      "type(min_length) == integer",
+      "min_length is not None",
+      "type(flagged_words) == list",
+      "flagged_words is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(review) == dict",
+      "review is not None",
+      "type(min_length) == integer",
+      "min_length is not None",
+      "type(flagged_words) == list",
+      "flagged_words is not None"
+    ]
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a68714006be316b32c877838fbfcf49ad62647c7f95fe8183cb0e21cc059a6fd",
+    "semantic_fingerprint": "a6e61398a4b0a60e60dd583eddd0c66549f53187f3edc41061cf1849e30837f2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get percentage of duration elapsed.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter elapsed",
+        "name": "elapsed",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter total",
+        "name": "total",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of get_percentage_elapsed",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_percentage_elapsed(elapsed: int, total: int) -> float:\n    \"\"\"Get percentage of duration elapsed.\"\"\"\n    if total <= 0:\n        return 0\n    return min(100, (elapsed / total) * 100)",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:34.274430+00:00",
+    "description": "Get percentage of duration elapsed.",
+    "intent": "Get percentage of duration elapsed.",
+    "language": "python",
+    "name": "get_percentage_elapsed",
+    "source_file": "neurop_forge/sources/duration_utilities.py",
+    "source_line_end": 184,
+    "source_line_start": 180,
+    "tags": [
+      "elapsed",
+      "filtering",
+      "get",
+      "percentage",
+      "total"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.274448+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(elapsed) == integer",
+      "elapsed is not None",
+      "type(total) == integer",
+      "total is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(elapsed) == integer",
+      "elapsed is not None",
+      "type(total) == integer",
+      "total is not None"
+    ]
+  }
+}

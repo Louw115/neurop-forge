@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3364c99036b8b537815cf4701cc54eb4fbaca71c51878c32b98fad0a8a030de2",
+    "semantic_fingerprint": "609200f36d825701904cb4fa8d6c4c2c3adfdf9d1cdffed842e6cf71c40aae4e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Ternary search on sorted list.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter target",
+        "name": "target",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of ternary_search",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def ternary_search(items: list, target) -> int:\n    \"\"\"Ternary search on sorted list.\"\"\"\n    left, right = 0, len(items) - 1\n    while left <= right:\n        mid1 = left + (right - left) // 3\n        mid2 = right - (right - left) // 3\n        if items[mid1] == target:\n            return mid1\n        if items[mid2] == target:\n            return mid2\n        if target < items[mid1]:\n            right = mid1 - 1\n        elif target > items[mid2]:\n            left = mid2 + 1\n        else:\n            left = mid1 + 1\n            right = mid2 - 1\n    return -1",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:31.051932+00:00",
+    "description": "Ternary search on sorted list.",
+    "intent": "Ternary search on sorted list.",
+    "language": "python",
+    "name": "ternary_search",
+    "source_file": "neurop_forge/sources/search_algorithms.py",
+    "source_line_end": 154,
+    "source_line_start": 137,
+    "tags": [
+      "arithmetic",
+      "items",
+      "search",
+      "target",
+      "ternary"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.051951+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "target is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "target is not None"
+    ]
+  }
+}

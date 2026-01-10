@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5a4dbd62a8aee7ba1b87d3bf13afbfcc659a0d948cd50e6723b4b1829277fd44",
+    "semantic_fingerprint": "37bfd82d38db5b4acbd5d56e315ed7eed2e0a8b61c91482f3e71df87ccb67b62",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Set content item status.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter item",
+        "name": "item",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter status",
+        "name": "status",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter timestamp",
+        "name": "timestamp",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of set_content_status",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def set_content_status(item: dict, status: str, timestamp: str) -> dict:\n    \"\"\"Set content item status.\"\"\"\n    result = dict(item)\n    result[\"status\"] = status\n    result[\"updated_at\"] = timestamp\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:29.482521+00:00",
+    "description": "Set content item status.",
+    "intent": "Set content item status.",
+    "language": "python",
+    "name": "set_content_status",
+    "source_file": "neurop_forge/sources/content_utilities.py",
+    "source_line_end": 31,
+    "source_line_start": 26,
+    "tags": [
+      "content",
+      "dict_operation",
+      "item",
+      "set",
+      "status",
+      "timestamp"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.482547+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(item) == dict",
+      "item is not None",
+      "type(status) == string",
+      "status is not None",
+      "type(timestamp) == string",
+      "timestamp is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(item) == dict",
+      "item is not None",
+      "type(status) == string",
+      "status is not None",
+      "type(timestamp) == string",
+      "timestamp is not None"
+    ]
+  }
+}

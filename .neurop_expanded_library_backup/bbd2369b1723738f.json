@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "bbd2369b1723738fe8fb649b8c7d68fb6f1a65a0125ae34f11028edc769452d3",
+    "semantic_fingerprint": "6f460e20ea210aa04d04c4e0d63212123d4053c66447aca86dc5bc4e7e29615d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find last position where target could be inserted.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter target",
+        "name": "target",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of upper_bound",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def upper_bound(items: list, target) -> int:\n    \"\"\"Find last position where target could be inserted.\"\"\"\n    left, right = 0, len(items)\n    while left < right:\n        mid = (left + right) // 2\n        if items[mid] <= target:\n            left = mid + 1\n        else:\n            right = mid\n    return left",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:31.040474+00:00",
+    "description": "Find last position where target could be inserted.",
+    "intent": "Find last position where target could be inserted.",
+    "language": "python",
+    "name": "upper_bound",
+    "source_file": "neurop_forge/sources/search_algorithms.py",
+    "source_line_end": 79,
+    "source_line_start": 70,
+    "tags": [
+      "bound",
+      "items",
+      "string_manipulation",
+      "target",
+      "upper"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.040493+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "target is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "target is not None"
+    ]
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9b9172407b466c6f58b795bfadf49441ba40020900e030f1a8bf09c29b5b82e8",
+    "semantic_fingerprint": "3f0889e8211c403a2675e2610614167d0e6a198bbc7f284dbb734252c2a5ba5d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if a numeric change is significant (exceeds threshold percentage).",
+    "inputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter old_value",
+        "name": "old_value",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter new_value",
+        "name": "new_value",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter threshold",
+        "name": "threshold",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_significant_change",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_significant_change(old_value, new_value, threshold: float) -> bool:\n    \"\"\"Check if a numeric change is significant (exceeds threshold percentage).\"\"\"\n    if not isinstance(old_value, (int, float)) or not isinstance(new_value, (int, float)):\n        return old_value != new_value\n    if old_value == 0:\n        return new_value != 0\n    change_percent = abs((new_value - old_value) / old_value) * 100\n    return change_percent >= threshold",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:26.850544+00:00",
+    "description": "Check if a numeric change is significant (exceeds threshold percentage).",
+    "intent": "Check if a numeric change is significant (exceeds threshold percentage).",
+    "language": "python",
+    "name": "is_significant_change",
+    "source_file": "neurop_forge/sources/audit_logging.py",
+    "source_line_end": 193,
+    "source_line_start": 186,
+    "tags": [
+      "change",
+      "new_value",
+      "old_value",
+      "significant",
+      "threshold",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.850569+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "old_value is not None",
+      "new_value is not None",
+      "type(threshold) == float",
+      "threshold is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "old_value is not None",
+      "new_value is not None",
+      "type(threshold) == float",
+      "threshold is not None"
+    ]
+  }
+}

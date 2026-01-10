@@ -1,0 +1,144 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "99b912354606df104aab9a373eb8c5c6ad00c3f126cf09faec7e939d549e3ca2",
+    "semantic_fingerprint": "8ae8d00df093cf4c7d551cbf92e60b9798272926b856799888fa3f0407b61c26",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate binomial coefficient (n choose k).",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter n",
+        "name": "n",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter k",
+        "name": "k",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of binomial",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def binomial(n: int, k: int) -> int:\n    \"\"\"Calculate binomial coefficient (n choose k).\"\"\"\n    if k < 0 or k > n:\n        return 0\n    if k == 0 or k == n:\n        return 1\n    k = min(k, n - k)\n    result = 1\n    for i in range(k):\n        result = result * (n - i) // (i + 1)\n    return result",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:31.591827+00:00",
+    "description": "Calculate binomial coefficient (n choose k).",
+    "intent": "Calculate binomial coefficient (n choose k).",
+    "language": "python",
+    "name": "binomial",
+    "source_file": "neurop_forge/sources/number_theory.py",
+    "source_line_end": 246,
+    "source_line_start": 236,
+    "tags": [
+      "arithmetic",
+      "binomial",
+      "k",
+      "n"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.591852+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(n) == integer",
+      "n is not None",
+      "type(k) == integer",
+      "k is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(n) == integer",
+      "n is not None",
+      "type(k) == integer",
+      "k is not None"
+    ]
+  }
+}

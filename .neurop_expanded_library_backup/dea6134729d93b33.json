@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "dea6134729d93b333d972c38fcdbb05beab7fcf3fd9a6d37c742deac5ef6f8b6",
+    "semantic_fingerprint": "b1065715ad56c69449b4c1ef9faa6cd60de3f90f7766fcf8e2bc98d195a96be9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Mask a sensitive configuration value.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter visible_chars",
+        "name": "visible_chars",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of mask_sensitive_value",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def mask_sensitive_value(value: str, visible_chars: int) -> str:\n    \"\"\"Mask a sensitive configuration value.\"\"\"\n    if len(value) <= visible_chars:\n        return '*' * len(value)\n    return value[:visible_chars] + '*' * (len(value) - visible_chars)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:25.407429+00:00",
+    "description": "Mask a sensitive configuration value.",
+    "intent": "Mask a sensitive configuration value.",
+    "language": "python",
+    "name": "mask_sensitive_value",
+    "source_file": "neurop_forge/sources/configuration_utilities.py",
+    "source_line_end": 290,
+    "source_line_start": 286,
+    "tags": [
+      "mask",
+      "sensitive",
+      "string_manipulation",
+      "value",
+      "visible_chars"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.407457+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == string",
+      "value is not None",
+      "type(visible_chars) == integer",
+      "visible_chars is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(value) == string",
+      "value is not None",
+      "type(visible_chars) == integer",
+      "visible_chars is not None"
+    ]
+  }
+}

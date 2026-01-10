@@ -1,0 +1,158 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "70b6f9f2515d0614c2e3c2eaabaa536a4846b18794e493fa5f8b652a685dae5b",
+    "semantic_fingerprint": "1d8e6de03406feb90326bb50d7a7fe57dac2a847ce5d0d235bca6a3632b40a74",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Estimate delivery days.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter distance",
+        "name": "distance",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter speed_factor",
+        "name": "speed_factor",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter processing_days",
+        "name": "processing_days",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of estimate_delivery_days",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def estimate_delivery_days(distance: float, speed_factor: float, processing_days: int) -> int:\n    \"\"\"Estimate delivery days.\"\"\"\n    transit_days = int(distance / speed_factor) + 1\n    return processing_days + transit_days",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:34.519154+00:00",
+    "description": "Estimate delivery days.",
+    "intent": "Estimate delivery days.",
+    "language": "python",
+    "name": "estimate_delivery_days",
+    "source_file": "neurop_forge/sources/shipping_utilities.py",
+    "source_line_end": 36,
+    "source_line_start": 33,
+    "tags": [
+      "arithmetic",
+      "days",
+      "delivery",
+      "distance",
+      "estimate",
+      "processing_days",
+      "speed_factor"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.519179+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(distance) == float",
+      "distance is not None",
+      "type(speed_factor) == float",
+      "speed_factor is not None",
+      "type(processing_days) == integer",
+      "processing_days is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(distance) == float",
+      "distance is not None",
+      "type(speed_factor) == float",
+      "speed_factor is not None",
+      "type(processing_days) == integer",
+      "processing_days is not None"
+    ]
+  }
+}

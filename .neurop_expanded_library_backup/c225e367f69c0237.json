@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c225e367f69c02375be8d5f8acd4b163b8c1357ba7226ad17afb57f99f3f95f8",
+    "semantic_fingerprint": "ae0327966acccd02d9a69e1fa538ddfc383f23790e7b07c8719fc91e02384871",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate the approximate area of a polygon in square kilometers.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter coordinates",
+        "name": "coordinates",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_area_of_polygon",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_area_of_polygon(coordinates: list) -> float:\n    \"\"\"Calculate the approximate area of a polygon in square kilometers.\"\"\"\n    if len(coordinates) < 3:\n        return 0.0\n    n = len(coordinates)\n    area = 0.0\n    for i in range(n):\n        j = (i + 1) % n\n        lat1, lon1 = coordinates[i]\n        lat2, lon2 = coordinates[j]\n        area += degrees_to_radians(lon2 - lon1) * (2 + math.sin(degrees_to_radians(lat1)) + math.sin(degrees_to_radians(lat2)))\n    area = abs(area) * 6371.0 ** 2 / 2.0\n    return area",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:25.013760+00:00",
+    "description": "Calculate the approximate area of a polygon in square kilometers.",
+    "intent": "Calculate the approximate area of a polygon in square kilometers.",
+    "language": "python",
+    "name": "calculate_area_of_polygon",
+    "source_file": "neurop_forge/sources/geolocation_utilities.py",
+    "source_line_end": 183,
+    "source_line_start": 171,
+    "tags": [
+      "area",
+      "arithmetic",
+      "calculate",
+      "coordinates",
+      "polygon"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.013786+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(coordinates) == list",
+      "coordinates is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(coordinates) == list",
+      "coordinates is not None"
+    ]
+  }
+}

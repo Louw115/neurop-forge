@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "26c526270cb499c206881b1f80026e7e6ed28faef3c9992f2f887dbb57b4d4bd",
+    "semantic_fingerprint": "7cb857bdb0134cadd78894537527f85fae0827a420b095a37c11e3f5953cf814",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate LOCK TABLE SQL.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter table",
+        "name": "table",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter mode",
+        "name": "mode",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_lock_table",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_lock_table(table: str, mode: str) -> str:\n    \"\"\"Generate LOCK TABLE SQL.\"\"\"\n    from neurop_forge.sources.sql_building import escape_sql_identifier\n    valid_modes = {\n        \"ACCESS SHARE\", \"ROW SHARE\", \"ROW EXCLUSIVE\", \n        \"SHARE UPDATE EXCLUSIVE\", \"SHARE\", \"SHARE ROW EXCLUSIVE\",\n        \"EXCLUSIVE\", \"ACCESS EXCLUSIVE\"\n    }\n    normalized = mode.upper()\n    if normalized not in valid_modes:\n        normalized = \"ACCESS SHARE\"\n    return f\"LOCK TABLE {escape_sql_identifier(table)} IN {normalized} MODE\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:26.351764+00:00",
+    "description": "Generate LOCK TABLE SQL.",
+    "intent": "Generate LOCK TABLE SQL.",
+    "language": "python",
+    "name": "generate_lock_table",
+    "source_file": "neurop_forge/sources/transaction_helpers.py",
+    "source_line_end": 73,
+    "source_line_start": 62,
+    "tags": [
+      "generate",
+      "lock",
+      "mode",
+      "string_manipulation",
+      "table"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.351784+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(table) == string",
+      "table is not None",
+      "type(mode) == string",
+      "mode is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(table) == string",
+      "table is not None",
+      "type(mode) == string",
+      "mode is not None"
+    ]
+  }
+}

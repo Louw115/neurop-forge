@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e79d3681c70d187753a07aba60e437d5f1232506d167faef3dc1a71ca8a2494a",
+    "semantic_fingerprint": "705bdb75765edffd6e69478f2207989197abbabe96acd5178ba31125209ee69c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get list without head.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter ll",
+        "name": "ll",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of list_tail",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def list_tail(ll: dict) -> dict:\n    \"\"\"Get list without head.\"\"\"\n    if ll[\"head\"] is None:\n        return ll\n    return {\"head\": ll[\"head\"][\"next\"], \"size\": ll[\"size\"] - 1}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:30.475675+00:00",
+    "description": "Get list without head.",
+    "intent": "Get list without head.",
+    "language": "python",
+    "name": "list_tail",
+    "source_file": "neurop_forge/sources/linked_list.py",
+    "source_line_end": 51,
+    "source_line_start": 47,
+    "tags": [
+      "dict_operation",
+      "list",
+      "ll",
+      "tail"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.475698+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(ll) == dict",
+      "ll is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(ll) == dict",
+      "ll is not None"
+    ]
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1fce17068e3617563f5d50e7e04bc03220d6e534bebc03cd62822daea5d9f3fe",
+    "semantic_fingerprint": "d85ece64ba8f9971716eb2bcdd23863442ff5361fb3ded28e0281c4f63cdcc9a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Sanitize string input.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_length",
+        "name": "max_length",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter strip_html",
+        "name": "strip_html",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of sanitize_string_input",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def sanitize_string_input(value: str, max_length: int, strip_html: bool) -> str:\n    \"\"\"Sanitize string input.\"\"\"\n    import re\n    result = value.strip()\n    if strip_html:\n        result = re.sub(r'<[^>]+>', '', result)\n    if len(result) > max_length:\n        result = result[:max_length]\n    return result",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:27.223534+00:00",
+    "description": "Sanitize string input.",
+    "intent": "Sanitize string input.",
+    "language": "python",
+    "name": "sanitize_string_input",
+    "source_file": "neurop_forge/sources/request_validation.py",
+    "source_line_end": 272,
+    "source_line_start": 264,
+    "tags": [
+      "input",
+      "max_length",
+      "sanitize",
+      "string",
+      "string_manipulation",
+      "strip_html",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.223561+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == string",
+      "value is not None",
+      "type(max_length) == integer",
+      "max_length is not None",
+      "type(strip_html) == boolean",
+      "strip_html is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(value) == string",
+      "value is not None",
+      "type(max_length) == integer",
+      "max_length is not None",
+      "type(strip_html) == boolean",
+      "strip_html is not None"
+    ]
+  }
+}

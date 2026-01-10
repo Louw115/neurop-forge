@@ -1,0 +1,158 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "550a1da13fefeb8b17305ccd3a85583ad1ae52364d18e4104dcd9355a7b9c5a3",
+    "semantic_fingerprint": "12cc62c0c713915179e892b52ce62e66d964faeb5d39c46b06b347870e4c92bf",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a mailto: link.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter email",
+        "name": "email",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter subject",
+        "name": "subject",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter body",
+        "name": "body",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_mailto_link",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_mailto_link(email: str, subject: str, body: str) -> str:\n    \"\"\"Build a mailto: link.\"\"\"\n    from urllib.parse import quote\n    link = f\"mailto:{email}\"\n    params = []\n    if subject:\n        params.append(f\"subject={quote(subject)}\")\n    if body:\n        params.append(f\"body={quote(body)}\")\n    if params:\n        link += '?' + '&'.join(params)\n    return link",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:25.329757+00:00",
+    "description": "Build a mailto: link.",
+    "intent": "Build a mailto: link.",
+    "language": "python",
+    "name": "build_mailto_link",
+    "source_file": "neurop_forge/sources/email_utilities.py",
+    "source_line_end": 319,
+    "source_line_start": 308,
+    "tags": [
+      "body",
+      "build",
+      "email",
+      "link",
+      "mailto",
+      "string_manipulation",
+      "subject"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.329783+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(email) == string",
+      "email is not None",
+      "type(subject) == string",
+      "subject is not None",
+      "type(body) == string",
+      "body is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(email) == string",
+      "email is not None",
+      "type(subject) == string",
+      "subject is not None",
+      "type(body) == string",
+      "body is not None"
+    ]
+  }
+}

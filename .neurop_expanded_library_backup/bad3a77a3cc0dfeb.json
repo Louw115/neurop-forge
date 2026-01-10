@@ -1,0 +1,144 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "bad3a77a3cc0dfebdfc525770f021e2b431e67f7a57a839f3746ac3ddcdd837a",
+    "semantic_fingerprint": "e3a92d123ee72b69cd09886f41a752fb9c7408376f43f4e78783bc402148d372",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Remove all occurrences of a pattern from text.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter pattern",
+        "name": "pattern",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of remove_pattern",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def remove_pattern(text: str, pattern: str) -> str:\n    \"\"\"Remove all occurrences of a pattern from text.\"\"\"\n    try:\n        return re.sub(pattern, '', text)\n    except re.error:\n        return text",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:24.861016+00:00",
+    "description": "Remove all occurrences of a pattern from text.",
+    "intent": "Remove all occurrences of a pattern from text.",
+    "language": "python",
+    "name": "remove_pattern",
+    "source_file": "neurop_forge/sources/regex_utilities.py",
+    "source_line_end": 341,
+    "source_line_start": 336,
+    "tags": [
+      "pattern",
+      "remove",
+      "string_manipulation",
+      "text"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:24.861040+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None",
+      "type(pattern) == string",
+      "pattern is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None",
+      "type(pattern) == string",
+      "pattern is not None"
+    ]
+  }
+}

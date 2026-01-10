@@ -1,0 +1,156 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ff6a6b105b06e9780a940550c5db0bb92c42031846f32d54cd1a8d5c085ac1c8",
+    "semantic_fingerprint": "f074b7023efae9ec8c551e2190b3a60360dbbfd83d3025524a888b5ac9d20b14",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Ensure slug is unique by adding suffix if needed.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter base_slug",
+        "name": "base_slug",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter existing_slugs",
+        "name": "existing_slugs",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_suffix",
+        "name": "max_suffix",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of ensure_unique_slug",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def ensure_unique_slug(base_slug: str, existing_slugs: set, max_suffix: int) -> str:\n    \"\"\"Ensure slug is unique by adding suffix if needed.\"\"\"\n    if base_slug not in existing_slugs:\n        return base_slug\n    for i in range(1, max_suffix + 1):\n        candidate = f\"{base_slug}-{i}\"\n        if candidate not in existing_slugs:\n            return candidate\n    return f\"{base_slug}-{max_suffix + 1}\"",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:29.504570+00:00",
+    "description": "Ensure slug is unique by adding suffix if needed.",
+    "intent": "Ensure slug is unique by adding suffix if needed.",
+    "language": "python",
+    "name": "ensure_unique_slug",
+    "source_file": "neurop_forge/sources/content_utilities.py",
+    "source_line_end": 136,
+    "source_line_start": 128,
+    "tags": [
+      "base_slug",
+      "ensure",
+      "existing_slugs",
+      "max_suffix",
+      "slug",
+      "unique",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.504590+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(base_slug) == string",
+      "base_slug is not None",
+      "existing_slugs is not None",
+      "type(max_suffix) == integer",
+      "max_suffix is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(base_slug) == string",
+      "base_slug is not None",
+      "existing_slugs is not None",
+      "type(max_suffix) == integer",
+      "max_suffix is not None"
+    ]
+  }
+}

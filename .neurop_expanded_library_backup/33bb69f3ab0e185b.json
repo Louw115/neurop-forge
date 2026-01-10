@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "33bb69f3ab0e185b8e10cc9367d49e78332b7dc9e08d00918adf2cf2ebd8afb9",
+    "semantic_fingerprint": "d1f89b688e94d2bcd130af6be656fb411c01ab2f4ce9bd233a4f6065f1f690f1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract trailing number from a slug.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter slug",
+        "name": "slug",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of extract_slug_number",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def extract_slug_number(slug: str) -> int:\n    \"\"\"Extract trailing number from a slug.\"\"\"\n    match = re.search(r'-(\\d+)$', slug)\n    return int(match.group(1)) if match else 0",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:25.544700+00:00",
+    "description": "Extract trailing number from a slug.",
+    "intent": "Extract trailing number from a slug.",
+    "language": "python",
+    "name": "extract_slug_number",
+    "source_file": "neurop_forge/sources/slug_utilities.py",
+    "source_line_end": 196,
+    "source_line_start": 193,
+    "tags": [
+      "extract",
+      "filtering",
+      "number",
+      "slug"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.544718+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(slug) == string",
+      "slug is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(slug) == string",
+      "slug is not None"
+    ]
+  }
+}

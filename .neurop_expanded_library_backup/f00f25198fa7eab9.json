@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f00f25198fa7eab965ba926726b1783eccc106c1a4a54d057d2efb939224b2e3",
+    "semantic_fingerprint": "decc4e9e3ac7765dcfce0e17aa54fefa1e5053cf4dd5b07992b10fd5b423578a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate bandwidth in Mbps.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter bytes_count",
+        "name": "bytes_count",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter seconds",
+        "name": "seconds",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_bandwidth",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_bandwidth(bytes_count: int, seconds: float) -> float:\n    \"\"\"Calculate bandwidth in Mbps.\"\"\"\n    if seconds <= 0:\n        return 0.0\n    return (bytes_count * 8) / (seconds * 1000000)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:29.032280+00:00",
+    "description": "Calculate bandwidth in Mbps.",
+    "intent": "Calculate bandwidth in Mbps.",
+    "language": "python",
+    "name": "calculate_bandwidth",
+    "source_file": "neurop_forge/sources/network_utilities.py",
+    "source_line_end": 189,
+    "source_line_start": 185,
+    "tags": [
+      "arithmetic",
+      "bandwidth",
+      "bytes_count",
+      "calculate",
+      "seconds"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.032298+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(bytes_count) == integer",
+      "bytes_count is not None",
+      "type(seconds) == float",
+      "seconds is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(bytes_count) == integer",
+      "bytes_count is not None",
+      "type(seconds) == float",
+      "seconds is not None"
+    ]
+  }
+}

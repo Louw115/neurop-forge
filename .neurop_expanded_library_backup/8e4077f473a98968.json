@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8e4077f473a98968cdd4c74528e4d75904008ceac88d26bddd017bd2326ad269",
+    "semantic_fingerprint": "0c4af4358995f1650995fcee264ddceff7fe6319ce82e0b131e8cac39ea16d6c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Apply tiered discount based on amount.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter amount",
+        "name": "amount",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter tiers",
+        "name": "tiers",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of apply_tiered_discount",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def apply_tiered_discount(amount: float, tiers: list) -> dict:\n    \"\"\"Apply tiered discount based on amount.\"\"\"\n    for tier in sorted(tiers, key=lambda t: -t[\"threshold\"]):\n        if amount >= tier[\"threshold\"]:\n            discount = tier.get(\"percentage\", 0)\n            discounted = apply_percentage_discount(amount, discount)\n            return {\n                \"original\": amount,\n                \"discount_percentage\": discount,\n                \"discount_amount\": round(amount - discounted, 2),\n                \"final\": discounted\n            }\n    return {\n        \"original\": amount,\n        \"discount_percentage\": 0,\n        \"discount_amount\": 0,\n        \"final\": amount\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:34.433054+00:00",
+    "description": "Apply tiered discount based on amount.",
+    "intent": "Apply tiered discount based on amount.",
+    "language": "python",
+    "name": "apply_tiered_discount",
+    "source_file": "neurop_forge/sources/discount_utilities.py",
+    "source_line_end": 63,
+    "source_line_start": 46,
+    "tags": [
+      "amount",
+      "apply",
+      "dict_operation",
+      "discount",
+      "tiered",
+      "tiers"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.433082+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(amount) == float",
+      "amount is not None",
+      "type(tiers) == list",
+      "tiers is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(amount) == float",
+      "amount is not None",
+      "type(tiers) == list",
+      "tiers is not None"
+    ]
+  }
+}

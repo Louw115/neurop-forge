@@ -1,0 +1,132 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "74696f77359e005ce53ee0ffe064687669d4e92439fa6a78fcccff65e15aed03",
+    "semantic_fingerprint": "57e5f802ca66ecbc517537f210825c95f6ff9d89da0275ce7551a8b8752c0d94",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate softmax of values.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter values",
+        "name": "values",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of softmax",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def softmax(values: list) -> list:\n    \"\"\"Calculate softmax of values.\"\"\"\n    import math\n    max_val = max(values) if values else 0\n    exp_values = [math.exp(v - max_val) for v in values]\n    sum_exp = sum(exp_values)\n    if sum_exp == 0:\n        return [0.0] * len(values)\n    return [e / sum_exp for e in exp_values]",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:28.006075+00:00",
+    "description": "Calculate softmax of values.",
+    "intent": "Calculate softmax of values.",
+    "language": "python",
+    "name": "softmax",
+    "source_file": "neurop_forge/sources/ml_utilities.py",
+    "source_line_end": 120,
+    "source_line_start": 112,
+    "tags": [
+      "list_operation",
+      "softmax",
+      "values"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.006100+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(values) == list",
+      "values is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(values) == list",
+      "values is not None"
+    ]
+  }
+}

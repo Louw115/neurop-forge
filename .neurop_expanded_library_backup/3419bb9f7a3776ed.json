@@ -1,0 +1,158 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3419bb9f7a3776ed20319e6f60dfa4c47ddd6e6c96508082da8ba05dfd098998",
+    "semantic_fingerprint": "ec6a653ac5980a7f4881e6c768e8e89751869165bdee89555b30f977fef50280",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Create cursor-based pagination info.",
+    "inputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter has_more",
+        "name": "has_more",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter cursor",
+        "name": "cursor",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter count",
+        "name": "count",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of create_cursor_page_info",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def create_cursor_page_info(has_more: bool, cursor: str, count: int) -> dict:\n    \"\"\"Create cursor-based pagination info.\"\"\"\n    return {\n        'has_more': has_more,\n        'cursor': cursor,\n        'count': count,\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:25.463929+00:00",
+    "description": "Create cursor-based pagination info.",
+    "intent": "Create cursor-based pagination info.",
+    "language": "python",
+    "name": "create_cursor_page_info",
+    "source_file": "neurop_forge/sources/pagination_utilities.py",
+    "source_line_end": 176,
+    "source_line_start": 170,
+    "tags": [
+      "count",
+      "create",
+      "cursor",
+      "dict_operation",
+      "has_more",
+      "info",
+      "page"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.463973+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(has_more) == boolean",
+      "has_more is not None",
+      "type(cursor) == string",
+      "cursor is not None",
+      "type(count) == integer",
+      "count is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(has_more) == boolean",
+      "has_more is not None",
+      "type(cursor) == string",
+      "cursor is not None",
+      "type(count) == integer",
+      "count is not None"
+    ]
+  }
+}

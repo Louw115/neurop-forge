@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "52accd8093c11dcaf7ca1f727b8a25447cabe25acded0c399ce85eafe0b38121",
+    "semantic_fingerprint": "1bd3e98c0ed93525622e531333af03b510da1ef38276d9b9247071bcd3e5db97",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse formatted follower count back to integer.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter formatted",
+        "name": "formatted",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of parse_follower_count",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_follower_count(formatted: str) -> int:\n    \"\"\"Parse formatted follower count back to integer.\"\"\"\n    formatted = formatted.strip().upper()\n    if formatted.endswith(\"K\"):\n        return int(float(formatted[:-1]) * 1000)\n    if formatted.endswith(\"M\"):\n        return int(float(formatted[:-1]) * 1000000)\n    if formatted.endswith(\"B\"):\n        return int(float(formatted[:-1]) * 1000000000)\n    return int(formatted)",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T12:22:32.796454+00:00",
+    "description": "Parse formatted follower count back to integer.",
+    "intent": "Parse formatted follower count back to integer.",
+    "language": "python",
+    "name": "parse_follower_count",
+    "source_file": "neurop_forge/sources/social_utilities.py",
+    "source_line_end": 104,
+    "source_line_start": 95,
+    "tags": [
+      "count",
+      "follower",
+      "formatted",
+      "parse",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:32.796525+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(formatted) == string",
+      "formatted is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(formatted) == string",
+      "formatted is not None"
+    ]
+  }
+}

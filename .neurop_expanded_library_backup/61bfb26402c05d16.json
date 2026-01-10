@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "61bfb26402c05d163b84d7d1756fbaf912680b8fa1dcb9389007421089732bec",
+    "semantic_fingerprint": "e092405ccebcede3669a389fb591b7db56ab789aafec3cdf9cee7b881f41e630",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse Cache-Control header.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter header",
+        "name": "header",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of parse_cache_control_header",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_cache_control_header(header: str) -> dict:\n    \"\"\"Parse Cache-Control header.\"\"\"\n    directives = {}\n    for part in header.split(\",\"):\n        part = part.strip()\n        if \"=\" in part:\n            key, value = part.split(\"=\", 1)\n            directives[key.strip()] = value.strip()\n        else:\n            directives[part] = True\n    return directives",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T12:22:29.076304+00:00",
+    "description": "Parse Cache-Control header.",
+    "intent": "Parse Cache-Control header.",
+    "language": "python",
+    "name": "parse_cache_control_header",
+    "source_file": "neurop_forge/sources/caching_patterns.py",
+    "source_line_end": 128,
+    "source_line_start": 118,
+    "tags": [
+      "cache",
+      "control",
+      "header",
+      "parse",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.076323+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(header) == string",
+      "header is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(header) == string",
+      "header is not None"
+    ]
+  }
+}

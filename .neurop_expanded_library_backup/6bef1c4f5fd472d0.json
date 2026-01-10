@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic sorting block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "6bef1c4f5fd472d01643a22cef925d067b5f15074fcab1dcddd4045e6a318cf7",
+    "semantic_fingerprint": "1d4b3dd8788defc7e55e30c3444abd003f4290cdb7873be62068045dd7d8c368",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Sort notifications by priority.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter notifications",
+        "name": "notifications",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of sort_by_priority",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def sort_by_priority(notifications: list) -> list:\n    \"\"\"Sort notifications by priority.\"\"\"\n    return sorted(notifications, key=get_priority, reverse=True)",
+  "metadata": {
+    "category": "sorting",
+    "created_at": "2026-01-10T12:22:34.915227+00:00",
+    "description": "Sort notifications by priority.",
+    "intent": "Sort notifications by priority.",
+    "language": "python",
+    "name": "sort_by_priority",
+    "source_file": "neurop_forge/sources/notification_helpers.py",
+    "source_line_end": 172,
+    "source_line_start": 170,
+    "tags": [
+      "notifications",
+      "priority",
+      "sort",
+      "sorting"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:34.915253+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(notifications) == list",
+      "notifications is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(notifications) == list",
+      "notifications is not None"
+    ]
+  }
+}

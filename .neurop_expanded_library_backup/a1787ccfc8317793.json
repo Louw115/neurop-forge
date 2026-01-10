@@ -1,0 +1,132 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a1787ccfc8317793ccfd5b41f4e672eaa00d004b9adbbbb770a2884eeb1b79d6",
+    "semantic_fingerprint": "91d17196bb7c00dee649d1cf1dcf1979716fae698ec8df7dbc343392ea7346fc",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format a phone number in US format: (XXX) XXX-XXXX.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter phone",
+        "name": "phone",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_us_phone",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_us_phone(phone: str) -> str:\n    \"\"\"Format a phone number in US format: (XXX) XXX-XXXX.\"\"\"\n    digits = normalize_phone(phone)\n    if len(digits) == 11 and digits[0] == '1':\n        digits = digits[1:]\n    if len(digits) != 10:\n        return phone\n    return f\"({digits[0:3]}) {digits[3:6]}-{digits[6:10]}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:25.679239+00:00",
+    "description": "Format a phone number in US format: (XXX) XXX-XXXX.",
+    "intent": "Format a phone number in US format: (XXX) XXX-XXXX.",
+    "language": "python",
+    "name": "format_us_phone",
+    "source_file": "neurop_forge/sources/phone_utilities.py",
+    "source_line_end": 55,
+    "source_line_start": 48,
+    "tags": [
+      "format",
+      "phone",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.679266+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(phone) == string",
+      "phone is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(phone) == string",
+      "phone is not None"
+    ]
+  }
+}

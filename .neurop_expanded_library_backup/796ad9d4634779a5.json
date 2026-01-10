@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "796ad9d4634779a531f6704ca1a8123c04901c392cf5aef287c5e99fa0eb113e",
+    "semantic_fingerprint": "0e37f685aada4e14873ff5557f5c31932de37944c7825b97d3d0f7d1d4f886b4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if edge exists.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter graph",
+        "name": "graph",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter from_node",
+        "name": "from_node",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter to_node",
+        "name": "to_node",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of has_edge",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def has_edge(graph: dict, from_node: str, to_node: str) -> bool:\n    \"\"\"Check if edge exists.\"\"\"\n    for edge in graph[\"edges\"]:\n        if edge[\"from\"] == from_node and edge[\"to\"] == to_node:\n            return True\n        if not graph[\"directed\"] and edge[\"from\"] == to_node and edge[\"to\"] == from_node:\n            return True\n    return False",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:28.702438+00:00",
+    "description": "Check if edge exists.",
+    "intent": "Check if edge exists.",
+    "language": "python",
+    "name": "has_edge",
+    "source_file": "neurop_forge/sources/graph_utilities.py",
+    "source_line_end": 103,
+    "source_line_start": 96,
+    "tags": [
+      "edge",
+      "from_node",
+      "graph",
+      "has",
+      "to_node",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:28.702466+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(graph) == dict",
+      "graph is not None",
+      "type(from_node) == string",
+      "from_node is not None",
+      "type(to_node) == string",
+      "to_node is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(graph) == dict",
+      "graph is not None",
+      "type(from_node) == string",
+      "from_node is not None",
+      "type(to_node) == string",
+      "to_node is not None"
+    ]
+  }
+}

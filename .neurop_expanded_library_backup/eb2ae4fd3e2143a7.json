@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "eb2ae4fd3e2143a7fe7b164dc23922f97c3d4880262883ba894ed19db058441b",
+    "semantic_fingerprint": "2040ef72c54da9f405e26878e066e0f43c5b78fb3593c777f3f9bb54b59d139c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Verify ISBN-10 checksum.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter isbn",
+        "name": "isbn",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of verify_isbn10",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def verify_isbn10(isbn: str) -> bool:\n    \"\"\"Verify ISBN-10 checksum.\"\"\"\n    isbn = isbn.replace(\"-\", \"\")\n    if len(isbn) != 10:\n        return False\n    total = 0\n    for i, c in enumerate(isbn):\n        val = 10 if c == \"X\" else int(c)\n        total += (10 - i) * val\n    return total % 11 == 0",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:31.309788+00:00",
+    "description": "Verify ISBN-10 checksum.",
+    "intent": "Verify ISBN-10 checksum.",
+    "language": "python",
+    "name": "verify_isbn10",
+    "source_file": "neurop_forge/sources/checksum_utilities.py",
+    "source_line_end": 137,
+    "source_line_start": 128,
+    "tags": [
+      "isbn",
+      "isbn10",
+      "validation",
+      "verify"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.309807+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(isbn) == string",
+      "isbn is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(isbn) == string",
+      "isbn is not None"
+    ]
+  }
+}

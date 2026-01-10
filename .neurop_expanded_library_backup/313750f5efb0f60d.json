@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "313750f5efb0f60dbef9e3406425254b0a9a5ef5432b4a335c84cfe4e72ba7bd",
+    "semantic_fingerprint": "94f332d66e0041543ef95c4a49cbab9494bc8d37685a40a154f69b6ff7ab9b8d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a WHERE ... IN clause.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter column",
+        "name": "column",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter count",
+        "name": "count",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter start_placeholder",
+        "name": "start_placeholder",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_where_in",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_where_in(column: str, count: int, start_placeholder: int) -> str:\n    \"\"\"Build a WHERE ... IN clause.\"\"\"\n    if count <= 0:\n        return f\"WHERE 1 = 0\"\n    placeholders = \", \".join(f\"${i}\" for i in range(start_placeholder, start_placeholder + count))\n    return f\"WHERE {escape_sql_identifier(column)} IN ({placeholders})\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:25.853712+00:00",
+    "description": "Build a WHERE ... IN clause.",
+    "intent": "Build a WHERE ... IN clause.",
+    "language": "python",
+    "name": "build_where_in",
+    "source_file": "neurop_forge/sources/sql_building.py",
+    "source_line_end": 81,
+    "source_line_start": 76,
+    "tags": [
+      "build",
+      "column",
+      "count",
+      "start_placeholder",
+      "string_manipulation",
+      "where"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.853743+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(column) == string",
+      "column is not None",
+      "type(count) == integer",
+      "count is not None",
+      "type(start_placeholder) == integer",
+      "start_placeholder is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(column) == string",
+      "column is not None",
+      "type(count) == integer",
+      "count is not None",
+      "type(start_placeholder) == integer",
+      "start_placeholder is not None"
+    ]
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic aggregation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "297a9817f43056bf68cb817bea636a169240d695735c7c3f660c6afb41e64729",
+    "semantic_fingerprint": "bc5f21de3769830d37428aa5e49b75fb4099dcf1d72a0a749db1c639358156c4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Count the number of positional placeholders ($1, $2, ...) in a query.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter query",
+        "name": "query",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of count_placeholders",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def count_placeholders(query: str) -> int:\n    \"\"\"Count the number of positional placeholders ($1, $2, ...) in a query.\"\"\"\n    import re\n    matches = re.findall(r'\\$(\\d+)', query)\n    if not matches:\n        return 0\n    return max(int(m) for m in matches)",
+  "metadata": {
+    "category": "aggregation",
+    "created_at": "2026-01-10T12:22:25.967057+00:00",
+    "description": "Count the number of positional placeholders ($1, $2, ...) in a query.",
+    "intent": "Count the number of positional placeholders ($1, $2, ...) in a query.",
+    "language": "python",
+    "name": "count_placeholders",
+    "source_file": "neurop_forge/sources/sql_building.py",
+    "source_line_end": 444,
+    "source_line_start": 438,
+    "tags": [
+      "aggregation",
+      "count",
+      "placeholders",
+      "query"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.967083+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(query) == string",
+      "query is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(query) == string",
+      "query is not None"
+    ]
+  }
+}

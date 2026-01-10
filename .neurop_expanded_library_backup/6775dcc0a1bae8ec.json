@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": false,
+    "io_operations": [
+      "file_read"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "non_deterministic",
+    "side_effects": [
+      "file_io"
+    ],
+    "thread_safe": false
+  },
+  "failure_modes": {
+    "can_fail": true,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "raises_exception",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "6775dcc0a1bae8ec7d37cfc326b8c58d0ff33ff742355d2e72aeda86a1363309",
+    "semantic_fingerprint": "0477f2cb35dea2e0f39c67615fd400d9666188524193c8100638c6e19b5c3a42",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get size of largest component.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter ds",
+        "name": "ds",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of largest_component_size",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def largest_component_size(ds: dict) -> int:\n    \"\"\"Get size of largest component.\"\"\"\n    roots = get_roots(ds)\n    if not roots:\n        return 0\n    return max(ds[\"size\"].get(r, 0) for r in roots)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:30.790617+00:00",
+    "description": "Get size of largest component.",
+    "intent": "Get size of largest component.",
+    "language": "python",
+    "name": "largest_component_size",
+    "source_file": "neurop_forge/sources/disjoint_set.py",
+    "source_line_end": 148,
+    "source_line_start": 143,
+    "tags": [
+      "arithmetic",
+      "component",
+      "ds",
+      "largest",
+      "size"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 0.5,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.790637+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.265,
+    "risk_factors": [
+      "impure_function",
+      "non_deterministic",
+      "side_effects: file_io"
+    ],
+    "risk_level": "medium",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(ds) == dict",
+      "ds is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(ds) == dict",
+      "ds is not None"
+    ]
+  }
+}

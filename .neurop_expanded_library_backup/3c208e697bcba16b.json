@@ -1,0 +1,181 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3c208e697bcba16be15f0e43a62aaf0845384c5e4b58b2c5613654f3344d0b17",
+    "semantic_fingerprint": "47a0ab5a453a89a695ec8597f89f306fbb183fbd7e39eae241ffa541897e2913",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format a semantic version string.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter major",
+        "name": "major",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter minor",
+        "name": "minor",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter patch",
+        "name": "patch",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter prerelease",
+        "name": "prerelease",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter build",
+        "name": "build",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_semver",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_semver(major: int, minor: int, patch: int, prerelease: str, build: str) -> str:\n    \"\"\"Format a semantic version string.\"\"\"\n    version = f\"{major}.{minor}.{patch}\"\n    if prerelease:\n        version += f\"-{prerelease}\"\n    if build:\n        version += f\"+{build}\"\n    return version",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:27.846811+00:00",
+    "description": "Format a semantic version string.",
+    "intent": "Format a semantic version string.",
+    "language": "python",
+    "name": "format_semver",
+    "source_file": "neurop_forge/sources/devops_utilities.py",
+    "source_line_end": 36,
+    "source_line_start": 29,
+    "tags": [
+      "build",
+      "format",
+      "major",
+      "minor",
+      "patch",
+      "prerelease",
+      "semver",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.846831+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(major) == integer",
+      "major is not None",
+      "type(minor) == integer",
+      "minor is not None",
+      "type(patch) == integer",
+      "patch is not None",
+      "type(prerelease) == string",
+      "prerelease is not None",
+      "type(build) == string",
+      "build is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(major) == integer",
+      "major is not None",
+      "type(minor) == integer",
+      "minor is not None",
+      "type(patch) == integer",
+      "patch is not None",
+      "type(prerelease) == string",
+      "prerelease is not None",
+      "type(build) == string",
+      "build is not None"
+    ]
+  }
+}

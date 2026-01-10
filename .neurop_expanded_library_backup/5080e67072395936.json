@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5080e67072395936c2419bf76777751d392d8824fd6cc4a10276f47e3a9b6af1",
+    "semantic_fingerprint": "9f5c14ae60e61fac616bd31b29bfeb2fe07255aff4b7325a4ecb515eb729f8f4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a CAST expression.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter column",
+        "name": "column",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter target_type",
+        "name": "target_type",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_cast",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_cast(column: str, target_type: str) -> str:\n    \"\"\"Build a CAST expression.\"\"\"\n    return f\"CAST({escape_sql_identifier(column)} AS {target_type})\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:25.906700+00:00",
+    "description": "Build a CAST expression.",
+    "intent": "Build a CAST expression.",
+    "language": "python",
+    "name": "build_cast",
+    "source_file": "neurop_forge/sources/sql_building.py",
+    "source_line_end": 261,
+    "source_line_start": 259,
+    "tags": [
+      "build",
+      "cast",
+      "column",
+      "string_manipulation",
+      "target_type"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.906728+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(column) == string",
+      "column is not None",
+      "type(target_type) == string",
+      "target_type is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(column) == string",
+      "column is not None",
+      "type(target_type) == string",
+      "target_type is not None"
+    ]
+  }
+}

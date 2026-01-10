@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f124b2b99e420c6c5074078f47292307a7f5d8711b47084caf437221f9cadf1f",
+    "semantic_fingerprint": "ad8cf23827dbd23e8762b67ebc71506a21a1909b43fb6a272de66c028d49822f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get last value.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter ll",
+        "name": "ll",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Return value of list_last",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def list_last(ll: dict):\n    \"\"\"Get last value.\"\"\"\n    if ll[\"head\"] is None:\n        return None\n    node = ll[\"head\"]\n    while node[\"next\"]:\n        node = node[\"next\"]\n    return node[\"value\"]",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:30.510863+00:00",
+    "description": "Get last value.",
+    "intent": "Get last value.",
+    "language": "python",
+    "name": "list_last",
+    "source_file": "neurop_forge/sources/linked_list.py",
+    "source_line_end": 222,
+    "source_line_start": 215,
+    "tags": [
+      "filtering",
+      "last",
+      "list",
+      "ll"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.510887+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3235,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.48999999999999994,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(ll) == dict",
+      "ll is not None"
+    ],
+    "invariants": [],
+    "output_validators": [],
+    "postconditions": [],
+    "preconditions": [
+      "type(ll) == dict",
+      "ll is not None"
+    ]
+  }
+}

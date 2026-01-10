@@ -1,0 +1,172 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception",
+      "KeyError"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "10520012ec43de290b4bdafaad9a071b2ee6e18b1b5dcee085f149ec5154dc2c",
+    "semantic_fingerprint": "56c62996edf677be79cfa987d9f9cae3d91ecd9c8ea1db63a8854d9b1de8d254",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get keyset pagination info.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter key_field",
+        "name": "key_field",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter limit",
+        "name": "limit",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter sort_order",
+        "name": "sort_order",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of get_keyset_page_info",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_keyset_page_info(items: list, key_field: str, limit: int, sort_order: str) -> dict:\n    \"\"\"Get keyset pagination info.\"\"\"\n    if not items:\n        return {\"items\": [], \"has_more\": False, \"last_key\": None}\n    has_more = len(items) > limit\n    page_items = items[:limit]\n    last_key = None\n    if page_items:\n        last = page_items[-1]\n        if isinstance(last, dict):\n            last_key = last.get(key_field)\n    return {\"items\": page_items, \"has_more\": has_more, \"last_key\": last_key}",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:33.898737+00:00",
+    "description": "Get keyset pagination info.",
+    "intent": "Get keyset pagination info.",
+    "language": "python",
+    "name": "get_keyset_page_info",
+    "source_file": "neurop_forge/sources/pagination_helpers.py",
+    "source_line_end": 165,
+    "source_line_start": 154,
+    "tags": [
+      "filtering",
+      "get",
+      "info",
+      "items",
+      "key_field",
+      "keyset",
+      "limit",
+      "page",
+      "sort_order"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:33.898767+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "type(key_field) == string",
+      "key_field is not None",
+      "type(limit) == integer",
+      "limit is not None",
+      "type(sort_order) == string",
+      "sort_order is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "type(key_field) == string",
+      "key_field is not None",
+      "type(limit) == integer",
+      "limit is not None",
+      "type(sort_order) == string",
+      "sort_order is not None"
+    ]
+  }
+}

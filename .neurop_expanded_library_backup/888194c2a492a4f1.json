@@ -1,0 +1,135 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "888194c2a492a4f19b2f196a13f9a38a1fb41974ec95be9cc264d30b100d8802",
+    "semantic_fingerprint": "27e55a1237782d47582cfa0f1daf1f0bde483affa7e7570f879b8e02270063cb",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Auto-detect potentially sensitive fields in a record.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter record",
+        "name": "record",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of auto_detect_sensitive_fields",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def auto_detect_sensitive_fields(record: dict) -> list:\n    \"\"\"Auto-detect potentially sensitive fields in a record.\"\"\"\n    sensitive_patterns = [\n        \"password\", \"secret\", \"token\", \"key\", \"credential\",\n        \"ssn\", \"social_security\", \"credit_card\", \"card_number\",\n        \"cvv\", \"pin\", \"auth\", \"api_key\", \"private\"\n    ]\n    sensitive = []\n    for field in record.keys():\n        if is_sensitive_field(field, sensitive_patterns):\n            sensitive.append(field)\n    return sensitive",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:26.833701+00:00",
+    "description": "Auto-detect potentially sensitive fields in a record.",
+    "intent": "Auto-detect potentially sensitive fields in a record.",
+    "language": "python",
+    "name": "auto_detect_sensitive_fields",
+    "source_file": "neurop_forge/sources/audit_logging.py",
+    "source_line_end": 89,
+    "source_line_start": 78,
+    "tags": [
+      "auto",
+      "detect",
+      "fields",
+      "list_operation",
+      "record",
+      "sensitive"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:26.833720+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(record) == dict",
+      "record is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(record) == dict",
+      "record is not None"
+    ]
+  }
+}

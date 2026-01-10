@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d378742d66afed4c9fc65e54341f91e37b46546956ceb36e2a8c81ed9d934d3e",
+    "semantic_fingerprint": "1577c6f6f7562ab0417e1d9c3af5f61b1257899f844634bd6473fbb869cfa5fb",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get all nodes at a specific level.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter root",
+        "name": "root",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter level",
+        "name": "level",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of get_level_nodes",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_level_nodes(root: dict, level: int) -> list:\n    \"\"\"Get all nodes at a specific level.\"\"\"\n    if level == 0:\n        return [root]\n    nodes = []\n    for child in root.get(\"children\", []):\n        nodes.extend(get_level_nodes(child, level - 1))\n    return nodes",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:29.811157+00:00",
+    "description": "Get all nodes at a specific level.",
+    "intent": "Get all nodes at a specific level.",
+    "language": "python",
+    "name": "get_level_nodes",
+    "source_file": "neurop_forge/sources/tree_utilities.py",
+    "source_line_end": 138,
+    "source_line_start": 131,
+    "tags": [
+      "filtering",
+      "get",
+      "level",
+      "nodes",
+      "root"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.811177+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(root) == dict",
+      "root is not None",
+      "type(level) == integer",
+      "level is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(root) == dict",
+      "root is not None",
+      "type(level) == integer",
+      "level is not None"
+    ]
+  }
+}

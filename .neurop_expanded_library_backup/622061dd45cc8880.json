@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "622061dd45cc8880d1d9e80284bfbad0b40079ad544e109847f881bf35e6ac51",
+    "semantic_fingerprint": "322c1d06fb8e830e26ed34052e1a1cd23aaba00d0cd65c1a9d354a5e99b03cae",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Prettify JSON string.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter indent",
+        "name": "indent",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of prettify_json",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def prettify_json(text: str, indent: int) -> str:\n    \"\"\"Prettify JSON string.\"\"\"\n    result = parse_json(text)\n    if result[\"success\"]:\n        return json.dumps(result[\"data\"], indent=indent)\n    return text",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:31.809173+00:00",
+    "description": "Prettify JSON string.",
+    "intent": "Prettify JSON string.",
+    "language": "python",
+    "name": "prettify_json",
+    "source_file": "neurop_forge/sources/json_utilities.py",
+    "source_line_end": 41,
+    "source_line_start": 36,
+    "tags": [
+      "indent",
+      "json",
+      "prettify",
+      "string_manipulation",
+      "text"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:31.809197+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None",
+      "type(indent) == integer",
+      "indent is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None",
+      "type(indent) == integer",
+      "indent is not None"
+    ]
+  }
+}

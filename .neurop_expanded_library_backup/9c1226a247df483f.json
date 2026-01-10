@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9c1226a247df483f7b2cedc75e27c3a49cf7c9d7ff6db70da9aae45654edb038",
+    "semantic_fingerprint": "33ba243d6d53927ec11ef48c4491694d8b2712c9bb08bc2b569851655c0b7b22",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get number of keys less than given key.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter tree",
+        "name": "tree",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of bst_rank",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def bst_rank(tree: dict, key) -> int:\n    \"\"\"Get number of keys less than given key.\"\"\"\n    def size_node(node):\n        if node is None:\n            return 0\n        return 1 + size_node(node[\"left\"]) + size_node(node[\"right\"])\n    def rank_node(node, key):\n        if node is None:\n            return 0\n        if key < node[\"key\"]:\n            return rank_node(node[\"left\"], key)\n        elif key > node[\"key\"]:\n            return 1 + size_node(node[\"left\"]) + rank_node(node[\"right\"], key)\n        else:\n            return size_node(node[\"left\"])\n    return rank_node(tree[\"root\"], key)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:30.624037+00:00",
+    "description": "Get number of keys less than given key.",
+    "intent": "Get number of keys less than given key.",
+    "language": "python",
+    "name": "bst_rank",
+    "source_file": "neurop_forge/sources/binary_search_tree.py",
+    "source_line_end": 218,
+    "source_line_start": 203,
+    "tags": [
+      "arithmetic",
+      "bst",
+      "key",
+      "rank",
+      "tree"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.624055+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(tree) == dict",
+      "tree is not None",
+      "key is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(tree) == dict",
+      "tree is not None",
+      "key is not None"
+    ]
+  }
+}

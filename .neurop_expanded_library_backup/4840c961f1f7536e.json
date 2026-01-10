@@ -1,0 +1,147 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic searching block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4840c961f1f7536ee44c4f4c30d127235ec25a17baad4bd77ae80019c5ed72b9",
+    "semantic_fingerprint": "981e8b6f7bbd99fd9a11254883e12b687d9b702e919c26916335608fa5183ea1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Create hash table from dictionary.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter d",
+        "name": "d",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter size",
+        "name": "size",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of hash_table_from_dict",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def hash_table_from_dict(d: dict, size: int) -> dict:\n    \"\"\"Create hash table from dictionary.\"\"\"\n    ht = create_hash_table(size)\n    for k, v in d.items():\n        ht = hash_table_put(ht, str(k), v)\n    return ht",
+  "metadata": {
+    "category": "searching",
+    "created_at": "2026-01-10T12:22:30.551044+00:00",
+    "description": "Create hash table from dictionary.",
+    "intent": "Create hash table from dictionary.",
+    "language": "python",
+    "name": "hash_table_from_dict",
+    "source_file": "neurop_forge/sources/hash_table.py",
+    "source_line_end": 136,
+    "source_line_start": 131,
+    "tags": [
+      "d",
+      "dict",
+      "from",
+      "hash",
+      "searching",
+      "size",
+      "table"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:30.551069+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.37,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.8,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(d) == dict",
+      "d is not None",
+      "type(size) == integer",
+      "size is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(d) == dict",
+      "d is not None",
+      "type(size) == integer",
+      "size is not None"
+    ]
+  }
+}

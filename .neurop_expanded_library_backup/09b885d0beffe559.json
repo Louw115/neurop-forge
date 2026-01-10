@@ -1,0 +1,147 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception",
+      "IndexError"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "09b885d0beffe5592b9875fd340383d1bd7b81412014f695e9d9e137b5fe10dc",
+    "semantic_fingerprint": "fdffca1b208a20df1156fd550dfdadb0927521a8a5881223dc61174d19670dd8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a DROP INDEX statement.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter index_name",
+        "name": "index_name",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter if_exists",
+        "name": "if_exists",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_drop_index",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_drop_index(index_name: str, if_exists: bool) -> str:\n    \"\"\"Build a DROP INDEX statement.\"\"\"\n    if_exists_clause = \"IF EXISTS \" if if_exists else \"\"\n    return f\"DROP INDEX {if_exists_clause}{escape_sql_identifier(index_name)}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:25.941243+00:00",
+    "description": "Build a DROP INDEX statement.",
+    "intent": "Build a DROP INDEX statement.",
+    "language": "python",
+    "name": "build_drop_index",
+    "source_file": "neurop_forge/sources/sql_building.py",
+    "source_line_end": 366,
+    "source_line_start": 363,
+    "tags": [
+      "build",
+      "drop",
+      "if_exists",
+      "index",
+      "index_name",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:25.941272+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(index_name) == string",
+      "index_name is not None",
+      "type(if_exists) == boolean",
+      "if_exists is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(index_name) == string",
+      "index_name is not None",
+      "type(if_exists) == boolean",
+      "if_exists is not None"
+    ]
+  }
+}

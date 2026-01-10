@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "390ee22a7a99b6b5136c6c34fcf972c59a8d9be92f3f398fe10a6c59d27768f9",
+    "semantic_fingerprint": "aa5452960a964d10ed4dba7dfe8b8c62572111b9d2fc7bc63c31bf54365bfc43",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Exclude specific keys from query string.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter query",
+        "name": "query",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter excluded_keys",
+        "name": "excluded_keys",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of exclude_params",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def exclude_params(query: str, excluded_keys: list) -> str:\n    \"\"\"Exclude specific keys from query string.\"\"\"\n    params = parse_query_string(query)\n    filtered = {k: v for k, v in params.items() if k not in excluded_keys}\n    return build_query_string(filtered)",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:33.978062+00:00",
+    "description": "Exclude specific keys from query string.",
+    "intent": "Exclude specific keys from query string.",
+    "language": "python",
+    "name": "exclude_params",
+    "source_file": "neurop_forge/sources/query_string.py",
+    "source_line_end": 97,
+    "source_line_start": 93,
+    "tags": [
+      "exclude",
+      "excluded_keys",
+      "filtering",
+      "params",
+      "query"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:33.978080+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(query) == string",
+      "query is not None",
+      "type(excluded_keys) == list",
+      "excluded_keys is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(query) == string",
+      "query is not None",
+      "type(excluded_keys) == list",
+      "excluded_keys is not None"
+    ]
+  }
+}

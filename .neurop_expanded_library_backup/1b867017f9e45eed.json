@@ -1,0 +1,182 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1b867017f9e45eede64577a8594f32ea0371a303eb089319b1f6a955b0deb139",
+    "semantic_fingerprint": "ea89d76de5ffba524e504f61be3dab4b08879033de6c29d074b1c5d1a2cce090",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build Content-Security-Policy header value.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter default_src",
+        "name": "default_src",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter script_src",
+        "name": "script_src",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter style_src",
+        "name": "style_src",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter img_src",
+        "name": "img_src",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter connect_src",
+        "name": "connect_src",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_csp_header",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_csp_header(default_src: list, script_src: list, style_src: list, img_src: list, connect_src: list) -> str:\n    \"\"\"Build Content-Security-Policy header value.\"\"\"\n    parts = []\n    if default_src:\n        parts.append(f\"default-src {' '.join(default_src)}\")\n    if script_src:\n        parts.append(f\"script-src {' '.join(script_src)}\")\n    if style_src:\n        parts.append(f\"style-src {' '.join(style_src)}\")\n    if img_src:\n        parts.append(f\"img-src {' '.join(img_src)}\")\n    if connect_src:\n        parts.append(f\"connect-src {' '.join(connect_src)}\")\n    return \"; \".join(parts)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:27.427880+00:00",
+    "description": "Build Content-Security-Policy header value.",
+    "intent": "Build Content-Security-Policy header value.",
+    "language": "python",
+    "name": "build_csp_header",
+    "source_file": "neurop_forge/sources/middleware_patterns.py",
+    "source_line_end": 192,
+    "source_line_start": 179,
+    "tags": [
+      "build",
+      "connect_src",
+      "csp",
+      "default_src",
+      "header",
+      "img_src",
+      "script_src",
+      "string_manipulation",
+      "style_src"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.427902+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(default_src) == list",
+      "default_src is not None",
+      "type(script_src) == list",
+      "script_src is not None",
+      "type(style_src) == list",
+      "style_src is not None",
+      "type(img_src) == list",
+      "img_src is not None",
+      "type(connect_src) == list",
+      "connect_src is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(default_src) == list",
+      "default_src is not None",
+      "type(script_src) == list",
+      "script_src is not None",
+      "type(style_src) == list",
+      "style_src is not None",
+      "type(img_src) == list",
+      "img_src is not None",
+      "type(connect_src) == list",
+      "connect_src is not None"
+    ]
+  }
+}

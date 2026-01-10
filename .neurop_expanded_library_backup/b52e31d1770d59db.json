@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b52e31d1770d59db93984d1b2af1ccab5cd49559aa391276b517245389c457f5",
+    "semantic_fingerprint": "5a7ee9c769ed9d0a88c609e8cb9bd8359f36fd071572f8b86aa31e17807da6df",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Evaluate a targeting rule against user context.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter rule",
+        "name": "rule",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter user_context",
+        "name": "user_context",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of evaluate_targeting_rule",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def evaluate_targeting_rule(rule: dict, user_context: dict) -> bool:\n    \"\"\"Evaluate a targeting rule against user context.\"\"\"\n    attribute = rule.get(\"attribute\")\n    operator = rule.get(\"operator\")\n    value = rule.get(\"value\")\n    user_value = user_context.get(attribute)\n    if operator == \"equals\":\n        return user_value == value\n    elif operator == \"not_equals\":\n        return user_value != value\n    elif operator == \"in\":\n        return user_value in value\n    elif operator == \"not_in\":\n        return user_value not in value\n    elif operator == \"contains\":\n        return value in str(user_value) if user_value else False\n    elif operator == \"starts_with\":\n        return str(user_value).startswith(value) if user_value else False\n    elif operator == \"ends_with\":\n        return str(user_value).endswith(value) if user_value else False\n    elif operator == \"greater_than\":\n        return user_value > value if user_value is not None else False\n    elif operator == \"less_than\":\n        return user_value < value if user_value is not None else False\n    elif operator == \"regex\":\n        import re\n        return bool(re.match(value, str(user_value))) if user_value else False\n    return False",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T12:22:29.439505+00:00",
+    "description": "Evaluate a targeting rule against user context.",
+    "intent": "Evaluate a targeting rule against user context.",
+    "language": "python",
+    "name": "evaluate_targeting_rule",
+    "source_file": "neurop_forge/sources/feature_flags.py",
+    "source_line_end": 82,
+    "source_line_start": 55,
+    "tags": [
+      "arithmetic",
+      "evaluate",
+      "rule",
+      "targeting",
+      "user_context"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:29.439533+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(rule) == dict",
+      "rule is not None",
+      "type(user_context) == dict",
+      "user_context is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(rule) == dict",
+      "rule is not None",
+      "type(user_context) == dict",
+      "user_context is not None"
+    ]
+  }
+}

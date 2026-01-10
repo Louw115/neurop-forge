@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "789dd4b28cfe1ac2e7fe07aa7ecf6cc8a2ea785f7a1e60a4b9587a674a6f236c",
+    "semantic_fingerprint": "84f5237a96c6329cf211d9262cff6b7fe9cb8f7285e1c690158fd39b88586831",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate that JWT issuer matches expected value.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter token",
+        "name": "token",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter expected_issuer",
+        "name": "expected_issuer",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of validate_jwt_issuer",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_jwt_issuer(token: str, expected_issuer: str) -> bool:\n    \"\"\"Validate that JWT issuer matches expected value.\"\"\"\n    return get_jwt_issuer(token) == expected_issuer",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T12:22:27.019346+00:00",
+    "description": "Validate that JWT issuer matches expected value.",
+    "intent": "Validate that JWT issuer matches expected value.",
+    "language": "python",
+    "name": "validate_jwt_issuer",
+    "source_file": "neurop_forge/sources/auth_patterns.py",
+    "source_line_end": 138,
+    "source_line_start": 136,
+    "tags": [
+      "expected_issuer",
+      "issuer",
+      "jwt",
+      "token",
+      "validate",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.019364+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(token) == string",
+      "token is not None",
+      "type(expected_issuer) == string",
+      "expected_issuer is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(token) == string",
+      "token is not None",
+      "type(expected_issuer) == string",
+      "expected_issuer is not None"
+    ]
+  }
+}

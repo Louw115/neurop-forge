@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic aggregation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "849d18e137e30b29da826f93a588d6aba949880d0fcc66b50b681dace553892f",
+    "semantic_fingerprint": "a89f0c8d6bae357414c886d366a951e57afe8706b1028f206d6c495b64f2cb8b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Aggregate validation errors by field.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter errors",
+        "name": "errors",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of aggregate_validation_errors",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def aggregate_validation_errors(errors: list) -> dict:\n    \"\"\"Aggregate validation errors by field.\"\"\"\n    by_field = {}\n    for error in errors:\n        field = error.get(\"field\", \"general\")\n        if field not in by_field:\n            by_field[field] = []\n        by_field[field].append(error.get(\"message\"))\n    return by_field",
+  "metadata": {
+    "category": "aggregation",
+    "created_at": "2026-01-10T12:22:33.357615+00:00",
+    "description": "Aggregate validation errors by field.",
+    "intent": "Aggregate validation errors by field.",
+    "language": "python",
+    "name": "aggregate_validation_errors",
+    "source_file": "neurop_forge/sources/exception_utilities.py",
+    "source_line_end": 166,
+    "source_line_start": 158,
+    "tags": [
+      "aggregate",
+      "aggregation",
+      "errors",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:33.357641+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(errors) == list",
+      "errors is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(errors) == list",
+      "errors is not None"
+    ]
+  }
+}

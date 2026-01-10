@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "79659200d1f283ce89be768670af8f7f3ea7565ded7e98e421abd788488dfdf7",
+    "semantic_fingerprint": "e490c9de517a767e07f22dd53ad96b62e3cc1975bfd06406a15da186f2a92958",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format relative date.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter days_ago",
+        "name": "days_ago",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_relative_date",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_relative_date(days_ago: int) -> str:\n    \"\"\"Format relative date.\"\"\"\n    if days_ago == 0:\n        return \"today\"\n    elif days_ago == 1:\n        return \"yesterday\"\n    elif days_ago == -1:\n        return \"tomorrow\"\n    elif days_ago > 0:\n        if days_ago < 7:\n            return f\"{days_ago} days ago\"\n        elif days_ago < 30:\n            weeks = days_ago // 7\n            return f\"{weeks} week{'s' if weeks > 1 else ''} ago\"\n        elif days_ago < 365:\n            months = days_ago // 30\n            return f\"{months} month{'s' if months > 1 else ''} ago\"\n        else:\n            years = days_ago // 365\n            return f\"{years} year{'s' if years > 1 else ''} ago\"\n    else:\n        future = abs(days_ago)\n        if future < 7:\n            return f\"in {future} days\"\n        elif future < 30:\n            weeks = future // 7\n            return f\"in {weeks} week{'s' if weeks > 1 else ''}\"\n        else:\n            months = future // 30\n            return f\"in {months} month{'s' if months > 1 else ''}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:33.581475+00:00",
+    "description": "Format relative date.",
+    "intent": "Format relative date.",
+    "language": "python",
+    "name": "format_relative_date",
+    "source_file": "neurop_forge/sources/date_formatting.py",
+    "source_line_end": 143,
+    "source_line_start": 114,
+    "tags": [
+      "date",
+      "days_ago",
+      "format",
+      "relative",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:33.581502+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(days_ago) == integer",
+      "days_ago is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(days_ago) == integer",
+      "days_ago is not None"
+    ]
+  }
+}

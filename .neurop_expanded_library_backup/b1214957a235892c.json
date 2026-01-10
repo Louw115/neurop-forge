@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b1214957a235892c55a72e122e5c2f4907482cebc8f050957bcd5b7bf4595978",
+    "semantic_fingerprint": "0d10e8c6aad7fc65745520290edde651fa1455ac375f352c09b5d5fe9d90aa11",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract error code from error message.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter error_message",
+        "name": "error_message",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of extract_error_code",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def extract_error_code(error_message: str) -> str:\n    \"\"\"Extract error code from error message.\"\"\"\n    import re\n    match = re.search(r'\\[([A-Z0-9_]+)\\]', error_message)\n    if match:\n        return match.group(1)\n    return \"\"",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T12:22:27.329860+00:00",
+    "description": "Extract error code from error message.",
+    "intent": "Extract error code from error message.",
+    "language": "python",
+    "name": "extract_error_code",
+    "source_file": "neurop_forge/sources/error_handling.py",
+    "source_line_end": 108,
+    "source_line_start": 102,
+    "tags": [
+      "code",
+      "error",
+      "error_message",
+      "extract",
+      "filtering"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.329883+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(error_message) == string",
+      "error_message is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(error_message) == string",
+      "error_message is not None"
+    ]
+  }
+}

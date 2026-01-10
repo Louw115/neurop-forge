@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5c8f35aa164992f6961017a4bf457ef153514f96bf1736fc8c1f9c9c318bfae9",
+    "semantic_fingerprint": "d0055082f95d57826263cf4d2f92a7532dfc4d68a7f228b0b8df8be50a34f5f2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build an event subscription.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter subscription_id",
+        "name": "subscription_id",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter event_types",
+        "name": "event_types",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter from_sequence",
+        "name": "from_sequence",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_subscription",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_subscription(subscription_id: str, event_types: list, from_sequence: int) -> dict:\n    \"\"\"Build an event subscription.\"\"\"\n    return {\n        \"id\": subscription_id,\n        \"event_types\": event_types,\n        \"from_sequence\": from_sequence,\n        \"last_processed\": from_sequence,\n        \"status\": \"active\"\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:27.657477+00:00",
+    "description": "Build an event subscription.",
+    "intent": "Build an event subscription.",
+    "language": "python",
+    "name": "build_subscription",
+    "source_file": "neurop_forge/sources/event_sourcing.py",
+    "source_line_end": 244,
+    "source_line_start": 236,
+    "tags": [
+      "build",
+      "dict_operation",
+      "event_types",
+      "from_sequence",
+      "subscription",
+      "subscription_id"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.657500+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(subscription_id) == string",
+      "subscription_id is not None",
+      "type(event_types) == list",
+      "event_types is not None",
+      "type(from_sequence) == integer",
+      "from_sequence is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(subscription_id) == string",
+      "subscription_id is not None",
+      "type(event_types) == list",
+      "event_types is not None",
+      "type(from_sequence) == integer",
+      "from_sequence is not None"
+    ]
+  }
+}

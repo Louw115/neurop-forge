@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f5589229094a0ac63115fa1eb61bc2f10c2d4308238af7df03457e14bdb63038",
+    "semantic_fingerprint": "8f594ab5b591c395e58b8962a67783abbe9559ac22466fd53c969bcfd675d2aa",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Create select element.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter name",
+        "name": "name",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter options",
+        "name": "options",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter selected",
+        "name": "selected",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of create_select",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def create_select(name: str, options: list, selected: str) -> str:\n    \"\"\"Create select element.\"\"\"\n    opts = \"\"\n    for opt in options:\n        selected_attr = ' selected=\"selected\"' if opt == selected else \"\"\n        opts += f'<option value=\"{escape_html(str(opt))}\"{selected_attr}>{escape_html(str(opt))}</option>'\n    return f'<select name=\"{escape_html(name)}\">{opts}</select>'",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T12:22:33.644912+00:00",
+    "description": "Create select element.",
+    "intent": "Create select element.",
+    "language": "python",
+    "name": "create_select",
+    "source_file": "neurop_forge/sources/html_utilities.py",
+    "source_line_end": 121,
+    "source_line_start": 115,
+    "tags": [
+      "create",
+      "name",
+      "options",
+      "select",
+      "selected",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:33.644941+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(name) == string",
+      "name is not None",
+      "type(options) == list",
+      "options is not None",
+      "type(selected) == string",
+      "selected is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(name) == string",
+      "name is not None",
+      "type(options) == list",
+      "options is not None",
+      "type(selected) == string",
+      "selected is not None"
+    ]
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "277fab7078392341e1bc9e7a40c2f583aff2ed80b81e5b418a5606869e97f4fb",
+    "semantic_fingerprint": "c1e05f546c7d9500ad7f9cab2e38521c15ac094c49ff410376a712dbfddeaa05",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Increment message delivery count.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter message",
+        "name": "message",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter timestamp",
+        "name": "timestamp",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of increment_delivery_count",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def increment_delivery_count(message: dict, timestamp: str) -> dict:\n    \"\"\"Increment message delivery count.\"\"\"\n    result = dict(message)\n    result[\"delivery_count\"] = result.get(\"delivery_count\", 0) + 1\n    if result[\"first_delivery\"] is None:\n        result[\"first_delivery\"] = timestamp\n    result[\"last_delivery\"] = timestamp\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T12:22:27.686023+00:00",
+    "description": "Increment message delivery count.",
+    "intent": "Increment message delivery count.",
+    "language": "python",
+    "name": "increment_delivery_count",
+    "source_file": "neurop_forge/sources/queue_patterns.py",
+    "source_line_end": 55,
+    "source_line_start": 48,
+    "tags": [
+      "count",
+      "delivery",
+      "dict_operation",
+      "increment",
+      "message",
+      "timestamp"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T12:22:27.686051+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(message) == dict",
+      "message is not None",
+      "type(timestamp) == string",
+      "timestamp is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(message) == dict",
+      "message is not None",
+      "type(timestamp) == string",
+      "timestamp is not None"
+    ]
+  }
+}
