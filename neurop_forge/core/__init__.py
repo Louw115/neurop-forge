@@ -3,6 +3,15 @@
 from neurop_forge.core.identity import IdentityAuthority
 from neurop_forge.core.block_schema import NeuropBlock, BlockInterface, BlockConstraints, BlockMetadata
 from neurop_forge.core.normalization import CodeNormalizer
+from neurop_forge.core.block_tier import (
+    BlockTier,
+    TierClassification,
+    TierRegistry,
+    BlockTierClassifier,
+    get_tier_registry,
+    classify_blocks,
+    print_tier_summary,
+)
 
 __all__ = [
     "IdentityAuthority",
@@ -11,4 +20,11 @@ __all__ = [
     "BlockConstraints",
     "BlockMetadata",
     "CodeNormalizer",
+    "BlockTier",
+    "TierClassification",
+    "TierRegistry",
+    "BlockTierClassifier",
+    "get_tier_registry",
+    "classify_blocks",
+    "print_tier_summary",
 ]

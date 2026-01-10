@@ -976,6 +976,12 @@ def run_production_validation():
     print(f"Semantic Composer now using ONLY {len(verified_ids)} verified blocks")
     print()
     
+    from neurop_forge.core.block_tier import classify_blocks, print_tier_summary
+    tier_registry = classify_blocks(all_blocks_for_verify, verified_ids)
+    tier_summary = tier_registry.summary()
+    print(f"Tier Classification: {tier_summary['tier_a']} Tier-A, {tier_summary['tier_b']} Tier-B")
+    print()
+    
     print("C) Semantic Graph Execution (Verified Blocks Only):")
     print("-" * 40)
     
