@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5cf07fa228c89abd6ea7c0bfde87e364a3e905d244a5780e756429ad9afe9a77",
+    "semantic_fingerprint": "de3558a498c21b8693580ee4e52fd085370e4671e144a27a622f9690f82bd3d0",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Multiset union (max of counts).",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter set1",
+        "name": "set1",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter set2",
+        "name": "set2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of multiset_union",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def multiset_union(v0: list, v1: list) -> list:\n    v2 = v3(v0)\n    v4 = v3(v1)\n    v5 = set(v2.keys()) | set(v4.keys())\n    v6 = []\n    for v7 in v5:\n        v8 = max(v2.get(v7, 0), v4.get(v7, 0))\n        v6.extend([v7] * v8)\n    return v6",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-09T23:58:38.741659+00:00",
+    "description": "Multiset union (max of counts).",
+    "intent": "Multiset union (max of counts).",
+    "language": "python",
+    "name": "multiset_union",
+    "source_file": "neurop_forge/sources/set_utilities.py",
+    "source_line_end": 244,
+    "source_line_start": 235,
+    "tags": [
+      "list_operation",
+      "multiset",
+      "set1",
+      "set2",
+      "union"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:58:38.741674+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(set1) == list",
+      "set1 is not None",
+      "type(set2) == list",
+      "set2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(set1) == list",
+      "set1 is not None",
+      "type(set2) == list",
+      "set2 is not None"
+    ]
+  }
+}

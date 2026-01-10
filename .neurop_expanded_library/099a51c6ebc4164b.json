@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "099a51c6ebc4164be0200d5c535eb71e27e55239fa7ba760eb69e8cd11515c2a",
+    "semantic_fingerprint": "9aad3b074839e964427d52e0ff1eb886478d53c4b1659a7afd141ae18622fd67",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if user can login.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter user",
+        "name": "user",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of can_login",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def can_login(v0: dict) -> dict:\n    if not v1(v0):\n        return {'allowed': False, 'reason': 'Account deactivated'}\n    return {'allowed': True, 'reason': None}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T00:40:57.777550+00:00",
+    "description": "Check if user can login.",
+    "intent": "Check if user can login.",
+    "language": "python",
+    "name": "can_login",
+    "source_file": "neurop_forge/sources/user_utilities.py",
+    "source_line_end": 159,
+    "source_line_start": 155,
+    "tags": [
+      "can",
+      "login",
+      "user",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:40:57.777568+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(user) == dict",
+      "user is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(user) == dict",
+      "user is not None"
+    ]
+  }
+}

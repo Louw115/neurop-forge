@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b2283f826410594d52084181529ac46c43c6a5b69077e1f2ff5f1a1b0d036b0a",
+    "semantic_fingerprint": "d887b51c46c6b16227a7b0826e7b0a025580ec72eab1d9b717bbec68d9a666ad",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if tree satisfies BST property.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter tree",
+        "name": "tree",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of bst_is_valid",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def bst_is_valid(v0: dict) -> bool:\n\n    def is_valid_node(v1, v2, v3):\n        if v1 is None:\n            return True\n        if v2 is not None and v1['key'] <= v2:\n            return False\n        if v3 is not None and v1['key'] >= v3:\n            return False\n        return v4(v1['left'], v2, v1['key']) and v4(v1['right'], v1['key'], v3)\n    return v4(v0['root'], None, None)",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T00:04:21.400880+00:00",
+    "description": "Check if tree satisfies BST property.",
+    "intent": "Check if tree satisfies BST property.",
+    "language": "python",
+    "name": "bst_is_valid",
+    "source_file": "neurop_forge/sources/binary_search_tree.py",
+    "source_line_end": 253,
+    "source_line_start": 243,
+    "tags": [
+      "bst",
+      "tree",
+      "valid",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:04:21.400899+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(tree) == dict",
+      "tree is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(tree) == dict",
+      "tree is not None"
+    ]
+  }
+}

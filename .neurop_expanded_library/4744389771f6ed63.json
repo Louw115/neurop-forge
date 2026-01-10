@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4744389771f6ed63d7695fb17843e72b777132c38b07f4c04615ef6f5765e1be",
+    "semantic_fingerprint": "2c330acc2c2b7ae3098c87db0f3e5ee168c07e92d253d7904c48931f88c12eb4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check maximum length.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter length",
+        "name": "length",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of max_length",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def max_length(v0: str, v1: int) -> dict:\n    v2 = len(v0) <= v1\n    return {'valid': v2, 'error': f'Must be at most {v1} characters' if not v2 else None}",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T00:20:22.873575+00:00",
+    "description": "Check maximum length.",
+    "intent": "Check maximum length.",
+    "language": "python",
+    "name": "max_length",
+    "source_file": "neurop_forge/sources/validation_rules.py",
+    "source_line_end": 66,
+    "source_line_start": 63,
+    "tags": [
+      "arithmetic",
+      "length",
+      "max",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:20:22.873603+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == string",
+      "value is not None",
+      "type(length) == integer",
+      "length is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(value) == string",
+      "value is not None",
+      "type(length) == integer",
+      "length is not None"
+    ]
+  }
+}

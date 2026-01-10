@@ -1,0 +1,150 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "20ab2d0311f9c31d3cfb9ee359359d4adf6a9931b5680d29ee6f247a60d62259",
+    "semantic_fingerprint": "4df64fa8fcb1ac20f0ea618699341a5115cd1eb673df7637ba58c815bcf5a528",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Set value at JSON path, returning new object.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter obj",
+        "name": "obj",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter path",
+        "name": "path",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of set_by_path",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def set_by_path(v0: dict, v1: str, v2) -> dict:\n    import json\n    v3 = v4.loads(v4.dumps(v0))\n    v5 = v6(v1)\n    if not v5:\n        return v2 if isinstance(v2, dict) else v3\n    v7 = v3\n    for v8 in v5[:-1]:\n        if isinstance(v7, dict):\n            if v8 not in v7:\n                v7[v8] = {}\n            v7 = v7[v8]\n        elif isinstance(v7, list):\n            v9 = int(v8)\n            v7 = v7[v9]\n    v10 = v5[-1]\n    if isinstance(v7, dict):\n        v7[v10] = v2\n    elif isinstance(v7, list):\n        v7[int(v10)] = v2\n    return v3",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T00:40:57.184761+00:00",
+    "description": "Set value at JSON path, returning new object.",
+    "intent": "Set value at JSON path, returning new object.",
+    "language": "python",
+    "name": "set_by_path",
+    "source_file": "neurop_forge/sources/json_path.py",
+    "source_line_end": 104,
+    "source_line_start": 83,
+    "tags": [
+      "dict_operation",
+      "obj",
+      "path",
+      "set",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:40:57.184788+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(obj) == dict",
+      "obj is not None",
+      "type(path) == string",
+      "path is not None",
+      "value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(obj) == dict",
+      "obj is not None",
+      "type(path) == string",
+      "path is not None",
+      "value is not None"
+    ]
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "79b34878b88a28d27bcbb4463e3646d9c04be084a24948bc6cdb202aa926e955",
+    "semantic_fingerprint": "fb37317223775faa787c925fc78343dd45e5388e45e5501d5e897290336dcb21",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse locale string into components.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter locale",
+        "name": "locale",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of parse_locale",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_locale(v0: str) -> dict:\n    v1 = v0.replace('-', '_').split('_')\n    return {'language': v1[0].lower() if v1 else '', 'region': v1[1].upper() if len(v1) > 1 else '', 'script': v1[2] if len(v1) > 2 else ''}",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T00:43:57.476681+00:00",
+    "description": "Parse locale string into components.",
+    "intent": "Parse locale string into components.",
+    "language": "python",
+    "name": "parse_locale",
+    "source_file": "neurop_forge/sources/locale_utilities.py",
+    "source_line_end": 20,
+    "source_line_start": 13,
+    "tags": [
+      "locale",
+      "parse",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:43:57.476700+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(locale) == string",
+      "locale is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(locale) == string",
+      "locale is not None"
+    ]
+  }
+}

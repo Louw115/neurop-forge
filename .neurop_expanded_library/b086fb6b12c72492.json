@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b086fb6b12c72492754d429f1e8dd9348f79bd9b58cf103b5c3d5c506ccf15d1",
+    "semantic_fingerprint": "a5057ee99104ff27c7e9d108f27ef57c9895109e1e8797332351af9e6fb02b1e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate parallel taxes (each on subtotal).",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter amount",
+        "name": "amount",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter rates",
+        "name": "rates",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of calculate_parallel_taxes",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_parallel_taxes(v0: float, v1: list) -> dict:\n    v2 = [round(v0 * v3 / 100, 2) for v3 in v1]\n    return {'subtotal': v0, 'taxes': v2, 'total': round(v0 + sum(v2), 2)}",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T00:40:57.538053+00:00",
+    "description": "Calculate parallel taxes (each on subtotal).",
+    "intent": "Calculate parallel taxes (each on subtotal).",
+    "language": "python",
+    "name": "calculate_parallel_taxes",
+    "source_file": "neurop_forge/sources/tax_utilities.py",
+    "source_line_end": 56,
+    "source_line_start": 49,
+    "tags": [
+      "amount",
+      "arithmetic",
+      "calculate",
+      "parallel",
+      "rates",
+      "taxes"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:40:57.538077+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(amount) == float",
+      "amount is not None",
+      "type(rates) == list",
+      "rates is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(amount) == float",
+      "amount is not None",
+      "type(rates) == list",
+      "rates is not None"
+    ]
+  }
+}

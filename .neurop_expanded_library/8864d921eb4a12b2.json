@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8864d921eb4a12b2521936fa90c9fe68d2bbc9cc91b6807bac5654ef74396820",
+    "semantic_fingerprint": "0cf852f644b12358519d35fe7928bf3fd950efc4d5312decad87aedc0a92b6eb",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Expand abbreviated IPv6 address.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter ip",
+        "name": "ip",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of expand_ipv6",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def expand_ipv6(v0: str) -> str:\n    if '::' not in v0:\n        return v0.lower()\n    v1, v2 = v0.split('::')\n    v3 = v1.split(':') if v1 else []\n    v4 = v2.split(':') if v2 else []\n    v5 = 8 - len(v3) - len(v4)\n    v6 = ['0000'] * v5\n    v7 = v3 + v6 + v4\n    return ':'.join((v8.zfill(4) for v8 in v7)).lower()",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T00:20:23.133930+00:00",
+    "description": "Expand abbreviated IPv6 address.",
+    "intent": "Expand abbreviated IPv6 address.",
+    "language": "python",
+    "name": "expand_ipv6",
+    "source_file": "neurop_forge/sources/ip_utilities.py",
+    "source_line_end": 183,
+    "source_line_start": 173,
+    "tags": [
+      "arithmetic",
+      "expand",
+      "ip",
+      "ipv6"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:20:23.133953+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(ip) == string",
+      "ip is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(ip) == string",
+      "ip is not None"
+    ]
+  }
+}

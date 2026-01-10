@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b4dfb5f4a649f870a41a863be7c6aaad1daef210e7294cbf1a875970cfa68077",
+    "semantic_fingerprint": "5d3019243973b920e8b06c461d52ecbca7d849c82b520eac3b7c7b5b5547b3b3",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format as SMS link.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter phone",
+        "name": "phone",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter message",
+        "name": "message",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_sms_link",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_sms_link(v0: str, v1: str) -> str:\n    v2 = v3(v0)\n    from urllib.parse import quote\n    return f'sms:+{v2}?body={v4(v1)}'",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T00:40:57.500041+00:00",
+    "description": "Format as SMS link.",
+    "intent": "Format as SMS link.",
+    "language": "python",
+    "name": "format_sms_link",
+    "source_file": "neurop_forge/sources/phone_patterns.py",
+    "source_line_end": 162,
+    "source_line_start": 158,
+    "tags": [
+      "format",
+      "link",
+      "message",
+      "phone",
+      "sms",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:40:57.500058+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(phone) == string",
+      "phone is not None",
+      "type(message) == string",
+      "message is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(phone) == string",
+      "phone is not None",
+      "type(message) == string",
+      "message is not None"
+    ]
+  }
+}

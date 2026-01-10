@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c02e3190d0c5c832f03edcbe04a5a75eb0d8642367696d35fa6463b02ba1df0b",
+    "semantic_fingerprint": "0d20871f2f1d711e48f08bfd6166ca8538f7cc721c4c9020c350e9173f2cbed7",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if address is a PO Box.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter address",
+        "name": "address",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_po_box",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_po_box(v0: str) -> bool:\n    return bool(v1.search('\\\\bP\\\\.?O\\\\.?\\\\s*Box\\\\b', v0, v1.IGNORECASE))",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T00:40:57.402599+00:00",
+    "description": "Check if address is a PO Box.",
+    "intent": "Check if address is a PO Box.",
+    "language": "python",
+    "name": "is_po_box",
+    "source_file": "neurop_forge/sources/address_utilities.py",
+    "source_line_end": 125,
+    "source_line_start": 123,
+    "tags": [
+      "address",
+      "box",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:40:57.402613+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(address) == string",
+      "address is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(address) == string",
+      "address is not None"
+    ]
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a14d2ee43ab479e6cd5bb2062a428bf27b525a2496e556982040b872141352d0",
+    "semantic_fingerprint": "f6b13bf00a933ebb046073985fb22a339ac08918030e7c151900c09f6257ae87",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Filter tree nodes by predicate.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter node",
+        "name": "node",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter predicate",
+        "name": "predicate",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of filter_tree",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def filter_tree(v0: dict, v1) -> dict:\n    if not v1(v0):\n        return None\n    v2 = dict(v0)\n    v2['children'] = []\n    for v3 in v0.get('children', []):\n        v4 = v5(v3, v1)\n        if v4:\n            v2['children'].append(v4)\n    return v2",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-09T23:58:38.656403+00:00",
+    "description": "Filter tree nodes by predicate.",
+    "intent": "Filter tree nodes by predicate.",
+    "language": "python",
+    "name": "filter_tree",
+    "source_file": "neurop_forge/sources/tree_utilities.py",
+    "source_line_end": 159,
+    "source_line_start": 149,
+    "tags": [
+      "filter",
+      "filtering",
+      "node",
+      "predicate",
+      "tree"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:58:38.656419+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(node) == dict",
+      "node is not None",
+      "predicate is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(node) == dict",
+      "node is not None",
+      "predicate is not None"
+    ]
+  }
+}

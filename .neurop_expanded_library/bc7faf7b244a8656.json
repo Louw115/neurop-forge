@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "bc7faf7b244a865649fad0fee745cd2d76c81cda7ad628b6599bf4d5a7a45c48",
+    "semantic_fingerprint": "da3fc6f6d349dd177279f59449aeb3c145fb369e4b84cff353df51f983f602c2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format duration in human readable form.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seconds",
+        "name": "seconds",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_duration",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_duration(v0: int) -> str:\n    if v0 < 60:\n        return f'{v0}s'\n    if v0 < 3600:\n        v1 = v0 // 60\n        v2 = v0 % 60\n        return f'{v1}m {v2}s' if v2 else f'{v1}m'\n    v3 = v0 // 3600\n    v1 = v0 % 3600 // 60\n    return f'{v3}h {v1}m' if v1 else f'{v3}h'",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T00:14:55.441885+00:00",
+    "description": "Format duration in human readable form.",
+    "intent": "Format duration in human readable form.",
+    "language": "python",
+    "name": "format_duration",
+    "source_file": "neurop_forge/sources/time_utilities.py",
+    "source_line_end": 142,
+    "source_line_start": 132,
+    "tags": [
+      "duration",
+      "format",
+      "seconds",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:14:55.441912+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(seconds) == integer",
+      "seconds is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(seconds) == integer",
+      "seconds is not None"
+    ]
+  }
+}

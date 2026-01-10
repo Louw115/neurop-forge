@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e6fee5ea3de7642dec571561436f933027bb3abd228ae16c6918d1c6bca77203",
+    "semantic_fingerprint": "69ae028d4bfc6fd0f0f84f78cafffe8d66fca1a9c1d8c57bfc2e64e34d5428b4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Mask email in contact.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter contact",
+        "name": "contact",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of mask_contact_email",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def mask_contact_email(v0: dict) -> dict:\n    v1 = v0.get('email', '')\n    if '@' in v1:\n        v2, v3 = v1.rsplit('@', 1)\n        v4 = v2[0] + '***' + '@' + v3\n    else:\n        v4 = v1\n    return {**v0, 'email': v4}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T00:43:57.429288+00:00",
+    "description": "Mask email in contact.",
+    "intent": "Mask email in contact.",
+    "language": "python",
+    "name": "mask_contact_email",
+    "source_file": "neurop_forge/sources/contact_utilities.py",
+    "source_line_end": 91,
+    "source_line_start": 83,
+    "tags": [
+      "contact",
+      "dict_operation",
+      "email",
+      "mask"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:43:57.429304+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(contact) == dict",
+      "contact is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(contact) == dict",
+      "contact is not None"
+    ]
+  }
+}

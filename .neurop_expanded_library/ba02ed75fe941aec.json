@@ -1,0 +1,149 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ba02ed75fe941aecc9f2dc1df39033b308e18d1419e524f7eb64a5d87a8811aa",
+    "semantic_fingerprint": "1f4d250293d5dd1049344066bd23d71c6fc2c3b48a055429257f83b28b40a934",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Insert a key-value pair.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter tree",
+        "name": "tree",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of bst_insert",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def bst_insert(v0: dict, v1, v2) -> dict:\n\n    def insert_node(v3, v1, v2):\n        if v3 is None:\n            return v4(v1, v2, None, None)\n        if v1 < v3['key']:\n            return v4(v3['key'], v3['value'], v5(v3['left'], v1, v2), v3['right'])\n        elif v1 > v3['key']:\n            return v4(v3['key'], v3['value'], v3['left'], v5(v3['right'], v1, v2))\n        else:\n            return v4(v1, v2, v3['left'], v3['right'])\n    return {'root': v5(v0['root'], v1, v2), 'size': v0['size'] + 1}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T00:04:21.366699+00:00",
+    "description": "Insert a key-value pair.",
+    "intent": "Insert a key-value pair.",
+    "language": "python",
+    "name": "bst_insert",
+    "source_file": "neurop_forge/sources/binary_search_tree.py",
+    "source_line_end": 33,
+    "source_line_start": 22,
+    "tags": [
+      "bst",
+      "dict_operation",
+      "insert",
+      "key",
+      "tree",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:04:21.366716+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(tree) == dict",
+      "tree is not None",
+      "key is not None",
+      "value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(tree) == dict",
+      "tree is not None",
+      "key is not None",
+      "value is not None"
+    ]
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ce4dd8bb83a49468a85e0e522e820f96f5c9ba182942fc2f998a1597fef19525",
+    "semantic_fingerprint": "b874169ca33e02a3c1727892c1696aabe701ac15c072c4a8ecc548f68dfdec9f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract numbers from text.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of extract_numbers",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def extract_numbers(v0: str) -> list:\n    return [float(v1) if '.' in v1 else int(v1) for v1 in v2.findall('-?\\\\d+\\\\.?\\\\d*', v0)]",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T00:29:29.211464+00:00",
+    "description": "Extract numbers from text.",
+    "intent": "Extract numbers from text.",
+    "language": "python",
+    "name": "extract_numbers",
+    "source_file": "neurop_forge/sources/document_utilities.py",
+    "source_line_end": 118,
+    "source_line_start": 115,
+    "tags": [
+      "extract",
+      "filtering",
+      "numbers",
+      "text"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:29:29.211481+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None"
+    ]
+  }
+}

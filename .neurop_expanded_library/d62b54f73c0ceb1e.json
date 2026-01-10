@@ -1,0 +1,164 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d62b54f73c0ceb1ea69dbf9dfab67c9d792efdee1d990723c646ab4b16084d6f",
+    "semantic_fingerprint": "a8d864acc619f825b026be5b175470f7736afff6b9a219e357fcf11527dddca2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if point is inside triangle.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter point",
+        "name": "point",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter p1",
+        "name": "p1",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter p2",
+        "name": "p2",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter p3",
+        "name": "p3",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of point_in_triangle",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def point_in_triangle(v0: dict, v1: dict, v2: dict, v3: dict) -> bool:\n\n    def sign(v4, v5, v6):\n        return (v4['x'] - v6['x']) * (v5['y'] - v6['y']) - (v5['x'] - v6['x']) * (v4['y'] - v6['y'])\n    v7 = v8(v0, v1, v2)\n    v9 = v8(v0, v2, v3)\n    v10 = v8(v0, v3, v1)\n    v11 = v7 < 0 or v9 < 0 or v10 < 0\n    v12 = v7 > 0 or v9 > 0 or v10 > 0\n    return not (v11 and v12)",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T00:10:02.106813+00:00",
+    "description": "Check if point is inside triangle.",
+    "intent": "Check if point is inside triangle.",
+    "language": "python",
+    "name": "point_in_triangle",
+    "source_file": "neurop_forge/sources/geometry_utilities.py",
+    "source_line_end": 217,
+    "source_line_start": 208,
+    "tags": [
+      "p1",
+      "p2",
+      "p3",
+      "point",
+      "triangle",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:10:02.106832+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(point) == dict",
+      "point is not None",
+      "type(p1) == dict",
+      "p1 is not None",
+      "type(p2) == dict",
+      "p2 is not None",
+      "type(p3) == dict",
+      "p3 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(point) == dict",
+      "point is not None",
+      "type(p1) == dict",
+      "p1 is not None",
+      "type(p2) == dict",
+      "p2 is not None",
+      "type(p3) == dict",
+      "p3 is not None"
+    ]
+  }
+}

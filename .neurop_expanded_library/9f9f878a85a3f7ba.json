@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9f9f878a85a3f7ba55353071601b17e152a1e95cf9409e72d855912710dfda72",
+    "semantic_fingerprint": "ab5681aef08cf0bb43ef7c9ccf7e7425100420cb0f6ab00bc79ea31820a5e0f1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find longest common subsequence.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter s1",
+        "name": "s1",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter s2",
+        "name": "s2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of longest_common_subsequence",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def longest_common_subsequence(v0: str, v1: str) -> str:\n    v2, v3 = (len(v0), len(v1))\n    v4 = [[0] * (v3 + 1) for _ in range(v2 + 1)]\n    for v5 in range(1, v2 + 1):\n        for v6 in range(1, v3 + 1):\n            if v0[v5 - 1] == v1[v6 - 1]:\n                v4[v5][v6] = v4[v5 - 1][v6 - 1] + 1\n            else:\n                v4[v5][v6] = max(v4[v5 - 1][v6], v4[v5][v6 - 1])\n    v7 = []\n    v5, v6 = (v2, v3)\n    while v5 > 0 and v6 > 0:\n        if v0[v5 - 1] == v1[v6 - 1]:\n            v7.append(v0[v5 - 1])\n            v5 -= 1\n            v6 -= 1\n        elif v4[v5 - 1][v6] > v4[v5][v6 - 1]:\n            v5 -= 1\n        else:\n            v6 -= 1\n    return ''.join(reversed(v7))",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T23:58:38.916962+00:00",
+    "description": "Find longest common subsequence.",
+    "intent": "Find longest common subsequence.",
+    "language": "python",
+    "name": "longest_common_subsequence",
+    "source_file": "neurop_forge/sources/string_distance.py",
+    "source_line_end": 124,
+    "source_line_start": 103,
+    "tags": [
+      "common",
+      "longest",
+      "s1",
+      "s2",
+      "string_manipulation",
+      "subsequence"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:58:38.916997+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(s1) == string",
+      "s1 is not None",
+      "type(s2) == string",
+      "s2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(s1) == string",
+      "s1 is not None",
+      "type(s2) == string",
+      "s2 is not None"
+    ]
+  }
+}

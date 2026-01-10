@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8a7cfdd10c761a75669cef0ccf729a0d01865b715af04bf472ecad0ecb5a0dc2",
+    "semantic_fingerprint": "c306cc999a5df874e4e1df7a27b212d1376a413941ac272e321f27362ddb04af",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if expression is syntactically valid.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter expr",
+        "name": "expr",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_valid_expression",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_valid_expression(v0: str) -> bool:\n    v1 = v2(v0)\n    v3 = 0\n    v4 = None\n    for v5 in v1:\n        if v5['value'] == '(':\n            v3 += 1\n        elif v5['value'] == ')':\n            v3 -= 1\n        if v3 < 0:\n            return False\n        if v5['type'] == 'operator' and v4 == 'operator':\n            return False\n        v4 = v5['type']\n    return v3 == 0",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T00:10:02.219167+00:00",
+    "description": "Check if expression is syntactically valid.",
+    "intent": "Check if expression is syntactically valid.",
+    "language": "python",
+    "name": "is_valid_expression",
+    "source_file": "neurop_forge/sources/expression_parser.py",
+    "source_line_end": 215,
+    "source_line_start": 200,
+    "tags": [
+      "expr",
+      "expression",
+      "valid",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:10:02.219184+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(expr) == string",
+      "expr is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(expr) == string",
+      "expr is not None"
+    ]
+  }
+}

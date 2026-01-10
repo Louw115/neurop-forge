@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "43a627d882b19026402ba7f190a6754ed313898bf99efdbcb643cafb9df83854",
+    "semantic_fingerprint": "30f8d3f93b88c1ec1dac64699d06f6aa0c9d007811fd2cedde47c157da9b8b3e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse expiry string MM/YY or MM/YYYY.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter expiry",
+        "name": "expiry",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of parse_expiry",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_expiry(v0: str) -> dict:\n    v1 = v2.match('^(\\\\d{2})[/\\\\-](\\\\d{2,4})$', v0)\n    if not v1:\n        return {'valid': False, 'month': 0, 'year': 0}\n    v3 = int(v1.group(1))\n    v4 = int(v1.group(2))\n    if v4 < 100:\n        v4 += 2000\n    return {'valid': True, 'month': v3, 'year': v4}",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T00:40:57.521458+00:00",
+    "description": "Parse expiry string MM/YY or MM/YYYY.",
+    "intent": "Parse expiry string MM/YY or MM/YYYY.",
+    "language": "python",
+    "name": "parse_expiry",
+    "source_file": "neurop_forge/sources/credit_card_utilities.py",
+    "source_line_end": 151,
+    "source_line_start": 142,
+    "tags": [
+      "expiry",
+      "parse",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:40:57.521473+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(expiry) == string",
+      "expiry is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(expiry) == string",
+      "expiry is not None"
+    ]
+  }
+}

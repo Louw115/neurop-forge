@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "61250abb2a7b5a1f92ef0e35e237caba9eed538dadef359acb7416952e4c0405",
+    "semantic_fingerprint": "63c68039792140bf17d876df1c779884be39b6c7e767ac78df820486e456e9d7",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Convert float to approximate fraction.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_denom",
+        "name": "max_denom",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of float_to_fraction",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def float_to_fraction(v0: float, v1: int) -> dict:\n    if v0 == 0:\n        return {'numerator': 0, 'denominator': 1}\n    v2 = 1 if v0 >= 0 else -1\n    v0 = abs(v0)\n    v3, v4 = (0, 1)\n    v5 = abs(v0)\n    for v6 in range(1, v1 + 1):\n        v7 = round(v0 * v6)\n        v8 = abs(v0 - v7 / v6)\n        if v8 < v5:\n            v5 = v8\n            v3 = v7\n            v4 = v6\n    return {'numerator': v2 * v3, 'denominator': v4}",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T00:10:02.171258+00:00",
+    "description": "Convert float to approximate fraction.",
+    "intent": "Convert float to approximate fraction.",
+    "language": "python",
+    "name": "float_to_fraction",
+    "source_file": "neurop_forge/sources/base_conversion.py",
+    "source_line_end": 192,
+    "source_line_start": 177,
+    "tags": [
+      "float",
+      "fraction",
+      "max_denom",
+      "transformation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:10:02.171279+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == float",
+      "value is not None",
+      "type(max_denom) == integer",
+      "max_denom is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(value) == float",
+      "value is not None",
+      "type(max_denom) == integer",
+      "max_denom is not None"
+    ]
+  }
+}

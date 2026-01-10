@@ -1,0 +1,125 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1db3c098e423d5bfa3f7b13568220999b23af4cc923577a3ac9fef80e88cab71",
+    "semantic_fingerprint": "160e7a83e2d022738c2fb6d08be5807f79bee7339f299ca19816b5850e2f146a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get maximum key.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter tree",
+        "name": "tree",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Return value of bst_max",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def bst_max(v0: dict):\n    if v0['root'] is None:\n        return None\n    v1 = v0['root']\n    while v1['right']:\n        v1 = v1['right']\n    return v1['key']",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T00:04:21.372323+00:00",
+    "description": "Get maximum key.",
+    "intent": "Get maximum key.",
+    "language": "python",
+    "name": "bst_max",
+    "source_file": "neurop_forge/sources/binary_search_tree.py",
+    "source_line_end": 72,
+    "source_line_start": 65,
+    "tags": [
+      "bst",
+      "filtering",
+      "max",
+      "tree"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:04:21.372345+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3235,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.48999999999999994,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(tree) == dict",
+      "tree is not None"
+    ],
+    "invariants": [],
+    "output_validators": [],
+    "postconditions": [],
+    "preconditions": [
+      "type(tree) == dict",
+      "tree is not None"
+    ]
+  }
+}

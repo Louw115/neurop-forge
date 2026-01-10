@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "59ab4a1eec2a07e918be9aed0e74b6f6b8ff48a052914f3ffebbe6dcb8cc3da5",
+    "semantic_fingerprint": "9b79d15bdeb3ce07f5b885a439502ef3693c469efc37d87e90fd67da681f7b50",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse error code into components.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter error_code",
+        "name": "error_code",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of parse_error_code",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_error_code(v0: str) -> dict:\n    v1 = v0.split('-')\n    if len(v1) != 2:\n        return {'valid': False, 'category': '', 'code': 0}\n    try:\n        return {'valid': True, 'category': v1[0], 'code': int(v1[1])}\n    except v2:\n        return {'valid': False, 'category': '', 'code': 0}",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T00:40:57.299775+00:00",
+    "description": "Parse error code into components.",
+    "intent": "Parse error code into components.",
+    "language": "python",
+    "name": "parse_error_code",
+    "source_file": "neurop_forge/sources/error_codes.py",
+    "source_line_end": 30,
+    "source_line_start": 18,
+    "tags": [
+      "code",
+      "error",
+      "error_code",
+      "parse",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:40:57.299792+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(error_code) == string",
+      "error_code is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(error_code) == string",
+      "error_code is not None"
+    ]
+  }
+}

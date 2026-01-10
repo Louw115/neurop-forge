@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "877b7d8304946794d1f8a1f616fd631480e62dcaf82d8f4e7816d6256d26e9fb",
+    "semantic_fingerprint": "496603eb3cb7e393862330bbdd2d01e9dbb9cfa0df6648e4dbcdc0099956f811",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Determine package type from dimensions.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter length",
+        "name": "length",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter width",
+        "name": "width",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter height",
+        "name": "height",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_package_type",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_package_type(v0: float, v1: float, v2: float) -> str:\n    v3 = max(v0, v1, v2)\n    v4 = min(v0, v1, v2)\n    if v3 <= 6 and v4 <= 4:\n        return 'small'\n    if v3 <= 12 and v4 <= 8:\n        return 'medium'\n    if v3 <= 24 and v4 <= 16:\n        return 'large'\n    return 'oversized'",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T00:40:57.640182+00:00",
+    "description": "Determine package type from dimensions.",
+    "intent": "Determine package type from dimensions.",
+    "language": "python",
+    "name": "get_package_type",
+    "source_file": "neurop_forge/sources/shipping_utilities.py",
+    "source_line_end": 77,
+    "source_line_start": 67,
+    "tags": [
+      "filtering",
+      "get",
+      "height",
+      "length",
+      "package",
+      "type",
+      "width"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:40:57.640209+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(length) == float",
+      "length is not None",
+      "type(width) == float",
+      "width is not None",
+      "type(height) == float",
+      "height is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(length) == float",
+      "length is not None",
+      "type(width) == float",
+      "width is not None",
+      "type(height) == float",
+      "height is not None"
+    ]
+  }
+}

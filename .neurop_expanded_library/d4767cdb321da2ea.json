@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception",
+      "KeyError"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d4767cdb321da2eac77c8836912e030822be398bac12921d77b8164370b4c690",
+    "semantic_fingerprint": "5ecaf88abbe4c6c9387af928bca3de298823b35a8650a4c12bb26ac659f394a1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Omit specific keys from object.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter data",
+        "name": "data",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter keys",
+        "name": "keys",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of omit_keys",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def omit_keys(v0: dict, v1: list) -> dict:\n    return {v2: v3 for v2, v3 in v0.items() if v2 not in v1}",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T00:14:55.586424+00:00",
+    "description": "Omit specific keys from object.",
+    "intent": "Omit specific keys from object.",
+    "language": "python",
+    "name": "omit_keys",
+    "source_file": "neurop_forge/sources/json_utilities.py",
+    "source_line_end": 177,
+    "source_line_start": 175,
+    "tags": [
+      "data",
+      "filtering",
+      "keys",
+      "omit"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:14:55.586453+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(data) == dict",
+      "data is not None",
+      "type(keys) == list",
+      "keys is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(data) == dict",
+      "data is not None",
+      "type(keys) == list",
+      "keys is not None"
+    ]
+  }
+}

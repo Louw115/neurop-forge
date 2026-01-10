@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "829b2bf484153e1e1084a80fee09d92233fb09b6023b537924c3975a4c99f663",
+    "semantic_fingerprint": "f8a6551686b6b9fd2a275453c65b1144171cf91bcb846e55f73f1a1f268d1efe",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Wrap text to specified width.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter width",
+        "name": "width",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of wrap_text",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def wrap_text(v0: str, v1: int) -> list:\n    v2 = v0.split()\n    v3 = []\n    v4 = []\n    v5 = 0\n    for v6 in v2:\n        if v5 + len(v6) + len(v4) <= v1:\n            v4.append(v6)\n            v5 += len(v6)\n        else:\n            if v4:\n                v3.append(' '.join(v4))\n            v4 = [v6]\n            v5 = len(v6)\n    if v4:\n        v3.append(' '.join(v4))\n    return v3",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T00:14:55.499190+00:00",
+    "description": "Wrap text to specified width.",
+    "intent": "Wrap text to specified width.",
+    "language": "python",
+    "name": "wrap_text",
+    "source_file": "neurop_forge/sources/string_patterns.py",
+    "source_line_end": 143,
+    "source_line_start": 126,
+    "tags": [
+      "list_operation",
+      "text",
+      "width",
+      "wrap"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:14:55.499217+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None",
+      "type(width) == integer",
+      "width is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None",
+      "type(width) == integer",
+      "width is not None"
+    ]
+  }
+}

@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c24b87057b1d29d3e293b495693e2410bebcc57d2606b2b345159bc4cc6a561c",
+    "semantic_fingerprint": "48ed330cab263f02014ace68c794cbb8c068ce42079b1cf87bde9283c7940507",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Leak water from bucket.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter bucket",
+        "name": "bucket",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter timestamp",
+        "name": "timestamp",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of leak_bucket",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def leak_bucket(v0: dict, v1: int) -> dict:\n    v2 = v1 - v0['last_leak']\n    v3 = v2 // v0['leak_interval_ms']\n    v4 = max(0, v0['level'] - v3 * v0['leak_rate'])\n    return {**v0, 'level': v4, 'last_leak': v1}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T00:40:57.352603+00:00",
+    "description": "Leak water from bucket.",
+    "intent": "Leak water from bucket.",
+    "language": "python",
+    "name": "leak_bucket",
+    "source_file": "neurop_forge/sources/throttle_utilities.py",
+    "source_line_end": 194,
+    "source_line_start": 189,
+    "tags": [
+      "bucket",
+      "dict_operation",
+      "leak",
+      "timestamp"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:40:57.352620+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(bucket) == dict",
+      "bucket is not None",
+      "type(timestamp) == integer",
+      "timestamp is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(bucket) == dict",
+      "bucket is not None",
+      "type(timestamp) == integer",
+      "timestamp is not None"
+    ]
+  }
+}

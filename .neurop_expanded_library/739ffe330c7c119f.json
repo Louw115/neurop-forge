@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "739ffe330c7c119fda474c2a5455d1a84473e1a03d5dd23b90c87f1a60528f87",
+    "semantic_fingerprint": "f6c1635b9b9b1cd84dd2375e11b38cfe7fe6182a78966a7e204e52a5a0717430",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Return first non-None boolean or default.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter values",
+        "name": "values",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter default",
+        "name": "default",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of coalesce",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def coalesce(v0: list, v1: bool) -> bool:\n    for v2 in v0:\n        if v2 is not None:\n            return v2\n    return v1",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T00:29:29.497320+00:00",
+    "description": "Return first non-None boolean or default.",
+    "intent": "Return first non-None boolean or default.",
+    "language": "python",
+    "name": "coalesce",
+    "source_file": "neurop_forge/sources/boolean_utilities.py",
+    "source_line_end": 127,
+    "source_line_start": 122,
+    "tags": [
+      "coalesce",
+      "default",
+      "validation",
+      "values"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:29:29.497339+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(values) == list",
+      "values is not None",
+      "type(default) == boolean",
+      "default is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(values) == list",
+      "values is not None",
+      "type(default) == boolean",
+      "default is not None"
+    ]
+  }
+}

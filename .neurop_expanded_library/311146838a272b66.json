@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "311146838a272b66ab71aa56e45bf87f4ac81231c5e4a4e55d5e1489d53ba6e1",
+    "semantic_fingerprint": "7499b0bd2e0a32488e0047e852bee8fc31210b6c9e2b4f01aec06d26ee3f7112",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if matrix is symmetric.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter m",
+        "name": "m",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of matrix_is_symmetric",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def matrix_is_symmetric(v0: dict) -> bool:\n    if not v1(v0):\n        return False\n    for v2 in range(v0['num_rows']):\n        for v3 in range(v2 + 1, v0['num_cols']):\n            if v0['rows'][v2][v3] != v0['rows'][v3][v2]:\n                return False\n    return True",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-09T23:58:38.567030+00:00",
+    "description": "Check if matrix is symmetric.",
+    "intent": "Check if matrix is symmetric.",
+    "language": "python",
+    "name": "matrix_is_symmetric",
+    "source_file": "neurop_forge/sources/matrix_utilities.py",
+    "source_line_end": 182,
+    "source_line_start": 174,
+    "tags": [
+      "m",
+      "matrix",
+      "symmetric",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:58:38.567055+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(m) == dict",
+      "m is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(m) == dict",
+      "m is not None"
+    ]
+  }
+}

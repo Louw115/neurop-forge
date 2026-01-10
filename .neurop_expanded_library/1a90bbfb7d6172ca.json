@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1a90bbfb7d6172ca280414d9e030e4f45efdb6a6adae21e73e5caba98a763886",
+    "semantic_fingerprint": "1769385f1ea3792d9f9145e5f7f0febca310b3ac2ba5f6499f402bc66df07d77",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Create email verification token.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter user_id",
+        "name": "user_id",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter email",
+        "name": "email",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter secret",
+        "name": "secret",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of create_email_verification_token",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def create_email_verification_token(v0: str, v1: str, v2: str) -> str:\n    v3 = f'{v0}{v1}{v2}'\n    return v4.sha256(v3.encode()).hexdigest()[:32]",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T00:40:57.736347+00:00",
+    "description": "Create email verification token.",
+    "intent": "Create email verification token.",
+    "language": "python",
+    "name": "create_email_verification_token",
+    "source_file": "neurop_forge/sources/token_utilities.py",
+    "source_line_end": 145,
+    "source_line_start": 142,
+    "tags": [
+      "create",
+      "email",
+      "secret",
+      "string_manipulation",
+      "token",
+      "user_id",
+      "verification"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:40:57.736373+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(user_id) == string",
+      "user_id is not None",
+      "type(email) == string",
+      "email is not None",
+      "type(secret) == string",
+      "secret is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(user_id) == string",
+      "user_id is not None",
+      "type(email) == string",
+      "email is not None",
+      "type(secret) == string",
+      "secret is not None"
+    ]
+  }
+}

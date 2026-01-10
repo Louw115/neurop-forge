@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4ba2dbdd439ef32dfc4d670b0b502d1b99b974a6e7086fff49280df5510d11bf",
+    "semantic_fingerprint": "8195ee3485862ffb5b238aa5021d571b3abd6116c6413edee5bde8f4f6ebded8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse US address into components.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter address",
+        "name": "address",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of parse_us_address",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_us_address(v0: str) -> dict:\n    v1 = v2(v0)\n    v3 = {'street1': '', 'street2': '', 'city': '', 'state': '', 'zip': ''}\n    if v1:\n        v3['street1'] = v1[0]\n    if len(v1) > 1:\n        v4 = v1[-1]\n        v5 = v6.match('^(.+?),?\\\\s+([A-Z]{2})\\\\s+(\\\\d{5}(?:-\\\\d{4})?)$', v4, v6.IGNORECASE)\n        if v5:\n            v3['city'] = v5.group(1).strip(',')\n            v3['state'] = v5.group(2).upper()\n            v3['zip'] = v5.group(3)\n        if len(v1) > 2:\n            v3['street2'] = v1[1]\n    return v3",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T00:40:57.398863+00:00",
+    "description": "Parse US address into components.",
+    "intent": "Parse US address into components.",
+    "language": "python",
+    "name": "parse_us_address",
+    "source_file": "neurop_forge/sources/address_utilities.py",
+    "source_line_end": 101,
+    "source_line_start": 80,
+    "tags": [
+      "address",
+      "parse",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:40:57.398882+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(address) == string",
+      "address is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(address) == string",
+      "address is not None"
+    ]
+  }
+}

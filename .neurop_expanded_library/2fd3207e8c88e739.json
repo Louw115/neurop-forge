@@ -1,0 +1,131 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2fd3207e8c88e73957cde9a5150001cc00ca22a9d29184047783ccc6ca708bed",
+    "semantic_fingerprint": "ef1b07f131d385780628dc10a02d173dfaf2a397877f8c2c337753460f988575",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Export contact as CSV row.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter contact",
+        "name": "contact",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of export_contacts_csv_row",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def export_contacts_csv_row(v0: dict) -> str:\n    v1 = v0.get('name', '').replace('\"', '\"\"')\n    v2 = v0.get('email', '').replace('\"', '\"\"')\n    v3 = v0.get('phone', '').replace('\"', '\"\"')\n    return f'\"{v1}\",\"{v2}\",\"{v3}\"'",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T00:43:57.440229+00:00",
+    "description": "Export contact as CSV row.",
+    "intent": "Export contact as CSV row.",
+    "language": "python",
+    "name": "export_contacts_csv_row",
+    "source_file": "neurop_forge/sources/contact_utilities.py",
+    "source_line_end": 171,
+    "source_line_start": 166,
+    "tags": [
+      "arithmetic",
+      "contact",
+      "contacts",
+      "csv",
+      "export",
+      "row"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:43:57.440246+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(contact) == dict",
+      "contact is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(contact) == dict",
+      "contact is not None"
+    ]
+  }
+}

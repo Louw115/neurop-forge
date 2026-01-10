@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "dd515d8bc5d623c5a89232f7691e86bfa80df622cb1ba269fff15d7c811317a7",
+    "semantic_fingerprint": "c1741a4793f64c4dfb5a139e9186efe776930eb6ea928cf51457acdca00d94b0",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate search query.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter query",
+        "name": "query",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter min_length",
+        "name": "min_length",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_length",
+        "name": "max_length",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of validate_search_query",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_search_query(v0: str, v1: int, v2: int) -> dict:\n    if len(v0) < v1:\n        return {'valid': False, 'error': 'Query too short'}\n    if len(v0) > v2:\n        return {'valid': False, 'error': 'Query too long'}\n    return {'valid': True, 'error': None}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T00:43:57.536662+00:00",
+    "description": "Validate search query.",
+    "intent": "Validate search query.",
+    "language": "python",
+    "name": "validate_search_query",
+    "source_file": "neurop_forge/sources/search_helpers.py",
+    "source_line_end": 172,
+    "source_line_start": 166,
+    "tags": [
+      "max_length",
+      "min_length",
+      "query",
+      "search",
+      "validate",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:43:57.536683+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(query) == string",
+      "query is not None",
+      "type(min_length) == integer",
+      "min_length is not None",
+      "type(max_length) == integer",
+      "max_length is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(query) == string",
+      "query is not None",
+      "type(min_length) == integer",
+      "min_length is not None",
+      "type(max_length) == integer",
+      "max_length is not None"
+    ]
+  }
+}

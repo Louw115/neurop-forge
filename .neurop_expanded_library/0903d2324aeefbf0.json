@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic aggregation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0903d2324aeefbf08f9c4c98754a1a76f1e8806ab1eae9a5768fac2c43b121bb",
+    "semantic_fingerprint": "c289a31c4110536f399ffb91a4961b7210e556bc28873ea22bc9f40c0cc3fd45",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Bucket sort for floats in [0, 1).",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter num_buckets",
+        "name": "num_buckets",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of bucket_sort",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def bucket_sort(v0: list, v1: int) -> list:\n    if not v0:\n        return []\n    v2 = [[] for _ in range(v1)]\n    for v3 in v0:\n        v4 = int(v3 * v1)\n        v4 = min(v4, v1 - 1)\n        v2[v4].append(v3)\n    for v5 in v2:\n        v5.sort()\n    v6 = []\n    for v5 in v2:\n        v6.extend(v5)\n    return v6",
+  "metadata": {
+    "category": "aggregation",
+    "created_at": "2026-01-10T00:10:02.004215+00:00",
+    "description": "Bucket sort for floats in [0, 1).",
+    "intent": "Bucket sort for floats in [0, 1).",
+    "language": "python",
+    "name": "bucket_sort",
+    "source_file": "neurop_forge/sources/sorting_algorithms.py",
+    "source_line_end": 156,
+    "source_line_start": 142,
+    "tags": [
+      "aggregation",
+      "bucket",
+      "items",
+      "num_buckets",
+      "sort"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:10:02.004234+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "type(num_buckets) == integer",
+      "num_buckets is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "type(num_buckets) == integer",
+      "num_buckets is not None"
+    ]
+  }
+}

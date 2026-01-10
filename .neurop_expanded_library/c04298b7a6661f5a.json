@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c04298b7a6661f5aaef4e324b9904cc4e454b9ddf17f4b1609080cade9194d6a",
+    "semantic_fingerprint": "ecffb2b507b6937da6a274ed73e3164057648bd3a9a4a9638d68522f1de5475b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Rotate token generating new one.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter old_token",
+        "name": "old_token",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter salt",
+        "name": "salt",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of rotate_token",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def rotate_token(v0: str, v1: str) -> str:\n    return v2.sha256(f'{v0}{v1}'.encode()).hexdigest()",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T00:40:57.731481+00:00",
+    "description": "Rotate token generating new one.",
+    "intent": "Rotate token generating new one.",
+    "language": "python",
+    "name": "rotate_token",
+    "source_file": "neurop_forge/sources/token_utilities.py",
+    "source_line_end": 123,
+    "source_line_start": 121,
+    "tags": [
+      "list_operation",
+      "old_token",
+      "rotate",
+      "salt",
+      "token"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:40:57.731498+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(old_token) == string",
+      "old_token is not None",
+      "type(salt) == string",
+      "salt is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(old_token) == string",
+      "old_token is not None",
+      "type(salt) == string",
+      "salt is not None"
+    ]
+  }
+}

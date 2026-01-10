@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3ac227e5cf84f0298bedc07b66f6b1e46a4f1edbbbbd358ef73682ad41ef4afe",
+    "semantic_fingerprint": "1d49e9ad674a6806ffba304ed3fcf0ce8a07e30e90d317e4cda7fc3fbd415ca0",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Compute difference between two dictionaries.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter dict_a",
+        "name": "dict_a",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter dict_b",
+        "name": "dict_b",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of compute_dict_diff",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def compute_dict_diff(v0: dict, v1: dict) -> dict:\n    v2 = set(v0.keys())\n    v3 = set(v1.keys())\n    v4 = {v5: v1[v5] for v5 in v3 - v2}\n    v6 = {v5: v0[v5] for v5 in v2 - v3}\n    v7 = v2 & v3\n    v8 = {}\n    v9 = {}\n    for v5 in v7:\n        if v0[v5] != v1[v5]:\n            v8[v5] = {'old': v0[v5], 'new': v1[v5]}\n        else:\n            v9[v5] = v0[v5]\n    return {'added': v4, 'removed': v6, 'modified': v8, 'unchanged': v9}",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T00:04:21.639040+00:00",
+    "description": "Compute difference between two dictionaries.",
+    "intent": "Compute difference between two dictionaries.",
+    "language": "python",
+    "name": "compute_dict_diff",
+    "source_file": "neurop_forge/sources/diff_utilities.py",
+    "source_line_end": 154,
+    "source_line_start": 135,
+    "tags": [
+      "arithmetic",
+      "compute",
+      "dict",
+      "dict_a",
+      "dict_b",
+      "diff"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:04:21.639058+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(dict_a) == dict",
+      "dict_a is not None",
+      "type(dict_b) == dict",
+      "dict_b is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(dict_a) == dict",
+      "dict_a is not None",
+      "type(dict_b) == dict",
+      "dict_b is not None"
+    ]
+  }
+}

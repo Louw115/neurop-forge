@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7e4310e81c53c547869d0cb6a1740cd07e914fdc1fd314263cf5579dcca57019",
+    "semantic_fingerprint": "c8eee0268d8874ab13b3c6e7fe9adbc736a7079ceeb149d81987937c50dc9b16",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build HTML select options.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter options",
+        "name": "options",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter selected",
+        "name": "selected",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_select_options",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_select_options(v0: list, v1: str) -> str:\n    v2 = []\n    for v3 in v0:\n        v4 = v3 if isinstance(v3, str) else v3.get('value', '')\n        v5 = v3 if isinstance(v3, str) else v3.get('label', v4)\n        v6 = ' selected' if v4 == v1 else ''\n        v2.append(f'<option value=\"{v4}\"{v6}>{v5}</option>')\n    return ''.join(v2)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-09T23:58:38.442912+00:00",
+    "description": "Build HTML select options.",
+    "intent": "Build HTML select options.",
+    "language": "python",
+    "name": "build_select_options",
+    "source_file": "neurop_forge/sources/template_utilities.py",
+    "source_line_end": 151,
+    "source_line_start": 143,
+    "tags": [
+      "build",
+      "options",
+      "select",
+      "selected",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:58:38.442932+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(options) == list",
+      "options is not None",
+      "type(selected) == string",
+      "selected is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(options) == list",
+      "options is not None",
+      "type(selected) == string",
+      "selected is not None"
+    ]
+  }
+}

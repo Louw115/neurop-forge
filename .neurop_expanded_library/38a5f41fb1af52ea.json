@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "38a5f41fb1af52ea429ef7b3de3db7fdc7fd0253a4471b6204536e75a7a2edeb",
+    "semantic_fingerprint": "aadf1a8f18bede7e0e825a3bcca4c56d5e2d17973556432d5b21d24c74241a01",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get throttle statistics.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter state",
+        "name": "state",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter timestamp",
+        "name": "timestamp",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of get_throttle_stats",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_throttle_stats(v0: dict, v1: int) -> dict:\n    v2 = v1 - v0['window_ms']\n    v3 = [v4 for v4 in v0['calls'] if v4 >= v2]\n    return {'current_calls': len(v3), 'max_calls': v0['max_calls'], 'remaining': max(0, v0['max_calls'] - len(v3)), 'blocked_total': v0['blocked'], 'utilization': len(v3) / v0['max_calls'] if v0['max_calls'] > 0 else 0}",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T00:40:57.336201+00:00",
+    "description": "Get throttle statistics.",
+    "intent": "Get throttle statistics.",
+    "language": "python",
+    "name": "get_throttle_stats",
+    "source_file": "neurop_forge/sources/throttle_utilities.py",
+    "source_line_end": 77,
+    "source_line_start": 67,
+    "tags": [
+      "filtering",
+      "get",
+      "state",
+      "stats",
+      "throttle",
+      "timestamp"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:40:57.336220+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(state) == dict",
+      "state is not None",
+      "type(timestamp) == integer",
+      "timestamp is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(state) == dict",
+      "state is not None",
+      "type(timestamp) == integer",
+      "timestamp is not None"
+    ]
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f5eb75a2a2ea56b3129b22e9a6b5b4a3aeb760aba91c94c0d333f5ea153e3c18",
+    "semantic_fingerprint": "0a82f8ebf4737dafd019fa2dc49a34f76cc13609febdb1a75c826d2c70517a5f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get comprehensive page info.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter page",
+        "name": "page",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter page_size",
+        "name": "page_size",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter total_items",
+        "name": "total_items",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of get_page_info",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_page_info(v0: int, v1: int, v2: int) -> dict:\n    v3 = v4(v2, v1)\n    return {'current_page': v0, 'page_size': v1, 'total_items': v2, 'total_pages': v3, 'has_previous': v0 > 1, 'has_next': v0 < v3, 'previous_page': v0 - 1 if v0 > 1 else None, 'next_page': v0 + 1 if v0 < v3 else None, 'first_item': v5(v0, v1) + 1, 'last_item': min(v0 * v1, v2)}",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T00:40:57.144566+00:00",
+    "description": "Get comprehensive page info.",
+    "intent": "Get comprehensive page info.",
+    "language": "python",
+    "name": "get_page_info",
+    "source_file": "neurop_forge/sources/pagination_helpers.py",
+    "source_line_end": 59,
+    "source_line_start": 45,
+    "tags": [
+      "filtering",
+      "get",
+      "info",
+      "page",
+      "page_size",
+      "total_items"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:40:57.144594+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(page) == integer",
+      "page is not None",
+      "type(page_size) == integer",
+      "page_size is not None",
+      "type(total_items) == integer",
+      "total_items is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(page) == integer",
+      "page is not None",
+      "type(page_size) == integer",
+      "page_size is not None",
+      "type(total_items) == integer",
+      "total_items is not None"
+    ]
+  }
+}

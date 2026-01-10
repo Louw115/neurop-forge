@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ffa8b9476644cfc928776a51ab29256c72c20dcda7f615ac6e52a8c28c71fca8",
+    "semantic_fingerprint": "3fbc68ab2f97f64007f7aceb444fcc9beb3a0574826ca268fa1bfcd29bcd09aa",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Radix sort for non-negative integers.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of radix_sort",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def radix_sort(v0: list) -> list:\n    if not v0:\n        return []\n    v1 = max(v0)\n    v2 = 1\n    v3 = list(v0)\n    while v1 // v2 > 0:\n        v4 = [[] for _ in range(10)]\n        for v5 in v3:\n            v4[v5 // v2 % 10].append(v5)\n        v3 = []\n        for v6 in v4:\n            v3.extend(v6)\n        v2 *= 10\n    return v3",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T00:10:02.002307+00:00",
+    "description": "Radix sort for non-negative integers.",
+    "intent": "Radix sort for non-negative integers.",
+    "language": "python",
+    "name": "radix_sort",
+    "source_file": "neurop_forge/sources/sorting_algorithms.py",
+    "source_line_end": 139,
+    "source_line_start": 124,
+    "tags": [
+      "items",
+      "list_operation",
+      "radix",
+      "sort"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:10:02.002326+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None"
+    ]
+  }
+}

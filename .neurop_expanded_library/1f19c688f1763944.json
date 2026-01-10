@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1f19c688f176394489b11e66af2ad08fabc681cafd9392f9d141ced47f0c12a8",
+    "semantic_fingerprint": "7eb532efe28ed068678f383375f40ac3330d1d8208de51325c92b3c9475529df",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format relative date.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter days_ago",
+        "name": "days_ago",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_relative_date",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_relative_date(v0: int) -> str:\n    if v0 == 0:\n        return 'today'\n    elif v0 == 1:\n        return 'yesterday'\n    elif v0 == -1:\n        return 'tomorrow'\n    elif v0 > 0:\n        if v0 < 7:\n            return f'{v0} days ago'\n        elif v0 < 30:\n            v1 = v0 // 7\n            return f\"{v1} week{('s' if v1 > 1 else '')} ago\"\n        elif v0 < 365:\n            v2 = v0 // 30\n            return f\"{v2} month{('s' if v2 > 1 else '')} ago\"\n        else:\n            v3 = v0 // 365\n            return f\"{v3} year{('s' if v3 > 1 else '')} ago\"\n    else:\n        v4 = abs(v0)\n        if v4 < 7:\n            return f'in {v4} days'\n        elif v4 < 30:\n            v1 = v4 // 7\n            return f\"in {v1} week{('s' if v1 > 1 else '')}\"\n        else:\n            v2 = v4 // 30\n            return f\"in {v2} month{('s' if v2 > 1 else '')}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T00:40:57.009798+00:00",
+    "description": "Format relative date.",
+    "intent": "Format relative date.",
+    "language": "python",
+    "name": "format_relative_date",
+    "source_file": "neurop_forge/sources/date_formatting.py",
+    "source_line_end": 143,
+    "source_line_start": 114,
+    "tags": [
+      "date",
+      "days_ago",
+      "format",
+      "relative",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:40:57.009825+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(days_ago) == integer",
+      "days_ago is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(days_ago) == integer",
+      "days_ago is not None"
+    ]
+  }
+}

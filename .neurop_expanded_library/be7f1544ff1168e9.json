@@ -1,0 +1,152 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "be7f1544ff1168e965bfa3122dfd19e438bcf193555e3b6619ccd79bb69ef0b6",
+    "semantic_fingerprint": "a81cd63a5a59e0f3cbeb84a7fbe6f2f1c87fe69fd9d58b2d4449fce711431359",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Remove prefix from slug.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter slug",
+        "name": "slug",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter prefix",
+        "name": "prefix",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter separator",
+        "name": "separator",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of remove_prefix",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def remove_prefix(v0: str, v1: str, v2: str) -> str:\n    v3 = f'{v1}{v2}'\n    if v0.startswith(v3):\n        return v0[len(v3):]\n    return v0",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T00:40:57.281059+00:00",
+    "description": "Remove prefix from slug.",
+    "intent": "Remove prefix from slug.",
+    "language": "python",
+    "name": "remove_prefix",
+    "source_file": "neurop_forge/sources/slug_helpers.py",
+    "source_line_end": 108,
+    "source_line_start": 103,
+    "tags": [
+      "prefix",
+      "remove",
+      "separator",
+      "slug",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:40:57.281077+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(slug) == string",
+      "slug is not None",
+      "type(prefix) == string",
+      "prefix is not None",
+      "type(separator) == string",
+      "separator is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(slug) == string",
+      "slug is not None",
+      "type(prefix) == string",
+      "prefix is not None",
+      "type(separator) == string",
+      "separator is not None"
+    ]
+  }
+}

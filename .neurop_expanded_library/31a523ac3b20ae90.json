@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "31a523ac3b20ae90db2e09abb16141206810e61512b2040cffbdab546432d1b0",
+    "semantic_fingerprint": "8eb07b5d744037e42e63271a90b099527f961997b290dfb068d11d5fe9f5cf48",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Convert infix tokens to postfix notation.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter tokens",
+        "name": "tokens",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of infix_to_postfix",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def infix_to_postfix(v0: list) -> list:\n    v1 = []\n    v2 = []\n    for v3 in v0:\n        if v3['type'] == 'number' or v3['type'] == 'identifier':\n            v1.append(v3)\n        elif v3['type'] == 'operator':\n            while v2 and v2[-1]['type'] == 'operator' and (not v4(v3['value']) and v5(v3['value']) <= v5(v2[-1]['value']) or (v4(v3['value']) and v5(v3['value']) < v5(v2[-1]['value']))):\n                v1.append(v2.pop())\n            v2.append(v3)\n        elif v3['value'] == '(':\n            v2.append(v3)\n        elif v3['value'] == ')':\n            while v2 and v2[-1]['value'] != '(':\n                v1.append(v2.pop())\n            if v2:\n                v2.pop()\n    while v2:\n        v1.append(v2.pop())\n    return v1",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T00:10:02.199230+00:00",
+    "description": "Convert infix tokens to postfix notation.",
+    "intent": "Convert infix tokens to postfix notation.",
+    "language": "python",
+    "name": "infix_to_postfix",
+    "source_file": "neurop_forge/sources/expression_parser.py",
+    "source_line_end": 82,
+    "source_line_start": 58,
+    "tags": [
+      "infix",
+      "postfix",
+      "tokens",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:10:02.199257+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(tokens) == list",
+      "tokens is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(tokens) == list",
+      "tokens is not None"
+    ]
+  }
+}

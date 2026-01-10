@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic sorting block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7dc6fdda3c5ce12b4911fd9d35ae59dea4fbd32aa94b5c1d682c2150ae9a3904",
+    "semantic_fingerprint": "caa79d3a2968a0c9ac83ad0dcec57622124722b78919cafbc27ebb4b95e904eb",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Sort contacts by name.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter contacts",
+        "name": "contacts",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter ascending",
+        "name": "ascending",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of sort_contacts_by_name",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def sort_contacts_by_name(v0: list, v1: bool) -> list:\n    return sorted(v0, key=lambda v2: v2.get('name', '').lower(), reverse=not v1)",
+  "metadata": {
+    "category": "sorting",
+    "created_at": "2026-01-10T00:43:57.437942+00:00",
+    "description": "Sort contacts by name.",
+    "intent": "Sort contacts by name.",
+    "language": "python",
+    "name": "sort_contacts_by_name",
+    "source_file": "neurop_forge/sources/contact_utilities.py",
+    "source_line_end": 151,
+    "source_line_start": 149,
+    "tags": [
+      "ascending",
+      "contacts",
+      "name",
+      "sort",
+      "sorting"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:43:57.437959+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(contacts) == list",
+      "contacts is not None",
+      "type(ascending) == boolean",
+      "ascending is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(contacts) == list",
+      "contacts is not None",
+      "type(ascending) == boolean",
+      "ascending is not None"
+    ]
+  }
+}

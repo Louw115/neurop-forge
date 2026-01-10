@@ -1,0 +1,139 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e13ad2a867bafb0a0f3ad5df2a9d49cb7e1e90082ac36304a6a29f8e1c93ad48",
+    "semantic_fingerprint": "2881e97d227a18c6a8a026e3f504f00f28d2ec5a3042267bc95149c215c5ba0a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Delete a key.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter tree",
+        "name": "tree",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of bst_delete",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def bst_delete(v0: dict, v1) -> dict:\n\n    def min_node(v2):\n        while v2['left']:\n            v2 = v2['left']\n        return v2\n\n    def delete_node(v2, v1):\n        if v2 is None:\n            return None\n        if v1 < v2['key']:\n            return v3(v2['key'], v2['value'], v4(v2['left'], v1), v2['right'])\n        elif v1 > v2['key']:\n            return v3(v2['key'], v2['value'], v2['left'], v4(v2['right'], v1))\n        else:\n            if v2['left'] is None:\n                return v2['right']\n            if v2['right'] is None:\n                return v2['left']\n            v5 = v6(v2['right'])\n            return v3(v5['key'], v5['value'], v2['left'], v4(v2['right'], v5['key']))\n    if not v7(v0, v1):\n        return v0\n    return {'root': v4(v0['root'], v1), 'size': v0['size'] - 1}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T00:04:21.384686+00:00",
+    "description": "Delete a key.",
+    "intent": "Delete a key.",
+    "language": "python",
+    "name": "bst_delete",
+    "source_file": "neurop_forge/sources/binary_search_tree.py",
+    "source_line_end": 156,
+    "source_line_start": 134,
+    "tags": [
+      "bst",
+      "delete",
+      "dict_operation",
+      "key",
+      "tree"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:04:21.384706+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(tree) == dict",
+      "tree is not None",
+      "key is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(tree) == dict",
+      "tree is not None",
+      "key is not None"
+    ]
+  }
+}

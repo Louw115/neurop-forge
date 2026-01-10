@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception",
+      "KeyError"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "95087ca92448b0b6c14174ec1154217e4e2c76b4905548a739df87273e54f4ab",
+    "semantic_fingerprint": "6ac298cd9b1261fdd96170189f4b4e9f1396ea783abca3490a76ae9a923b79d3",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add version to cache key.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter version",
+        "name": "version",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of versioned_key",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def versioned_key(v0: str, v1: int) -> str:\n    return f'{v0}:v{v1}'",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T00:29:29.274126+00:00",
+    "description": "Add version to cache key.",
+    "intent": "Add version to cache key.",
+    "language": "python",
+    "name": "versioned_key",
+    "source_file": "neurop_forge/sources/cache_strategies.py",
+    "source_line_end": 206,
+    "source_line_start": 204,
+    "tags": [
+      "arithmetic",
+      "key",
+      "version",
+      "versioned"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:29:29.274148+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(key) == string",
+      "key is not None",
+      "type(version) == integer",
+      "version is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(key) == string",
+      "key is not None",
+      "type(version) == integer",
+      "version is not None"
+    ]
+  }
+}

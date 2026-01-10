@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "bcf0a4ca8a7777cdc0e0614ac4027713b89e10bbb57af856d5945d0d159788a5",
+    "semantic_fingerprint": "818b4d2d67ce6114024a50e611d8bff2cfba1d409163b05a6a508b8ed426cecc",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Wrap event in envelope.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter event",
+        "name": "event",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter source",
+        "name": "source",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter version",
+        "name": "version",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of create_event_envelope",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def create_event_envelope(v0: dict, v1: str, v2: str) -> dict:\n    return {'source': v1, 'version': v2, 'event': v0, 'envelope_id': v3(f'{v1}-{v2}', v0.get('timestamp', 0))}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T00:29:29.457236+00:00",
+    "description": "Wrap event in envelope.",
+    "intent": "Wrap event in envelope.",
+    "language": "python",
+    "name": "create_event_envelope",
+    "source_file": "neurop_forge/sources/event_utilities.py",
+    "source_line_end": 149,
+    "source_line_start": 142,
+    "tags": [
+      "create",
+      "dict_operation",
+      "envelope",
+      "event",
+      "source",
+      "version"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:29:29.457255+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(event) == dict",
+      "event is not None",
+      "type(source) == string",
+      "source is not None",
+      "type(version) == string",
+      "version is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(event) == dict",
+      "event is not None",
+      "type(source) == string",
+      "source is not None",
+      "type(version) == string",
+      "version is not None"
+    ]
+  }
+}

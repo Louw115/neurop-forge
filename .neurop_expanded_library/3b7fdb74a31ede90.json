@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3b7fdb74a31ede90da643fa5fc62adaa3a63ff16f6fff108c198e60a3e49feb4",
+    "semantic_fingerprint": "85ed29359e7dc6c8109b1ae9e834623cacef53adb22de5a13e85b360645e4eba",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate fill ratio.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter buffer",
+        "name": "buffer",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of ring_fill_ratio",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def ring_fill_ratio(v0: dict) -> float:\n    return v0['size'] / v0['capacity'] if v0['capacity'] > 0 else 0",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T00:04:21.539435+00:00",
+    "description": "Calculate fill ratio.",
+    "intent": "Calculate fill ratio.",
+    "language": "python",
+    "name": "ring_fill_ratio",
+    "source_file": "neurop_forge/sources/ring_buffer.py",
+    "source_line_end": 213,
+    "source_line_start": 211,
+    "tags": [
+      "arithmetic",
+      "buffer",
+      "fill",
+      "ratio",
+      "ring"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:04:21.539451+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(buffer) == dict",
+      "buffer is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(buffer) == dict",
+      "buffer is not None"
+    ]
+  }
+}

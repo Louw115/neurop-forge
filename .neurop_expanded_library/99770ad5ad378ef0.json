@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "99770ad5ad378ef092ce347e7e729b15e798ebb8f55e0ac9c8ef49eb7949f6a3",
+    "semantic_fingerprint": "56b6a5b5d3e0a4902a6ff6c8baa697184a4586dee6b1323fb7fef5bcb77cce47",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get all leaf nodes.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter node",
+        "name": "node",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of get_leaves",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_leaves(v0: dict) -> list:\n    if v1(v0):\n        return [v0]\n    v2 = []\n    for v3 in v0.get('children', []):\n        v2.extend(v4(v3))\n    return v2",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-09T23:58:38.648518+00:00",
+    "description": "Get all leaf nodes.",
+    "intent": "Get all leaf nodes.",
+    "language": "python",
+    "name": "get_leaves",
+    "source_file": "neurop_forge/sources/tree_utilities.py",
+    "source_line_end": 100,
+    "source_line_start": 93,
+    "tags": [
+      "filtering",
+      "get",
+      "leaves",
+      "node"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:58:38.648534+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(node) == dict",
+      "node is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(node) == dict",
+      "node is not None"
+    ]
+  }
+}

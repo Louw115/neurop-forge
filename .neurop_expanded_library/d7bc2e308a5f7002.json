@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d7bc2e308a5f7002559f54a37a8a2a5b44f7e5805bc67389ed9c92abc0c0edf9",
+    "semantic_fingerprint": "5e406fcdbbc645b90f36286e1da5c7f50c64a94004f5cf405e4655a0df3f6c31",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if string is valid IPv6 address.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter ip",
+        "name": "ip",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_valid_ipv6",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_valid_ipv6(v0: str) -> bool:\n    v1 = '^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$'\n    if v2.match(v1, v0):\n        return True\n    if '::' in v0:\n        v3 = v0.split('::')\n        if len(v3) != 2:\n            return False\n        v4 = v3[0].split(':') if v3[0] else []\n        v5 = v3[1].split(':') if v3[1] else []\n        if len(v4) + len(v5) > 7:\n            return False\n        return v6((len(v7) <= 4 and v6((v8 in '0123456789abcdefABCDEF' for v8 in v7)) for v7 in v4 + v5 if v7))\n    return False",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T00:20:23.107691+00:00",
+    "description": "Check if string is valid IPv6 address.",
+    "intent": "Check if string is valid IPv6 address.",
+    "language": "python",
+    "name": "is_valid_ipv6",
+    "source_file": "neurop_forge/sources/ip_utilities.py",
+    "source_line_end": 39,
+    "source_line_start": 24,
+    "tags": [
+      "ip",
+      "ipv6",
+      "valid",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:20:23.107718+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(ip) == string",
+      "ip is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(ip) == string",
+      "ip is not None"
+    ]
+  }
+}

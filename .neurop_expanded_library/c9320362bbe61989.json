@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c9320362bbe61989210d4bb8117b8f8c0136b5f6d1ae9954ed6223c34d69557e",
+    "semantic_fingerprint": "e407565dcd23eb3ac4c436bef6603591e50e5a18fc342c1cdfecacd935d4a01f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract fenced code blocks.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of extract_code_blocks",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def extract_code_blocks(v0: str) -> list:\n    return v1.findall('```(?:\\\\w+)?\\\\n(.*?)```', v0, v1.DOTALL)",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T00:29:29.215827+00:00",
+    "description": "Extract fenced code blocks.",
+    "intent": "Extract fenced code blocks.",
+    "language": "python",
+    "name": "extract_code_blocks",
+    "source_file": "neurop_forge/sources/document_utilities.py",
+    "source_line_end": 143,
+    "source_line_start": 141,
+    "tags": [
+      "blocks",
+      "code",
+      "extract",
+      "filtering",
+      "text"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:29:29.215852+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None"
+    ]
+  }
+}

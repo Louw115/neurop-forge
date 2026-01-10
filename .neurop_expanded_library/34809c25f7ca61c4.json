@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "34809c25f7ca61c41ea20fdc56c1f07153382da771597bcace2de746a3826056",
+    "semantic_fingerprint": "8a150e181b1f8a7c7060e2d64c67cd0260918f2ad166b3a832c7c5f9c0f862e3",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate CVV.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter cvv",
+        "name": "cvv",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter card_type",
+        "name": "card_type",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of validate_cvv",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_cvv(v0: str, v1: str) -> bool:\n    v2 = v3(v0)\n    if v1 == 'amex':\n        return len(v2) == 4\n    return len(v2) == 3",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T00:40:57.522777+00:00",
+    "description": "Validate CVV.",
+    "intent": "Validate CVV.",
+    "language": "python",
+    "name": "validate_cvv",
+    "source_file": "neurop_forge/sources/credit_card_utilities.py",
+    "source_line_end": 159,
+    "source_line_start": 154,
+    "tags": [
+      "card_type",
+      "cvv",
+      "validate",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:40:57.522794+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(cvv) == string",
+      "cvv is not None",
+      "type(card_type) == string",
+      "card_type is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(cvv) == string",
+      "cvv is not None",
+      "type(card_type) == string",
+      "card_type is not None"
+    ]
+  }
+}

@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1654b22ddf0f5c3575acf069fe93871594c51ee46fcb2387ded58a60763c6b6d",
+    "semantic_fingerprint": "a6c9dd10bed0f766b517aeae98bec35f488b853b0571d77198451c362a1178f9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Rotate stack by positions.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter stack",
+        "name": "stack",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter positions",
+        "name": "positions",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of stack_rotate",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def stack_rotate(v0: dict, v1: int) -> dict:\n    if not v0['items']:\n        return v0\n    v2 = list(v0['items'])\n    v1 = v1 % len(v2)\n    v2 = v2[-v1:] + v2[:-v1]\n    return {'items': v2, 'size': v0['size']}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-09T23:58:38.799924+00:00",
+    "description": "Rotate stack by positions.",
+    "intent": "Rotate stack by positions.",
+    "language": "python",
+    "name": "stack_rotate",
+    "source_file": "neurop_forge/sources/stack_utilities.py",
+    "source_line_end": 118,
+    "source_line_start": 111,
+    "tags": [
+      "dict_operation",
+      "positions",
+      "rotate",
+      "stack"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:58:38.799947+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(stack) == dict",
+      "stack is not None",
+      "type(positions) == integer",
+      "positions is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(stack) == dict",
+      "stack is not None",
+      "type(positions) == integer",
+      "positions is not None"
+    ]
+  }
+}

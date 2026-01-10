@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ce5b5a00673da6f2d485090d2885eacedfe20ba847013b919b4557f33d02730e",
+    "semantic_fingerprint": "f32c600d06f4d6eee68e8169983f3f170c233da22154ec6b006a2f70e6d6f1e8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "KMP pattern search algorithm.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter pattern",
+        "name": "pattern",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of kmp_search",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def kmp_search(v0: str, v1: str) -> list:\n    if not v1:\n        return []\n    v2 = [0] * len(v1)\n    v3 = 0\n    v4 = 1\n    while v4 < len(v1):\n        if v1[v4] == v1[v3]:\n            v3 += 1\n            v2[v4] = v3\n            v4 += 1\n        elif v3 != 0:\n            v3 = v2[v3 - 1]\n        else:\n            v2[v4] = 0\n            v4 += 1\n    v5 = []\n    v4 = v6 = 0\n    while v4 < len(v0):\n        if v1[v6] == v0[v4]:\n            v4 += 1\n            v6 += 1\n        if v6 == len(v1):\n            v5.append(v4 - v6)\n            v6 = v2[v6 - 1]\n        elif v4 < len(v0) and v1[v6] != v0[v4]:\n            if v6 != 0:\n                v6 = v2[v6 - 1]\n            else:\n                v4 += 1\n    return v5",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T00:29:29.409473+00:00",
+    "description": "KMP pattern search algorithm.",
+    "intent": "KMP pattern search algorithm.",
+    "language": "python",
+    "name": "kmp_search",
+    "source_file": "neurop_forge/sources/string_algorithms.py",
+    "source_line_end": 210,
+    "source_line_start": 179,
+    "tags": [
+      "kmp",
+      "list_operation",
+      "pattern",
+      "search",
+      "text"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:29:29.409501+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None",
+      "type(pattern) == string",
+      "pattern is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None",
+      "type(pattern) == string",
+      "pattern is not None"
+    ]
+  }
+}

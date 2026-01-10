@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "edbdac9d6f3734840b5b8aea677fb709f9deca6b33360b57c830eaed012c5a31",
+    "semantic_fingerprint": "31bb474022331f70972f67e9697d0d03f87219c32e567eed28bf46c3032cb4b8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Flatten nested array one level.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter arr",
+        "name": "arr",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of flatten",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def flatten(v0: list) -> list:\n    v1 = []\n    for v2 in v0:\n        if isinstance(v2, list):\n            v1.extend(v2)\n        else:\n            v1.append(v2)\n    return v1",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T00:20:22.719729+00:00",
+    "description": "Flatten nested array one level.",
+    "intent": "Flatten nested array one level.",
+    "language": "python",
+    "name": "flatten",
+    "source_file": "neurop_forge/sources/array_algorithms.py",
+    "source_line_end": 77,
+    "source_line_start": 69,
+    "tags": [
+      "arr",
+      "flatten",
+      "list_operation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:20:22.719752+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(arr) == list",
+      "arr is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(arr) == list",
+      "arr is not None"
+    ]
+  }
+}

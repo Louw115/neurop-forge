@@ -1,0 +1,139 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e4a07cb41d2d59901fcfac88656aa4dffb7715f127fd79193f1502858d08b1d6",
+    "semantic_fingerprint": "81bb6c0a658d85326f0bb4e9dbdaad8d390fb985b6f1229dee66273d47408ba2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Interpolation search for uniformly distributed sorted list.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter target",
+        "name": "target",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of interpolation_search",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def interpolation_search(v0: list, v1) -> int:\n    v2, v3 = (0, len(v0) - 1)\n    while v2 <= v3 and v0[v2] <= v1 <= v0[v3]:\n        if v0[v2] == v0[v3]:\n            return v2 if v0[v2] == v1 else -1\n        v4 = v2 + int((v1 - v0[v2]) * (v3 - v2) / (v0[v3] - v0[v2]))\n        if v0[v4] == v1:\n            return v4\n        elif v0[v4] < v1:\n            v2 = v4 + 1\n        else:\n            v3 = v4 - 1\n    return -1",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T00:10:02.035883+00:00",
+    "description": "Interpolation search for uniformly distributed sorted list.",
+    "intent": "Interpolation search for uniformly distributed sorted list.",
+    "language": "python",
+    "name": "interpolation_search",
+    "source_file": "neurop_forge/sources/search_algorithms.py",
+    "source_line_end": 95,
+    "source_line_start": 82,
+    "tags": [
+      "arithmetic",
+      "interpolation",
+      "items",
+      "search",
+      "target"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:10:02.035902+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "target is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "target is not None"
+    ]
+  }
+}

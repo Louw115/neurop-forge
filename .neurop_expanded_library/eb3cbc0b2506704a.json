@@ -1,0 +1,138 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "eb3cbc0b2506704ade2336cf40bfe67bc9d6c9615360f103386d4843eab54ee2",
+    "semantic_fingerprint": "7129d0ea230e076092c75735458e87b11c122c2f84f73ab063473b33ea705a23",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Partition array by predicate.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter arr",
+        "name": "arr",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter predicate",
+        "name": "predicate",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of partition",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def partition(v0: list, v1) -> dict:\n    v2 = []\n    v3 = []\n    for v4 in v0:\n        if v1(v4):\n            v2.append(v4)\n        else:\n            v3.append(v4)\n    return {'true': v2, 'false': v3}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T00:20:22.716442+00:00",
+    "description": "Partition array by predicate.",
+    "intent": "Partition array by predicate.",
+    "language": "python",
+    "name": "partition",
+    "source_file": "neurop_forge/sources/array_algorithms.py",
+    "source_line_end": 61,
+    "source_line_start": 52,
+    "tags": [
+      "arr",
+      "list_operation",
+      "partition",
+      "predicate"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:20:22.716468+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(arr) == list",
+      "arr is not None",
+      "predicate is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(arr) == list",
+      "arr is not None",
+      "predicate is not None"
+    ]
+  }
+}

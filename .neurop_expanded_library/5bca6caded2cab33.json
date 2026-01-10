@@ -1,0 +1,165 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5bca6caded2cab337bc88fc2c4850a2afaad4127508734f819e33a0ee784e1a8",
+    "semantic_fingerprint": "8e827f46f1e0ebe9472c776bb65e64dba136fef91f8b0baac1b3d7fcbaa6390c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Verify password against stored hash.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter password",
+        "name": "password",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter stored_hash",
+        "name": "stored_hash",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter salt_hex",
+        "name": "salt_hex",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter iterations",
+        "name": "iterations",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of verify_password_hash",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def verify_password_hash(v0: str, v1: str, v2: str, v3: int) -> bool:\n    v4 = v5(v2)\n    v6 = v7(v0, v4, v3, 32)\n    return v8.compare_digest(v9(v6), v1)",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T00:20:22.794702+00:00",
+    "description": "Verify password against stored hash.",
+    "intent": "Verify password against stored hash.",
+    "language": "python",
+    "name": "verify_password_hash",
+    "source_file": "neurop_forge/sources/crypto_primitives.py",
+    "source_line_end": 149,
+    "source_line_start": 145,
+    "tags": [
+      "hash",
+      "iterations",
+      "password",
+      "salt_hex",
+      "stored_hash",
+      "validation",
+      "verify"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:20:22.794730+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(password) == string",
+      "password is not None",
+      "type(stored_hash) == string",
+      "stored_hash is not None",
+      "type(salt_hex) == string",
+      "salt_hex is not None",
+      "type(iterations) == integer",
+      "iterations is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(password) == string",
+      "password is not None",
+      "type(stored_hash) == string",
+      "stored_hash is not None",
+      "type(salt_hex) == string",
+      "salt_hex is not None",
+      "type(iterations) == integer",
+      "iterations is not None"
+    ]
+  }
+}

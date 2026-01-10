@@ -1,0 +1,139 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e06aed39948b86a763c6c3f44f3c6f622c2568b1d10f2a86c898419ba9bf38da",
+    "semantic_fingerprint": "671b4df400e30ae30330d19e181d0fedf2b0755495d3a05f427a47425d5c6eda",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Deterministic random level based on key hash.",
+    "inputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_level",
+        "name": "max_level",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of _random_level",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def _random_level(v0, v1: int) -> int:\n    v2 = v3.sha256(str(v0).encode()).digest()\n    v4 = 1\n    for v5 in range(v1 - 1):\n        if v2[v5 % len(v2)] < 128:\n            v4 += 1\n        else:\n            break\n    return v4",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T00:04:21.582624+00:00",
+    "description": "Deterministic random level based on key hash.",
+    "intent": "Deterministic random level based on key hash.",
+    "language": "python",
+    "name": "_random_level",
+    "source_file": "neurop_forge/sources/skip_list.py",
+    "source_line_end": 24,
+    "source_line_start": 15,
+    "tags": [
+      "arithmetic",
+      "key",
+      "level",
+      "max_level",
+      "random"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:04:21.582644+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "key is not None",
+      "type(max_level) == integer",
+      "max_level is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "key is not None",
+      "type(max_level) == integer",
+      "max_level is not None"
+    ]
+  }
+}

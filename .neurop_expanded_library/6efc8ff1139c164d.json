@@ -1,0 +1,136 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": false,
+    "io_operations": [
+      "file_read"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "non_deterministic",
+    "side_effects": [
+      "file_io"
+    ],
+    "thread_safe": false
+  },
+  "failure_modes": {
+    "can_fail": true,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "raises_exception",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "6efc8ff1139c164d4b02295d1804bf557ef92920828ac44fa527f84e1557f876",
+    "semantic_fingerprint": "96f2bb0182210cbd52042a1204dd43c0c558f134d00e03f80c906e5fa5981427",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get size of smallest component.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter ds",
+        "name": "ds",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of smallest_component_size",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def smallest_component_size(v0: dict) -> int:\n    v1 = v2(v0)\n    if not v1:\n        return 0\n    return min((v0['size'].get(v3, 0) for v3 in v1))",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T00:04:21.565841+00:00",
+    "description": "Get size of smallest component.",
+    "intent": "Get size of smallest component.",
+    "language": "python",
+    "name": "smallest_component_size",
+    "source_file": "neurop_forge/sources/disjoint_set.py",
+    "source_line_end": 156,
+    "source_line_start": 151,
+    "tags": [
+      "arithmetic",
+      "component",
+      "ds",
+      "size",
+      "smallest"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 0.5,
+    "last_verified": "2026-01-10T00:04:21.565858+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.265,
+    "risk_factors": [
+      "impure_function",
+      "non_deterministic",
+      "side_effects: file_io"
+    ],
+    "risk_level": "medium",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(ds) == dict",
+      "ds is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(ds) == dict",
+      "ds is not None"
+    ]
+  }
+}

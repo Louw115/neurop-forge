@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "31c5708c081261b9c684e65deb0806a75203543f6458b42f42e98b701606cb79",
+    "semantic_fingerprint": "bc7004d1f4b281f4e88390c2040077dc808dc7305fcdcfa3118ebea9ffd0f55f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Delete a key from trie.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter trie",
+        "name": "trie",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of trie_delete",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def trie_delete(v0: dict, v1: str) -> dict:\n\n    def delete_helper(v2: dict, v1: str, v3: int) -> dict:\n        v4 = {'children': dict(v2['children']), 'is_end': v2['is_end'], 'value': v2['value']}\n        if v3 == len(v1):\n            v4['is_end'] = False\n            v4['value'] = None\n            return v4\n        v5 = v1[v3]\n        if v5 not in v4['children']:\n            return v4\n        v4['children'][v5] = v6(v4['children'][v5], v1, v3 + 1)\n        v7 = v4['children'][v5]\n        if not v7['is_end'] and (not v7['children']):\n            del v4['children'][v5]\n        return v4\n    if not v8(v0, v1)['found']:\n        return v0\n    v9 = v6(v0['root'], v1, 0)\n    return {'root': v9, 'size': v0['size'] - 1}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-09T23:58:38.958084+00:00",
+    "description": "Delete a key from trie.",
+    "intent": "Delete a key from trie.",
+    "language": "python",
+    "name": "trie_delete",
+    "source_file": "neurop_forge/sources/trie_utilities.py",
+    "source_line_end": 128,
+    "source_line_start": 105,
+    "tags": [
+      "delete",
+      "dict_operation",
+      "key",
+      "trie"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:58:38.958103+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(trie) == dict",
+      "trie is not None",
+      "type(key) == string",
+      "key is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(trie) == dict",
+      "trie is not None",
+      "type(key) == string",
+      "key is not None"
+    ]
+  }
+}

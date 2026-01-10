@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "dd222c2bb4caaf66ac0883b7fb2ee42697760c202a0f1f0d730568d2f40a72e6",
+    "semantic_fingerprint": "0e4f7bdd158769854d78c6fd02251f470aa6c3adbf1bc6039fb87ffe7cde756d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate skip/take for some ORMs.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter page",
+        "name": "page",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter per_page",
+        "name": "per_page",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of calculate_skip_take",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_skip_take(v0: int, v1: int) -> dict:\n    return {'skip': (v0 - 1) * v1, 'take': v1}",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T00:40:57.159846+00:00",
+    "description": "Calculate skip/take for some ORMs.",
+    "intent": "Calculate skip/take for some ORMs.",
+    "language": "python",
+    "name": "calculate_skip_take",
+    "source_file": "neurop_forge/sources/pagination_helpers.py",
+    "source_line_end": 138,
+    "source_line_start": 136,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "page",
+      "per_page",
+      "skip",
+      "take"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:40:57.159868+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(page) == integer",
+      "page is not None",
+      "type(per_page) == integer",
+      "per_page is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(page) == integer",
+      "page is not None",
+      "type(per_page) == integer",
+      "per_page is not None"
+    ]
+  }
+}

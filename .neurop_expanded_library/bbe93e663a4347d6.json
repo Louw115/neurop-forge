@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "bbe93e663a4347d6f4a5446682adae6a8cf2683e072cd0dacb8ca464cb9f7d9d",
+    "semantic_fingerprint": "8ccba467fc89939c8767221e495f23826627dc0d48d1bd33ba3162f3fdbb718d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate card using Luhn algorithm.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter card",
+        "name": "card",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of luhn_check",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def luhn_check(v0: str) -> bool:\n    v1 = v2(v0)\n    if not v1:\n        return False\n    v3 = 0\n    for v4, v5 in enumerate(reversed(v1)):\n        v6 = int(v5)\n        if v4 % 2 == 1:\n            v6 *= 2\n            if v6 > 9:\n                v6 -= 9\n        v3 += v6\n    return v3 % 10 == 0",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T00:40:57.507808+00:00",
+    "description": "Validate card using Luhn algorithm.",
+    "intent": "Validate card using Luhn algorithm.",
+    "language": "python",
+    "name": "luhn_check",
+    "source_file": "neurop_forge/sources/credit_card_utilities.py",
+    "source_line_end": 33,
+    "source_line_start": 20,
+    "tags": [
+      "card",
+      "check",
+      "luhn",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:40:57.507825+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(card) == string",
+      "card is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(card) == string",
+      "card is not None"
+    ]
+  }
+}

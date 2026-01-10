@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "de311c78db49c9538fc2e800f5c8919999f640bb594a117eda4d6f21384c9c2d",
+    "semantic_fingerprint": "38f64ea525ad3b7e6f4def84503151d5353ae57ae1e0b1eb3d05ac6bd9e0d1c8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Merge two contacts preferring primary.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter primary",
+        "name": "primary",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter secondary",
+        "name": "secondary",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of merge_contacts",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def merge_contacts(v0: dict, v1: dict) -> dict:\n    return {'name': v0.get('name') or v1.get('name'), 'email': v0.get('email') or v1.get('email'), 'phone': v0.get('phone') or v1.get('phone'), 'active': v0.get('active', v1.get('active', True))}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T00:43:57.427812+00:00",
+    "description": "Merge two contacts preferring primary.",
+    "intent": "Merge two contacts preferring primary.",
+    "language": "python",
+    "name": "merge_contacts",
+    "source_file": "neurop_forge/sources/contact_utilities.py",
+    "source_line_end": 80,
+    "source_line_start": 73,
+    "tags": [
+      "contacts",
+      "dict_operation",
+      "merge",
+      "primary",
+      "secondary"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:43:57.427830+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(primary) == dict",
+      "primary is not None",
+      "type(secondary) == dict",
+      "secondary is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(primary) == dict",
+      "primary is not None",
+      "type(secondary) == dict",
+      "secondary is not None"
+    ]
+  }
+}

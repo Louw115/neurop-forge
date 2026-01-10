@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "69e691deb4e80e83f0ad6f91947e1bda82d3589533d087e2edd2b6efcbac758b",
+    "semantic_fingerprint": "5364a9653b587a8c42b4c9a81f2b3b34bd474554beef72f4b822423464546976",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Convert integer to IPv4.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter num",
+        "name": "num",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of int_to_ipv4",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def int_to_ipv4(v0: int) -> str:\n    return '.'.join((str(v0 >> 24 - v1 * 8 & 255) for v1 in range(4)))",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T00:20:23.111368+00:00",
+    "description": "Convert integer to IPv4.",
+    "intent": "Convert integer to IPv4.",
+    "language": "python",
+    "name": "int_to_ipv4",
+    "source_file": "neurop_forge/sources/ip_utilities.py",
+    "source_line_end": 50,
+    "source_line_start": 48,
+    "tags": [
+      "int",
+      "ipv4",
+      "num",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:20:23.111387+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(num) == integer",
+      "num is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(num) == integer",
+      "num is not None"
+    ]
+  }
+}

@@ -1,0 +1,131 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2179bf06556a741a7f47dfd056959ac25056b7901b457f17c023f6042e1e01c7",
+    "semantic_fingerprint": "169e42b460b6d0178d0faa3f7ad15b3e7312b418a8b059c6a0811f3f019d7376",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get stale-while-revalidate value.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter cache_control",
+        "name": "cache_control",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of get_stale_while_revalidate",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_stale_while_revalidate(v0: dict) -> int:\n    v1 = v0.get('stale-while-revalidate')\n    return int(v1) if v1 and v1 is not True else 0",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T00:29:29.267454+00:00",
+    "description": "Get stale-while-revalidate value.",
+    "intent": "Get stale-while-revalidate value.",
+    "language": "python",
+    "name": "get_stale_while_revalidate",
+    "source_file": "neurop_forge/sources/cache_strategies.py",
+    "source_line_end": 178,
+    "source_line_start": 175,
+    "tags": [
+      "cache_control",
+      "filtering",
+      "get",
+      "revalidate",
+      "stale",
+      "while"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:29:29.267479+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(cache_control) == dict",
+      "cache_control is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(cache_control) == dict",
+      "cache_control is not None"
+    ]
+  }
+}

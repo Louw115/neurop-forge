@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "438ff9a2ab19c244b36a6f1410439781b16dffbee77d2b525fbdd74db1e3e9b9",
+    "semantic_fingerprint": "faab164e13f319dee1ca5b17a10fade7aec82b5381d478ffbe323f27e1c33ca6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Remove class from attributes.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter attrs",
+        "name": "attrs",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter class_name",
+        "name": "class_name",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of remove_class",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def remove_class(v0: dict, v1: str) -> dict:\n    v2 = dict(v0)\n    v3 = v2.get('class', '')\n    v4 = [v5 for v5 in v3.split() if v5 != v1]\n    v2['class'] = ' '.join(v4)\n    return v2",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T00:40:57.064288+00:00",
+    "description": "Remove class from attributes.",
+    "intent": "Remove class from attributes.",
+    "language": "python",
+    "name": "remove_class",
+    "source_file": "neurop_forge/sources/html_utilities.py",
+    "source_line_end": 172,
+    "source_line_start": 166,
+    "tags": [
+      "attrs",
+      "class",
+      "class_name",
+      "dict_operation",
+      "remove"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:40:57.064304+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(attrs) == dict",
+      "attrs is not None",
+      "type(class_name) == string",
+      "class_name is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(attrs) == dict",
+      "attrs is not None",
+      "type(class_name) == string",
+      "class_name is not None"
+    ]
+  }
+}

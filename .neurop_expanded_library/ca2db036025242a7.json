@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ca2db036025242a718b430b82aff881afcf9d8ae9e9631e5fc5e614050eff5ca",
+    "semantic_fingerprint": "5d0eddf0a03fa5e879cc9d1ce8a0bb455dabb4394c8ad7a32442886ba086f764",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Update circuit breaker state.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter breaker",
+        "name": "breaker",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter success",
+        "name": "success",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter current_time",
+        "name": "current_time",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of update_circuit_breaker",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def update_circuit_breaker(v0: dict, v1: bool, v2: float) -> dict:\n    if v0['state'] == 'open':\n        if v2 - v0['last_failure_time'] >= v0['reset_timeout']:\n            return {**v0, 'state': 'half-open', 'success_count': 0}\n        return v0\n    if v0['state'] == 'half-open':\n        if v1:\n            return {**v0, 'state': 'closed', 'failures': 0, 'success_count': v0['success_count'] + 1}\n        else:\n            return {**v0, 'state': 'open', 'last_failure_time': v2}\n    if v1:\n        return {**v0, 'failures': 0}\n    else:\n        v3 = v0['failures'] + 1\n        if v3 >= v0['failure_threshold']:\n            return {**v0, 'state': 'open', 'failures': v3, 'last_failure_time': v2}\n        return {**v0, 'failures': v3}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T00:10:02.330144+00:00",
+    "description": "Update circuit breaker state.",
+    "intent": "Update circuit breaker state.",
+    "language": "python",
+    "name": "update_circuit_breaker",
+    "source_file": "neurop_forge/sources/retry_patterns.py",
+    "source_line_end": 207,
+    "source_line_start": 190,
+    "tags": [
+      "breaker",
+      "circuit",
+      "current_time",
+      "dict_operation",
+      "success",
+      "update"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:10:02.330163+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(breaker) == dict",
+      "breaker is not None",
+      "type(success) == boolean",
+      "success is not None",
+      "type(current_time) == float",
+      "current_time is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(breaker) == dict",
+      "breaker is not None",
+      "type(success) == boolean",
+      "success is not None",
+      "type(current_time) == float",
+      "current_time is not None"
+    ]
+  }
+}

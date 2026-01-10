@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "33472aa22f7da1c084abf99d7842cf3ef4e815c8e2ffaf0b61b6b2c7491a02c7",
+    "semantic_fingerprint": "cf2323c36a5d5b90661de705b5dc7aa443a0d5ee5f8935a1677af1a7f10234a5",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract text between markers.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter start_marker",
+        "name": "start_marker",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter end_marker",
+        "name": "end_marker",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of extract_between",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def extract_between(v0: str, v1: str, v2: str) -> str:\n    v3 = v0.find(v1)\n    if v3 == -1:\n        return ''\n    v3 += len(v1)\n    v4 = v0.find(v2, v3)\n    if v4 == -1:\n        return ''\n    return v0[v3:v4]",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T00:14:55.508596+00:00",
+    "description": "Extract text between markers.",
+    "intent": "Extract text between markers.",
+    "language": "python",
+    "name": "extract_between",
+    "source_file": "neurop_forge/sources/string_patterns.py",
+    "source_line_end": 188,
+    "source_line_start": 179,
+    "tags": [
+      "between",
+      "end_marker",
+      "extract",
+      "filtering",
+      "start_marker",
+      "text"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:14:55.508624+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None",
+      "type(start_marker) == string",
+      "start_marker is not None",
+      "type(end_marker) == string",
+      "end_marker is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None",
+      "type(start_marker) == string",
+      "start_marker is not None",
+      "type(end_marker) == string",
+      "end_marker is not None"
+    ]
+  }
+}

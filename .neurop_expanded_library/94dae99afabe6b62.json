@@ -1,0 +1,135 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "94dae99afabe6b625c058ce2e5115ee888a8767dcace485a6312c4cfa534d4cb",
+    "semantic_fingerprint": "1b0e1efe315338cb12a2f44d4d0f6809f89fd4c6542c1944976ab3c533b14a11",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find smallest key >= given key.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter tree",
+        "name": "tree",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Return value of bst_ceiling",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def bst_ceiling(v0: dict, v1):\n\n    def ceiling_node(v2, v1):\n        if v2 is None:\n            return None\n        if v1 == v2['key']:\n            return v2['key']\n        if v1 > v2['key']:\n            return v3(v2['right'], v1)\n        v4 = v3(v2['left'], v1)\n        return v4 if v4 is not None else v2['key']\n    return v3(v0['root'], v1)",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T00:04:21.389127+00:00",
+    "description": "Find smallest key >= given key.",
+    "intent": "Find smallest key >= given key.",
+    "language": "python",
+    "name": "bst_ceiling",
+    "source_file": "neurop_forge/sources/binary_search_tree.py",
+    "source_line_end": 184,
+    "source_line_start": 173,
+    "tags": [
+      "bst",
+      "ceiling",
+      "filtering",
+      "key",
+      "tree"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:04:21.389144+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33925,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.595,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(tree) == dict",
+      "tree is not None",
+      "key is not None"
+    ],
+    "invariants": [],
+    "output_validators": [],
+    "postconditions": [],
+    "preconditions": [
+      "type(tree) == dict",
+      "tree is not None",
+      "key is not None"
+    ]
+  }
+}

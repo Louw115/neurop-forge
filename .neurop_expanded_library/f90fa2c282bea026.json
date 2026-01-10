@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f90fa2c282bea02651fe9cf722c7512eddb636236dc9226df72b094f146f461f",
+    "semantic_fingerprint": "0d910a2adeef3760aa0ff6b56aad6310c570ea97a390f7157ed0d84e2c0b9534",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Reverse bit order.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter bits",
+        "name": "bits",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of reverse_bits",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def reverse_bits(v0: int, v1: int) -> int:\n    v2 = 0\n    for v3 in range(v1):\n        if v0 & 1 << v3:\n            v2 |= 1 << v1 - 1 - v3\n    return v2",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T23:58:38.841634+00:00",
+    "description": "Reverse bit order.",
+    "intent": "Reverse bit order.",
+    "language": "python",
+    "name": "reverse_bits",
+    "source_file": "neurop_forge/sources/bitwise_utilities.py",
+    "source_line_end": 151,
+    "source_line_start": 145,
+    "tags": [
+      "arithmetic",
+      "bits",
+      "reverse",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:58:38.841648+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == integer",
+      "value is not None",
+      "type(bits) == integer",
+      "bits is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(value) == integer",
+      "value is not None",
+      "type(bits) == integer",
+      "bits is not None"
+    ]
+  }
+}

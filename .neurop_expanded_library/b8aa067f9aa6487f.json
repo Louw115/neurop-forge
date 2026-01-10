@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b8aa067f9aa6487f82278f4c879f60607b41a17765ab94b1fab819041785940f",
+    "semantic_fingerprint": "a36c3020f1d19ccbfa689c65b8e95b349b2e64bd1573725146ce18402d4f4d51",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Swap top two items.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter stack",
+        "name": "stack",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of stack_swap_top_two",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def stack_swap_top_two(v0: dict) -> dict:\n    if len(v0['items']) < 2:\n        return v0\n    v1 = list(v0['items'])\n    v1[-1], v1[-2] = (v1[-2], v1[-1])\n    return {'items': v1, 'size': v0['size']}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-09T23:58:38.798263+00:00",
+    "description": "Swap top two items.",
+    "intent": "Swap top two items.",
+    "language": "python",
+    "name": "stack_swap_top_two",
+    "source_file": "neurop_forge/sources/stack_utilities.py",
+    "source_line_end": 108,
+    "source_line_start": 102,
+    "tags": [
+      "dict_operation",
+      "stack",
+      "swap",
+      "top",
+      "two"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:58:38.798279+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(stack) == dict",
+      "stack is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(stack) == dict",
+      "stack is not None"
+    ]
+  }
+}

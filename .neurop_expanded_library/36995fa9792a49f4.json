@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic aggregation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "36995fa9792a49f49f138a859b57154646ee5e7080f525cb39888ab29f9929c4",
+    "semantic_fingerprint": "16bfdaca905e7ef1c0fd097005117806a100e2186ec5ea6feebca7e1737bc6e2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Collect values from resolved promises.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter promises",
+        "name": "promises",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of collect_values",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def collect_values(v0: list) -> list:\n    return [v1['value'] for v1 in v0 if v2(v1)]",
+  "metadata": {
+    "category": "aggregation",
+    "created_at": "2026-01-10T00:04:21.491934+00:00",
+    "description": "Collect values from resolved promises.",
+    "intent": "Collect values from resolved promises.",
+    "language": "python",
+    "name": "collect_values",
+    "source_file": "neurop_forge/sources/promise_utilities.py",
+    "source_line_end": 129,
+    "source_line_start": 127,
+    "tags": [
+      "aggregation",
+      "collect",
+      "promises",
+      "values"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:04:21.491950+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(promises) == list",
+      "promises is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(promises) == list",
+      "promises is not None"
+    ]
+  }
+}

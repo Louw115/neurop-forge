@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c1d2eaee34cf4abac11126feab0aa5c5e3f471d15cfecdfc8c3865b6ecdb4187",
+    "semantic_fingerprint": "68b6d449013ef80e2840854249bacc99e756214043bdff2bd1137ebed2fb753a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add ORDER BY clause.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter builder",
+        "name": "builder",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter column",
+        "name": "column",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter direction",
+        "name": "direction",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of sql_order_by",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def sql_order_by(v0: dict, v1: str, v2: str) -> dict:\n    v3 = f'ORDER BY {v1} {v2.upper()}'\n    return {**v0, 'clauses': v0['clauses'] + [v3]}",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T00:10:02.372317+00:00",
+    "description": "Add ORDER BY clause.",
+    "intent": "Add ORDER BY clause.",
+    "language": "python",
+    "name": "sql_order_by",
+    "source_file": "neurop_forge/sources/string_builder.py",
+    "source_line_end": 189,
+    "source_line_start": 186,
+    "tags": [
+      "arithmetic",
+      "builder",
+      "column",
+      "direction",
+      "order",
+      "sql"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:10:02.372341+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(builder) == dict",
+      "builder is not None",
+      "type(column) == string",
+      "column is not None",
+      "type(direction) == string",
+      "direction is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(builder) == dict",
+      "builder is not None",
+      "type(column) == string",
+      "column is not None",
+      "type(direction) == string",
+      "direction is not None"
+    ]
+  }
+}

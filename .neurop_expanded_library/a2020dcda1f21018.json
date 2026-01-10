@@ -1,0 +1,165 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a2020dcda1f21018b00e3b3ea3ac6cdc2ef1797274e9e645781b69ff2749eb9d",
+    "semantic_fingerprint": "b63fe5c9ecf38ec41fc4f23069218cc3d36c1ee842bd4c8ed1ca188d76a86b98",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Convert DMS to decimal degrees.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter degrees",
+        "name": "degrees",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter minutes",
+        "name": "minutes",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter seconds",
+        "name": "seconds",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter direction",
+        "name": "direction",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of dms_to_decimal",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def dms_to_decimal(v0: int, v1: int, v2: float, v3: str) -> float:\n    v4 = v0 + v1 / 60 + v2 / 3600\n    if v3 in ['S', 'W']:\n        v4 = -v4\n    return v4",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T00:29:29.179908+00:00",
+    "description": "Convert DMS to decimal degrees.",
+    "intent": "Convert DMS to decimal degrees.",
+    "language": "python",
+    "name": "dms_to_decimal",
+    "source_file": "neurop_forge/sources/coordinate_utilities.py",
+    "source_line_end": 154,
+    "source_line_start": 149,
+    "tags": [
+      "decimal",
+      "degrees",
+      "direction",
+      "dms",
+      "minutes",
+      "seconds",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:29:29.179932+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(degrees) == integer",
+      "degrees is not None",
+      "type(minutes) == integer",
+      "minutes is not None",
+      "type(seconds) == float",
+      "seconds is not None",
+      "type(direction) == string",
+      "direction is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(degrees) == integer",
+      "degrees is not None",
+      "type(minutes) == integer",
+      "minutes is not None",
+      "type(seconds) == float",
+      "seconds is not None",
+      "type(direction) == string",
+      "direction is not None"
+    ]
+  }
+}

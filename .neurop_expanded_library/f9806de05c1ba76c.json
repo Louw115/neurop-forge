@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f9806de05c1ba76c8aac7490e8ef5a296a8f5fef81dfe55a027e6f316ff02357",
+    "semantic_fingerprint": "2d4ee85edfebfc97d093fea6c5da2e7fdf172bb6bdc048deee158a88f66ea333",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate line slope.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter line",
+        "name": "line",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of line_slope",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def line_slope(v0: dict) -> float:\n    v1 = v0['p2']['x'] - v0['p1']['x']\n    if v1 == 0:\n        return float('inf')\n    return (v0['p2']['y'] - v0['p1']['y']) / v1",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T00:10:02.078481+00:00",
+    "description": "Calculate line slope.",
+    "intent": "Calculate line slope.",
+    "language": "python",
+    "name": "line_slope",
+    "source_file": "neurop_forge/sources/geometry_utilities.py",
+    "source_line_end": 83,
+    "source_line_start": 78,
+    "tags": [
+      "arithmetic",
+      "line",
+      "slope"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:10:02.078496+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(line) == dict",
+      "line is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(line) == dict",
+      "line is not None"
+    ]
+  }
+}

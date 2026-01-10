@@ -1,0 +1,139 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "52ffffc4d8f60b564acc706445deb06351798426aa9f837d09a0ac74c4dfacd1",
+    "semantic_fingerprint": "afd982652958dceb14103eb5b0ddb73e68df834b84234faa47c9619ff036ec61",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find index of element closest to target in sorted list.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter target",
+        "name": "target",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of find_closest",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def find_closest(v0: list, v1) -> int:\n    if not v0:\n        return -1\n    if v1 <= v0[0]:\n        return 0\n    if v1 >= v0[-1]:\n        return len(v0) - 1\n    v2, v3 = (0, len(v0) - 1)\n    while v2 < v3 - 1:\n        v4 = (v2 + v3) // 2\n        if v0[v4] == v1:\n            return v4\n        elif v0[v4] < v1:\n            v2 = v4\n        else:\n            v3 = v4\n    return v2 if abs(v0[v2] - v1) <= abs(v0[v3] - v1) else v3",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T00:10:02.055254+00:00",
+    "description": "Find index of element closest to target in sorted list.",
+    "intent": "Find index of element closest to target in sorted list.",
+    "language": "python",
+    "name": "find_closest",
+    "source_file": "neurop_forge/sources/search_algorithms.py",
+    "source_line_end": 247,
+    "source_line_start": 230,
+    "tags": [
+      "closest",
+      "filtering",
+      "find",
+      "items",
+      "target"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:10:02.055272+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "target is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "target is not None"
+    ]
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "89d25f2b74a8b7cb28166f3eaa3c26139d9a265f32a937c711706446b9dc1541",
+    "semantic_fingerprint": "8d1f0de8ceb2cd383de6cbe8570bd00750f74c13a3f0c48613b1466b4624f91a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Like reduce but returns all intermediate values.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter reducer",
+        "name": "reducer",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter initial",
+        "name": "initial",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of scan",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def scan(v0: list, v1, v2) -> list:\n    v3 = [v2]\n    v4 = v2\n    for v5 in v0:\n        v4 = v1(v4, v5)\n        v3.append(v4)\n    return v3",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T00:29:29.555062+00:00",
+    "description": "Like reduce but returns all intermediate values.",
+    "intent": "Like reduce but returns all intermediate values.",
+    "language": "python",
+    "name": "scan",
+    "source_file": "neurop_forge/sources/iterator_utilities.py",
+    "source_line_end": 79,
+    "source_line_start": 72,
+    "tags": [
+      "initial",
+      "items",
+      "list_operation",
+      "reducer",
+      "scan"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:29:29.555079+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "reducer is not None",
+      "initial is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "reducer is not None",
+      "initial is not None"
+    ]
+  }
+}

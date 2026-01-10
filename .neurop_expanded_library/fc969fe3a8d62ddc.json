@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "fc969fe3a8d62ddcb133bcbf7bd2410d399a2f96b4379265df010cafa44e470f",
+    "semantic_fingerprint": "a5e27bf499ec3dcc28e53394b24796ccc7090b8929d17fc13cfd9df77984ff75",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if user has any of the roles.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter user",
+        "name": "user",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter roles",
+        "name": "roles",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of has_any_role",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def has_any_role(v0: dict, v1: list) -> bool:\n    v2 = set(v0.get('roles', []))\n    return bool(v2 & set(v1))",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T00:40:57.757553+00:00",
+    "description": "Check if user has any of the roles.",
+    "intent": "Check if user has any of the roles.",
+    "language": "python",
+    "name": "has_any_role",
+    "source_file": "neurop_forge/sources/user_utilities.py",
+    "source_line_end": 78,
+    "source_line_start": 75,
+    "tags": [
+      "any",
+      "has",
+      "role",
+      "roles",
+      "user",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:40:57.757571+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(user) == dict",
+      "user is not None",
+      "type(roles) == list",
+      "roles is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(user) == dict",
+      "user is not None",
+      "type(roles) == list",
+      "roles is not None"
+    ]
+  }
+}

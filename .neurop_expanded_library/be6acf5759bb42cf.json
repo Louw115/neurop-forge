@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "be6acf5759bb42cf234f89c5a78296aff5f7779275d816d9db2846e59c0deda9",
+    "semantic_fingerprint": "c0be07f5820de2558d8cb4a29877abd46a098988012b70006426266bc6610b62",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if response is cacheable.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter cache_control",
+        "name": "cache_control",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter status_code",
+        "name": "status_code",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_cacheable",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_cacheable(v0: dict, v1: int) -> bool:\n    if 'no-store' in v0:\n        return False\n    if 'private' in v0:\n        return False\n    return v1 in [200, 203, 204, 206, 300, 301, 404, 405, 410, 414, 501]",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T00:29:29.262779+00:00",
+    "description": "Check if response is cacheable.",
+    "intent": "Check if response is cacheable.",
+    "language": "python",
+    "name": "is_cacheable",
+    "source_file": "neurop_forge/sources/cache_strategies.py",
+    "source_line_end": 160,
+    "source_line_start": 154,
+    "tags": [
+      "cache_control",
+      "cacheable",
+      "status_code",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:29:29.262806+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(cache_control) == dict",
+      "cache_control is not None",
+      "type(status_code) == integer",
+      "status_code is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(cache_control) == dict",
+      "cache_control is not None",
+      "type(status_code) == integer",
+      "status_code is not None"
+    ]
+  }
+}

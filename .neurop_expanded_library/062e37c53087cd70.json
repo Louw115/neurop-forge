@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "062e37c53087cd7045cb52ad2077b1d8b51b9ce0c91e4cf6fbac0253ab61e8bd",
+    "semantic_fingerprint": "d4da967783fc81ba4ef09dfb278958b36055d681713c2de36d6dbcd6a4ac47ee",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add deterministic noise to number.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter noise_factor",
+        "name": "noise_factor",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seed",
+        "name": "seed",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of apply_noise_to_number",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def apply_noise_to_number(v0: float, v1: float, v2: int) -> float:\n    v3 = v4.sha256(f'{v2}{v0}'.encode()).digest()\n    v5 = v3[0] / 255.0 * 2 - 1\n    return v0 + v0 * v1 * v5",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T00:29:29.315317+00:00",
+    "description": "Add deterministic noise to number.",
+    "intent": "Add deterministic noise to number.",
+    "language": "python",
+    "name": "apply_noise_to_number",
+    "source_file": "neurop_forge/sources/data_masking.py",
+    "source_line_end": 133,
+    "source_line_start": 129,
+    "tags": [
+      "apply",
+      "arithmetic",
+      "noise",
+      "noise_factor",
+      "number",
+      "seed",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:29:29.315344+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == float",
+      "value is not None",
+      "type(noise_factor) == float",
+      "noise_factor is not None",
+      "type(seed) == integer",
+      "seed is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(value) == float",
+      "value is not None",
+      "type(noise_factor) == float",
+      "noise_factor is not None",
+      "type(seed) == integer",
+      "seed is not None"
+    ]
+  }
+}

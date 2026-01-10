@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1e7b1b424822c89a39590d955492ba723dbe520e07402f525b756d9c35098a32",
+    "semantic_fingerprint": "8051d317af002c075c84d68c03b2cd7d46acb8134a4f1fb13100c9a1e9ea0536",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add item to scalable bloom filter.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter bloom",
+        "name": "bloom",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter item",
+        "name": "item",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of scalable_bloom_add",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def scalable_bloom_add(v0: dict, v1: str) -> dict:\n    v2 = v0['filters'][-1]\n    if v3(v2) > 0.5:\n        v4 = v2['size'] * v0['growth_factor']\n        v5 = v6(v4, v4)\n        v7 = v8(v4, v5)\n        v7 = v9(v7, v1)\n        return {'filters': v0['filters'] + [v7], 'growth_factor': v0['growth_factor'], 'false_positive_rate': v0['false_positive_rate'], 'total_count': v0['total_count'] + 1}\n    v10 = v9(v2, v1)\n    return {'filters': v0['filters'][:-1] + [v10], 'growth_factor': v0['growth_factor'], 'false_positive_rate': v0['false_positive_rate'], 'total_count': v0['total_count'] + 1}",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T23:58:39.001452+00:00",
+    "description": "Add item to scalable bloom filter.",
+    "intent": "Add item to scalable bloom filter.",
+    "language": "python",
+    "name": "scalable_bloom_add",
+    "source_file": "neurop_forge/sources/bloom_filter.py",
+    "source_line_end": 196,
+    "source_line_start": 176,
+    "tags": [
+      "add",
+      "arithmetic",
+      "bloom",
+      "item",
+      "scalable"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:58:39.001472+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(bloom) == dict",
+      "bloom is not None",
+      "type(item) == string",
+      "item is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(bloom) == dict",
+      "bloom is not None",
+      "type(item) == string",
+      "item is not None"
+    ]
+  }
+}

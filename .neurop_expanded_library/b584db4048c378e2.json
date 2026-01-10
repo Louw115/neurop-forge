@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b584db4048c378e2af089172f2d752c85c6afa7bb3d7a045383b3d35dfbd1134",
+    "semantic_fingerprint": "cfdfef04c5c438ce79029e6be16321ef379a1c6066d41380b2fe72cabd3c37eb",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate deterministic float [0, 1).",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seed",
+        "name": "seed",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of random_float",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def random_float(v0: int) -> float:\n    v1 = v2.sha256(str(v0).encode()).digest()\n    return int.from_bytes(v1[:8], 'big') / 2 ** 64",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T00:20:23.149493+00:00",
+    "description": "Generate deterministic float [0, 1).",
+    "intent": "Generate deterministic float [0, 1).",
+    "language": "python",
+    "name": "random_float",
+    "source_file": "neurop_forge/sources/random_utilities.py",
+    "source_line_end": 24,
+    "source_line_start": 21,
+    "tags": [
+      "arithmetic",
+      "float",
+      "random",
+      "seed"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:20:23.149518+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(seed) == integer",
+      "seed is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(seed) == integer",
+      "seed is not None"
+    ]
+  }
+}

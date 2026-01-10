@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c532b56e4a4dd1692b21998920793bce78c80bdc53ed8bcc03cf685f24404282",
+    "semantic_fingerprint": "c7355ecaf91033c039a911ba57a394ec064fb52d41d8311cf55b05d27b0f01f3",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate polygon area using shoelace formula.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter vertices",
+        "name": "vertices",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of polygon_area",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def polygon_area(v0: list) -> float:\n    v1 = len(v0)\n    if v1 < 3:\n        return 0\n    v2 = 0\n    for v3 in range(v1):\n        v4 = (v3 + 1) % v1\n        v2 += v0[v3]['x'] * v0[v4]['y']\n        v2 -= v0[v4]['x'] * v0[v3]['y']\n    return abs(v2) / 2",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T00:10:02.101239+00:00",
+    "description": "Calculate polygon area using shoelace formula.",
+    "intent": "Calculate polygon area using shoelace formula.",
+    "language": "python",
+    "name": "polygon_area",
+    "source_file": "neurop_forge/sources/geometry_utilities.py",
+    "source_line_end": 189,
+    "source_line_start": 179,
+    "tags": [
+      "area",
+      "arithmetic",
+      "polygon",
+      "vertices"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:10:02.101257+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(vertices) == list",
+      "vertices is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(vertices) == list",
+      "vertices is not None"
+    ]
+  }
+}

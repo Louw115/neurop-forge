@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "57672f77994d64d41609278fa113b5321c9d953f6cecc94076ed68ed984a8061",
+    "semantic_fingerprint": "8f83d0dfb73355a38ec69d6325078f0c5c9c42a3ad52ec29a63867f207daa0b9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get sibling nodes.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter root",
+        "name": "root",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter node_id",
+        "name": "node_id",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of get_siblings",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_siblings(v0: dict, v1: str) -> list:\n    v2 = v3(v0, v1)\n    if len(v2) <= 1:\n        return []\n    v4 = v2[-2]\n    v5 = v6(v0, v4)\n    return [v7 for v7 in v5.get('children', []) if v7['id'] != v1]",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-09T23:58:38.664176+00:00",
+    "description": "Get sibling nodes.",
+    "intent": "Get sibling nodes.",
+    "language": "python",
+    "name": "get_siblings",
+    "source_file": "neurop_forge/sources/tree_utilities.py",
+    "source_line_end": 222,
+    "source_line_start": 215,
+    "tags": [
+      "filtering",
+      "get",
+      "node_id",
+      "root",
+      "siblings"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:58:38.664199+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(root) == dict",
+      "root is not None",
+      "type(node_id) == string",
+      "node_id is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(root) == dict",
+      "root is not None",
+      "type(node_id) == string",
+      "node_id is not None"
+    ]
+  }
+}

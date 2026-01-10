@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a47cd70acfef289acccfadce01486aa3d0c38aade8619702924e53e306b90e90",
+    "semantic_fingerprint": "46d660c301240b4553d222047acff9ce15d8ae664b25a2e01e6af9e09e6acc54",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate weighted average rating.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter ratings",
+        "name": "ratings",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter weights",
+        "name": "weights",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_weighted_average",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_weighted_average(v0: list, v1: list) -> float:\n    if not v0 or not v1:\n        return 0\n    v2 = sum(v1)\n    if v2 == 0:\n        return 0\n    return round(sum((v3 * v4 for v3, v4 in zip(v0, v1))) / v2, 2)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T00:43:57.552615+00:00",
+    "description": "Calculate weighted average rating.",
+    "intent": "Calculate weighted average rating.",
+    "language": "python",
+    "name": "calculate_weighted_average",
+    "source_file": "neurop_forge/sources/review_utilities.py",
+    "source_line_end": 54,
+    "source_line_start": 47,
+    "tags": [
+      "arithmetic",
+      "average",
+      "calculate",
+      "ratings",
+      "weighted",
+      "weights"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:43:57.552641+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(ratings) == list",
+      "ratings is not None",
+      "type(weights) == list",
+      "weights is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(ratings) == list",
+      "ratings is not None",
+      "type(weights) == list",
+      "weights is not None"
+    ]
+  }
+}

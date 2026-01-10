@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b14fe999df5947dba9e9f04c105b975a54086f4abff7fc49b0fe82e4a07b2dd0",
+    "semantic_fingerprint": "8535648958ce0a72d31c3d734e5882e8837c7ae397342edc4fe075bc644c5ce4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Subtract two vectors.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter v1",
+        "name": "v1",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter v2",
+        "name": "v2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of vector_subtract",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def vector_subtract(v0: dict, v1: dict) -> dict:\n    v2 = [v3 - v4 for v3, v4 in zip(v0['values'], v1['values'])]\n    return v5(v2)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T23:58:38.462738+00:00",
+    "description": "Subtract two vectors.",
+    "intent": "Subtract two vectors.",
+    "language": "python",
+    "name": "vector_subtract",
+    "source_file": "neurop_forge/sources/vector_utilities.py",
+    "source_line_end": 26,
+    "source_line_start": 23,
+    "tags": [
+      "arithmetic",
+      "subtract",
+      "v1",
+      "v2",
+      "vector"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:58:38.462757+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(v1) == dict",
+      "v1 is not None",
+      "type(v2) == dict",
+      "v2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(v1) == dict",
+      "v1 is not None",
+      "type(v2) == dict",
+      "v2 is not None"
+    ]
+  }
+}

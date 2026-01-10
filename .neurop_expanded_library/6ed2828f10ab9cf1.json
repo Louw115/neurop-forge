@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "6ed2828f10ab9cf13ab5edb84cb74146bb19b5213b587d1adc1cbcd0247428f1",
+    "semantic_fingerprint": "82823f36319583d0250698614fb5fcce6e2a3641ce7fb6b7c0f59f240249a9d1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate effective tax rate.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter subtotal",
+        "name": "subtotal",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter tax_amount",
+        "name": "tax_amount",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of get_effective_rate",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_effective_rate(v0: float, v1: float) -> float:\n    if v0 == 0:\n        return 0\n    return round(v1 / v0 * 100, 4)",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T00:40:57.539176+00:00",
+    "description": "Calculate effective tax rate.",
+    "intent": "Calculate effective tax rate.",
+    "language": "python",
+    "name": "get_effective_rate",
+    "source_file": "neurop_forge/sources/tax_utilities.py",
+    "source_line_end": 63,
+    "source_line_start": 59,
+    "tags": [
+      "effective",
+      "filtering",
+      "get",
+      "rate",
+      "subtotal",
+      "tax_amount"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:40:57.539192+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(subtotal) == float",
+      "subtotal is not None",
+      "type(tax_amount) == float",
+      "tax_amount is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(subtotal) == float",
+      "subtotal is not None",
+      "type(tax_amount) == float",
+      "tax_amount is not None"
+    ]
+  }
+}

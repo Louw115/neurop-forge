@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7ed8ca3b1a5edf40c2ea34bfd4d0d21c0344b6963d87fbd18a9c45a6b51c1a21",
+    "semantic_fingerprint": "c85f080b6c835200dfd8eb95c2863d85115734e2249a22db7c97e891c0534fd7",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate social media handle format.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter handle",
+        "name": "handle",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_valid_handle",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_valid_handle(v0: str) -> bool:\n    if v0.startswith('@'):\n        v0 = v0[1:]\n    return bool(v1.match('^[a-zA-Z0-9_]{1,30}$', v0))",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T00:29:29.124270+00:00",
+    "description": "Validate social media handle format.",
+    "intent": "Validate social media handle format.",
+    "language": "python",
+    "name": "is_valid_handle",
+    "source_file": "neurop_forge/sources/social_utilities.py",
+    "source_line_end": 52,
+    "source_line_start": 48,
+    "tags": [
+      "handle",
+      "valid",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:29:29.124293+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(handle) == string",
+      "handle is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(handle) == string",
+      "handle is not None"
+    ]
+  }
+}

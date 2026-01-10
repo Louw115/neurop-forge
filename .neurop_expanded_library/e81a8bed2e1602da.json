@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e81a8bed2e1602da1e693a9f7c715fad2dd85472826ffa50fcf3b53427c39f14",
+    "semantic_fingerprint": "18db29378da76801cc96d43e620efef6fd4781a9d573ae572d19d8b719446b33",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Round time to nearest hour.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter time",
+        "name": "time",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of round_to_hour",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def round_to_hour(v0: dict) -> dict:\n    v1 = v0['hours'] * 60 + v0['minutes']\n    if v0['minutes'] >= 30:\n        v1 = (v0['hours'] + 1) * 60\n    return {'hours': v1 // 60 % 24, 'minutes': 0, 'seconds': 0}",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T00:14:55.448552+00:00",
+    "description": "Round time to nearest hour.",
+    "intent": "Round time to nearest hour.",
+    "language": "python",
+    "name": "round_to_hour",
+    "source_file": "neurop_forge/sources/time_utilities.py",
+    "source_line_end": 166,
+    "source_line_start": 161,
+    "tags": [
+      "arithmetic",
+      "hour",
+      "round",
+      "time"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:14:55.448576+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(time) == dict",
+      "time is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(time) == dict",
+      "time is not None"
+    ]
+  }
+}

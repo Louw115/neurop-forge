@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8ae04dc8cf0f038b3521f865073cb7cad59398fc1a51db29c5f07c87b9dcc10d",
+    "semantic_fingerprint": "78789ce26790bc241951e220fde7c09663aed913439e9dc78ce0182ebbca91e4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Pop from min stack.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter stack",
+        "name": "stack",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of min_stack_pop",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def min_stack_pop(v0: dict) -> dict:\n    if not v0['items']:\n        return {'stack': v0, 'item': None}\n    v1 = list(v0['items'])\n    v2 = list(v0['mins'])\n    v3 = v1.pop()\n    v2.pop()\n    return {'stack': {'items': v1, 'mins': v2}, 'item': v3}",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T23:58:38.805217+00:00",
+    "description": "Pop from min stack.",
+    "intent": "Pop from min stack.",
+    "language": "python",
+    "name": "min_stack_pop",
+    "source_file": "neurop_forge/sources/stack_utilities.py",
+    "source_line_end": 169,
+    "source_line_start": 158,
+    "tags": [
+      "arithmetic",
+      "min",
+      "pop",
+      "stack"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:58:38.805234+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(stack) == dict",
+      "stack is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(stack) == dict",
+      "stack is not None"
+    ]
+  }
+}

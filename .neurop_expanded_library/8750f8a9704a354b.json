@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8750f8a9704a354bb7b96dccda2b5aa8c21c58cc1a50e7f56c117c1ec5d3ddb0",
+    "semantic_fingerprint": "5ba1611d8a2f532542c37b8943e41d75816f814d897a2c0095d1a04888c93fef",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Search for a key in trie.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter trie",
+        "name": "trie",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of trie_search",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def trie_search(v0: dict, v1: str) -> dict:\n    v2 = v0['root']\n    for v3 in v1:\n        if v3 not in v2['children']:\n            return {'found': False, 'value': None}\n        v2 = v2['children'][v3]\n    if v2['is_end']:\n        return {'found': True, 'value': v2['value']}\n    return {'found': False, 'value': None}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-09T23:58:38.954342+00:00",
+    "description": "Search for a key in trie.",
+    "intent": "Search for a key in trie.",
+    "language": "python",
+    "name": "trie_search",
+    "source_file": "neurop_forge/sources/trie_utilities.py",
+    "source_line_end": 54,
+    "source_line_start": 45,
+    "tags": [
+      "dict_operation",
+      "key",
+      "search",
+      "trie"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:58:38.954359+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(trie) == dict",
+      "trie is not None",
+      "type(key) == string",
+      "key is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(trie) == dict",
+      "trie is not None",
+      "type(key) == string",
+      "key is not None"
+    ]
+  }
+}

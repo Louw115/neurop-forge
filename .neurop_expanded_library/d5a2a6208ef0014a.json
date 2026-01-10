@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d5a2a6208ef0014aa3237bf8a18e639f7301d7f9767ca670e310c7888322146f",
+    "semantic_fingerprint": "732bda79186f8a5e8027255364a9a52b7955258aa0ec440e2169645294b2e7a4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add item to counting bloom filter.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter bloom",
+        "name": "bloom",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter item",
+        "name": "item",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of counting_bloom_add",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def counting_bloom_add(v0: dict, v1: str) -> dict:\n    v2 = list(v0['counters'])\n    for v3 in range(v0['num_hashes']):\n        v4 = _hash_item(v1, v3, v0['size'])\n        v2[v4] += 1\n    return {'counters': v2, 'size': v0['size'], 'num_hashes': v0['num_hashes'], 'count': v0['count'] + 1}",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T23:58:38.993447+00:00",
+    "description": "Add item to counting bloom filter.",
+    "intent": "Add item to counting bloom filter.",
+    "language": "python",
+    "name": "counting_bloom_add",
+    "source_file": "neurop_forge/sources/bloom_filter.py",
+    "source_line_end": 138,
+    "source_line_start": 127,
+    "tags": [
+      "add",
+      "arithmetic",
+      "bloom",
+      "counting",
+      "item"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:58:38.993465+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(bloom) == dict",
+      "bloom is not None",
+      "type(item) == string",
+      "item is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(bloom) == dict",
+      "bloom is not None",
+      "type(item) == string",
+      "item is not None"
+    ]
+  }
+}

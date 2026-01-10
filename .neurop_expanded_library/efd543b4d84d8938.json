@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "efd543b4d84d89388f2ccbffee59e13ae1a0faafc1f82c785b456c95ebb6f035",
+    "semantic_fingerprint": "b3ed61dde79229c9b241aa8b3aba8d8e9f30c4e8e84a8a84f4ec7ba5983d5121",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Convert RGB to HSV.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter r",
+        "name": "r",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter g",
+        "name": "g",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter b",
+        "name": "b",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of rgb_to_hsv",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def rgb_to_hsv(v0: int, v1: int, v2: int) -> dict:\n    v3 = v0 / 255\n    v4 = v1 / 255\n    v5 = v2 / 255\n    v6 = max(v3, v4, v5)\n    v7 = min(v3, v4, v5)\n    v8 = v6\n    v9 = v6 - v7\n    v10 = 0 if v6 == 0 else v9 / v6\n    if v6 == v7:\n        v11 = 0\n    elif v6 == v3:\n        v11 = ((v4 - v5) / v9 + (6 if v4 < v5 else 0)) / 6\n    elif v6 == v4:\n        v11 = ((v5 - v3) / v9 + 2) / 6\n    else:\n        v11 = ((v3 - v4) / v9 + 4) / 6\n    return {'h': round(v11 * 360), 's': round(v10 * 100), 'v': round(v8 * 100)}",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T00:14:55.643093+00:00",
+    "description": "Convert RGB to HSV.",
+    "intent": "Convert RGB to HSV.",
+    "language": "python",
+    "name": "rgb_to_hsv",
+    "source_file": "neurop_forge/sources/color_math.py",
+    "source_line_end": 100,
+    "source_line_start": 81,
+    "tags": [
+      "b",
+      "g",
+      "hsv",
+      "r",
+      "rgb",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:14:55.643132+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(r) == integer",
+      "r is not None",
+      "type(g) == integer",
+      "g is not None",
+      "type(b) == integer",
+      "b is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(r) == integer",
+      "r is not None",
+      "type(g) == integer",
+      "g is not None",
+      "type(b) == integer",
+      "b is not None"
+    ]
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "bc179345091f48ebc6f3f5cd7545aec55f21ee0d80857142b141ff03089841a8",
+    "semantic_fingerprint": "105110953fd52cd64764b0919e45b54132900f5392e4a66b3c72934b23b0d5ba",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check for sequential characters.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter password",
+        "name": "password",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter length",
+        "name": "length",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of has_sequential_chars",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def has_sequential_chars(v0: str, v1: int) -> bool:\n    v2 = 'abcdefghijklmnopqrstuvwxyz0123456789'\n    v3 = v0.lower()\n    for v4 in range(len(v2) - v1 + 1):\n        v5 = v2[v4:v4 + v1]\n        if v5 in v3 or v5[::-1] in v3:\n            return True\n    return False",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T00:40:57.116898+00:00",
+    "description": "Check for sequential characters.",
+    "intent": "Check for sequential characters.",
+    "language": "python",
+    "name": "has_sequential_chars",
+    "source_file": "neurop_forge/sources/password_utilities.py",
+    "source_line_end": 134,
+    "source_line_start": 126,
+    "tags": [
+      "chars",
+      "has",
+      "length",
+      "password",
+      "sequential",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:40:57.116926+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(password) == string",
+      "password is not None",
+      "type(length) == integer",
+      "length is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(password) == string",
+      "password is not None",
+      "type(length) == integer",
+      "length is not None"
+    ]
+  }
+}

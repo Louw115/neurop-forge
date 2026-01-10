@@ -1,0 +1,131 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "84c14f850673925b69fc3b226f5a3c1a5ee8fe505ecbb989b449d909e9e70cc1",
+    "semantic_fingerprint": "88cb6d8905c33a06b72b6db1ca5f5d54d173fc0b4d449cc36706560603b8c004",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Guess country from ZIP code format.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter zip_code",
+        "name": "zip_code",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_country_from_zip",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_country_from_zip(v0: str) -> str:\n    if v1.match('^\\\\d{5}(-\\\\d{4})?$', v0):\n        return 'US'\n    if v1.match('^[A-Z]\\\\d[A-Z]\\\\s?\\\\d[A-Z]\\\\d$', v0, v1.IGNORECASE):\n        return 'CA'\n    if v1.match('^[A-Z]{1,2}\\\\d{1,2}[A-Z]?\\\\s?\\\\d[A-Z]{2}$', v0, v1.IGNORECASE):\n        return 'GB'\n    return ''",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T00:40:57.408765+00:00",
+    "description": "Guess country from ZIP code format.",
+    "intent": "Guess country from ZIP code format.",
+    "language": "python",
+    "name": "get_country_from_zip",
+    "source_file": "neurop_forge/sources/address_utilities.py",
+    "source_line_end": 173,
+    "source_line_start": 165,
+    "tags": [
+      "country",
+      "filtering",
+      "from",
+      "get",
+      "zip",
+      "zip_code"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:40:57.408780+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(zip_code) == string",
+      "zip_code is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(zip_code) == string",
+      "zip_code is not None"
+    ]
+  }
+}

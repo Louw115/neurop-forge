@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "6a6e86785b5fee0fcd247bdbb2df5895b7ab69c197549076e8b75a85bb72a84a",
+    "semantic_fingerprint": "2d40f1898410d915be9ae71f45d99a72a129efe7b86f9ef513f71274db5955e8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate Dice coefficient.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter set1",
+        "name": "set1",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter set2",
+        "name": "set2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of set_dice_coefficient",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def set_dice_coefficient(v0: list, v1: list) -> float:\n    v2, v3 = (set(v0), set(v1))\n    v4 = len(v2 & v3)\n    v5 = len(v2) + len(v3)\n    return 2 * v4 / v5 if v5 > 0 else 0.0",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T23:58:38.730470+00:00",
+    "description": "Calculate Dice coefficient.",
+    "intent": "Calculate Dice coefficient.",
+    "language": "python",
+    "name": "set_dice_coefficient",
+    "source_file": "neurop_forge/sources/set_utilities.py",
+    "source_line_end": 154,
+    "source_line_start": 149,
+    "tags": [
+      "arithmetic",
+      "coefficient",
+      "dice",
+      "set",
+      "set1",
+      "set2"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:58:38.730485+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(set1) == list",
+      "set1 is not None",
+      "type(set2) == list",
+      "set2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(set1) == list",
+      "set1 is not None",
+      "type(set2) == list",
+      "set2 is not None"
+    ]
+  }
+}

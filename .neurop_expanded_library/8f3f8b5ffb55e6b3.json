@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8f3f8b5ffb55e6b3a25f50d18ece9ded0c5c0c67c39cac5a85623d0a97a38f3b",
+    "semantic_fingerprint": "0a09af77904ccfdb10ede8ac5292d4aacc0c91b02cc582ae36515e569964b906",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract token from Bearer header.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter header",
+        "name": "header",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of split_bearer_token",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def split_bearer_token(v0: str) -> str:\n    if v0.startswith('Bearer '):\n        return v0[7:]\n    return ''",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T00:40:57.728648+00:00",
+    "description": "Extract token from Bearer header.",
+    "intent": "Extract token from Bearer header.",
+    "language": "python",
+    "name": "split_bearer_token",
+    "source_file": "neurop_forge/sources/token_utilities.py",
+    "source_line_end": 93,
+    "source_line_start": 89,
+    "tags": [
+      "bearer",
+      "header",
+      "split",
+      "string_manipulation",
+      "token"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:40:57.728665+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(header) == string",
+      "header is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(header) == string",
+      "header is not None"
+    ]
+  }
+}

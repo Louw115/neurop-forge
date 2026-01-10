@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3897b937d47546be23a3b0ca522921f14f4c166c3342d5491e5f4d2d47aead93",
+    "semantic_fingerprint": "04cf8063de1c45d411b6ccdb35457a6ee5316c1fdcddbb0c53dcad1ad8367849",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Flatten nested JSON to single level.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter data",
+        "name": "data",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter separator",
+        "name": "separator",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of flatten_json",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def flatten_json(v0: dict, v1: str) -> dict:\n    v2 = {}\n\n    def flatten(v3, v4):\n        if isinstance(v3, dict):\n            for v5, v6 in v3.items():\n                v7 = f'{v4}{v1}{v5}' if v4 else v5\n                v8(v6, v7)\n        elif isinstance(v3, list):\n            for v9, v6 in enumerate(v3):\n                v7 = f'{v4}{v1}{v9}' if v4 else str(v9)\n                v8(v6, v7)\n        else:\n            v2[v4] = v3\n    v8(v0, '')\n    return v2",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T00:14:55.571169+00:00",
+    "description": "Flatten nested JSON to single level.",
+    "intent": "Flatten nested JSON to single level.",
+    "language": "python",
+    "name": "flatten_json",
+    "source_file": "neurop_forge/sources/json_utilities.py",
+    "source_line_end": 126,
+    "source_line_start": 111,
+    "tags": [
+      "data",
+      "flatten",
+      "json",
+      "list_operation",
+      "separator"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:14:55.571198+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(data) == dict",
+      "data is not None",
+      "type(separator) == string",
+      "separator is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(data) == dict",
+      "data is not None",
+      "type(separator) == string",
+      "separator is not None"
+    ]
+  }
+}

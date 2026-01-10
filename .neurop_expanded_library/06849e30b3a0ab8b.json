@@ -1,0 +1,138 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "06849e30b3a0ab8ba86317f082c41bd9d1e9bf50a31abc22072b5ecf250e6d27",
+    "semantic_fingerprint": "e6eacaeb114951df3c694d4377bc875767fd36f5b0d9aa52d934be1f0a80b074",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Remove element from its set.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter ds",
+        "name": "ds",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter element",
+        "name": "element",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of remove_element",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def remove_element(v0: dict, v1) -> dict:\n    if v1 not in v0['parent']:\n        return v0\n    v2, v0 = v3(v0, v1)\n    if v2 == v1:\n        return v0\n    v4 = dict(v0['parent'])\n    del v4[v1]\n    v5 = dict(v0['size'])\n    v5[v2] -= 1\n    v6 = dict(v0['rank'])\n    if v1 in v6:\n        del v6[v1]\n    if v1 in v5:\n        del v5[v1]\n    return {'parent': v4, 'rank': v6, 'size': v5, 'count': v0['count']}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T00:04:21.561794+00:00",
+    "description": "Remove element from its set.",
+    "intent": "Remove element from its set.",
+    "language": "python",
+    "name": "remove_element",
+    "source_file": "neurop_forge/sources/disjoint_set.py",
+    "source_line_end": 135,
+    "source_line_start": 114,
+    "tags": [
+      "dict_operation",
+      "ds",
+      "element",
+      "remove"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:04:21.561818+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(ds) == dict",
+      "ds is not None",
+      "element is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(ds) == dict",
+      "ds is not None",
+      "element is not None"
+    ]
+  }
+}

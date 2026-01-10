@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c1e5fe7fc66f480ae33db83ff756b512badacf49684a7b3497654e3f13c00b9e",
+    "semantic_fingerprint": "f3698da59a0bfb0a2b814fabf6c45891a2e8e41aa8c761fbbf2ec75a6e9d1b28",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if key is in cache.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter cache",
+        "name": "cache",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of lru_contains",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def lru_contains(v0: dict, v1: str) -> bool:\n    return v1 in v0['items']",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T00:04:21.433392+00:00",
+    "description": "Check if key is in cache.",
+    "intent": "Check if key is in cache.",
+    "language": "python",
+    "name": "lru_contains",
+    "source_file": "neurop_forge/sources/lru_cache.py",
+    "source_line_end": 84,
+    "source_line_start": 82,
+    "tags": [
+      "cache",
+      "contains",
+      "key",
+      "lru",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:04:21.433421+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(cache) == dict",
+      "cache is not None",
+      "type(key) == string",
+      "key is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(cache) == dict",
+      "cache is not None",
+      "type(key) == string",
+      "key is not None"
+    ]
+  }
+}

@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic comparison block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2b78eb2d796f34e68d89d55afe7cbe2af0f9d6ca1682ae27fba1098fcc102729",
+    "semantic_fingerprint": "f8878da3019647ac3ed8dea5088952ef95d773b0d53badb1fdfd2872b0f159c9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if MIME type matches Accept header.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter mime_type",
+        "name": "mime_type",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter accept",
+        "name": "accept",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of matches_accept",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def matches_accept(v0: str, v1: str) -> bool:\n    v2 = [v3.strip().split(';')[0] for v3 in v1.split(',')]\n    for v3 in v2:\n        if v3 == '*/*':\n            return True\n        if v3.endswith('/*') and v0.startswith(v3[:-1]):\n            return True\n        if v3 == v0:\n            return True\n    return False",
+  "metadata": {
+    "category": "comparison",
+    "created_at": "2026-01-10T00:40:57.086262+00:00",
+    "description": "Check if MIME type matches Accept header.",
+    "intent": "Check if MIME type matches Accept header.",
+    "language": "python",
+    "name": "matches_accept",
+    "source_file": "neurop_forge/sources/mime_utilities.py",
+    "source_line_end": 173,
+    "source_line_start": 163,
+    "tags": [
+      "accept",
+      "comparison",
+      "matches",
+      "mime_type"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:40:57.086279+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.37,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.8,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(mime_type) == string",
+      "mime_type is not None",
+      "type(accept) == string",
+      "accept is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(mime_type) == string",
+      "mime_type is not None",
+      "type(accept) == string",
+      "accept is not None"
+    ]
+  }
+}

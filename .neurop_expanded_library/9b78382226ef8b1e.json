@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9b78382226ef8b1eff1b67c46cddfabf53a5b29b11d4cc397a186fc49e49f88a",
+    "semantic_fingerprint": "264a8aaf33d0d055d14d24631ada0b7262cb510df8a9aba0e941962d99cdc33c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Convert integer to English words.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter number",
+        "name": "number",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of int_to_words",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def int_to_words(v0: int) -> str:\n    if v0 == 0:\n        return 'zero'\n    v1 = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen']\n    v2 = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety']\n    v3 = ['', 'thousand', 'million', 'billion', 'trillion']\n    if v0 < 0:\n        return 'negative ' + v4(-v0)\n\n    def under_thousand(v5):\n        if v5 < 20:\n            return v1[v5]\n        if v5 < 100:\n            return v2[v5 // 10] + ('-' + v1[v5 % 10] if v5 % 10 else '')\n        return v1[v5 // 100] + ' hundred' + (' ' + v6(v5 % 100) if v5 % 100 else '')\n    v7 = []\n    v8 = 0\n    while v0 > 0:\n        v9 = v0 % 1000\n        if v9:\n            v10 = v6(v9)\n            if v3[v8]:\n                v10 += ' ' + v3[v8]\n            v7.insert(0, v10)\n        v0 //= 1000\n        v8 += 1\n    return ' '.join(v7)",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T00:10:02.167438+00:00",
+    "description": "Convert integer to English words.",
+    "intent": "Convert integer to English words.",
+    "language": "python",
+    "name": "int_to_words",
+    "source_file": "neurop_forge/sources/base_conversion.py",
+    "source_line_end": 174,
+    "source_line_start": 146,
+    "tags": [
+      "int",
+      "number",
+      "transformation",
+      "words"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:10:02.167463+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(number) == integer",
+      "number is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(number) == integer",
+      "number is not None"
+    ]
+  }
+}

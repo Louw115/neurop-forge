@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a23ab46aaec19469f23889d6d7bbed09272e060da8bcb5338a03e6bf59e84089",
+    "semantic_fingerprint": "35c77232fe26a03039fe83f6a3f94f8e1b9dc8a93f98529dd9b33932a5c26803",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find gaps between intervals within bounds.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter intervals",
+        "name": "intervals",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter bounds",
+        "name": "bounds",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of find_gaps",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def find_gaps(v0: list, v1: dict) -> list:\n    if not v0:\n        return [v1]\n    v2 = v3(v0)\n    v4 = []\n    if v2[0]['start'] > v1['start']:\n        v4.append(v5(v1['start'], v2[0]['start']))\n    for v6 in range(len(v2) - 1):\n        v4.append(v5(v2[v6]['end'], v2[v6 + 1]['start']))\n    if v2[-1]['end'] < v1['end']:\n        v4.append(v5(v2[-1]['end'], v1['end']))\n    return v4",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-09T23:58:38.882927+00:00",
+    "description": "Find gaps between intervals within bounds.",
+    "intent": "Find gaps between intervals within bounds.",
+    "language": "python",
+    "name": "find_gaps",
+    "source_file": "neurop_forge/sources/interval_utilities.py",
+    "source_line_end": 147,
+    "source_line_start": 135,
+    "tags": [
+      "bounds",
+      "filtering",
+      "find",
+      "gaps",
+      "intervals"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:58:38.882950+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(intervals) == list",
+      "intervals is not None",
+      "type(bounds) == dict",
+      "bounds is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(intervals) == list",
+      "intervals is not None",
+      "type(bounds) == dict",
+      "bounds is not None"
+    ]
+  }
+}

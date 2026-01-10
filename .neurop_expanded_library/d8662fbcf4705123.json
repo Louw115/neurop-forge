@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d8662fbcf4705123fa8a599cd7554de39bdc42dca72648dbda62a8b154d4627e",
+    "semantic_fingerprint": "28d42cf36a4fcb5f425c94812e051f73f5f3c27f8999e34775affe29471c15c6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find best matching candidate using normalized Levenshtein.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter query",
+        "name": "query",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter candidates",
+        "name": "candidates",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of find_best_match",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def find_best_match(v0: str, v1: list) -> dict:\n    if not v1:\n        return {'match': None, 'score': 0.0}\n    v2 = None\n    v3 = 0.0\n    for v4 in v1:\n        v5 = v6(v0.lower(), v4.lower())\n        if v5 > v3:\n            v3 = v5\n            v2 = v4\n    return {'match': v2, 'score': v3}",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-09T23:58:38.934022+00:00",
+    "description": "Find best matching candidate using normalized Levenshtein.",
+    "intent": "Find best matching candidate using normalized Levenshtein.",
+    "language": "python",
+    "name": "find_best_match",
+    "source_file": "neurop_forge/sources/string_distance.py",
+    "source_line_end": 218,
+    "source_line_start": 207,
+    "tags": [
+      "best",
+      "candidates",
+      "filtering",
+      "find",
+      "match",
+      "query"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:58:38.934039+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(query) == string",
+      "query is not None",
+      "type(candidates) == list",
+      "candidates is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(query) == string",
+      "query is not None",
+      "type(candidates) == list",
+      "candidates is not None"
+    ]
+  }
+}

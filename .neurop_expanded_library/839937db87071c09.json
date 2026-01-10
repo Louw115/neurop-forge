@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "839937db87071c09723ba437fa71da367b4ca0ffc8d07146ff9514e6c13cfb92",
+    "semantic_fingerprint": "f8dfdecacde9b1d344388742cd0c9f833f55113ef038e945d66b3c57647d2fb8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add value to running median state.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter state",
+        "name": "state",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of running_median_add",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def running_median_add(v0: dict, v1: float) -> dict:\n    v2 = v0['low_heap']\n    v3 = v0['high_heap']\n    if v4(v2) or v1 <= v5(v2):\n        v2 = v6(v2, v1)\n    else:\n        v3 = v6(v3, v1)\n    if v7(v2) > v7(v3) + 1:\n        v8 = v9(v2)\n        v2 = v8['heap']\n        v3 = v6(v3, v8['value'])\n    elif v7(v3) > v7(v2):\n        v8 = v9(v3)\n        v3 = v8['heap']\n        v2 = v6(v2, v8['value'])\n    return {'low_heap': v2, 'high_heap': v3}",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T23:58:38.701303+00:00",
+    "description": "Add value to running median state.",
+    "intent": "Add value to running median state.",
+    "language": "python",
+    "name": "running_median_add",
+    "source_file": "neurop_forge/sources/heap_utilities.py",
+    "source_line_end": 228,
+    "source_line_start": 212,
+    "tags": [
+      "add",
+      "arithmetic",
+      "median",
+      "running",
+      "state",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:58:38.701321+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(state) == dict",
+      "state is not None",
+      "type(value) == float",
+      "value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(state) == dict",
+      "state is not None",
+      "type(value) == float",
+      "value is not None"
+    ]
+  }
+}

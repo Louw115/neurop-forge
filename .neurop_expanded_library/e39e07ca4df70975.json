@@ -1,0 +1,165 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e39e07ca4df70975bfb75e053586c7f6f624c58ecc6b4c93b1919dcea9cb4f86",
+    "semantic_fingerprint": "09eb92be0c1fdec37878b7e0dbfb656f0cf4862945dc1959cdff0cb9b8ade964",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate expiry date.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter month",
+        "name": "month",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter year",
+        "name": "year",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_month",
+        "name": "current_month",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_year",
+        "name": "current_year",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of validate_expiry",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_expiry(v0: int, v1: int, v2: int, v3: int) -> bool:\n    if v0 < 1 or v0 > 12:\n        return False\n    if v1 < v3:\n        return False\n    if v1 == v3 and v0 < v2:\n        return False\n    return True",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T00:40:57.518953+00:00",
+    "description": "Validate expiry date.",
+    "intent": "Validate expiry date.",
+    "language": "python",
+    "name": "validate_expiry",
+    "source_file": "neurop_forge/sources/credit_card_utilities.py",
+    "source_line_end": 134,
+    "source_line_start": 126,
+    "tags": [
+      "current_month",
+      "current_year",
+      "expiry",
+      "month",
+      "validate",
+      "validation",
+      "year"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:40:57.518972+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(month) == integer",
+      "month is not None",
+      "type(year) == integer",
+      "year is not None",
+      "type(current_month) == integer",
+      "current_month is not None",
+      "type(current_year) == integer",
+      "current_year is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(month) == integer",
+      "month is not None",
+      "type(year) == integer",
+      "year is not None",
+      "type(current_month) == integer",
+      "current_month is not None",
+      "type(current_year) == integer",
+      "current_year is not None"
+    ]
+  }
+}

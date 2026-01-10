@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a1b2f8f7328f4b6628cb04fe666782a9e9ed2cb392f02517b6ae412a758e6efb",
+    "semantic_fingerprint": "fee0afbef96c70708545e10621b028dc756ba7226ac0657c236068519cddcfc4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Create select element.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter name",
+        "name": "name",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter options",
+        "name": "options",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter selected",
+        "name": "selected",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of create_select",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def create_select(v0: str, v1: list, v2: str) -> str:\n    v3 = ''\n    for v4 in v1:\n        v5 = ' selected=\"selected\"' if v4 == v2 else ''\n        v3 += f'<option value=\"{v6(str(v4))}\"{v5}>{v6(str(v4))}</option>'\n    return f'<select name=\"{v6(v0)}\">{v3}</select>'",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T00:40:57.056167+00:00",
+    "description": "Create select element.",
+    "intent": "Create select element.",
+    "language": "python",
+    "name": "create_select",
+    "source_file": "neurop_forge/sources/html_utilities.py",
+    "source_line_end": 121,
+    "source_line_start": 115,
+    "tags": [
+      "create",
+      "name",
+      "options",
+      "select",
+      "selected",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:40:57.056187+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(name) == string",
+      "name is not None",
+      "type(options) == list",
+      "options is not None",
+      "type(selected) == string",
+      "selected is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(name) == string",
+      "name is not None",
+      "type(options) == list",
+      "options is not None",
+      "type(selected) == string",
+      "selected is not None"
+    ]
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7a42041439153c6f7040667a3f54db13f70c8d68d5562b783e779a5344a32a43",
+    "semantic_fingerprint": "e12de8e41c1dae2bd5871a9282b23afadd72c6a2eb1e410b5f6cd4331ae32b16",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Run-length encode array.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter arr",
+        "name": "arr",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of run_length_encode",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def run_length_encode(v0: list) -> list:\n    if not v0:\n        return []\n    v1 = []\n    v2 = v0[0]\n    v3 = 1\n    for v4 in v0[1:]:\n        if v4 == v2:\n            v3 += 1\n        else:\n            v1.append({'value': v2, 'count': v3})\n            v2 = v4\n            v3 = 1\n    v1.append({'value': v2, 'count': v3})\n    return v1",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T00:20:22.742945+00:00",
+    "description": "Run-length encode array.",
+    "intent": "Run-length encode array.",
+    "language": "python",
+    "name": "run_length_encode",
+    "source_file": "neurop_forge/sources/array_algorithms.py",
+    "source_line_end": 222,
+    "source_line_start": 207,
+    "tags": [
+      "arr",
+      "encode",
+      "length",
+      "list_operation",
+      "run"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:20:22.742968+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(arr) == list",
+      "arr is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(arr) == list",
+      "arr is not None"
+    ]
+  }
+}

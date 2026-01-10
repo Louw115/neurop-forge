@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0a48bd4009a154ef16b0e1af593fbda260c961938543fa7723e1c836a4706357",
+    "semantic_fingerprint": "6b2b942146dc18d14cba8c03d78efc2fef6386ce801ffc56bd9a85ea8f816b03",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate time until tokens are available.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter bucket",
+        "name": "bucket",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter count",
+        "name": "count",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter current_time",
+        "name": "current_time",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of time_until_tokens",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def time_until_tokens(v0: dict, v1: int, v2: float) -> float:\n    v3 = v4(v0, v2)\n    if v3['tokens'] >= v1:\n        return 0\n    v5 = v1 - v3['tokens']\n    return v5 / v3['refill_rate']",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T00:04:21.661112+00:00",
+    "description": "Calculate time until tokens are available.",
+    "intent": "Calculate time until tokens are available.",
+    "language": "python",
+    "name": "time_until_tokens",
+    "source_file": "neurop_forge/sources/rate_limiter.py",
+    "source_line_end": 62,
+    "source_line_start": 56,
+    "tags": [
+      "arithmetic",
+      "bucket",
+      "count",
+      "current_time",
+      "time",
+      "tokens",
+      "until"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:04:21.661138+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(bucket) == dict",
+      "bucket is not None",
+      "type(count) == integer",
+      "count is not None",
+      "type(current_time) == float",
+      "current_time is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(bucket) == dict",
+      "bucket is not None",
+      "type(count) == integer",
+      "count is not None",
+      "type(current_time) == float",
+      "current_time is not None"
+    ]
+  }
+}

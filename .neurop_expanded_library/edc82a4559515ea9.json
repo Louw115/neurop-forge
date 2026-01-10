@@ -1,0 +1,155 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "edc82a4559515ea964911efa23dcfaad922047e6591f30a95cee6b49e0b6da81",
+    "semantic_fingerprint": "abcd623593aebd632539f6a66abb9d1c191d340a208d803cd40a348767d31513",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Estimate current false positive rate.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter filter_size",
+        "name": "filter_size",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter num_hashes",
+        "name": "num_hashes",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter items_added",
+        "name": "items_added",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of estimate_false_positive_rate",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def estimate_false_positive_rate(v0: int, v1: int, v2: int) -> float:\n    import math\n    if v0 <= 0:\n        return 1.0\n    v3 = (1 - v4.exp(-v1 * v2 / v0)) ** v1\n    return v3",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T23:58:38.989447+00:00",
+    "description": "Estimate current false positive rate.",
+    "intent": "Estimate current false positive rate.",
+    "language": "python",
+    "name": "estimate_false_positive_rate",
+    "source_file": "neurop_forge/sources/bloom_filter.py",
+    "source_line_end": 83,
+    "source_line_start": 77,
+    "tags": [
+      "arithmetic",
+      "estimate",
+      "false",
+      "filter_size",
+      "items_added",
+      "num_hashes",
+      "positive",
+      "rate"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:58:38.989464+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(filter_size) == integer",
+      "filter_size is not None",
+      "type(num_hashes) == integer",
+      "num_hashes is not None",
+      "type(items_added) == integer",
+      "items_added is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(filter_size) == integer",
+      "filter_size is not None",
+      "type(num_hashes) == integer",
+      "num_hashes is not None",
+      "type(items_added) == integer",
+      "items_added is not None"
+    ]
+  }
+}

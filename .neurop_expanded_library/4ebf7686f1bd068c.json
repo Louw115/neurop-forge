@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4ebf7686f1bd068c0e494908620f44244a90d7b9b5bc5b9f76a578db94ba6fce",
+    "semantic_fingerprint": "3ca40946267d6f5ae410dac6aa90f2b8c80eeb99f2c68efee0a84cbdd65ae5fa",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Convert string from given base to integer.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter string",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter base",
+        "name": "base",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of from_base",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def from_base(v0: str, v1: int) -> int:\n    if not v0:\n        return 0\n    v2 = v0[0] == '-'\n    if v2:\n        v0 = v0[1:]\n    v3 = 0\n    for v4 in v0.upper():\n        v5 = v6.index(v4.upper() if v4.isupper() else v4)\n        if v5 >= v1:\n            return 0\n        v3 = v3 * v1 + v5\n    return -v3 if v2 else v3",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T00:10:02.122842+00:00",
+    "description": "Convert string from given base to integer.",
+    "intent": "Convert string from given base to integer.",
+    "language": "python",
+    "name": "from_base",
+    "source_file": "neurop_forge/sources/base_conversion.py",
+    "source_line_end": 45,
+    "source_line_start": 32,
+    "tags": [
+      "base",
+      "from",
+      "string",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:10:02.122870+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(string) == string",
+      "string is not None",
+      "type(base) == integer",
+      "base is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(string) == string",
+      "string is not None",
+      "type(base) == integer",
+      "base is not None"
+    ]
+  }
+}

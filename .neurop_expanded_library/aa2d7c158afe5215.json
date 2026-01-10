@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "aa2d7c158afe52154c67da0c44c4a91ab7bb0bc154c6804223e4def142739425",
+    "semantic_fingerprint": "fda93e6762c47de0698643ea8888aec2f00b133c2f7bdccdd69d2795dc76d441",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract variable names from tokens.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter tokens",
+        "name": "tokens",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of extract_variables",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def extract_variables(v0: list) -> list:\n    return list(set((v1['value'] for v1 in v0 if v1['type'] == 'identifier')))",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T00:10:02.217697+00:00",
+    "description": "Extract variable names from tokens.",
+    "intent": "Extract variable names from tokens.",
+    "language": "python",
+    "name": "extract_variables",
+    "source_file": "neurop_forge/sources/expression_parser.py",
+    "source_line_end": 186,
+    "source_line_start": 184,
+    "tags": [
+      "extract",
+      "filtering",
+      "tokens",
+      "variables"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:10:02.217712+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(tokens) == list",
+      "tokens is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(tokens) == list",
+      "tokens is not None"
+    ]
+  }
+}

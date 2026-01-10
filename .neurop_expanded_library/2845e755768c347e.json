@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2845e755768c347eeabf52194feea1b532a70ddfbc797b92da7f7128c2fcf94e",
+    "semantic_fingerprint": "3f2ea07908c5c7d9028853e625c709ad706f3b3d84438495160cc8ec1517b465",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Deep merge two objects.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter obj1",
+        "name": "obj1",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter obj2",
+        "name": "obj2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of deep_merge",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def deep_merge(v0: dict, v1: dict) -> dict:\n    v2 = dict(v0)\n    for v3, v4 in v1.items():\n        if v3 in v2 and isinstance(v2[v3], dict) and isinstance(v4, dict):\n            v2[v3] = v5(v2[v3], v4)\n        else:\n            v2[v3] = v4\n    return v2",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T00:20:22.662892+00:00",
+    "description": "Deep merge two objects.",
+    "intent": "Deep merge two objects.",
+    "language": "python",
+    "name": "deep_merge",
+    "source_file": "neurop_forge/sources/object_utilities.py",
+    "source_line_end": 93,
+    "source_line_start": 85,
+    "tags": [
+      "deep",
+      "dict_operation",
+      "merge",
+      "obj1",
+      "obj2"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:20:22.662916+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(obj1) == dict",
+      "obj1 is not None",
+      "type(obj2) == dict",
+      "obj2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(obj1) == dict",
+      "obj1 is not None",
+      "type(obj2) == dict",
+      "obj2 is not None"
+    ]
+  }
+}

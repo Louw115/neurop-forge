@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e6afdf0bc45237b81e76608467a12206c9d5e075c1d07f74994e3f2dd5d8f2fa",
+    "semantic_fingerprint": "fda7066ba4d366f458d96f1382bb4487a0c5ec4bd8e71794b3e3807be3fa40af",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Touch key to update access time.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter cache",
+        "name": "cache",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of lru_touch",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def lru_touch(v0: dict, v1: str) -> dict:\n    if v1 not in v0['items']:\n        return v0\n    v2 = [v3 for v3 in v0['order'] if v3 != v1]\n    v2.append(v1)\n    return {'capacity': v0['capacity'], 'items': dict(v0['items']), 'order': v2, 'size': v0['size']}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T00:04:21.450810+00:00",
+    "description": "Touch key to update access time.",
+    "intent": "Touch key to update access time.",
+    "language": "python",
+    "name": "lru_touch",
+    "source_file": "neurop_forge/sources/lru_cache.py",
+    "source_line_end": 163,
+    "source_line_start": 152,
+    "tags": [
+      "cache",
+      "dict_operation",
+      "key",
+      "lru",
+      "touch"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:04:21.450839+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(cache) == dict",
+      "cache is not None",
+      "type(key) == string",
+      "key is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(cache) == dict",
+      "cache is not None",
+      "type(key) == string",
+      "key is not None"
+    ]
+  }
+}

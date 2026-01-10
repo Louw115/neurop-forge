@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a158a4eca5558e871ac66875a92daf6cedd0da7338647e73ffe280d45e4a9352",
+    "semantic_fingerprint": "75197b3af63b466730935eb0e1758799c3c91a1fb0c4f40985637edbb7a7866c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Apply equal jitter (delay/2 to delay).",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter delay",
+        "name": "delay",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seed",
+        "name": "seed",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of apply_equal_jitter",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def apply_equal_jitter(v0: float, v1: int) -> float:\n    v2 = v3.sha256(str(v1).encode()).digest()\n    return v0 / 2 + v0 / 2 * (v2[0] / 255.0)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T00:10:02.311447+00:00",
+    "description": "Apply equal jitter (delay/2 to delay).",
+    "intent": "Apply equal jitter (delay/2 to delay).",
+    "language": "python",
+    "name": "apply_equal_jitter",
+    "source_file": "neurop_forge/sources/retry_patterns.py",
+    "source_line_end": 58,
+    "source_line_start": 55,
+    "tags": [
+      "apply",
+      "arithmetic",
+      "delay",
+      "equal",
+      "jitter",
+      "seed"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:10:02.311464+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(delay) == float",
+      "delay is not None",
+      "type(seed) == integer",
+      "seed is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(delay) == float",
+      "delay is not None",
+      "type(seed) == integer",
+      "seed is not None"
+    ]
+  }
+}

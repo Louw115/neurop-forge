@@ -1,0 +1,151 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2e82e27e1500e525d5d44a1b138c870f2821f5dc36c0333e90982cf1e4e76657",
+    "semantic_fingerprint": "24c35f28b9f1861d922521f6097956e72bcc194340a1e2317c41bd3188df0822",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Create standardized result object.",
+    "inputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter success",
+        "name": "success",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter error",
+        "name": "error",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of create_error_result",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def create_error_result(v0: bool, v1, v2: str) -> dict:\n    return {'success': v0, 'value': v1, 'error': v2}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T00:29:29.515672+00:00",
+    "description": "Create standardized result object.",
+    "intent": "Create standardized result object.",
+    "language": "python",
+    "name": "create_error_result",
+    "source_file": "neurop_forge/sources/exception_utilities.py",
+    "source_line_end": 18,
+    "source_line_start": 12,
+    "tags": [
+      "create",
+      "dict_operation",
+      "error",
+      "result",
+      "success",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:29:29.515692+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(success) == boolean",
+      "success is not None",
+      "value is not None",
+      "type(error) == string",
+      "error is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(success) == boolean",
+      "success is not None",
+      "value is not None",
+      "type(error) == string",
+      "error is not None"
+    ]
+  }
+}

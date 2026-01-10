@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b6b3b8f4abfa7a82a24e7dc3306749209b63e0a64c11d63d469ece62f46677b7",
+    "semantic_fingerprint": "47ab8b9ba483b5cf1f970a520800109a8616bc99895e27eb3a628037d607df8c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if error category is retryable.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter error_category",
+        "name": "error_category",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_retryable",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_retryable(v0: str) -> bool:\n    return v0 in ['timeout', 'network']",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T00:29:29.526255+00:00",
+    "description": "Check if error category is retryable.",
+    "intent": "Check if error category is retryable.",
+    "language": "python",
+    "name": "is_retryable",
+    "source_file": "neurop_forge/sources/exception_utilities.py",
+    "source_line_end": 111,
+    "source_line_start": 109,
+    "tags": [
+      "error_category",
+      "retryable",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:29:29.526271+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(error_category) == string",
+      "error_category is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(error_category) == string",
+      "error_category is not None"
+    ]
+  }
+}

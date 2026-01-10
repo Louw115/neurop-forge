@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic aggregation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b026c67c76a58b0d9b77afd86d9c241b1380ad36f37735067f9be9c6eb7e95ae",
+    "semantic_fingerprint": "803e36b1027e28f909ce34d9222f368b78eca42af2ecf3aded4c5b3fa44133e5",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Count syllables in a word.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter word",
+        "name": "word",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of count_syllables",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def count_syllables(v0: str) -> int:\n    v0 = v0.lower()\n    v1 = 'aeiouy'\n    v2 = 0\n    v3 = False\n    for v4 in v0:\n        v5 = v4 in v1\n        if v5 and (not v3):\n            v2 += 1\n        v3 = v5\n    if v0.endswith('e'):\n        v2 -= 1\n    return max(1, v2)",
+  "metadata": {
+    "category": "aggregation",
+    "created_at": "2026-01-10T00:29:29.206092+00:00",
+    "description": "Count syllables in a word.",
+    "intent": "Count syllables in a word.",
+    "language": "python",
+    "name": "count_syllables",
+    "source_file": "neurop_forge/sources/document_utilities.py",
+    "source_line_end": 87,
+    "source_line_start": 74,
+    "tags": [
+      "aggregation",
+      "count",
+      "syllables",
+      "word"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:29:29.206112+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(word) == string",
+      "word is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(word) == string",
+      "word is not None"
+    ]
+  }
+}

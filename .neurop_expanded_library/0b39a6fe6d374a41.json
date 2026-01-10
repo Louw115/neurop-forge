@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0b39a6fe6d374a41874689192879ffb5f0cd7324c7b0f19953d8e99e85f5045b",
+    "semantic_fingerprint": "3afd73845ddf9b5a076dd6ec2e5d61809bdba0cc95ea8be739369a3d5c26358d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Create token bucket state.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter capacity",
+        "name": "capacity",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter refill_rate",
+        "name": "refill_rate",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter refill_interval_ms",
+        "name": "refill_interval_ms",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of create_token_bucket",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def create_token_bucket(v0: int, v1: float, v2: int) -> dict:\n    return {'capacity': v0, 'tokens': v0, 'refill_rate': v1, 'refill_interval_ms': v2, 'last_refill': 0}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T00:40:57.346810+00:00",
+    "description": "Create token bucket state.",
+    "intent": "Create token bucket state.",
+    "language": "python",
+    "name": "create_token_bucket",
+    "source_file": "neurop_forge/sources/throttle_utilities.py",
+    "source_line_end": 155,
+    "source_line_start": 147,
+    "tags": [
+      "bucket",
+      "capacity",
+      "create",
+      "dict_operation",
+      "refill_interval_ms",
+      "refill_rate",
+      "token"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:40:57.346827+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(capacity) == integer",
+      "capacity is not None",
+      "type(refill_rate) == float",
+      "refill_rate is not None",
+      "type(refill_interval_ms) == integer",
+      "refill_interval_ms is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(capacity) == integer",
+      "capacity is not None",
+      "type(refill_rate) == float",
+      "refill_rate is not None",
+      "type(refill_interval_ms) == integer",
+      "refill_interval_ms is not None"
+    ]
+  }
+}

@@ -1,0 +1,152 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9292d59935b186789f7fbb12d164c818e6282df8023062fe8e0132cdaea31309",
+    "semantic_fingerprint": "51eb025004a9f543608aff3d2edbdadf9984f88a3bd90e2e89fb2acd4a74d45d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if point is within bounding box.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter lat",
+        "name": "lat",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter lng",
+        "name": "lng",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter bounds",
+        "name": "bounds",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of point_in_bounds",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def point_in_bounds(v0: float, v1: float, v2: dict) -> bool:\n    return v2['min_lat'] <= v0 <= v2['max_lat'] and v2['min_lng'] <= v1 <= v2['max_lng']",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T00:29:29.176019+00:00",
+    "description": "Check if point is within bounding box.",
+    "intent": "Check if point is within bounding box.",
+    "language": "python",
+    "name": "point_in_bounds",
+    "source_file": "neurop_forge/sources/coordinate_utilities.py",
+    "source_line_end": 126,
+    "source_line_start": 123,
+    "tags": [
+      "bounds",
+      "lat",
+      "lng",
+      "point",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:29:29.176045+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(lat) == float",
+      "lat is not None",
+      "type(lng) == float",
+      "lng is not None",
+      "type(bounds) == dict",
+      "bounds is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(lat) == float",
+      "lat is not None",
+      "type(lng) == float",
+      "lng is not None",
+      "type(bounds) == dict",
+      "bounds is not None"
+    ]
+  }
+}

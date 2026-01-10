@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "50e38fde512552293aede2ad8640c94357284a2d66b72e08949875d7a5ca620d",
+    "semantic_fingerprint": "e9614c8880ed479922a37eb3d6bb77a6b20df5601ac14cf8aa739b682350a2e3",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Apply quantity-based discount.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter quantity",
+        "name": "quantity",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter price",
+        "name": "price",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter discounts",
+        "name": "discounts",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of apply_quantity_discount",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def apply_quantity_discount(v0: int, v1: float, v2: list) -> dict:\n    for v3 in sorted(v2, key=lambda v4: -v4['min_quantity']):\n        if v0 >= v3['min_quantity']:\n            v5 = v3.get('percentage', 0)\n            v6 = v0 * v1\n            v7 = v8(v6, v5)\n            return {'quantity': v0, 'unit_price': v1, 'original': v6, 'discount_percentage': v5, 'final': v7}\n    return {'quantity': v0, 'unit_price': v1, 'original': round(v0 * v1, 2), 'discount_percentage': 0, 'final': round(v0 * v1, 2)}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T00:40:57.567475+00:00",
+    "description": "Apply quantity-based discount.",
+    "intent": "Apply quantity-based discount.",
+    "language": "python",
+    "name": "apply_quantity_discount",
+    "source_file": "neurop_forge/sources/discount_utilities.py",
+    "source_line_end": 86,
+    "source_line_start": 66,
+    "tags": [
+      "apply",
+      "dict_operation",
+      "discount",
+      "discounts",
+      "price",
+      "quantity"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:40:57.567502+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(quantity) == integer",
+      "quantity is not None",
+      "type(price) == float",
+      "price is not None",
+      "type(discounts) == list",
+      "discounts is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(quantity) == integer",
+      "quantity is not None",
+      "type(price) == float",
+      "price is not None",
+      "type(discounts) == list",
+      "discounts is not None"
+    ]
+  }
+}

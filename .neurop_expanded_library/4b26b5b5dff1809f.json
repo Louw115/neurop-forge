@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4b26b5b5dff1809f8aad9e23b5aee16ba3a20def5606e700a5c81f09c1dfe780",
+    "semantic_fingerprint": "248c46e6f4573dd2d445d358a2e5a02fe3b0b810dbc1be5c9a6ad90e918a0154",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Commit reserved quantity (subtract from both).",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter item",
+        "name": "item",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter amount",
+        "name": "amount",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of commit_reserved",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def commit_reserved(v0: dict, v1: int) -> dict:\n    v2 = max(0, v0['reserved'] - v1)\n    v3 = max(0, v0['quantity'] - v1)\n    return {**v0, 'quantity': v3, 'reserved': v2}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T00:40:57.596174+00:00",
+    "description": "Commit reserved quantity (subtract from both).",
+    "intent": "Commit reserved quantity (subtract from both).",
+    "language": "python",
+    "name": "commit_reserved",
+    "source_file": "neurop_forge/sources/inventory_utilities.py",
+    "source_line_end": 56,
+    "source_line_start": 52,
+    "tags": [
+      "amount",
+      "commit",
+      "dict_operation",
+      "item",
+      "reserved"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:40:57.596197+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(item) == dict",
+      "item is not None",
+      "type(amount) == integer",
+      "amount is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(item) == dict",
+      "item is not None",
+      "type(amount) == integer",
+      "amount is not None"
+    ]
+  }
+}

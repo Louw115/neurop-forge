@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "632efc9ebe560fa881ccb9b221d1408d62743072a59e1d4fafcd8f9bd0350f9c",
+    "semantic_fingerprint": "0edf5f0b5e83dae9e97f4a35550d557a8dc1280e0b6a4ba48ceba0d10387c81b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Resize cache (evicts LRU entries if shrinking).",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter cache",
+        "name": "cache",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter new_capacity",
+        "name": "new_capacity",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of lru_resize",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def lru_resize(v0: dict, v1: int) -> dict:\n    if v1 >= v0['size']:\n        return {'capacity': v1, 'items': dict(v0['items']), 'order': list(v0['order']), 'size': v0['size']}\n    v2 = v0['size'] - v1\n    v3 = v0['order'][v2:]\n    v4 = {v5: v0['items'][v5] for v5 in v3}\n    return {'capacity': v1, 'items': v4, 'order': v3, 'size': len(v4)}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T00:04:21.447183+00:00",
+    "description": "Resize cache (evicts LRU entries if shrinking).",
+    "intent": "Resize cache (evicts LRU entries if shrinking).",
+    "language": "python",
+    "name": "lru_resize",
+    "source_file": "neurop_forge/sources/lru_cache.py",
+    "source_line_end": 144,
+    "source_line_start": 127,
+    "tags": [
+      "cache",
+      "dict_operation",
+      "lru",
+      "new_capacity",
+      "resize"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:04:21.447203+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(cache) == dict",
+      "cache is not None",
+      "type(new_capacity) == integer",
+      "new_capacity is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(cache) == dict",
+      "cache is not None",
+      "type(new_capacity) == integer",
+      "new_capacity is not None"
+    ]
+  }
+}

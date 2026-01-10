@@ -1,0 +1,165 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "044b5c7c3cbf4d5937a89561c6d13b1798f264b2dd97126cb7b67d426faeca4f",
+    "semantic_fingerprint": "81a588ae48b6dd34557aa04e909669a6213e191b6ecc431fd192e68425e2a8dd",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add days to a date.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter year",
+        "name": "year",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter month",
+        "name": "month",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter day",
+        "name": "day",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter days_to_add",
+        "name": "days_to_add",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of add_days",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def add_days(v0: int, v1: int, v2: int, v3: int) -> dict:\n    v4 = v2 + v3\n    while v4 > v5(v0, v1):\n        v4 -= v5(v0, v1)\n        v1 += 1\n        if v1 > 12:\n            v1 = 1\n            v0 += 1\n    while v4 < 1:\n        v1 -= 1\n        if v1 < 1:\n            v1 = 12\n            v0 -= 1\n        v4 += v5(v0, v1)\n    return {'year': v0, 'month': v1, 'day': v4}",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T00:14:55.327171+00:00",
+    "description": "Add days to a date.",
+    "intent": "Add days to a date.",
+    "language": "python",
+    "name": "add_days",
+    "source_file": "neurop_forge/sources/datetime_math.py",
+    "source_line_end": 76,
+    "source_line_start": 61,
+    "tags": [
+      "add",
+      "arithmetic",
+      "day",
+      "days",
+      "days_to_add",
+      "month",
+      "year"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:14:55.327200+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(year) == integer",
+      "year is not None",
+      "type(month) == integer",
+      "month is not None",
+      "type(day) == integer",
+      "day is not None",
+      "type(days_to_add) == integer",
+      "days_to_add is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(year) == integer",
+      "year is not None",
+      "type(month) == integer",
+      "month is not None",
+      "type(day) == integer",
+      "day is not None",
+      "type(days_to_add) == integer",
+      "days_to_add is not None"
+    ]
+  }
+}

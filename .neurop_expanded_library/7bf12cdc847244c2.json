@@ -1,0 +1,148 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": false,
+    "io_operations": [
+      "file_read"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "non_deterministic",
+    "side_effects": [
+      "file_io"
+    ],
+    "thread_safe": false
+  },
+  "failure_modes": {
+    "can_fail": true,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "raises_exception",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7bf12cdc847244c215b7d2551765d7eadc5abfcb99691dbcaad3e5890ac3e9fa",
+    "semantic_fingerprint": "a9f04b673ee94665e3e5cc534c40641594d7aec9fa2bfacd7e359abf3a4acb20",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get chain of causally linked events.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter events",
+        "name": "events",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter start_id",
+        "name": "start_id",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of get_event_chain",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_event_chain(v0: list, v1: str) -> list:\n    v2 = {v3.get('caused_by'): v3 for v3 in v0 if 'caused_by' in v3}\n    v4 = []\n    v5 = v1\n    while v5:\n        for v6 in v0:\n            if v6.get('id') == v5:\n                v4.append(v6)\n                v5 = v2.get(v5, {}).get('id')\n                break\n        else:\n            break\n    return v4",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T00:29:29.469385+00:00",
+    "description": "Get chain of causally linked events.",
+    "intent": "Get chain of causally linked events.",
+    "language": "python",
+    "name": "get_event_chain",
+    "source_file": "neurop_forge/sources/event_utilities.py",
+    "source_line_end": 203,
+    "source_line_start": 190,
+    "tags": [
+      "chain",
+      "event",
+      "events",
+      "filtering",
+      "get",
+      "start_id"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 0.5,
+    "last_verified": "2026-01-10T00:29:29.469406+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.27999999999999997,
+    "risk_factors": [
+      "impure_function",
+      "non_deterministic",
+      "side_effects: file_io"
+    ],
+    "risk_level": "medium",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(events) == list",
+      "events is not None",
+      "type(start_id) == string",
+      "start_id is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(events) == list",
+      "events is not None",
+      "type(start_id) == string",
+      "start_id is not None"
+    ]
+  }
+}

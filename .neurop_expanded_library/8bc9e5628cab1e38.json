@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8bc9e5628cab1e38b9995fd3060bd5c1f1a52582a3979df0223127cbce41a908",
+    "semantic_fingerprint": "c2b7fcf945252e734219fa79c1f9221532faebf0ed6db65048574c9f0289c6b6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate UPC-A check digit.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter digits",
+        "name": "digits",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of upc_checksum",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def upc_checksum(v0: str) -> str:\n    v1 = sum((int(v2) for v3, v2 in enumerate(v0[:11]) if v3 % 2 == 0))\n    v4 = sum((int(v2) for v3, v2 in enumerate(v0[:11]) if v3 % 2 == 1))\n    return str((10 - (v1 * 3 + v4) % 10) % 10)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T00:10:02.250439+00:00",
+    "description": "Calculate UPC-A check digit.",
+    "intent": "Calculate UPC-A check digit.",
+    "language": "python",
+    "name": "upc_checksum",
+    "source_file": "neurop_forge/sources/checksum_utilities.py",
+    "source_line_end": 170,
+    "source_line_start": 166,
+    "tags": [
+      "checksum",
+      "digits",
+      "string_manipulation",
+      "upc"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:10:02.250456+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(digits) == string",
+      "digits is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(digits) == string",
+      "digits is not None"
+    ]
+  }
+}

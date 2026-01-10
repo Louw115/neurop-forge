@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "bb6834f4874662ed7123f46949dfd157b7091eca335a85d3ddd1e0029fa38dca",
+    "semantic_fingerprint": "a1248ba68cf48c124d562c2b84b75d7405505163fc935c9cb903ca9a415b568e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate power set.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of set_power_set",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def set_power_set(v0: list) -> list:\n    v0 = list(set(v0))\n    v1 = [[]]\n    for v2 in v0:\n        v1.extend([v3 + [v2] for v3 in v1])\n    return v1",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-09T23:58:38.724462+00:00",
+    "description": "Generate power set.",
+    "intent": "Generate power set.",
+    "language": "python",
+    "name": "set_power_set",
+    "source_file": "neurop_forge/sources/set_utilities.py",
+    "source_line_end": 102,
+    "source_line_start": 96,
+    "tags": [
+      "items",
+      "list_operation",
+      "power",
+      "set"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:58:38.724477+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None"
+    ]
+  }
+}

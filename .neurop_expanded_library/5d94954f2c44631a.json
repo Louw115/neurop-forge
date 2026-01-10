@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5d94954f2c44631a37f448c5013b0797f785add27e2e3848831496d84a8d1224",
+    "semantic_fingerprint": "11baa04b0a39401de42daafe22d1dda232bf7345c6aacc0985c90aa58e025360",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if content is compressible.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter mime_type",
+        "name": "mime_type",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_compressible",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_compressible(v0: str) -> bool:\n    v1 = ['text/', 'application/json', 'application/javascript', 'application/xml', 'image/svg+xml']\n    return v2((v0.startswith(v3) if v3.endswith('/') else v0 == v3 for v3 in v1))",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T00:40:57.083780+00:00",
+    "description": "Check if content is compressible.",
+    "intent": "Check if content is compressible.",
+    "language": "python",
+    "name": "is_compressible",
+    "source_file": "neurop_forge/sources/mime_utilities.py",
+    "source_line_end": 155,
+    "source_line_start": 148,
+    "tags": [
+      "compressible",
+      "mime_type",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:40:57.083804+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(mime_type) == string",
+      "mime_type is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(mime_type) == string",
+      "mime_type is not None"
+    ]
+  }
+}

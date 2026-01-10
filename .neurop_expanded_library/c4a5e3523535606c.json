@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c4a5e3523535606cf2516c8861d6494184d462b000ee4c123d2a33fd979e60f2",
+    "semantic_fingerprint": "2b84cf1ce854efb84084e0b5908d92019b455169ad20d28a1e33263f6c9856b2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract date patterns from text.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of extract_dates",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def extract_dates(v0: str) -> list:\n    v1 = ['\\\\d{4}-\\\\d{2}-\\\\d{2}', '\\\\d{1,2}/\\\\d{1,2}/\\\\d{2,4}', '\\\\d{1,2}-\\\\d{1,2}-\\\\d{2,4}']\n    v2 = []\n    for v3 in v1:\n        v2.extend(v4.findall(v3, v0))\n    return v2",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T00:29:29.209976+00:00",
+    "description": "Extract date patterns from text.",
+    "intent": "Extract date patterns from text.",
+    "language": "python",
+    "name": "extract_dates",
+    "source_file": "neurop_forge/sources/document_utilities.py",
+    "source_line_end": 112,
+    "source_line_start": 102,
+    "tags": [
+      "dates",
+      "extract",
+      "filtering",
+      "text"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:29:29.210011+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None"
+    ]
+  }
+}

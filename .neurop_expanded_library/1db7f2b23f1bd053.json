@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic searching block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1db7f2b23f1bd053f1422b6c3304c8279bd2684601c87bfd49d99da31395292c",
+    "semantic_fingerprint": "299f94787ed3c50eb60bbeed1800cfad53c764f626aa8d2f31a51cdf351f18a3",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Set a nested value.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter ht",
+        "name": "ht",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter keys",
+        "name": "keys",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of hash_table_set_nested",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def hash_table_set_nested(v0: dict, v1: list, v2) -> dict:\n    if not v1:\n        return v0\n    if len(v1) == 1:\n        return v3(v0, v1[0], v2)\n    v4 = v5(v0, v1[0], {})\n    if isinstance(v4, dict):\n        v6 = v7(v4, 16)\n    else:\n        v6 = v8(16)\n    v6 = v9(v6, v1[1:], v2)\n    return v3(v0, v1[0], v10(v6))",
+  "metadata": {
+    "category": "searching",
+    "created_at": "2026-01-10T00:04:21.352145+00:00",
+    "description": "Set a nested value.",
+    "intent": "Set a nested value.",
+    "language": "python",
+    "name": "hash_table_set_nested",
+    "source_file": "neurop_forge/sources/hash_table.py",
+    "source_line_end": 213,
+    "source_line_start": 201,
+    "tags": [
+      "hash",
+      "ht",
+      "keys",
+      "nested",
+      "searching",
+      "set",
+      "table",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:04:21.352164+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.37,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.8,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(ht) == dict",
+      "ht is not None",
+      "type(keys) == list",
+      "keys is not None",
+      "value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(ht) == dict",
+      "ht is not None",
+      "type(keys) == list",
+      "keys is not None",
+      "value is not None"
+    ]
+  }
+}

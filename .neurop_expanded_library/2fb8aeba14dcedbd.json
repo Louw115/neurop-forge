@@ -1,0 +1,139 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic aggregation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2fb8aeba14dcedbda0de56d0db228c01f4847d5bef428bf504774ec6700d8cf1",
+    "semantic_fingerprint": "ef2c230a7e60e1f6064471244f01a706764d64a818676c5d96d7c09a6608c17a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Group notifications by date.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter notifications",
+        "name": "notifications",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter date_fn",
+        "name": "date_fn",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of group_by_date",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def group_by_date(v0: list, v1) -> dict:\n    v2 = {}\n    for v3 in v0:\n        v4 = v1(v3.get('timestamp', 0))\n        if v4 not in v2:\n            v2[v4] = []\n        v2[v4].append(v3)\n    return v2",
+  "metadata": {
+    "category": "aggregation",
+    "created_at": "2026-01-10T00:43:57.460229+00:00",
+    "description": "Group notifications by date.",
+    "intent": "Group notifications by date.",
+    "language": "python",
+    "name": "group_by_date",
+    "source_file": "neurop_forge/sources/notification_helpers.py",
+    "source_line_end": 103,
+    "source_line_start": 95,
+    "tags": [
+      "aggregation",
+      "date",
+      "date_fn",
+      "group",
+      "notifications"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:43:57.460252+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(notifications) == list",
+      "notifications is not None",
+      "date_fn is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(notifications) == list",
+      "notifications is not None",
+      "date_fn is not None"
+    ]
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "33d280c9ac1ca194d205bb992333e682517363285358e7898311da6f0f4fa981",
+    "semantic_fingerprint": "a24eb7a8dbcfff966edb0f51552ff66c72fe4947361f33250fa33e0f9d264c62",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find a peak element index.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of find_peak",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def find_peak(v0: list) -> int:\n    if not v0:\n        return -1\n    v1, v2 = (0, len(v0) - 1)\n    while v1 < v2:\n        v3 = (v1 + v2) // 2\n        if v0[v3] < v0[v3 + 1]:\n            v1 = v3 + 1\n        else:\n            v2 = v3\n    return v1",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T00:10:02.048904+00:00",
+    "description": "Find a peak element index.",
+    "intent": "Find a peak element index.",
+    "language": "python",
+    "name": "find_peak",
+    "source_file": "neurop_forge/sources/search_algorithms.py",
+    "source_line_end": 195,
+    "source_line_start": 184,
+    "tags": [
+      "filtering",
+      "find",
+      "items",
+      "peak"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:10:02.048922+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None"
+    ]
+  }
+}

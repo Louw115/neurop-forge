@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d35b8b1cc3b765c653279815fd6a65717120d714fba4d4ed0f0c202332dc4746",
+    "semantic_fingerprint": "6109b3364583eebb69c4b6005dca3a21751be38836b737f6c999d0b0cebd71c4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract text content from HTML.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter html",
+        "name": "html",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of extract_text",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def extract_text(v0: str) -> str:\n    v1 = v2.sub('<script[^>]*>.*?</script>', '', v0, flags=v2.DOTALL | v2.IGNORECASE)\n    v1 = v2.sub('<style[^>]*>.*?</style>', '', v1, flags=v2.DOTALL | v2.IGNORECASE)\n    v1 = v3(v1)\n    return ' '.join(v1.split())",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T00:40:57.057655+00:00",
+    "description": "Extract text content from HTML.",
+    "intent": "Extract text content from HTML.",
+    "language": "python",
+    "name": "extract_text",
+    "source_file": "neurop_forge/sources/html_utilities.py",
+    "source_line_end": 129,
+    "source_line_start": 124,
+    "tags": [
+      "extract",
+      "filtering",
+      "html",
+      "text"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:40:57.057672+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(html) == string",
+      "html is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(html) == string",
+      "html is not None"
+    ]
+  }
+}

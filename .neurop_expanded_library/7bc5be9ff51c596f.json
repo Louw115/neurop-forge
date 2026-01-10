@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7bc5be9ff51c596f0289ce6e55d8126b15fb1cce5c80ca028775a94e919e8a87",
+    "semantic_fingerprint": "428018472cf88b4c95edf7b1a69a365d5e40e6060f0817d407b2eb1d03dac360",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build SQL query.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter builder",
+        "name": "builder",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_sql",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_sql(v0: dict) -> dict:\n    v1 = ' '.join(v0['clauses'])\n    return {'query': v1, 'params': v0['params']}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T00:10:02.375238+00:00",
+    "description": "Build SQL query.",
+    "intent": "Build SQL query.",
+    "language": "python",
+    "name": "build_sql",
+    "source_file": "neurop_forge/sources/string_builder.py",
+    "source_line_end": 201,
+    "source_line_start": 198,
+    "tags": [
+      "build",
+      "builder",
+      "dict_operation",
+      "sql"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:10:02.375256+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(builder) == dict",
+      "builder is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(builder) == dict",
+      "builder is not None"
+    ]
+  }
+}

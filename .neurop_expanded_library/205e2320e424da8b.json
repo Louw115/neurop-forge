@@ -1,0 +1,151 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "205e2320e424da8bace5407007ee12bab7aae845f596b17b105f80702123b4d5",
+    "semantic_fingerprint": "ea610a5acbe7795cf6eca729c3b108aa987ba6d9e7ac4be9a9496077c021c9ec",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Set session data.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter session",
+        "name": "session",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of set_session_data",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def set_session_data(v0: dict, v1: str, v2) -> dict:\n    v3 = {**v0.get('data', {}), v1: v2}\n    return {**v0, 'data': v3}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T00:40:57.694377+00:00",
+    "description": "Set session data.",
+    "intent": "Set session data.",
+    "language": "python",
+    "name": "set_session_data",
+    "source_file": "neurop_forge/sources/session_utilities.py",
+    "source_line_end": 62,
+    "source_line_start": 59,
+    "tags": [
+      "data",
+      "dict_operation",
+      "key",
+      "session",
+      "set",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:40:57.694396+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(session) == dict",
+      "session is not None",
+      "type(key) == string",
+      "key is not None",
+      "value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(session) == dict",
+      "session is not None",
+      "type(key) == string",
+      "key is not None",
+      "value is not None"
+    ]
+  }
+}

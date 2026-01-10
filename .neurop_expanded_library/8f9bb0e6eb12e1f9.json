@@ -1,0 +1,152 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8f9bb0e6eb12e1f96795d2d5622820f25957ce7e3ecc33a60e33ad25b9a12b41",
+    "semantic_fingerprint": "34ca42e9c30c7d17d4197384074b9fdb71a70adbc5828a1718f7991b103e2d3e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Rotate point around origin.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter point",
+        "name": "point",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter origin",
+        "name": "origin",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter angle_rad",
+        "name": "angle_rad",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of point_rotate",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def point_rotate(v0: dict, v1: dict, v2: float) -> dict:\n    v3 = v4.cos(v2)\n    v5 = v4.sin(v2)\n    v6 = v0['x'] - v1['x']\n    v7 = v0['y'] - v1['y']\n    v8 = v1['x'] + v6 * v3 - v7 * v5\n    v9 = v1['y'] + v6 * v5 + v7 * v3\n    return v10(v8, v9)",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T00:10:02.074822+00:00",
+    "description": "Rotate point around origin.",
+    "intent": "Rotate point around origin.",
+    "language": "python",
+    "name": "point_rotate",
+    "source_file": "neurop_forge/sources/geometry_utilities.py",
+    "source_line_end": 63,
+    "source_line_start": 55,
+    "tags": [
+      "angle_rad",
+      "dict_operation",
+      "origin",
+      "point",
+      "rotate"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:10:02.074840+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(point) == dict",
+      "point is not None",
+      "type(origin) == dict",
+      "origin is not None",
+      "type(angle_rad) == float",
+      "angle_rad is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(point) == dict",
+      "point is not None",
+      "type(origin) == dict",
+      "origin is not None",
+      "type(angle_rad) == float",
+      "angle_rad is not None"
+    ]
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "76a7f9fa05f897689c2a9bbf52c20373f8a30fd26a194009b14e0b2ef9f9a0c2",
+    "semantic_fingerprint": "3431dc68750b25bc3d9a18f5742c51d44721c0a0574d73b68da365f1613898e8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get difference between versions.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter v1",
+        "name": "v1",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter v2",
+        "name": "v2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of diff_versions",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def diff_versions(v0: str, v1: str) -> dict:\n    v2 = v3(v0)\n    v4 = v3(v1)\n    if not v2 or not v4:\n        return {'type': 'invalid'}\n    if v2['major'] != v4['major']:\n        return {'type': 'major', 'from': v0, 'to': v1}\n    if v2['minor'] != v4['minor']:\n        return {'type': 'minor', 'from': v0, 'to': v1}\n    if v2['patch'] != v4['patch']:\n        return {'type': 'patch', 'from': v0, 'to': v1}\n    return {'type': 'none', 'from': v0, 'to': v1}",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T00:20:23.244157+00:00",
+    "description": "Get difference between versions.",
+    "intent": "Get difference between versions.",
+    "language": "python",
+    "name": "diff_versions",
+    "source_file": "neurop_forge/sources/semantic_version.py",
+    "source_line_end": 220,
+    "source_line_start": 208,
+    "tags": [
+      "arithmetic",
+      "diff",
+      "v1",
+      "v2",
+      "versions"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:20:23.244234+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(v1) == string",
+      "v1 is not None",
+      "type(v2) == string",
+      "v2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(v1) == string",
+      "v1 is not None",
+      "type(v2) == string",
+      "v2 is not None"
+    ]
+  }
+}

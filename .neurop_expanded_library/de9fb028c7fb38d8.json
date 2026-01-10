@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "de9fb028c7fb38d8a472563af91130ec0d17e71dc3e429865ddc59888be28230",
+    "semantic_fingerprint": "265208d3aa964264d9aa6f12e78b0f4e6ea9159c554577d616fed4cc850cc439",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Convert decimal degrees to degrees/minutes/seconds.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter decimal",
+        "name": "decimal",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter is_longitude",
+        "name": "is_longitude",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of decimal_to_dms",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def decimal_to_dms(v0: float, v1: bool) -> dict:\n    v2 = ''\n    if v1:\n        v2 = 'E' if v0 >= 0 else 'W'\n    else:\n        v2 = 'N' if v0 >= 0 else 'S'\n    v0 = abs(v0)\n    v3 = int(v0)\n    v4 = (v0 - v3) * 60\n    v5 = int(v4)\n    v6 = (v4 - v5) * 60\n    return {'degrees': v3, 'minutes': v5, 'seconds': round(v6, 2), 'direction': v2}",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T00:29:29.177911+00:00",
+    "description": "Convert decimal degrees to degrees/minutes/seconds.",
+    "intent": "Convert decimal degrees to degrees/minutes/seconds.",
+    "language": "python",
+    "name": "decimal_to_dms",
+    "source_file": "neurop_forge/sources/coordinate_utilities.py",
+    "source_line_end": 146,
+    "source_line_start": 129,
+    "tags": [
+      "decimal",
+      "dms",
+      "is_longitude",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:29:29.177936+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(decimal) == float",
+      "decimal is not None",
+      "type(is_longitude) == boolean",
+      "is_longitude is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(decimal) == float",
+      "decimal is not None",
+      "type(is_longitude) == boolean",
+      "is_longitude is not None"
+    ]
+  }
+}

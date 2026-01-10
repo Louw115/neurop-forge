@@ -1,0 +1,135 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0d03b7e412d21af4bb86f5ac1997fc5629db95a89d88ca0bd024350e586d749a",
+    "semantic_fingerprint": "3e57ecd2857cd8a765e540c6f0d4a11924ff00d1be9970195a7cf6dba38bc4f1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find first value matching predicate.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter ll",
+        "name": "ll",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter predicate",
+        "name": "predicate",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Return value of list_find",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def list_find(v0: dict, v1):\n    v2 = v0['head']\n    while v2:\n        if v1(v2['value']):\n            return v2['value']\n        v2 = v2['next']\n    return None",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T00:04:21.273017+00:00",
+    "description": "Find first value matching predicate.",
+    "intent": "Find first value matching predicate.",
+    "language": "python",
+    "name": "list_find",
+    "source_file": "neurop_forge/sources/linked_list.py",
+    "source_line_end": 136,
+    "source_line_start": 129,
+    "tags": [
+      "filtering",
+      "find",
+      "list",
+      "ll",
+      "predicate"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:04:21.273042+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33925,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.595,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(ll) == dict",
+      "ll is not None",
+      "predicate is not None"
+    ],
+    "invariants": [],
+    "output_validators": [],
+    "postconditions": [],
+    "preconditions": [
+      "type(ll) == dict",
+      "ll is not None",
+      "predicate is not None"
+    ]
+  }
+}

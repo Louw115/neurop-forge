@@ -1,0 +1,165 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ab3f044e087f3fefd990c0a01fef67113d7e7fdc3f42416af7e472327a8eb7a7",
+    "semantic_fingerprint": "3f4313d06422704d69f7eb01f6f415d6becfd40f0982b479232420375a15c147",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add months to a date.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter year",
+        "name": "year",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter month",
+        "name": "month",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter day",
+        "name": "day",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter months_to_add",
+        "name": "months_to_add",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of add_months",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def add_months(v0: int, v1: int, v2: int, v3: int) -> dict:\n    v4 = v1 + v3 - 1\n    v5 = v0 + v4 // 12\n    v6 = v4 % 12 + 1\n    v7 = min(v2, v8(v5, v6))\n    return {'year': v5, 'month': v6, 'day': v7}",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T00:14:55.331270+00:00",
+    "description": "Add months to a date.",
+    "intent": "Add months to a date.",
+    "language": "python",
+    "name": "add_months",
+    "source_file": "neurop_forge/sources/datetime_math.py",
+    "source_line_end": 90,
+    "source_line_start": 84,
+    "tags": [
+      "add",
+      "arithmetic",
+      "day",
+      "month",
+      "months",
+      "months_to_add",
+      "year"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:14:55.331298+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(year) == integer",
+      "year is not None",
+      "type(month) == integer",
+      "month is not None",
+      "type(day) == integer",
+      "day is not None",
+      "type(months_to_add) == integer",
+      "months_to_add is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(year) == integer",
+      "year is not None",
+      "type(month) == integer",
+      "month is not None",
+      "type(day) == integer",
+      "day is not None",
+      "type(months_to_add) == integer",
+      "months_to_add is not None"
+    ]
+  }
+}

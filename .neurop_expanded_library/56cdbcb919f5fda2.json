@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "56cdbcb919f5fda26b7edb155c89fe3a161e27ad4e9169cf66ff8acc4747738e",
+    "semantic_fingerprint": "37d8559ae5e862a0e5d5ee010524d5b06a21481408b0eee9aeef063c9dab588f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Search contacts by name/email/phone.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter contacts",
+        "name": "contacts",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter query",
+        "name": "query",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of search_contacts",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def search_contacts(v0: list, v1: str) -> list:\n    v2 = v1.lower()\n    return [v3 for v3 in v0 if v2 in v3.get('name', '').lower() or v2 in v3.get('email', '').lower() or v1 in v3.get('phone', '')]",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T00:43:57.436767+00:00",
+    "description": "Search contacts by name/email/phone.",
+    "intent": "Search contacts by name/email/phone.",
+    "language": "python",
+    "name": "search_contacts",
+    "source_file": "neurop_forge/sources/contact_utilities.py",
+    "source_line_end": 146,
+    "source_line_start": 140,
+    "tags": [
+      "contacts",
+      "filtering",
+      "query",
+      "search"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:43:57.436790+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(contacts) == list",
+      "contacts is not None",
+      "type(query) == string",
+      "query is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(contacts) == list",
+      "contacts is not None",
+      "type(query) == string",
+      "query is not None"
+    ]
+  }
+}

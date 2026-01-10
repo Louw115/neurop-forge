@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f35d7da59618b7e51b13567f9db7586df2794b07b38698a9e6857dd96d747b26",
+    "semantic_fingerprint": "8b8966de7da3e0d41b0dd7bd793e804b045c47c4baee44a33fb76689120b3345",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Compute diff operations.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter a",
+        "name": "a",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter b",
+        "name": "b",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of compute_diff",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def compute_diff(v0: list, v1: list) -> list:\n    v2 = v3(v0, v1)\n    v4 = []\n    v5, v6 = (len(v0), len(v1))\n    while v5 > 0 or v6 > 0:\n        if v5 > 0 and v6 > 0 and (v0[v5 - 1] == v1[v6 - 1]):\n            v4.append({'op': 'equal', 'value': v0[v5 - 1], 'a_index': v5 - 1, 'b_index': v6 - 1})\n            v5 -= 1\n            v6 -= 1\n        elif v6 > 0 and (v5 == 0 or v2[v5][v6 - 1] >= v2[v5 - 1][v6]):\n            v4.append({'op': 'insert', 'value': v1[v6 - 1], 'b_index': v6 - 1})\n            v6 -= 1\n        else:\n            v4.append({'op': 'delete', 'value': v0[v5 - 1], 'a_index': v5 - 1})\n            v5 -= 1\n    return list(reversed(v4))",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T00:04:21.624859+00:00",
+    "description": "Compute diff operations.",
+    "intent": "Compute diff operations.",
+    "language": "python",
+    "name": "compute_diff",
+    "source_file": "neurop_forge/sources/diff_utilities.py",
+    "source_line_end": 41,
+    "source_line_start": 25,
+    "tags": [
+      "a",
+      "arithmetic",
+      "b",
+      "compute",
+      "diff"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:04:21.624878+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(a) == list",
+      "a is not None",
+      "type(b) == list",
+      "b is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(a) == list",
+      "a is not None",
+      "type(b) == list",
+      "b is not None"
+    ]
+  }
+}

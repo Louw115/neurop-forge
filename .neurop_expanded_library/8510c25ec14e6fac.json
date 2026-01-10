@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8510c25ec14e6fac570594d85cba92121eb7ec007c2c5fff9d0bf0333efc7460",
+    "semantic_fingerprint": "20e33f573a6842faadc4344ced752225f00b724d795fabd5e262acc53988a142",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate polygon centroid.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter vertices",
+        "name": "vertices",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of polygon_centroid",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def polygon_centroid(v0: list) -> dict:\n    v1 = len(v0)\n    if v1 == 0:\n        return v2(0, 0)\n    v3 = sum((v4['x'] for v4 in v0)) / v1\n    v5 = sum((v4['y'] for v4 in v0)) / v1\n    return v2(v3, v5)",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T00:10:02.103284+00:00",
+    "description": "Calculate polygon centroid.",
+    "intent": "Calculate polygon centroid.",
+    "language": "python",
+    "name": "polygon_centroid",
+    "source_file": "neurop_forge/sources/geometry_utilities.py",
+    "source_line_end": 199,
+    "source_line_start": 192,
+    "tags": [
+      "centroid",
+      "dict_operation",
+      "polygon",
+      "vertices"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:10:02.103304+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(vertices) == list",
+      "vertices is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(vertices) == list",
+      "vertices is not None"
+    ]
+  }
+}

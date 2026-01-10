@@ -1,0 +1,150 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7bff3978b813ffc76e947783afe96035616ed64ee7cfc3d459aeb821e743ad47",
+    "semantic_fingerprint": "64769ee294fa1f669fd74dbbf8b8286590bbfb24fff8141d488976dd574de678",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get key-value pairs in range [lo, hi].",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter sl",
+        "name": "sl",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter lo",
+        "name": "lo",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter hi",
+        "name": "hi",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of skip_list_range",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def skip_list_range(v0: dict, v1, v2) -> list:\n    v3 = []\n    v4 = v0['head']\n    for v5 in range(v0['level'] - 1, -1, -1):\n        while v4['forward'][v5] and v4['forward'][v5]['key'] < v1:\n            v4 = v4['forward'][v5]\n    v4 = v4['forward'][0]\n    while v4 and v4['key'] <= v2:\n        v3.append((v4['key'], v4['value']))\n        v4 = v4['forward'][0]\n    return v3",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T00:04:21.605840+00:00",
+    "description": "Get key-value pairs in range [lo, hi].",
+    "intent": "Get key-value pairs in range [lo, hi].",
+    "language": "python",
+    "name": "skip_list_range",
+    "source_file": "neurop_forge/sources/skip_list.py",
+    "source_line_end": 189,
+    "source_line_start": 178,
+    "tags": [
+      "hi",
+      "list",
+      "list_operation",
+      "lo",
+      "range",
+      "skip",
+      "sl"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:04:21.605859+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(sl) == dict",
+      "sl is not None",
+      "lo is not None",
+      "hi is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(sl) == dict",
+      "sl is not None",
+      "lo is not None",
+      "hi is not None"
+    ]
+  }
+}

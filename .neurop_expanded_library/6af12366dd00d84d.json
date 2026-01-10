@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "6af12366dd00d84d29fb1dbb5fa5ac5f15d6abfbf067162bb45ae8e2a1255ab5",
+    "semantic_fingerprint": "20401913b5c570ba5e6852083a5473232e89279091aab52586e0acc3f227d985",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate deterministic random integer in range.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seed",
+        "name": "seed",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter min_val",
+        "name": "min_val",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_val",
+        "name": "max_val",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of random_int",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def random_int(v0: int, v1: int, v2: int) -> int:\n    v3 = _hash_seed(v0, 0)\n    return v1 + v3 % (v2 - v1 + 1)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-09T23:58:39.016348+00:00",
+    "description": "Generate deterministic random integer in range.",
+    "intent": "Generate deterministic random integer in range.",
+    "language": "python",
+    "name": "random_int",
+    "source_file": "neurop_forge/sources/sampling_utilities.py",
+    "source_line_end": 24,
+    "source_line_start": 21,
+    "tags": [
+      "arithmetic",
+      "int",
+      "max_val",
+      "min_val",
+      "random",
+      "seed"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-09T23:58:39.016369+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(seed) == integer",
+      "seed is not None",
+      "type(min_val) == integer",
+      "min_val is not None",
+      "type(max_val) == integer",
+      "max_val is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(seed) == integer",
+      "seed is not None",
+      "type(min_val) == integer",
+      "min_val is not None",
+      "type(max_val) == integer",
+      "max_val is not None"
+    ]
+  }
+}

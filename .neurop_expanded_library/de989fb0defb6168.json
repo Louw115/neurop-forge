@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "de989fb0defb6168010add540daea19281498504841fc73e265834b89a00c1a0",
+    "semantic_fingerprint": "840e342b3af1ce0c5a4e695b44f272ee15cea8a0937da81062ab67d363ffb609",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get value at JSON path.",
+    "inputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter obj",
+        "name": "obj",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter path",
+        "name": "path",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Return value of get_by_path",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_by_path(v0, v1: str):\n    if not v1:\n        return v0\n    v2 = v3(v1)\n    v4 = v0\n    for v5 in v2:\n        if isinstance(v4, dict):\n            if v5 in v4:\n                v4 = v4[v5]\n            else:\n                return None\n        elif isinstance(v4, list):\n            try:\n                v6 = int(v5)\n                if 0 <= v6 < len(v4):\n                    v4 = v4[v6]\n                else:\n                    return None\n            except v7:\n                return None\n        else:\n            return None\n    return v4",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T00:40:57.176456+00:00",
+    "description": "Get value at JSON path.",
+    "intent": "Get value at JSON path.",
+    "language": "python",
+    "name": "get_by_path",
+    "source_file": "neurop_forge/sources/json_path.py",
+    "source_line_end": 36,
+    "source_line_start": 13,
+    "tags": [
+      "filtering",
+      "get",
+      "obj",
+      "path"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T00:40:57.176484+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "obj is not None",
+      "type(path) == string",
+      "path is not None"
+    ],
+    "invariants": [],
+    "output_validators": [],
+    "postconditions": [],
+    "preconditions": [
+      "obj is not None",
+      "type(path) == string",
+      "path is not None"
+    ]
+  }
+}
