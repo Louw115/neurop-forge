@@ -34,6 +34,11 @@ from neurop_forge.runtime.guards import (
     RetryPolicy,
     CircuitBreaker,
 )
+from neurop_forge.runtime.adapter import (
+    FunctionAdapter,
+    FunctionSignature,
+    SemanticInputMapper,
+)
 
 __all__ = [
     "ExecutionContext",
@@ -48,4 +53,7 @@ __all__ = [
     "ExecutionGuard",
     "RetryPolicy",
     "CircuitBreaker",
+    "FunctionAdapter",
+    "FunctionSignature",
+    "SemanticInputMapper",
 ]

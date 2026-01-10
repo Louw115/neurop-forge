@@ -24,6 +24,7 @@ import traceback
 from neurop_forge.runtime.context import ExecutionContext, ContextScope
 from neurop_forge.runtime.result import ExecutionResult, ExecutionTrace, ExecutionStatus
 from neurop_forge.runtime.guards import RetryPolicy, CircuitBreaker, ExecutionGuard
+from neurop_forge.runtime.adapter import FunctionAdapter
 from neurop_forge.semantic.composer import SemanticGraph, CompositionNode
 from neurop_forge.core.block_schema import NeuropBlock
 
@@ -46,6 +47,7 @@ class BlockExecutor:
     
     Features:
     - Safe execution sandbox
+    - FunctionAdapter for signature mapping
     - Type coercion for inputs
     - Output validation
     - Exception handling
@@ -53,6 +55,7 @@ class BlockExecutor:
     
     def __init__(self):
         self._execution_namespace: Dict[str, Any] = {}
+        self._adapter = FunctionAdapter()
         self._setup_namespace()
     
     def _setup_namespace(self) -> None:
@@ -119,6 +122,8 @@ class BlockExecutor:
         """
         Execute a block's logic with given inputs.
         
+        Uses FunctionAdapter to map semantic inputs to actual function params.
+        
         Returns:
             Tuple of (outputs dict, error message or None)
         """
@@ -127,17 +132,32 @@ class BlockExecutor:
             local_namespace.update(inputs)
             
             logic = block.logic.strip()
-            
             func_name = block.metadata.name
+            
+            if hasattr(block.identity, 'content_hash'):
+                block_id = str(block.identity.content_hash)
+            elif isinstance(block.identity, dict):
+                block_id = str(block.identity.get('content_hash', id(block)))
+            else:
+                block_id = str(id(block))
             
             exec(logic, local_namespace)
             
             if func_name in local_namespace:
                 func = local_namespace[func_name]
                 
-                func_inputs = self._prepare_inputs(block, inputs)
+                adapted_inputs, adapt_error = self._adapter.adapt_inputs(
+                    block_id=block_id,
+                    source_code=logic,
+                    func_name=func_name,
+                    available_inputs=inputs,
+                    interface_inputs=list(block.interface.inputs) if hasattr(block, 'interface') else None,
+                )
                 
-                result = func(**func_inputs)
+                if adapt_error:
+                    return {}, adapt_error
+                
+                result = func(**adapted_inputs)
                 
                 outputs = self._prepare_outputs(block, result)
                 return outputs, None

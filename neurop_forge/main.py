@@ -904,17 +904,74 @@ def demonstrate_expanded_library():
     print("  Intent -> Compose -> Execute -> Result")
     print()
     
+    print("A) Direct Block Execution (Known-Good Blocks):")
+    print("-" * 40)
+    
+    from neurop_forge.runtime import BlockExecutor
+    block_executor = BlockExecutor()
+    
+    all_blocks = list(forge._block_store.get_all())
+    
+    test_blocks = []
+    for block in all_blocks[:200]:
+        if hasattr(block.metadata, 'name'):
+            name = block.metadata.name
+            if name in ['is_palindrome', 'to_upper', 'to_lower', 'title_case', 'reverse_string', 'is_empty', 'word_count']:
+                test_blocks.append(block)
+                if len(test_blocks) >= 3:
+                    break
+    
+    direct_successes = 0
+    for block in test_blocks:
+        test_input = {"text": "hello world", "s": "hello world", "string": "hello world", "value": "hello world"}
+        outputs, error = block_executor.execute(block, test_input)
+        if error:
+            print(f"  Block '{block.metadata.name}': FAILED - {error[:50]}...")
+        else:
+            print(f"  Block '{block.metadata.name}': SUCCESS -> {outputs}")
+            direct_successes += 1
+    
+    if not test_blocks or direct_successes == 0:
+        simple_blocks = [b for b in all_blocks[:300]
+                        if len(b.interface.inputs) == 1 and 
+                        b.interface.inputs[0].data_type.value in ['string', 'integer', 'float']]
+        for block in simple_blocks[:5]:
+            param = block.interface.inputs[0]
+            if param.data_type.value == 'string':
+                test_input = {param.name: "hello world test"}
+            elif param.data_type.value == 'integer':
+                test_input = {param.name: 42}
+            else:
+                test_input = {param.name: 3.14}
+            
+            outputs, error = block_executor.execute(block, test_input)
+            if error:
+                print(f"  Block '{block.metadata.name}': FAILED - {error[:50]}...")
+            else:
+                print(f"  Block '{block.metadata.name}': SUCCESS -> {outputs}")
+                direct_successes += 1
+    
+    print()
+    print(f"Direct Execution: {direct_successes} blocks executed successfully")
+    print()
+    
+    print("B) Semantic Graph Execution:")
+    print("-" * 40)
+    
     test_inputs = {
-        "email": "user@example.com",
-        "username": "john_doe",
-        "phone": "+1-555-123-4567",
+        "text": "Hello World",
+        "s": "Hello World",
+        "string": "Hello World",
+        "value": "Hello World",
+        "n": 42,
+        "number": 42,
     }
     
     print(f"Test Inputs: {test_inputs}")
     print()
     
     execution_result = forge.execute_intent(
-        intent="validate and format user input",
+        intent="check and transform text",
         inputs=test_inputs,
     )
     
