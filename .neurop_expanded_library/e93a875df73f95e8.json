@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e93a875df73f95e872b40aad0bd04d0cb1bd52866508950762a112abbb709ac1",
+    "semantic_fingerprint": "30df64e3721b1d3114db1ea980332b17b1afa2c9b74d31ef7317e0c7053b3ab0",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate Content-Type against whitelist.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter content_type",
+        "name": "content_type",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter allowed_types",
+        "name": "allowed_types",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of validate_content_type",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_content_type(content_type: str, allowed_types: list) -> bool:\n    \"\"\"Validate Content-Type against whitelist.\"\"\"\n    base_type = content_type.split(\";\")[0].strip().lower()\n    return base_type in [t.lower() for t in allowed_types]",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T17:49:45.086555+00:00",
+    "description": "Validate Content-Type against whitelist.",
+    "intent": "Validate Content-Type against whitelist.",
+    "language": "python",
+    "name": "validate_content_type",
+    "source_file": "neurop_forge/sources/security_patterns.py",
+    "source_line_end": 210,
+    "source_line_start": 207,
+    "tags": [
+      "allowed_types",
+      "content",
+      "content_type",
+      "type",
+      "validate",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T17:49:45.086581+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(content_type) == string",
+      "content_type is not None",
+      "type(allowed_types) == list",
+      "allowed_types is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(content_type) == string",
+      "content_type is not None",
+      "type(allowed_types) == list",
+      "allowed_types is not None"
+    ]
+  }
+}

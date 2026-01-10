@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "6ae8058b68bad62b4468e458ea0131aca1700f5aa02916c87b1a7c3f5190c6c6",
+    "semantic_fingerprint": "65a76b1659c3595fc7e8c95d4257166452ff67f26e0cdd86380d8a2666bc813b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse query string into dictionary.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter query",
+        "name": "query",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of parse_query_string",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_query_string(query: str) -> dict:\n    \"\"\"Parse query string into dictionary.\"\"\"\n    if not query:\n        return {}\n    result = {}\n    for pair in query.split(\"&\"):\n        if \"=\" in pair:\n            key, value = pair.split(\"=\", 1)\n            result[key] = value\n        else:\n            result[pair] = \"\"\n    return result",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T17:49:48.826321+00:00",
+    "description": "Parse query string into dictionary.",
+    "intent": "Parse query string into dictionary.",
+    "language": "python",
+    "name": "parse_query_string",
+    "source_file": "neurop_forge/sources/protocol_utilities.py",
+    "source_line_end": 116,
+    "source_line_start": 105,
+    "tags": [
+      "parse",
+      "query",
+      "string",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T17:49:48.826336+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(query) == string",
+      "query is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(query) == string",
+      "query is not None"
+    ]
+  }
+}

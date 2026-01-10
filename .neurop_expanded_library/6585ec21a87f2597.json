@@ -1,0 +1,148 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception",
+      "KeyError"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "6585ec21a87f259700007fe489bcba2f5a7a4106c41fa27eae533b09f381582b",
+    "semantic_fingerprint": "088d8d6ba1504f067d8a92e248288f9d1c18c71aaa730d141f1e5fac4d888f42",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate API key format.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter api_key",
+        "name": "api_key",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter expected_prefix",
+        "name": "expected_prefix",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_valid_api_key_format",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_valid_api_key_format(api_key: str, expected_prefix: str) -> bool:\n    \"\"\"Validate API key format.\"\"\"\n    parsed = parse_api_key(api_key)\n    return parsed[\"valid\"] and parsed[\"prefix\"] == expected_prefix",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T17:49:50.316021+00:00",
+    "description": "Validate API key format.",
+    "intent": "Validate API key format.",
+    "language": "python",
+    "name": "is_valid_api_key_format",
+    "source_file": "neurop_forge/sources/token_utilities.py",
+    "source_line_end": 118,
+    "source_line_start": 115,
+    "tags": [
+      "api",
+      "api_key",
+      "expected_prefix",
+      "format",
+      "key",
+      "valid",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T17:49:50.316047+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(api_key) == string",
+      "api_key is not None",
+      "type(expected_prefix) == string",
+      "expected_prefix is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(api_key) == string",
+      "api_key is not None",
+      "type(expected_prefix) == string",
+      "expected_prefix is not None"
+    ]
+  }
+}

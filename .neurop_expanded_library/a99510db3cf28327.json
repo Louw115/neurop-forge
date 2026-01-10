@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic aggregation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a99510db3cf28327f224ec1b535721394cc81af8cf725a5d23e10a652416ff73",
+    "semantic_fingerprint": "ad5519b8a9d0e45a75125941491ac5417a4b07f5734dff019e6bc94dbf23b98e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Count events by type.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter events",
+        "name": "events",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of count_events_by_type",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def count_events_by_type(events: list) -> dict:\n    \"\"\"Count events by type.\"\"\"\n    counts = {}\n    for event in events:\n        event_type = event.get(\"type\", \"unknown\")\n        counts[event_type] = counts.get(event_type, 0) + 1\n    return counts",
+  "metadata": {
+    "category": "aggregation",
+    "created_at": "2026-01-10T17:49:49.216205+00:00",
+    "description": "Count events by type.",
+    "intent": "Count events by type.",
+    "language": "python",
+    "name": "count_events_by_type",
+    "source_file": "neurop_forge/sources/event_utilities.py",
+    "source_line_end": 69,
+    "source_line_start": 63,
+    "tags": [
+      "aggregation",
+      "count",
+      "events",
+      "type"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T17:49:49.216221+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(events) == list",
+      "events is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(events) == list",
+      "events is not None"
+    ]
+  }
+}

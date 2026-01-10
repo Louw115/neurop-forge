@@ -1,0 +1,131 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "280064233daedd0d898cb6a64c354780c92b7ed7228a5e29741b0ce3ee2c5a0f",
+    "semantic_fingerprint": "5c471443d2c8db0706bee0d14402ab6737b135d2c6af19745aca90105ce72dc9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if value is non-negative.",
+    "inputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of is_non_negative",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_non_negative(value) -> dict:\n    \"\"\"Check if value is non-negative.\"\"\"\n    valid = value >= 0\n    return {\"valid\": valid, \"error\": \"Must be non-negative\" if not valid else None}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T17:49:48.520449+00:00",
+    "description": "Check if value is non-negative.",
+    "intent": "Check if value is non-negative.",
+    "language": "python",
+    "name": "is_non_negative",
+    "source_file": "neurop_forge/sources/validation_rules.py",
+    "source_line_end": 230,
+    "source_line_start": 227,
+    "tags": [
+      "negative",
+      "non",
+      "validation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T17:49:48.520474+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "value is not None"
+    ]
+  }
+}

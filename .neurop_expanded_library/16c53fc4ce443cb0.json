@@ -1,0 +1,158 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "16c53fc4ce443cb0b4bb203869c657df4f67d4a34d0fda0acc310f7284cf183e",
+    "semantic_fingerprint": "4dedd8fd2f28dfc7e575db32bbe888ef8a77f7a6c9349bd03c00b1d365125a09",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Filter events by time range.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter events",
+        "name": "events",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter start",
+        "name": "start",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter end",
+        "name": "end",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of filter_events_by_time_range",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def filter_events_by_time_range(events: list, start: int, end: int) -> list:\n    \"\"\"Filter events by time range.\"\"\"\n    return [e for e in events if start <= e.get(\"timestamp\", 0) <= end]",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T17:49:49.211507+00:00",
+    "description": "Filter events by time range.",
+    "intent": "Filter events by time range.",
+    "language": "python",
+    "name": "filter_events_by_time_range",
+    "source_file": "neurop_forge/sources/event_utilities.py",
+    "source_line_end": 44,
+    "source_line_start": 42,
+    "tags": [
+      "end",
+      "events",
+      "filter",
+      "filtering",
+      "range",
+      "start",
+      "time"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T17:49:49.211531+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(events) == list",
+      "events is not None",
+      "type(start) == integer",
+      "start is not None",
+      "type(end) == integer",
+      "end is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(events) == list",
+      "events is not None",
+      "type(start) == integer",
+      "start is not None",
+      "type(end) == integer",
+      "end is not None"
+    ]
+  }
+}

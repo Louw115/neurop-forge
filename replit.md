@@ -224,25 +224,44 @@ The FunctionAdapter bridges semantic inputs and actual function signatures:
 - Full execution trace
 
 ## Recent Changes
+- **V2 Block Deduplication Engine** (Phase 1): Automated duplicate block detection and removal
+  - SignatureHasher: Detects duplicates by name + parameter signature (order-preserving)
+  - PolicyEngine: KEEP_BEST (default), NAMESPACE, QUARANTINE strategies
+  - DeduplicationProcessor: Full pipeline with swap-in-place and backup
+  - Registry rebuild: Updates verified/tier registries after deduplication
+  - CLI: `neurop-forge dedup [--detailed] [--execute] [--policy namespace]`
+  - Results: 4,552 → 4,141 blocks (9% reduction), 0 duplicate names
 - **Production Reference Workflows**: 5 real-world semantic graph templates with 4/5 passing
 - **Tier-A/Tier-B Block Classification**: Automated classification of verified blocks
   - Tier-A (75%): Deterministic, pure functions, no external dependencies
   - Tier-B (25%): Context-dependent or complex input requirements
 - **Auto-Verification Gate**: Blocks must pass through gate before being admitted to verified registry
-  - Integrates with tier classification
-  - Supports batch admission via admit_batch()
-- **AI Composition Metadata**: Enhanced metadata for AI-assisted block selection
-  - OperationType (validate, parse, transform, format, etc.)
-  - CompositionRole (entry, intermediate, terminal, standalone)
-  - InputComplexity (trivial, simple, moderate, complex)
 - **Adapter Layer**: FunctionAdapter bridges semantic inputs to actual function signatures
 - Phase 2 complete: Runtime Executor with full Intent -> Compose -> Execute -> Result loop
-- 4,551 blocks from 175 source modules
-- 2,740 verified blocks (60.2% verification rate)
+- 4,141 unique blocks from 175 source modules (after deduplication)
 - 100% composition confidence on semantic graphs
-- Semantic domain matching with type flow validation
+
+## Deduplication Engine (V2)
+```
+neurop_forge/deduplication/
+├── __init__.py         # Module exports
+├── signature_hasher.py # BlockSignature, SignatureHasher (order-preserving)
+├── policy_engine.py    # DeduplicationPolicy, DeduplicationDecision, PolicyEngine
+├── dedup_processor.py  # DeduplicationProcessor (orchestrator)
+└── dedup_report.py     # DeduplicationReport (summary, detailed, JSON)
+```
+
+### Usage
+```python
+from neurop_forge.main import NeuropForge
+
+forge = NeuropForge(storage_path='.neurop_expanded_library')
+result = forge.deduplicate_library(execute=True, swap_in_place=True)
+print(f"Removed {result['blocks_removed']} duplicates")
+```
 
 ## Production Validation Results
 - Golden Validation Suite: 10/10 blocks pass with expected output validation
 - Production Reference Workflows: 4/5 passing (text_normalization, string_analysis, input_validation, text_transform_chain)
 - Direct block execution: SUCCESS (`reverse_string` → `'dlrow olleh'`, `is_empty` → `False`)
+- Deduplication: 360 duplicate groups resolved, 0 remaining duplicates

@@ -1,0 +1,132 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "42df1a7f6eb3cc3d5f5f8faa9dbc54919d803dadf973921dd6651faff7d3da3f",
+    "semantic_fingerprint": "ab0d5a50fc358c5f44a79836bcfceaf09685faa30a66ae6c44af80beea1b9fea",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if IP is in private range.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter ip",
+        "name": "ip",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_private_ip",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_private_ip(ip: str) -> bool:\n    \"\"\"Check if IP is in private range.\"\"\"\n    parts = [int(p) for p in ip.split('.')]\n    if parts[0] == 10:\n        return True\n    if parts[0] == 172 and 16 <= parts[1] <= 31:\n        return True\n    if parts[0] == 192 and parts[1] == 168:\n        return True\n    return False",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T17:49:48.685831+00:00",
+    "description": "Check if IP is in private range.",
+    "intent": "Check if IP is in private range.",
+    "language": "python",
+    "name": "is_private_ip",
+    "source_file": "neurop_forge/sources/ip_utilities.py",
+    "source_line_end": 68,
+    "source_line_start": 59,
+    "tags": [
+      "ip",
+      "private",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T17:49:48.685846+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(ip) == string",
+      "ip is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(ip) == string",
+      "ip is not None"
+    ]
+  }
+}

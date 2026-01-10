@@ -1,0 +1,144 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f5975eb051c502185eb9bf38e1b80ea65e29c33cf2527da594248c6536f65405",
+    "semantic_fingerprint": "87bbcb4e9ba7f707b28fa1f2c14a41e6637cb88ed6c6844f4415868336c711d5",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Mask a phone number showing only last N digits.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter phone",
+        "name": "phone",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter visible_digits",
+        "name": "visible_digits",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of mask_phone",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def mask_phone(phone: str, visible_digits: int) -> str:\n    \"\"\"Mask a phone number showing only last N digits.\"\"\"\n    digits = normalize_phone(phone)\n    if len(digits) <= visible_digits:\n        return '*' * len(digits)\n    masked = '*' * (len(digits) - visible_digits)\n    return masked + digits[-visible_digits:]",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T17:49:43.119438+00:00",
+    "description": "Mask a phone number showing only last N digits.",
+    "intent": "Mask a phone number showing only last N digits.",
+    "language": "python",
+    "name": "mask_phone",
+    "source_file": "neurop_forge/sources/phone_utilities.py",
+    "source_line_end": 122,
+    "source_line_start": 116,
+    "tags": [
+      "mask",
+      "phone",
+      "string_manipulation",
+      "visible_digits"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T17:49:43.119466+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(phone) == string",
+      "phone is not None",
+      "type(visible_digits) == integer",
+      "visible_digits is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(phone) == string",
+      "phone is not None",
+      "type(visible_digits) == integer",
+      "visible_digits is not None"
+    ]
+  }
+}

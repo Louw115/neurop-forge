@@ -1,0 +1,156 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8825037435c92696895997172ae0112d366029cbf8020ffb2e46a572c631f740",
+    "semantic_fingerprint": "cced17392adc9035b78f5c0d40ba8780107cc3ebfd49bd43dce261a9296b1609",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Paginate search results.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter results",
+        "name": "results",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter page",
+        "name": "page",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter per_page",
+        "name": "per_page",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of paginate_results",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def paginate_results(results: list, page: int, per_page: int) -> dict:\n    \"\"\"Paginate search results.\"\"\"\n    start = (page - 1) * per_page\n    end = start + per_page\n    return {\n        \"results\": results[start:end],\n        \"total\": len(results),\n        \"page\": page,\n        \"per_page\": per_page,\n        \"total_pages\": (len(results) + per_page - 1) // per_page\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T17:49:50.519528+00:00",
+    "description": "Paginate search results.",
+    "intent": "Paginate search results.",
+    "language": "python",
+    "name": "paginate_results",
+    "source_file": "neurop_forge/sources/search_helpers.py",
+    "source_line_end": 116,
+    "source_line_start": 106,
+    "tags": [
+      "dict_operation",
+      "page",
+      "paginate",
+      "per_page",
+      "results"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T17:49:50.519559+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(results) == list",
+      "results is not None",
+      "type(page) == integer",
+      "page is not None",
+      "type(per_page) == integer",
+      "per_page is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(results) == list",
+      "results is not None",
+      "type(page) == integer",
+      "page is not None",
+      "type(per_page) == integer",
+      "per_page is not None"
+    ]
+  }
+}

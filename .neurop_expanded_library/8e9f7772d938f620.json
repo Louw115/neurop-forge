@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8e9f7772d938f620a372b0fa21c3c933c87d81e0acba1d086efbeccc994d001c",
+    "semantic_fingerprint": "3a1e3d8739fa227f0387b9f28ee9202a34f7c61bd1e6c40b18c75aba3e1796d8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate page number from offset.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter offset",
+        "name": "offset",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter page_size",
+        "name": "page_size",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of calculate_page_from_offset",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_page_from_offset(offset: int, page_size: int) -> int:\n    \"\"\"Calculate page number from offset.\"\"\"\n    if page_size <= 0:\n        return 1\n    return (offset // page_size) + 1",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T17:49:49.735899+00:00",
+    "description": "Calculate page number from offset.",
+    "intent": "Calculate page number from offset.",
+    "language": "python",
+    "name": "calculate_page_from_offset",
+    "source_file": "neurop_forge/sources/pagination_helpers.py",
+    "source_line_end": 31,
+    "source_line_start": 27,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "from",
+      "offset",
+      "page",
+      "page_size"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T17:49:49.735918+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(offset) == integer",
+      "offset is not None",
+      "type(page_size) == integer",
+      "page_size is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(offset) == integer",
+      "offset is not None",
+      "type(page_size) == integer",
+      "page_size is not None"
+    ]
+  }
+}

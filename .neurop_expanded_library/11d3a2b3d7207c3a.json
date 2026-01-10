@@ -1,0 +1,158 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "11d3a2b3d7207c3a3f967b74e8c431d749de6f5153d968926817f8c0507453c8",
+    "semantic_fingerprint": "27befb09ae466214daf6020a7173e542c8a124c40fb11a3f10134d41985d7941",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate retry-after header value.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter remaining",
+        "name": "remaining",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter window_reset_time",
+        "name": "window_reset_time",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter current_time",
+        "name": "current_time",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_retry_after",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_retry_after(remaining: int, window_reset_time: float, current_time: float) -> float:\n    \"\"\"Calculate retry-after header value.\"\"\"\n    if remaining > 0:\n        return 0\n    return window_reset_time - current_time",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T17:49:47.508028+00:00",
+    "description": "Calculate retry-after header value.",
+    "intent": "Calculate retry-after header value.",
+    "language": "python",
+    "name": "calculate_retry_after",
+    "source_file": "neurop_forge/sources/rate_limiter.py",
+    "source_line_end": 171,
+    "source_line_start": 167,
+    "tags": [
+      "after",
+      "arithmetic",
+      "calculate",
+      "current_time",
+      "remaining",
+      "retry",
+      "window_reset_time"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T17:49:47.508043+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(remaining) == integer",
+      "remaining is not None",
+      "type(window_reset_time) == float",
+      "window_reset_time is not None",
+      "type(current_time) == float",
+      "current_time is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(remaining) == integer",
+      "remaining is not None",
+      "type(window_reset_time) == float",
+      "window_reset_time is not None",
+      "type(current_time) == float",
+      "current_time is not None"
+    ]
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "fb6994c2af59030fde67fdd4e0ebf1e3e2c07f373b743cbf7cacfc153da4fb5e",
+    "semantic_fingerprint": "b94a867b9151189c8361f9244bb2c2b73d5c472ad4df0a33dc212dbe064481c8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate that value is numeric.",
+    "inputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter message",
+        "name": "message",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of validate_numeric",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_numeric(value, message: str) -> dict:\n    \"\"\"Validate that value is numeric.\"\"\"\n    try:\n        float(value)\n        return {\"valid\": True, \"error\": None}\n    except (ValueError, TypeError):\n        return {\"valid\": False, \"error\": message}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T17:49:46.130825+00:00",
+    "description": "Validate that value is numeric.",
+    "intent": "Validate that value is numeric.",
+    "language": "python",
+    "name": "validate_numeric",
+    "source_file": "neurop_forge/sources/form_utilities.py",
+    "source_line_end": 82,
+    "source_line_start": 76,
+    "tags": [
+      "message",
+      "numeric",
+      "validate",
+      "validation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T17:49:46.130851+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "value is not None",
+      "type(message) == string",
+      "message is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "value is not None",
+      "type(message) == string",
+      "message is not None"
+    ]
+  }
+}

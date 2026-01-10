@@ -1,0 +1,158 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5ca347cfb03a4fca39767199dcc8870d42f61e3a7cf5c359ce1f939fffddd4cf",
+    "semantic_fingerprint": "e3c9c739f488dd2ed3ad95b61d8575daa5efd8f9520f52e8250c74c46b422657",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate file extension.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter filename",
+        "name": "filename",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter allowed_extensions",
+        "name": "allowed_extensions",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter message",
+        "name": "message",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of validate_file_extension",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_file_extension(filename: str, allowed_extensions: list, message: str) -> dict:\n    \"\"\"Validate file extension.\"\"\"\n    ext = filename.split(\".\")[-1].lower() if \".\" in filename else \"\"\n    is_valid = ext in [e.lower() for e in allowed_extensions]\n    return {\"valid\": is_valid, \"error\": None if is_valid else message}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T17:49:46.144155+00:00",
+    "description": "Validate file extension.",
+    "intent": "Validate file extension.",
+    "language": "python",
+    "name": "validate_file_extension",
+    "source_file": "neurop_forge/sources/form_utilities.py",
+    "source_line_end": 139,
+    "source_line_start": 135,
+    "tags": [
+      "allowed_extensions",
+      "extension",
+      "file",
+      "filename",
+      "message",
+      "validate",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T17:49:46.144185+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(filename) == string",
+      "filename is not None",
+      "type(allowed_extensions) == list",
+      "allowed_extensions is not None",
+      "type(message) == string",
+      "message is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(filename) == string",
+      "filename is not None",
+      "type(allowed_extensions) == list",
+      "allowed_extensions is not None",
+      "type(message) == string",
+      "message is not None"
+    ]
+  }
+}

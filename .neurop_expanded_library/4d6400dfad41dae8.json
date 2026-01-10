@@ -1,0 +1,181 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4d6400dfad41dae845aa02e6968210bef39bfa8e3a6e0571462d00bed172eb05",
+    "semantic_fingerprint": "508652fba2f65d29e48975d19c82d5e6aeb3a0e61f9b7dddef17a06b42b4d264",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build CORS response headers.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter origin",
+        "name": "origin",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter methods",
+        "name": "methods",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter headers",
+        "name": "headers",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_age",
+        "name": "max_age",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter credentials",
+        "name": "credentials",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_cors_headers",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_cors_headers(origin: str, methods: list, headers: list, max_age: int, credentials: bool) -> dict:\n    \"\"\"Build CORS response headers.\"\"\"\n    cors_headers = {\n        \"Access-Control-Allow-Origin\": origin,\n        \"Access-Control-Allow-Methods\": \", \".join(methods),\n        \"Access-Control-Allow-Headers\": \", \".join(headers),\n        \"Access-Control-Max-Age\": str(max_age),\n    }\n    if credentials:\n        cors_headers[\"Access-Control-Allow-Credentials\"] = \"true\"\n    return cors_headers",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T17:49:44.132760+00:00",
+    "description": "Build CORS response headers.",
+    "intent": "Build CORS response headers.",
+    "language": "python",
+    "name": "build_cors_headers",
+    "source_file": "neurop_forge/sources/api_patterns.py",
+    "source_line_end": 416,
+    "source_line_start": 406,
+    "tags": [
+      "build",
+      "cors",
+      "credentials",
+      "dict_operation",
+      "headers",
+      "max_age",
+      "methods",
+      "origin"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T17:49:44.132788+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(origin) == string",
+      "origin is not None",
+      "type(methods) == list",
+      "methods is not None",
+      "type(headers) == list",
+      "headers is not None",
+      "type(max_age) == integer",
+      "max_age is not None",
+      "type(credentials) == boolean",
+      "credentials is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(origin) == string",
+      "origin is not None",
+      "type(methods) == list",
+      "methods is not None",
+      "type(headers) == list",
+      "headers is not None",
+      "type(max_age) == integer",
+      "max_age is not None",
+      "type(credentials) == boolean",
+      "credentials is not None"
+    ]
+  }
+}

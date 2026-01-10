@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "6bf3db6e7f7a9dc0b1090d38a0c3f008a9adf5ef70f0acfc2fcde93210bfdf50",
+    "semantic_fingerprint": "dea0a9ce2c44fbf9ef6f26f4510af78a0029dca0b3ea7f1268302203ea282f04",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate password entropy in bits.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter password",
+        "name": "password",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of entropy_bits",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def entropy_bits(password: str) -> float:\n    \"\"\"Calculate password entropy in bits.\"\"\"\n    import math\n    charset_size = 0\n    if has_lowercase(password):\n        charset_size += 26\n    if has_uppercase(password):\n        charset_size += 26\n    if has_digit(password):\n        charset_size += 10\n    if has_special_char(password):\n        charset_size += 32\n    if charset_size == 0:\n        return 0\n    return len(password) * math.log2(charset_size)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T17:49:49.725764+00:00",
+    "description": "Calculate password entropy in bits.",
+    "intent": "Calculate password entropy in bits.",
+    "language": "python",
+    "name": "entropy_bits",
+    "source_file": "neurop_forge/sources/password_utilities.py",
+    "source_line_end": 193,
+    "source_line_start": 179,
+    "tags": [
+      "arithmetic",
+      "bits",
+      "entropy",
+      "password"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T17:49:49.725779+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(password) == string",
+      "password is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(password) == string",
+      "password is not None"
+    ]
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5054d0ec5288310ad17cb024fd838d8b8fb020234f2d6f1a639bc590d2d55fcc",
+    "semantic_fingerprint": "d71cc3b4c9d6af03ac233972f427250d9316484dd2dc93c89612b005a34927ca",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Unflatten flat dict to nested JSON.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter flat",
+        "name": "flat",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter separator",
+        "name": "separator",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of unflatten_json",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def unflatten_json(flat: dict, separator: str) -> dict:\n    \"\"\"Unflatten flat dict to nested JSON.\"\"\"\n    result = {}\n    for key, value in flat.items():\n        parts = key.split(separator)\n        current = result\n        for part in parts[:-1]:\n            if part not in current:\n                current[part] = {}\n            current = current[part]\n        current[parts[-1]] = value\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T17:49:49.781719+00:00",
+    "description": "Unflatten flat dict to nested JSON.",
+    "intent": "Unflatten flat dict to nested JSON.",
+    "language": "python",
+    "name": "unflatten_json",
+    "source_file": "neurop_forge/sources/json_path.py",
+    "source_line_end": 217,
+    "source_line_start": 206,
+    "tags": [
+      "dict_operation",
+      "flat",
+      "json",
+      "separator",
+      "unflatten"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T17:49:49.781738+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(flat) == dict",
+      "flat is not None",
+      "type(separator) == string",
+      "separator is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(flat) == dict",
+      "flat is not None",
+      "type(separator) == string",
+      "separator is not None"
+    ]
+  }
+}

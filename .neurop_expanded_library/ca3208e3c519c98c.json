@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ca3208e3c519c98c9a96f599ebc64db9815daeef6f43d9d8032c8b93142c6ed3",
+    "semantic_fingerprint": "9578cade0c2be6d8e2581e4ee9df976c2ddc9e774ee2fc63f7862472d743fe00",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate phone number format (basic).",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter phone",
+        "name": "phone",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of validate_phone_format",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_phone_format(phone: str) -> dict:\n    \"\"\"Validate phone number format (basic).\"\"\"\n    import re\n    cleaned = re.sub(r'[\\s\\-\\(\\)]', '', phone)\n    if not re.match(r'^\\+?[0-9]{7,15}$', cleaned):\n        return {\"valid\": False, \"error\": \"Invalid phone number format\"}\n    return {\"valid\": True, \"error\": None}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T17:49:44.317000+00:00",
+    "description": "Validate phone number format (basic).",
+    "intent": "Validate phone number format (basic).",
+    "language": "python",
+    "name": "validate_phone_format",
+    "source_file": "neurop_forge/sources/request_validation.py",
+    "source_line_end": 166,
+    "source_line_start": 160,
+    "tags": [
+      "format",
+      "phone",
+      "validate",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T17:49:44.317025+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(phone) == string",
+      "phone is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(phone) == string",
+      "phone is not None"
+    ]
+  }
+}

@@ -1,0 +1,156 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "fc2057e3ed41d37098479051a44f244804580ce93aada53eeedc04faa7f4e80a",
+    "semantic_fingerprint": "743c5a4cc7c10f27f2405425de66277350a0ff45eb2ca9ef2ad105d9435b2ecc",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get ISO week number.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter year",
+        "name": "year",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter month",
+        "name": "month",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter day",
+        "name": "day",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of week_of_year",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def week_of_year(year: int, month: int, day: int) -> int:\n    \"\"\"Get ISO week number.\"\"\"\n    doy = day_of_year(year, month, day)\n    dow = day_of_week(year, month, day)\n    week = (doy - dow + 10) // 7\n    if week < 1:\n        return 52\n    if week > 52:\n        return 1\n    return week",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T17:49:48.005391+00:00",
+    "description": "Get ISO week number.",
+    "intent": "Get ISO week number.",
+    "language": "python",
+    "name": "week_of_year",
+    "source_file": "neurop_forge/sources/datetime_math.py",
+    "source_line_end": 58,
+    "source_line_start": 49,
+    "tags": [
+      "arithmetic",
+      "day",
+      "month",
+      "week",
+      "year"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T17:49:48.005411+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(year) == integer",
+      "year is not None",
+      "type(month) == integer",
+      "month is not None",
+      "type(day) == integer",
+      "day is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(year) == integer",
+      "year is not None",
+      "type(month) == integer",
+      "month is not None",
+      "type(day) == integer",
+      "day is not None"
+    ]
+  }
+}

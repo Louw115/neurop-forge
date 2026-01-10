@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic aggregation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "56cb4d3218f7dc3a2846dc48757aa86bb65baa2e2efe57d607ed25c82c14a376",
+    "semantic_fingerprint": "f3b5f6b2bdf622dc510dc489b234cdb517815ef7339f275eac62206e5e4f4923",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Count paragraphs in text.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of paragraph_count",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def paragraph_count(text: str) -> int:\n    \"\"\"Count paragraphs in text.\"\"\"\n    paragraphs = re.split(r'\\n\\s*\\n', text)\n    return len([p for p in paragraphs if p.strip()])",
+  "metadata": {
+    "category": "aggregation",
+    "created_at": "2026-01-10T17:49:48.926570+00:00",
+    "description": "Count paragraphs in text.",
+    "intent": "Count paragraphs in text.",
+    "language": "python",
+    "name": "paragraph_count",
+    "source_file": "neurop_forge/sources/document_utilities.py",
+    "source_line_end": 36,
+    "source_line_start": 33,
+    "tags": [
+      "aggregation",
+      "count",
+      "paragraph",
+      "text"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T17:49:48.926586+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None"
+    ]
+  }
+}

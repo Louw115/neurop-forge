@@ -1,0 +1,144 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "47c9af42e45893f2fcbf26a62eefdf4634857dd716ec0a89719acb0e2825f1f6",
+    "semantic_fingerprint": "59278ce69df4e6ad2ec5413cc4e5cf03f9c2adcc9425eeda3a7988c8f06576f6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Truncate to decimal places.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter decimals",
+        "name": "decimals",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of truncate",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def truncate(value: float, decimals: int) -> float:\n    \"\"\"Truncate to decimal places.\"\"\"\n    factor = 10 ** decimals\n    return int(value * factor) / factor",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T17:49:49.392707+00:00",
+    "description": "Truncate to decimal places.",
+    "intent": "Truncate to decimal places.",
+    "language": "python",
+    "name": "truncate",
+    "source_file": "neurop_forge/sources/numeric_utilities.py",
+    "source_line_end": 82,
+    "source_line_start": 79,
+    "tags": [
+      "arithmetic",
+      "decimals",
+      "truncate",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T17:49:49.392732+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == float",
+      "value is not None",
+      "type(decimals) == integer",
+      "decimals is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(value) == float",
+      "value is not None",
+      "type(decimals) == integer",
+      "decimals is not None"
+    ]
+  }
+}

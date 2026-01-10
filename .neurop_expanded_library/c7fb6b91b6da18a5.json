@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c7fb6b91b6da18a5a87f72d9b8a35e5a8453ce3c634acceb027b0b6218c4bafc",
+    "semantic_fingerprint": "5eb36ab96f40e5b13028e946e9a5422c99333aea137eb48fe5501a6211d7fc15",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract tax amount from total.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter total",
+        "name": "total",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter rate",
+        "name": "rate",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of extract_tax",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def extract_tax(total: float, rate: float) -> float:\n    \"\"\"Extract tax amount from total.\"\"\"\n    subtotal = remove_tax(total, rate)\n    return round(total - subtotal, 2)",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T17:49:50.102775+00:00",
+    "description": "Extract tax amount from total.",
+    "intent": "Extract tax amount from total.",
+    "language": "python",
+    "name": "extract_tax",
+    "source_file": "neurop_forge/sources/tax_utilities.py",
+    "source_line_end": 31,
+    "source_line_start": 28,
+    "tags": [
+      "extract",
+      "filtering",
+      "rate",
+      "tax",
+      "total"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T17:49:50.102788+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(total) == float",
+      "total is not None",
+      "type(rate) == float",
+      "rate is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(total) == float",
+      "total is not None",
+      "type(rate) == float",
+      "rate is not None"
+    ]
+  }
+}

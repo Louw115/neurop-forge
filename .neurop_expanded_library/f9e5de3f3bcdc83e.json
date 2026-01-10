@@ -1,0 +1,144 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f9e5de3f3bcdc83e7e5e1fc6f1d96777a5fc1a7362aca727641ce7ff0e34b212",
+    "semantic_fingerprint": "018fb247764063b464a306883649b0feb0e4570cd02d8bd1301c125ba89ea1f5",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Wrap text to width.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter width",
+        "name": "width",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of wrap_text",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def wrap_text(text: str, width: int) -> list:\n    \"\"\"Wrap text to width.\"\"\"\n    words = text.split()\n    lines = []\n    current = []\n    length = 0\n    for word in words:\n        if length + len(word) + len(current) <= width:\n            current.append(word)\n            length += len(word)\n        else:\n            if current:\n                lines.append(' '.join(current))\n            current = [word]\n            length = len(word)\n    if current:\n        lines.append(' '.join(current))\n    return lines",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T17:49:48.667529+00:00",
+    "description": "Wrap text to width.",
+    "intent": "Wrap text to width.",
+    "language": "python",
+    "name": "wrap_text",
+    "source_file": "neurop_forge/sources/text_transforms.py",
+    "source_line_end": 225,
+    "source_line_start": 208,
+    "tags": [
+      "list_operation",
+      "text",
+      "width",
+      "wrap"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T17:49:48.667547+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None",
+      "type(width) == integer",
+      "width is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None",
+      "type(width) == integer",
+      "width is not None"
+    ]
+  }
+}

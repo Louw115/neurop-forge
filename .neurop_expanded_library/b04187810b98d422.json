@@ -1,0 +1,146 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b04187810b98d422f3da47388f9c112ccd0f70b7241c6a1d806b4f41aeb7c936",
+    "semantic_fingerprint": "68acf1bdf02c754b7f57b53bde32932be454ab5c0ca68f11354e3802216851a4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Constant-time comparison.",
+    "inputs": [
+      {
+        "data_type": "bytes",
+        "default_value": null,
+        "description": "Parameter a",
+        "name": "a",
+        "optional": false
+      },
+      {
+        "data_type": "bytes",
+        "default_value": null,
+        "description": "Parameter b",
+        "name": "b",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of constant_time_compare",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def constant_time_compare(a: bytes, b: bytes) -> bool:\n    \"\"\"Constant-time comparison.\"\"\"\n    return hmac.compare_digest(a, b)",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T17:49:48.438934+00:00",
+    "description": "Constant-time comparison.",
+    "intent": "Constant-time comparison.",
+    "language": "python",
+    "name": "constant_time_compare",
+    "source_file": "neurop_forge/sources/crypto_primitives.py",
+    "source_line_end": 154,
+    "source_line_start": 152,
+    "tags": [
+      "a",
+      "b",
+      "compare",
+      "constant",
+      "time",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T17:49:48.438955+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(a) == bytes",
+      "a is not None",
+      "type(b) == bytes",
+      "b is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(a) == bytes",
+      "a is not None",
+      "type(b) == bytes",
+      "b is not None"
+    ]
+  }
+}

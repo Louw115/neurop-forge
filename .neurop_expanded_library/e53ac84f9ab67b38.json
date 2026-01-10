@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e53ac84f9ab67b38e6878543e724ead52842868763cfd6ccbd59c5e8d98c9be8",
+    "semantic_fingerprint": "4f79cf1e6eef0a7f5c7d541da90371fcc732ff1a4a38b92ee40a77905ce55632",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build HTML select options.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter options",
+        "name": "options",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter selected",
+        "name": "selected",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_select_options",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_select_options(options: list, selected: str) -> str:\n    \"\"\"Build HTML select options.\"\"\"\n    result = []\n    for opt in options:\n        value = opt if isinstance(opt, str) else opt.get(\"value\", \"\")\n        label = opt if isinstance(opt, str) else opt.get(\"label\", value)\n        selected_attr = ' selected' if value == selected else ''\n        result.append(f'<option value=\"{value}\"{selected_attr}>{label}</option>')\n    return \"\".join(result)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T17:49:46.346552+00:00",
+    "description": "Build HTML select options.",
+    "intent": "Build HTML select options.",
+    "language": "python",
+    "name": "build_select_options",
+    "source_file": "neurop_forge/sources/template_utilities.py",
+    "source_line_end": 151,
+    "source_line_start": 143,
+    "tags": [
+      "build",
+      "options",
+      "select",
+      "selected",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T17:49:46.346579+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(options) == list",
+      "options is not None",
+      "type(selected) == string",
+      "selected is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(options) == list",
+      "options is not None",
+      "type(selected) == string",
+      "selected is not None"
+    ]
+  }
+}

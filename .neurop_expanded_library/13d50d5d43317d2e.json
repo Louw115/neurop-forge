@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "13d50d5d43317d2efc180ff3d1bc118307dd1d9944d5cf3573bd34e8b9615e4e",
+    "semantic_fingerprint": "971e4a76633695271685502dcb6877e43aed5f925b5abde4961478c051a064f0",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate compound annual growth rate.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter start_value",
+        "name": "start_value",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter end_value",
+        "name": "end_value",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter years",
+        "name": "years",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_cagr",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_cagr(start_value: float, end_value: float, years: float) -> float:\n    \"\"\"Calculate compound annual growth rate.\"\"\"\n    if start_value <= 0 or years <= 0:\n        return 0.0\n    return ((end_value / start_value) ** (1 / years) - 1) * 100",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T17:49:45.987641+00:00",
+    "description": "Calculate compound annual growth rate.",
+    "intent": "Calculate compound annual growth rate.",
+    "language": "python",
+    "name": "calculate_cagr",
+    "source_file": "neurop_forge/sources/financial_utilities.py",
+    "source_line_end": 78,
+    "source_line_start": 74,
+    "tags": [
+      "arithmetic",
+      "cagr",
+      "calculate",
+      "end_value",
+      "start_value",
+      "years"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T17:49:45.987664+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(start_value) == float",
+      "start_value is not None",
+      "type(end_value) == float",
+      "end_value is not None",
+      "type(years) == float",
+      "years is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(start_value) == float",
+      "start_value is not None",
+      "type(end_value) == float",
+      "end_value is not None",
+      "type(years) == float",
+      "years is not None"
+    ]
+  }
+}

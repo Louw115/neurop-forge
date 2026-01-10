@@ -1,0 +1,157 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ac1f047c84d4b847330ca2bf71857f012b7036585d82c9b49c55a040969d92d9",
+    "semantic_fingerprint": "a0dc7b63c982ffc2ea0243cdc7c199248f1a3c481faaa0af113d77648de2c4b4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Truncate to word count.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_words",
+        "name": "max_words",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter suffix",
+        "name": "suffix",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of truncate_words",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def truncate_words(text: str, max_words: int, suffix: str) -> str:\n    \"\"\"Truncate to word count.\"\"\"\n    words = text.split()\n    if len(words) <= max_words:\n        return text\n    return ' '.join(words[:max_words]) + suffix",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T17:49:48.660944+00:00",
+    "description": "Truncate to word count.",
+    "intent": "Truncate to word count.",
+    "language": "python",
+    "name": "truncate_words",
+    "source_file": "neurop_forge/sources/text_transforms.py",
+    "source_line_end": 175,
+    "source_line_start": 170,
+    "tags": [
+      "max_words",
+      "string_manipulation",
+      "suffix",
+      "text",
+      "truncate",
+      "words"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T17:49:48.660961+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None",
+      "type(max_words) == integer",
+      "max_words is not None",
+      "type(suffix) == string",
+      "suffix is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None",
+      "type(max_words) == integer",
+      "max_words is not None",
+      "type(suffix) == string",
+      "suffix is not None"
+    ]
+  }
+}

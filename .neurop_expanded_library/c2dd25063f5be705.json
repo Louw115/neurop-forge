@@ -1,0 +1,133 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c2dd25063f5be70583bcc4e3288a933643deb25f37c86d82af7886c5120aee86",
+    "semantic_fingerprint": "f124bfcd64f4b535f2cd73436551e5441be52a4db15374e278f1db6869495c7a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Detect card type from number.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter card",
+        "name": "card",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_card_type",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_card_type(card: str) -> str:\n    \"\"\"Detect card type from number.\"\"\"\n    digits = extract_digits(card)\n    if not digits:\n        return \"unknown\"\n    if re.match(r'^4', digits):\n        return \"visa\"\n    if re.match(r'^5[1-5]', digits) or re.match(r'^2(2[2-9]|[3-6]|7[01]|720)', digits):\n        return \"mastercard\"\n    if re.match(r'^3[47]', digits):\n        return \"amex\"\n    if re.match(r'^6(?:011|5)', digits):\n        return \"discover\"\n    if re.match(r'^35', digits):\n        return \"jcb\"\n    if re.match(r'^3(?:0[0-5]|[68])', digits):\n        return \"diners\"\n    return \"unknown\"",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T17:49:50.069942+00:00",
+    "description": "Detect card type from number.",
+    "intent": "Detect card type from number.",
+    "language": "python",
+    "name": "get_card_type",
+    "source_file": "neurop_forge/sources/credit_card_utilities.py",
+    "source_line_end": 53,
+    "source_line_start": 36,
+    "tags": [
+      "card",
+      "filtering",
+      "get",
+      "type"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T17:49:50.069958+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(card) == string",
+      "card is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(card) == string",
+      "card is not None"
+    ]
+  }
+}

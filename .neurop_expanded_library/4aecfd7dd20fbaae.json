@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4aecfd7dd20fbaaec0f93513f6643503f765a55cfed51dcb8d7cd80f1b82dc90",
+    "semantic_fingerprint": "6d79ad0bcaa2470788f1c56a4709c6915fc613975c8e76a7af931da296cdb0c0",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse rate limit headers.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter headers",
+        "name": "headers",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of parse_rate_limit_headers",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_rate_limit_headers(headers: dict) -> dict:\n    \"\"\"Parse rate limit headers.\"\"\"\n    return {\n        \"limit\": int(headers.get(\"X-RateLimit-Limit\", 0)),\n        \"remaining\": int(headers.get(\"X-RateLimit-Remaining\", 0)),\n        \"reset\": int(headers.get(\"X-RateLimit-Reset\", 0))\n    }",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T17:49:47.510701+00:00",
+    "description": "Parse rate limit headers.",
+    "intent": "Parse rate limit headers.",
+    "language": "python",
+    "name": "parse_rate_limit_headers",
+    "source_file": "neurop_forge/sources/rate_limiter.py",
+    "source_line_end": 189,
+    "source_line_start": 183,
+    "tags": [
+      "headers",
+      "limit",
+      "parse",
+      "rate",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T17:49:47.510714+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(headers) == dict",
+      "headers is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(headers) == dict",
+      "headers is not None"
+    ]
+  }
+}

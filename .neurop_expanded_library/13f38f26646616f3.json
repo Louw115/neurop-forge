@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "13f38f26646616f347407004fd95095a57860d5dda32596c415b6c41bdb809b0",
+    "semantic_fingerprint": "828265acb919f3af1ca74d49d4d05c9a9739eb8c5483c915e44a4584b598d94d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse a database connection string into components.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter conn_str",
+        "name": "conn_str",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of parse_connection_string",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_connection_string(conn_str: str) -> dict:\n    \"\"\"Parse a database connection string into components.\"\"\"\n    import re\n    result = {\n        \"host\": \"\",\n        \"port\": 5432,\n        \"database\": \"\",\n        \"user\": \"\",\n        \"password\": \"\",\n        \"options\": {}\n    }\n    pattern = r'^(?:(\\w+)://)?(?:([^:@]+)(?::([^@]*))?@)?([^:/]+)?(?::(\\d+))?(?:/([^?]+))?(?:\\?(.+))?$'\n    match = re.match(pattern, conn_str)\n    if match:\n        if match.group(2):\n            result[\"user\"] = match.group(2)\n        if match.group(3):\n            result[\"password\"] = match.group(3)\n        if match.group(4):\n            result[\"host\"] = match.group(4)\n        if match.group(5):\n            result[\"port\"] = int(match.group(5))\n        if match.group(6):\n            result[\"database\"] = match.group(6)\n        if match.group(7):\n            for param in match.group(7).split('&'):\n                if '=' in param:\n                    key, value = param.split('=', 1)\n                    result[\"options\"][key] = value\n    return result",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T17:49:43.901265+00:00",
+    "description": "Parse a database connection string into components.",
+    "intent": "Parse a database connection string into components.",
+    "language": "python",
+    "name": "parse_connection_string",
+    "source_file": "neurop_forge/sources/connection_pool.py",
+    "source_line_end": 111,
+    "source_line_start": 82,
+    "tags": [
+      "conn_str",
+      "connection",
+      "parse",
+      "string",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T17:49:43.901282+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(conn_str) == string",
+      "conn_str is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(conn_str) == string",
+      "conn_str is not None"
+    ]
+  }
+}

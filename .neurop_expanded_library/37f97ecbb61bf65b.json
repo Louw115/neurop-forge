@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "37f97ecbb61bf65b21677eb44c337959f7b33e1c21016c716bf5aca673237dae",
+    "semantic_fingerprint": "39f81b8f95ee937ee67cc0aba83c2ea7eaeb9ab48c3f04a5cafb8dae0865b6c8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find all paths to a value.",
+    "inputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter obj",
+        "name": "obj",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of find_all_paths",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def find_all_paths(obj, value) -> list:\n    \"\"\"Find all paths to a value.\"\"\"\n    paths = []\n    def search(current, path):\n        if current == value:\n            paths.append(build_path(path))\n        elif isinstance(current, dict):\n            for k, v in current.items():\n                search(v, path + [k])\n        elif isinstance(current, list):\n            for i, v in enumerate(current):\n                search(v, path + [str(i)])\n    search(obj, [])\n    return paths",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T17:49:49.774441+00:00",
+    "description": "Find all paths to a value.",
+    "intent": "Find all paths to a value.",
+    "language": "python",
+    "name": "find_all_paths",
+    "source_file": "neurop_forge/sources/json_path.py",
+    "source_line_end": 169,
+    "source_line_start": 156,
+    "tags": [
+      "all",
+      "filtering",
+      "find",
+      "obj",
+      "paths",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T17:49:49.774463+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "obj is not None",
+      "value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "obj is not None",
+      "value is not None"
+    ]
+  }
+}

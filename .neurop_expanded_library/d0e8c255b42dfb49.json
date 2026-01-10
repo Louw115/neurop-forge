@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d0e8c255b42dfb49fb1864c1ff7b04e59c8587365d219e0e69edc074ccb0d097",
+    "semantic_fingerprint": "ff1affd4a4cb3ee27b4e70a34b9acadecf2d05ee3bab90570c76badaceb82bb1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Take items while predicate is true.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter predicate",
+        "name": "predicate",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of take_while",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def take_while(items: list, predicate) -> list:\n    \"\"\"Take items while predicate is true.\"\"\"\n    result = []\n    for item in items:\n        if predicate(item):\n            result.append(item)\n        else:\n            break\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T17:49:49.333638+00:00",
+    "description": "Take items while predicate is true.",
+    "intent": "Take items while predicate is true.",
+    "language": "python",
+    "name": "take_while",
+    "source_file": "neurop_forge/sources/iterator_utilities.py",
+    "source_line_end": 25,
+    "source_line_start": 17,
+    "tags": [
+      "items",
+      "list_operation",
+      "predicate",
+      "take",
+      "while"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T17:49:49.333665+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "predicate is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "predicate is not None"
+    ]
+  }
+}
