@@ -1027,6 +1027,14 @@ def run_production_validation():
     golden_results = run_golden_validation(forge._block_store)
     print_golden_validation_results(golden_results)
     
+    print()
+    print("E) Production Reference Workflows:")
+    print("-" * 40)
+    
+    from neurop_forge.runtime.reference_workflows import run_reference_workflows, print_reference_workflow_results
+    workflow_results = run_reference_workflows(forge._block_store)
+    print_reference_workflow_results(workflow_results)
+    
     print("=" * 70)
     print("NEUROP BLOCK FORGE - PHASE 2 COMPLETE")
     print("=" * 70)
@@ -1053,6 +1061,7 @@ def run_production_validation():
         "semantic_graph_result": semantic_graph_result,
         "execution_result": execution_result,
         "golden_validation_results": golden_results,
+        "reference_workflow_results": workflow_results,
     }
 
 
