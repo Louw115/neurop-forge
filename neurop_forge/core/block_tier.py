@@ -287,19 +287,26 @@ class BlockTierClassifier:
 _tier_registry: Optional[TierRegistry] = None
 
 
-def get_tier_registry() -> TierRegistry:
-    """Get the global tier registry."""
+def get_tier_registry(force_reload: bool = False) -> TierRegistry:
+    """Get the global tier registry. Use force_reload=True to refresh from disk."""
     global _tier_registry
-    if _tier_registry is None:
+    if _tier_registry is None or force_reload:
         _tier_registry = TierRegistry.load()
     return _tier_registry
 
 
+def refresh_tier_registry() -> TierRegistry:
+    """Force refresh the global tier registry from disk."""
+    return get_tier_registry(force_reload=True)
+
+
 def classify_blocks(blocks: List[NeuropBlock], verified_ids: Set[str]) -> TierRegistry:
-    """Convenience function to classify blocks."""
+    """Convenience function to classify blocks and update global registry."""
+    global _tier_registry
     classifier = BlockTierClassifier(verified_ids)
     registry = classifier.classify_all(blocks)
     classifier.save_registry()
+    _tier_registry = registry
     return registry
 
 

@@ -12,6 +12,16 @@ from neurop_forge.core.block_tier import (
     classify_blocks,
     print_tier_summary,
 )
+from neurop_forge.core.ai_metadata import (
+    OperationType,
+    CompositionRole,
+    InputComplexity,
+    AIMetadata,
+    AIMetadataRegistry,
+    generate_ai_metadata,
+    enrich_blocks_with_ai_metadata,
+    get_ai_metadata_registry,
+)
 
 __all__ = [
     "IdentityAuthority",
@@ -27,4 +37,12 @@ __all__ = [
     "get_tier_registry",
     "classify_blocks",
     "print_tier_summary",
+    "OperationType",
+    "CompositionRole",
+    "InputComplexity",
+    "AIMetadata",
+    "AIMetadataRegistry",
+    "generate_ai_metadata",
+    "enrich_blocks_with_ai_metadata",
+    "get_ai_metadata_registry",
 ]

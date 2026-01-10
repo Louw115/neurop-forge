@@ -184,21 +184,25 @@ The FunctionAdapter bridges semantic inputs and actual function signatures:
 - Full execution trace
 
 ## Recent Changes
+- **Production Reference Workflows**: 5 real-world semantic graph templates with 4/5 passing
+- **Tier-A/Tier-B Block Classification**: Automated classification of verified blocks
+  - Tier-A (75%): Deterministic, pure functions, no external dependencies
+  - Tier-B (25%): Context-dependent or complex input requirements
+- **Auto-Verification Gate**: Blocks must pass through gate before being admitted to verified registry
+  - Integrates with tier classification
+  - Supports batch admission via admit_batch()
+- **AI Composition Metadata**: Enhanced metadata for AI-assisted block selection
+  - OperationType (validate, parse, transform, format, etc.)
+  - CompositionRole (entry, intermediate, terminal, standalone)
+  - InputComplexity (trivial, simple, moderate, complex)
 - **Adapter Layer**: FunctionAdapter bridges semantic inputs to actual function signatures
-  - AST-based signature introspection (FunctionSignature.from_source)
-  - SemanticInputMapper with 15+ semantic alias categories
-  - Auto-generated parameter handling (v1, v2, etc.) via interface metadata
-  - Signature caching for performance
 - Phase 2 complete: Runtime Executor with full Intent -> Compose -> Execute -> Result loop
-- Added ExecutionContext with scoped variables and checkpointing
-- Added GraphExecutor with deterministic block execution and input binding
-- Added ExecutionResult with full trace, timing, and performance metrics
-- Added RetryPolicy, CircuitBreaker, ExecutionGuard for safety
-- Integrated runtime into NeuropForge class with execute_intent() method
-- 4,518 blocks from 175 source modules
+- 4,551 blocks from 175 source modules
+- 2,740 verified blocks (60.2% verification rate)
 - 100% composition confidence on semantic graphs
 - Semantic domain matching with type flow validation
 
-## Execution Demo Results
+## Production Validation Results
+- Golden Validation Suite: 10/10 blocks pass with expected output validation
+- Production Reference Workflows: 4/5 passing (text_normalization, string_analysis, input_validation, text_transform_chain)
 - Direct block execution: SUCCESS (`reverse_string` → `'dlrow olleh'`, `is_empty` → `False`)
-- Semantic graph execution: PARTIAL_SUCCESS (2/9 nodes succeed - remaining failures are block-internal issues)

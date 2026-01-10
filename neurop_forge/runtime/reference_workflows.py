@@ -201,7 +201,11 @@ class ReferenceWorkflowRunner:
         start_time = time.perf_counter()
         
         inputs = custom_inputs if custom_inputs else workflow.test_inputs
-        context = {"input": inputs.get("input", inputs)}
+        context = dict(inputs)
+        if "input" in inputs:
+            context["input"] = inputs["input"]
+        else:
+            context["input"] = inputs
         step_traces = []
         steps_succeeded = 0
         

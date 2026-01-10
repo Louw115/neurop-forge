@@ -982,6 +982,12 @@ def run_production_validation():
     print(f"Tier Classification: {tier_summary['tier_a']} Tier-A, {tier_summary['tier_b']} Tier-B")
     print()
     
+    from neurop_forge.runtime.block_verifier import AutoVerificationGate
+    gate = AutoVerificationGate()
+    gate_stats = gate.get_stats()
+    print(f"Verification Gate Stats: {gate_stats['verified']} admitted, {gate_stats['failed']} rejected")
+    print()
+    
     print("C) Semantic Graph Execution (Verified Blocks Only):")
     print("-" * 40)
     

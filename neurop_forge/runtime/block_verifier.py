@@ -217,19 +217,50 @@ class BlockVerifier:
             self._registry.failed_blocks[block_id] = result
             return result
     
-    def verify_all(self, blocks: List[NeuropBlock], progress_callback=None) -> Dict[str, Any]:
-        """Verify all blocks in the library."""
+    def verify_all(self, blocks: List[NeuropBlock], progress_callback=None, use_gate: bool = False) -> Dict[str, Any]:
+        """Verify all blocks in the library.
+        
+        Args:
+            blocks: List of blocks to verify
+            progress_callback: Optional progress callback function
+            use_gate: If True, use AutoVerificationGate for tier classification
+        """
         total = len(blocks)
         verified_count = 0
         failed_count = 0
+        tier_a_count = 0
+        tier_b_count = 0
+        
+        gate = None
+        if use_gate:
+            gate = AutoVerificationGate.__new__(AutoVerificationGate)
+            gate._verifier = self
+            gate._registry = self._registry
+            try:
+                from neurop_forge.core.block_tier import BlockTierClassifier, TierRegistry
+                gate._tier_classifier = BlockTierClassifier(set())
+                gate._tier_registry = TierRegistry.load()
+            except ImportError:
+                gate._tier_classifier = None
+                gate._tier_registry = None
         
         for i, block in enumerate(blocks):
-            result = self.verify_block(block)
-            
-            if result.verified:
-                verified_count += 1
+            if use_gate and gate:
+                gate_result = gate.admit(block)
+                if gate_result.admitted:
+                    verified_count += 1
+                    if gate_result.tier == "tier_a":
+                        tier_a_count += 1
+                    else:
+                        tier_b_count += 1
+                else:
+                    failed_count += 1
             else:
-                failed_count += 1
+                result = self.verify_block(block)
+                if result.verified:
+                    verified_count += 1
+                else:
+                    failed_count += 1
             
             if progress_callback and (i + 1) % 100 == 0:
                 progress_callback(i + 1, total, verified_count, failed_count)
@@ -237,12 +268,20 @@ class BlockVerifier:
         self._registry.last_run = datetime.now(timezone.utc).isoformat()
         self._registry.save()
         
-        return {
+        result = {
             "total": total,
             "verified": verified_count,
             "failed": failed_count,
             "success_rate": verified_count / total if total > 0 else 0,
         }
+        
+        if use_gate:
+            result["tier_a"] = tier_a_count
+            result["tier_b"] = tier_b_count
+            if gate and gate._tier_registry:
+                gate._tier_registry.save()
+        
+        return result
     
     def get_registry(self) -> VerificationRegistry:
         return self._registry
