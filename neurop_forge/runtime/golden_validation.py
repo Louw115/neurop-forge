@@ -53,16 +53,31 @@ class GoldenValidationRunner:
 
     def discover_golden_blocks(self) -> Dict[str, NeuropBlock]:
         """Discover golden blocks from the library."""
-        golden_names = {gb.name for gb in GOLDEN_BLOCKS}
+        golden_map = {gb.name: gb for gb in GOLDEN_BLOCKS}
+        golden_names = set(golden_map.keys())
         
         for block in self._block_store.get_all():
             if hasattr(block.metadata, 'name'):
                 name = block.metadata.name
-                if name in golden_names and name not in self._validated_blocks:
+                if name in golden_names:
                     if self._is_golden_candidate(block):
-                        self._validated_blocks[name] = block
+                        golden = golden_map[name]
+                        if name not in self._validated_blocks:
+                            self._validated_blocks[name] = block
+                        elif self._matches_expected_type(block, golden):
+                            self._validated_blocks[name] = block
 
         return self._validated_blocks
+    
+    def _matches_expected_type(self, block: NeuropBlock, golden: GoldenBlock) -> bool:
+        """Check if block output matches expected type (prefer bool over dict for boolean tests)."""
+        if golden.expected_output_type == "boolean":
+            if block.interface.outputs:
+                out_type = block.interface.outputs[0].type
+                if hasattr(out_type, 'value'):
+                    out_type = out_type.value
+                return str(out_type).lower() in ('bool', 'boolean')
+        return True
 
     def _is_golden_candidate(self, block: NeuropBlock) -> bool:
         """Check if a block is a candidate for golden validation."""
