@@ -955,7 +955,28 @@ def demonstrate_expanded_library():
     print(f"Direct Execution: {direct_successes} blocks executed successfully")
     print()
     
-    print("B) Semantic Graph Execution:")
+    print("B) Block Verification (Verified-Only Mode):")
+    print("-" * 40)
+    
+    from neurop_forge.runtime.block_verifier import BlockVerifier, get_verification_registry
+    
+    verifier = BlockVerifier()
+    all_blocks_for_verify = list(forge._block_store.get_all())
+    
+    print(f"Verifying {len(all_blocks_for_verify)} blocks...")
+    verify_result = verifier.verify_all(all_blocks_for_verify)
+    print(f"  Verified: {verify_result['verified']} blocks")
+    print(f"  Failed: {verify_result['failed']} blocks")
+    print(f"  Success Rate: {verify_result['success_rate']*100:.1f}%")
+    print()
+    
+    registry = get_verification_registry()
+    verified_ids = set(registry.get_verified_ids())
+    forge._semantic_composer.set_verified_blocks(verified_ids)
+    print(f"Semantic Composer now using ONLY {len(verified_ids)} verified blocks")
+    print()
+    
+    print("C) Semantic Graph Execution (Verified Blocks Only):")
     print("-" * 40)
     
     test_inputs = {
@@ -999,7 +1020,7 @@ def demonstrate_expanded_library():
     print()
     
     print()
-    print("C) Golden Demo - Known-Working Blocks:")
+    print("D) Golden Demo - Known-Working Blocks:")
     print("-" * 40)
     
     from neurop_forge.runtime.golden_demo import run_golden_demo, print_golden_demo_results

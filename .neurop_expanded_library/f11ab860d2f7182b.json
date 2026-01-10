@@ -74,7 +74,7 @@
   "logic": "def detect_cycle(graph: dict) -> bool:\n    \"\"\"Detect if graph has a cycle.\"\"\"\n    if not graph[\"directed\"]:\n        visited = set()\n        def dfs(node, parent):\n            visited.add(node)\n            adj = build_adjacency_list(graph)\n            for neighbor in adj.get(node, []):\n                if neighbor not in visited:\n                    if dfs(neighbor, node):\n                        return True\n                elif neighbor != parent:\n                    return True\n            return False\n        for node in graph[\"nodes\"]:\n            if node not in visited:\n                if dfs(node, None):\n                    return True\n        return False\n    else:\n        white, gray, black = set(graph[\"nodes\"].keys()), set(), set()\n        adj = build_adjacency_list(graph)\n        def dfs(node):\n            white.discard(node)\n            gray.add(node)\n            for neighbor in adj.get(node, []):\n                if neighbor in gray:\n                    return True\n                if neighbor in white and dfs(neighbor):\n                    return True\n            gray.discard(node)\n            black.add(node)\n            return False\n        while white:\n            if dfs(next(iter(white))):\n                return True\n        return False",
   "metadata": {
     "category": "validation",
-    "created_at": "2026-01-10T02:30:24.189282+00:00",
+    "created_at": "2026-01-10T12:22:28.728182+00:00",
     "description": "Detect if graph has a cycle.",
     "intent": "Detect if graph has a cycle.",
     "language": "python",
@@ -103,7 +103,7 @@
     "determinism_score": 1.0,
     "execution_count": 0,
     "failure_count": 0,
-    "last_verified": "2026-01-10T02:30:24.189309+00:00",
+    "last_verified": "2026-01-10T12:22:28.728212+00:00",
     "license_score": 1.0,
     "overall_score": 0.33999999999999997,
     "risk_factors": [],

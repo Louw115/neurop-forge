@@ -71,7 +71,15 @@ This demonstrates:
 - Owned by Lourens Wasserman
 
 ## Library Status
-**4,518 blocks** across 175 source modules
+**4,549 total blocks** across 175 source modules
+**2,740 verified blocks** (60.2% verification rate) - verified-only mode for semantic composition
+
+### Block Verification System
+The verification system ensures only working blocks are used in semantic composition:
+- Auto-verification pass tests all blocks with generated inputs
+- Verified blocks stored in `.neurop_verified/registry.json`
+- Semantic Composer filters to verified blocks only
+- Golden Demo: 10/10 blocks pass with expected output validation
 
 ### Semantic Domains Covered
 1. String (924 blocks)

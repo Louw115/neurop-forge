@@ -81,7 +81,7 @@
   "logic": "def aggregate_events(events: list, window_size: int) -> list:\n    \"\"\"Aggregate events into time windows.\"\"\"\n    if not events:\n        return []\n    sorted_events = sort_events_chronologically(events, True)\n    windows = []\n    current_window = {\"start\": sorted_events[0][\"timestamp\"], \"events\": []}\n    for event in sorted_events:\n        if event[\"timestamp\"] - current_window[\"start\"] < window_size:\n            current_window[\"events\"].append(event)\n        else:\n            current_window[\"end\"] = current_window[\"start\"] + window_size\n            current_window[\"count\"] = len(current_window[\"events\"])\n            windows.append(current_window)\n            current_window = {\"start\": event[\"timestamp\"], \"events\": [event]}\n    if current_window[\"events\"]:\n        current_window[\"end\"] = current_window[\"start\"] + window_size\n        current_window[\"count\"] = len(current_window[\"events\"])\n        windows.append(current_window)\n    return windows",
   "metadata": {
     "category": "aggregation",
-    "created_at": "2026-01-10T02:30:28.364528+00:00",
+    "created_at": "2026-01-10T12:22:33.235921+00:00",
     "description": "Aggregate events into time windows.",
     "intent": "Aggregate events into time windows.",
     "language": "python",
@@ -110,7 +110,7 @@
     "determinism_score": 1.0,
     "execution_count": 0,
     "failure_count": 0,
-    "last_verified": "2026-01-10T02:30:28.364550+00:00",
+    "last_verified": "2026-01-10T12:22:33.235947+00:00",
     "license_score": 1.0,
     "overall_score": 0.385,
     "risk_factors": [],

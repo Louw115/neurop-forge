@@ -74,7 +74,7 @@
   "logic": "def format_prometheus_histogram(metric: dict) -> str:\n    \"\"\"Format histogram metric in Prometheus format.\"\"\"\n    lines = []\n    name = metric[\"name\"]\n    labels_str = \",\".join(f'{k}=\"{v}\"' for k, v in metric.get(\"labels\", {}).items())\n    for bucket in metric[\"buckets\"]:\n        le = bucket[\"le\"]\n        le_str = \"+Inf\" if le == float(\"inf\") else str(le)\n        if labels_str:\n            lines.append(f'{name}_bucket{{{labels_str},le=\"{le_str}\"}} {bucket[\"count\"]}')\n        else:\n            lines.append(f'{name}_bucket{{le=\"{le_str}\"}} {bucket[\"count\"]}')\n    if labels_str:\n        lines.append(f'{name}_sum{{{labels_str}}} {metric[\"sum\"]}')\n        lines.append(f'{name}_count{{{labels_str}}} {metric[\"count\"]}')\n    else:\n        lines.append(f'{name}_sum {metric[\"sum\"]}')\n        lines.append(f'{name}_count {metric[\"count\"]}')\n    return \"\\n\".join(lines)",
   "metadata": {
     "category": "string",
-    "created_at": "2026-01-10T02:30:24.316508+00:00",
+    "created_at": "2026-01-10T12:22:28.885707+00:00",
     "description": "Format histogram metric in Prometheus format.",
     "intent": "Format histogram metric in Prometheus format.",
     "language": "python",
@@ -104,7 +104,7 @@
     "determinism_score": 1.0,
     "execution_count": 0,
     "failure_count": 0,
-    "last_verified": "2026-01-10T02:30:24.316535+00:00",
+    "last_verified": "2026-01-10T12:22:28.885735+00:00",
     "license_score": 1.0,
     "overall_score": 0.3775,
     "risk_factors": [],

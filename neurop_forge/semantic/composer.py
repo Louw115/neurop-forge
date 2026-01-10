@@ -283,6 +283,15 @@ class SemanticComposer:
         self._operation_index: Dict[SemanticOperation, Set[str]] = {}
         self._semantic_type_index: Dict[SemanticType, Set[str]] = {}
         self._query_parser = QueryIntentParser()
+        self._verified_block_ids: Optional[Set[str]] = None
+    
+    def set_verified_blocks(self, verified_ids: Set[str]) -> None:
+        """Set the list of verified block IDs. Only these will be used in composition."""
+        self._verified_block_ids = verified_ids
+    
+    def clear_verified_filter(self) -> None:
+        """Clear the verified filter to use all blocks."""
+        self._verified_block_ids = None
 
     def index_block(self, entry: SemanticIndexEntry) -> None:
         """Index a block for semantic search."""
@@ -416,6 +425,9 @@ class SemanticComposer:
                 block_ids = self._domain_index.get(fallback, set())
                 if block_ids:
                     break
+        
+        if self._verified_block_ids is not None:
+            block_ids = block_ids.intersection(self._verified_block_ids)
         
         candidates: List[SemanticIndexEntry] = []
         for block_id in block_ids:

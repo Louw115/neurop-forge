@@ -90,7 +90,7 @@
   "logic": "def ttl_lru_get(cache: dict, key: str, current_time: int) -> dict:\n    \"\"\"Get value if not expired.\"\"\"\n    if key not in cache[\"items\"]:\n        return {\"cache\": cache, \"value\": None, \"hit\": False}\n    ttl = cache.get(\"ttls\", {}).get(key, float(\"inf\"))\n    if current_time > ttl:\n        new_cache = lru_remove(cache, key)\n        new_ttls = dict(cache.get(\"ttls\", {}))\n        if key in new_ttls:\n            del new_ttls[key]\n        new_cache[\"ttls\"] = new_ttls\n        return {\"cache\": new_cache, \"value\": None, \"hit\": False}\n    result = lru_get({\n        \"capacity\": cache[\"capacity\"],\n        \"items\": cache[\"items\"],\n        \"order\": cache[\"order\"],\n        \"size\": cache[\"size\"]\n    }, key)\n    result[\"cache\"][\"ttls\"] = cache.get(\"ttls\", {})\n    return result",
   "metadata": {
     "category": "collection",
-    "created_at": "2026-01-10T02:30:26.044974+00:00",
+    "created_at": "2026-01-10T12:22:30.676099+00:00",
     "description": "Get value if not expired.",
     "intent": "Get value if not expired.",
     "language": "python",
@@ -122,7 +122,7 @@
     "determinism_score": 0.5,
     "execution_count": 0,
     "failure_count": 0,
-    "last_verified": "2026-01-10T02:30:26.045021+00:00",
+    "last_verified": "2026-01-10T12:22:30.676121+00:00",
     "license_score": 1.0,
     "overall_score": 0.265,
     "risk_factors": [

@@ -90,7 +90,7 @@
   "logic": "def skip_list_insert(sl: dict, key, value) -> dict:\n    \"\"\"Insert a key-value pair.\"\"\"\n    update = [None] * sl[\"max_level\"]\n    node = _clone_node(sl[\"head\"])\n    head = node\n    for i in range(sl[\"level\"] - 1, -1, -1):\n        while node[\"forward\"][i] and node[\"forward\"][i][\"key\"] < key:\n            next_node = _clone_node(node[\"forward\"][i])\n            node[\"forward\"][i] = next_node\n            node = next_node\n        update[i] = node\n    next_at_0 = node[\"forward\"][0]\n    if next_at_0 and next_at_0[\"key\"] == key:\n        new_node = _clone_node(next_at_0)\n        new_node[\"value\"] = value\n        update[0][\"forward\"][0] = new_node\n        return {**sl, \"head\": head}\n    new_level = _random_level(key, sl[\"max_level\"])\n    level = sl[\"level\"]\n    if new_level > sl[\"level\"]:\n        for i in range(sl[\"level\"], new_level):\n            update[i] = head\n        level = new_level\n    new_node = {\n        \"key\": key,\n        \"value\": value,\n        \"forward\": [None] * new_level\n    }\n    for i in range(new_level):\n        new_node[\"forward\"][i] = update[i][\"forward\"][i] if i < len(update[i][\"forward\"]) else None\n        update[i][\"forward\"][i] = new_node\n    return {\n        \"head\": head,\n        \"max_level\": sl[\"max_level\"],\n        \"level\": level,\n        \"size\": sl[\"size\"] + 1\n    }",
   "metadata": {
     "category": "collection",
-    "created_at": "2026-01-10T02:30:26.220359+00:00",
+    "created_at": "2026-01-10T12:22:30.823277+00:00",
     "description": "Insert a key-value pair.",
     "intent": "Insert a key-value pair.",
     "language": "python",
@@ -122,7 +122,7 @@
     "determinism_score": 0.5,
     "execution_count": 0,
     "failure_count": 0,
-    "last_verified": "2026-01-10T02:30:26.220379+00:00",
+    "last_verified": "2026-01-10T12:22:30.823298+00:00",
     "license_score": 1.0,
     "overall_score": 0.265,
     "risk_factors": [

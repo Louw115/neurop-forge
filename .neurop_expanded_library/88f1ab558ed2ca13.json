@@ -81,7 +81,7 @@
   "logic": "def trie_delete(trie: dict, key: str) -> dict:\n    \"\"\"Delete a key from trie.\"\"\"\n    def delete_helper(node: dict, key: str, pos: int) -> dict:\n        result = {\n            \"children\": dict(node[\"children\"]),\n            \"is_end\": node[\"is_end\"],\n            \"value\": node[\"value\"]\n        }\n        if pos == len(key):\n            result[\"is_end\"] = False\n            result[\"value\"] = None\n            return result\n        char = key[pos]\n        if char not in result[\"children\"]:\n            return result\n        result[\"children\"][char] = delete_helper(result[\"children\"][char], key, pos + 1)\n        child = result[\"children\"][char]\n        if not child[\"is_end\"] and not child[\"children\"]:\n            del result[\"children\"][char]\n        return result\n    if not trie_search(trie, key)[\"found\"]:\n        return trie\n    new_root = delete_helper(trie[\"root\"], key, 0)\n    return {\"root\": new_root, \"size\": trie[\"size\"] - 1}",
   "metadata": {
     "category": "collection",
-    "created_at": "2026-01-10T02:30:25.676617+00:00",
+    "created_at": "2026-01-10T12:22:30.335850+00:00",
     "description": "Delete a key from trie.",
     "intent": "Delete a key from trie.",
     "language": "python",
@@ -110,7 +110,7 @@
     "determinism_score": 1.0,
     "execution_count": 0,
     "failure_count": 0,
-    "last_verified": "2026-01-10T02:30:25.676645+00:00",
+    "last_verified": "2026-01-10T12:22:30.335870+00:00",
     "license_score": 1.0,
     "overall_score": 0.33999999999999997,
     "risk_factors": [],
