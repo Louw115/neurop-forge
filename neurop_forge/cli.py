@@ -24,6 +24,10 @@ from neurop_forge.deduplication import (
     DeduplicationPolicy,
     DeduplicationReport,
 )
+from neurop_forge.standardization import (
+    InterfaceNormalizer,
+    ParameterMapper,
+)
 
 
 def cmd_execute(args) -> int:
@@ -237,6 +241,61 @@ def cmd_dedup(args) -> int:
         return 1
 
 
+def cmd_standardize(args) -> int:
+    """Analyze and standardize parameter names."""
+    print("Running parameter standardization analysis...")
+    print()
+    
+    try:
+        normalizer = InterfaceNormalizer(library_path=".neurop_expanded_library")
+        
+        if args.execute:
+            result = normalizer.normalize(execute=True, preserve_aliases=True)
+            
+            print("=" * 60)
+            print("  PARAMETER STANDARDIZATION RESULT")
+            print("=" * 60)
+            print()
+            print(f"  Blocks processed:       {result.blocks_processed}")
+            print(f"  Blocks modified:        {result.blocks_modified}")
+            print(f"  Parameters normalized:  {result.parameters_normalized}")
+            print(f"  Parameters unchanged:   {result.parameters_unchanged}")
+            print(f"  Parameters unmapped:    {result.parameters_unmapped}")
+            
+            if result.errors:
+                print(f"\n  Errors: {len(result.errors)}")
+                for err in result.errors[:5]:
+                    print(f"    - {err}")
+            
+            print("\nStandardization complete. Original names preserved as aliases.")
+        else:
+            stats = normalizer.analyze()
+            
+            print("=" * 60)
+            print("  PARAMETER STANDARDIZATION ANALYSIS")
+            print("=" * 60)
+            print()
+            print(f"  Blocks analyzed:        {stats.get('blocks_analyzed', 0)}")
+            print(f"  Blocks with changes:    {stats.get('blocks_with_changes', 0)}")
+            print(f"  Total parameters:       {stats.get('total_parameters', 0)}")
+            print(f"  Can be mapped:          {stats.get('mapped', 0)}")
+            print(f"  Already canonical:      {stats.get('unchanged', 0)}")
+            print(f"  Unmapped:               {stats.get('unmapped', 0)}")
+            print(f"  Mapping rate:           {stats.get('mapping_rate', 0)}%")
+            
+            if args.detailed:
+                print("\n  Top Mappings:")
+                for mapping, count in stats.get('top_mappings', [])[:15]:
+                    print(f"    {mapping}: {count}")
+            
+            print("\nThis was a dry run. Use --execute to apply standardization.")
+        
+        return 0
+    except Exception as e:
+        print(f"Error: {e}", file=sys.stderr)
+        return 1
+
+
 def main() -> int:
     """Main CLI entry point."""
     parser = argparse.ArgumentParser(
@@ -294,6 +353,13 @@ def main() -> int:
     dedup_parser.add_argument("--json", "-j", action="store_true",
                              help="Output JSON report")
     dedup_parser.set_defaults(func=cmd_dedup)
+    
+    std_parser = subparsers.add_parser("standardize", help="Standardize parameter names")
+    std_parser.add_argument("--execute", "-x", action="store_true",
+                           help="Apply standardization (modifies blocks)")
+    std_parser.add_argument("--detailed", "-d", action="store_true",
+                           help="Show detailed mapping analysis")
+    std_parser.set_defaults(func=cmd_standardize)
     
     args = parser.parse_args()
     
