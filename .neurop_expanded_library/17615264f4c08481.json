@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "17615264f4c084814489a93eb420b0cfbd0bd1a74e7b61d64e2d0fc209399eff",
+    "semantic_fingerprint": "2cddac028c46d121dbb205a781b60ca60df555fa12f4c873f6b3b523eef3e8ac",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate avatar initials from name.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter name",
+        "name": "name",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_avatar_initials",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_avatar_initials(name: str) -> str:\n    \"\"\"Generate avatar initials from name.\"\"\"\n    words = name.strip().split()\n    if len(words) >= 2:\n        return (words[0][0] + words[-1][0]).upper()\n    elif len(words) == 1 and len(words[0]) >= 2:\n        return words[0][:2].upper()\n    elif len(words) == 1:\n        return words[0][0].upper()\n    return \"?\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:46.676189+00:00",
+    "description": "Generate avatar initials from name.",
+    "intent": "Generate avatar initials from name.",
+    "language": "python",
+    "name": "generate_avatar_initials",
+    "source_file": "neurop_forge/sources/ui_patterns.py",
+    "source_line_end": 108,
+    "source_line_start": 99,
+    "tags": [
+      "avatar",
+      "generate",
+      "initials",
+      "name",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.676209+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(name) == string",
+      "name is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(name) == string",
+      "name is not None"
+    ]
+  }
+}

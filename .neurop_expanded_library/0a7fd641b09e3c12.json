@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0a7fd641b09e3c1284c308424b21d755b52daa0361879b7b13a88afe1ef70a95",
+    "semantic_fingerprint": "8a7b16d57326229a25e9bfab939477ef5068666f702358d293ee8a15742f83fc",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find longest palindromic substring.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter s",
+        "name": "s",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of longest_palindrome_substring",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def longest_palindrome_substring(s: str) -> str:\n    \"\"\"Find longest palindromic substring.\"\"\"\n    if len(s) < 2:\n        return s\n    def expand_around_center(left: int, right: int) -> str:\n        while left >= 0 and right < len(s) and s[left] == s[right]:\n            left -= 1\n            right += 1\n        return s[left+1:right]\n    longest = \"\"\n    for i in range(len(s)):\n        odd = expand_around_center(i, i)\n        even = expand_around_center(i, i + 1)\n        if len(odd) > len(longest):\n            longest = odd\n        if len(even) > len(longest):\n            longest = even\n    return longest",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:51.233273+00:00",
+    "description": "Find longest palindromic substring.",
+    "intent": "Find longest palindromic substring.",
+    "language": "python",
+    "name": "longest_palindrome_substring",
+    "source_file": "neurop_forge/sources/string_algorithms.py",
+    "source_line_end": 73,
+    "source_line_start": 56,
+    "tags": [
+      "longest",
+      "palindrome",
+      "s",
+      "string_manipulation",
+      "substring"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:51.233300+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(s) == string",
+      "s is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(s) == string",
+      "s is not None"
+    ]
+  }
+}

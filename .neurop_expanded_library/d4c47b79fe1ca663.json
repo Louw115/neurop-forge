@@ -1,0 +1,150 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d4c47b79fe1ca6631bb076dcecde360d26eac3f9d1ecd62e2cb9f0e826fdb013",
+    "semantic_fingerprint": "2b331087bfaf2ca6817ce07d48eea4b380efb42fcb48874821b1e55f1712f83d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get the complementary color (opposite on color wheel).",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter r",
+        "name": "r",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter g",
+        "name": "g",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter b",
+        "name": "b",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Return value of get_complementary_color",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_complementary_color(r: int, g: int, b: int) -> tuple:\n    \"\"\"Get the complementary color (opposite on color wheel).\"\"\"\n    h, s, l = rgb_to_hsl(r, g, b)\n    h = (h + 180) % 360\n    return hsl_to_rgb(h, s, l)",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:43.038896+00:00",
+    "description": "Get the complementary color (opposite on color wheel).",
+    "intent": "Get the complementary color (opposite on color wheel).",
+    "language": "python",
+    "name": "get_complementary_color",
+    "source_file": "neurop_forge/sources/color_utilities.py",
+    "source_line_end": 175,
+    "source_line_start": 171,
+    "tags": [
+      "b",
+      "color",
+      "complementary",
+      "filtering",
+      "g",
+      "get",
+      "r"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.038916+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(r) == integer",
+      "r is not None",
+      "type(g) == integer",
+      "g is not None",
+      "type(b) == integer",
+      "b is not None"
+    ],
+    "invariants": [],
+    "output_validators": [],
+    "postconditions": [],
+    "preconditions": [
+      "type(r) == integer",
+      "r is not None",
+      "type(g) == integer",
+      "g is not None",
+      "type(b) == integer",
+      "b is not None"
+    ]
+  }
+}

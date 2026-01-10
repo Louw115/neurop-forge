@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "dd72a9a4b8777bc80f137853174200f82cd7a2e54201c15f1c819ea6b59942d1",
+    "semantic_fingerprint": "6ddbfe315c7ff08b6bc3b1220b1af3afb38a56662a240a44aabcf1ea970cfaaf",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate a CSP nonce.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter seed",
+        "name": "seed",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_nonce",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_nonce(seed: str) -> str:\n    \"\"\"Generate a CSP nonce.\"\"\"\n    import hashlib\n    import base64\n    hash_val = hashlib.sha256(seed.encode()).digest()\n    return base64.b64encode(hash_val[:16]).decode()",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:46.536516+00:00",
+    "description": "Generate a CSP nonce.",
+    "intent": "Generate a CSP nonce.",
+    "language": "python",
+    "name": "generate_nonce",
+    "source_file": "neurop_forge/sources/security_patterns.py",
+    "source_line_end": 231,
+    "source_line_start": 226,
+    "tags": [
+      "generate",
+      "nonce",
+      "seed",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.536541+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(seed) == string",
+      "seed is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(seed) == string",
+      "seed is not None"
+    ]
+  }
+}

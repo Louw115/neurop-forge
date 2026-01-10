@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c02720c01f0dd31c747b5f1d0780913dc52b4323d8ae67305b42b0e7f5f572b8",
+    "semantic_fingerprint": "ecf604ce85028255e13145bcc9326ca998489324c6d391f23f38e826b3f3980c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Convert decimal degrees to degrees/minutes/seconds.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter decimal",
+        "name": "decimal",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter is_longitude",
+        "name": "is_longitude",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of decimal_to_dms",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def decimal_to_dms(decimal: float, is_longitude: bool) -> dict:\n    \"\"\"Convert decimal degrees to degrees/minutes/seconds.\"\"\"\n    direction = \"\"\n    if is_longitude:\n        direction = \"E\" if decimal >= 0 else \"W\"\n    else:\n        direction = \"N\" if decimal >= 0 else \"S\"\n    decimal = abs(decimal)\n    degrees = int(decimal)\n    minutes_decimal = (decimal - degrees) * 60\n    minutes = int(minutes_decimal)\n    seconds = (minutes_decimal - minutes) * 60\n    return {\n        \"degrees\": degrees,\n        \"minutes\": minutes,\n        \"seconds\": round(seconds, 2),\n        \"direction\": direction\n    }",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T02:18:50.952563+00:00",
+    "description": "Convert decimal degrees to degrees/minutes/seconds.",
+    "intent": "Convert decimal degrees to degrees/minutes/seconds.",
+    "language": "python",
+    "name": "decimal_to_dms",
+    "source_file": "neurop_forge/sources/coordinate_utilities.py",
+    "source_line_end": 146,
+    "source_line_start": 129,
+    "tags": [
+      "decimal",
+      "dms",
+      "is_longitude",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:50.952592+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(decimal) == float",
+      "decimal is not None",
+      "type(is_longitude) == boolean",
+      "is_longitude is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(decimal) == float",
+      "decimal is not None",
+      "type(is_longitude) == boolean",
+      "is_longitude is not None"
+    ]
+  }
+}

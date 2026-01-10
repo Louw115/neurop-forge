@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "fbfcaa6217fbee29f721fe2b7ca622a9bf7bbbd25d1bc0601d9c7962f9206059",
+    "semantic_fingerprint": "a79c05876f7f58031bfe9ab62b24c595f8a5606431d08bdbdb16e981e7eec744",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get rate limit for a tier.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter tier",
+        "name": "tier",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter tier_limits",
+        "name": "tier_limits",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter default_limit",
+        "name": "default_limit",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of tier_rate_limit",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def tier_rate_limit(tier: str, tier_limits: dict, default_limit: int) -> int:\n    \"\"\"Get rate limit for a tier.\"\"\"\n    return tier_limits.get(tier, default_limit)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:43.940243+00:00",
+    "description": "Get rate limit for a tier.",
+    "intent": "Get rate limit for a tier.",
+    "language": "python",
+    "name": "tier_rate_limit",
+    "source_file": "neurop_forge/sources/rate_limiting.py",
+    "source_line_end": 198,
+    "source_line_start": 196,
+    "tags": [
+      "arithmetic",
+      "default_limit",
+      "limit",
+      "rate",
+      "tier",
+      "tier_limits"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.940263+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(tier) == string",
+      "tier is not None",
+      "type(tier_limits) == dict",
+      "tier_limits is not None",
+      "type(default_limit) == integer",
+      "default_limit is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(tier) == string",
+      "tier is not None",
+      "type(tier_limits) == dict",
+      "tier_limits is not None",
+      "type(default_limit) == integer",
+      "default_limit is not None"
+    ]
+  }
+}

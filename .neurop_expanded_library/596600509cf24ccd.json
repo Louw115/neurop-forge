@@ -1,0 +1,131 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "596600509cf24ccd209fc778e4cb20dd7ce5e1d22ddc2167a2bf3931ec35a682",
+    "semantic_fingerprint": "a8902d2f7a6582dfeb7191d2dfdebd9fbea168670097b41e5b079bc8a67e74ae",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate a CHECK constraint for non-negative values.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter column",
+        "name": "column",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_non_negative_check",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_non_negative_check(column: str) -> str:\n    \"\"\"Generate a CHECK constraint for non-negative values.\"\"\"\n    from neurop_forge.sources.sql_building import escape_sql_identifier\n    return f\"CHECK ({escape_sql_identifier(column)} >= 0)\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:45.189383+00:00",
+    "description": "Generate a CHECK constraint for non-negative values.",
+    "intent": "Generate a CHECK constraint for non-negative values.",
+    "language": "python",
+    "name": "generate_non_negative_check",
+    "source_file": "neurop_forge/sources/data_integrity.py",
+    "source_line_end": 250,
+    "source_line_start": 247,
+    "tags": [
+      "check",
+      "column",
+      "generate",
+      "negative",
+      "non",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.189408+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(column) == string",
+      "column is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(column) == string",
+      "column is not None"
+    ]
+  }
+}

@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "eedb5cfb83cee690591e32ba3cf5cc5ebf39c3e6f89f7740d15e20f5f332eb67",
+    "semantic_fingerprint": "4215083bee05c6590cb36a6d3fb926c1060b4c4b2418bc787489509d2c91cd54",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if message is a poison message (exceeded max deliveries).",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter message",
+        "name": "message",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_deliveries",
+        "name": "max_deliveries",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_poison_message",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_poison_message(message: dict, max_deliveries: int) -> bool:\n    \"\"\"Check if message is a poison message (exceeded max deliveries).\"\"\"\n    return message.get(\"delivery_count\", 0) >= max_deliveries",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:46.278239+00:00",
+    "description": "Check if message is a poison message (exceeded max deliveries).",
+    "intent": "Check if message is a poison message (exceeded max deliveries).",
+    "language": "python",
+    "name": "is_poison_message",
+    "source_file": "neurop_forge/sources/queue_patterns.py",
+    "source_line_end": 60,
+    "source_line_start": 58,
+    "tags": [
+      "max_deliveries",
+      "message",
+      "poison",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.278261+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(message) == dict",
+      "message is not None",
+      "type(max_deliveries) == integer",
+      "max_deliveries is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(message) == dict",
+      "message is not None",
+      "type(max_deliveries) == integer",
+      "max_deliveries is not None"
+    ]
+  }
+}

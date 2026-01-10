@@ -1,0 +1,151 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9c33b59900d5c3b9bfd6b27430741dec5756744853e5c7d4de83f2d11ece3bb0",
+    "semantic_fingerprint": "78a71b1ae432380fe3011d58fd7c173cd0558fa83870f11773474e1e32646190",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Append value to array at path.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter obj",
+        "name": "obj",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter path",
+        "name": "path",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of append_to_array",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def append_to_array(obj: dict, path: str, value) -> dict:\n    \"\"\"Append value to array at path.\"\"\"\n    existing = get_by_path(obj, path)\n    if isinstance(existing, list):\n        new_array = existing + [value]\n    else:\n        new_array = [value]\n    return set_by_path(obj, path, new_array)",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:52.008764+00:00",
+    "description": "Append value to array at path.",
+    "intent": "Append value to array at path.",
+    "language": "python",
+    "name": "append_to_array",
+    "source_file": "neurop_forge/sources/json_path.py",
+    "source_line_end": 237,
+    "source_line_start": 230,
+    "tags": [
+      "append",
+      "array",
+      "list_operation",
+      "obj",
+      "path",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.008783+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(obj) == dict",
+      "obj is not None",
+      "type(path) == string",
+      "path is not None",
+      "value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(obj) == dict",
+      "obj is not None",
+      "type(path) == string",
+      "path is not None",
+      "value is not None"
+    ]
+  }
+}

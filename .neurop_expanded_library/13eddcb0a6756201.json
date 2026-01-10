@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "13eddcb0a67562016bccf6dd43693521fc43c370a9fe9a99f887ad721a33b9c4",
+    "semantic_fingerprint": "82f45be4c94994c6c676fac4f6778e536bd7133b9353ba1806e6c680e13d97e3",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Merge overlapping intervals.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter intervals",
+        "name": "intervals",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of merge_intervals",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def merge_intervals(intervals: list) -> list:\n    \"\"\"Merge overlapping intervals.\"\"\"\n    if not intervals:\n        return []\n    sorted_intervals = sorted(intervals, key=lambda x: x[\"start\"])\n    merged = [sorted_intervals[0]]\n    for interval in sorted_intervals[1:]:\n        last = merged[-1]\n        if intervals_overlap(last, interval) or intervals_touch(last, interval):\n            merged[-1] = interval_union(last, interval)\n        else:\n            merged.append(interval)\n    return merged",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:48.572836+00:00",
+    "description": "Merge overlapping intervals.",
+    "intent": "Merge overlapping intervals.",
+    "language": "python",
+    "name": "merge_intervals",
+    "source_file": "neurop_forge/sources/interval_utilities.py",
+    "source_line_end": 132,
+    "source_line_start": 120,
+    "tags": [
+      "intervals",
+      "list_operation",
+      "merge"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.572865+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(intervals) == list",
+      "intervals is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(intervals) == list",
+      "intervals is not None"
+    ]
+  }
+}

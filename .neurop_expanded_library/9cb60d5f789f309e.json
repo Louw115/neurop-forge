@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9cb60d5f789f309eeae5fe4f7aff875267dbeba8e42e3e021e50315512217531",
+    "semantic_fingerprint": "80671fdb172e53fffa4e459013a237febd51278bc0826158fad08047e2a1fadb",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get available quantity (total - reserved).",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter item",
+        "name": "item",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of get_available",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_available(item: dict) -> int:\n    \"\"\"Get available quantity (total - reserved).\"\"\"\n    return max(0, item[\"quantity\"] - item[\"reserved\"])",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:52.518801+00:00",
+    "description": "Get available quantity (total - reserved).",
+    "intent": "Get available quantity (total - reserved).",
+    "language": "python",
+    "name": "get_available",
+    "source_file": "neurop_forge/sources/inventory_utilities.py",
+    "source_line_end": 61,
+    "source_line_start": 59,
+    "tags": [
+      "available",
+      "filtering",
+      "get",
+      "item"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.518817+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(item) == dict",
+      "item is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(item) == dict",
+      "item is not None"
+    ]
+  }
+}

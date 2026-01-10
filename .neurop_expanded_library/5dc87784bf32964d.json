@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5dc87784bf32964dbb745d97dc0529c30b64206edd6a9178e7b8d62595543c9a",
+    "semantic_fingerprint": "78ae877638917280ba7093a319c1246f51545f97fbe387d4429fcdf5cc8a2168",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate member tier discount.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter amount",
+        "name": "amount",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter tier",
+        "name": "tier",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter tiers",
+        "name": "tiers",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of calculate_member_discount",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_member_discount(amount: float, tier: str, tiers: dict) -> dict:\n    \"\"\"Calculate member tier discount.\"\"\"\n    rate = tiers.get(tier, 0)\n    final = apply_percentage_discount(amount, rate)\n    return {\n        \"tier\": tier,\n        \"discount_rate\": rate,\n        \"original\": amount,\n        \"savings\": round(amount - final, 2),\n        \"final\": final\n    }",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:52.501895+00:00",
+    "description": "Calculate member tier discount.",
+    "intent": "Calculate member tier discount.",
+    "language": "python",
+    "name": "calculate_member_discount",
+    "source_file": "neurop_forge/sources/discount_utilities.py",
+    "source_line_end": 166,
+    "source_line_start": 156,
+    "tags": [
+      "amount",
+      "arithmetic",
+      "calculate",
+      "discount",
+      "member",
+      "tier",
+      "tiers"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.501914+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(amount) == float",
+      "amount is not None",
+      "type(tier) == string",
+      "tier is not None",
+      "type(tiers) == dict",
+      "tiers is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(amount) == float",
+      "amount is not None",
+      "type(tier) == string",
+      "tier is not None",
+      "type(tiers) == dict",
+      "tiers is not None"
+    ]
+  }
+}

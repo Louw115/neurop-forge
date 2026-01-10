@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "823119bbb57585a2949a150f49d3c6d4d722264c299db2d4be2ba4a9a5dd6db5",
+    "semantic_fingerprint": "690bac5584e01e8f335f8c661ff9738afb4381b8675fbe91eea5a2b1e94b5f78",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format version dict to string.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter version",
+        "name": "version",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_version",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_version(version: dict) -> str:\n    \"\"\"Format version dict to string.\"\"\"\n    result = f\"{version['major']}.{version['minor']}.{version['patch']}\"\n    if version.get('prerelease'):\n        result += f\"-{version['prerelease']}\"\n    if version.get('build'):\n        result += f\"+{version['build']}\"\n    return result",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:50.747296+00:00",
+    "description": "Format version dict to string.",
+    "intent": "Format version dict to string.",
+    "language": "python",
+    "name": "format_version",
+    "source_file": "neurop_forge/sources/semantic_version.py",
+    "source_line_end": 37,
+    "source_line_start": 30,
+    "tags": [
+      "format",
+      "string_manipulation",
+      "version"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:50.747321+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(version) == dict",
+      "version is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(version) == dict",
+      "version is not None"
+    ]
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "554371e4ee2dab1c76c14a2e37def6de319ed1cf0ddfe76b159af52515773507",
+    "semantic_fingerprint": "1fc190df3401bf0773d42b092b74b627a7e17b0870d2efbe07eb9d2c14890669",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if request can proceed in fixed window.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_count",
+        "name": "current_count",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_count",
+        "name": "max_count",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of fixed_window_can_proceed",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def fixed_window_can_proceed(current_count: int, max_count: int) -> bool:\n    \"\"\"Check if request can proceed in fixed window.\"\"\"\n    return current_count < max_count",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:43.908342+00:00",
+    "description": "Check if request can proceed in fixed window.",
+    "intent": "Check if request can proceed in fixed window.",
+    "language": "python",
+    "name": "fixed_window_can_proceed",
+    "source_file": "neurop_forge/sources/rate_limiting.py",
+    "source_line_end": 65,
+    "source_line_start": 63,
+    "tags": [
+      "can",
+      "current_count",
+      "fixed",
+      "max_count",
+      "proceed",
+      "validation",
+      "window"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.908360+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(current_count) == integer",
+      "current_count is not None",
+      "type(max_count) == integer",
+      "max_count is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(current_count) == integer",
+      "current_count is not None",
+      "type(max_count) == integer",
+      "max_count is not None"
+    ]
+  }
+}

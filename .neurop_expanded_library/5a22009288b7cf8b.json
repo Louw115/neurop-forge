@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic aggregation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5a22009288b7cf8b5acb3028cc4f4f3729e0d08e4841158533328dc43e802def",
+    "semantic_fingerprint": "e1427deda93a4057c14eb1f350253aebc35338a7b31c1f44a97a32b552b0f8c0",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Group consecutive operations.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter diff",
+        "name": "diff",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of group_diff_by_operation",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def group_diff_by_operation(diff: list) -> list:\n    \"\"\"Group consecutive operations.\"\"\"\n    if not diff:\n        return []\n    groups = []\n    current_op = diff[0][\"op\"]\n    current_values = [diff[0][\"value\"]]\n    for op in diff[1:]:\n        if op[\"op\"] == current_op:\n            current_values.append(op[\"value\"])\n        else:\n            groups.append({\"op\": current_op, \"values\": current_values})\n            current_op = op[\"op\"]\n            current_values = [op[\"value\"]]\n    groups.append({\"op\": current_op, \"values\": current_values})\n    return groups",
+  "metadata": {
+    "category": "aggregation",
+    "created_at": "2026-01-10T02:18:49.256126+00:00",
+    "description": "Group consecutive operations.",
+    "intent": "Group consecutive operations.",
+    "language": "python",
+    "name": "group_diff_by_operation",
+    "source_file": "neurop_forge/sources/diff_utilities.py",
+    "source_line_end": 132,
+    "source_line_start": 117,
+    "tags": [
+      "aggregation",
+      "diff",
+      "group",
+      "operation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.256146+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(diff) == list",
+      "diff is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(diff) == list",
+      "diff is not None"
+    ]
+  }
+}

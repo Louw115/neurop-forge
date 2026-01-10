@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "49bceff2d6227da0a2ee62ba6e6185cad14adf9171f494363ce87e345a529ac7",
+    "semantic_fingerprint": "521e264863ded7299d6a5f6e97b0462b7e0eca68c44bca03964a7a531de57ed8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if user has required permission.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter user_permissions",
+        "name": "user_permissions",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter required_permission",
+        "name": "required_permission",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of has_permission",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def has_permission(user_permissions: list, required_permission: str) -> bool:\n    \"\"\"Check if user has required permission.\"\"\"\n    required = parse_permission(required_permission)\n    for perm in user_permissions:\n        parsed = parse_permission(perm)\n        if parsed[\"resource\"] == \"*\" and parsed[\"action\"] == \"*\":\n            return True\n        if parsed[\"resource\"] == required[\"resource\"]:\n            if parsed[\"action\"] == \"*\" or parsed[\"action\"] == required[\"action\"]:\n                return True\n    return False",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:47.756220+00:00",
+    "description": "Check if user has required permission.",
+    "intent": "Check if user has required permission.",
+    "language": "python",
+    "name": "has_permission",
+    "source_file": "neurop_forge/sources/permission_utilities.py",
+    "source_line_end": 80,
+    "source_line_start": 70,
+    "tags": [
+      "has",
+      "permission",
+      "required_permission",
+      "user_permissions",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.756244+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(user_permissions) == list",
+      "user_permissions is not None",
+      "type(required_permission) == string",
+      "required_permission is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(user_permissions) == list",
+      "user_permissions is not None",
+      "type(required_permission) == string",
+      "required_permission is not None"
+    ]
+  }
+}

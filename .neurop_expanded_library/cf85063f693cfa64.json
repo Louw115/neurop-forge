@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "cf85063f693cfa64e9b6d139a63af4b04cdd77e2ec08bc8692ba37964fd17d6d",
+    "semantic_fingerprint": "279cdb86c6281488f20b41bcc40e0df4f28792a5c544c02a066be1178376943a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if slug has numeric suffix.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter slug",
+        "name": "slug",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter separator",
+        "name": "separator",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of has_numeric_suffix",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def has_numeric_suffix(slug: str, separator: str) -> bool:\n    \"\"\"Check if slug has numeric suffix.\"\"\"\n    parts = slug.rsplit(separator, 1)\n    return len(parts) == 2 and parts[1].isdigit()",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:52.127235+00:00",
+    "description": "Check if slug has numeric suffix.",
+    "intent": "Check if slug has numeric suffix.",
+    "language": "python",
+    "name": "has_numeric_suffix",
+    "source_file": "neurop_forge/sources/slug_helpers.py",
+    "source_line_end": 122,
+    "source_line_start": 119,
+    "tags": [
+      "has",
+      "numeric",
+      "separator",
+      "slug",
+      "suffix",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.127264+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(slug) == string",
+      "slug is not None",
+      "type(separator) == string",
+      "separator is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(slug) == string",
+      "slug is not None",
+      "type(separator) == string",
+      "separator is not None"
+    ]
+  }
+}

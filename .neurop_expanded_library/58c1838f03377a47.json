@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "58c1838f03377a471bf0169e5c02ef107685e8d6cc43f22770bcffd1948f9c9e",
+    "semantic_fingerprint": "f3dc98acad2a77801d48daf897f003d82958da12d3cb9dbf65aadcdcad78aa41",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Create an event.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter event_type",
+        "name": "event_type",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter payload",
+        "name": "payload",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter timestamp",
+        "name": "timestamp",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of create_event",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def create_event(event_type: str, payload: dict, timestamp: int) -> dict:\n    \"\"\"Create an event.\"\"\"\n    return {\n        \"type\": event_type,\n        \"payload\": payload,\n        \"timestamp\": timestamp,\n        \"id\": generate_event_id(event_type, timestamp)\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:51.294055+00:00",
+    "description": "Create an event.",
+    "intent": "Create an event.",
+    "language": "python",
+    "name": "create_event",
+    "source_file": "neurop_forge/sources/event_utilities.py",
+    "source_line_end": 22,
+    "source_line_start": 15,
+    "tags": [
+      "create",
+      "dict_operation",
+      "event",
+      "event_type",
+      "payload",
+      "timestamp"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:51.294097+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(event_type) == string",
+      "event_type is not None",
+      "type(payload) == dict",
+      "payload is not None",
+      "type(timestamp) == integer",
+      "timestamp is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(event_type) == string",
+      "event_type is not None",
+      "type(payload) == dict",
+      "payload is not None",
+      "type(timestamp) == integer",
+      "timestamp is not None"
+    ]
+  }
+}

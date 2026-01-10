@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1b72484c71cba4d7c2e0afb857ed5a7059712ccdbd914b243fec9b8817722f33",
+    "semantic_fingerprint": "472fa492c21a3846ff0b5eb7fec63e922ffa79e682821d5f4d635a71309846a5",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add role to user.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter user",
+        "name": "user",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter role",
+        "name": "role",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of add_role",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def add_role(user: dict, role: str) -> dict:\n    \"\"\"Add role to user.\"\"\"\n    if role in user.get(\"roles\", []):\n        return user\n    new_roles = user.get(\"roles\", []) + [role]\n    return {**user, \"roles\": new_roles}",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:52.750556+00:00",
+    "description": "Add role to user.",
+    "intent": "Add role to user.",
+    "language": "python",
+    "name": "add_role",
+    "source_file": "neurop_forge/sources/user_utilities.py",
+    "source_line_end": 61,
+    "source_line_start": 56,
+    "tags": [
+      "add",
+      "arithmetic",
+      "role",
+      "user"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.750805+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(user) == dict",
+      "user is not None",
+      "type(role) == string",
+      "role is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(user) == dict",
+      "user is not None",
+      "type(role) == string",
+      "role is not None"
+    ]
+  }
+}

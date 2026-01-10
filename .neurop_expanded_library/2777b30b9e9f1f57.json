@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2777b30b9e9f1f57dfad0d0c92f2ffd8ab7818766c9c1b00b8ee39e6b30a196c",
+    "semantic_fingerprint": "42105ea30e566ef584f5331e537e4761b71d85779fd6c87c3b4e874d2d7a997d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate CREATE SCHEMA SQL.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter schema_name",
+        "name": "schema_name",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter if_not_exists",
+        "name": "if_not_exists",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_create_schema_sql",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_create_schema_sql(schema_name: str, if_not_exists: bool) -> str:\n    \"\"\"Generate CREATE SCHEMA SQL.\"\"\"\n    from neurop_forge.sources.sql_building import escape_sql_identifier\n    if_clause = \"IF NOT EXISTS \" if if_not_exists else \"\"\n    return f\"CREATE SCHEMA {if_clause}{escape_sql_identifier(schema_name)}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:45.016682+00:00",
+    "description": "Generate CREATE SCHEMA SQL.",
+    "intent": "Generate CREATE SCHEMA SQL.",
+    "language": "python",
+    "name": "generate_create_schema_sql",
+    "source_file": "neurop_forge/sources/migration_helpers.py",
+    "source_line_end": 187,
+    "source_line_start": 183,
+    "tags": [
+      "create",
+      "generate",
+      "if_not_exists",
+      "schema",
+      "schema_name",
+      "sql",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.016703+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(schema_name) == string",
+      "schema_name is not None",
+      "type(if_not_exists) == boolean",
+      "if_not_exists is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(schema_name) == string",
+      "schema_name is not None",
+      "type(if_not_exists) == boolean",
+      "if_not_exists is not None"
+    ]
+  }
+}

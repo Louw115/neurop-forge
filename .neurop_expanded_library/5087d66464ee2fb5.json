@@ -1,0 +1,152 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5087d66464ee2fb5cc144c64576ccad3217bc4564c7bb422d25bb8d1fe312b64",
+    "semantic_fingerprint": "98879f94db7f2478f3e96226678ce1eb752e19c63954018d19c162ffc69fbbf7",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate relative luminance.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter r",
+        "name": "r",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter g",
+        "name": "g",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter b",
+        "name": "b",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of luminance",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def luminance(r: int, g: int, b: int) -> float:\n    \"\"\"Calculate relative luminance.\"\"\"\n    def linearize(c):\n        c = c / 255\n        return c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4\n    return 0.2126 * linearize(r) + 0.7152 * linearize(g) + 0.0722 * linearize(b)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:50.134508+00:00",
+    "description": "Calculate relative luminance.",
+    "intent": "Calculate relative luminance.",
+    "language": "python",
+    "name": "luminance",
+    "source_file": "neurop_forge/sources/color_math.py",
+    "source_line_end": 156,
+    "source_line_start": 151,
+    "tags": [
+      "arithmetic",
+      "b",
+      "g",
+      "luminance",
+      "r"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:50.134528+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(r) == integer",
+      "r is not None",
+      "type(g) == integer",
+      "g is not None",
+      "type(b) == integer",
+      "b is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(r) == integer",
+      "r is not None",
+      "type(g) == integer",
+      "g is not None",
+      "type(b) == integer",
+      "b is not None"
+    ]
+  }
+}

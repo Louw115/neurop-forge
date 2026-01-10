@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1671984a12a0c41a487a604ffdfedd2d71cbf7ec18b3f63cd715d7b3e59f32a8",
+    "semantic_fingerprint": "8321b55108812afc76e076038ca745f0ca29c5a817163a27ff87565c04708dc6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Apply facet filters to items.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter facets",
+        "name": "facets",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of apply_facet_filter",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def apply_facet_filter(items: list, facets: dict) -> list:\n    \"\"\"Apply facet filters to items.\"\"\"\n    result = items\n    for field, values in facets.items():\n        result = [i for i in result if i.get(field) in values]\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:52.936963+00:00",
+    "description": "Apply facet filters to items.",
+    "intent": "Apply facet filters to items.",
+    "language": "python",
+    "name": "apply_facet_filter",
+    "source_file": "neurop_forge/sources/search_helpers.py",
+    "source_line_end": 133,
+    "source_line_start": 128,
+    "tags": [
+      "apply",
+      "facet",
+      "facets",
+      "filter",
+      "items",
+      "list_operation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.936994+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "type(facets) == dict",
+      "facets is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "type(facets) == dict",
+      "facets is not None"
+    ]
+  }
+}

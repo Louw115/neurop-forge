@@ -1,0 +1,136 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": false,
+    "io_operations": [
+      "file_read"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "non_deterministic",
+    "side_effects": [
+      "file_io"
+    ],
+    "thread_safe": false
+  },
+  "failure_modes": {
+    "can_fail": true,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "raises_exception",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "22fbe33b7d37da4f2efd7f86c591cb29e76be68a587cfd0236233e2580d0ff7b",
+    "semantic_fingerprint": "d940ad896d22aef13bf0325fbfd202f58ec18534e3cb837e34868663ff71be07",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate that events have contiguous sequence numbers.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter events",
+        "name": "events",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of validate_event_sequence",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_event_sequence(events: list) -> dict:\n    \"\"\"Validate that events have contiguous sequence numbers.\"\"\"\n    sorted_events = sorted(events, key=lambda e: e.get(\"sequence\", 0))\n    gaps = []\n    for i in range(1, len(sorted_events)):\n        prev_seq = sorted_events[i - 1].get(\"sequence\", 0)\n        curr_seq = sorted_events[i].get(\"sequence\", 0)\n        if curr_seq != prev_seq + 1:\n            gaps.append({\"expected\": prev_seq + 1, \"found\": curr_seq})\n    return {\"valid\": len(gaps) == 0, \"gaps\": gaps}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:46.217688+00:00",
+    "description": "Validate that events have contiguous sequence numbers.",
+    "intent": "Validate that events have contiguous sequence numbers.",
+    "language": "python",
+    "name": "validate_event_sequence",
+    "source_file": "neurop_forge/sources/event_sourcing.py",
+    "source_line_end": 99,
+    "source_line_start": 90,
+    "tags": [
+      "event",
+      "events",
+      "sequence",
+      "validate",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 0.5,
+    "last_verified": "2026-01-10T02:18:46.217716+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.31,
+    "risk_factors": [
+      "impure_function",
+      "non_deterministic",
+      "side_effects: file_io"
+    ],
+    "risk_level": "medium",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(events) == list",
+      "events is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(events) == list",
+      "events is not None"
+    ]
+  }
+}

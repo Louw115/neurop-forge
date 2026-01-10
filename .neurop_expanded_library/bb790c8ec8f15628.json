@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "bb790c8ec8f15628175894228b1050ca986783912c6bf6e535431491547800b6",
+    "semantic_fingerprint": "c212059405f581d42a1da9ebe8e7c225f1aebc64903dbc1010e446812f4592e3",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Element-wise division of two vectors.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter v1",
+        "name": "v1",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter v2",
+        "name": "v2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of vector_element_wise_divide",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def vector_element_wise_divide(v1: dict, v2: dict) -> dict:\n    \"\"\"Element-wise division of two vectors.\"\"\"\n    values = [a / b if b != 0 else 0 for a, b in zip(v1[\"values\"], v2[\"values\"])]\n    return create_vector(values)",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:48.000419+00:00",
+    "description": "Element-wise division of two vectors.",
+    "intent": "Element-wise division of two vectors.",
+    "language": "python",
+    "name": "vector_element_wise_divide",
+    "source_file": "neurop_forge/sources/vector_utilities.py",
+    "source_line_end": 123,
+    "source_line_start": 120,
+    "tags": [
+      "dict_operation",
+      "divide",
+      "element",
+      "v1",
+      "v2",
+      "vector",
+      "wise"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.000446+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(v1) == dict",
+      "v1 is not None",
+      "type(v2) == dict",
+      "v2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(v1) == dict",
+      "v1 is not None",
+      "type(v2) == dict",
+      "v2 is not None"
+    ]
+  }
+}

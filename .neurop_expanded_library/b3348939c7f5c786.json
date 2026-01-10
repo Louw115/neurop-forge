@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b3348939c7f5c7860b01bd7fa0784ae8e876599f1a5d77a559f8ab561d35e02c",
+    "semantic_fingerprint": "747e776ca5f9fe2492671131ff06e9bb35228ca5e834f9656ade06bc0af474d8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format a 503 Service Unavailable response.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter retry_after",
+        "name": "retry_after",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter message",
+        "name": "message",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of format_service_unavailable_response",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_service_unavailable_response(retry_after: int, message: str) -> dict:\n    \"\"\"Format a 503 Service Unavailable response.\"\"\"\n    return {\n        \"success\": False,\n        \"error\": {\n            \"code\": 503,\n            \"message\": message or \"Service temporarily unavailable\",\n            \"retry_after\": retry_after\n        }\n    }",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:45.927421+00:00",
+    "description": "Format a 503 Service Unavailable response.",
+    "intent": "Format a 503 Service Unavailable response.",
+    "language": "python",
+    "name": "format_service_unavailable_response",
+    "source_file": "neurop_forge/sources/response_formatting.py",
+    "source_line_end": 231,
+    "source_line_start": 222,
+    "tags": [
+      "format",
+      "message",
+      "response",
+      "retry_after",
+      "service",
+      "string_manipulation",
+      "unavailable"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.927439+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(retry_after) == integer",
+      "retry_after is not None",
+      "type(message) == string",
+      "message is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(retry_after) == integer",
+      "retry_after is not None",
+      "type(message) == string",
+      "message is not None"
+    ]
+  }
+}

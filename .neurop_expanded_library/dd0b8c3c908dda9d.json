@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "dd0b8c3c908dda9d0420995b82d0e0d5fe2893758ce6410d3cae5ba8d4065893",
+    "semantic_fingerprint": "e92c601abe067c8f3367be2ee5a303a3b1d9e6e483d83b10ea336fc0658782e0",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if a numeric value is non-negative.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter field_name",
+        "name": "field_name",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of check_non_negative",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def check_non_negative(value: float, field_name: str) -> dict:\n    \"\"\"Check if a numeric value is non-negative.\"\"\"\n    if value < 0:\n        return {\"valid\": False, \"error\": f\"{field_name} cannot be negative\"}\n    return {\"valid\": True, \"error\": None}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:45.146641+00:00",
+    "description": "Check if a numeric value is non-negative.",
+    "intent": "Check if a numeric value is non-negative.",
+    "language": "python",
+    "name": "check_non_negative",
+    "source_file": "neurop_forge/sources/data_integrity.py",
+    "source_line_end": 65,
+    "source_line_start": 61,
+    "tags": [
+      "check",
+      "field_name",
+      "negative",
+      "non",
+      "validation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.146665+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == float",
+      "value is not None",
+      "type(field_name) == string",
+      "field_name is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(value) == float",
+      "value is not None",
+      "type(field_name) == string",
+      "field_name is not None"
+    ]
+  }
+}

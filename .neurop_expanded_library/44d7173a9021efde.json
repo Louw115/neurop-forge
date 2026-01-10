@@ -1,0 +1,147 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "44d7173a9021efde21a82c5254046d7c1972cb9c0aea61e8e3e960ba615fbc3c",
+    "semantic_fingerprint": "b242d808736dc26cdb0cb3a21ac32930ccab25d66577ab26bd7a5a8d6e64d50f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Assert value is in range.",
+    "inputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter min_val",
+        "name": "min_val",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter max_val",
+        "name": "max_val",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of assert_in_range",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def assert_in_range(value, min_val, max_val) -> dict:\n    \"\"\"Assert value is in range.\"\"\"\n    passed = min_val <= value <= max_val\n    return {\n        \"passed\": passed,\n        \"actual\": value,\n        \"min\": min_val,\n        \"max\": max_val,\n        \"message\": \"\" if passed else f\"Expected {value} in [{min_val}, {max_val}]\"\n    }",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:52.080681+00:00",
+    "description": "Assert value is in range.",
+    "intent": "Assert value is in range.",
+    "language": "python",
+    "name": "assert_in_range",
+    "source_file": "neurop_forge/sources/assertion_utilities.py",
+    "source_line_end": 128,
+    "source_line_start": 119,
+    "tags": [
+      "assert",
+      "max_val",
+      "min_val",
+      "range",
+      "validation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.080707+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "value is not None",
+      "min_val is not None",
+      "max_val is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "value is not None",
+      "min_val is not None",
+      "max_val is not None"
+    ]
+  }
+}

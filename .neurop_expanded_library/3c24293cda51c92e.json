@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3c24293cda51c92e2697ab2c01d0beecbe32d25a78751a6f41a3980149b8c262",
+    "semantic_fingerprint": "2516847a7f2ff8713b900bbdda3eae95961186b30fa7cfa7b035a5ba6fec2283",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate SQL to cancel a query on a backend process.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter pid",
+        "name": "pid",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_pg_cancel_backend",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_pg_cancel_backend(pid: int) -> str:\n    \"\"\"Generate SQL to cancel a query on a backend process.\"\"\"\n    return f\"SELECT pg_cancel_backend({pid})\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:45.108681+00:00",
+    "description": "Generate SQL to cancel a query on a backend process.",
+    "intent": "Generate SQL to cancel a query on a backend process.",
+    "language": "python",
+    "name": "generate_pg_cancel_backend",
+    "source_file": "neurop_forge/sources/transaction_helpers.py",
+    "source_line_end": 276,
+    "source_line_start": 274,
+    "tags": [
+      "backend",
+      "cancel",
+      "generate",
+      "pid",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.108696+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(pid) == integer",
+      "pid is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(pid) == integer",
+      "pid is not None"
+    ]
+  }
+}

@@ -1,0 +1,178 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "79bdfc3e994d174a02baa8766aa0c3a016b178a5bd8ca5ef2c82f4fb65d24df4",
+    "semantic_fingerprint": "11d8e6053bc0bdc21b5576ffe9c5f208cbd169c9f51e275836aa1c6c5ac68b31",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a Cache-Control header value.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_age",
+        "name": "max_age",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter private",
+        "name": "private",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter no_store",
+        "name": "no_store",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter no_cache",
+        "name": "no_cache",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter must_revalidate",
+        "name": "must_revalidate",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_cache_control",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_cache_control(max_age: int, private: bool, no_store: bool, no_cache: bool, must_revalidate: bool) -> str:\n    \"\"\"Build a Cache-Control header value.\"\"\"\n    directives = []\n    if no_store:\n        directives.append(\"no-store\")\n    elif no_cache:\n        directives.append(\"no-cache\")\n    else:\n        if private:\n            directives.append(\"private\")\n        else:\n            directives.append(\"public\")\n        if max_age >= 0:\n            directives.append(f\"max-age={max_age}\")\n    if must_revalidate:\n        directives.append(\"must-revalidate\")\n    return \", \".join(directives)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:45.626533+00:00",
+    "description": "Build a Cache-Control header value.",
+    "intent": "Build a Cache-Control header value.",
+    "language": "python",
+    "name": "build_cache_control",
+    "source_file": "neurop_forge/sources/api_patterns.py",
+    "source_line_end": 403,
+    "source_line_start": 387,
+    "tags": [
+      "build",
+      "cache",
+      "control",
+      "max_age",
+      "must_revalidate",
+      "no_cache",
+      "no_store",
+      "private",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.626554+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(max_age) == integer",
+      "max_age is not None",
+      "type(private) == boolean",
+      "private is not None",
+      "type(no_store) == boolean",
+      "no_store is not None",
+      "type(no_cache) == boolean",
+      "no_cache is not None",
+      "type(must_revalidate) == boolean",
+      "must_revalidate is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(max_age) == integer",
+      "max_age is not None",
+      "type(private) == boolean",
+      "private is not None",
+      "type(no_store) == boolean",
+      "no_store is not None",
+      "type(no_cache) == boolean",
+      "no_cache is not None",
+      "type(must_revalidate) == boolean",
+      "must_revalidate is not None"
+    ]
+  }
+}

@@ -1,0 +1,152 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a61962e5d647d7931a1a0b0f83bc7c17630d2b476e71dfc264be7e2243c6630c",
+    "semantic_fingerprint": "2ed0b74f5c3a52cafab3ce6ba02944bd1a27b3e7b3c49b166b30ae02d23416e8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if time is in range (inclusive).",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter time",
+        "name": "time",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter start",
+        "name": "start",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter end",
+        "name": "end",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of time_in_range",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def time_in_range(time: dict, start: dict, end: dict) -> bool:\n    \"\"\"Check if time is in range (inclusive).\"\"\"\n    t = to_seconds(time[\"hours\"], time[\"minutes\"], time[\"seconds\"])\n    s = to_seconds(start[\"hours\"], start[\"minutes\"], start[\"seconds\"])\n    e = to_seconds(end[\"hours\"], end[\"minutes\"], end[\"seconds\"])\n    if s <= e:\n        return s <= t <= e\n    return t >= s or t <= e",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:49.969656+00:00",
+    "description": "Check if time is in range (inclusive).",
+    "intent": "Check if time is in range (inclusive).",
+    "language": "python",
+    "name": "time_in_range",
+    "source_file": "neurop_forge/sources/time_utilities.py",
+    "source_line_end": 186,
+    "source_line_start": 179,
+    "tags": [
+      "end",
+      "range",
+      "start",
+      "time",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.969773+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(time) == dict",
+      "time is not None",
+      "type(start) == dict",
+      "start is not None",
+      "type(end) == dict",
+      "end is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(time) == dict",
+      "time is not None",
+      "type(start) == dict",
+      "start is not None",
+      "type(end) == dict",
+      "end is not None"
+    ]
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "213b84d6ac1da00f88022df7dabf832f68c6b9be9026eb0677dfe23f23022ea8",
+    "semantic_fingerprint": "e744d49d7d1e531e9032d8f6e09fd9383410074505944cbed2ebe75ca90dfa90",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract YAML front matter from template.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter content",
+        "name": "content",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of extract_front_matter",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def extract_front_matter(content: str) -> dict:\n    \"\"\"Extract YAML front matter from template.\"\"\"\n    if not content.startswith(\"---\"):\n        return {\"frontmatter\": {}, \"content\": content}\n    parts = content.split(\"---\", 2)\n    if len(parts) < 3:\n        return {\"frontmatter\": {}, \"content\": content}\n    frontmatter = {}\n    for line in parts[1].strip().split(\"\\n\"):\n        if \":\" in line:\n            key, value = line.split(\":\", 1)\n            frontmatter[key.strip()] = value.strip()\n    return {\"frontmatter\": frontmatter, \"content\": parts[2].strip()}",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:47.919003+00:00",
+    "description": "Extract YAML front matter from template.",
+    "intent": "Extract YAML front matter from template.",
+    "language": "python",
+    "name": "extract_front_matter",
+    "source_file": "neurop_forge/sources/template_utilities.py",
+    "source_line_end": 82,
+    "source_line_start": 70,
+    "tags": [
+      "content",
+      "extract",
+      "filtering",
+      "front",
+      "matter"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.919023+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(content) == string",
+      "content is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(content) == string",
+      "content is not None"
+    ]
+  }
+}

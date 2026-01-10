@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1d01015306cfbb36d204ac38e46f0019e71220d7738e5462d943e7203735be55",
+    "semantic_fingerprint": "77cdd165c29be15cd4d40660226331c18829488d2faf26f8732355ee96bf94da",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Update item quantity in order.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter order",
+        "name": "order",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter item_id",
+        "name": "item_id",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter quantity",
+        "name": "quantity",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of update_item_quantity",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def update_item_quantity(order: dict, item_id: str, quantity: int) -> dict:\n    \"\"\"Update item quantity in order.\"\"\"\n    new_items = []\n    for item in order[\"items\"]:\n        if item.get(\"item_id\") == item_id:\n            new_items.append({**item, \"quantity\": quantity})\n        else:\n            new_items.append(item)\n    return {**order, \"items\": new_items}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:52.601401+00:00",
+    "description": "Update item quantity in order.",
+    "intent": "Update item quantity in order.",
+    "language": "python",
+    "name": "update_item_quantity",
+    "source_file": "neurop_forge/sources/order_utilities.py",
+    "source_line_end": 62,
+    "source_line_start": 54,
+    "tags": [
+      "dict_operation",
+      "item",
+      "item_id",
+      "order",
+      "quantity",
+      "update"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.601428+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(order) == dict",
+      "order is not None",
+      "type(item_id) == string",
+      "item_id is not None",
+      "type(quantity) == integer",
+      "quantity is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(order) == dict",
+      "order is not None",
+      "type(item_id) == string",
+      "item_id is not None",
+      "type(quantity) == integer",
+      "quantity is not None"
+    ]
+  }
+}

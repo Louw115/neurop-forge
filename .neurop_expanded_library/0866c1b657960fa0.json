@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0866c1b657960fa04fb3ba05049f46a0d6f67b95ca0bb02e900454c168508dce",
+    "semantic_fingerprint": "2f88aa535331ee27fe44d0566f96b7d788f9d43251cc25095cc8d394436951a3",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Sliding window over items.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter size",
+        "name": "size",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of window",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def window(items: list, size: int) -> list:\n    \"\"\"Sliding window over items.\"\"\"\n    return [items[i:i+size] for i in range(len(items) - size + 1)]",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:51.493838+00:00",
+    "description": "Sliding window over items.",
+    "intent": "Sliding window over items.",
+    "language": "python",
+    "name": "window",
+    "source_file": "neurop_forge/sources/iterator_utilities.py",
+    "source_line_end": 114,
+    "source_line_start": 112,
+    "tags": [
+      "items",
+      "list_operation",
+      "size",
+      "window"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:51.493858+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "type(size) == integer",
+      "size is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "type(size) == integer",
+      "size is not None"
+    ]
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "6867dcdddc5b60b1556c98db2576b8b9578bfda5c5de13c725e6af5e62b59d0d",
+    "semantic_fingerprint": "97e3a4688a3595a172e3e8bee006a5bfb5127371eed41861565c12586dfff9ba",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Reshape 1D list into matrix.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter values",
+        "name": "values",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter num_rows",
+        "name": "num_rows",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter num_cols",
+        "name": "num_cols",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of matrix_reshape",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def matrix_reshape(values: list, num_rows: int, num_cols: int) -> dict:\n    \"\"\"Reshape 1D list into matrix.\"\"\"\n    rows = [values[i * num_cols:(i + 1) * num_cols] for i in range(num_rows)]\n    return create_matrix(rows)",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:48.163122+00:00",
+    "description": "Reshape 1D list into matrix.",
+    "intent": "Reshape 1D list into matrix.",
+    "language": "python",
+    "name": "matrix_reshape",
+    "source_file": "neurop_forge/sources/matrix_utilities.py",
+    "source_line_end": 229,
+    "source_line_start": 226,
+    "tags": [
+      "dict_operation",
+      "matrix",
+      "num_cols",
+      "num_rows",
+      "reshape",
+      "values"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.163148+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(values) == list",
+      "values is not None",
+      "type(num_rows) == integer",
+      "num_rows is not None",
+      "type(num_cols) == integer",
+      "num_cols is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(values) == list",
+      "values is not None",
+      "type(num_rows) == integer",
+      "num_rows is not None",
+      "type(num_cols) == integer",
+      "num_cols is not None"
+    ]
+  }
+}

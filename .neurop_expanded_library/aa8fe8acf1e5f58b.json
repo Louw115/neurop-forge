@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "aa8fe8acf1e5f58bd32fe4dddf76f5d1b7818d2417f29ce8c3f40f299454d548",
+    "semantic_fingerprint": "f77b4eb619c6bd1d1d7cc122f5bb12ffe44c4e6ac8ff06191f9b7de0e1b423d8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate ISBN-13 check digit.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter digits",
+        "name": "digits",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of isbn13_checksum",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def isbn13_checksum(digits: str) -> str:\n    \"\"\"Calculate ISBN-13 check digit.\"\"\"\n    total = 0\n    for i, d in enumerate(digits[:12]):\n        weight = 1 if i % 2 == 0 else 3\n        total += int(d) * weight\n    return str((10 - (total % 10)) % 10)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:49.646979+00:00",
+    "description": "Calculate ISBN-13 check digit.",
+    "intent": "Calculate ISBN-13 check digit.",
+    "language": "python",
+    "name": "isbn13_checksum",
+    "source_file": "neurop_forge/sources/checksum_utilities.py",
+    "source_line_end": 146,
+    "source_line_start": 140,
+    "tags": [
+      "checksum",
+      "digits",
+      "isbn13",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.647011+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(digits) == string",
+      "digits is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(digits) == string",
+      "digits is not None"
+    ]
+  }
+}

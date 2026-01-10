@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1930cf63c160e5d6273e3b9cdf7a10bf641c403e7dc9616f1f3cb63d0f851698",
+    "semantic_fingerprint": "51d3543614ea0280b225e494553b579b4b10d7b9c08ecbd2b8f404014f38dceb",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse Authorization header.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter header",
+        "name": "header",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of parse_authorization",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_authorization(header: str) -> dict:\n    \"\"\"Parse Authorization header.\"\"\"\n    parts = header.split(\" \", 1)\n    if len(parts) == 1:\n        return {\"scheme\": parts[0], \"credentials\": \"\"}\n    return {\"scheme\": parts[0], \"credentials\": parts[1]}",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T02:18:50.868898+00:00",
+    "description": "Parse Authorization header.",
+    "intent": "Parse Authorization header.",
+    "language": "python",
+    "name": "parse_authorization",
+    "source_file": "neurop_forge/sources/protocol_utilities.py",
+    "source_line_end": 178,
+    "source_line_start": 173,
+    "tags": [
+      "authorization",
+      "header",
+      "parse",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:50.868918+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(header) == string",
+      "header is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(header) == string",
+      "header is not None"
+    ]
+  }
+}

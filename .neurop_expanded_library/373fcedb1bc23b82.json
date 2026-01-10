@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "373fcedb1bc23b827e61ad29b04657f8ee09e42bc6e902c0377dda61560f15b2",
+    "semantic_fingerprint": "8e7883de0156fdef5ec5e20de40ae42bcaa7bbf97aa35ae12ae030cba88acda1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate IPv4 address.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter ip",
+        "name": "ip",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of validate_ipv4",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_ipv4(ip: str) -> bool:\n    \"\"\"Validate IPv4 address.\"\"\"\n    parts = ip.split(\".\")\n    if len(parts) != 4:\n        return False\n    for part in parts:\n        if not part.isdigit():\n            return False\n        num = int(part)\n        if num < 0 or num > 255:\n            return False\n    return True",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:47.431966+00:00",
+    "description": "Validate IPv4 address.",
+    "intent": "Validate IPv4 address.",
+    "language": "python",
+    "name": "validate_ipv4",
+    "source_file": "neurop_forge/sources/network_utilities.py",
+    "source_line_end": 23,
+    "source_line_start": 12,
+    "tags": [
+      "ip",
+      "ipv4",
+      "validate",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.432021+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(ip) == string",
+      "ip is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(ip) == string",
+      "ip is not None"
+    ]
+  }
+}

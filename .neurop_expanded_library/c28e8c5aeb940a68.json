@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c28e8c5aeb940a68b7e15893935312c65e148ec5028d96b26aa12ea59072b764",
+    "semantic_fingerprint": "600e379b21430ecaf82222c62e824f98b97546565c40871be2bfd0f862a7ecf4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Determine if request should be rejected due to queue overflow.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter queue_size",
+        "name": "queue_size",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_queue_size",
+        "name": "max_queue_size",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of should_reject_request",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def should_reject_request(queue_size: int, max_queue_size: int) -> bool:\n    \"\"\"Determine if request should be rejected due to queue overflow.\"\"\"\n    return queue_size >= max_queue_size",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:45.414603+00:00",
+    "description": "Determine if request should be rejected due to queue overflow.",
+    "intent": "Determine if request should be rejected due to queue overflow.",
+    "language": "python",
+    "name": "should_reject_request",
+    "source_file": "neurop_forge/sources/connection_pool.py",
+    "source_line_end": 68,
+    "source_line_start": 66,
+    "tags": [
+      "max_queue_size",
+      "queue_size",
+      "reject",
+      "request",
+      "should",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.414618+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(queue_size) == integer",
+      "queue_size is not None",
+      "type(max_queue_size) == integer",
+      "max_queue_size is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(queue_size) == integer",
+      "queue_size is not None",
+      "type(max_queue_size) == integer",
+      "max_queue_size is not None"
+    ]
+  }
+}

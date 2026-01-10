@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "aa5f7d15f0f2cd0239706eee8cc406f379674adcb5943ba5fcc81c6507ca4633",
+    "semantic_fingerprint": "6c17aaa5ade85ffe7c1c2982e77f49c75067e89d1786e24d9c9fcf171361216b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a PostgreSQL trigger function for automatic auditing.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter function_name",
+        "name": "function_name",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter audit_table",
+        "name": "audit_table",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_audit_trigger_function",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_audit_trigger_function(function_name: str, audit_table: str) -> str:\n    \"\"\"Build a PostgreSQL trigger function for automatic auditing.\"\"\"\n    from neurop_forge.sources.sql_building import escape_sql_identifier\n    return f\"\"\"\nCREATE OR REPLACE FUNCTION {escape_sql_identifier(function_name)}()\nRETURNS TRIGGER AS $$\nBEGIN\n    IF TG_OP = 'INSERT' THEN\n        INSERT INTO {escape_sql_identifier(audit_table)} (table_name, operation, record_id, new_values, timestamp)\n        VALUES (TG_TABLE_NAME, 'INSERT', NEW.id::text, to_jsonb(NEW), CURRENT_TIMESTAMP);\n        RETURN NEW;\n    ELSIF TG_OP = 'UPDATE' THEN\n        INSERT INTO {escape_sql_identifier(audit_table)} (table_name, operation, record_id, old_values, new_values, timestamp)\n        VALUES (TG_TABLE_NAME, 'UPDATE', NEW.id::text, to_jsonb(OLD), to_jsonb(NEW), CURRENT_TIMESTAMP);\n        RETURN NEW;\n    ELSIF TG_OP = 'DELETE' THEN\n        INSERT INTO {escape_sql_identifier(audit_table)} (table_name, operation, record_id, old_values, timestamp)\n        VALUES (TG_TABLE_NAME, 'DELETE', OLD.id::text, to_jsonb(OLD), CURRENT_TIMESTAMP);\n        RETURN OLD;\n    END IF;\n    RETURN NULL;\nEND;\n$$ LANGUAGE plpgsql;\n\"\"\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:45.501090+00:00",
+    "description": "Build a PostgreSQL trigger function for automatic auditing.",
+    "intent": "Build a PostgreSQL trigger function for automatic auditing.",
+    "language": "python",
+    "name": "build_audit_trigger_function",
+    "source_file": "neurop_forge/sources/audit_logging.py",
+    "source_line_end": 141,
+    "source_line_start": 118,
+    "tags": [
+      "audit",
+      "audit_table",
+      "build",
+      "function",
+      "function_name",
+      "string_manipulation",
+      "trigger"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.501114+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(function_name) == string",
+      "function_name is not None",
+      "type(audit_table) == string",
+      "audit_table is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(function_name) == string",
+      "function_name is not None",
+      "type(audit_table) == string",
+      "audit_table is not None"
+    ]
+  }
+}

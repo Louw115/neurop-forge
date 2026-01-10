@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f0c067d70cc97cfb6c410cdf3f0372c363edb92c27ede7b3089dbb20208106e6",
+    "semantic_fingerprint": "0e59c2502755a19e0f87611e3ce1931978ce494e8731dbbd5cb59bbdd7ef1218",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a MongoDB $group aggregation stage.",
+    "inputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter group_id",
+        "name": "group_id",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter accumulators",
+        "name": "accumulators",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_mongodb_aggregate_group",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_mongodb_aggregate_group(group_id, accumulators: dict) -> dict:\n    \"\"\"Build a MongoDB $group aggregation stage.\"\"\"\n    return {\"$group\": {\"_id\": group_id, **accumulators}}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:45.252407+00:00",
+    "description": "Build a MongoDB $group aggregation stage.",
+    "intent": "Build a MongoDB $group aggregation stage.",
+    "language": "python",
+    "name": "build_mongodb_aggregate_group",
+    "source_file": "neurop_forge/sources/nosql_helpers.py",
+    "source_line_end": 123,
+    "source_line_start": 121,
+    "tags": [
+      "accumulators",
+      "aggregate",
+      "build",
+      "dict_operation",
+      "group",
+      "group_id",
+      "mongodb"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.252426+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "group_id is not None",
+      "type(accumulators) == dict",
+      "accumulators is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "group_id is not None",
+      "type(accumulators) == dict",
+      "accumulators is not None"
+    ]
+  }
+}

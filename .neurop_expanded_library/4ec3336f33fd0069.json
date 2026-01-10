@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4ec3336f33fd00691820a951d8b0c97bd9b04156050432e39ad1fd4f0001751f",
+    "semantic_fingerprint": "febd055200d70ea0f8d4c59d17f50011ddf4282493e62d630d14abea05e18333",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate loan amortization schedule.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter principal",
+        "name": "principal",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter annual_rate",
+        "name": "annual_rate",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter months",
+        "name": "months",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of calculate_loan_amortization",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_loan_amortization(principal: float, annual_rate: float, months: int) -> list:\n    \"\"\"Calculate loan amortization schedule.\"\"\"\n    schedule = []\n    monthly_payment = calculate_monthly_payment(principal, annual_rate, months)\n    monthly_rate = annual_rate / 100 / 12\n    balance = principal\n    for month in range(1, months + 1):\n        interest = balance * monthly_rate\n        principal_payment = monthly_payment - interest\n        balance -= principal_payment\n        schedule.append({\n            \"month\": month,\n            \"payment\": round(monthly_payment, 2),\n            \"principal\": round(principal_payment, 2),\n            \"interest\": round(interest, 2),\n            \"balance\": round(max(0, balance), 2)\n        })\n    return schedule",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:47.587059+00:00",
+    "description": "Calculate loan amortization schedule.",
+    "intent": "Calculate loan amortization schedule.",
+    "language": "python",
+    "name": "calculate_loan_amortization",
+    "source_file": "neurop_forge/sources/financial_utilities.py",
+    "source_line_end": 58,
+    "source_line_start": 41,
+    "tags": [
+      "amortization",
+      "annual_rate",
+      "arithmetic",
+      "calculate",
+      "loan",
+      "months",
+      "principal"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.587084+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(principal) == float",
+      "principal is not None",
+      "type(annual_rate) == float",
+      "annual_rate is not None",
+      "type(months) == integer",
+      "months is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(principal) == float",
+      "principal is not None",
+      "type(annual_rate) == float",
+      "annual_rate is not None",
+      "type(months) == integer",
+      "months is not None"
+    ]
+  }
+}

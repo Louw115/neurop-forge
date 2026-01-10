@@ -1,0 +1,155 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic utility block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": false,
+    "io_operations": [
+      "random"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "non_deterministic",
+    "side_effects": [
+      "random"
+    ],
+    "thread_safe": false
+  },
+  "failure_modes": {
+    "can_fail": true,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "raises_exception",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ee41161fbd90090d567276b380095620108b62d56a59efcbf6896d1ed6625244",
+    "semantic_fingerprint": "05e27f4c53fe4930ea4929272381d3c6cd8e137194b78fca73ce88e76a7cd1ef",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Choose item based on weights.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter weights",
+        "name": "weights",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seed",
+        "name": "seed",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Return value of weighted_choice",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def weighted_choice(items: list, weights: list, seed: int):\n    \"\"\"Choose item based on weights.\"\"\"\n    if not items or len(items) != len(weights):\n        return None\n    total = sum(weights)\n    if total <= 0:\n        return items[0]\n    target = random_float(seed) * total\n    cumulative = 0\n    for item, weight in zip(items, weights):\n        cumulative += weight\n        if cumulative >= target:\n            return item\n    return items[-1]",
+  "metadata": {
+    "category": "utility",
+    "created_at": "2026-01-10T02:18:48.760569+00:00",
+    "description": "Choose item based on weights.",
+    "intent": "Choose item based on weights.",
+    "language": "python",
+    "name": "weighted_choice",
+    "source_file": "neurop_forge/sources/sampling_utilities.py",
+    "source_line_end": 80,
+    "source_line_start": 67,
+    "tags": [
+      "choice",
+      "items",
+      "seed",
+      "utility",
+      "weighted",
+      "weights"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 0.5,
+    "last_verified": "2026-01-10T02:18:48.760597+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.21999999999999997,
+    "risk_factors": [
+      "impure_function",
+      "non_deterministic",
+      "side_effects: random"
+    ],
+    "risk_level": "medium",
+    "static_analysis_score": 0.3,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "type(weights) == list",
+      "weights is not None",
+      "type(seed) == integer",
+      "seed is not None"
+    ],
+    "invariants": [],
+    "output_validators": [],
+    "postconditions": [],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "type(weights) == list",
+      "weights is not None",
+      "type(seed) == integer",
+      "seed is not None"
+    ]
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f52b11c25a6c3b866f5b6e9f72b2f46b17494c05c15c894b7be887c74db290e0",
+    "semantic_fingerprint": "58df555c686e1c3ad3957b10a6608b91a7eead0f0e40a1ce629d9a708ce5661b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate remaining retry attempts.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_attempt",
+        "name": "current_attempt",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_attempts",
+        "name": "max_attempts",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of remaining_attempts",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def remaining_attempts(current_attempt: int, max_attempts: int) -> int:\n    \"\"\"Calculate remaining retry attempts.\"\"\"\n    return max(0, max_attempts - current_attempt)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:43.933036+00:00",
+    "description": "Calculate remaining retry attempts.",
+    "intent": "Calculate remaining retry attempts.",
+    "language": "python",
+    "name": "remaining_attempts",
+    "source_file": "neurop_forge/sources/rate_limiting.py",
+    "source_line_end": 168,
+    "source_line_start": 166,
+    "tags": [
+      "arithmetic",
+      "attempts",
+      "current_attempt",
+      "max_attempts",
+      "remaining"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.933054+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(current_attempt) == integer",
+      "current_attempt is not None",
+      "type(max_attempts) == integer",
+      "max_attempts is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(current_attempt) == integer",
+      "current_attempt is not None",
+      "type(max_attempts) == integer",
+      "max_attempts is not None"
+    ]
+  }
+}

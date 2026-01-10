@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ab2e14bc898c16e3bd23fd79e3b141011ba24131fc28f1861c9a581861f521c2",
+    "semantic_fingerprint": "bde675d50cb306557f2ea09382f01091f8c28ba28b5f3cdacca6315569c8ae18",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse a UUID from braced format.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter braced",
+        "name": "braced",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of parse_braced_uuid",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_braced_uuid(braced: str) -> str:\n    \"\"\"Parse a UUID from braced format.\"\"\"\n    if braced.startswith('{') and braced.endswith('}'):\n        return normalize_uuid(braced[1:-1])\n    return \"\"",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T02:18:43.708374+00:00",
+    "description": "Parse a UUID from braced format.",
+    "intent": "Parse a UUID from braced format.",
+    "language": "python",
+    "name": "parse_braced_uuid",
+    "source_file": "neurop_forge/sources/uuid_utilities.py",
+    "source_line_end": 221,
+    "source_line_start": 217,
+    "tags": [
+      "braced",
+      "parse",
+      "transformation",
+      "uuid"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.708392+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(braced) == string",
+      "braced is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(braced) == string",
+      "braced is not None"
+    ]
+  }
+}

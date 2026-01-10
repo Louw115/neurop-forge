@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "dfa4d92d8b7c2271b3d2907713722e8722c4be1229aea0f166862c5611403ef9",
+    "semantic_fingerprint": "4ac9b419238b30eb24c7af1168ca7bb20f26eadf816b35b89df9d3d4f7d0b489",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Linear interpolation between two vectors.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter v1",
+        "name": "v1",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter v2",
+        "name": "v2",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter t",
+        "name": "t",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of vector_lerp",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def vector_lerp(v1: dict, v2: dict, t: float) -> dict:\n    \"\"\"Linear interpolation between two vectors.\"\"\"\n    values = [a + (b - a) * t for a, b in zip(v1[\"values\"], v2[\"values\"])]\n    return create_vector(values)",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:47.994426+00:00",
+    "description": "Linear interpolation between two vectors.",
+    "intent": "Linear interpolation between two vectors.",
+    "language": "python",
+    "name": "vector_lerp",
+    "source_file": "neurop_forge/sources/vector_utilities.py",
+    "source_line_end": 111,
+    "source_line_start": 108,
+    "tags": [
+      "dict_operation",
+      "lerp",
+      "t",
+      "v1",
+      "v2",
+      "vector"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.994470+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(v1) == dict",
+      "v1 is not None",
+      "type(v2) == dict",
+      "v2 is not None",
+      "type(t) == float",
+      "t is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(v1) == dict",
+      "v1 is not None",
+      "type(v2) == dict",
+      "v2 is not None",
+      "type(t) == float",
+      "t is not None"
+    ]
+  }
+}

@@ -1,0 +1,166 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e0e157047f090d8ade597c0c289498460f6b71831a0293f11f314df93a620ea0",
+    "semantic_fingerprint": "5b92ff4377cefa9131c462b9ae8f2bb4692737aa2c44d41dd68658ffa107530f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format a queue log entry.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter queue_name",
+        "name": "queue_name",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter action",
+        "name": "action",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter message_id",
+        "name": "message_id",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter timestamp",
+        "name": "timestamp",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_queue_log",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_queue_log(queue_name: str, action: str, message_id: str, timestamp: str) -> str:\n    \"\"\"Format a queue log entry.\"\"\"\n    return f\"[{timestamp}] Queue {queue_name}: {action} message {message_id}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:46.321944+00:00",
+    "description": "Format a queue log entry.",
+    "intent": "Format a queue log entry.",
+    "language": "python",
+    "name": "format_queue_log",
+    "source_file": "neurop_forge/sources/queue_patterns.py",
+    "source_line_end": 286,
+    "source_line_start": 284,
+    "tags": [
+      "action",
+      "format",
+      "log",
+      "message_id",
+      "queue",
+      "queue_name",
+      "string_manipulation",
+      "timestamp"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.321964+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(queue_name) == string",
+      "queue_name is not None",
+      "type(action) == string",
+      "action is not None",
+      "type(message_id) == string",
+      "message_id is not None",
+      "type(timestamp) == string",
+      "timestamp is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(queue_name) == string",
+      "queue_name is not None",
+      "type(action) == string",
+      "action is not None",
+      "type(message_id) == string",
+      "message_id is not None",
+      "type(timestamp) == string",
+      "timestamp is not None"
+    ]
+  }
+}

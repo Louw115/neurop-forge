@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "fd8fca9b8a6ebab637055053066b4b420520bbabf470d004f25e2ba745ff8063",
+    "semantic_fingerprint": "3ba7bf3deb12105946a8f165c77e20248d634d10be7bbe13a8acbaa42da8b095",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract timestamp from UUID v1 (returns 0 if not v1).",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter uuid_str",
+        "name": "uuid_str",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of extract_timestamp_v1",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def extract_timestamp_v1(uuid_str: str) -> int:\n    \"\"\"Extract timestamp from UUID v1 (returns 0 if not v1).\"\"\"\n    if not is_valid_uuid_v1(uuid_str):\n        return 0\n    hex_str = uuid_to_hex(uuid_str)\n    time_low = hex_str[0:8]\n    time_mid = hex_str[8:12]\n    time_hi = hex_str[12:16]\n    time_hi_version = int(time_hi, 16) & 0x0FFF\n    timestamp = int(time_low, 16) + (int(time_mid, 16) << 32) + (time_hi_version << 48)\n    return timestamp",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:43.703010+00:00",
+    "description": "Extract timestamp from UUID v1 (returns 0 if not v1).",
+    "intent": "Extract timestamp from UUID v1 (returns 0 if not v1).",
+    "language": "python",
+    "name": "extract_timestamp_v1",
+    "source_file": "neurop_forge/sources/uuid_utilities.py",
+    "source_line_end": 189,
+    "source_line_start": 179,
+    "tags": [
+      "extract",
+      "filtering",
+      "timestamp",
+      "uuid_str"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.703029+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(uuid_str) == string",
+      "uuid_str is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(uuid_str) == string",
+      "uuid_str is not None"
+    ]
+  }
+}

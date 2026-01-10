@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "cbe0341fd03c84e98b57bf0d26fd54d952ad4103727dc5ee9b7e140bbb02727f",
+    "semantic_fingerprint": "abbc46fbbe9e59f2f91ec17825438cbfe7b43cb0374d23eee9c5c5d643fd7ec2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if field has any errors.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter errors",
+        "name": "errors",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter field_name",
+        "name": "field_name",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of has_field_error",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def has_field_error(errors: dict, field_name: str) -> bool:\n    \"\"\"Check if field has any errors.\"\"\"\n    return field_name in errors and len(errors[field_name]) > 0",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:47.737924+00:00",
+    "description": "Check if field has any errors.",
+    "intent": "Check if field has any errors.",
+    "language": "python",
+    "name": "has_field_error",
+    "source_file": "neurop_forge/sources/form_utilities.py",
+    "source_line_end": 247,
+    "source_line_start": 245,
+    "tags": [
+      "error",
+      "errors",
+      "field",
+      "field_name",
+      "has",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.737941+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(errors) == dict",
+      "errors is not None",
+      "type(field_name) == string",
+      "field_name is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(errors) == dict",
+      "errors is not None",
+      "type(field_name) == string",
+      "field_name is not None"
+    ]
+  }
+}

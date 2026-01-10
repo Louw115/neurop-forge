@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b77f5d6bc77e67addbe7b645d77cf88fcf6f7dbef349a95e1ae32dd2fb4c936e",
+    "semantic_fingerprint": "3dd11314bee4ed41fd8b648e5c2adfe5ee95979e9fdc68cb5bf2af717db721ae",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a DynamoDB update expression.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter set_fields",
+        "name": "set_fields",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter remove_fields",
+        "name": "remove_fields",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_dynamodb_update_expression",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_dynamodb_update_expression(set_fields: list, remove_fields: list) -> str:\n    \"\"\"Build a DynamoDB update expression.\"\"\"\n    parts = []\n    if set_fields:\n        set_expr = \", \".join(f\"#{f} = :{f}\" for f in set_fields)\n        parts.append(f\"SET {set_expr}\")\n    if remove_fields:\n        remove_expr = \", \".join(f\"#{f}\" for f in remove_fields)\n        parts.append(f\"REMOVE {remove_expr}\")\n    return \" \".join(parts)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:45.294806+00:00",
+    "description": "Build a DynamoDB update expression.",
+    "intent": "Build a DynamoDB update expression.",
+    "language": "python",
+    "name": "build_dynamodb_update_expression",
+    "source_file": "neurop_forge/sources/nosql_helpers.py",
+    "source_line_end": 277,
+    "source_line_start": 268,
+    "tags": [
+      "build",
+      "dynamodb",
+      "expression",
+      "remove_fields",
+      "set_fields",
+      "string_manipulation",
+      "update"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.294829+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(set_fields) == list",
+      "set_fields is not None",
+      "type(remove_fields) == list",
+      "remove_fields is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(set_fields) == list",
+      "set_fields is not None",
+      "type(remove_fields) == list",
+      "remove_fields is not None"
+    ]
+  }
+}

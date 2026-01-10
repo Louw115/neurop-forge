@@ -1,0 +1,165 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b9d2fdccd36bb29aaa1465e0ecea62d9e0a9fcc6d7eb07280e4b38d2dbc4038e",
+    "semantic_fingerprint": "1f7a14509092abed7415380fa796977a081ecc32036b04c6d4a7b9e2a6fa1410",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if a cron field matches a value.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter field",
+        "name": "field",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter min_val",
+        "name": "min_val",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_val",
+        "name": "max_val",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of cron_field_matches",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def cron_field_matches(field: str, value: int, min_val: int, max_val: int) -> bool:\n    \"\"\"Check if a cron field matches a value.\"\"\"\n    if field == \"*\":\n        return True\n    if field.isdigit():\n        return int(field) == value\n    if \"/\" in field:\n        base, step = field.split(\"/\", 1)\n        if base == \"*\":\n            return value % int(step) == 0\n    if \"-\" in field:\n        start, end = field.split(\"-\", 1)\n        return int(start) <= value <= int(end)\n    if \",\" in field:\n        values = [int(v) for v in field.split(\",\")]\n        return value in values\n    return False",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:46.082240+00:00",
+    "description": "Check if a cron field matches a value.",
+    "intent": "Check if a cron field matches a value.",
+    "language": "python",
+    "name": "cron_field_matches",
+    "source_file": "neurop_forge/sources/job_scheduling.py",
+    "source_line_end": 74,
+    "source_line_start": 58,
+    "tags": [
+      "cron",
+      "field",
+      "matches",
+      "max_val",
+      "min_val",
+      "validation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.082261+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(field) == string",
+      "field is not None",
+      "type(value) == integer",
+      "value is not None",
+      "type(min_val) == integer",
+      "min_val is not None",
+      "type(max_val) == integer",
+      "max_val is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(field) == string",
+      "field is not None",
+      "type(value) == integer",
+      "value is not None",
+      "type(min_val) == integer",
+      "min_val is not None",
+      "type(max_val) == integer",
+      "max_val is not None"
+    ]
+  }
+}

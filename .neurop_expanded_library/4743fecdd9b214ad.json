@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4743fecdd9b214ad0f3e9548321cadd07882d5c9c83e68b7b85059f2b3ea1ed4",
+    "semantic_fingerprint": "f29367f16d63674b250a2eefe727eabba4084cc7c315373e6627a804e1c4fd52",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if a worker has been idle too long.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter last_job_time",
+        "name": "last_job_time",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_time",
+        "name": "current_time",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter idle_threshold",
+        "name": "idle_threshold",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_worker_idle",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_worker_idle(last_job_time: int, current_time: int, idle_threshold: int) -> bool:\n    \"\"\"Check if a worker has been idle too long.\"\"\"\n    return (current_time - last_job_time) > idle_threshold",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:46.121439+00:00",
+    "description": "Check if a worker has been idle too long.",
+    "intent": "Check if a worker has been idle too long.",
+    "language": "python",
+    "name": "is_worker_idle",
+    "source_file": "neurop_forge/sources/job_scheduling.py",
+    "source_line_end": 296,
+    "source_line_start": 294,
+    "tags": [
+      "current_time",
+      "idle",
+      "idle_threshold",
+      "last_job_time",
+      "validation",
+      "worker"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.121458+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(last_job_time) == integer",
+      "last_job_time is not None",
+      "type(current_time) == integer",
+      "current_time is not None",
+      "type(idle_threshold) == integer",
+      "idle_threshold is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(last_job_time) == integer",
+      "last_job_time is not None",
+      "type(current_time) == integer",
+      "current_time is not None",
+      "type(idle_threshold) == integer",
+      "idle_threshold is not None"
+    ]
+  }
+}

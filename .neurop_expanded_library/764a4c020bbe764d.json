@@ -1,0 +1,139 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "764a4c020bbe764de49c5ac367d79a171198542c2b0d8a038a70aa955c90172c",
+    "semantic_fingerprint": "e5a4d55114f10c724ea6829fa09087a55779b813d21326d0ffd32c0c0b41459f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if error code is in category.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter error_code",
+        "name": "error_code",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter category",
+        "name": "category",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_category",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_category(error_code: str, category: str) -> bool:\n    \"\"\"Check if error code is in category.\"\"\"\n    return get_error_category(error_code).upper() == category.upper()",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:52.148208+00:00",
+    "description": "Check if error code is in category.",
+    "intent": "Check if error code is in category.",
+    "language": "python",
+    "name": "is_category",
+    "source_file": "neurop_forge/sources/error_codes.py",
+    "source_line_end": 45,
+    "source_line_start": 43,
+    "tags": [
+      "category",
+      "error_code",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.148228+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(error_code) == string",
+      "error_code is not None",
+      "type(category) == string",
+      "category is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(error_code) == string",
+      "error_code is not None",
+      "type(category) == string",
+      "category is not None"
+    ]
+  }
+}

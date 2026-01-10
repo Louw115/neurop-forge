@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic comparison block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1cd3abe2424e798ef8c6d5a560ca077a8594b942a91668b7337b1bf846bd426a",
+    "semantic_fingerprint": "0ffa0c5b2bc601eb5132f5ea7c81862e445ea2f8280fbc9704473571d71e3f21",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if value matches regex pattern.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter pattern",
+        "name": "pattern",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of matches_pattern",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def matches_pattern(value: str, pattern: str) -> dict:\n    \"\"\"Check if value matches regex pattern.\"\"\"\n    valid = bool(re.match(pattern, value))\n    return {\"valid\": valid, \"error\": \"Invalid format\" if not valid else None}",
+  "metadata": {
+    "category": "comparison",
+    "created_at": "2026-01-10T02:18:50.414540+00:00",
+    "description": "Check if value matches regex pattern.",
+    "intent": "Check if value matches regex pattern.",
+    "language": "python",
+    "name": "matches_pattern",
+    "source_file": "neurop_forge/sources/validation_rules.py",
+    "source_line_end": 96,
+    "source_line_start": 93,
+    "tags": [
+      "comparison",
+      "matches",
+      "pattern",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:50.414558+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.37,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.8,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == string",
+      "value is not None",
+      "type(pattern) == string",
+      "pattern is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(value) == string",
+      "value is not None",
+      "type(pattern) == string",
+      "pattern is not None"
+    ]
+  }
+}

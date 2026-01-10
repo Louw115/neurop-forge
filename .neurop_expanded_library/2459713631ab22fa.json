@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2459713631ab22fae0b996c3e8c371a4806cc0a5d2bbda292911ea609d524ac4",
+    "semantic_fingerprint": "afa43fe90be5ba2d537fdd85c9898147fe5cae4e3fec756b055df237bec5e9d7",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Update parameter in URL.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter url",
+        "name": "url",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of update_url_param",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def update_url_param(url: str, key: str, value: str) -> str:\n    \"\"\"Update parameter in URL.\"\"\"\n    if \"?\" not in url:\n        return f\"{url}?{quote(key)}={quote(value)}\"\n    base, query = url.split(\"?\", 1)\n    fragment = \"\"\n    if \"#\" in query:\n        query, fragment = query.split(\"#\", 1)\n        fragment = \"#\" + fragment\n    new_query = add_param(query, key, value)\n    return f\"{base}?{new_query}{fragment}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:52.047270+00:00",
+    "description": "Update parameter in URL.",
+    "intent": "Update parameter in URL.",
+    "language": "python",
+    "name": "update_url_param",
+    "source_file": "neurop_forge/sources/query_string.py",
+    "source_line_end": 154,
+    "source_line_start": 144,
+    "tags": [
+      "key",
+      "param",
+      "string_manipulation",
+      "update",
+      "url",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.047289+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(url) == string",
+      "url is not None",
+      "type(key) == string",
+      "key is not None",
+      "type(value) == string",
+      "value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(url) == string",
+      "url is not None",
+      "type(key) == string",
+      "key is not None",
+      "type(value) == string",
+      "value is not None"
+    ]
+  }
+}

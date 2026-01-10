@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0181ca2b6865e8fe735ddf23066e611f6f19d5809e4e0ff1d7569aa7c28c21c5",
+    "semantic_fingerprint": "76a77477a2bc5b227e9c2f21d83bb584b2ce4152994290825a9cd8a67b140e44",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get first error message for a field.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter errors",
+        "name": "errors",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter field_name",
+        "name": "field_name",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_field_error",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_field_error(errors: dict, field_name: str) -> str:\n    \"\"\"Get first error message for a field.\"\"\"\n    field_errors = errors.get(field_name, [])\n    return field_errors[0] if field_errors else \"\"",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:47.736644+00:00",
+    "description": "Get first error message for a field.",
+    "intent": "Get first error message for a field.",
+    "language": "python",
+    "name": "get_field_error",
+    "source_file": "neurop_forge/sources/form_utilities.py",
+    "source_line_end": 242,
+    "source_line_start": 239,
+    "tags": [
+      "error",
+      "errors",
+      "field",
+      "field_name",
+      "filtering",
+      "get"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.736663+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(errors) == dict",
+      "errors is not None",
+      "type(field_name) == string",
+      "field_name is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(errors) == dict",
+      "errors is not None",
+      "type(field_name) == string",
+      "field_name is not None"
+    ]
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e421a91b3d0c24a9148cff8770abbd9a8cd124ef1499f52b0598d002f2939d59",
+    "semantic_fingerprint": "044b1a45786cf923bab8740554a086e20240cdd2c2d5196ce9e2aa0985c1f4a2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Traverse tree in level-order (BFS).",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter root",
+        "name": "root",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of traverse_level_order",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def traverse_level_order(root: dict) -> list:\n    \"\"\"Traverse tree in level-order (BFS).\"\"\"\n    result = []\n    queue = [root]\n    while queue:\n        node = queue.pop(0)\n        result.append(node)\n        queue.extend(node.get(\"children\", []))\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:48.249421+00:00",
+    "description": "Traverse tree in level-order (BFS).",
+    "intent": "Traverse tree in level-order (BFS).",
+    "language": "python",
+    "name": "traverse_level_order",
+    "source_file": "neurop_forge/sources/tree_utilities.py",
+    "source_line_end": 128,
+    "source_line_start": 120,
+    "tags": [
+      "level",
+      "list_operation",
+      "order",
+      "root",
+      "traverse"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.249436+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(root) == dict",
+      "root is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(root) == dict",
+      "root is not None"
+    ]
+  }
+}

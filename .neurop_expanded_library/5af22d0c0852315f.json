@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5af22d0c0852315f551953c22c75ec28f1637fe73a0e8e289d8ad73653f8fde1",
+    "semantic_fingerprint": "72579be82c828cad735e0fa1f354d929b8c11d1ea48997ced9bc6f6a7d4ff8f8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Convert a UUID to hex string without hyphens.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter uuid_str",
+        "name": "uuid_str",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of uuid_to_hex",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def uuid_to_hex(uuid_str: str) -> str:\n    \"\"\"Convert a UUID to hex string without hyphens.\"\"\"\n    return normalize_uuid(uuid_str).replace('-', '')",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T02:18:43.687743+00:00",
+    "description": "Convert a UUID to hex string without hyphens.",
+    "intent": "Convert a UUID to hex string without hyphens.",
+    "language": "python",
+    "name": "uuid_to_hex",
+    "source_file": "neurop_forge/sources/uuid_utilities.py",
+    "source_line_end": 110,
+    "source_line_start": 108,
+    "tags": [
+      "hex",
+      "transformation",
+      "uuid",
+      "uuid_str"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.687758+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(uuid_str) == string",
+      "uuid_str is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(uuid_str) == string",
+      "uuid_str is not None"
+    ]
+  }
+}

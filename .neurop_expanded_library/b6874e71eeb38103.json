@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b6874e71eeb38103a799c8834f902447d0a4a25ee58bba093c1528b4cc2a6004",
+    "semantic_fingerprint": "bb0632ca38110e3f379b2803af6bdd0371577b3a33ff559edb5c24980e137552",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse a git commit hash.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter commit",
+        "name": "commit",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of parse_git_commit_hash",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_git_commit_hash(commit: str) -> dict:\n    \"\"\"Parse a git commit hash.\"\"\"\n    import re\n    if re.match(r'^[0-9a-f]{40}$', commit.lower()):\n        return {\"valid\": True, \"full\": commit.lower(), \"short\": commit[:7].lower()}\n    if re.match(r'^[0-9a-f]{7,}$', commit.lower()):\n        return {\"valid\": True, \"full\": None, \"short\": commit[:7].lower()}\n    return {\"valid\": False, \"full\": None, \"short\": None}",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T02:18:46.437117+00:00",
+    "description": "Parse a git commit hash.",
+    "intent": "Parse a git commit hash.",
+    "language": "python",
+    "name": "parse_git_commit_hash",
+    "source_file": "neurop_forge/sources/devops_utilities.py",
+    "source_line_end": 86,
+    "source_line_start": 79,
+    "tags": [
+      "commit",
+      "git",
+      "hash",
+      "parse",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.437136+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(commit) == string",
+      "commit is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(commit) == string",
+      "commit is not None"
+    ]
+  }
+}

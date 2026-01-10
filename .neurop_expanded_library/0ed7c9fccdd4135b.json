@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0ed7c9fccdd4135b6630b8b096fa781b77269a422f046dab1c975d581fd04066",
+    "semantic_fingerprint": "73d938b028b900ba9f037947bacbeea87c4644b6ae94b9903735749beec28836",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Create HTML list.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter ordered",
+        "name": "ordered",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of create_list",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def create_list(items: list, ordered: bool) -> str:\n    \"\"\"Create HTML list.\"\"\"\n    tag = \"ol\" if ordered else \"ul\"\n    list_items = \"\".join(f\"<li>{escape_html(str(item))}</li>\" for item in items)\n    return f\"<{tag}>{list_items}</{tag}>\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:51.769719+00:00",
+    "description": "Create HTML list.",
+    "intent": "Create HTML list.",
+    "language": "python",
+    "name": "create_list",
+    "source_file": "neurop_forge/sources/html_utilities.py",
+    "source_line_end": 96,
+    "source_line_start": 92,
+    "tags": [
+      "create",
+      "items",
+      "list",
+      "ordered",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:51.769744+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "type(ordered) == boolean",
+      "ordered is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "type(ordered) == boolean",
+      "ordered is not None"
+    ]
+  }
+}

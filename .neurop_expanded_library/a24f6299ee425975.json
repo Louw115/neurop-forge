@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a24f6299ee4259755aa209d4165ca0502d4e14a3f9eae220eb1db0320623d1bf",
+    "semantic_fingerprint": "faa92bee53c8023b8e432f6e478d936e400bc526502b4b166a47b71f400e1483",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate Jaro-Winkler similarity.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter s1",
+        "name": "s1",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter s2",
+        "name": "s2",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter prefix_scale",
+        "name": "prefix_scale",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of jaro_winkler_similarity",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def jaro_winkler_similarity(s1: str, s2: str, prefix_scale: float) -> float:\n    \"\"\"Calculate Jaro-Winkler similarity.\"\"\"\n    jaro = jaro_similarity(s1, s2)\n    prefix_len = 0\n    for i in range(min(len(s1), len(s2), 4)):\n        if s1[i] == s2[i]:\n            prefix_len += 1\n        else:\n            break\n    return jaro + prefix_len * prefix_scale * (1 - jaro)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:48.610062+00:00",
+    "description": "Calculate Jaro-Winkler similarity.",
+    "intent": "Calculate Jaro-Winkler similarity.",
+    "language": "python",
+    "name": "jaro_winkler_similarity",
+    "source_file": "neurop_forge/sources/string_distance.py",
+    "source_line_end": 83,
+    "source_line_start": 74,
+    "tags": [
+      "arithmetic",
+      "jaro",
+      "prefix_scale",
+      "s1",
+      "s2",
+      "similarity",
+      "winkler"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.610083+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(s1) == string",
+      "s1 is not None",
+      "type(s2) == string",
+      "s2 is not None",
+      "type(prefix_scale) == float",
+      "prefix_scale is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(s1) == string",
+      "s1 is not None",
+      "type(s2) == string",
+      "s2 is not None",
+      "type(prefix_scale) == float",
+      "prefix_scale is not None"
+    ]
+  }
+}

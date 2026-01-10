@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "644dd0e254701d935afd1e0f133e93cf163900c880dc5efdfb16d80c6e3ec69b",
+    "semantic_fingerprint": "0c27fe3a13557c76d01e6e1a7576829abdef3713616691e390f0d543045d3053",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Truncate a slug to maximum length without breaking words.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter slug",
+        "name": "slug",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_length",
+        "name": "max_length",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of truncate_slug",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def truncate_slug(slug: str, max_length: int) -> str:\n    \"\"\"Truncate a slug to maximum length without breaking words.\"\"\"\n    if len(slug) <= max_length:\n        return slug\n    truncated = slug[:max_length]\n    last_sep = max(truncated.rfind('-'), truncated.rfind('_'))\n    if last_sep > 0:\n        return truncated[:last_sep]\n    return truncated.rstrip('-_')",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:44.249891+00:00",
+    "description": "Truncate a slug to maximum length without breaking words.",
+    "intent": "Truncate a slug to maximum length without breaking words.",
+    "language": "python",
+    "name": "truncate_slug",
+    "source_file": "neurop_forge/sources/slug_utilities.py",
+    "source_line_end": 81,
+    "source_line_start": 73,
+    "tags": [
+      "max_length",
+      "slug",
+      "string_manipulation",
+      "truncate"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.249919+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(slug) == string",
+      "slug is not None",
+      "type(max_length) == integer",
+      "max_length is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(slug) == string",
+      "slug is not None",
+      "type(max_length) == integer",
+      "max_length is not None"
+    ]
+  }
+}

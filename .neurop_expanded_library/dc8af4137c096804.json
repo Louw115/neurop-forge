@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "dc8af4137c09680411ed6e84c2057239b89d87aa48ba020827c3d1035a0aad00",
+    "semantic_fingerprint": "d08949214bb15fb5009da78d72fa88a91a91a736cc4224c16f2f0cf79c58d906",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract the type from a PEM header.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter pem",
+        "name": "pem",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_pem_type",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_pem_type(pem: str) -> str:\n    \"\"\"Extract the type from a PEM header.\"\"\"\n    if not pem:\n        return \"\"\n    first_line = pem.strip().split('\\n')[0]\n    if first_line.startswith('-----BEGIN ') and first_line.endswith('-----'):\n        return first_line[11:-5]\n    return \"\"",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:43.466776+00:00",
+    "description": "Extract the type from a PEM header.",
+    "intent": "Extract the type from a PEM header.",
+    "language": "python",
+    "name": "get_pem_type",
+    "source_file": "neurop_forge/sources/cryptography_helpers.py",
+    "source_line_end": 324,
+    "source_line_start": 317,
+    "tags": [
+      "filtering",
+      "get",
+      "pem",
+      "type"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.466792+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(pem) == string",
+      "pem is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(pem) == string",
+      "pem is not None"
+    ]
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d456d7e013d87b76d6da3fc396d854f4c717ece6bf2cf4d080c7d718f6580202",
+    "semantic_fingerprint": "5dc99fa2abd9dc109dc265cc7b75a66fa3f3e725e5e8b98cbf6e4a55d74d03dd",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get all values for a parameter.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter query",
+        "name": "query",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of get_multi_param",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_multi_param(query: str, key: str) -> list:\n    \"\"\"Get all values for a parameter.\"\"\"\n    params = parse_query_string(query)\n    value = params.get(key, [])\n    if isinstance(value, list):\n        return value\n    return [value] if value else []",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:52.053868+00:00",
+    "description": "Get all values for a parameter.",
+    "intent": "Get all values for a parameter.",
+    "language": "python",
+    "name": "get_multi_param",
+    "source_file": "neurop_forge/sources/query_string.py",
+    "source_line_end": 188,
+    "source_line_start": 182,
+    "tags": [
+      "filtering",
+      "get",
+      "key",
+      "multi",
+      "param",
+      "query"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.053886+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(query) == string",
+      "query is not None",
+      "type(key) == string",
+      "key is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(query) == string",
+      "query is not None",
+      "type(key) == string",
+      "key is not None"
+    ]
+  }
+}

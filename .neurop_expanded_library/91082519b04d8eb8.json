@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "91082519b04d8eb82f92b6108a1f99ecdad79fc6cfef126b85777a761a4ad966",
+    "semantic_fingerprint": "4df5d9047840afc6d04e3a4085357d431aa5eb8890a60097be17fc9e08151c3e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse W3C Trace Context traceparent header.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter header",
+        "name": "header",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of parse_traceparent_header",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_traceparent_header(header: str) -> dict:\n    \"\"\"Parse W3C Trace Context traceparent header.\"\"\"\n    import re\n    pattern = r'^00-([0-9a-f]{32})-([0-9a-f]{16})-([0-9a-f]{2})$'\n    match = re.match(pattern, header.lower())\n    if match:\n        return {\n            \"trace_id\": match.group(1),\n            \"span_id\": match.group(2),\n            \"sampled\": match.group(3) == \"01\"\n        }\n    return {}",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T02:18:46.062806+00:00",
+    "description": "Parse W3C Trace Context traceparent header.",
+    "intent": "Parse W3C Trace Context traceparent header.",
+    "language": "python",
+    "name": "parse_traceparent_header",
+    "source_file": "neurop_forge/sources/middleware_patterns.py",
+    "source_line_end": 316,
+    "source_line_start": 305,
+    "tags": [
+      "header",
+      "parse",
+      "traceparent",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.062830+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(header) == string",
+      "header is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(header) == string",
+      "header is not None"
+    ]
+  }
+}

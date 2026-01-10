@@ -1,0 +1,161 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a57f972fb1031fbe7d814f863f669a9458012d07ee7c4b621d80462439f6a8bd",
+    "semantic_fingerprint": "a8456f17e3734e4a0343dc32669c5854f40acf314af49a7c935fe7a4d7aad223",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Filter items by field range.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter field",
+        "name": "field",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter min_val",
+        "name": "min_val",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter max_val",
+        "name": "max_val",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of filter_by_range",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def filter_by_range(items: list, field: str, min_val, max_val) -> list:\n    \"\"\"Filter items by field range.\"\"\"\n    return [i for i in items if min_val <= i.get(field, 0) <= max_val]",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:52.932250+00:00",
+    "description": "Filter items by field range.",
+    "intent": "Filter items by field range.",
+    "language": "python",
+    "name": "filter_by_range",
+    "source_file": "neurop_forge/sources/search_helpers.py",
+    "source_line_end": 103,
+    "source_line_start": 101,
+    "tags": [
+      "field",
+      "filter",
+      "filtering",
+      "items",
+      "max_val",
+      "min_val",
+      "range"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.932268+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "type(field) == string",
+      "field is not None",
+      "min_val is not None",
+      "max_val is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "type(field) == string",
+      "field is not None",
+      "min_val is not None",
+      "max_val is not None"
+    ]
+  }
+}

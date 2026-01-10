@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "166a6c568d64136c9167ed5a52952f0d343eb1986620ac61b218ab3076c68492",
+    "semantic_fingerprint": "f07683495ee26606a8e9bb1bb0a1530720279fceb6667a5ee8965fac1846f16d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Create search facet counts.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter field",
+        "name": "field",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of create_search_facet",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def create_search_facet(items: list, field: str) -> dict:\n    \"\"\"Create search facet counts.\"\"\"\n    facet = {}\n    for item in items:\n        value = item.get(field, \"unknown\")\n        facet[value] = facet.get(value, 0) + 1\n    return facet",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:52.935519+00:00",
+    "description": "Create search facet counts.",
+    "intent": "Create search facet counts.",
+    "language": "python",
+    "name": "create_search_facet",
+    "source_file": "neurop_forge/sources/search_helpers.py",
+    "source_line_end": 125,
+    "source_line_start": 119,
+    "tags": [
+      "create",
+      "dict_operation",
+      "facet",
+      "field",
+      "items",
+      "search"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.935545+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "type(field) == string",
+      "field is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "type(field) == string",
+      "field is not None"
+    ]
+  }
+}

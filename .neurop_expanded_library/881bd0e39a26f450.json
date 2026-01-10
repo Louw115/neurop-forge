@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "881bd0e39a26f45060b02c237aace68be6bc3d0ff2923f06e41cee94f0d11609",
+    "semantic_fingerprint": "87366a42265e85ec52ebef38a8a5a29b809a5675cefa91fd9d0e93465ce5add5",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Increment all heading levels in markdown.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter markdown",
+        "name": "markdown",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter increment",
+        "name": "increment",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of increment_heading_level",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def increment_heading_level(markdown: str, increment: int) -> str:\n    \"\"\"Increment all heading levels in markdown.\"\"\"\n    def replace_heading(match):\n        current_level = len(match.group(1))\n        new_level = max(1, min(6, current_level + increment))\n        return '#' * new_level + match.group(2)\n    return re.sub(r'^(#{1,6})(\\s+.+)$', replace_heading, markdown, flags=re.MULTILINE)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:44.543817+00:00",
+    "description": "Increment all heading levels in markdown.",
+    "intent": "Increment all heading levels in markdown.",
+    "language": "python",
+    "name": "increment_heading_level",
+    "source_file": "neurop_forge/sources/markdown_utilities.py",
+    "source_line_end": 222,
+    "source_line_start": 216,
+    "tags": [
+      "heading",
+      "increment",
+      "level",
+      "markdown",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.543840+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(markdown) == string",
+      "markdown is not None",
+      "type(increment) == integer",
+      "increment is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(markdown) == string",
+      "markdown is not None",
+      "type(increment) == integer",
+      "increment is not None"
+    ]
+  }
+}

@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5adbbbfaaf5c093e52d1da5cbc48ae2dd023673929cc8ef043825f0521ba51d2",
+    "semantic_fingerprint": "d9f4db3c21c370568ba05785f31a38379dfa32821a39bb3e8d56278f4f384a98",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get all permissions for a specific resource.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter permissions",
+        "name": "permissions",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter resource",
+        "name": "resource",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of get_resource_permissions",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_resource_permissions(permissions: list, resource: str) -> list:\n    \"\"\"Get all permissions for a specific resource.\"\"\"\n    return [p for p in permissions if parse_permission(p)[\"resource\"] == resource]",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:47.772897+00:00",
+    "description": "Get all permissions for a specific resource.",
+    "intent": "Get all permissions for a specific resource.",
+    "language": "python",
+    "name": "get_resource_permissions",
+    "source_file": "neurop_forge/sources/permission_utilities.py",
+    "source_line_end": 174,
+    "source_line_start": 172,
+    "tags": [
+      "filtering",
+      "get",
+      "permissions",
+      "resource"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.772915+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(permissions) == list",
+      "permissions is not None",
+      "type(resource) == string",
+      "resource is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(permissions) == list",
+      "permissions is not None",
+      "type(resource) == string",
+      "resource is not None"
+    ]
+  }
+}

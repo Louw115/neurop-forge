@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "bf8da950846e68d5cbd129859539fc95d26fe19e8dba07310a282178df1fecc1",
+    "semantic_fingerprint": "9264d635cc062b031dcca4dde3e4ee5b72bcfb436051be51fab5356e9f1d040e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate password requirements text.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter rules",
+        "name": "rules",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_requirements_text",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_requirements_text(rules: dict) -> str:\n    \"\"\"Generate password requirements text.\"\"\"\n    reqs = []\n    if rules.get(\"min_length\"):\n        reqs.append(f\"At least {rules['min_length']} characters\")\n    if rules.get(\"require_uppercase\"):\n        reqs.append(\"One uppercase letter\")\n    if rules.get(\"require_lowercase\"):\n        reqs.append(\"One lowercase letter\")\n    if rules.get(\"require_digit\"):\n        reqs.append(\"One number\")\n    if rules.get(\"require_special\"):\n        reqs.append(\"One special character\")\n    return \", \".join(reqs)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:51.920225+00:00",
+    "description": "Generate password requirements text.",
+    "intent": "Generate password requirements text.",
+    "language": "python",
+    "name": "generate_requirements_text",
+    "source_file": "neurop_forge/sources/password_utilities.py",
+    "source_line_end": 160,
+    "source_line_start": 147,
+    "tags": [
+      "generate",
+      "requirements",
+      "rules",
+      "string_manipulation",
+      "text"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:51.920252+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(rules) == dict",
+      "rules is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(rules) == dict",
+      "rules is not None"
+    ]
+  }
+}

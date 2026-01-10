@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d159f3ce4fc29c21b9d93ccafd1b34ac0b679c4c1d275139098ba3cf3d9edcd9",
+    "semantic_fingerprint": "fbbc9165cdcb9d650d49890963c2a9385eb440983b5cbf10d546d5e42c5983f0",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Linearly interpolate missing (None) values in a list.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter values",
+        "name": "values",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of interpolate_missing",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def interpolate_missing(values: list) -> list:\n    \"\"\"Linearly interpolate missing (None) values in a list.\"\"\"\n    if not values:\n        return []\n    result = values.copy()\n    for i in range(len(result)):\n        if result[i] is None:\n            prev_idx = None\n            next_idx = None\n            for j in range(i - 1, -1, -1):\n                if result[j] is not None:\n                    prev_idx = j\n                    break\n            for j in range(i + 1, len(result)):\n                if result[j] is not None:\n                    next_idx = j\n                    break\n            if prev_idx is not None and next_idx is not None:\n                ratio = (i - prev_idx) / (next_idx - prev_idx)\n                result[i] = result[prev_idx] + (result[next_idx] - result[prev_idx]) * ratio\n            elif prev_idx is not None:\n                result[i] = result[prev_idx]\n            elif next_idx is not None:\n                result[i] = result[next_idx]\n    return result",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:43.537937+00:00",
+    "description": "Linearly interpolate missing (None) values in a list.",
+    "intent": "Linearly interpolate missing (None) values in a list.",
+    "language": "python",
+    "name": "interpolate_missing",
+    "source_file": "neurop_forge/sources/data_transformation.py",
+    "source_line_end": 303,
+    "source_line_start": 279,
+    "tags": [
+      "interpolate",
+      "missing",
+      "string_manipulation",
+      "values"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.537964+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(values) == list",
+      "values is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(values) == list",
+      "values is not None"
+    ]
+  }
+}

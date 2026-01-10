@@ -1,0 +1,178 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "cdf129cbc04421823d7db672ecf6877c5d6a18279162a4e785bee689534d5d68",
+    "semantic_fingerprint": "4cfea102b38a4dbac3344d23aa5785912d6fbd6f7aeb8f6e86f99995169d0d8e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build an alert rule definition.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter name",
+        "name": "name",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter metric_name",
+        "name": "metric_name",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter threshold",
+        "name": "threshold",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter comparison",
+        "name": "comparison",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter duration_seconds",
+        "name": "duration_seconds",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_alert_rule",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_alert_rule(name: str, metric_name: str, threshold: float, comparison: str, duration_seconds: int) -> dict:\n    \"\"\"Build an alert rule definition.\"\"\"\n    return {\n        \"name\": name,\n        \"metric\": metric_name,\n        \"threshold\": threshold,\n        \"comparison\": comparison,\n        \"duration\": duration_seconds,\n        \"status\": \"inactive\"\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:47.353814+00:00",
+    "description": "Build an alert rule definition.",
+    "intent": "Build an alert rule definition.",
+    "language": "python",
+    "name": "build_alert_rule",
+    "source_file": "neurop_forge/sources/metrics_patterns.py",
+    "source_line_end": 216,
+    "source_line_start": 207,
+    "tags": [
+      "alert",
+      "build",
+      "comparison",
+      "dict_operation",
+      "duration_seconds",
+      "metric_name",
+      "name",
+      "rule",
+      "threshold"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.353835+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(name) == string",
+      "name is not None",
+      "type(metric_name) == string",
+      "metric_name is not None",
+      "type(threshold) == float",
+      "threshold is not None",
+      "type(comparison) == string",
+      "comparison is not None",
+      "type(duration_seconds) == integer",
+      "duration_seconds is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(name) == string",
+      "name is not None",
+      "type(metric_name) == string",
+      "metric_name is not None",
+      "type(threshold) == float",
+      "threshold is not None",
+      "type(comparison) == string",
+      "comparison is not None",
+      "type(duration_seconds) == integer",
+      "duration_seconds is not None"
+    ]
+  }
+}

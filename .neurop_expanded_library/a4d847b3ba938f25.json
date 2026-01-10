@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a4d847b3ba938f254776da7d8e8b301a23104f4ac197053ca053d14d868a3020",
+    "semantic_fingerprint": "eb86fe83aa75ba7592bd941623c3223847746cf50f5591d87362cb10ae3bded4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Convert distribution to percentages.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter distribution",
+        "name": "distribution",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of get_rating_percentages",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_rating_percentages(distribution: dict) -> dict:\n    \"\"\"Convert distribution to percentages.\"\"\"\n    total = sum(distribution.values())\n    if total == 0:\n        return {k: 0 for k in distribution}\n    return {k: round(v / total * 100, 1) for k, v in distribution.items()}",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:52.960841+00:00",
+    "description": "Convert distribution to percentages.",
+    "intent": "Convert distribution to percentages.",
+    "language": "python",
+    "name": "get_rating_percentages",
+    "source_file": "neurop_forge/sources/review_utilities.py",
+    "source_line_end": 72,
+    "source_line_start": 67,
+    "tags": [
+      "distribution",
+      "filtering",
+      "get",
+      "percentages",
+      "rating"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.960862+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(distribution) == dict",
+      "distribution is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(distribution) == dict",
+      "distribution is not None"
+    ]
+  }
+}

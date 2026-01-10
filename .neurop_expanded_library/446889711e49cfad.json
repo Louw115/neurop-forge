@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "446889711e49cfadb86e3f25ebd4cacb824fee4b1c9e8c24bfd77e18a881ddff",
+    "semantic_fingerprint": "d80d007401f685198f3ad5a48fdb76ed7e5b6d464bddd28bd42e02fb1041ec3a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if an endpoint is healthy based on success rate.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter success_count",
+        "name": "success_count",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter failure_count",
+        "name": "failure_count",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter threshold",
+        "name": "threshold",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_endpoint_healthy",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_endpoint_healthy(success_count: int, failure_count: int, threshold: float) -> bool:\n    \"\"\"Check if an endpoint is healthy based on success rate.\"\"\"\n    total = success_count + failure_count\n    if total == 0:\n        return True\n    success_rate = success_count / total\n    return success_rate >= threshold",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:45.794933+00:00",
+    "description": "Check if an endpoint is healthy based on success rate.",
+    "intent": "Check if an endpoint is healthy based on success rate.",
+    "language": "python",
+    "name": "is_endpoint_healthy",
+    "source_file": "neurop_forge/sources/webhook_patterns.py",
+    "source_line_end": 257,
+    "source_line_start": 251,
+    "tags": [
+      "endpoint",
+      "failure_count",
+      "healthy",
+      "success_count",
+      "threshold",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.794967+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(success_count) == integer",
+      "success_count is not None",
+      "type(failure_count) == integer",
+      "failure_count is not None",
+      "type(threshold) == float",
+      "threshold is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(success_count) == integer",
+      "success_count is not None",
+      "type(failure_count) == integer",
+      "failure_count is not None",
+      "type(threshold) == float",
+      "threshold is not None"
+    ]
+  }
+}

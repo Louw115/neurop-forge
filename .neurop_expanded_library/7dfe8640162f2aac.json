@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7dfe8640162f2aacc43ae196a63b57eda007adc77a1c92e0ffd6ba94e24c3d4e",
+    "semantic_fingerprint": "adec5e3eeaa6d432463e015d0d84bf33c5e03c76e1dc88bca0cd606452380858",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate percentile.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter values",
+        "name": "values",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter percentile",
+        "name": "percentile",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_percentile",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_percentile(values: list, percentile: float) -> float:\n    \"\"\"Calculate percentile.\"\"\"\n    if not values:\n        return 0.0\n    sorted_vals = sorted(values)\n    idx = (len(sorted_vals) - 1) * percentile / 100\n    lower = int(idx)\n    upper = lower + 1\n    if upper >= len(sorted_vals):\n        return sorted_vals[-1]\n    weight = idx - lower\n    return sorted_vals[lower] * (1 - weight) + sorted_vals[upper] * weight",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:48.184671+00:00",
+    "description": "Calculate percentile.",
+    "intent": "Calculate percentile.",
+    "language": "python",
+    "name": "calculate_percentile",
+    "source_file": "neurop_forge/sources/statistics_utilities.py",
+    "source_line_end": 85,
+    "source_line_start": 74,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "percentile",
+      "values"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.184691+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(values) == list",
+      "values is not None",
+      "type(percentile) == float",
+      "percentile is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(values) == list",
+      "values is not None",
+      "type(percentile) == float",
+      "percentile is not None"
+    ]
+  }
+}

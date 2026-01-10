@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e9c2302502d452d80d85fc3d30ccfc5a71807a505751c100d0547f7ef9dd1733",
+    "semantic_fingerprint": "52a455126b8fe797f47eca25c72d88740dff0f2056cce145f140360c5e9d931a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate quota usage as percentage.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter used",
+        "name": "used",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter limit",
+        "name": "limit",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_quota_usage_percent",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_quota_usage_percent(used: int, limit: int) -> float:\n    \"\"\"Calculate quota usage as percentage.\"\"\"\n    return (used / limit) * 100 if limit > 0 else 100.0",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:43.934422+00:00",
+    "description": "Calculate quota usage as percentage.",
+    "intent": "Calculate quota usage as percentage.",
+    "language": "python",
+    "name": "calculate_quota_usage_percent",
+    "source_file": "neurop_forge/sources/rate_limiting.py",
+    "source_line_end": 173,
+    "source_line_start": 171,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "limit",
+      "percent",
+      "quota",
+      "usage",
+      "used"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.934441+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(used) == integer",
+      "used is not None",
+      "type(limit) == integer",
+      "limit is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(used) == integer",
+      "used is not None",
+      "type(limit) == integer",
+      "limit is not None"
+    ]
+  }
+}

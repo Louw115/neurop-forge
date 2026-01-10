@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c7fa5e7ee9e1caec0ccc83bbb47b7e4c30630c756ad5d830d85615b1f446a8c0",
+    "semantic_fingerprint": "28c1c973b77023a7383d43d29ed0775d7fb5cc7b6ce52f9af82ef08841dff9f7",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate relevance score.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter terms",
+        "name": "terms",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_relevance",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_relevance(text: str, terms: list) -> float:\n    \"\"\"Calculate relevance score.\"\"\"\n    text_lower = text.lower()\n    matches = sum(1 for t in terms if t.lower() in text_lower)\n    return matches / len(terms) if terms else 0",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:52.924764+00:00",
+    "description": "Calculate relevance score.",
+    "intent": "Calculate relevance score.",
+    "language": "python",
+    "name": "calculate_relevance",
+    "source_file": "neurop_forge/sources/search_helpers.py",
+    "source_line_end": 71,
+    "source_line_start": 67,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "relevance",
+      "terms",
+      "text"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.924781+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None",
+      "type(terms) == list",
+      "terms is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None",
+      "type(terms) == list",
+      "terms is not None"
+    ]
+  }
+}

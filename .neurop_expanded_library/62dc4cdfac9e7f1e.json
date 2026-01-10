@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "62dc4cdfac9e7f1efa98d1222cecfff61a917c7bd1a64d0135e939024937d696",
+    "semantic_fingerprint": "fdcb3ce22c0bdae2ee130e95b7afe338e7abc572f16d8b97fa56d564ff77aef0",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate HMAC signature for webhook payload.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter payload",
+        "name": "payload",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter secret",
+        "name": "secret",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter algorithm",
+        "name": "algorithm",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_webhook_signature",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_webhook_signature(payload: str, secret: str, algorithm: str) -> str:\n    \"\"\"Generate HMAC signature for webhook payload.\"\"\"\n    import hmac\n    import hashlib\n    if algorithm == \"sha256\":\n        hash_func = hashlib.sha256\n    elif algorithm == \"sha1\":\n        hash_func = hashlib.sha1\n    else:\n        hash_func = hashlib.sha256\n    signature = hmac.new(\n        secret.encode(),\n        payload.encode(),\n        hash_func\n    ).hexdigest()\n    return signature",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:45.734465+00:00",
+    "description": "Generate HMAC signature for webhook payload.",
+    "intent": "Generate HMAC signature for webhook payload.",
+    "language": "python",
+    "name": "generate_webhook_signature",
+    "source_file": "neurop_forge/sources/webhook_patterns.py",
+    "source_line_end": 35,
+    "source_line_start": 20,
+    "tags": [
+      "algorithm",
+      "generate",
+      "payload",
+      "secret",
+      "signature",
+      "string_manipulation",
+      "webhook"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.734494+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(payload) == string",
+      "payload is not None",
+      "type(secret) == string",
+      "secret is not None",
+      "type(algorithm) == string",
+      "algorithm is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(payload) == string",
+      "payload is not None",
+      "type(secret) == string",
+      "secret is not None",
+      "type(algorithm) == string",
+      "algorithm is not None"
+    ]
+  }
+}

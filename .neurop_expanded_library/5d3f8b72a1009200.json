@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5d3f8b72a1009200c6d0a4f85094ecd047a69df042021efb7ee1288299707420",
+    "semantic_fingerprint": "ee04cfcbf16362d326d986b5e65adb9ac3d393066c124152ce22cf639757bea9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate health check interval based on pool size.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter pool_size",
+        "name": "pool_size",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter base_interval_seconds",
+        "name": "base_interval_seconds",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of calculate_health_check_interval",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_health_check_interval(pool_size: int, base_interval_seconds: int) -> int:\n    \"\"\"Calculate health check interval based on pool size.\"\"\"\n    return max(base_interval_seconds, pool_size * 2)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:45.430746+00:00",
+    "description": "Calculate health check interval based on pool size.",
+    "intent": "Calculate health check interval based on pool size.",
+    "language": "python",
+    "name": "calculate_health_check_interval",
+    "source_file": "neurop_forge/sources/connection_pool.py",
+    "source_line_end": 174,
+    "source_line_start": 172,
+    "tags": [
+      "arithmetic",
+      "base_interval_seconds",
+      "calculate",
+      "check",
+      "health",
+      "interval",
+      "pool_size"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.430764+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(pool_size) == integer",
+      "pool_size is not None",
+      "type(base_interval_seconds) == integer",
+      "base_interval_seconds is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(pool_size) == integer",
+      "pool_size is not None",
+      "type(base_interval_seconds) == integer",
+      "base_interval_seconds is not None"
+    ]
+  }
+}

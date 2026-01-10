@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "344cf530604fb3bac8ae7496224af2429621954514ab35e69760a458a335b08a",
+    "semantic_fingerprint": "f0a42e6d69bcc185216b16136c41e2c1f57915b25307843eb5545dccd3f1b6f8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if acknowledgment is negative.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter ack",
+        "name": "ack",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_nack",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_nack(ack: dict) -> bool:\n    \"\"\"Check if acknowledgment is negative.\"\"\"\n    return ack.get(\"status\") == \"nack\"",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:46.312394+00:00",
+    "description": "Check if acknowledgment is negative.",
+    "intent": "Check if acknowledgment is negative.",
+    "language": "python",
+    "name": "is_nack",
+    "source_file": "neurop_forge/sources/queue_patterns.py",
+    "source_line_end": 251,
+    "source_line_start": 249,
+    "tags": [
+      "ack",
+      "nack",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.312417+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(ack) == dict",
+      "ack is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(ack) == dict",
+      "ack is not None"
+    ]
+  }
+}

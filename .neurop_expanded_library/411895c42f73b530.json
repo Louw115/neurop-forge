@@ -1,0 +1,165 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "411895c42f73b530b4d577b2b020a379eb2a514ae9c2b6f3098e549246f6269c",
+    "semantic_fingerprint": "19d90f20ab5aebe2cb7ce4c705b964b9dde2594504466588e40034a4895fc769",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Create order record.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter order_id",
+        "name": "order_id",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter customer_id",
+        "name": "customer_id",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter timestamp",
+        "name": "timestamp",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of create_order",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def create_order(order_id: str, customer_id: str, items: list, timestamp: int) -> dict:\n    \"\"\"Create order record.\"\"\"\n    return {\n        \"order_id\": order_id,\n        \"customer_id\": customer_id,\n        \"items\": items,\n        \"status\": \"pending\",\n        \"created_at\": timestamp,\n        \"updated_at\": timestamp\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:52.589783+00:00",
+    "description": "Create order record.",
+    "intent": "Create order record.",
+    "language": "python",
+    "name": "create_order",
+    "source_file": "neurop_forge/sources/order_utilities.py",
+    "source_line_end": 29,
+    "source_line_start": 20,
+    "tags": [
+      "create",
+      "customer_id",
+      "dict_operation",
+      "items",
+      "order",
+      "order_id",
+      "timestamp"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.589812+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(order_id) == string",
+      "order_id is not None",
+      "type(customer_id) == string",
+      "customer_id is not None",
+      "type(items) == list",
+      "items is not None",
+      "type(timestamp) == integer",
+      "timestamp is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(order_id) == string",
+      "order_id is not None",
+      "type(customer_id) == string",
+      "customer_id is not None",
+      "type(items) == list",
+      "items is not None",
+      "type(timestamp) == integer",
+      "timestamp is not None"
+    ]
+  }
+}

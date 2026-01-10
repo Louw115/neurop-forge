@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9123cfc2b3d18ea78df44f2dc875cab28421aee973ddc710a584a2db345a6f18",
+    "semantic_fingerprint": "2480c9bd3b12ddb01df78b5428522ee86a1908e3e36afb7e6aa254baf6a5f192",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get throttle statistics.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter state",
+        "name": "state",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter timestamp",
+        "name": "timestamp",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of get_throttle_stats",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_throttle_stats(state: dict, timestamp: int) -> dict:\n    \"\"\"Get throttle statistics.\"\"\"\n    window_start = timestamp - state[\"window_ms\"]\n    recent_calls = [t for t in state[\"calls\"] if t >= window_start]\n    return {\n        \"current_calls\": len(recent_calls),\n        \"max_calls\": state[\"max_calls\"],\n        \"remaining\": max(0, state[\"max_calls\"] - len(recent_calls)),\n        \"blocked_total\": state[\"blocked\"],\n        \"utilization\": len(recent_calls) / state[\"max_calls\"] if state[\"max_calls\"] > 0 else 0\n    }",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:52.191604+00:00",
+    "description": "Get throttle statistics.",
+    "intent": "Get throttle statistics.",
+    "language": "python",
+    "name": "get_throttle_stats",
+    "source_file": "neurop_forge/sources/throttle_utilities.py",
+    "source_line_end": 77,
+    "source_line_start": 67,
+    "tags": [
+      "filtering",
+      "get",
+      "state",
+      "stats",
+      "throttle",
+      "timestamp"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.191631+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(state) == dict",
+      "state is not None",
+      "type(timestamp) == integer",
+      "timestamp is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(state) == dict",
+      "state is not None",
+      "type(timestamp) == integer",
+      "timestamp is not None"
+    ]
+  }
+}

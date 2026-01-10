@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9f31a81b1ffc86498c5022a6660264246cef8e759561f105ee4846d1c48443d7",
+    "semantic_fingerprint": "d04a72ef8fdab8f1a97701412402b6b7d1bec664bc3b5dcf8cdb13964ab9704a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Clamp to finite value.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter x",
+        "name": "x",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter default",
+        "name": "default",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of clamp_to_finite",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def clamp_to_finite(x: float, default: float) -> float:\n    \"\"\"Clamp to finite value.\"\"\"\n    if math.isnan(x) or math.isinf(x):\n        return default\n    return x",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:51.602688+00:00",
+    "description": "Clamp to finite value.",
+    "intent": "Clamp to finite value.",
+    "language": "python",
+    "name": "clamp_to_finite",
+    "source_file": "neurop_forge/sources/safe_math.py",
+    "source_line_end": 150,
+    "source_line_start": 146,
+    "tags": [
+      "arithmetic",
+      "clamp",
+      "default",
+      "finite",
+      "x"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:51.602715+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(x) == float",
+      "x is not None",
+      "type(default) == float",
+      "default is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(x) == float",
+      "x is not None",
+      "type(default) == float",
+      "default is not None"
+    ]
+  }
+}

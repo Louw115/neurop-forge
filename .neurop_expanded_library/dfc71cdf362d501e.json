@@ -1,0 +1,155 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "dfc71cdf362d501ef86c883dc7e44d357b7de2f398d5ae039243a774d8fed9fb",
+    "semantic_fingerprint": "0c0d98cecd3c1cc4107266f7862c4a01c26ab2fa288005624ac6655917b6b4ed",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build an ALTER TABLE RENAME COLUMN statement.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter table",
+        "name": "table",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter old_name",
+        "name": "old_name",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter new_name",
+        "name": "new_name",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_alter_rename_column",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_alter_rename_column(table: str, old_name: str, new_name: str) -> str:\n    \"\"\"Build an ALTER TABLE RENAME COLUMN statement.\"\"\"\n    return f\"ALTER TABLE {escape_sql_identifier(table)} RENAME COLUMN {escape_sql_identifier(old_name)} TO {escape_sql_identifier(new_name)}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:44.731397+00:00",
+    "description": "Build an ALTER TABLE RENAME COLUMN statement.",
+    "intent": "Build an ALTER TABLE RENAME COLUMN statement.",
+    "language": "python",
+    "name": "build_alter_rename_column",
+    "source_file": "neurop_forge/sources/sql_building.py",
+    "source_line_end": 394,
+    "source_line_start": 392,
+    "tags": [
+      "alter",
+      "build",
+      "column",
+      "new_name",
+      "old_name",
+      "rename",
+      "string_manipulation",
+      "table"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.731424+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(table) == string",
+      "table is not None",
+      "type(old_name) == string",
+      "old_name is not None",
+      "type(new_name) == string",
+      "new_name is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(table) == string",
+      "table is not None",
+      "type(old_name) == string",
+      "old_name is not None",
+      "type(new_name) == string",
+      "new_name is not None"
+    ]
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ecbb60bb630a776f9922f9b7a981fa2c2e9da0f769b5f38454b036a3dcb85566",
+    "semantic_fingerprint": "c98d495760ea424e4a15a2daa45028783a6422a08a2ec4da4d4fc845175fc678",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build an Elasticsearch bool query.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter must",
+        "name": "must",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter should",
+        "name": "should",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter must_not",
+        "name": "must_not",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_elasticsearch_bool_query",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_elasticsearch_bool_query(must: list, should: list, must_not: list) -> dict:\n    \"\"\"Build an Elasticsearch bool query.\"\"\"\n    bool_params = {}\n    if must:\n        bool_params[\"must\"] = must\n    if should:\n        bool_params[\"should\"] = should\n    if must_not:\n        bool_params[\"must_not\"] = must_not\n    return {\"bool\": bool_params}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:45.306889+00:00",
+    "description": "Build an Elasticsearch bool query.",
+    "intent": "Build an Elasticsearch bool query.",
+    "language": "python",
+    "name": "build_elasticsearch_bool_query",
+    "source_file": "neurop_forge/sources/nosql_helpers.py",
+    "source_line_end": 359,
+    "source_line_start": 350,
+    "tags": [
+      "bool",
+      "build",
+      "dict_operation",
+      "elasticsearch",
+      "must",
+      "must_not",
+      "query",
+      "should"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.306918+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(must) == list",
+      "must is not None",
+      "type(should) == list",
+      "should is not None",
+      "type(must_not) == list",
+      "must_not is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(must) == list",
+      "must is not None",
+      "type(should) == list",
+      "should is not None",
+      "type(must_not) == list",
+      "must_not is not None"
+    ]
+  }
+}

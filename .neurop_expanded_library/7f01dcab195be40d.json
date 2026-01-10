@@ -1,0 +1,139 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7f01dcab195be40d6bbd7c64897afe35274f7c2330c0df533fd1a72735266473",
+    "semantic_fingerprint": "c12e0c608a60d2a8602f15892076b159314c99c7d7c9eb35e92ec486277c1235",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Push to min stack.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter stack",
+        "name": "stack",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter item",
+        "name": "item",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of min_stack_push",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def min_stack_push(stack: dict, item) -> dict:\n    \"\"\"Push to min stack.\"\"\"\n    items = list(stack[\"items\"]) + [item]\n    mins = list(stack[\"mins\"])\n    if not mins or item <= mins[-1]:\n        mins.append(item)\n    else:\n        mins.append(mins[-1])\n    return {\"items\": items, \"mins\": mins}",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:48.460592+00:00",
+    "description": "Push to min stack.",
+    "intent": "Push to min stack.",
+    "language": "python",
+    "name": "min_stack_push",
+    "source_file": "neurop_forge/sources/stack_utilities.py",
+    "source_line_end": 155,
+    "source_line_start": 147,
+    "tags": [
+      "arithmetic",
+      "item",
+      "min",
+      "push",
+      "stack"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.460618+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(stack) == dict",
+      "stack is not None",
+      "item is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(stack) == dict",
+      "stack is not None",
+      "item is not None"
+    ]
+  }
+}

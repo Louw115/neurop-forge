@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "73dd758383a4a7f7ed6d61765585d7ce91dca6340b279ca15d20510d020188e7",
+    "semantic_fingerprint": "105612707a695fd466c0d057868cf4e6fd929678c5b8005f39d11c7323e70900",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate the cost of a request based on type.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter request_type",
+        "name": "request_type",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter cost_map",
+        "name": "cost_map",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter default_cost",
+        "name": "default_cost",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of calculate_request_cost",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_request_cost(request_type: str, cost_map: dict, default_cost: int) -> int:\n    \"\"\"Calculate the cost of a request based on type.\"\"\"\n    return cost_map.get(request_type, default_cost)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:43.953415+00:00",
+    "description": "Calculate the cost of a request based on type.",
+    "intent": "Calculate the cost of a request based on type.",
+    "language": "python",
+    "name": "calculate_request_cost",
+    "source_file": "neurop_forge/sources/rate_limiting.py",
+    "source_line_end": 252,
+    "source_line_start": 250,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "cost",
+      "cost_map",
+      "default_cost",
+      "request",
+      "request_type"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.953441+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(request_type) == string",
+      "request_type is not None",
+      "type(cost_map) == dict",
+      "cost_map is not None",
+      "type(default_cost) == integer",
+      "default_cost is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(request_type) == string",
+      "request_type is not None",
+      "type(cost_map) == dict",
+      "cost_map is not None",
+      "type(default_cost) == integer",
+      "default_cost is not None"
+    ]
+  }
+}

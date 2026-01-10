@@ -1,0 +1,167 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2efb2fee4a8df06de1d1a922ad844011cb3fb6640e8f920f1e53f9f7bbde6bac",
+    "semantic_fingerprint": "7f28a685624d7bd857b2b4fc96ae18d7f582737b76e3186fc61a74ebe639a2f2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate ALTER TABLE ALTER COLUMN TYPE SQL.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter table",
+        "name": "table",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter column",
+        "name": "column",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter new_type",
+        "name": "new_type",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter using",
+        "name": "using",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_change_type_sql",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_change_type_sql(table: str, column: str, new_type: str, using: str) -> str:\n    \"\"\"Generate ALTER TABLE ALTER COLUMN TYPE SQL.\"\"\"\n    from neurop_forge.sources.sql_building import escape_sql_identifier\n    sql = f\"ALTER TABLE {escape_sql_identifier(table)} ALTER COLUMN {escape_sql_identifier(column)} TYPE {new_type}\"\n    if using:\n        sql += f\" USING {using}\"\n    return sql",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:44.996151+00:00",
+    "description": "Generate ALTER TABLE ALTER COLUMN TYPE SQL.",
+    "intent": "Generate ALTER TABLE ALTER COLUMN TYPE SQL.",
+    "language": "python",
+    "name": "generate_change_type_sql",
+    "source_file": "neurop_forge/sources/migration_helpers.py",
+    "source_line_end": 89,
+    "source_line_start": 83,
+    "tags": [
+      "change",
+      "column",
+      "generate",
+      "new_type",
+      "sql",
+      "string_manipulation",
+      "table",
+      "type",
+      "using"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.996171+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(table) == string",
+      "table is not None",
+      "type(column) == string",
+      "column is not None",
+      "type(new_type) == string",
+      "new_type is not None",
+      "type(using) == string",
+      "using is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(table) == string",
+      "table is not None",
+      "type(column) == string",
+      "column is not None",
+      "type(new_type) == string",
+      "new_type is not None",
+      "type(using) == string",
+      "using is not None"
+    ]
+  }
+}

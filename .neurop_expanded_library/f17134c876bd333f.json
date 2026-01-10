@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f17134c876bd333fc00b63782937c515b1a8e449d3b05b97e7e197f07a6df5d5",
+    "semantic_fingerprint": "6b097e2860626aa7f284c625d81e170a5202b5acf4e1c0fefb28073568d86874",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Flatten nested JSON to flat dict.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter obj",
+        "name": "obj",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter separator",
+        "name": "separator",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of flatten_json",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def flatten_json(obj: dict, separator: str) -> dict:\n    \"\"\"Flatten nested JSON to flat dict.\"\"\"\n    result = {}\n    def flatten(current, prefix):\n        if isinstance(current, dict):\n            for k, v in current.items():\n                new_key = f\"{prefix}{separator}{k}\" if prefix else k\n                flatten(v, new_key)\n        elif isinstance(current, list):\n            for i, v in enumerate(current):\n                new_key = f\"{prefix}{separator}{i}\" if prefix else str(i)\n                flatten(v, new_key)\n        else:\n            result[prefix] = current\n    flatten(obj, \"\")\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:52.001352+00:00",
+    "description": "Flatten nested JSON to flat dict.",
+    "intent": "Flatten nested JSON to flat dict.",
+    "language": "python",
+    "name": "flatten_json",
+    "source_file": "neurop_forge/sources/json_path.py",
+    "source_line_end": 203,
+    "source_line_start": 188,
+    "tags": [
+      "flatten",
+      "json",
+      "list_operation",
+      "obj",
+      "separator"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.001382+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(obj) == dict",
+      "obj is not None",
+      "type(separator) == string",
+      "separator is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(obj) == dict",
+      "obj is not None",
+      "type(separator) == string",
+      "separator is not None"
+    ]
+  }
+}

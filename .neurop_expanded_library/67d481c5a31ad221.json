@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "67d481c5a31ad221e176b0565066e5f5602881ae15ddde43da077b148c3997ff",
+    "semantic_fingerprint": "d7eb208551404e56eab0eabf593ef6d7471be7919e2a4874730a932fe0e1e435",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate thumbnail dimensions.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter width",
+        "name": "width",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter height",
+        "name": "height",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_size",
+        "name": "max_size",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of calculate_thumbnail_dimensions",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_thumbnail_dimensions(width: int, height: int, max_size: int) -> dict:\n    \"\"\"Calculate thumbnail dimensions.\"\"\"\n    if width <= max_size and height <= max_size:\n        return {\"width\": width, \"height\": height}\n    if width > height:\n        return {\n            \"width\": max_size,\n            \"height\": int(height * max_size / width)\n        }\n    return {\n        \"width\": int(width * max_size / height),\n        \"height\": max_size\n    }",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:47.383382+00:00",
+    "description": "Calculate thumbnail dimensions.",
+    "intent": "Calculate thumbnail dimensions.",
+    "language": "python",
+    "name": "calculate_thumbnail_dimensions",
+    "source_file": "neurop_forge/sources/image_utilities.py",
+    "source_line_end": 74,
+    "source_line_start": 62,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "dimensions",
+      "height",
+      "max_size",
+      "thumbnail",
+      "width"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.383403+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(width) == integer",
+      "width is not None",
+      "type(height) == integer",
+      "height is not None",
+      "type(max_size) == integer",
+      "max_size is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(width) == integer",
+      "width is not None",
+      "type(height) == integer",
+      "height is not None",
+      "type(max_size) == integer",
+      "max_size is not None"
+    ]
+  }
+}

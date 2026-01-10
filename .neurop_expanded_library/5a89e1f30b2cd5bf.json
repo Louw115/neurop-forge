@@ -1,0 +1,151 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5a89e1f30b2cd5bf12de96f20a7dc7df56c678f0672d483d04d9310f35a1b1ab",
+    "semantic_fingerprint": "75d80a56b28370536d528218347c67d03d4adcd752f9fa031397371f44609774",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add key-value to current object.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter builder",
+        "name": "builder",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of json_add",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def json_add(builder: dict, key: str, value) -> dict:\n    \"\"\"Add key-value to current object.\"\"\"\n    stack = list(builder[\"stack\"])\n    if isinstance(stack[-1], dict):\n        stack[-1] = {**stack[-1], key: value}\n    return {**builder, \"stack\": stack}",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:49.822256+00:00",
+    "description": "Add key-value to current object.",
+    "intent": "Add key-value to current object.",
+    "language": "python",
+    "name": "json_add",
+    "source_file": "neurop_forge/sources/string_builder.py",
+    "source_line_end": 214,
+    "source_line_start": 209,
+    "tags": [
+      "add",
+      "arithmetic",
+      "builder",
+      "json",
+      "key",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.822277+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(builder) == dict",
+      "builder is not None",
+      "type(key) == string",
+      "key is not None",
+      "value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(builder) == dict",
+      "builder is not None",
+      "type(key) == string",
+      "key is not None",
+      "value is not None"
+    ]
+  }
+}

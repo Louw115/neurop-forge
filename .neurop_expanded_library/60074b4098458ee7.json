@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "60074b4098458ee76c83289a11d9eb9bf5780bcaef4c0f980f4a8631dadabc8f",
+    "semantic_fingerprint": "b7a2cb69a091722daf6403274488b54099b56e0d52934d63c1600e77b07c3723",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Index of maximum element.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter v",
+        "name": "v",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of vector_argmax",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def vector_argmax(v: dict) -> int:\n    \"\"\"Index of maximum element.\"\"\"\n    return v[\"values\"].index(max(v[\"values\"])) if v[\"values\"] else -1",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:48.035802+00:00",
+    "description": "Index of maximum element.",
+    "intent": "Index of maximum element.",
+    "language": "python",
+    "name": "vector_argmax",
+    "source_file": "neurop_forge/sources/vector_utilities.py",
+    "source_line_end": 188,
+    "source_line_start": 186,
+    "tags": [
+      "argmax",
+      "arithmetic",
+      "v",
+      "vector"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.035827+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(v) == dict",
+      "v is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(v) == dict",
+      "v is not None"
+    ]
+  }
+}

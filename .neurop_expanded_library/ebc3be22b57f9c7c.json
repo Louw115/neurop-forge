@@ -1,0 +1,166 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ebc3be22b57f9c7cfc05ecc1edd9cc5c13a5759af67a0a150a453e92dc99abcf",
+    "semantic_fingerprint": "812f49416c2df182047b37025ac7710ff29a0f80504eab652862e54f6697919f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a JOIN clause.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter join_type",
+        "name": "join_type",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter table",
+        "name": "table",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter left_col",
+        "name": "left_col",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter right_col",
+        "name": "right_col",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_join_clause",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_join_clause(join_type: str, table: str, left_col: str, right_col: str) -> str:\n    \"\"\"Build a JOIN clause.\"\"\"\n    valid_types = (\"INNER\", \"LEFT\", \"RIGHT\", \"FULL\", \"CROSS\")\n    jt = join_type.upper() if join_type.upper() in valid_types else \"INNER\"\n    return f\"{jt} JOIN {escape_sql_identifier(table)} ON {escape_sql_identifier(left_col)} = {escape_sql_identifier(right_col)}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:44.663608+00:00",
+    "description": "Build a JOIN clause.",
+    "intent": "Build a JOIN clause.",
+    "language": "python",
+    "name": "build_join_clause",
+    "source_file": "neurop_forge/sources/sql_building.py",
+    "source_line_end": 190,
+    "source_line_start": 186,
+    "tags": [
+      "build",
+      "clause",
+      "join",
+      "join_type",
+      "left_col",
+      "right_col",
+      "string_manipulation",
+      "table"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.663649+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(join_type) == string",
+      "join_type is not None",
+      "type(table) == string",
+      "table is not None",
+      "type(left_col) == string",
+      "left_col is not None",
+      "type(right_col) == string",
+      "right_col is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(join_type) == string",
+      "join_type is not None",
+      "type(table) == string",
+      "table is not None",
+      "type(left_col) == string",
+      "left_col is not None",
+      "type(right_col) == string",
+      "right_col is not None"
+    ]
+  }
+}

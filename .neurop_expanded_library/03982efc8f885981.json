@@ -1,0 +1,135 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": false,
+    "io_operations": [
+      "file_read"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "non_deterministic",
+    "side_effects": [
+      "file_io"
+    ],
+    "thread_safe": false
+  },
+  "failure_modes": {
+    "can_fail": true,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "raises_exception",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "03982efc8f8859816982ba9c9da3bd188300254d61222eef4528bf8838bbb0f2",
+    "semantic_fingerprint": "73f8e8bf8424dafd9ed398614b436e037dbc3a50b61bfce25f39178de19caa67",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get sorted list of component sizes.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter ds",
+        "name": "ds",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of component_sizes",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def component_sizes(ds: dict) -> list:\n    \"\"\"Get sorted list of component sizes.\"\"\"\n    return sorted([ds[\"size\"].get(r, 0) for r in get_roots(ds)], reverse=True)",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:49.140308+00:00",
+    "description": "Get sorted list of component sizes.",
+    "intent": "Get sorted list of component sizes.",
+    "language": "python",
+    "name": "component_sizes",
+    "source_file": "neurop_forge/sources/disjoint_set.py",
+    "source_line_end": 161,
+    "source_line_start": 159,
+    "tags": [
+      "component",
+      "ds",
+      "list_operation",
+      "sizes"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 0.5,
+    "last_verified": "2026-01-10T02:18:49.140335+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.265,
+    "risk_factors": [
+      "impure_function",
+      "non_deterministic",
+      "side_effects: file_io"
+    ],
+    "risk_level": "medium",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(ds) == dict",
+      "ds is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(ds) == dict",
+      "ds is not None"
+    ]
+  }
+}

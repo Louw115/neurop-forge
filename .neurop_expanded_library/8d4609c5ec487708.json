@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8d4609c5ec487708ce5baa7637179966b8dbeae8412503b78622e41a1d2bcce6",
+    "semantic_fingerprint": "c88375d26f62ffad1f84e48cd2cf4e9e34cd8ab34f1c05230292cd96b8039a3f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate phone matches expected format pattern.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter phone",
+        "name": "phone",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter expected_format",
+        "name": "expected_format",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of validate_phone_format",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_phone_format(phone: str, expected_format: str) -> bool:\n    \"\"\"Validate phone matches expected format pattern.\"\"\"\n    format_patterns = {\n        'us_parens': r'^\\(\\d{3}\\) \\d{3}-\\d{4}$',\n        'us_dashes': r'^\\d{3}-\\d{3}-\\d{4}$',\n        'us_dots': r'^\\d{3}\\.\\d{3}\\.\\d{4}$',\n        'e164': r'^\\+\\d{11,15}$',\n        'digits_only': r'^\\d{10,15}$'\n    }\n    pattern = format_patterns.get(expected_format)\n    if not pattern:\n        return False\n    return bool(re.match(pattern, phone))",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:44.479087+00:00",
+    "description": "Validate phone matches expected format pattern.",
+    "intent": "Validate phone matches expected format pattern.",
+    "language": "python",
+    "name": "validate_phone_format",
+    "source_file": "neurop_forge/sources/phone_utilities.py",
+    "source_line_end": 309,
+    "source_line_start": 297,
+    "tags": [
+      "expected_format",
+      "format",
+      "phone",
+      "validate",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.479121+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(phone) == string",
+      "phone is not None",
+      "type(expected_format) == string",
+      "expected_format is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(phone) == string",
+      "phone is not None",
+      "type(expected_format) == string",
+      "expected_format is not None"
+    ]
+  }
+}

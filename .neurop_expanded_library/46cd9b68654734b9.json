@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "46cd9b68654734b983541b6316b8bc3cf0a9c54b24b94e96a5d0710aed6ebaa5",
+    "semantic_fingerprint": "ba1dbbcf1fbf78ca64c30184e39e95b7e7f8127e2ea3dc98f653a7cb1c0ceb17",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Mask a webhook secret for display.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter secret",
+        "name": "secret",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of mask_webhook_secret",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def mask_webhook_secret(secret: str) -> str:\n    \"\"\"Mask a webhook secret for display.\"\"\"\n    if len(secret) <= 8:\n        return \"*\" * len(secret)\n    return secret[:4] + \"*\" * (len(secret) - 8) + secret[-4:]",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:45.787424+00:00",
+    "description": "Mask a webhook secret for display.",
+    "intent": "Mask a webhook secret for display.",
+    "language": "python",
+    "name": "mask_webhook_secret",
+    "source_file": "neurop_forge/sources/webhook_patterns.py",
+    "source_line_end": 233,
+    "source_line_start": 229,
+    "tags": [
+      "mask",
+      "secret",
+      "string_manipulation",
+      "webhook"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.787487+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(secret) == string",
+      "secret is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(secret) == string",
+      "secret is not None"
+    ]
+  }
+}

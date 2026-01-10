@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c4272027313965fa318f8705620c6f2b158eb888fb3643244f4e8064ee23a4db",
+    "semantic_fingerprint": "b4114d4e74984666929fc8b169b44d18a0e0148ad60f19abd0ecada947001455",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract YouTube video ID from URL.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter url",
+        "name": "url",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of extract_youtube_video_id",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def extract_youtube_video_id(url: str) -> str:\n    \"\"\"Extract YouTube video ID from URL.\"\"\"\n    patterns = [\n        r'(?:youtube\\.com/watch\\?v=|youtu\\.be/)([a-zA-Z0-9_-]{11})',\n        r'youtube\\.com/embed/([a-zA-Z0-9_-]{11})'\n    ]\n    for pattern in patterns:\n        match = re.search(pattern, url)\n        if match:\n            return match.group(1)\n    return \"\"",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:50.918377+00:00",
+    "description": "Extract YouTube video ID from URL.",
+    "intent": "Extract YouTube video ID from URL.",
+    "language": "python",
+    "name": "extract_youtube_video_id",
+    "source_file": "neurop_forge/sources/social_utilities.py",
+    "source_line_end": 164,
+    "source_line_start": 154,
+    "tags": [
+      "extract",
+      "filtering",
+      "url",
+      "video",
+      "youtube"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:50.918392+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(url) == string",
+      "url is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(url) == string",
+      "url is not None"
+    ]
+  }
+}

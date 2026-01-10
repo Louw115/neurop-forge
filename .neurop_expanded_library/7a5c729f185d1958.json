@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7a5c729f185d195868d7fb8acff474d31042419b8e13446effd669535235ce32",
+    "semantic_fingerprint": "35448cca050db5998e3263142f748dc25b74b24416db6b111dd7d0223916fbaf",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get branch code from SWIFT.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter swift",
+        "name": "swift",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_swift_branch",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_swift_branch(swift: str) -> str:\n    \"\"\"Get branch code from SWIFT.\"\"\"\n    swift = swift.upper()\n    return swift[8:] if len(swift) == 11 else \"XXX\"",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:50.800385+00:00",
+    "description": "Get branch code from SWIFT.",
+    "intent": "Get branch code from SWIFT.",
+    "language": "python",
+    "name": "get_swift_branch",
+    "source_file": "neurop_forge/sources/bank_utilities.py",
+    "source_line_end": 79,
+    "source_line_start": 76,
+    "tags": [
+      "branch",
+      "filtering",
+      "get",
+      "swift"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:50.800404+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(swift) == string",
+      "swift is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(swift) == string",
+      "swift is not None"
+    ]
+  }
+}

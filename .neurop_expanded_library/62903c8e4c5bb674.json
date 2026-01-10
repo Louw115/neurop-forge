@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "62903c8e4c5bb67431260925203fe914e10f25ca7b5e665d0add9ed23d96d337",
+    "semantic_fingerprint": "093b51d8bc491808869f65c60bf862d1a86cf5dbb98b1e2c8c1e6ebc1fec1870",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get country name in locale.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter country_code",
+        "name": "country_code",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter locale",
+        "name": "locale",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_country_name",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_country_name(country_code: str, locale: str) -> str:\n    \"\"\"Get country name in locale.\"\"\"\n    countries_en = {\n        \"US\": \"United States\", \"GB\": \"United Kingdom\", \"CA\": \"Canada\",\n        \"DE\": \"Germany\", \"FR\": \"France\", \"ES\": \"Spain\", \"IT\": \"Italy\",\n        \"JP\": \"Japan\", \"CN\": \"China\", \"BR\": \"Brazil\", \"AU\": \"Australia\"\n    }\n    return countries_en.get(country_code.upper(), country_code)",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:47.114459+00:00",
+    "description": "Get country name in locale.",
+    "intent": "Get country name in locale.",
+    "language": "python",
+    "name": "get_country_name",
+    "source_file": "neurop_forge/sources/i18n_patterns.py",
+    "source_line_end": 150,
+    "source_line_start": 143,
+    "tags": [
+      "country",
+      "country_code",
+      "filtering",
+      "get",
+      "locale",
+      "name"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.114477+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(country_code) == string",
+      "country_code is not None",
+      "type(locale) == string",
+      "locale is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(country_code) == string",
+      "country_code is not None",
+      "type(locale) == string",
+      "locale is not None"
+    ]
+  }
+}

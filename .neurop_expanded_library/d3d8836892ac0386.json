@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d3d8836892ac0386a771ccf28a624c669041f235111c14b6362179b487d2f076",
+    "semantic_fingerprint": "22ed0331b4e202bb97c61239212a27e8d839bcb8feea3011ab89c47fe183ec9e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Normalize a SQL type name to a standard form.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter sql_type",
+        "name": "sql_type",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of normalize_type_name",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def normalize_type_name(sql_type: str) -> str:\n    \"\"\"Normalize a SQL type name to a standard form.\"\"\"\n    type_aliases = {\n        \"INT\": \"INTEGER\",\n        \"INT4\": \"INTEGER\",\n        \"INT8\": \"BIGINT\",\n        \"INT2\": \"SMALLINT\",\n        \"FLOAT4\": \"REAL\",\n        \"FLOAT8\": \"DOUBLE PRECISION\",\n        \"BOOL\": \"BOOLEAN\",\n        \"CHARACTER VARYING\": \"VARCHAR\",\n        \"CHARACTER\": \"CHAR\",\n        \"TIMESTAMPTZ\": \"TIMESTAMP WITH TIME ZONE\",\n        \"TIMETZ\": \"TIME WITH TIME ZONE\",\n    }\n    base_type = sql_type.upper().split(\"(\")[0].strip()\n    normalized = type_aliases.get(base_type, base_type)\n    if \"(\" in sql_type:\n        params = sql_type[sql_type.index(\"(\"):]\n        return normalized + params.upper()\n    return normalized",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:44.852925+00:00",
+    "description": "Normalize a SQL type name to a standard form.",
+    "intent": "Normalize a SQL type name to a standard form.",
+    "language": "python",
+    "name": "normalize_type_name",
+    "source_file": "neurop_forge/sources/sql_types.py",
+    "source_line_end": 345,
+    "source_line_start": 325,
+    "tags": [
+      "name",
+      "normalize",
+      "sql_type",
+      "string_manipulation",
+      "type"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.852953+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(sql_type) == string",
+      "sql_type is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(sql_type) == string",
+      "sql_type is not None"
+    ]
+  }
+}

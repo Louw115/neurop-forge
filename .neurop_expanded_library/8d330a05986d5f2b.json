@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8d330a05986d5f2bfa60301af80f2b9f7e3ef504a34732a12dccd6d2e29f0e67",
+    "semantic_fingerprint": "84498120e1635f40e12eb20948044c0f708624dc8cd1513047be2ff04f970ab6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find connected components in undirected graph.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter graph",
+        "name": "graph",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of find_connected_components",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def find_connected_components(graph: dict) -> list:\n    \"\"\"Find connected components in undirected graph.\"\"\"\n    if graph[\"directed\"]:\n        return []\n    visited = set()\n    components = []\n    adj = build_adjacency_list(graph)\n    def dfs(node, component):\n        visited.add(node)\n        component.append(node)\n        for neighbor in adj.get(node, []):\n            if neighbor not in visited:\n                dfs(neighbor, component)\n    for node in graph[\"nodes\"]:\n        if node not in visited:\n            component = []\n            dfs(node, component)\n            components.append(component)\n    return components",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:47.230908+00:00",
+    "description": "Find connected components in undirected graph.",
+    "intent": "Find connected components in undirected graph.",
+    "language": "python",
+    "name": "find_connected_components",
+    "source_file": "neurop_forge/sources/graph_utilities.py",
+    "source_line_end": 257,
+    "source_line_start": 239,
+    "tags": [
+      "components",
+      "connected",
+      "filtering",
+      "find",
+      "graph"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.230926+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(graph) == dict",
+      "graph is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(graph) == dict",
+      "graph is not None"
+    ]
+  }
+}

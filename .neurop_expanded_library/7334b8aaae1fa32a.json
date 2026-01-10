@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7334b8aaae1fa32a813d9b5a95c4ae35703ec8ace184e0f43731fe8608082027",
+    "semantic_fingerprint": "794d6b4f411af6f3da7f986ea1192dd340f8674595f9571e2a2ccbe73749ef43",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Normalize handle (remove @, lowercase).",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter handle",
+        "name": "handle",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of normalize_handle",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def normalize_handle(handle: str) -> str:\n    \"\"\"Normalize handle (remove @, lowercase).\"\"\"\n    if handle.startswith(\"@\"):\n        handle = handle[1:]\n    return handle.lower()",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:50.900438+00:00",
+    "description": "Normalize handle (remove @, lowercase).",
+    "intent": "Normalize handle (remove @, lowercase).",
+    "language": "python",
+    "name": "normalize_handle",
+    "source_file": "neurop_forge/sources/social_utilities.py",
+    "source_line_end": 59,
+    "source_line_start": 55,
+    "tags": [
+      "handle",
+      "normalize",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:50.900457+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(handle) == string",
+      "handle is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(handle) == string",
+      "handle is not None"
+    ]
+  }
+}

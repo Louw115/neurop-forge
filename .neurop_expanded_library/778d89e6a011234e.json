@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "778d89e6a011234ee35f5a8d247257949b32948b6144588c6e0d05565bb68f2b",
+    "semantic_fingerprint": "4ae36ee3bac75730447e621add2c0c90873ffa5a29ef8576c4d7585b6470e215",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Assert deep equality of objects.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter actual",
+        "name": "actual",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter expected",
+        "name": "expected",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of assert_deep_equals",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def assert_deep_equals(actual: dict, expected: dict) -> dict:\n    \"\"\"Assert deep equality of objects.\"\"\"\n    import json\n    passed = json.dumps(actual, sort_keys=True) == json.dumps(expected, sort_keys=True)\n    return {\n        \"passed\": passed,\n        \"message\": \"\" if passed else \"Objects are not deeply equal\"\n    }",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:52.095898+00:00",
+    "description": "Assert deep equality of objects.",
+    "intent": "Assert deep equality of objects.",
+    "language": "python",
+    "name": "assert_deep_equals",
+    "source_file": "neurop_forge/sources/assertion_utilities.py",
+    "source_line_end": 236,
+    "source_line_start": 229,
+    "tags": [
+      "actual",
+      "assert",
+      "deep",
+      "equals",
+      "expected",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.095917+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(actual) == dict",
+      "actual is not None",
+      "type(expected) == dict",
+      "expected is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(actual) == dict",
+      "actual is not None",
+      "type(expected) == dict",
+      "expected is not None"
+    ]
+  }
+}

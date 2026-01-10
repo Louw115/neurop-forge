@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "661c92f04977b36f7010a62717ead325cf538acc867833dcdcf31c3a97127e76",
+    "semantic_fingerprint": "8788f2cab60f1319ebae1d9a48829a5f6367aa338628aac1f9da12c1b9cdc2c2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate a deterministic test UUID.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seed",
+        "name": "seed",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_test_uuid",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_test_uuid(seed: int) -> str:\n    \"\"\"Generate a deterministic test UUID.\"\"\"\n    import hashlib\n    hash_val = hashlib.sha256(f\"uuid:{seed}\".encode()).hexdigest()\n    return f\"{hash_val[:8]}-{hash_val[8:12]}-4{hash_val[13:16]}-a{hash_val[17:20]}-{hash_val[20:32]}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:46.347494+00:00",
+    "description": "Generate a deterministic test UUID.",
+    "intent": "Generate a deterministic test UUID.",
+    "language": "python",
+    "name": "generate_test_uuid",
+    "source_file": "neurop_forge/sources/testing_utilities.py",
+    "source_line_end": 43,
+    "source_line_start": 39,
+    "tags": [
+      "generate",
+      "seed",
+      "string_manipulation",
+      "test",
+      "uuid"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.347521+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(seed) == integer",
+      "seed is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(seed) == integer",
+      "seed is not None"
+    ]
+  }
+}

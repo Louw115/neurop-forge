@@ -1,0 +1,166 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d1276c98e764ac74f1453dddd13e3d77160c1bf5a8aa82e217ef4d76226dc8fe",
+    "semantic_fingerprint": "282e66c6eaa09dbb3077b2132a74416f9225e0cf9c7bd53d5543744713854cfc",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate a compliance report from audit records.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter audit_records",
+        "name": "audit_records",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter table",
+        "name": "table",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter start_date",
+        "name": "start_date",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter end_date",
+        "name": "end_date",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of generate_compliance_report",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_compliance_report(audit_records: list, table: str, start_date: str, end_date: str) -> dict:\n    \"\"\"Generate a compliance report from audit records.\"\"\"\n    filtered = [r for r in audit_records \n                if r.get(\"table_name\") == table \n                and start_date <= r.get(\"timestamp\", \"\") <= end_date]\n    stats = calculate_audit_statistics(filtered)\n    return {\n        \"report_type\": \"compliance_audit\",\n        \"table\": table,\n        \"period_start\": start_date,\n        \"period_end\": end_date,\n        \"statistics\": stats,\n        \"record_count\": len(filtered)\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:45.540503+00:00",
+    "description": "Generate a compliance report from audit records.",
+    "intent": "Generate a compliance report from audit records.",
+    "language": "python",
+    "name": "generate_compliance_report",
+    "source_file": "neurop_forge/sources/audit_logging.py",
+    "source_line_end": 299,
+    "source_line_start": 286,
+    "tags": [
+      "audit_records",
+      "compliance",
+      "dict_operation",
+      "end_date",
+      "generate",
+      "report",
+      "start_date",
+      "table"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.540525+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(audit_records) == list",
+      "audit_records is not None",
+      "type(table) == string",
+      "table is not None",
+      "type(start_date) == string",
+      "start_date is not None",
+      "type(end_date) == string",
+      "end_date is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(audit_records) == list",
+      "audit_records is not None",
+      "type(table) == string",
+      "table is not None",
+      "type(start_date) == string",
+      "start_date is not None",
+      "type(end_date) == string",
+      "end_date is not None"
+    ]
+  }
+}

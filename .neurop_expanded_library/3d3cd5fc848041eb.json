@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3d3cd5fc848041eb2334ded1060499c3511089da25697f94669236cd234f59d9",
+    "semantic_fingerprint": "25bbba4cfc9ab4ea89c79b79e25fdd96c38dc81ae03c95de1a114559e5f55700",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build adjacency list representation.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter graph",
+        "name": "graph",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_adjacency_list",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_adjacency_list(graph: dict) -> dict:\n    \"\"\"Build adjacency list representation.\"\"\"\n    adj = {node_id: [] for node_id in graph[\"nodes\"]}\n    for edge in graph[\"edges\"]:\n        adj[edge[\"from\"]].append(edge[\"to\"])\n        if not graph[\"directed\"]:\n            adj[edge[\"to\"]].append(edge[\"from\"])\n    return adj",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:47.212345+00:00",
+    "description": "Build adjacency list representation.",
+    "intent": "Build adjacency list representation.",
+    "language": "python",
+    "name": "build_adjacency_list",
+    "source_file": "neurop_forge/sources/graph_utilities.py",
+    "source_line_end": 138,
+    "source_line_start": 131,
+    "tags": [
+      "adjacency",
+      "build",
+      "dict_operation",
+      "graph",
+      "list"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.212372+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(graph) == dict",
+      "graph is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(graph) == dict",
+      "graph is not None"
+    ]
+  }
+}

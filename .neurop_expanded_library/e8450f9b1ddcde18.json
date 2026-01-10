@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e8450f9b1ddcde18d35b6e3f36ed43470421795f9f3ea9090bb1a4ac60cdf1b8",
+    "semantic_fingerprint": "7ab3e96df84ae09bf0556b13d1c7da3bb9c4ed2ae723f56f862ea2b593a03231",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate net present value.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter cash_flows",
+        "name": "cash_flows",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter discount_rate",
+        "name": "discount_rate",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_npv",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_npv(cash_flows: list, discount_rate: float) -> float:\n    \"\"\"Calculate net present value.\"\"\"\n    npv = 0.0\n    for i, cf in enumerate(cash_flows):\n        npv += cf / ((1 + discount_rate / 100) ** i)\n    return npv",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:47.594939+00:00",
+    "description": "Calculate net present value.",
+    "intent": "Calculate net present value.",
+    "language": "python",
+    "name": "calculate_npv",
+    "source_file": "neurop_forge/sources/financial_utilities.py",
+    "source_line_end": 86,
+    "source_line_start": 81,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "cash_flows",
+      "discount_rate",
+      "npv"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.594958+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(cash_flows) == list",
+      "cash_flows is not None",
+      "type(discount_rate) == float",
+      "discount_rate is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(cash_flows) == list",
+      "cash_flows is not None",
+      "type(discount_rate) == float",
+      "discount_rate is not None"
+    ]
+  }
+}

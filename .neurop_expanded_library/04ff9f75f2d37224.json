@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "04ff9f75f2d37224ad5a52228526eec322dd0df46a37ef1e7be2f93bfd92df04",
+    "semantic_fingerprint": "7b9ab5990dbabdf3adcdfaeeffdc5dcf4243f458e225a204897183d092e62e9c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Variance of vector elements.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter v",
+        "name": "v",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of vector_variance",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def vector_variance(v: dict) -> float:\n    \"\"\"Variance of vector elements.\"\"\"\n    mean = vector_mean(v)\n    return sum((x - mean) ** 2 for x in v[\"values\"]) / v[\"dimension\"] if v[\"dimension\"] > 0 else 0",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:48.025927+00:00",
+    "description": "Variance of vector elements.",
+    "intent": "Variance of vector elements.",
+    "language": "python",
+    "name": "vector_variance",
+    "source_file": "neurop_forge/sources/vector_utilities.py",
+    "source_line_end": 163,
+    "source_line_start": 160,
+    "tags": [
+      "arithmetic",
+      "v",
+      "variance",
+      "vector"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.025955+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(v) == dict",
+      "v is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(v) == dict",
+      "v is not None"
+    ]
+  }
+}

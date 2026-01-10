@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception",
+      "KeyError"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7b8ab649b5c3558dd9e727903e351dee8ada151acde9f5bc737d614552f53ecf",
+    "semantic_fingerprint": "0597543a8761f9f79600129af1d98219aec440f775c5955ace1c7191e2376588",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Detect duplicate primary key values in a record list.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter records",
+        "name": "records",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter key_column",
+        "name": "key_column",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of detect_duplicate_keys",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def detect_duplicate_keys(records: list, key_column: str) -> list:\n    \"\"\"Detect duplicate primary key values in a record list.\"\"\"\n    seen = {}\n    duplicates = []\n    for i, record in enumerate(records):\n        key = record.get(key_column)\n        if key in seen:\n            duplicates.append({\"key\": key, \"first_index\": seen[key], \"duplicate_index\": i})\n        else:\n            seen[key] = i\n    return duplicates",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:45.208601+00:00",
+    "description": "Detect duplicate primary key values in a record list.",
+    "intent": "Detect duplicate primary key values in a record list.",
+    "language": "python",
+    "name": "detect_duplicate_keys",
+    "source_file": "neurop_forge/sources/data_integrity.py",
+    "source_line_end": 326,
+    "source_line_start": 316,
+    "tags": [
+      "detect",
+      "duplicate",
+      "key_column",
+      "keys",
+      "list_operation",
+      "records"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.208628+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(records) == list",
+      "records is not None",
+      "type(key_column) == string",
+      "key_column is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(records) == list",
+      "records is not None",
+      "type(key_column) == string",
+      "key_column is not None"
+    ]
+  }
+}

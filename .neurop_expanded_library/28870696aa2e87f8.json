@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "28870696aa2e87f8d785dc0179fa84c7935e7c02413d4f074036bbb85195bbbd",
+    "semantic_fingerprint": "67f9854657e7b1edba379ff3293b3523c9a83dce17ed391c57d1bd1683c8f23b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Safely compute log base 10.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter x",
+        "name": "x",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter default",
+        "name": "default",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of safe_log10",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def safe_log10(x: float, default: float) -> float:\n    \"\"\"Safely compute log base 10.\"\"\"\n    if x <= 0:\n        return default\n    return math.log10(x)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:51.592191+00:00",
+    "description": "Safely compute log base 10.",
+    "intent": "Safely compute log base 10.",
+    "language": "python",
+    "name": "safe_log10",
+    "source_file": "neurop_forge/sources/safe_math.py",
+    "source_line_end": 54,
+    "source_line_start": 50,
+    "tags": [
+      "arithmetic",
+      "default",
+      "log10",
+      "safe",
+      "x"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:51.592219+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(x) == float",
+      "x is not None",
+      "type(default) == float",
+      "default is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(x) == float",
+      "x is not None",
+      "type(default) == float",
+      "default is not None"
+    ]
+  }
+}

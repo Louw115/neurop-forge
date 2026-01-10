@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "97bcc4291c05f9115a46fc1a8ae884b07740c30a1f7fc22a3311f898042f8417",
+    "semantic_fingerprint": "51aaa68a79f18c3ebab105cba3112d35e28dbfbd91f4ab6039aeee2b28116cfb",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Replace placeholder style (%s to $n or vice versa).",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter query",
+        "name": "query",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter from_style",
+        "name": "from_style",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter to_style",
+        "name": "to_style",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of replace_placeholder_style",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def replace_placeholder_style(query: str, from_style: str, to_style: str) -> str:\n    \"\"\"Replace placeholder style (%s to $n or vice versa).\"\"\"\n    import re\n    if from_style == \"%s\" and to_style == \"$n\":\n        count = [0]\n        def replacer(match):\n            count[0] += 1\n            return f\"${count[0]}\"\n        return re.sub(r'%s', replacer, query)\n    elif from_style == \"$n\" and to_style == \"%s\":\n        return re.sub(r'\\$\\d+', '%s', query)\n    return query",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:44.750524+00:00",
+    "description": "Replace placeholder style (%s to $n or vice versa).",
+    "intent": "Replace placeholder style (%s to $n or vice versa).",
+    "language": "python",
+    "name": "replace_placeholder_style",
+    "source_file": "neurop_forge/sources/sql_building.py",
+    "source_line_end": 465,
+    "source_line_start": 454,
+    "tags": [
+      "from_style",
+      "placeholder",
+      "query",
+      "replace",
+      "string_manipulation",
+      "style",
+      "to_style"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.750554+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.37,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.8,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(query) == string",
+      "query is not None",
+      "type(from_style) == string",
+      "from_style is not None",
+      "type(to_style) == string",
+      "to_style is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(query) == string",
+      "query is not None",
+      "type(from_style) == string",
+      "from_style is not None",
+      "type(to_style) == string",
+      "to_style is not None"
+    ]
+  }
+}

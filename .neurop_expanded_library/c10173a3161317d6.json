@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c10173a3161317d6d12c7e53ffb306aadd0371c3d74cc2cafa8459f93ec361c7",
+    "semantic_fingerprint": "609567d0023eb449bc478f6a7e37fdbb339ace09c9dde4fffad85a19ff551245",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate IP address format.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter ip",
+        "name": "ip",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter version",
+        "name": "version",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of validate_ip_address",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_ip_address(ip: str, version: int) -> dict:\n    \"\"\"Validate IP address format.\"\"\"\n    import re\n    if version == 4:\n        pattern = r'^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'\n        if not re.match(pattern, ip):\n            return {\"valid\": False, \"error\": \"Invalid IPv4 address\"}\n    elif version == 6:\n        pattern = r'^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$'\n        if not re.match(pattern, ip):\n            return {\"valid\": False, \"error\": \"Invalid IPv6 address\"}\n    return {\"valid\": True, \"error\": None}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:45.867038+00:00",
+    "description": "Validate IP address format.",
+    "intent": "Validate IP address format.",
+    "language": "python",
+    "name": "validate_ip_address",
+    "source_file": "neurop_forge/sources/request_validation.py",
+    "source_line_end": 197,
+    "source_line_start": 186,
+    "tags": [
+      "address",
+      "ip",
+      "validate",
+      "validation",
+      "version"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.867065+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(ip) == string",
+      "ip is not None",
+      "type(version) == integer",
+      "version is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(ip) == string",
+      "ip is not None",
+      "type(version) == integer",
+      "version is not None"
+    ]
+  }
+}

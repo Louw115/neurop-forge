@@ -1,0 +1,156 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception",
+      "KeyError"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d4c77b33cabf2404da112961e69ef96a3dc4401e26e7107d8a69dec8de0ae41b",
+    "semantic_fingerprint": "32b5101c99f42383a327027d51634721e12ef92db27152ff36ae96b97844826a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a FOREIGN KEY constraint.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter column",
+        "name": "column",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter ref_table",
+        "name": "ref_table",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter ref_column",
+        "name": "ref_column",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_foreign_key_constraint",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_foreign_key_constraint(column: str, ref_table: str, ref_column: str) -> str:\n    \"\"\"Build a FOREIGN KEY constraint.\"\"\"\n    return f\"FOREIGN KEY ({escape_sql_identifier(column)}) REFERENCES {escape_sql_identifier(ref_table)}({escape_sql_identifier(ref_column)})\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:44.711359+00:00",
+    "description": "Build a FOREIGN KEY constraint.",
+    "intent": "Build a FOREIGN KEY constraint.",
+    "language": "python",
+    "name": "build_foreign_key_constraint",
+    "source_file": "neurop_forge/sources/sql_building.py",
+    "source_line_end": 342,
+    "source_line_start": 340,
+    "tags": [
+      "build",
+      "column",
+      "constraint",
+      "foreign",
+      "key",
+      "ref_column",
+      "ref_table",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.711382+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(column) == string",
+      "column is not None",
+      "type(ref_table) == string",
+      "ref_table is not None",
+      "type(ref_column) == string",
+      "ref_column is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(column) == string",
+      "column is not None",
+      "type(ref_table) == string",
+      "ref_table is not None",
+      "type(ref_column) == string",
+      "ref_column is not None"
+    ]
+  }
+}

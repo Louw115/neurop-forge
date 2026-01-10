@@ -1,0 +1,152 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8ab2ad233c68bab273756a86b71382095ba57e64b7fd9daa8023fbb933f686bb",
+    "semantic_fingerprint": "cf888b2c225c501b65b4575052ef2dc46d20512cb6051f5b408cb5426815f8ef",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add metadata to a state.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter machine",
+        "name": "machine",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter state",
+        "name": "state",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter metadata",
+        "name": "metadata",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of add_state_metadata",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def add_state_metadata(machine: dict, state: str, metadata: dict) -> dict:\n    \"\"\"Add metadata to a state.\"\"\"\n    result = dict(machine)\n    if \"state_metadata\" not in result:\n        result[\"state_metadata\"] = {}\n    result[\"state_metadata\"][state] = metadata\n    return result",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:46.165027+00:00",
+    "description": "Add metadata to a state.",
+    "intent": "Add metadata to a state.",
+    "language": "python",
+    "name": "add_state_metadata",
+    "source_file": "neurop_forge/sources/state_machine.py",
+    "source_line_end": 204,
+    "source_line_start": 198,
+    "tags": [
+      "add",
+      "arithmetic",
+      "machine",
+      "metadata",
+      "state"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.165051+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(machine) == dict",
+      "machine is not None",
+      "type(state) == string",
+      "state is not None",
+      "type(metadata) == dict",
+      "metadata is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(machine) == dict",
+      "machine is not None",
+      "type(state) == string",
+      "state is not None",
+      "type(metadata) == dict",
+      "metadata is not None"
+    ]
+  }
+}

@@ -1,0 +1,131 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e842e9e163648e05027571135a88c5dbffee49c42b0a050c9613c02298017c9f",
+    "semantic_fingerprint": "5df9e518b83a64c9c87bcf202d1f7ba5a624bf52a510040202050c12f6c76b87",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find least frequently used entry key.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter entries",
+        "name": "entries",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of find_lfu_eviction_candidate",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def find_lfu_eviction_candidate(entries: list) -> str:\n    \"\"\"Find least frequently used entry key.\"\"\"\n    if not entries:\n        return \"\"\n    least_freq = min(entries, key=lambda e: e[\"frequency\"])\n    return least_freq[\"key\"]",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:47.505665+00:00",
+    "description": "Find least frequently used entry key.",
+    "intent": "Find least frequently used entry key.",
+    "language": "python",
+    "name": "find_lfu_eviction_candidate",
+    "source_file": "neurop_forge/sources/caching_patterns.py",
+    "source_line_end": 103,
+    "source_line_start": 98,
+    "tags": [
+      "candidate",
+      "entries",
+      "eviction",
+      "filtering",
+      "find",
+      "lfu"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.505683+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(entries) == list",
+      "entries is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(entries) == list",
+      "entries is not None"
+    ]
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "bc435983048ed6072c3047ad0514b16c2319b52e259da4fe3d6bd174f310ae89",
+    "semantic_fingerprint": "5a4c36cf101e3dde19cfe6753318864207376be017949dc141f0aa8c84de6f1c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find all occurrences of substring.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter substring",
+        "name": "substring",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of find_all",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def find_all(text: str, substring: str) -> list:\n    \"\"\"Find all occurrences of substring.\"\"\"\n    positions = []\n    start = 0\n    while True:\n        pos = text.find(substring, start)\n        if pos == -1:\n            break\n        positions.append(pos)\n        start = pos + 1\n    return positions",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:49.995039+00:00",
+    "description": "Find all occurrences of substring.",
+    "intent": "Find all occurrences of substring.",
+    "language": "python",
+    "name": "find_all",
+    "source_file": "neurop_forge/sources/string_patterns.py",
+    "source_line_end": 52,
+    "source_line_start": 42,
+    "tags": [
+      "all",
+      "filtering",
+      "find",
+      "substring",
+      "text"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.995066+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None",
+      "type(substring) == string",
+      "substring is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None",
+      "type(substring) == string",
+      "substring is not None"
+    ]
+  }
+}

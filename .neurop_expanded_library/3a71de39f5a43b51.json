@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3a71de39f5a43b51c3b35579465657d590eb6b5ce705792ede885c2e34fb8d1c",
+    "semantic_fingerprint": "46fa6b220f2bf7ab0aaf9c1224877ad43b76952f2bb58a1b9e243f50cd0b2ff9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Delete value at path (returns new dict).",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter data",
+        "name": "data",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter path",
+        "name": "path",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of delete_path",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def delete_path(data: dict, path: str) -> dict:\n    \"\"\"Delete value at path (returns new dict).\"\"\"\n    keys = path.split(\".\")\n    if not keys:\n        return data\n    result = dict(data)\n    current = result\n    for key in keys[:-1]:\n        if key not in current or not isinstance(current[key], dict):\n            return result\n        current[key] = dict(current[key])\n        current = current[key]\n    if keys[-1] in current:\n        del current[keys[-1]]\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:50.057277+00:00",
+    "description": "Delete value at path (returns new dict).",
+    "intent": "Delete value at path (returns new dict).",
+    "language": "python",
+    "name": "delete_path",
+    "source_file": "neurop_forge/sources/json_utilities.py",
+    "source_line_end": 91,
+    "source_line_start": 77,
+    "tags": [
+      "data",
+      "delete",
+      "dict_operation",
+      "path"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:50.057296+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(data) == dict",
+      "data is not None",
+      "type(path) == string",
+      "path is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(data) == dict",
+      "data is not None",
+      "type(path) == string",
+      "path is not None"
+    ]
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "11a658efe348d898fa93f3af02e3f1c7edbd73f66b86b4ddacd1e10e729fabbc",
+    "semantic_fingerprint": "b2561a20a3b6ede5a1a3771121a99ad145c95b8aeca6f5bb32f0038da720cacd",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get all states reachable from a state.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter machine",
+        "name": "machine",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter from_state",
+        "name": "from_state",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of get_reachable_states",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_reachable_states(machine: dict, from_state: str) -> list:\n    \"\"\"Get all states reachable from a state.\"\"\"\n    transitions = machine.get(\"transitions\", {})\n    reachable = set()\n    queue = [from_state]\n    while queue:\n        current = queue.pop(0)\n        for next_state in transitions.get(current, []):\n            if next_state not in reachable:\n                reachable.add(next_state)\n                queue.append(next_state)\n    return list(reachable)",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:46.154789+00:00",
+    "description": "Get all states reachable from a state.",
+    "intent": "Get all states reachable from a state.",
+    "language": "python",
+    "name": "get_reachable_states",
+    "source_file": "neurop_forge/sources/state_machine.py",
+    "source_line_end": 141,
+    "source_line_start": 130,
+    "tags": [
+      "filtering",
+      "from_state",
+      "get",
+      "machine",
+      "reachable",
+      "states"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.154807+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(machine) == dict",
+      "machine is not None",
+      "type(from_state) == string",
+      "from_state is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(machine) == dict",
+      "machine is not None",
+      "type(from_state) == string",
+      "from_state is not None"
+    ]
+  }
+}

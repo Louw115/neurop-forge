@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "751cb0ac2af087235ce11c14b0cb39c33dfde092d4bd0660346c2aa27ce0656c",
+    "semantic_fingerprint": "1f8f79f4d30aea544688379fbe29ea11d5347ba96e51bce7130cd00930f97d00",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate payback period in years.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter initial_investment",
+        "name": "initial_investment",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter annual_cash_flows",
+        "name": "annual_cash_flows",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_payback_period",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_payback_period(initial_investment: float, annual_cash_flows: list) -> float:\n    \"\"\"Calculate payback period in years.\"\"\"\n    cumulative = 0.0\n    for i, cf in enumerate(annual_cash_flows):\n        cumulative += cf\n        if cumulative >= initial_investment:\n            if i == 0:\n                return initial_investment / cf if cf > 0 else 0\n            prev_cumulative = cumulative - cf\n            remaining = initial_investment - prev_cumulative\n            return i + (remaining / cf if cf > 0 else 0)\n    return float('inf')",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:47.600452+00:00",
+    "description": "Calculate payback period in years.",
+    "intent": "Calculate payback period in years.",
+    "language": "python",
+    "name": "calculate_payback_period",
+    "source_file": "neurop_forge/sources/financial_utilities.py",
+    "source_line_end": 117,
+    "source_line_start": 106,
+    "tags": [
+      "annual_cash_flows",
+      "arithmetic",
+      "calculate",
+      "initial_investment",
+      "payback",
+      "period"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.600479+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(initial_investment) == float",
+      "initial_investment is not None",
+      "type(annual_cash_flows) == list",
+      "annual_cash_flows is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(initial_investment) == float",
+      "initial_investment is not None",
+      "type(annual_cash_flows) == list",
+      "annual_cash_flows is not None"
+    ]
+  }
+}

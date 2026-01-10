@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "93c1830dd13e9232e8cac8735c8f79f45fb5f3b283303fafd608fc940ecb7596",
+    "semantic_fingerprint": "b98cca79fd76452ce1bf3b9cad14556a02940bdeaeedc1fb951a7e66e673f51a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Classify items by ABC analysis.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter value_percentages",
+        "name": "value_percentages",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of calculate_abc_class",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_abc_class(items: list, value_percentages: dict) -> dict:\n    \"\"\"Classify items by ABC analysis.\"\"\"\n    a_threshold = value_percentages.get(\"A\", 80)\n    b_threshold = value_percentages.get(\"B\", 95)\n    total_value = sum(i.get(\"value\", 0) for i in items)\n    sorted_items = sorted(items, key=lambda x: -x.get(\"value\", 0))\n    classes = {\"A\": [], \"B\": [], \"C\": []}\n    cumulative = 0\n    for item in sorted_items:\n        cumulative += item.get(\"value\", 0)\n        percentage = (cumulative / total_value * 100) if total_value > 0 else 0\n        if percentage <= a_threshold:\n            classes[\"A\"].append(item[\"sku\"])\n        elif percentage <= b_threshold:\n            classes[\"B\"].append(item[\"sku\"])\n        else:\n            classes[\"C\"].append(item[\"sku\"])\n    return classes",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:52.535494+00:00",
+    "description": "Classify items by ABC analysis.",
+    "intent": "Classify items by ABC analysis.",
+    "language": "python",
+    "name": "calculate_abc_class",
+    "source_file": "neurop_forge/sources/inventory_utilities.py",
+    "source_line_end": 174,
+    "source_line_start": 157,
+    "tags": [
+      "abc",
+      "arithmetic",
+      "calculate",
+      "class",
+      "items",
+      "value_percentages"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.535515+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "type(value_percentages) == dict",
+      "value_percentages is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "type(value_percentages) == dict",
+      "value_percentages is not None"
+    ]
+  }
+}

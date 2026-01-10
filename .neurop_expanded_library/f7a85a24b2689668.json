@@ -1,0 +1,155 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f7a85a24b26896682b99b33f70133d7e53b85e9d63367e28e123fb87286f7ec2",
+    "semantic_fingerprint": "cec079be7c5c0deead1144ec343a64ebc004457e2f2ca7458b09f421a81f7afd",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate annual straight-line depreciation.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter cost",
+        "name": "cost",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter salvage_value",
+        "name": "salvage_value",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter useful_life_years",
+        "name": "useful_life_years",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_depreciation_straight_line",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_depreciation_straight_line(cost: float, salvage_value: float, useful_life_years: int) -> float:\n    \"\"\"Calculate annual straight-line depreciation.\"\"\"\n    if useful_life_years <= 0:\n        return 0.0\n    return (cost - salvage_value) / useful_life_years",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:47.615813+00:00",
+    "description": "Calculate annual straight-line depreciation.",
+    "intent": "Calculate annual straight-line depreciation.",
+    "language": "python",
+    "name": "calculate_depreciation_straight_line",
+    "source_file": "neurop_forge/sources/financial_utilities.py",
+    "source_line_end": 177,
+    "source_line_start": 173,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "cost",
+      "depreciation",
+      "line",
+      "salvage_value",
+      "straight",
+      "useful_life_years"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.615842+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(cost) == float",
+      "cost is not None",
+      "type(salvage_value) == float",
+      "salvage_value is not None",
+      "type(useful_life_years) == integer",
+      "useful_life_years is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(cost) == float",
+      "cost is not None",
+      "type(salvage_value) == float",
+      "salvage_value is not None",
+      "type(useful_life_years) == integer",
+      "useful_life_years is not None"
+    ]
+  }
+}

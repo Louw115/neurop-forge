@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d4eebbe7ae401d80ed2010fb57a219a019b1d567e45221c72f082fbce9038700",
+    "semantic_fingerprint": "37835a634e25fb66f4620b6188c269b6ffd64fc87c5e47fe9261eb0cf794e993",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate monthly loan payment.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter principal",
+        "name": "principal",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter annual_rate",
+        "name": "annual_rate",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter months",
+        "name": "months",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_monthly_payment",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_monthly_payment(principal: float, annual_rate: float, months: int) -> float:\n    \"\"\"Calculate monthly loan payment.\"\"\"\n    if annual_rate == 0:\n        return principal / months if months > 0 else 0\n    monthly_rate = annual_rate / 100 / 12\n    return principal * (monthly_rate * (1 + monthly_rate) ** months) / ((1 + monthly_rate) ** months - 1)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:47.584630+00:00",
+    "description": "Calculate monthly loan payment.",
+    "intent": "Calculate monthly loan payment.",
+    "language": "python",
+    "name": "calculate_monthly_payment",
+    "source_file": "neurop_forge/sources/financial_utilities.py",
+    "source_line_end": 38,
+    "source_line_start": 33,
+    "tags": [
+      "annual_rate",
+      "arithmetic",
+      "calculate",
+      "monthly",
+      "months",
+      "payment",
+      "principal"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.584650+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(principal) == float",
+      "principal is not None",
+      "type(annual_rate) == float",
+      "annual_rate is not None",
+      "type(months) == integer",
+      "months is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(principal) == float",
+      "principal is not None",
+      "type(annual_rate) == float",
+      "annual_rate is not None",
+      "type(months) == integer",
+      "months is not None"
+    ]
+  }
+}

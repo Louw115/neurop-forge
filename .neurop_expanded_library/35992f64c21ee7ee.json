@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "35992f64c21ee7eed0090d7361cad02f45f72b0ffa1a20e8da963d4dad2bd8b0",
+    "semantic_fingerprint": "b858800f5a5103ff1e8bdc62e3fadd22d5d227d784440bb02f770ef68a4b26c6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate Damerau-Levenshtein distance (allows transposition).",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter s1",
+        "name": "s1",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter s2",
+        "name": "s2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of damerau_levenshtein_distance",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def damerau_levenshtein_distance(s1: str, s2: str) -> int:\n    \"\"\"Calculate Damerau-Levenshtein distance (allows transposition).\"\"\"\n    len1, len2 = len(s1), len(s2)\n    d = [[0] * (len2 + 1) for _ in range(len1 + 1)]\n    for i in range(len1 + 1):\n        d[i][0] = i\n    for j in range(len2 + 1):\n        d[0][j] = j\n    for i in range(1, len1 + 1):\n        for j in range(1, len2 + 1):\n            cost = 0 if s1[i - 1] == s2[j - 1] else 1\n            d[i][j] = min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + cost)\n            if i > 1 and j > 1 and s1[i - 1] == s2[j - 2] and s1[i - 2] == s2[j - 1]:\n                d[i][j] = min(d[i][j], d[i - 2][j - 2] + cost)\n    return d[len1][len2]",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:48.614021+00:00",
+    "description": "Calculate Damerau-Levenshtein distance (allows transposition).",
+    "intent": "Calculate Damerau-Levenshtein distance (allows transposition).",
+    "language": "python",
+    "name": "damerau_levenshtein_distance",
+    "source_file": "neurop_forge/sources/string_distance.py",
+    "source_line_end": 100,
+    "source_line_start": 86,
+    "tags": [
+      "arithmetic",
+      "damerau",
+      "distance",
+      "levenshtein",
+      "s1",
+      "s2"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.614043+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(s1) == string",
+      "s1 is not None",
+      "type(s2) == string",
+      "s2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(s1) == string",
+      "s1 is not None",
+      "type(s2) == string",
+      "s2 is not None"
+    ]
+  }
+}

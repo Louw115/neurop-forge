@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b7c231498a927eaa7053a190758c3b467d83b814c1610d49ec83004f8e681cab",
+    "semantic_fingerprint": "6f95f812f981ebef1715429f7283195826ef05754ff2ed7292146a1ef632145f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate sort parameter.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter sort",
+        "name": "sort",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter allowed_fields",
+        "name": "allowed_fields",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of validate_sort_param",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_sort_param(sort: str, allowed_fields: list) -> dict:\n    \"\"\"Validate sort parameter.\"\"\"\n    if not sort:\n        return {\"valid\": True, \"error\": None}\n    field = sort.lstrip('-').lstrip('+')\n    if field not in allowed_fields:\n        return {\"valid\": False, \"error\": f\"Cannot sort by {field}. Allowed: {', '.join(allowed_fields)}\"}\n    return {\"valid\": True, \"error\": None}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:45.879368+00:00",
+    "description": "Validate sort parameter.",
+    "intent": "Validate sort parameter.",
+    "language": "python",
+    "name": "validate_sort_param",
+    "source_file": "neurop_forge/sources/request_validation.py",
+    "source_line_end": 250,
+    "source_line_start": 243,
+    "tags": [
+      "allowed_fields",
+      "param",
+      "sort",
+      "validate",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.879388+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(sort) == string",
+      "sort is not None",
+      "type(allowed_fields) == list",
+      "allowed_fields is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(sort) == string",
+      "sort is not None",
+      "type(allowed_fields) == list",
+      "allowed_fields is not None"
+    ]
+  }
+}

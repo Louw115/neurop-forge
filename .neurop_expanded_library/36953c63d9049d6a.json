@@ -1,0 +1,131 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "36953c63d9049d6a77db75d51fc9195924897a1ed50510a96879914230057095",
+    "semantic_fingerprint": "91377af40c525a9416d6570f3a79ad5d27b2328fec33e285b18a8b27fd9e242a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get the file extension for a MIME type.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter mime_type",
+        "name": "mime_type",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_extension_for_mime",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_extension_for_mime(mime_type: str) -> str:\n    \"\"\"Get the file extension for a MIME type.\"\"\"\n    mime_type = mime_type.lower().split(';')[0].strip()\n    extensions = {\n        \"text/html\": \"html\",\n        \"text/css\": \"css\",\n        \"application/javascript\": \"js\",\n        \"application/json\": \"json\",\n        \"application/xml\": \"xml\",\n        \"text/plain\": \"txt\",\n        \"text/csv\": \"csv\",\n        \"text/markdown\": \"md\",\n        \"application/pdf\": \"pdf\",\n        \"application/zip\": \"zip\",\n        \"application/gzip\": \"gz\",\n        \"image/png\": \"png\",\n        \"image/jpeg\": \"jpg\",\n        \"image/gif\": \"gif\",\n        \"image/webp\": \"webp\",\n        \"image/svg+xml\": \"svg\",\n        \"audio/mpeg\": \"mp3\",\n        \"audio/wav\": \"wav\",\n        \"video/mp4\": \"mp4\",\n        \"video/webm\": \"webm\",\n        \"font/woff\": \"woff\",\n        \"font/woff2\": \"woff2\",\n    }\n    return extensions.get(mime_type, \"\")",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:43.273179+00:00",
+    "description": "Get the file extension for a MIME type.",
+    "intent": "Get the file extension for a MIME type.",
+    "language": "python",
+    "name": "get_extension_for_mime",
+    "source_file": "neurop_forge/sources/http_utilities.py",
+    "source_line_end": 179,
+    "source_line_start": 152,
+    "tags": [
+      "extension",
+      "filtering",
+      "for",
+      "get",
+      "mime",
+      "mime_type"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.273198+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(mime_type) == string",
+      "mime_type is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(mime_type) == string",
+      "mime_type is not None"
+    ]
+  }
+}

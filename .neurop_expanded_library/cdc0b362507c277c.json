@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "cdc0b362507c277cf2e49b11cd141c3a600044354c1e7146b78ec84b7350fd2e",
+    "semantic_fingerprint": "055d7b31a5b0270b011a0dc12480d21971f53ad23f361091cd3f3165d2ce53a6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get list of pending migrations that haven't been applied.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter all_migrations",
+        "name": "all_migrations",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter applied_migrations",
+        "name": "applied_migrations",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of get_pending_migrations",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_pending_migrations(all_migrations: list, applied_migrations: list) -> list:\n    \"\"\"Get list of pending migrations that haven't been applied.\"\"\"\n    applied_set = set(applied_migrations)\n    pending = [m for m in all_migrations if m not in applied_set]\n    return sort_migration_ids(pending)",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:44.986268+00:00",
+    "description": "Get list of pending migrations that haven't been applied.",
+    "intent": "Get list of pending migrations that haven't been applied.",
+    "language": "python",
+    "name": "get_pending_migrations",
+    "source_file": "neurop_forge/sources/migration_helpers.py",
+    "source_line_end": 48,
+    "source_line_start": 44,
+    "tags": [
+      "all_migrations",
+      "applied_migrations",
+      "filtering",
+      "get",
+      "migrations",
+      "pending"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.986286+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(all_migrations) == list",
+      "all_migrations is not None",
+      "type(applied_migrations) == list",
+      "applied_migrations is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(all_migrations) == list",
+      "all_migrations is not None",
+      "type(applied_migrations) == list",
+      "applied_migrations is not None"
+    ]
+  }
+}

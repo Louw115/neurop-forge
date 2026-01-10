@@ -1,0 +1,155 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c5f5660b5c4a5e7e59ad3c550b82a6368f32b9727fbf35d9da2e2cc484c172d8",
+    "semantic_fingerprint": "1b92d4980669c0375ed636b3121203728c279a15a4492e40c7bde8a650974e2c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate water level after adding.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter current_level",
+        "name": "current_level",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter amount",
+        "name": "amount",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter bucket_size",
+        "name": "bucket_size",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of leaky_bucket_after_add",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def leaky_bucket_after_add(current_level: float, amount: float, bucket_size: int) -> float:\n    \"\"\"Calculate water level after adding.\"\"\"\n    return min(current_level + amount, bucket_size)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:43.915766+00:00",
+    "description": "Calculate water level after adding.",
+    "intent": "Calculate water level after adding.",
+    "language": "python",
+    "name": "leaky_bucket_after_add",
+    "source_file": "neurop_forge/sources/rate_limiting.py",
+    "source_line_end": 91,
+    "source_line_start": 89,
+    "tags": [
+      "add",
+      "after",
+      "amount",
+      "arithmetic",
+      "bucket",
+      "bucket_size",
+      "current_level",
+      "leaky"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.915785+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(current_level) == float",
+      "current_level is not None",
+      "type(amount) == float",
+      "amount is not None",
+      "type(bucket_size) == integer",
+      "bucket_size is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(current_level) == float",
+      "current_level is not None",
+      "type(amount) == float",
+      "amount is not None",
+      "type(bucket_size) == integer",
+      "bucket_size is not None"
+    ]
+  }
+}

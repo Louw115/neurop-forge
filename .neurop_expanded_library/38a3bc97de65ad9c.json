@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "38a3bc97de65ad9c48362e92f2d5914471e923be8c00aaacbb8bfc87ad8d0bcf",
+    "semantic_fingerprint": "3eead6a78e3d2c0ac9a0f1b9fffb8e3e2838b32e2bbb1849f61044fed6b085f8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add a child to a parent node.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter parent",
+        "name": "parent",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter child",
+        "name": "child",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of add_child",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def add_child(parent: dict, child: dict) -> dict:\n    \"\"\"Add a child to a parent node.\"\"\"\n    result = dict(parent)\n    result[\"children\"] = list(parent.get(\"children\", []))\n    result[\"children\"].append(child)\n    return result",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:48.232049+00:00",
+    "description": "Add a child to a parent node.",
+    "intent": "Add a child to a parent node.",
+    "language": "python",
+    "name": "add_child",
+    "source_file": "neurop_forge/sources/tree_utilities.py",
+    "source_line_end": 36,
+    "source_line_start": 31,
+    "tags": [
+      "add",
+      "arithmetic",
+      "child",
+      "parent"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.232071+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(parent) == dict",
+      "parent is not None",
+      "type(child) == dict",
+      "child is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(parent) == dict",
+      "parent is not None",
+      "type(child) == dict",
+      "child is not None"
+    ]
+  }
+}

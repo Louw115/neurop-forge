@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a9dd8eb67493bb1c1c155fe0a3b069db056e922021ebb3db170587b81446edc8",
+    "semantic_fingerprint": "7a5d75552c06232304d81df52a2221624bd3c17d8d155017700c490d548f659c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse a DSN (Data Source Name) string.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter dsn",
+        "name": "dsn",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of parse_dsn",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_dsn(dsn: str) -> dict:\n    \"\"\"Parse a DSN (Data Source Name) string.\"\"\"\n    result = parse_connection_string(dsn)\n    if 'auth' in result and ':' in result['auth']:\n        user, password = result['auth'].split(':', 1)\n        result['user'] = user\n        result['password'] = password\n    if 'path' in result and '?' in result['path']:\n        path, query = result['path'].split('?', 1)\n        result['path'] = path\n        result['database'] = path\n        params = {}\n        for pair in query.split('&'):\n            if '=' in pair:\n                k, v = pair.split('=', 1)\n                params[k] = v\n        result['params'] = params\n    return result",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T02:18:44.125127+00:00",
+    "description": "Parse a DSN (Data Source Name) string.",
+    "intent": "Parse a DSN (Data Source Name) string.",
+    "language": "python",
+    "name": "parse_dsn",
+    "source_file": "neurop_forge/sources/configuration_utilities.py",
+    "source_line_end": 209,
+    "source_line_start": 192,
+    "tags": [
+      "dsn",
+      "parse",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.125157+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(dsn) == string",
+      "dsn is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(dsn) == string",
+      "dsn is not None"
+    ]
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": false,
+    "io_operations": [
+      "random"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "non_deterministic",
+    "side_effects": [
+      "random"
+    ],
+    "thread_safe": false
+  },
+  "failure_modes": {
+    "can_fail": true,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "raises_exception",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c3eec7bd0156d7a6bcac365e287c93e0ba463e2a13d74d7b6b1b06c4e51808e3",
+    "semantic_fingerprint": "a83c1508970bf08ea46b43046f485d8b93bbd77a8e0f79bb93e7c829aa8161af",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate random hex string.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter length",
+        "name": "length",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seed",
+        "name": "seed",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_random_hex",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_random_hex(length: int, seed: int) -> str:\n    \"\"\"Generate random hex string.\"\"\"\n    charset = \"0123456789abcdef\"\n    return generate_random_string(length, charset, seed)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:48.776747+00:00",
+    "description": "Generate random hex string.",
+    "intent": "Generate random hex string.",
+    "language": "python",
+    "name": "generate_random_hex",
+    "source_file": "neurop_forge/sources/sampling_utilities.py",
+    "source_line_end": 178,
+    "source_line_start": 175,
+    "tags": [
+      "generate",
+      "hex",
+      "length",
+      "random",
+      "seed",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 0.5,
+    "last_verified": "2026-01-10T02:18:48.776767+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.265,
+    "risk_factors": [
+      "impure_function",
+      "non_deterministic",
+      "side_effects: random"
+    ],
+    "risk_level": "medium",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(length) == integer",
+      "length is not None",
+      "type(seed) == integer",
+      "seed is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(length) == integer",
+      "length is not None",
+      "type(seed) == integer",
+      "seed is not None"
+    ]
+  }
+}

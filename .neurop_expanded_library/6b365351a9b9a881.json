@@ -1,0 +1,135 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "6b365351a9b9a881ab091b672e4f78961bc03417c0c973139ffe246fdbff4425",
+    "semantic_fingerprint": "9d2b0232f228c65cc36bfe4a05d14433f2399fbee49fa69e89e17840a996a7f9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find range of indices where target occurs.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter target",
+        "name": "target",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Return value of find_range",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def find_range(items: list, target) -> tuple:\n    \"\"\"Find range of indices where target occurs.\"\"\"\n    left = binary_search_leftmost(items, target)\n    if left == -1:\n        return (-1, -1)\n    right = binary_search_rightmost(items, target)\n    return (left, right)",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:49.421699+00:00",
+    "description": "Find range of indices where target occurs.",
+    "intent": "Find range of indices where target occurs.",
+    "language": "python",
+    "name": "find_range",
+    "source_file": "neurop_forge/sources/search_algorithms.py",
+    "source_line_end": 256,
+    "source_line_start": 250,
+    "tags": [
+      "filtering",
+      "find",
+      "items",
+      "range",
+      "target"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.421727+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "target is not None"
+    ],
+    "invariants": [],
+    "output_validators": [],
+    "postconditions": [],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "target is not None"
+    ]
+  }
+}

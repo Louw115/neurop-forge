@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "915e99e849a556de715d82bb7f4a93d1bf08973aba3c7d135e9f925394e2d24c",
+    "semantic_fingerprint": "d6c310aa7d82a53bce99a841a21e1fba7160ca7899c3210546d7faf79c31edc4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate Flesch reading ease score.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of flesch_reading_ease",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def flesch_reading_ease(text: str) -> float:\n    \"\"\"Calculate Flesch reading ease score.\"\"\"\n    words = word_count(text)\n    sentences = sentence_count(text)\n    syllables = sum(count_syllables(word) for word in text.split())\n    if sentences == 0 or words == 0:\n        return 0\n    return 206.835 - 1.015 * (words / sentences) - 84.6 * (syllables / words)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:50.985958+00:00",
+    "description": "Calculate Flesch reading ease score.",
+    "intent": "Calculate Flesch reading ease score.",
+    "language": "python",
+    "name": "flesch_reading_ease",
+    "source_file": "neurop_forge/sources/document_utilities.py",
+    "source_line_end": 71,
+    "source_line_start": 64,
+    "tags": [
+      "arithmetic",
+      "ease",
+      "flesch",
+      "reading",
+      "text"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:50.985978+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None"
+    ]
+  }
+}

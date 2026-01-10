@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "92ef68c5511dddca696765dbb8dac2fd16071aa84adadb1b69d7e5d0d2fa35c7",
+    "semantic_fingerprint": "7f6d3a2dbc24fd2ccd661efeabb59f8b97a380edbbc27c6bb5cb22b31fdc56ea",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate value is one of allowed enum values.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter allowed_values",
+        "name": "allowed_values",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter field_name",
+        "name": "field_name",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of validate_enum",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_enum(value: str, allowed_values: list, field_name: str) -> dict:\n    \"\"\"Validate value is one of allowed enum values.\"\"\"\n    if value not in allowed_values:\n        return {\n            \"valid\": False,\n            \"error\": f\"{field_name} must be one of: {', '.join(allowed_values)}\"\n        }\n    return {\"valid\": True, \"error\": None}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:45.840460+00:00",
+    "description": "Validate value is one of allowed enum values.",
+    "intent": "Validate value is one of allowed enum values.",
+    "language": "python",
+    "name": "validate_enum",
+    "source_file": "neurop_forge/sources/request_validation.py",
+    "source_line_end": 69,
+    "source_line_start": 62,
+    "tags": [
+      "allowed_values",
+      "enum",
+      "field_name",
+      "validate",
+      "validation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.840489+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == string",
+      "value is not None",
+      "type(allowed_values) == list",
+      "allowed_values is not None",
+      "type(field_name) == string",
+      "field_name is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(value) == string",
+      "value is not None",
+      "type(allowed_values) == list",
+      "allowed_values is not None",
+      "type(field_name) == string",
+      "field_name is not None"
+    ]
+  }
+}

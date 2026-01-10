@@ -1,0 +1,167 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8d7b4bf761031628ab7a1d412485d6c93f66cd440292cedd89294bf05d596b2e",
+    "semantic_fingerprint": "5ed8256416ef0491f93e121cffd6a62b210ec7768b1170281eb4aaeb05eb7ea5",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if a feature is enabled for a specific user based on rollout percentage.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter flags",
+        "name": "flags",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter feature_name",
+        "name": "feature_name",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter user_id",
+        "name": "user_id",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter rollout_percent",
+        "name": "rollout_percent",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_feature_enabled_for_user",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_feature_enabled_for_user(flags: dict, feature_name: str, user_id: str, rollout_percent: int) -> bool:\n    \"\"\"Check if a feature is enabled for a specific user based on rollout percentage.\"\"\"\n    if not flags.get(feature_name, False):\n        return False\n    import hashlib\n    hash_bytes = hashlib.sha256(f\"{feature_name}:{user_id}\".encode()).digest()\n    hash_value = int.from_bytes(hash_bytes[:4], 'big') % 100\n    return hash_value < rollout_percent",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:44.093906+00:00",
+    "description": "Check if a feature is enabled for a specific user based on rollout percentage.",
+    "intent": "Check if a feature is enabled for a specific user based on rollout percentage.",
+    "language": "python",
+    "name": "is_feature_enabled_for_user",
+    "source_file": "neurop_forge/sources/configuration_utilities.py",
+    "source_line_end": 83,
+    "source_line_start": 76,
+    "tags": [
+      "enabled",
+      "feature",
+      "feature_name",
+      "flags",
+      "for",
+      "rollout_percent",
+      "user",
+      "user_id",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.093940+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(flags) == dict",
+      "flags is not None",
+      "type(feature_name) == string",
+      "feature_name is not None",
+      "type(user_id) == string",
+      "user_id is not None",
+      "type(rollout_percent) == integer",
+      "rollout_percent is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(flags) == dict",
+      "flags is not None",
+      "type(feature_name) == string",
+      "feature_name is not None",
+      "type(user_id) == string",
+      "user_id is not None",
+      "type(rollout_percent) == integer",
+      "rollout_percent is not None"
+    ]
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "23630ee21ea947ef959e972580e1ed5911811237fab1dd7f366da30033b9683d",
+    "semantic_fingerprint": "41bef9d98288bfe551a96a3eb76ee7d73b4aacaa9c4c437e5e945bdcf76ef8f1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Multiply two matrices.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter a",
+        "name": "a",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter b",
+        "name": "b",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of matrix_multiply",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def matrix_multiply(a: list, b: list) -> list:\n    \"\"\"Multiply two matrices.\"\"\"\n    if not a or not b:\n        return []\n    if len(a[0]) != len(b):\n        return []\n    rows_a, cols_a = len(a), len(a[0])\n    cols_b = len(b[0])\n    result = [[0 for _ in range(cols_b)] for _ in range(rows_a)]\n    for i in range(rows_a):\n        for j in range(cols_b):\n            for k in range(cols_a):\n                result[i][j] += a[i][k] * b[k][j]\n    return result",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:43.167069+00:00",
+    "description": "Multiply two matrices.",
+    "intent": "Multiply two matrices.",
+    "language": "python",
+    "name": "matrix_multiply",
+    "source_file": "neurop_forge/sources/array_operations.py",
+    "source_line_end": 135,
+    "source_line_start": 122,
+    "tags": [
+      "a",
+      "arithmetic",
+      "b",
+      "matrix",
+      "multiply"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.167091+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(a) == list",
+      "a is not None",
+      "type(b) == list",
+      "b is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(a) == list",
+      "a is not None",
+      "type(b) == list",
+      "b is not None"
+    ]
+  }
+}

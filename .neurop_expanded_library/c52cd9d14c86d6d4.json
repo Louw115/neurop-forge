@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c52cd9d14c86d6d410e1662ed245cc8ca2a66d59a2c256e8dad5561def33a360",
+    "semantic_fingerprint": "4829918460ed231c5ef14f0faa80e72429c0f90a9989cc827d602637e41139d1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Filter to only enabled flags.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter flags",
+        "name": "flags",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of filter_enabled_flags",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def filter_enabled_flags(flags: dict) -> dict:\n    \"\"\"Filter to only enabled flags.\"\"\"\n    return {k: v for k, v in flags.items() if v.get(\"enabled\")}",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:47.827355+00:00",
+    "description": "Filter to only enabled flags.",
+    "intent": "Filter to only enabled flags.",
+    "language": "python",
+    "name": "filter_enabled_flags",
+    "source_file": "neurop_forge/sources/feature_flags.py",
+    "source_line_end": 211,
+    "source_line_start": 209,
+    "tags": [
+      "enabled",
+      "filter",
+      "filtering",
+      "flags"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.827374+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(flags) == dict",
+      "flags is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(flags) == dict",
+      "flags is not None"
+    ]
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "195f8955afda0a4a10599ace3ba34fa16012d47cadce0657086d5f8f0674f54f",
+    "semantic_fingerprint": "a3af0e9e4f8632c5902783eaaa261dd2c18292cc9f5a27f192999bb02e52b3e6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate the centroid of a polygon.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter coordinates",
+        "name": "coordinates",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Return value of calculate_polygon_centroid",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_polygon_centroid(coordinates: list) -> tuple:\n    \"\"\"Calculate the centroid of a polygon.\"\"\"\n    if not coordinates:\n        return (0.0, 0.0)\n    lat_sum = sum(c[0] for c in coordinates)\n    lon_sum = sum(c[1] for c in coordinates)\n    n = len(coordinates)\n    return (lat_sum / n, lon_sum / n)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:43.769899+00:00",
+    "description": "Calculate the centroid of a polygon.",
+    "intent": "Calculate the centroid of a polygon.",
+    "language": "python",
+    "name": "calculate_polygon_centroid",
+    "source_file": "neurop_forge/sources/geolocation_utilities.py",
+    "source_line_end": 193,
+    "source_line_start": 186,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "centroid",
+      "coordinates",
+      "polygon"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.769922+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(coordinates) == list",
+      "coordinates is not None"
+    ],
+    "invariants": [],
+    "output_validators": [],
+    "postconditions": [],
+    "preconditions": [
+      "type(coordinates) == list",
+      "coordinates is not None"
+    ]
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic searching block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "15931919d6eac214809af3b9e6d0110cad47441455aa271b635c0fac37e8f8ed",
+    "semantic_fingerprint": "02be3cf835f7e9ed82baa848cb709e0881ea05f60129ae6cf6d8f328e90c8928",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if hash table should be resized.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter ht",
+        "name": "ht",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter threshold",
+        "name": "threshold",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of hash_table_should_resize",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def hash_table_should_resize(ht: dict, threshold: float) -> bool:\n    \"\"\"Check if hash table should be resized.\"\"\"\n    return hash_table_load_factor(ht) > threshold",
+  "metadata": {
+    "category": "searching",
+    "created_at": "2026-01-10T02:18:48.881253+00:00",
+    "description": "Check if hash table should be resized.",
+    "intent": "Check if hash table should be resized.",
+    "language": "python",
+    "name": "hash_table_should_resize",
+    "source_file": "neurop_forge/sources/hash_table.py",
+    "source_line_end": 178,
+    "source_line_start": 176,
+    "tags": [
+      "hash",
+      "ht",
+      "resize",
+      "searching",
+      "should",
+      "table",
+      "threshold"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.881276+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.37,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.8,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(ht) == dict",
+      "ht is not None",
+      "type(threshold) == float",
+      "threshold is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(ht) == dict",
+      "ht is not None",
+      "type(threshold) == float",
+      "threshold is not None"
+    ]
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "09ec9c4727c55d51048d71842e31fa5dc743bddd19aff2aa6111ce98168235db",
+    "semantic_fingerprint": "e2b23d7776c175df86ab84c60426a6acd40ba4fd53cdbbc029c1ded6228cb2f6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find two indices that sum to target.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter arr",
+        "name": "arr",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter target",
+        "name": "target",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of two_sum",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def two_sum(arr: list, target: int) -> list:\n    \"\"\"Find two indices that sum to target.\"\"\"\n    seen = {}\n    for i, num in enumerate(arr):\n        complement = target - num\n        if complement in seen:\n            return [seen[complement], i]\n        seen[num] = i\n    return []",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:50.300792+00:00",
+    "description": "Find two indices that sum to target.",
+    "intent": "Find two indices that sum to target.",
+    "language": "python",
+    "name": "two_sum",
+    "source_file": "neurop_forge/sources/array_algorithms.py",
+    "source_line_end": 261,
+    "source_line_start": 253,
+    "tags": [
+      "arr",
+      "list_operation",
+      "sum",
+      "target",
+      "two"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:50.300818+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(arr) == list",
+      "arr is not None",
+      "type(target) == integer",
+      "target is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(arr) == list",
+      "arr is not None",
+      "type(target) == integer",
+      "target is not None"
+    ]
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4f3b475b2ea8030a3ead77708237d6f55f8026be8df3e4bdb4fa861afebf6e18",
+    "semantic_fingerprint": "13fe9b5ab2d178837889026aec9ce25258df9b032f2b51beda6bdd7fdbac2354",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if current hour is within deployment window.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter start_hour",
+        "name": "start_hour",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter end_hour",
+        "name": "end_hour",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_hour",
+        "name": "current_hour",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of calculate_deployment_window",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_deployment_window(start_hour: int, end_hour: int, current_hour: int) -> bool:\n    \"\"\"Check if current hour is within deployment window.\"\"\"\n    if start_hour <= end_hour:\n        return start_hour <= current_hour < end_hour\n    return current_hour >= start_hour or current_hour < end_hour",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:46.458477+00:00",
+    "description": "Check if current hour is within deployment window.",
+    "intent": "Check if current hour is within deployment window.",
+    "language": "python",
+    "name": "calculate_deployment_window",
+    "source_file": "neurop_forge/sources/devops_utilities.py",
+    "source_line_end": 202,
+    "source_line_start": 198,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "current_hour",
+      "deployment",
+      "end_hour",
+      "start_hour",
+      "window"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.458496+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(start_hour) == integer",
+      "start_hour is not None",
+      "type(end_hour) == integer",
+      "end_hour is not None",
+      "type(current_hour) == integer",
+      "current_hour is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(start_hour) == integer",
+      "start_hour is not None",
+      "type(end_hour) == integer",
+      "end_hour is not None",
+      "type(current_hour) == integer",
+      "current_hour is not None"
+    ]
+  }
+}

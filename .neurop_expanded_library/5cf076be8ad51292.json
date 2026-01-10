@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5cf076be8ad5129283733ffe8cda5c5bf58a2d813bdf9314a7df2248b1da365b",
+    "semantic_fingerprint": "759edd396a8b51dd9910e029eb975f1cdaa29edace3610b539a58b602dd2ad83",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Truncate to max words.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_words",
+        "name": "max_words",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter suffix",
+        "name": "suffix",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of truncate_words",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def truncate_words(text: str, max_words: int, suffix: str) -> str:\n    \"\"\"Truncate to max words.\"\"\"\n    words = text.split()\n    if len(words) <= max_words:\n        return text\n    return \" \".join(words[:max_words]) + suffix",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:50.008384+00:00",
+    "description": "Truncate to max words.",
+    "intent": "Truncate to max words.",
+    "language": "python",
+    "name": "truncate_words",
+    "source_file": "neurop_forge/sources/string_patterns.py",
+    "source_line_end": 123,
+    "source_line_start": 118,
+    "tags": [
+      "max_words",
+      "string_manipulation",
+      "suffix",
+      "text",
+      "truncate",
+      "words"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:50.008408+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None",
+      "type(max_words) == integer",
+      "max_words is not None",
+      "type(suffix) == string",
+      "suffix is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None",
+      "type(max_words) == integer",
+      "max_words is not None",
+      "type(suffix) == string",
+      "suffix is not None"
+    ]
+  }
+}

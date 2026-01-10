@@ -1,0 +1,165 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c0fa9249ed5917d41c26f15107a28510a6da59f49019d42f58ae9299d797829d",
+    "semantic_fingerprint": "06fd0938c901b7da93a4b1c2f1c3a1238985b74949bc6afc28b4b5d092f66fe0",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Create notification object.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter type_name",
+        "name": "type_name",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter title",
+        "name": "title",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter message",
+        "name": "message",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter timestamp",
+        "name": "timestamp",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of create_notification",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def create_notification(type_name: str, title: str, message: str, timestamp: int) -> dict:\n    \"\"\"Create notification object.\"\"\"\n    return {\n        \"id\": generate_notification_id(type_name, timestamp),\n        \"type\": type_name,\n        \"title\": title,\n        \"message\": message,\n        \"timestamp\": timestamp,\n        \"read\": False,\n        \"dismissed\": False\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:52.841743+00:00",
+    "description": "Create notification object.",
+    "intent": "Create notification object.",
+    "language": "python",
+    "name": "create_notification",
+    "source_file": "neurop_forge/sources/notification_helpers.py",
+    "source_line_end": 25,
+    "source_line_start": 15,
+    "tags": [
+      "create",
+      "dict_operation",
+      "message",
+      "notification",
+      "timestamp",
+      "title",
+      "type_name"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.841765+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(type_name) == string",
+      "type_name is not None",
+      "type(title) == string",
+      "title is not None",
+      "type(message) == string",
+      "message is not None",
+      "type(timestamp) == integer",
+      "timestamp is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(type_name) == string",
+      "type_name is not None",
+      "type(title) == string",
+      "title is not None",
+      "type(message) == string",
+      "message is not None",
+      "type(timestamp) == integer",
+      "timestamp is not None"
+    ]
+  }
+}

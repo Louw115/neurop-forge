@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a0494f7a32d763f98bf5704c3fe6f9b5686877b6308e67fe5535b7ee0e6caf72",
+    "semantic_fingerprint": "2ba05a0d37549cc2e365db0ebe9551c1f0955289473879bac182ba8f92c27a07",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Create signed session token.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter session_id",
+        "name": "session_id",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter secret",
+        "name": "secret",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of create_session_token",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def create_session_token(session_id: str, secret: str) -> str:\n    \"\"\"Create signed session token.\"\"\"\n    data = f\"{session_id}{secret}\"\n    signature = hashlib.sha256(data.encode()).hexdigest()[:16]\n    return f\"{session_id}.{signature}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:52.667132+00:00",
+    "description": "Create signed session token.",
+    "intent": "Create signed session token.",
+    "language": "python",
+    "name": "create_session_token",
+    "source_file": "neurop_forge/sources/session_utilities.py",
+    "source_line_end": 104,
+    "source_line_start": 100,
+    "tags": [
+      "create",
+      "secret",
+      "session",
+      "session_id",
+      "string_manipulation",
+      "token"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.667161+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(session_id) == string",
+      "session_id is not None",
+      "type(secret) == string",
+      "secret is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(session_id) == string",
+      "session_id is not None",
+      "type(secret) == string",
+      "secret is not None"
+    ]
+  }
+}

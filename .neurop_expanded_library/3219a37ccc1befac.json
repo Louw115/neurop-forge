@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3219a37ccc1befac58203758b848859f448021c1f29538d75a12dd0e4cbd9d1c",
+    "semantic_fingerprint": "87e47468fa83bf1740749cfcf353f5901eb595858b85df2a4b6fdd102eee1ce5",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Partition jobs by type for parallel processing.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter jobs",
+        "name": "jobs",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of partition_jobs_by_type",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def partition_jobs_by_type(jobs: list) -> dict:\n    \"\"\"Partition jobs by type for parallel processing.\"\"\"\n    result = {}\n    for job in jobs:\n        job_type = job.get(\"type\", \"default\")\n        if job_type not in result:\n            result[job_type] = []\n        result[job_type].append(job)\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:46.118276+00:00",
+    "description": "Partition jobs by type for parallel processing.",
+    "intent": "Partition jobs by type for parallel processing.",
+    "language": "python",
+    "name": "partition_jobs_by_type",
+    "source_file": "neurop_forge/sources/job_scheduling.py",
+    "source_line_end": 275,
+    "source_line_start": 267,
+    "tags": [
+      "jobs",
+      "list_operation",
+      "partition",
+      "type"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.118293+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(jobs) == list",
+      "jobs is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(jobs) == list",
+      "jobs is not None"
+    ]
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "284d3d2ee0c0ade95516d8eccad5828cc1f5bcc8623bab8848505d2a2aa662e4",
+    "semantic_fingerprint": "57e95df46a696c445ef9f19646e6d2c39158e86f2da4be12758d886f5521aad3",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find first position where target could be inserted.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter target",
+        "name": "target",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of lower_bound",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def lower_bound(items: list, target) -> int:\n    \"\"\"Find first position where target could be inserted.\"\"\"\n    left, right = 0, len(items)\n    while left < right:\n        mid = (left + right) // 2\n        if items[mid] < target:\n            left = mid + 1\n        else:\n            right = mid\n    return left",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:49.383270+00:00",
+    "description": "Find first position where target could be inserted.",
+    "intent": "Find first position where target could be inserted.",
+    "language": "python",
+    "name": "lower_bound",
+    "source_file": "neurop_forge/sources/search_algorithms.py",
+    "source_line_end": 67,
+    "source_line_start": 58,
+    "tags": [
+      "bound",
+      "items",
+      "lower",
+      "string_manipulation",
+      "target"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.383298+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "target is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "target is not None"
+    ]
+  }
+}

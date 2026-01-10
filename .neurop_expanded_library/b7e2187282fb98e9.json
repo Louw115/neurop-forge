@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b7e2187282fb98e9e0f0f7f5fc383d28cd3d1079cbd2ade72f9b98cc48b90fa6",
+    "semantic_fingerprint": "df8a494ab17274ecb51dca807203f4d9b2b118ac6ed7621c331cca54b36b7506",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if a string is a valid phone number format.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter phone",
+        "name": "phone",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_valid_phone",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_valid_phone(phone: str) -> bool:\n    \"\"\"Check if a string is a valid phone number format.\"\"\"\n    if not phone:\n        return False\n    cleaned = re.sub(r'[\\s\\-\\.\\(\\)]', '', phone)\n    pattern = r'^\\+?[0-9]{10,15}$'\n    return bool(re.match(pattern, cleaned))",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:42.586478+00:00",
+    "description": "Check if a string is a valid phone number format.",
+    "intent": "Check if a string is a valid phone number format.",
+    "language": "python",
+    "name": "is_valid_phone",
+    "source_file": "neurop_forge/sources/validation_functions.py",
+    "source_line_end": 136,
+    "source_line_start": 130,
+    "tags": [
+      "phone",
+      "valid",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:42.586494+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(phone) == string",
+      "phone is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(phone) == string",
+      "phone is not None"
+    ]
+  }
+}

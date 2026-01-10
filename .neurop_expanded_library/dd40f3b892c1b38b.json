@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "dd40f3b892c1b38b7f0c35fec3165f2516f796775297b4176c216f442d6f1508",
+    "semantic_fingerprint": "750bb838f540636bc914c17f93225c655c9ef313e968bcccd26a12a5784f1dd6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate a Cache-Control header value.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_age",
+        "name": "max_age",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter directives",
+        "name": "directives",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_cache_control_header",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_cache_control_header(max_age: int, directives: list) -> str:\n    \"\"\"Generate a Cache-Control header value.\"\"\"\n    parts = [f\"max-age={max_age}\"] + directives\n    return ', '.join(parts)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:43.870800+00:00",
+    "description": "Generate a Cache-Control header value.",
+    "intent": "Generate a Cache-Control header value.",
+    "language": "python",
+    "name": "generate_cache_control_header",
+    "source_file": "neurop_forge/sources/caching_utilities.py",
+    "source_line_end": 249,
+    "source_line_start": 246,
+    "tags": [
+      "cache",
+      "control",
+      "directives",
+      "generate",
+      "header",
+      "max_age",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.870818+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(max_age) == integer",
+      "max_age is not None",
+      "type(directives) == list",
+      "directives is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(max_age) == integer",
+      "max_age is not None",
+      "type(directives) == list",
+      "directives is not None"
+    ]
+  }
+}

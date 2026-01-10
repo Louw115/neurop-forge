@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7c0c7ca43e4ae34ad2e226371bd8e1581ba069d028e04b4edfaf11c73bc7b869",
+    "semantic_fingerprint": "110bcac54c85acbe154352a6d1d5bc362e92c5fe485eb6b707472267f62e8c12",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Assert collection is not empty.",
+    "inputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter collection",
+        "name": "collection",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of assert_not_empty",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def assert_not_empty(collection) -> dict:\n    \"\"\"Assert collection is not empty.\"\"\"\n    passed = len(collection) > 0\n    return {\n        \"passed\": passed,\n        \"actual_length\": len(collection),\n        \"message\": \"\" if passed else \"Expected not empty\"\n    }",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:52.090357+00:00",
+    "description": "Assert collection is not empty.",
+    "intent": "Assert collection is not empty.",
+    "language": "python",
+    "name": "assert_not_empty",
+    "source_file": "neurop_forge/sources/assertion_utilities.py",
+    "source_line_end": 180,
+    "source_line_start": 173,
+    "tags": [
+      "assert",
+      "collection",
+      "empty",
+      "not",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.090376+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "collection is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "collection is not None"
+    ]
+  }
+}

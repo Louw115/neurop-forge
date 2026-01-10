@@ -1,0 +1,165 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9e067601d75e7e7d494766d587b0d33dc018aca1fb9750718e99a64ac915eaf1",
+    "semantic_fingerprint": "a6786558fe0ab274206496738111e20b90b766431efc00a3faf6b60859f4b5d6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add an approval to a step.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter step",
+        "name": "step",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter approver",
+        "name": "approver",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter timestamp",
+        "name": "timestamp",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter comment",
+        "name": "comment",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of add_approval",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def add_approval(step: dict, approver: str, timestamp: str, comment: str) -> dict:\n    \"\"\"Add an approval to a step.\"\"\"\n    result = dict(step)\n    result[\"approvals\"] = list(step.get(\"approvals\", []))\n    result[\"approvals\"].append({\"approver\": approver, \"timestamp\": timestamp, \"comment\": comment})\n    return result",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:47.163160+00:00",
+    "description": "Add an approval to a step.",
+    "intent": "Add an approval to a step.",
+    "language": "python",
+    "name": "add_approval",
+    "source_file": "neurop_forge/sources/workflow_patterns.py",
+    "source_line_end": 173,
+    "source_line_start": 168,
+    "tags": [
+      "add",
+      "approval",
+      "approver",
+      "arithmetic",
+      "comment",
+      "step",
+      "timestamp"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.163187+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(step) == dict",
+      "step is not None",
+      "type(approver) == string",
+      "approver is not None",
+      "type(timestamp) == string",
+      "timestamp is not None",
+      "type(comment) == string",
+      "comment is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(step) == dict",
+      "step is not None",
+      "type(approver) == string",
+      "approver is not None",
+      "type(timestamp) == string",
+      "timestamp is not None",
+      "type(comment) == string",
+      "comment is not None"
+    ]
+  }
+}

@@ -1,0 +1,152 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ff5e9d504dc04d8265ef132a8cf0ab0f011809a5f13a500c0024d96ea40eaf75",
+    "semantic_fingerprint": "808b86d562d002ef2d28547ba2cb898c10a87d53dcd9d6716f022438f0e48a44",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format currency according to locale conventions.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter amount",
+        "name": "amount",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter currency",
+        "name": "currency",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter locale",
+        "name": "locale",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_currency_locale",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_currency_locale(amount: float, currency: str, locale: str) -> str:\n    \"\"\"Format currency according to locale conventions.\"\"\"\n    symbols = {\"USD\": \"$\", \"EUR\": \"\u20ac\", \"GBP\": \"\u00a3\", \"JPY\": \"\u00a5\", \"CNY\": \"\u00a5\"}\n    symbol = symbols.get(currency, currency)\n    formatted = format_number_locale(amount, locale, 2)\n    symbol_before = locale.startswith((\"en\", \"zh\", \"ja\"))\n    if symbol_before:\n        return f\"{symbol}{formatted}\"\n    return f\"{formatted} {symbol}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:47.095466+00:00",
+    "description": "Format currency according to locale conventions.",
+    "intent": "Format currency according to locale conventions.",
+    "language": "python",
+    "name": "format_currency_locale",
+    "source_file": "neurop_forge/sources/i18n_patterns.py",
+    "source_line_end": 62,
+    "source_line_start": 54,
+    "tags": [
+      "amount",
+      "currency",
+      "format",
+      "locale",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.095488+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(amount) == float",
+      "amount is not None",
+      "type(currency) == string",
+      "currency is not None",
+      "type(locale) == string",
+      "locale is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(amount) == float",
+      "amount is not None",
+      "type(currency) == string",
+      "currency is not None",
+      "type(locale) == string",
+      "locale is not None"
+    ]
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1c02dad63639ac579216e990c6e403286b1f0cca5f90f21810693691d30001d3",
+    "semantic_fingerprint": "1e735ca5b6517377970ae64929fd51b79b979a419cf8eeec294d33d2c58f60d6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Round amount down to nearest cent.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter amount",
+        "name": "amount",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of round_down_to_cents",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def round_down_to_cents(amount: float) -> float:\n    \"\"\"Round amount down to nearest cent.\"\"\"\n    import math\n    return math.floor(amount * 100) / 100",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:44.326190+00:00",
+    "description": "Round amount down to nearest cent.",
+    "intent": "Round amount down to nearest cent.",
+    "language": "python",
+    "name": "round_down_to_cents",
+    "source_file": "neurop_forge/sources/money_utilities.py",
+    "source_line_end": 63,
+    "source_line_start": 60,
+    "tags": [
+      "amount",
+      "arithmetic",
+      "cents",
+      "down",
+      "round"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.326207+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(amount) == float",
+      "amount is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(amount) == float",
+      "amount is not None"
+    ]
+  }
+}

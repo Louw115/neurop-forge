@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "46f124d58329cbb1470bf60e59f03e2fc46ee541ba98bc77eb9e82f4e33b664c",
+    "semantic_fingerprint": "34bdf7ad0823ee17c0f08c5e09b682fdb41313b885a863e884fb04a0ba4486d7",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate request rate per minute.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter requests",
+        "name": "requests",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter time_window_seconds",
+        "name": "time_window_seconds",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_rate_per_minute",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_rate_per_minute(requests: int, time_window_seconds: int) -> float:\n    \"\"\"Calculate request rate per minute.\"\"\"\n    return (requests / time_window_seconds) * 60 if time_window_seconds > 0 else 0.0",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:43.919648+00:00",
+    "description": "Calculate request rate per minute.",
+    "intent": "Calculate request rate per minute.",
+    "language": "python",
+    "name": "calculate_rate_per_minute",
+    "source_file": "neurop_forge/sources/rate_limiting.py",
+    "source_line_end": 106,
+    "source_line_start": 104,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "minute",
+      "per",
+      "rate",
+      "requests",
+      "time_window_seconds"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.919666+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(requests) == integer",
+      "requests is not None",
+      "type(time_window_seconds) == integer",
+      "time_window_seconds is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(requests) == integer",
+      "requests is not None",
+      "type(time_window_seconds) == integer",
+      "time_window_seconds is not None"
+    ]
+  }
+}

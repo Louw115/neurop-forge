@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "500e279cb42e456c8ea7cb5c7779883e666a1335f9cb8b65338593a92dfd91a7",
+    "semantic_fingerprint": "c2a2032cc4dd0d3fef6f52e43c8eea5bfedfd13ff1ab27f6047dbd2069be8561",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate pagination parameters.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter page",
+        "name": "page",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter per_page",
+        "name": "per_page",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_per_page",
+        "name": "max_per_page",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of validate_pagination_params",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_pagination_params(page: int, per_page: int, max_per_page: int) -> dict:\n    \"\"\"Validate pagination parameters.\"\"\"\n    errors = []\n    if page < 1:\n        errors.append(\"page must be at least 1\")\n    if per_page < 1:\n        errors.append(\"per_page must be at least 1\")\n    if per_page > max_per_page:\n        errors.append(f\"per_page must be at most {max_per_page}\")\n    return {\"valid\": len(errors) == 0, \"errors\": errors}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:45.877123+00:00",
+    "description": "Validate pagination parameters.",
+    "intent": "Validate pagination parameters.",
+    "language": "python",
+    "name": "validate_pagination_params",
+    "source_file": "neurop_forge/sources/request_validation.py",
+    "source_line_end": 240,
+    "source_line_start": 231,
+    "tags": [
+      "max_per_page",
+      "page",
+      "pagination",
+      "params",
+      "per_page",
+      "validate",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.877151+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(page) == integer",
+      "page is not None",
+      "type(per_page) == integer",
+      "per_page is not None",
+      "type(max_per_page) == integer",
+      "max_per_page is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(page) == integer",
+      "page is not None",
+      "type(per_page) == integer",
+      "per_page is not None",
+      "type(max_per_page) == integer",
+      "max_per_page is not None"
+    ]
+  }
+}

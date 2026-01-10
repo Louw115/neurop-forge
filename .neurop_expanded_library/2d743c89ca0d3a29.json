@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2d743c89ca0d3a29d315e6bab18a4297ab5d341675c4c5dbf0d3ff7a32e8ad46",
+    "semantic_fingerprint": "fbc6a081e3b73280687d5fc7c7b400033f552f05cb3e6e455e9a3d1d87ce7196",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate REVOKE SQL.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter privileges",
+        "name": "privileges",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter on_object",
+        "name": "on_object",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter from_role",
+        "name": "from_role",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_revoke_sql",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_revoke_sql(privileges: list, on_object: str, from_role: str) -> str:\n    \"\"\"Generate REVOKE SQL.\"\"\"\n    privs = \", \".join(privileges)\n    return f\"REVOKE {privs} ON {on_object} FROM {from_role}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:45.021382+00:00",
+    "description": "Generate REVOKE SQL.",
+    "intent": "Generate REVOKE SQL.",
+    "language": "python",
+    "name": "generate_revoke_sql",
+    "source_file": "neurop_forge/sources/migration_helpers.py",
+    "source_line_end": 211,
+    "source_line_start": 208,
+    "tags": [
+      "from_role",
+      "generate",
+      "on_object",
+      "privileges",
+      "revoke",
+      "sql",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.021398+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(privileges) == list",
+      "privileges is not None",
+      "type(on_object) == string",
+      "on_object is not None",
+      "type(from_role) == string",
+      "from_role is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(privileges) == list",
+      "privileges is not None",
+      "type(on_object) == string",
+      "on_object is not None",
+      "type(from_role) == string",
+      "from_role is not None"
+    ]
+  }
+}

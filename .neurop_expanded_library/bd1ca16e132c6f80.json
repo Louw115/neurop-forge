@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "bd1ca16e132c6f808d6c74e0e6afcb96b18d6bd510f863a361cd6d62f5f949c5",
+    "semantic_fingerprint": "88307bdc5f518d354c13c7f9b7ff9f3b13de06d57f1e64009ef2554fd81cafbe",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find all variable placeholders in template.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter template",
+        "name": "template",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of find_template_variables",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def find_template_variables(template: str) -> list:\n    \"\"\"Find all variable placeholders in template.\"\"\"\n    import re\n    return re.findall(r'\\{(\\w+)\\}', template)",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:47.904156+00:00",
+    "description": "Find all variable placeholders in template.",
+    "intent": "Find all variable placeholders in template.",
+    "language": "python",
+    "name": "find_template_variables",
+    "source_file": "neurop_forge/sources/template_utilities.py",
+    "source_line_end": 31,
+    "source_line_start": 28,
+    "tags": [
+      "filtering",
+      "find",
+      "template",
+      "variables"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.904181+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(template) == string",
+      "template is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(template) == string",
+      "template is not None"
+    ]
+  }
+}

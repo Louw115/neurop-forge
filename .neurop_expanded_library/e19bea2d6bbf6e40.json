@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e19bea2d6bbf6e40955563687c085996ec7f62bc2f9d5dd73f6a71ba17c1c073",
+    "semantic_fingerprint": "0c8280126d27e6914e337d487c8ae11ee961cf4be437a5e8ac3545d9049b47bb",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if a query uses window functions.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter query",
+        "name": "query",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of has_window_function",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def has_window_function(query: str) -> bool:\n    \"\"\"Check if a query uses window functions.\"\"\"\n    import re\n    window_funcs = r'\\b(ROW_NUMBER|RANK|DENSE_RANK|NTILE|LAG|LEAD|FIRST_VALUE|LAST_VALUE|NTH_VALUE)\\s*\\('\n    return bool(re.search(window_funcs, query, re.IGNORECASE)) or bool(re.search(r'\\bOVER\\s*\\(', query, re.IGNORECASE))",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:44.910077+00:00",
+    "description": "Check if a query uses window functions.",
+    "intent": "Check if a query uses window functions.",
+    "language": "python",
+    "name": "has_window_function",
+    "source_file": "neurop_forge/sources/query_helpers.py",
+    "source_line_end": 166,
+    "source_line_start": 162,
+    "tags": [
+      "function",
+      "has",
+      "query",
+      "validation",
+      "window"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.910101+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(query) == string",
+      "query is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(query) == string",
+      "query is not None"
+    ]
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3d0f1aca1801726144fcc524d156d41a0ff529901cb84dd14b9b884a54232b38",
+    "semantic_fingerprint": "87c43c04dc53c17b3acea0f9125ab8cdbebe0aab80ba19050e10b083150f7cae",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Remove expired notifications.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter notifications",
+        "name": "notifications",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_time",
+        "name": "current_time",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter ttl",
+        "name": "ttl",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of cleanup_expired",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def cleanup_expired(notifications: list, current_time: int, ttl: int) -> list:\n    \"\"\"Remove expired notifications.\"\"\"\n    return [n for n in notifications if not is_expired(n, current_time, ttl)]",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:52.868583+00:00",
+    "description": "Remove expired notifications.",
+    "intent": "Remove expired notifications.",
+    "language": "python",
+    "name": "cleanup_expired",
+    "source_file": "neurop_forge/sources/notification_helpers.py",
+    "source_line_end": 154,
+    "source_line_start": 152,
+    "tags": [
+      "cleanup",
+      "current_time",
+      "expired",
+      "notifications",
+      "string_manipulation",
+      "ttl"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.868610+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(notifications) == list",
+      "notifications is not None",
+      "type(current_time) == integer",
+      "current_time is not None",
+      "type(ttl) == integer",
+      "ttl is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(notifications) == list",
+      "notifications is not None",
+      "type(current_time) == integer",
+      "current_time is not None",
+      "type(ttl) == integer",
+      "ttl is not None"
+    ]
+  }
+}

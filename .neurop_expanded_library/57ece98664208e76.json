@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "57ece98664208e76271dda7027350ebf178d674212f47a4b3d88835639d5f440",
+    "semantic_fingerprint": "4fa3f0569d75cfe91411c737039717694b701b7cf87ed72a50c6bb39fa5a3332",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if should scale up.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter current_cpu",
+        "name": "current_cpu",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter threshold",
+        "name": "threshold",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter cooldown_remaining",
+        "name": "cooldown_remaining",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of should_scale_up",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def should_scale_up(current_cpu: float, threshold: float, cooldown_remaining: int) -> bool:\n    \"\"\"Check if should scale up.\"\"\"\n    return current_cpu > threshold and cooldown_remaining <= 0",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:46.473925+00:00",
+    "description": "Check if should scale up.",
+    "intent": "Check if should scale up.",
+    "language": "python",
+    "name": "should_scale_up",
+    "source_file": "neurop_forge/sources/devops_utilities.py",
+    "source_line_end": 275,
+    "source_line_start": 273,
+    "tags": [
+      "cooldown_remaining",
+      "current_cpu",
+      "scale",
+      "should",
+      "threshold",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.473943+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(current_cpu) == float",
+      "current_cpu is not None",
+      "type(threshold) == float",
+      "threshold is not None",
+      "type(cooldown_remaining) == integer",
+      "cooldown_remaining is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(current_cpu) == float",
+      "current_cpu is not None",
+      "type(threshold) == float",
+      "threshold is not None",
+      "type(cooldown_remaining) == integer",
+      "cooldown_remaining is not None"
+    ]
+  }
+}

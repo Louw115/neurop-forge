@@ -1,0 +1,152 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "38c8030961e9555fa3ec4acbe72ae5c7a3530059e8db63afd6f3767a14b87e9e",
+    "semantic_fingerprint": "605ec83ebc1fd905f90bbd99ee23503c960b256e81511463621190f24eb5f20b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Rotate point around origin.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter point",
+        "name": "point",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter origin",
+        "name": "origin",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter angle_rad",
+        "name": "angle_rad",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of point_rotate",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def point_rotate(point: dict, origin: dict, angle_rad: float) -> dict:\n    \"\"\"Rotate point around origin.\"\"\"\n    cos_a = math.cos(angle_rad)\n    sin_a = math.sin(angle_rad)\n    dx = point[\"x\"] - origin[\"x\"]\n    dy = point[\"y\"] - origin[\"y\"]\n    new_x = origin[\"x\"] + dx * cos_a - dy * sin_a\n    new_y = origin[\"y\"] + dx * sin_a + dy * cos_a\n    return create_point(new_x, new_y)",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:49.452026+00:00",
+    "description": "Rotate point around origin.",
+    "intent": "Rotate point around origin.",
+    "language": "python",
+    "name": "point_rotate",
+    "source_file": "neurop_forge/sources/geometry_utilities.py",
+    "source_line_end": 63,
+    "source_line_start": 55,
+    "tags": [
+      "angle_rad",
+      "dict_operation",
+      "origin",
+      "point",
+      "rotate"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.452045+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(point) == dict",
+      "point is not None",
+      "type(origin) == dict",
+      "origin is not None",
+      "type(angle_rad) == float",
+      "angle_rad is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(point) == dict",
+      "point is not None",
+      "type(origin) == dict",
+      "origin is not None",
+      "type(angle_rad) == float",
+      "angle_rad is not None"
+    ]
+  }
+}

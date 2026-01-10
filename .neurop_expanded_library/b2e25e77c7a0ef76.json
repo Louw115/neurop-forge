@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b2e25e77c7a0ef76af7d8426a964c2fd54688b5d11b296a0a27bd44a1ab1c8e5",
+    "semantic_fingerprint": "9bd1f45bd71564f2ff8dd705c9293d0d044795a690d677deebebadcf2c7a1b11",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse CIDR notation.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter cidr",
+        "name": "cidr",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of parse_cidr",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_cidr(cidr: str) -> dict:\n    \"\"\"Parse CIDR notation.\"\"\"\n    if \"/\" not in cidr:\n        return {\"network\": cidr, \"prefix\": 32, \"valid\": validate_ipv4(cidr)}\n    parts = cidr.split(\"/\")\n    network = parts[0]\n    prefix = int(parts[1])\n    return {\n        \"network\": network,\n        \"prefix\": prefix,\n        \"valid\": validate_ipv4(network) and 0 <= prefix <= 32\n    }",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T02:18:47.440919+00:00",
+    "description": "Parse CIDR notation.",
+    "intent": "Parse CIDR notation.",
+    "language": "python",
+    "name": "parse_cidr",
+    "source_file": "neurop_forge/sources/network_utilities.py",
+    "source_line_end": 66,
+    "source_line_start": 55,
+    "tags": [
+      "cidr",
+      "parse",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.440946+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(cidr) == string",
+      "cidr is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(cidr) == string",
+      "cidr is not None"
+    ]
+  }
+}

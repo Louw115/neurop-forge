@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception",
+      "KeyError"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3badc7685770d18f7ed5a0c61905d359c7457132c19b758843c856407115f621",
+    "semantic_fingerprint": "ee07acabe7b588fd9320404e469778b4183c21e7a1c90bf57af88cea274da500",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate a distributed rate limiting key.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter user_id",
+        "name": "user_id",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter endpoint",
+        "name": "endpoint",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of distributed_rate_key",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def distributed_rate_key(user_id: str, endpoint: str) -> str:\n    \"\"\"Generate a distributed rate limiting key.\"\"\"\n    return f\"rate:{user_id}:{endpoint}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:43.958682+00:00",
+    "description": "Generate a distributed rate limiting key.",
+    "intent": "Generate a distributed rate limiting key.",
+    "language": "python",
+    "name": "distributed_rate_key",
+    "source_file": "neurop_forge/sources/rate_limiting.py",
+    "source_line_end": 267,
+    "source_line_start": 265,
+    "tags": [
+      "distributed",
+      "endpoint",
+      "key",
+      "rate",
+      "string_manipulation",
+      "user_id"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.958707+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(user_id) == string",
+      "user_id is not None",
+      "type(endpoint) == string",
+      "endpoint is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(user_id) == string",
+      "user_id is not None",
+      "type(endpoint) == string",
+      "endpoint is not None"
+    ]
+  }
+}

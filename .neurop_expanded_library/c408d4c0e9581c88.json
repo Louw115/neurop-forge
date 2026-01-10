@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c408d4c0e9581c88eaf381af7b2421444fb0fadc4a76a44c7f4b1a9ffde13c3e",
+    "semantic_fingerprint": "5762bfa2ce50088764f98c7193a2314d9c681a2ebe9752fa18f7f30140f66adc",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse tel URI.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter uri",
+        "name": "uri",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of parse_tel",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_tel(uri: str) -> dict:\n    \"\"\"Parse tel URI.\"\"\"\n    if not uri.lower().startswith(\"tel:\"):\n        return None\n    number = uri[4:]\n    ext = None\n    if \";ext=\" in number:\n        number, ext = number.split(\";ext=\", 1)\n    return {\"number\": number, \"extension\": ext}",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T02:18:50.862714+00:00",
+    "description": "Parse tel URI.",
+    "intent": "Parse tel URI.",
+    "language": "python",
+    "name": "parse_tel",
+    "source_file": "neurop_forge/sources/protocol_utilities.py",
+    "source_line_end": 158,
+    "source_line_start": 150,
+    "tags": [
+      "parse",
+      "tel",
+      "transformation",
+      "uri"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:50.862738+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(uri) == string",
+      "uri is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(uri) == string",
+      "uri is not None"
+    ]
+  }
+}

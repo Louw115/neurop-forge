@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1c409e9baa7bd44b6b9852a35a82c63483a6259dc02aa11b74ed2d91e0a1fe6f",
+    "semantic_fingerprint": "227a075c913322b45f95a6a1e90fbdf987036a674173aac810d09f7b55d5369d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Estimate when quota will be depleted.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_remaining",
+        "name": "current_remaining",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter rate_per_second",
+        "name": "rate_per_second",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter current_time",
+        "name": "current_time",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of estimate_quota_depletion",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def estimate_quota_depletion(current_remaining: int, rate_per_second: float, current_time: float) -> float:\n    \"\"\"Estimate when quota will be depleted.\"\"\"\n    if rate_per_second <= 0:\n        return float(\"inf\")\n    return current_time + (current_remaining / rate_per_second)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:49.316209+00:00",
+    "description": "Estimate when quota will be depleted.",
+    "intent": "Estimate when quota will be depleted.",
+    "language": "python",
+    "name": "estimate_quota_depletion",
+    "source_file": "neurop_forge/sources/rate_limiter.py",
+    "source_line_end": 227,
+    "source_line_start": 223,
+    "tags": [
+      "arithmetic",
+      "current_remaining",
+      "current_time",
+      "depletion",
+      "estimate",
+      "quota",
+      "rate_per_second"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.316229+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(current_remaining) == integer",
+      "current_remaining is not None",
+      "type(rate_per_second) == float",
+      "rate_per_second is not None",
+      "type(current_time) == float",
+      "current_time is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(current_remaining) == integer",
+      "current_remaining is not None",
+      "type(rate_per_second) == float",
+      "rate_per_second is not None",
+      "type(current_time) == float",
+      "current_time is not None"
+    ]
+  }
+}

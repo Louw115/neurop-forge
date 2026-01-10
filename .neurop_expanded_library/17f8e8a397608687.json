@@ -1,0 +1,165 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "17f8e8a39760868747b5f102de9fbf99a503c3a04b6e5cf41ae7f14a63804603",
+    "semantic_fingerprint": "faa60de94145e5e4f531e24a105eac4c6ed07b6af1471d3b82309cc0d716bfc8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format date according to locale conventions.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter year",
+        "name": "year",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter month",
+        "name": "month",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter day",
+        "name": "day",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter locale",
+        "name": "locale",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_date_locale",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_date_locale(year: int, month: int, day: int, locale: str) -> str:\n    \"\"\"Format date according to locale conventions.\"\"\"\n    if locale.startswith(\"en-US\"):\n        return f\"{month:02d}/{day:02d}/{year}\"\n    elif locale.startswith(\"en\"):\n        return f\"{day:02d}/{month:02d}/{year}\"\n    elif locale.startswith((\"de\", \"ru\", \"nl\")):\n        return f\"{day:02d}.{month:02d}.{year}\"\n    elif locale.startswith((\"ja\", \"zh\", \"ko\")):\n        return f\"{year}/{month:02d}/{day:02d}\"\n    return f\"{year}-{month:02d}-{day:02d}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:47.098540+00:00",
+    "description": "Format date according to locale conventions.",
+    "intent": "Format date according to locale conventions.",
+    "language": "python",
+    "name": "format_date_locale",
+    "source_file": "neurop_forge/sources/i18n_patterns.py",
+    "source_line_end": 75,
+    "source_line_start": 65,
+    "tags": [
+      "date",
+      "day",
+      "format",
+      "locale",
+      "month",
+      "string_manipulation",
+      "year"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.098562+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(year) == integer",
+      "year is not None",
+      "type(month) == integer",
+      "month is not None",
+      "type(day) == integer",
+      "day is not None",
+      "type(locale) == string",
+      "locale is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(year) == integer",
+      "year is not None",
+      "type(month) == integer",
+      "month is not None",
+      "type(day) == integer",
+      "day is not None",
+      "type(locale) == string",
+      "locale is not None"
+    ]
+  }
+}

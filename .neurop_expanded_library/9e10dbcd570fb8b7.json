@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9e10dbcd570fb8b7a6fcc06f953b3135699d4c6efd10152784efe08990650613",
+    "semantic_fingerprint": "6fc7e3a5137f6a8ee280b9f9a41d8ddb5e3f17172f73392460d183be6c0df9f4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format text for sharing (Twitter style).",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter title",
+        "name": "title",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter url",
+        "name": "url",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_length",
+        "name": "max_length",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_share_text",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_share_text(title: str, url: str, max_length: int) -> str:\n    \"\"\"Format text for sharing (Twitter style).\"\"\"\n    url_length = len(url) + 1\n    available = max_length - url_length\n    if len(title) <= available:\n        return f\"{title} {url}\"\n    return f\"{title[:available-3]}... {url}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:50.903132+00:00",
+    "description": "Format text for sharing (Twitter style).",
+    "intent": "Format text for sharing (Twitter style).",
+    "language": "python",
+    "name": "format_share_text",
+    "source_file": "neurop_forge/sources/social_utilities.py",
+    "source_line_end": 74,
+    "source_line_start": 68,
+    "tags": [
+      "format",
+      "max_length",
+      "share",
+      "string_manipulation",
+      "text",
+      "title",
+      "url"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:50.903158+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(title) == string",
+      "title is not None",
+      "type(url) == string",
+      "url is not None",
+      "type(max_length) == integer",
+      "max_length is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(title) == string",
+      "title is not None",
+      "type(url) == string",
+      "url is not None",
+      "type(max_length) == integer",
+      "max_length is not None"
+    ]
+  }
+}

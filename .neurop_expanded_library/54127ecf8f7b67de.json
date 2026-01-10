@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "54127ecf8f7b67de383e8bd0e6be296315df6350c71d78a7aeeb2114cc02cd69",
+    "semantic_fingerprint": "73fba69d37e9c2b263b4bec4677068a499394b38a1a9650540f964d2174b05ca",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Flatten a nested dictionary into a single-level dictionary.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter data",
+        "name": "data",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter separator",
+        "name": "separator",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter prefix",
+        "name": "prefix",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of flatten_dict",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def flatten_dict(data: dict, separator: str, prefix: str) -> dict:\n    \"\"\"Flatten a nested dictionary into a single-level dictionary.\"\"\"\n    if not data:\n        return {}\n    if not separator:\n        separator = '.'\n    result = {}\n    for key, value in data.items():\n        new_key = f\"{prefix}{separator}{key}\" if prefix else key\n        if isinstance(value, dict):\n            result.update(flatten_dict(value, separator, new_key))\n        else:\n            result[new_key] = value\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:42.836111+00:00",
+    "description": "Flatten a nested dictionary into a single-level dictionary.",
+    "intent": "Flatten a nested dictionary into a single-level dictionary.",
+    "language": "python",
+    "name": "flatten_dict",
+    "source_file": "neurop_forge/sources/data_parsing.py",
+    "source_line_end": 265,
+    "source_line_start": 252,
+    "tags": [
+      "data",
+      "dict",
+      "flatten",
+      "list_operation",
+      "prefix",
+      "separator"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:42.836134+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(data) == dict",
+      "data is not None",
+      "type(separator) == string",
+      "separator is not None",
+      "type(prefix) == string",
+      "prefix is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(data) == dict",
+      "data is not None",
+      "type(separator) == string",
+      "separator is not None",
+      "type(prefix) == string",
+      "prefix is not None"
+    ]
+  }
+}

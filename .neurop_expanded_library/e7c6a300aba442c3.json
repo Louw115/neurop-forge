@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e7c6a300aba442c3b142668e0936cb8608829d9f5c8c540c0996b52554730448",
+    "semantic_fingerprint": "9cbaa6a318b52d7bbc44f1dae9a6120a41564820a144e851ae095e2f179da6e6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if IP is loopback address.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter ip",
+        "name": "ip",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_loopback",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_loopback(ip: str) -> bool:\n    \"\"\"Check if IP is loopback address.\"\"\"\n    if ip.startswith('127.'):\n        return True\n    return ip == '::1'",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:50.672964+00:00",
+    "description": "Check if IP is loopback address.",
+    "intent": "Check if IP is loopback address.",
+    "language": "python",
+    "name": "is_loopback",
+    "source_file": "neurop_forge/sources/ip_utilities.py",
+    "source_line_end": 75,
+    "source_line_start": 71,
+    "tags": [
+      "ip",
+      "loopback",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:50.672997+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(ip) == string",
+      "ip is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(ip) == string",
+      "ip is not None"
+    ]
+  }
+}

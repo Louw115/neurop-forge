@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "98cb17e798be40de8ac8fa2ec6f188fc06fb48f94f1d265909caaed76dd8c97b",
+    "semantic_fingerprint": "647876f19b78b4d32a898e0a21122439a0ed6a897dc33c285be2f1fb55f76e68",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Remove duplicate contacts.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter contacts",
+        "name": "contacts",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of dedupe_contacts",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def dedupe_contacts(contacts: list) -> list:\n    \"\"\"Remove duplicate contacts.\"\"\"\n    seen_emails = set()\n    result = []\n    for contact in contacts:\n        email = contact.get(\"email\", \"\").lower()\n        if email and email in seen_emails:\n            continue\n        if email:\n            seen_emails.add(email)\n        result.append(contact)\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:52.826277+00:00",
+    "description": "Remove duplicate contacts.",
+    "intent": "Remove duplicate contacts.",
+    "language": "python",
+    "name": "dedupe_contacts",
+    "source_file": "neurop_forge/sources/contact_utilities.py",
+    "source_line_end": 137,
+    "source_line_start": 126,
+    "tags": [
+      "contacts",
+      "dedupe",
+      "list_operation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.826295+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(contacts) == list",
+      "contacts is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(contacts) == list",
+      "contacts is not None"
+    ]
+  }
+}

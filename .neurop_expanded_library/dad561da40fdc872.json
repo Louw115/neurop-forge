@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "dad561da40fdc872c223d8730e50619cfaabf180667b2e1588a627bfb8e509f1",
+    "semantic_fingerprint": "5e829a733895f745d4af266e55279ce89ed270f8ce23b0d7e9d92c15c89aad13",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if pool utilization warrants a warning.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter utilization",
+        "name": "utilization",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter warning_threshold",
+        "name": "warning_threshold",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of should_log_pool_warning",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def should_log_pool_warning(utilization: float, warning_threshold: float) -> bool:\n    \"\"\"Check if pool utilization warrants a warning.\"\"\"\n    return utilization >= warning_threshold",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:45.440304+00:00",
+    "description": "Check if pool utilization warrants a warning.",
+    "intent": "Check if pool utilization warrants a warning.",
+    "language": "python",
+    "name": "should_log_pool_warning",
+    "source_file": "neurop_forge/sources/connection_pool.py",
+    "source_line_end": 235,
+    "source_line_start": 233,
+    "tags": [
+      "log",
+      "pool",
+      "should",
+      "utilization",
+      "validation",
+      "warning",
+      "warning_threshold"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.440320+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(utilization) == float",
+      "utilization is not None",
+      "type(warning_threshold) == float",
+      "warning_threshold is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(utilization) == float",
+      "utilization is not None",
+      "type(warning_threshold) == float",
+      "warning_threshold is not None"
+    ]
+  }
+}

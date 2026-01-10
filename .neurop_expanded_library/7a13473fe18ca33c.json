@@ -1,0 +1,148 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7a13473fe18ca33c5c77b832256f4c5ec5cb406eba62a27e6680ebc3cafd5c86",
+    "semantic_fingerprint": "b3133f599f8a3bbf78a18037a278c853adf3528747223ff56482cbb6b6810145",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Assert value is in container.",
+    "inputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter container",
+        "name": "container",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter message",
+        "name": "message",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of assert_in",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def assert_in(value, container, message: str) -> dict:\n    \"\"\"Assert value is in container.\"\"\"\n    passed = value in container\n    return {\n        \"passed\": passed,\n        \"message\": message,\n        \"actual\": str(value),\n        \"expected\": f\"in {container}\",\n        \"error\": None if passed else f\"{value} not found in container\"\n    }",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:46.376795+00:00",
+    "description": "Assert value is in container.",
+    "intent": "Assert value is in container.",
+    "language": "python",
+    "name": "assert_in",
+    "source_file": "neurop_forge/sources/testing_utilities.py",
+    "source_line_end": 197,
+    "source_line_start": 188,
+    "tags": [
+      "assert",
+      "container",
+      "message",
+      "validation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.376814+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "value is not None",
+      "container is not None",
+      "type(message) == string",
+      "message is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "value is not None",
+      "container is not None",
+      "type(message) == string",
+      "message is not None"
+    ]
+  }
+}

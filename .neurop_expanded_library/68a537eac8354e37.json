@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "68a537eac8354e37a396e906c28688ceba8819a72064f2057e40431d6b3abec4",
+    "semantic_fingerprint": "6ac74b1aaebb28f87146380aed621bf4f22228c41f1cfba353f785f94f500208",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format seconds to human readable.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seconds",
+        "name": "seconds",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_duration",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_duration(seconds: int) -> str:\n    \"\"\"Format seconds to human readable.\"\"\"\n    if seconds < 0:\n        return \"-\" + format_duration(-seconds)\n    parts = []\n    if seconds >= 86400:\n        days = seconds // 86400\n        parts.append(f\"{days}d\")\n        seconds %= 86400\n    if seconds >= 3600:\n        hours = seconds // 3600\n        parts.append(f\"{hours}h\")\n        seconds %= 3600\n    if seconds >= 60:\n        minutes = seconds // 60\n        parts.append(f\"{minutes}m\")\n        seconds %= 60\n    if seconds > 0 or not parts:\n        parts.append(f\"{seconds}s\")\n    return \" \".join(parts)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:52.322785+00:00",
+    "description": "Format seconds to human readable.",
+    "intent": "Format seconds to human readable.",
+    "language": "python",
+    "name": "format_duration",
+    "source_file": "neurop_forge/sources/duration_utilities.py",
+    "source_line_end": 89,
+    "source_line_start": 70,
+    "tags": [
+      "duration",
+      "format",
+      "seconds",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.322810+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(seconds) == integer",
+      "seconds is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(seconds) == integer",
+      "seconds is not None"
+    ]
+  }
+}

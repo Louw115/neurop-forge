@@ -1,0 +1,152 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "022a62cca47cf0190ac2033f1418ae71a433ead22700960fd7bc5f7983655d2a",
+    "semantic_fingerprint": "11771d287b6bc54759a873aec0070e5ced73746c044942b7ec328289a41f69a4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Bubble up to maintain heap property.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter heap_type",
+        "name": "heap_type",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter index",
+        "name": "index",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of _heapify_up",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def _heapify_up(items: list, heap_type: str, index: int) -> list:\n    \"\"\"Bubble up to maintain heap property.\"\"\"\n    result = list(items)\n    while index > 0:\n        parent = _parent_index(index)\n        if _should_swap(heap_type, result[parent], result[index]):\n            result[parent], result[index] = result[index], result[parent]\n            index = parent\n        else:\n            break\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:48.284223+00:00",
+    "description": "Bubble up to maintain heap property.",
+    "intent": "Bubble up to maintain heap property.",
+    "language": "python",
+    "name": "_heapify_up",
+    "source_file": "neurop_forge/sources/heap_utilities.py",
+    "source_line_end": 71,
+    "source_line_start": 61,
+    "tags": [
+      "heap_type",
+      "heapify",
+      "index",
+      "items",
+      "list_operation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.284243+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "type(heap_type) == string",
+      "heap_type is not None",
+      "type(index) == integer",
+      "index is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "type(heap_type) == string",
+      "heap_type is not None",
+      "type(index) == integer",
+      "index is not None"
+    ]
+  }
+}

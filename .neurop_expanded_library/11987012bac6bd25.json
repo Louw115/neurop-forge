@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "11987012bac6bd25d18940af430eea493b1acc6554e6241d6f5590459a6b2abd",
+    "semantic_fingerprint": "5d96986918e15f02d6a07cee7e3499b345c0605b243727b43d91c15aecffd2d3",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if password has special character.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter password",
+        "name": "password",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of has_special_char",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def has_special_char(password: str) -> bool:\n    \"\"\"Check if password has special character.\"\"\"\n    special = set(\"!@#$%^&*()_+-=[]{}|;':\\\",./<>?`~\")\n    return any(c in special for c in password)",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:51.889813+00:00",
+    "description": "Check if password has special character.",
+    "intent": "Check if password has special character.",
+    "language": "python",
+    "name": "has_special_char",
+    "source_file": "neurop_forge/sources/password_utilities.py",
+    "source_line_end": 44,
+    "source_line_start": 41,
+    "tags": [
+      "char",
+      "has",
+      "password",
+      "special",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:51.889836+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(password) == string",
+      "password is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(password) == string",
+      "password is not None"
+    ]
+  }
+}

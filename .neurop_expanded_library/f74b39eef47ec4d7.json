@@ -1,0 +1,156 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception",
+      "KeyError"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f74b39eef47ec4d75f02c6e5332b16923e62bbbbe6244eb4c08d0dc770e5c9bf",
+    "semantic_fingerprint": "9b82d718ae1b39b6967c4083845249ba3f9778fe0450055395b67ef12df435c0",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a rate limit key.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter identifier",
+        "name": "identifier",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter endpoint",
+        "name": "endpoint",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter window",
+        "name": "window",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_rate_limit_key",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_rate_limit_key(identifier: str, endpoint: str, window: str) -> str:\n    \"\"\"Build a rate limit key.\"\"\"\n    return f\"ratelimit:{identifier}:{endpoint}:{window}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:46.047546+00:00",
+    "description": "Build a rate limit key.",
+    "intent": "Build a rate limit key.",
+    "language": "python",
+    "name": "build_rate_limit_key",
+    "source_file": "neurop_forge/sources/middleware_patterns.py",
+    "source_line_end": 215,
+    "source_line_start": 213,
+    "tags": [
+      "build",
+      "endpoint",
+      "identifier",
+      "key",
+      "limit",
+      "rate",
+      "string_manipulation",
+      "window"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.047567+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(identifier) == string",
+      "identifier is not None",
+      "type(endpoint) == string",
+      "endpoint is not None",
+      "type(window) == string",
+      "window is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(identifier) == string",
+      "identifier is not None",
+      "type(endpoint) == string",
+      "endpoint is not None",
+      "type(window) == string",
+      "window is not None"
+    ]
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "97be8325955756709dbdd3c60e537b759f41d195306e1fb253a4ebb3e2dd68df",
+    "semantic_fingerprint": "1a84511c9fb156ed23a3b6bb9e93f0a299b7d9f16c0a94c82586a9c3dc11e9c1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Swap two bits at given positions.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter pos1",
+        "name": "pos1",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter pos2",
+        "name": "pos2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of swap_bits",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def swap_bits(value: int, pos1: int, pos2: int) -> int:\n    \"\"\"Swap two bits at given positions.\"\"\"\n    bit1 = get_bit(value, pos1)\n    bit2 = get_bit(value, pos2)\n    if bit1 == bit2:\n        return value\n    result = toggle_bit(value, pos1)\n    result = toggle_bit(result, pos2)\n    return result",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:48.524211+00:00",
+    "description": "Swap two bits at given positions.",
+    "intent": "Swap two bits at given positions.",
+    "language": "python",
+    "name": "swap_bits",
+    "source_file": "neurop_forge/sources/bitwise_utilities.py",
+    "source_line_end": 176,
+    "source_line_start": 168,
+    "tags": [
+      "bits",
+      "pos1",
+      "pos2",
+      "string_manipulation",
+      "swap",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.524233+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.37,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.8,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == integer",
+      "value is not None",
+      "type(pos1) == integer",
+      "pos1 is not None",
+      "type(pos2) == integer",
+      "pos2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(value) == integer",
+      "value is not None",
+      "type(pos1) == integer",
+      "pos1 is not None",
+      "type(pos2) == integer",
+      "pos2 is not None"
+    ]
+  }
+}

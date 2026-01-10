@@ -1,0 +1,138 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic aggregation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9c2e31f1a32e0955d59e94dc956e9238db741c09a7c8078eb74877d9bce1dd2e",
+    "semantic_fingerprint": "9ef613764be0a06907a4f268a024e7241e78a2f7c532ff35cb8a00a7f7e5d8e4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Count items by key function.",
+    "inputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter key_fn",
+        "name": "key_fn",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of count_by",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def count_by(key_fn, items: list) -> dict:\n    \"\"\"Count items by key function.\"\"\"\n    counts = {}\n    for item in items:\n        key = key_fn(item)\n        counts[key] = counts.get(key, 0) + 1\n    return counts",
+  "metadata": {
+    "category": "aggregation",
+    "created_at": "2026-01-10T02:18:49.702570+00:00",
+    "description": "Count items by key function.",
+    "intent": "Count items by key function.",
+    "language": "python",
+    "name": "count_by",
+    "source_file": "neurop_forge/sources/functional_utilities.py",
+    "source_line_end": 179,
+    "source_line_start": 173,
+    "tags": [
+      "aggregation",
+      "count",
+      "items",
+      "key_fn"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.702587+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "key_fn is not None",
+      "type(items) == list",
+      "items is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "key_fn is not None",
+      "type(items) == list",
+      "items is not None"
+    ]
+  }
+}

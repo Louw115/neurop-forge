@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a9c62312da84f8c716bf74b788a683b020f23f896feee888c67080689abd5c30",
+    "semantic_fingerprint": "6140ead3d0b0b9fe278277c170591d6e285a4f69e755d046c3464899d3dddf26",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Pop from max stack.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter stack",
+        "name": "stack",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of max_stack_pop",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def max_stack_pop(stack: dict) -> dict:\n    \"\"\"Pop from max stack.\"\"\"\n    if not stack[\"items\"]:\n        return {\"stack\": stack, \"item\": None}\n    items = list(stack[\"items\"])\n    maxs = list(stack[\"maxs\"])\n    item = items.pop()\n    maxs.pop()\n    return {\n        \"stack\": {\"items\": items, \"maxs\": maxs},\n        \"item\": item\n    }",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:48.471070+00:00",
+    "description": "Pop from max stack.",
+    "intent": "Pop from max stack.",
+    "language": "python",
+    "name": "max_stack_pop",
+    "source_file": "neurop_forge/sources/stack_utilities.py",
+    "source_line_end": 206,
+    "source_line_start": 195,
+    "tags": [
+      "arithmetic",
+      "max",
+      "pop",
+      "stack"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.471087+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(stack) == dict",
+      "stack is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(stack) == dict",
+      "stack is not None"
+    ]
+  }
+}

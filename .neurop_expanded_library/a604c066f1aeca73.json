@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a604c066f1aeca735c7261af706f808f05a5db5e8d4f029b2dc30c39799b8f89",
+    "semantic_fingerprint": "e45ac2ebf6285726143ba7320da983331b43157844bc91aede72f07529063c8c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse the payload portion of a JWT (without verification).",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter token",
+        "name": "token",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of parse_jwt_payload",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_jwt_payload(token: str) -> dict:\n    \"\"\"Parse the payload portion of a JWT (without verification).\"\"\"\n    import base64\n    import json\n    try:\n        parts = token.split('.')\n        if len(parts) != 3:\n            return {}\n        payload = parts[1]\n        padding = 4 - len(payload) % 4\n        if padding != 4:\n            payload += '=' * padding\n        decoded = base64.urlsafe_b64decode(payload)\n        return json.loads(decoded)\n    except Exception:\n        return {}",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T02:18:45.674703+00:00",
+    "description": "Parse the payload portion of a JWT (without verification).",
+    "intent": "Parse the payload portion of a JWT (without verification).",
+    "language": "python",
+    "name": "parse_jwt_payload",
+    "source_file": "neurop_forge/sources/auth_patterns.py",
+    "source_line_end": 81,
+    "source_line_start": 66,
+    "tags": [
+      "jwt",
+      "parse",
+      "payload",
+      "token",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.674722+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(token) == string",
+      "token is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(token) == string",
+      "token is not None"
+    ]
+  }
+}

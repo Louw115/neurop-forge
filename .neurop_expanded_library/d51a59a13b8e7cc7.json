@@ -1,0 +1,139 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d51a59a13b8e7cc7e5756735dd42168afb85a73e4f12f8cd928b3fb68020c3c6",
+    "semantic_fingerprint": "7b94f7346123a3ae9a4837135bbce345cc87bc9ebf1ebf4b3f706bfef86d7738",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Enqueue to bounded queue, drop oldest if full.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter queue",
+        "name": "queue",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter item",
+        "name": "item",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of bounded_queue_enqueue",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def bounded_queue_enqueue(queue: dict, item) -> dict:\n    \"\"\"Enqueue to bounded queue, drop oldest if full.\"\"\"\n    items = list(queue[\"items\"]) + [item]\n    if len(items) > queue[\"max_size\"]:\n        items = items[-queue[\"max_size\"]:]\n    return {\"items\": items, \"max_size\": queue[\"max_size\"]}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:48.410301+00:00",
+    "description": "Enqueue to bounded queue, drop oldest if full.",
+    "intent": "Enqueue to bounded queue, drop oldest if full.",
+    "language": "python",
+    "name": "bounded_queue_enqueue",
+    "source_file": "neurop_forge/sources/queue_utilities.py",
+    "source_line_end": 193,
+    "source_line_start": 188,
+    "tags": [
+      "bounded",
+      "dict_operation",
+      "enqueue",
+      "item",
+      "queue"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.410320+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(queue) == dict",
+      "queue is not None",
+      "item is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(queue) == dict",
+      "queue is not None",
+      "item is not None"
+    ]
+  }
+}

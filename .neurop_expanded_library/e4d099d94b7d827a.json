@@ -1,0 +1,155 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e4d099d94b7d827a28dc6651cb7ce179398e4038f002bfbc2fb3688da9e4d9a1",
+    "semantic_fingerprint": "2a3ffe067c98b34bfe53785142181c58ad1b254d7f4d2523f8fed51d8a010bcd",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate rate limit status.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter requests",
+        "name": "requests",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter window_seconds",
+        "name": "window_seconds",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_count",
+        "name": "current_count",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of calculate_rate_limit_window",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_rate_limit_window(requests: int, window_seconds: int, current_count: int) -> dict:\n    \"\"\"Calculate rate limit status.\"\"\"\n    remaining = max(0, requests - current_count)\n    return {\n        \"limit\": requests,\n        \"remaining\": remaining,\n        \"reset_after_seconds\": window_seconds,\n        \"exceeded\": remaining == 0\n    }",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:47.682747+00:00",
+    "description": "Calculate rate limit status.",
+    "intent": "Calculate rate limit status.",
+    "language": "python",
+    "name": "calculate_rate_limit_window",
+    "source_file": "neurop_forge/sources/scheduler_utilities.py",
+    "source_line_end": 212,
+    "source_line_start": 204,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "current_count",
+      "limit",
+      "rate",
+      "requests",
+      "window",
+      "window_seconds"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.682775+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(requests) == integer",
+      "requests is not None",
+      "type(window_seconds) == integer",
+      "window_seconds is not None",
+      "type(current_count) == integer",
+      "current_count is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(requests) == integer",
+      "requests is not None",
+      "type(window_seconds) == integer",
+      "window_seconds is not None",
+      "type(current_count) == integer",
+      "current_count is not None"
+    ]
+  }
+}

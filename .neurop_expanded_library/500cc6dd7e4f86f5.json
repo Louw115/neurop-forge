@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "500cc6dd7e4f86f523d326116c7b2e4d1e5be27e0589ba09bf183393ad313666",
+    "semantic_fingerprint": "0b33fee704eb8c24f43e60e3931da3b0cf23fceccd5346c0fd1d7a5ca0396f78",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate number of grid columns that fit.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter container_width",
+        "name": "container_width",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter item_min_width",
+        "name": "item_min_width",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter gap",
+        "name": "gap",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of calculate_grid_columns",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_grid_columns(container_width: int, item_min_width: int, gap: int) -> int:\n    \"\"\"Calculate number of grid columns that fit.\"\"\"\n    if item_min_width <= 0:\n        return 1\n    available = container_width + gap\n    return max(1, available // (item_min_width + gap))",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:46.703877+00:00",
+    "description": "Calculate number of grid columns that fit.",
+    "intent": "Calculate number of grid columns that fit.",
+    "language": "python",
+    "name": "calculate_grid_columns",
+    "source_file": "neurop_forge/sources/ui_patterns.py",
+    "source_line_end": 263,
+    "source_line_start": 258,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "columns",
+      "container_width",
+      "gap",
+      "grid",
+      "item_min_width"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.703896+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(container_width) == integer",
+      "container_width is not None",
+      "type(item_min_width) == integer",
+      "item_min_width is not None",
+      "type(gap) == integer",
+      "gap is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(container_width) == integer",
+      "container_width is not None",
+      "type(item_min_width) == integer",
+      "item_min_width is not None",
+      "type(gap) == integer",
+      "gap is not None"
+    ]
+  }
+}

@@ -1,0 +1,178 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c7ced156483585bc7b6d72b47935192ceca8bb757dfb8e8a9d7efb900a856082",
+    "semantic_fingerprint": "66d85be0dff0a71555807529abad2cba3bf2c73530d2a216443b283eb2a6baca",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format pool statistics as a string.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter pool_name",
+        "name": "pool_name",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter size",
+        "name": "size",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter active",
+        "name": "active",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter idle",
+        "name": "idle",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter waiting",
+        "name": "waiting",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_pool_stats",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_pool_stats(pool_name: str, size: int, active: int, idle: int, waiting: int) -> str:\n    \"\"\"Format pool statistics as a string.\"\"\"\n    utilization = calculate_pool_utilization(active, size)\n    return f\"Pool '{pool_name}': size={size}, active={active}, idle={idle}, waiting={waiting}, utilization={utilization:.1f}%\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:45.417309+00:00",
+    "description": "Format pool statistics as a string.",
+    "intent": "Format pool statistics as a string.",
+    "language": "python",
+    "name": "format_pool_stats",
+    "source_file": "neurop_forge/sources/connection_pool.py",
+    "source_line_end": 79,
+    "source_line_start": 76,
+    "tags": [
+      "active",
+      "format",
+      "idle",
+      "pool",
+      "pool_name",
+      "size",
+      "stats",
+      "string_manipulation",
+      "waiting"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.417336+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(pool_name) == string",
+      "pool_name is not None",
+      "type(size) == integer",
+      "size is not None",
+      "type(active) == integer",
+      "active is not None",
+      "type(idle) == integer",
+      "idle is not None",
+      "type(waiting) == integer",
+      "waiting is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(pool_name) == string",
+      "pool_name is not None",
+      "type(size) == integer",
+      "size is not None",
+      "type(active) == integer",
+      "active is not None",
+      "type(idle) == integer",
+      "idle is not None",
+      "type(waiting) == integer",
+      "waiting is not None"
+    ]
+  }
+}

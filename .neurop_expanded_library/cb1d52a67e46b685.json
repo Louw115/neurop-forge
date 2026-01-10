@@ -1,0 +1,166 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "cb1d52a67e46b68563be21fbaa17164178336aad8ae68890389aa35ec60e342b",
+    "semantic_fingerprint": "94f5db0cbba08e37aea743d8a272f7ab3746542dee84d31ebb51e96b23a0c387",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate the great-circle distance between two points in miles.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter lat1",
+        "name": "lat1",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter lon1",
+        "name": "lon1",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter lat2",
+        "name": "lat2",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter lon2",
+        "name": "lon2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of haversine_distance_miles",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def haversine_distance_miles(lat1: float, lon1: float, lat2: float, lon2: float) -> float:\n    \"\"\"Calculate the great-circle distance between two points in miles.\"\"\"\n    km = haversine_distance(lat1, lon1, lat2, lon2)\n    return km * 0.621371",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:43.743763+00:00",
+    "description": "Calculate the great-circle distance between two points in miles.",
+    "intent": "Calculate the great-circle distance between two points in miles.",
+    "language": "python",
+    "name": "haversine_distance_miles",
+    "source_file": "neurop_forge/sources/geolocation_utilities.py",
+    "source_line_end": 46,
+    "source_line_start": 43,
+    "tags": [
+      "arithmetic",
+      "distance",
+      "haversine",
+      "lat1",
+      "lat2",
+      "lon1",
+      "lon2",
+      "miles"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.743783+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(lat1) == float",
+      "lat1 is not None",
+      "type(lon1) == float",
+      "lon1 is not None",
+      "type(lat2) == float",
+      "lat2 is not None",
+      "type(lon2) == float",
+      "lon2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(lat1) == float",
+      "lat1 is not None",
+      "type(lon1) == float",
+      "lon1 is not None",
+      "type(lat2) == float",
+      "lat2 is not None",
+      "type(lon2) == float",
+      "lon2 is not None"
+    ]
+  }
+}

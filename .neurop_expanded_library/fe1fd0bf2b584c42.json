@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "fe1fd0bf2b584c4212dcb1f723115c32a54cb87ef716be798be77044fee5a1cd",
+    "semantic_fingerprint": "58328ff2ba41e9eb5871ffd1be5d517623807c50d12720ff7303cf4cfc395418",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format deadlock information for logging.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter tables",
+        "name": "tables",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter operations",
+        "name": "operations",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_deadlock_info",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_deadlock_info(tables: list, operations: list) -> str:\n    \"\"\"Format deadlock information for logging.\"\"\"\n    parts = [\"Deadlock detected:\"]\n    for i, (table, op) in enumerate(zip(tables, operations)):\n        parts.append(f\"  {i+1}. {op} on {table}\")\n    return \"\\n\".join(parts)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:45.084142+00:00",
+    "description": "Format deadlock information for logging.",
+    "intent": "Format deadlock information for logging.",
+    "language": "python",
+    "name": "format_deadlock_info",
+    "source_file": "neurop_forge/sources/transaction_helpers.py",
+    "source_line_end": 173,
+    "source_line_start": 168,
+    "tags": [
+      "deadlock",
+      "format",
+      "info",
+      "operations",
+      "string_manipulation",
+      "tables"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.084167+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(tables) == list",
+      "tables is not None",
+      "type(operations) == list",
+      "operations is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(tables) == list",
+      "tables is not None",
+      "type(operations) == list",
+      "operations is not None"
+    ]
+  }
+}

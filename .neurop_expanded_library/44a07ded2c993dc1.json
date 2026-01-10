@@ -1,0 +1,161 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "44a07ded2c993dc11559ad29c1750f897c045ca855c9ef4726da20862a74eff6",
+    "semantic_fingerprint": "ac74b145b073518422713b3cc486a74a2147993fe1fc7a8191e4a717f4338f79",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate the geographic midpoint between two points.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter lat1",
+        "name": "lat1",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter lon1",
+        "name": "lon1",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter lat2",
+        "name": "lat2",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter lon2",
+        "name": "lon2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Return value of calculate_midpoint",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_midpoint(lat1: float, lon1: float, lat2: float, lon2: float) -> tuple:\n    \"\"\"Calculate the geographic midpoint between two points.\"\"\"\n    lat1_rad = degrees_to_radians(lat1)\n    lat2_rad = degrees_to_radians(lat2)\n    lon1_rad = degrees_to_radians(lon1)\n    delta_lon = degrees_to_radians(lon2 - lon1)\n    bx = math.cos(lat2_rad) * math.cos(delta_lon)\n    by = math.cos(lat2_rad) * math.sin(delta_lon)\n    lat_mid = math.atan2(\n        math.sin(lat1_rad) + math.sin(lat2_rad),\n        math.sqrt((math.cos(lat1_rad) + bx) ** 2 + by ** 2)\n    )\n    lon_mid = lon1_rad + math.atan2(by, math.cos(lat1_rad) + bx)\n    return (radians_to_degrees(lat_mid), radians_to_degrees(lon_mid))",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:43.748485+00:00",
+    "description": "Calculate the geographic midpoint between two points.",
+    "intent": "Calculate the geographic midpoint between two points.",
+    "language": "python",
+    "name": "calculate_midpoint",
+    "source_file": "neurop_forge/sources/geolocation_utilities.py",
+    "source_line_end": 73,
+    "source_line_start": 60,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "lat1",
+      "lat2",
+      "lon1",
+      "lon2",
+      "midpoint"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.748505+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(lat1) == float",
+      "lat1 is not None",
+      "type(lon1) == float",
+      "lon1 is not None",
+      "type(lat2) == float",
+      "lat2 is not None",
+      "type(lon2) == float",
+      "lon2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [],
+    "postconditions": [],
+    "preconditions": [
+      "type(lat1) == float",
+      "lat1 is not None",
+      "type(lon1) == float",
+      "lon1 is not None",
+      "type(lat2) == float",
+      "lat2 is not None",
+      "type(lon2) == float",
+      "lon2 is not None"
+    ]
+  }
+}

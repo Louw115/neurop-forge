@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f4fdc2a132e5ce33c2fd9294a4a25e8d38f48d30422dfd0d0224649fb4a22b7a",
+    "semantic_fingerprint": "b55a424939c4e628c54bd9f22b775ead21a605188bbd4275f3f3bdf228f9732d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Suggest action to take for an error type.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter error_type",
+        "name": "error_type",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter status_code",
+        "name": "status_code",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of suggest_error_action",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def suggest_error_action(error_type: str, status_code: int) -> str:\n    \"\"\"Suggest action to take for an error type.\"\"\"\n    if status_code == 429:\n        return \"implement_backoff\"\n    if status_code == 401 or status_code == 403:\n        return \"check_credentials\"\n    if status_code == 404:\n        return \"verify_resource_exists\"\n    if status_code == 400:\n        return \"validate_request\"\n    if status_code >= 500:\n        return \"investigate_server\"\n    return \"log_and_monitor\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:45.987515+00:00",
+    "description": "Suggest action to take for an error type.",
+    "intent": "Suggest action to take for an error type.",
+    "language": "python",
+    "name": "suggest_error_action",
+    "source_file": "neurop_forge/sources/error_handling.py",
+    "source_line_end": 196,
+    "source_line_start": 184,
+    "tags": [
+      "action",
+      "error",
+      "error_type",
+      "status_code",
+      "string_manipulation",
+      "suggest"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.987533+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(error_type) == string",
+      "error_type is not None",
+      "type(status_code) == integer",
+      "status_code is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(error_type) == string",
+      "error_type is not None",
+      "type(status_code) == integer",
+      "status_code is not None"
+    ]
+  }
+}

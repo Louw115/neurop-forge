@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "257bdac3d1913f2a3b45ace958818b1547a8277451d33edf7e69841f7939ddb9",
+    "semantic_fingerprint": "227cbd0bfba8bf2363b490ea592c86b2e7b9c888bd47401106de756b92896ea9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate password strength score (0-100).",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter password",
+        "name": "password",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of generate_password_strength_score",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_password_strength_score(password: str) -> int:\n    \"\"\"Calculate password strength score (0-100).\"\"\"\n    if not password:\n        return 0\n    score = 0\n    if len(password) >= 8:\n        score += 20\n    if len(password) >= 12:\n        score += 10\n    if len(password) >= 16:\n        score += 10\n    if any(c.islower() for c in password):\n        score += 15\n    if any(c.isupper() for c in password):\n        score += 15\n    if any(c.isdigit() for c in password):\n        score += 15\n    if any(c in '!@#$%^&*()_+-=[]{}|;:,.<>?' for c in password):\n        score += 15\n    return min(score, 100)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:43.246708+00:00",
+    "description": "Calculate password strength score (0-100).",
+    "intent": "Calculate password strength score (0-100).",
+    "language": "python",
+    "name": "generate_password_strength_score",
+    "source_file": "neurop_forge/sources/security_utilities.py",
+    "source_line_end": 269,
+    "source_line_start": 250,
+    "tags": [
+      "arithmetic",
+      "generate",
+      "password",
+      "score",
+      "strength"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.246738+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(password) == string",
+      "password is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(password) == string",
+      "password is not None"
+    ]
+  }
+}

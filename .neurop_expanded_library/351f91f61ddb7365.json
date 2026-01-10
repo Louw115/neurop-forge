@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "351f91f61ddb73656a6c56557da1669b1bb7e4caaf27e37e6cd9a1cb4353907b",
+    "semantic_fingerprint": "d97fb3bc9b9b77a856032a090796e4dd6bc845aa2dfa6868e10aa0d34751a1e3",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build Server-Timing header value.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter server_time_ms",
+        "name": "server_time_ms",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter db_time_ms",
+        "name": "db_time_ms",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter cache_time_ms",
+        "name": "cache_time_ms",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_timing_header",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_timing_header(server_time_ms: int, db_time_ms: int, cache_time_ms: int) -> str:\n    \"\"\"Build Server-Timing header value.\"\"\"\n    parts = []\n    if server_time_ms >= 0:\n        parts.append(f'total;dur={server_time_ms}')\n    if db_time_ms >= 0:\n        parts.append(f'db;dur={db_time_ms}')\n    if cache_time_ms >= 0:\n        parts.append(f'cache;dur={cache_time_ms}')\n    return \", \".join(parts)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:46.031363+00:00",
+    "description": "Build Server-Timing header value.",
+    "intent": "Build Server-Timing header value.",
+    "language": "python",
+    "name": "build_timing_header",
+    "source_file": "neurop_forge/sources/middleware_patterns.py",
+    "source_line_end": 131,
+    "source_line_start": 122,
+    "tags": [
+      "build",
+      "cache_time_ms",
+      "db_time_ms",
+      "header",
+      "server_time_ms",
+      "string_manipulation",
+      "timing"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.031391+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(server_time_ms) == integer",
+      "server_time_ms is not None",
+      "type(db_time_ms) == integer",
+      "db_time_ms is not None",
+      "type(cache_time_ms) == integer",
+      "cache_time_ms is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(server_time_ms) == integer",
+      "server_time_ms is not None",
+      "type(db_time_ms) == integer",
+      "db_time_ms is not None",
+      "type(cache_time_ms) == integer",
+      "cache_time_ms is not None"
+    ]
+  }
+}

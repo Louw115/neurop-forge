@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3f25259a65a3fd2a80f13608acef86338e2e846ea49c8271e8c29b4a0b8ad565",
+    "semantic_fingerprint": "1d45dd8e7ba119483277a4748da13eda4fe6a5509518e4f695fa5aca6ad96ecb",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Evaluate all conditions (AND logic).",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter conditions",
+        "name": "conditions",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter context",
+        "name": "context",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of evaluate_all_conditions",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def evaluate_all_conditions(conditions: list, context: dict) -> bool:\n    \"\"\"Evaluate all conditions (AND logic).\"\"\"\n    return all(evaluate_condition(c, context) for c in conditions)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:47.150997+00:00",
+    "description": "Evaluate all conditions (AND logic).",
+    "intent": "Evaluate all conditions (AND logic).",
+    "language": "python",
+    "name": "evaluate_all_conditions",
+    "source_file": "neurop_forge/sources/workflow_patterns.py",
+    "source_line_end": 107,
+    "source_line_start": 105,
+    "tags": [
+      "all",
+      "arithmetic",
+      "conditions",
+      "context",
+      "evaluate"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.151019+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(conditions) == list",
+      "conditions is not None",
+      "type(context) == dict",
+      "context is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(conditions) == list",
+      "conditions is not None",
+      "type(context) == dict",
+      "context is not None"
+    ]
+  }
+}

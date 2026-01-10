@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "24333913322321b6cc7185f8f937cdde4a44d8e61f6bd6d604ba1599e484669e",
+    "semantic_fingerprint": "f7607633e4f3f267171940e8253a9a93ccaefd1061ec6092899b300b27df4402",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse mailto URI.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter uri",
+        "name": "uri",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of parse_mailto",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_mailto(uri: str) -> dict:\n    \"\"\"Parse mailto URI.\"\"\"\n    if not uri.lower().startswith(\"mailto:\"):\n        return None\n    rest = uri[7:]\n    email, query = (rest.split(\"?\", 1) + [None])[:2]\n    result = {\"to\": email, \"cc\": None, \"bcc\": None, \"subject\": None, \"body\": None}\n    if query:\n        params = parse_query_string(query)\n        result.update(params)\n    return result",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T02:18:50.859349+00:00",
+    "description": "Parse mailto URI.",
+    "intent": "Parse mailto URI.",
+    "language": "python",
+    "name": "parse_mailto",
+    "source_file": "neurop_forge/sources/protocol_utilities.py",
+    "source_line_end": 147,
+    "source_line_start": 137,
+    "tags": [
+      "mailto",
+      "parse",
+      "transformation",
+      "uri"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:50.859377+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(uri) == string",
+      "uri is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(uri) == string",
+      "uri is not None"
+    ]
+  }
+}

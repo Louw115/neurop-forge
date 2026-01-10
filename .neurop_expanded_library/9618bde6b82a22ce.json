@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9618bde6b82a22ce079e82b2d03f02075ff749eeae59cdcc7b6c82159fe0d69b",
+    "semantic_fingerprint": "74e6ac7375f0d82d57bffd8705ad2eb515e6744e0c3d282bd35e83c860059376",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Create identity matrix.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter size",
+        "name": "size",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of matrix_identity",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def matrix_identity(size: int) -> dict:\n    \"\"\"Create identity matrix.\"\"\"\n    rows = [[1 if i == j else 0 for j in range(size)] for i in range(size)]\n    return create_matrix(rows)",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:48.126965+00:00",
+    "description": "Create identity matrix.",
+    "intent": "Create identity matrix.",
+    "language": "python",
+    "name": "matrix_identity",
+    "source_file": "neurop_forge/sources/matrix_utilities.py",
+    "source_line_end": 72,
+    "source_line_start": 69,
+    "tags": [
+      "dict_operation",
+      "identity",
+      "matrix",
+      "size"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.127001+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(size) == integer",
+      "size is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(size) == integer",
+      "size is not None"
+    ]
+  }
+}

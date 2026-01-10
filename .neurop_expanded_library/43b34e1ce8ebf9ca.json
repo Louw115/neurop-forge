@@ -1,0 +1,165 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "43b34e1ce8ebf9ca2632c324c9964bea6a0939f557a76e5c2a68a8cbcf5e630a",
+    "semantic_fingerprint": "4723af9865433dc67c38aaa2b4d68fd2ccc4096d3549efc092fa717770dce223",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format time according to locale conventions.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter hour",
+        "name": "hour",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter minute",
+        "name": "minute",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter locale",
+        "name": "locale",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter use_24h",
+        "name": "use_24h",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_time_locale",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_time_locale(hour: int, minute: int, locale: str, use_24h: bool) -> str:\n    \"\"\"Format time according to locale conventions.\"\"\"\n    if use_24h or not locale.startswith(\"en\"):\n        return f\"{hour:02d}:{minute:02d}\"\n    period = \"AM\" if hour < 12 else \"PM\"\n    hour_12 = hour % 12\n    if hour_12 == 0:\n        hour_12 = 12\n    return f\"{hour_12}:{minute:02d} {period}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:47.101404+00:00",
+    "description": "Format time according to locale conventions.",
+    "intent": "Format time according to locale conventions.",
+    "language": "python",
+    "name": "format_time_locale",
+    "source_file": "neurop_forge/sources/i18n_patterns.py",
+    "source_line_end": 86,
+    "source_line_start": 78,
+    "tags": [
+      "format",
+      "hour",
+      "locale",
+      "minute",
+      "string_manipulation",
+      "time",
+      "use_24h"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.101425+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(hour) == integer",
+      "hour is not None",
+      "type(minute) == integer",
+      "minute is not None",
+      "type(locale) == string",
+      "locale is not None",
+      "type(use_24h) == boolean",
+      "use_24h is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(hour) == integer",
+      "hour is not None",
+      "type(minute) == integer",
+      "minute is not None",
+      "type(locale) == string",
+      "locale is not None",
+      "type(use_24h) == boolean",
+      "use_24h is not None"
+    ]
+  }
+}

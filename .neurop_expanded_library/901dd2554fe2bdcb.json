@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "901dd2554fe2bdcb8367338fd6a0bb877f3687004307cb29a0c77974d1773030",
+    "semantic_fingerprint": "9085bb13df948d21757173eb93a9e2fb74b58c0681f58b6661ab77c8194fd78f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Transpose a matrix.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter m",
+        "name": "m",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of matrix_transpose",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def matrix_transpose(m: dict) -> dict:\n    \"\"\"Transpose a matrix.\"\"\"\n    rows = [[m[\"rows\"][i][j] for i in range(m[\"num_rows\"])] for j in range(m[\"num_cols\"])]\n    return create_matrix(rows)",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:48.125514+00:00",
+    "description": "Transpose a matrix.",
+    "intent": "Transpose a matrix.",
+    "language": "python",
+    "name": "matrix_transpose",
+    "source_file": "neurop_forge/sources/matrix_utilities.py",
+    "source_line_end": 66,
+    "source_line_start": 63,
+    "tags": [
+      "list_operation",
+      "m",
+      "matrix",
+      "transpose"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.125532+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(m) == dict",
+      "m is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(m) == dict",
+      "m is not None"
+    ]
+  }
+}

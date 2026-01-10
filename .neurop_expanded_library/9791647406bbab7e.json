@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9791647406bbab7e158b54b80204d381fbec26565285a50e1ff019fb21fdd21a",
+    "semantic_fingerprint": "927c8dc59ec221881e82847a4903b9e8d702fbca8401b86d11116364cc7b2da9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Filter content items by status.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter status",
+        "name": "status",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of filter_content_by_status",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def filter_content_by_status(items: list, status: str) -> list:\n    \"\"\"Filter content items by status.\"\"\"\n    return [item for item in items if item.get(\"status\") == status]",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:47.873574+00:00",
+    "description": "Filter content items by status.",
+    "intent": "Filter content items by status.",
+    "language": "python",
+    "name": "filter_content_by_status",
+    "source_file": "neurop_forge/sources/content_utilities.py",
+    "source_line_end": 164,
+    "source_line_start": 162,
+    "tags": [
+      "content",
+      "filter",
+      "filtering",
+      "items",
+      "status"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.873594+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "type(status) == string",
+      "status is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "type(status) == string",
+      "status is not None"
+    ]
+  }
+}

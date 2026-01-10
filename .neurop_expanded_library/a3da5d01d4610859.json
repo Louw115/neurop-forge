@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a3da5d01d4610859ed1ac4a114f667c76dd029426fdfd1c8bb0ed131dc3357c7",
+    "semantic_fingerprint": "a9f50b78ac8811df6b52f9ba151ae170700792c9b8fe41d30704cd968deb8e6c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate remaining requests in fixed window.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_count",
+        "name": "current_count",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_count",
+        "name": "max_count",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of fixed_window_remaining",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def fixed_window_remaining(current_count: int, max_count: int) -> int:\n    \"\"\"Calculate remaining requests in fixed window.\"\"\"\n    return max(0, max_count - current_count)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:43.909816+00:00",
+    "description": "Calculate remaining requests in fixed window.",
+    "intent": "Calculate remaining requests in fixed window.",
+    "language": "python",
+    "name": "fixed_window_remaining",
+    "source_file": "neurop_forge/sources/rate_limiting.py",
+    "source_line_end": 70,
+    "source_line_start": 68,
+    "tags": [
+      "arithmetic",
+      "current_count",
+      "fixed",
+      "max_count",
+      "remaining",
+      "window"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.909841+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(current_count) == integer",
+      "current_count is not None",
+      "type(max_count) == integer",
+      "max_count is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(current_count) == integer",
+      "current_count is not None",
+      "type(max_count) == integer",
+      "max_count is not None"
+    ]
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "280d53cbdb3871b9fb55425626a974116e7fc608834ce0012b8f6d9d34cc9dfe",
+    "semantic_fingerprint": "cad123069b3d42c89130b5439cadb7167f3294dd1ad64143a7443b94d7879cf8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate period-over-period growth rate percentage.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter current_value",
+        "name": "current_value",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter previous_value",
+        "name": "previous_value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_growth_rate",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_growth_rate(current_value: float, previous_value: float) -> float:\n    \"\"\"Calculate period-over-period growth rate percentage.\"\"\"\n    if previous_value <= 0:\n        return 0.0\n    return ((current_value - previous_value) / previous_value) * 100",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:46.918130+00:00",
+    "description": "Calculate period-over-period growth rate percentage.",
+    "intent": "Calculate period-over-period growth rate percentage.",
+    "language": "python",
+    "name": "calculate_growth_rate",
+    "source_file": "neurop_forge/sources/analytics_patterns.py",
+    "source_line_end": 121,
+    "source_line_start": 117,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "current_value",
+      "growth",
+      "previous_value",
+      "rate"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.918149+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(current_value) == float",
+      "current_value is not None",
+      "type(previous_value) == float",
+      "previous_value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(current_value) == float",
+      "current_value is not None",
+      "type(previous_value) == float",
+      "previous_value is not None"
+    ]
+  }
+}

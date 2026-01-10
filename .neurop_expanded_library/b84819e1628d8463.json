@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b84819e1628d846371cdbcb5ed677b1963b6860c42f4cf8b2c1d5638cc1d7eb9",
+    "semantic_fingerprint": "be6ef214420427b242f829e2215e0f8e7e5446d8fdc600df1ac33a1b1d631dfc",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract all images from markdown text.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter markdown",
+        "name": "markdown",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of extract_images",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def extract_images(markdown: str) -> list:\n    \"\"\"Extract all images from markdown text.\"\"\"\n    pattern = r'!\\[([^\\]]*)\\]\\(([^)]+)\\)'\n    return [{'alt': m[0], 'url': m[1]} for m in re.findall(pattern, markdown)]",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:44.529069+00:00",
+    "description": "Extract all images from markdown text.",
+    "intent": "Extract all images from markdown text.",
+    "language": "python",
+    "name": "extract_images",
+    "source_file": "neurop_forge/sources/markdown_utilities.py",
+    "source_line_end": 147,
+    "source_line_start": 144,
+    "tags": [
+      "extract",
+      "filtering",
+      "images",
+      "markdown"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.529097+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(markdown) == string",
+      "markdown is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(markdown) == string",
+      "markdown is not None"
+    ]
+  }
+}

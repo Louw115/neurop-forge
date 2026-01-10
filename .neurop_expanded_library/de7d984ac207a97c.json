@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "de7d984ac207a97cb4d761d99c3657413f2a6294e4ee68f690df2eacfc0db514",
+    "semantic_fingerprint": "b93aca285899df17df1b62b64d95a43ffa593a13164a4e627794fce6480414a0",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate messages per second throughput.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter processed_count",
+        "name": "processed_count",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter time_window_seconds",
+        "name": "time_window_seconds",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_throughput",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_throughput(processed_count: int, time_window_seconds: int) -> float:\n    \"\"\"Calculate messages per second throughput.\"\"\"\n    if time_window_seconds <= 0:\n        return 0.0\n    return processed_count / time_window_seconds",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:46.292788+00:00",
+    "description": "Calculate messages per second throughput.",
+    "intent": "Calculate messages per second throughput.",
+    "language": "python",
+    "name": "calculate_throughput",
+    "source_file": "neurop_forge/sources/queue_patterns.py",
+    "source_line_end": 147,
+    "source_line_start": 143,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "processed_count",
+      "throughput",
+      "time_window_seconds"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.292813+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(processed_count) == integer",
+      "processed_count is not None",
+      "type(time_window_seconds) == integer",
+      "time_window_seconds is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(processed_count) == integer",
+      "processed_count is not None",
+      "type(time_window_seconds) == integer",
+      "time_window_seconds is not None"
+    ]
+  }
+}

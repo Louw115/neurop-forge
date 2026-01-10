@@ -1,0 +1,156 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": false,
+    "io_operations": [
+      "random"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "non_deterministic",
+    "side_effects": [
+      "random"
+    ],
+    "thread_safe": false
+  },
+  "failure_modes": {
+    "can_fail": true,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "raises_exception",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d1806c7132e5b5ce6e3bc69dc64771ee47327df885f2b4baa356ac49b27b3133",
+    "semantic_fingerprint": "dc37d8d3f147838d583cf0b888e96a31ca21c00dca3c7c5a426895ce8195b26d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Insert a key-value pair.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter sl",
+        "name": "sl",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of skip_list_insert",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def skip_list_insert(sl: dict, key, value) -> dict:\n    \"\"\"Insert a key-value pair.\"\"\"\n    update = [None] * sl[\"max_level\"]\n    node = _clone_node(sl[\"head\"])\n    head = node\n    for i in range(sl[\"level\"] - 1, -1, -1):\n        while node[\"forward\"][i] and node[\"forward\"][i][\"key\"] < key:\n            next_node = _clone_node(node[\"forward\"][i])\n            node[\"forward\"][i] = next_node\n            node = next_node\n        update[i] = node\n    next_at_0 = node[\"forward\"][0]\n    if next_at_0 and next_at_0[\"key\"] == key:\n        new_node = _clone_node(next_at_0)\n        new_node[\"value\"] = value\n        update[0][\"forward\"][0] = new_node\n        return {**sl, \"head\": head}\n    new_level = _random_level(key, sl[\"max_level\"])\n    level = sl[\"level\"]\n    if new_level > sl[\"level\"]:\n        for i in range(sl[\"level\"], new_level):\n            update[i] = head\n        level = new_level\n    new_node = {\n        \"key\": key,\n        \"value\": value,\n        \"forward\": [None] * new_level\n    }\n    for i in range(new_level):\n        new_node[\"forward\"][i] = update[i][\"forward\"][i] if i < len(update[i][\"forward\"]) else None\n        update[i][\"forward\"][i] = new_node\n    return {\n        \"head\": head,\n        \"max_level\": sl[\"max_level\"],\n        \"level\": level,\n        \"size\": sl[\"size\"] + 1\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:49.170014+00:00",
+    "description": "Insert a key-value pair.",
+    "intent": "Insert a key-value pair.",
+    "language": "python",
+    "name": "skip_list_insert",
+    "source_file": "neurop_forge/sources/skip_list.py",
+    "source_line_end": 101,
+    "source_line_start": 65,
+    "tags": [
+      "dict_operation",
+      "insert",
+      "key",
+      "list",
+      "skip",
+      "sl",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 0.5,
+    "last_verified": "2026-01-10T02:18:49.170037+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.265,
+    "risk_factors": [
+      "impure_function",
+      "non_deterministic",
+      "side_effects: random"
+    ],
+    "risk_level": "medium",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(sl) == dict",
+      "sl is not None",
+      "key is not None",
+      "value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(sl) == dict",
+      "sl is not None",
+      "key is not None",
+      "value is not None"
+    ]
+  }
+}

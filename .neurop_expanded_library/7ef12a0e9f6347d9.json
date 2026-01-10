@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7ef12a0e9f6347d9b9a6e791ede0b6831bac9d8c63d2f87bd1613d920e80cef3",
+    "semantic_fingerprint": "94d6fe9268156dff7967188750cf879844e28b9a934d848de515d3c5f471ea2c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Change the scheme of a URL.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter url",
+        "name": "url",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter new_scheme",
+        "name": "new_scheme",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of change_url_scheme",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def change_url_scheme(url: str, new_scheme: str) -> str:\n    \"\"\"Change the scheme of a URL.\"\"\"\n    if not url or not new_scheme:\n        return url\n    parsed = parse_url(url)\n    parsed['scheme'] = new_scheme\n    return build_url(\n        parsed['scheme'], parsed['host'], parsed['port'],\n        parsed['path'], parsed['query'], parsed['fragment']\n    )",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:42.915483+00:00",
+    "description": "Change the scheme of a URL.",
+    "intent": "Change the scheme of a URL.",
+    "language": "python",
+    "name": "change_url_scheme",
+    "source_file": "neurop_forge/sources/url_utilities.py",
+    "source_line_end": 260,
+    "source_line_start": 251,
+    "tags": [
+      "change",
+      "new_scheme",
+      "scheme",
+      "string_manipulation",
+      "url"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:42.915501+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(url) == string",
+      "url is not None",
+      "type(new_scheme) == string",
+      "new_scheme is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(url) == string",
+      "url is not None",
+      "type(new_scheme) == string",
+      "new_scheme is not None"
+    ]
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a1e280c66cd75aaa518754071cfccef90015e439fee2657f99f4acb5d5323102",
+    "semantic_fingerprint": "ec70a62ef2b2edf55e74c80ba132e12fe4d083d4ca9ee6430db2a162080c2e8c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate cohort retention over periods.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter cohort_users",
+        "name": "cohort_users",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter active_users_by_period",
+        "name": "active_users_by_period",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of calculate_cohort_retention",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_cohort_retention(cohort_users: list, active_users_by_period: list) -> list:\n    \"\"\"Calculate cohort retention over periods.\"\"\"\n    total = len(cohort_users)\n    if total <= 0:\n        return []\n    result = []\n    for i, active_count in enumerate(active_users_by_period):\n        result.append({\n            \"period\": i,\n            \"retained\": active_count,\n            \"retention_rate\": (active_count / total) * 100\n        })\n    return result",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:46.939435+00:00",
+    "description": "Calculate cohort retention over periods.",
+    "intent": "Calculate cohort retention over periods.",
+    "language": "python",
+    "name": "calculate_cohort_retention",
+    "source_file": "neurop_forge/sources/analytics_patterns.py",
+    "source_line_end": 221,
+    "source_line_start": 209,
+    "tags": [
+      "active_users_by_period",
+      "arithmetic",
+      "calculate",
+      "cohort",
+      "cohort_users",
+      "retention"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.939461+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(cohort_users) == list",
+      "cohort_users is not None",
+      "type(active_users_by_period) == list",
+      "active_users_by_period is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(cohort_users) == list",
+      "cohort_users is not None",
+      "type(active_users_by_period) == list",
+      "active_users_by_period is not None"
+    ]
+  }
+}

@@ -1,0 +1,166 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "fc9bcee804d4b2edd7240861d21911544617a3a77866fca4cb929c2513f4b589",
+    "semantic_fingerprint": "8ec6fa2ea72fceb21dbecf440c2b90cdfa16b8a540e3f6d71ae9261f329d66bf",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build an INSERT ... ON CONFLICT DO UPDATE query.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter table",
+        "name": "table",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter columns",
+        "name": "columns",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter conflict_column",
+        "name": "conflict_column",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter update_columns",
+        "name": "update_columns",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_upsert_query",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_upsert_query(table: str, columns: list, conflict_column: str, update_columns: list) -> str:\n    \"\"\"Build an INSERT ... ON CONFLICT DO UPDATE query.\"\"\"\n    insert_part = build_insert_query(table, columns)\n    update_parts = []\n    for col in update_columns:\n        update_parts.append(f\"{escape_sql_identifier(col)} = EXCLUDED.{escape_sql_identifier(col)}\")\n    update_clause = \", \".join(update_parts)\n    return f\"{insert_part} ON CONFLICT ({escape_sql_identifier(conflict_column)}) DO UPDATE SET {update_clause}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:44.659175+00:00",
+    "description": "Build an INSERT ... ON CONFLICT DO UPDATE query.",
+    "intent": "Build an INSERT ... ON CONFLICT DO UPDATE query.",
+    "language": "python",
+    "name": "build_upsert_query",
+    "source_file": "neurop_forge/sources/sql_building.py",
+    "source_line_end": 183,
+    "source_line_start": 176,
+    "tags": [
+      "build",
+      "columns",
+      "conflict_column",
+      "query",
+      "string_manipulation",
+      "table",
+      "update_columns",
+      "upsert"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.659209+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(table) == string",
+      "table is not None",
+      "type(columns) == list",
+      "columns is not None",
+      "type(conflict_column) == string",
+      "conflict_column is not None",
+      "type(update_columns) == list",
+      "update_columns is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(table) == string",
+      "table is not None",
+      "type(columns) == list",
+      "columns is not None",
+      "type(conflict_column) == string",
+      "conflict_column is not None",
+      "type(update_columns) == list",
+      "update_columns is not None"
+    ]
+  }
+}

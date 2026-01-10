@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7c1076138e82cc532d8a46769f53fa6ddeb599cbf407c2030a4df7e43776f225",
+    "semantic_fingerprint": "02b955388b68d004ab0d8c0f71ec595236fa66977d70c1c4964ec0e6d2ad0dd3",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find longest prefix in trie that matches start of text.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter trie",
+        "name": "trie",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of trie_longest_prefix",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def trie_longest_prefix(trie: dict, text: str) -> str:\n    \"\"\"Find longest prefix in trie that matches start of text.\"\"\"\n    node = trie[\"root\"]\n    longest = \"\"\n    current = \"\"\n    for char in text:\n        if char not in node[\"children\"]:\n            break\n        current += char\n        node = node[\"children\"][char]\n        if node[\"is_end\"]:\n            longest = current\n    return longest",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:48.675850+00:00",
+    "description": "Find longest prefix in trie that matches start of text.",
+    "intent": "Find longest prefix in trie that matches start of text.",
+    "language": "python",
+    "name": "trie_longest_prefix",
+    "source_file": "neurop_forge/sources/trie_utilities.py",
+    "source_line_end": 153,
+    "source_line_start": 141,
+    "tags": [
+      "longest",
+      "prefix",
+      "string_manipulation",
+      "text",
+      "trie"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.675875+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(trie) == dict",
+      "trie is not None",
+      "type(text) == string",
+      "text is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(trie) == dict",
+      "trie is not None",
+      "type(text) == string",
+      "text is not None"
+    ]
+  }
+}

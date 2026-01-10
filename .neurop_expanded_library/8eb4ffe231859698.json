@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8eb4ffe2318596981b77c4aaf0d60b6645e3b3fc7cb1f95619e28ff2949b8d17",
+    "semantic_fingerprint": "0bdf4e221f8ed48a4fad5010d0548fb3dd46b83f8ec327446288963dd4d551a7",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find longest common prefix of strings.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter strings",
+        "name": "strings",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of longest_common_prefix",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def longest_common_prefix(strings: list) -> str:\n    \"\"\"Find longest common prefix of strings.\"\"\"\n    if not strings:\n        return \"\"\n    prefix = strings[0]\n    for s in strings[1:]:\n        while not s.startswith(prefix):\n            prefix = prefix[:-1]\n            if not prefix:\n                return \"\"\n    return prefix",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:51.220591+00:00",
+    "description": "Find longest common prefix of strings.",
+    "intent": "Find longest common prefix of strings.",
+    "language": "python",
+    "name": "longest_common_prefix",
+    "source_file": "neurop_forge/sources/string_algorithms.py",
+    "source_line_end": 22,
+    "source_line_start": 12,
+    "tags": [
+      "common",
+      "longest",
+      "prefix",
+      "string_manipulation",
+      "strings"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:51.220624+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(strings) == list",
+      "strings is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(strings) == list",
+      "strings is not None"
+    ]
+  }
+}

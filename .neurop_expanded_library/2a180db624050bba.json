@@ -1,0 +1,166 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2a180db624050bba8a64053aa5a8332325364ecbbdd4ede3a305d6efa15e5659",
+    "semantic_fingerprint": "0a36c875e0fc296c5a5016733015419be11f73a0b0933fe6004735e9aa2fb564",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Create token payload.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter user_id",
+        "name": "user_id",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter issued_at",
+        "name": "issued_at",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter expires_at",
+        "name": "expires_at",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter claims",
+        "name": "claims",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of create_token_payload",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def create_token_payload(user_id: str, issued_at: int, expires_at: int, claims: dict) -> dict:\n    \"\"\"Create token payload.\"\"\"\n    return {\n        \"sub\": user_id,\n        \"iat\": issued_at,\n        \"exp\": expires_at,\n        **claims\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:52.695141+00:00",
+    "description": "Create token payload.",
+    "intent": "Create token payload.",
+    "language": "python",
+    "name": "create_token_payload",
+    "source_file": "neurop_forge/sources/token_utilities.py",
+    "source_line_end": 51,
+    "source_line_start": 44,
+    "tags": [
+      "claims",
+      "create",
+      "dict_operation",
+      "expires_at",
+      "issued_at",
+      "payload",
+      "token",
+      "user_id"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.695170+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(user_id) == string",
+      "user_id is not None",
+      "type(issued_at) == integer",
+      "issued_at is not None",
+      "type(expires_at) == integer",
+      "expires_at is not None",
+      "type(claims) == dict",
+      "claims is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(user_id) == string",
+      "user_id is not None",
+      "type(issued_at) == integer",
+      "issued_at is not None",
+      "type(expires_at) == integer",
+      "expires_at is not None",
+      "type(claims) == dict",
+      "claims is not None"
+    ]
+  }
+}

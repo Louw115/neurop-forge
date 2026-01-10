@@ -1,0 +1,139 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0904b5b421b58f52a077c26fd3d0e72acf67ca7a34557b721b8c748b729ac581",
+    "semantic_fingerprint": "a91d413f9741730d8c858951ff0a5b735e3a51be8f967bb2c33fd202f03a0421",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Apply transformation to all node values.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter node",
+        "name": "node",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter transform",
+        "name": "transform",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of map_tree",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def map_tree(node: dict, transform) -> dict:\n    \"\"\"Apply transformation to all node values.\"\"\"\n    result = dict(node)\n    result[\"value\"] = transform(node[\"value\"])\n    result[\"children\"] = [map_tree(c, transform) for c in node.get(\"children\", [])]\n    return result",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T02:18:48.252744+00:00",
+    "description": "Apply transformation to all node values.",
+    "intent": "Apply transformation to all node values.",
+    "language": "python",
+    "name": "map_tree",
+    "source_file": "neurop_forge/sources/tree_utilities.py",
+    "source_line_end": 146,
+    "source_line_start": 141,
+    "tags": [
+      "map",
+      "node",
+      "transform",
+      "transformation",
+      "tree"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.252762+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(node) == dict",
+      "node is not None",
+      "transform is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(node) == dict",
+      "node is not None",
+      "transform is not None"
+    ]
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e34a93198b1cd04824b922fec9ff73f178c94e95e8d99dae5df4b7a79860175b",
+    "semantic_fingerprint": "b29f2c8d207e22ae04476dfe3bd322362e44a0746a61a79a8a4196ba3005a23d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Compute line-by-line diff.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text_a",
+        "name": "text_a",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text_b",
+        "name": "text_b",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of compute_line_diff",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def compute_line_diff(text_a: str, text_b: str) -> list:\n    \"\"\"Compute line-by-line diff.\"\"\"\n    lines_a = text_a.split(\"\\n\")\n    lines_b = text_b.split(\"\\n\")\n    return compute_diff(lines_a, lines_b)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:49.242518+00:00",
+    "description": "Compute line-by-line diff.",
+    "intent": "Compute line-by-line diff.",
+    "language": "python",
+    "name": "compute_line_diff",
+    "source_file": "neurop_forge/sources/diff_utilities.py",
+    "source_line_end": 48,
+    "source_line_start": 44,
+    "tags": [
+      "arithmetic",
+      "compute",
+      "diff",
+      "line",
+      "text_a",
+      "text_b"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.242536+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text_a) == string",
+      "text_a is not None",
+      "type(text_b) == string",
+      "text_b is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(text_a) == string",
+      "text_a is not None",
+      "type(text_b) == string",
+      "text_b is not None"
+    ]
+  }
+}

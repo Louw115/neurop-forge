@@ -1,0 +1,155 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception",
+      "KeyError"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4a1696b5c3ebf735c60bb553b65a7ea3799f742ee359552c334e4fb7ec5dfa40",
+    "semantic_fingerprint": "6e5e63d188e268898eb33597d3c194039d695407281b3470f1f1feaecee55e65",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate a storage key/path for uploaded file.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter prefix",
+        "name": "prefix",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter filename",
+        "name": "filename",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter timestamp",
+        "name": "timestamp",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_storage_key",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_storage_key(prefix: str, filename: str, timestamp: str) -> str:\n    \"\"\"Generate a storage key/path for uploaded file.\"\"\"\n    date_part = timestamp[:10].replace(\"-\", \"/\")\n    safe_name = generate_safe_filename(filename, 100)\n    return f\"{prefix}/{date_part}/{safe_name}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:47.020776+00:00",
+    "description": "Generate a storage key/path for uploaded file.",
+    "intent": "Generate a storage key/path for uploaded file.",
+    "language": "python",
+    "name": "generate_storage_key",
+    "source_file": "neurop_forge/sources/file_utilities.py",
+    "source_line_end": 275,
+    "source_line_start": 271,
+    "tags": [
+      "filename",
+      "generate",
+      "key",
+      "prefix",
+      "storage",
+      "string_manipulation",
+      "timestamp"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.020795+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(prefix) == string",
+      "prefix is not None",
+      "type(filename) == string",
+      "filename is not None",
+      "type(timestamp) == string",
+      "timestamp is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(prefix) == string",
+      "prefix is not None",
+      "type(filename) == string",
+      "filename is not None",
+      "type(timestamp) == string",
+      "timestamp is not None"
+    ]
+  }
+}

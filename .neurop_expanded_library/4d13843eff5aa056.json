@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4d13843eff5aa056cb86953af61817c6cb32a07e4db016a2131a62fc78f30d1e",
+    "semantic_fingerprint": "2b026da9520c41172c609cad684fd1ac4b765fff55635dc50c3fa9b7cb917025",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if approval step has enough approvals.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter step",
+        "name": "step",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_approval_complete",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_approval_complete(step: dict) -> bool:\n    \"\"\"Check if approval step has enough approvals.\"\"\"\n    return len(step.get(\"approvals\", [])) >= step.get(\"min_approvals\", 1)",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:47.166666+00:00",
+    "description": "Check if approval step has enough approvals.",
+    "intent": "Check if approval step has enough approvals.",
+    "language": "python",
+    "name": "is_approval_complete",
+    "source_file": "neurop_forge/sources/workflow_patterns.py",
+    "source_line_end": 186,
+    "source_line_start": 184,
+    "tags": [
+      "approval",
+      "complete",
+      "step",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.166684+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(step) == dict",
+      "step is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(step) == dict",
+      "step is not None"
+    ]
+  }
+}

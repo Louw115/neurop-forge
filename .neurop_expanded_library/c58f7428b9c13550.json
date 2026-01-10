@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c58f7428b9c135502fa791a6f88635fe41ff01122b3c35a1c1b9e3c2ac20a27f",
+    "semantic_fingerprint": "055efbcb745480c7dbd4e9817bed04847545b394bcb5f41ea534188b24905f15",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get stock status.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter item",
+        "name": "item",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_stock_status",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_stock_status(item: dict) -> str:\n    \"\"\"Get stock status.\"\"\"\n    available = get_available(item)\n    if available <= 0:\n        return \"out_of_stock\"\n    if needs_reorder(item):\n        return \"low_stock\"\n    return \"in_stock\"",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:52.522528+00:00",
+    "description": "Get stock status.",
+    "intent": "Get stock status.",
+    "language": "python",
+    "name": "get_stock_status",
+    "source_file": "neurop_forge/sources/inventory_utilities.py",
+    "source_line_end": 82,
+    "source_line_start": 75,
+    "tags": [
+      "filtering",
+      "get",
+      "item",
+      "status",
+      "stock"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.522545+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(item) == dict",
+      "item is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(item) == dict",
+      "item is not None"
+    ]
+  }
+}

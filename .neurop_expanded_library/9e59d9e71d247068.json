@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9e59d9e71d2470688d6929ce7d53c9731612dd9396fbc34c455187ddc4898330",
+    "semantic_fingerprint": "cf9b65878499e2246a50d2c5a457f145ae79c3b4fba466a65efbbf4b76932518",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build heap from list of values.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter values",
+        "name": "values",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter heap_type",
+        "name": "heap_type",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of heapify",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def heapify(values: list, heap_type: str) -> dict:\n    \"\"\"Build heap from list of values.\"\"\"\n    items = list(values)\n    for i in range(len(items) // 2 - 1, -1, -1):\n        items = _heapify_down(items, heap_type, i)\n    return {\"type\": heap_type, \"items\": items}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:48.294641+00:00",
+    "description": "Build heap from list of values.",
+    "intent": "Build heap from list of values.",
+    "language": "python",
+    "name": "heapify",
+    "source_file": "neurop_forge/sources/heap_utilities.py",
+    "source_line_end": 133,
+    "source_line_start": 128,
+    "tags": [
+      "dict_operation",
+      "heap_type",
+      "heapify",
+      "values"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.294676+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(values) == list",
+      "values is not None",
+      "type(heap_type) == string",
+      "heap_type is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(values) == list",
+      "values is not None",
+      "type(heap_type) == string",
+      "heap_type is not None"
+    ]
+  }
+}

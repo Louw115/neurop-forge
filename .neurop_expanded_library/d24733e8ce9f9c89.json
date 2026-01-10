@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d24733e8ce9f9c893ec54356f20bccd592d04ec64aeab363bcee6a7678dc13c7",
+    "semantic_fingerprint": "cfb041123237c70e8659eea989a0ab751f68ece29392166d5389d817ff3be400",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Downsample metrics to target count.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter metrics",
+        "name": "metrics",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter target_count",
+        "name": "target_count",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of downsample_metrics",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def downsample_metrics(metrics: list, target_count: int) -> list:\n    \"\"\"Downsample metrics to target count.\"\"\"\n    if len(metrics) <= target_count:\n        return metrics\n    step = len(metrics) / target_count\n    return [metrics[int(i * step)] for i in range(target_count)]",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:47.360213+00:00",
+    "description": "Downsample metrics to target count.",
+    "intent": "Downsample metrics to target count.",
+    "language": "python",
+    "name": "downsample_metrics",
+    "source_file": "neurop_forge/sources/metrics_patterns.py",
+    "source_line_end": 250,
+    "source_line_start": 245,
+    "tags": [
+      "downsample",
+      "list_operation",
+      "metrics",
+      "target_count"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.360233+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(metrics) == list",
+      "metrics is not None",
+      "type(target_count) == integer",
+      "target_count is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(metrics) == list",
+      "metrics is not None",
+      "type(target_count) == integer",
+      "target_count is not None"
+    ]
+  }
+}

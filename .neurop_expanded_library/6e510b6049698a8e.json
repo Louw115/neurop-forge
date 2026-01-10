@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "6e510b6049698a8e8a75b23e6b42a5b2564ef82102b0a8a2e76e3e6c9f300c1b",
+    "semantic_fingerprint": "380fdcb9cc1d0839b582971e15223f811e825b67beea358601a9b0c3404763e2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Normalize value to [0, 1] range.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter min_val",
+        "name": "min_val",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter max_val",
+        "name": "max_val",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of normalize_to_range",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def normalize_to_range(value: float, min_val: float, max_val: float) -> float:\n    \"\"\"Normalize value to [0, 1] range.\"\"\"\n    if max_val == min_val:\n        return 0\n    return (value - min_val) / (max_val - min_val)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:51.619823+00:00",
+    "description": "Normalize value to [0, 1] range.",
+    "intent": "Normalize value to [0, 1] range.",
+    "language": "python",
+    "name": "normalize_to_range",
+    "source_file": "neurop_forge/sources/safe_math.py",
+    "source_line_end": 221,
+    "source_line_start": 217,
+    "tags": [
+      "arithmetic",
+      "max_val",
+      "min_val",
+      "normalize",
+      "range",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:51.619847+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == float",
+      "value is not None",
+      "type(min_val) == float",
+      "min_val is not None",
+      "type(max_val) == float",
+      "max_val is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(value) == float",
+      "value is not None",
+      "type(min_val) == float",
+      "min_val is not None",
+      "type(max_val) == float",
+      "max_val is not None"
+    ]
+  }
+}

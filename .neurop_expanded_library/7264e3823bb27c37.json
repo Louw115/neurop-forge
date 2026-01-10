@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic comparison block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7264e3823bb27c3796b84a31c6704eb86b6191bc7517dc88fbe4c4851794ed40",
+    "semantic_fingerprint": "0ab7f73085f0b44eb4fbadede6cedd4bdbab58f45574dcc7e8774a93b0f91968",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Compare two migration IDs. Returns -1, 0, or 1.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter id1",
+        "name": "id1",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter id2",
+        "name": "id2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of compare_migration_ids",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def compare_migration_ids(id1: str, id2: str) -> int:\n    \"\"\"Compare two migration IDs. Returns -1, 0, or 1.\"\"\"\n    ts1, _ = parse_migration_id(id1)\n    ts2, _ = parse_migration_id(id2)\n    if ts1 < ts2:\n        return -1\n    if ts1 > ts2:\n        return 1\n    return 0",
+  "metadata": {
+    "category": "comparison",
+    "created_at": "2026-01-10T02:18:44.983174+00:00",
+    "description": "Compare two migration IDs. Returns -1, 0, or 1.",
+    "intent": "Compare two migration IDs. Returns -1, 0, or 1.",
+    "language": "python",
+    "name": "compare_migration_ids",
+    "source_file": "neurop_forge/sources/migration_helpers.py",
+    "source_line_end": 36,
+    "source_line_start": 28,
+    "tags": [
+      "compare",
+      "comparison",
+      "id1",
+      "id2",
+      "ids",
+      "migration"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.983200+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(id1) == string",
+      "id1 is not None",
+      "type(id2) == string",
+      "id2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(id1) == string",
+      "id1 is not None",
+      "type(id2) == string",
+      "id2 is not None"
+    ]
+  }
+}

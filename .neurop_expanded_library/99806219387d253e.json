@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "99806219387d253e9e3c4cc30b89f1ae788d46251cbf69f864eae5c1fc5846b5",
+    "semantic_fingerprint": "98cb3fbb9f12d5d099e339e3a25e997d4348c6031439e2ebc3299691e1f66c84",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a WHERE clause for equality check.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter column",
+        "name": "column",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter placeholder_num",
+        "name": "placeholder_num",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_where_equals",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_where_equals(column: str, placeholder_num: int) -> str:\n    \"\"\"Build a WHERE clause for equality check.\"\"\"\n    return f\"WHERE {escape_sql_identifier(column)} = ${placeholder_num}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:44.627079+00:00",
+    "description": "Build a WHERE clause for equality check.",
+    "intent": "Build a WHERE clause for equality check.",
+    "language": "python",
+    "name": "build_where_equals",
+    "source_file": "neurop_forge/sources/sql_building.py",
+    "source_line_end": 73,
+    "source_line_start": 71,
+    "tags": [
+      "build",
+      "column",
+      "equals",
+      "placeholder_num",
+      "string_manipulation",
+      "where"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.627117+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(column) == string",
+      "column is not None",
+      "type(placeholder_num) == integer",
+      "placeholder_num is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(column) == string",
+      "column is not None",
+      "type(placeholder_num) == integer",
+      "placeholder_num is not None"
+    ]
+  }
+}

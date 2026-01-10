@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a1511e1fc603fa45a2b9bb80adde6beeecaf65ac1ade69c8dfccd3a0a454e443",
+    "semantic_fingerprint": "6068846522f45f118a241bc7828d1d761dc97eb63579df18ac1f26a56a441cc2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Create a bloom filter.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter size",
+        "name": "size",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter num_hashes",
+        "name": "num_hashes",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of create_bloom_filter",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def create_bloom_filter(size: int, num_hashes: int) -> dict:\n    \"\"\"Create a bloom filter.\"\"\"\n    return {\n        \"bits\": [0] * size,\n        \"size\": size,\n        \"num_hashes\": num_hashes,\n        \"count\": 0\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:48.702250+00:00",
+    "description": "Create a bloom filter.",
+    "intent": "Create a bloom filter.",
+    "language": "python",
+    "name": "create_bloom_filter",
+    "source_file": "neurop_forge/sources/bloom_filter.py",
+    "source_line_end": 22,
+    "source_line_start": 15,
+    "tags": [
+      "bloom",
+      "create",
+      "dict_operation",
+      "filter",
+      "num_hashes",
+      "size"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.702271+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(size) == integer",
+      "size is not None",
+      "type(num_hashes) == integer",
+      "num_hashes is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(size) == integer",
+      "size is not None",
+      "type(num_hashes) == integer",
+      "num_hashes is not None"
+    ]
+  }
+}

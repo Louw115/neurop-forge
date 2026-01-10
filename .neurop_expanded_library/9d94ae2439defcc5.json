@@ -1,0 +1,165 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9d94ae2439defcc5fde0bb5e93300e485af18076bd82a96ce5f0a2cf35a15fbe",
+    "semantic_fingerprint": "f0007ddcb3f5c18ac180b8e6b84ae54afcbc2d8078ac7e9d573cd29e9dea114c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate linear backoff delay.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter base_delay",
+        "name": "base_delay",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter attempt",
+        "name": "attempt",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter increment",
+        "name": "increment",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter max_delay",
+        "name": "max_delay",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of linear_backoff",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def linear_backoff(base_delay: float, attempt: int, increment: float, max_delay: float) -> float:\n    \"\"\"Calculate linear backoff delay.\"\"\"\n    delay = base_delay + (attempt * increment)\n    return min(delay, max_delay)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:43.927460+00:00",
+    "description": "Calculate linear backoff delay.",
+    "intent": "Calculate linear backoff delay.",
+    "language": "python",
+    "name": "linear_backoff",
+    "source_file": "neurop_forge/sources/rate_limiting.py",
+    "source_line_end": 140,
+    "source_line_start": 137,
+    "tags": [
+      "arithmetic",
+      "attempt",
+      "backoff",
+      "base_delay",
+      "increment",
+      "linear",
+      "max_delay"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.927484+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(base_delay) == float",
+      "base_delay is not None",
+      "type(attempt) == integer",
+      "attempt is not None",
+      "type(increment) == float",
+      "increment is not None",
+      "type(max_delay) == float",
+      "max_delay is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(base_delay) == float",
+      "base_delay is not None",
+      "type(attempt) == integer",
+      "attempt is not None",
+      "type(increment) == float",
+      "increment is not None",
+      "type(max_delay) == float",
+      "max_delay is not None"
+    ]
+  }
+}

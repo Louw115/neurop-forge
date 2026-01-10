@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "27a90b91a0d1d2358ae23a93da62cfe1aa768620cc91baad4f6dfb6bb1a37d13",
+    "semantic_fingerprint": "85bc103f3fe4bd32f98305eab2963a9b00f7eb85a91fdef63958476a64edbf57",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get the standard text for an HTTP status code.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter code",
+        "name": "code",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_status_text",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_status_text(code: int) -> str:\n    \"\"\"Get the standard text for an HTTP status code.\"\"\"\n    status_texts = {\n        100: \"Continue\",\n        101: \"Switching Protocols\",\n        200: \"OK\",\n        201: \"Created\",\n        202: \"Accepted\",\n        204: \"No Content\",\n        206: \"Partial Content\",\n        301: \"Moved Permanently\",\n        302: \"Found\",\n        303: \"See Other\",\n        304: \"Not Modified\",\n        307: \"Temporary Redirect\",\n        308: \"Permanent Redirect\",\n        400: \"Bad Request\",\n        401: \"Unauthorized\",\n        403: \"Forbidden\",\n        404: \"Not Found\",\n        405: \"Method Not Allowed\",\n        406: \"Not Acceptable\",\n        408: \"Request Timeout\",\n        409: \"Conflict\",\n        410: \"Gone\",\n        413: \"Payload Too Large\",\n        414: \"URI Too Long\",\n        415: \"Unsupported Media Type\",\n        422: \"Unprocessable Entity\",\n        429: \"Too Many Requests\",\n        500: \"Internal Server Error\",\n        501: \"Not Implemented\",\n        502: \"Bad Gateway\",\n        503: \"Service Unavailable\",\n        504: \"Gateway Timeout\",\n    }\n    return status_texts.get(code, \"Unknown Status\")",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:43.259469+00:00",
+    "description": "Get the standard text for an HTTP status code.",
+    "intent": "Get the standard text for an HTTP status code.",
+    "language": "python",
+    "name": "get_status_text",
+    "source_file": "neurop_forge/sources/http_utilities.py",
+    "source_line_end": 55,
+    "source_line_start": 19,
+    "tags": [
+      "code",
+      "filtering",
+      "get",
+      "status",
+      "text"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.259491+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(code) == integer",
+      "code is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(code) == integer",
+      "code is not None"
+    ]
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d0bd43f3734c2b9a99648386517bbde52c07564f14fea71fc8ff62fb1aa71e23",
+    "semantic_fingerprint": "08f4eadd45f73dbb053cccec3b4ec5cf589496d2b37199f98a4f3393659bec8d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract area code from US phone number.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter phone",
+        "name": "phone",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_area_code",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_area_code(phone: str) -> str:\n    \"\"\"Extract area code from US phone number.\"\"\"\n    digits = normalize_phone(phone)\n    if len(digits) == 11 and digits[0] == '1':\n        return digits[1:4]\n    if len(digits) >= 10:\n        return digits[0:3]\n    return \"\"",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:44.444140+00:00",
+    "description": "Extract area code from US phone number.",
+    "intent": "Extract area code from US phone number.",
+    "language": "python",
+    "name": "get_area_code",
+    "source_file": "neurop_forge/sources/phone_utilities.py",
+    "source_line_end": 140,
+    "source_line_start": 133,
+    "tags": [
+      "area",
+      "code",
+      "filtering",
+      "get",
+      "phone"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.444159+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(phone) == string",
+      "phone is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(phone) == string",
+      "phone is not None"
+    ]
+  }
+}

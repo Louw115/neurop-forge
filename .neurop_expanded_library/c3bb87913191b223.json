@@ -1,0 +1,160 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": false,
+    "io_operations": [
+      "file_read"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "non_deterministic",
+    "side_effects": [
+      "file_io"
+    ],
+    "thread_safe": false
+  },
+  "failure_modes": {
+    "can_fail": true,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "raises_exception",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c3bb87913191b223c2027c600e358b26232679314bd6c37bbf1fb60e57b7fbbc",
+    "semantic_fingerprint": "529b3201373b65d1e49a35b0ce1bfce302bd0b437c281ce38fe3f7d60d9ec2b6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get value if not expired.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter cache",
+        "name": "cache",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_time",
+        "name": "current_time",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of ttl_lru_get",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def ttl_lru_get(cache: dict, key: str, current_time: int) -> dict:\n    \"\"\"Get value if not expired.\"\"\"\n    if key not in cache[\"items\"]:\n        return {\"cache\": cache, \"value\": None, \"hit\": False}\n    ttl = cache.get(\"ttls\", {}).get(key, float(\"inf\"))\n    if current_time > ttl:\n        new_cache = lru_remove(cache, key)\n        new_ttls = dict(cache.get(\"ttls\", {}))\n        if key in new_ttls:\n            del new_ttls[key]\n        new_cache[\"ttls\"] = new_ttls\n        return {\"cache\": new_cache, \"value\": None, \"hit\": False}\n    result = lru_get({\n        \"capacity\": cache[\"capacity\"],\n        \"items\": cache[\"items\"],\n        \"order\": cache[\"order\"],\n        \"size\": cache[\"size\"]\n    }, key)\n    result[\"cache\"][\"ttls\"] = cache.get(\"ttls\", {})\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:48.992288+00:00",
+    "description": "Get value if not expired.",
+    "intent": "Get value if not expired.",
+    "language": "python",
+    "name": "ttl_lru_get",
+    "source_file": "neurop_forge/sources/lru_cache.py",
+    "source_line_end": 220,
+    "source_line_start": 201,
+    "tags": [
+      "cache",
+      "current_time",
+      "dict_operation",
+      "get",
+      "key",
+      "lru",
+      "ttl"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 0.5,
+    "last_verified": "2026-01-10T02:18:48.992310+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.265,
+    "risk_factors": [
+      "impure_function",
+      "non_deterministic",
+      "side_effects: file_io"
+    ],
+    "risk_level": "medium",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(cache) == dict",
+      "cache is not None",
+      "type(key) == string",
+      "key is not None",
+      "type(current_time) == integer",
+      "current_time is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(cache) == dict",
+      "cache is not None",
+      "type(key) == string",
+      "key is not None",
+      "type(current_time) == integer",
+      "current_time is not None"
+    ]
+  }
+}

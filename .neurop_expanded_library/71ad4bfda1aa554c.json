@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "71ad4bfda1aa554ce8fbf79a5e4e7cce4f743f8cff12b6242c939845a74b096a",
+    "semantic_fingerprint": "037fb7ac43291f8e7d8391bf56b17acb530270ca560ebfff106b47e3fac48a06",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate credit card number using Luhn algorithm.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter card",
+        "name": "card",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_valid_credit_card",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_valid_credit_card(card: str) -> bool:\n    \"\"\"Validate credit card number using Luhn algorithm.\"\"\"\n    digits = card.replace(\" \", \"\").replace(\"-\", \"\")\n    if not digits.isdigit() or len(digits) < 13 or len(digits) > 19:\n        return False\n    total = 0\n    for i, d in enumerate(reversed(digits)):\n        n = int(d)\n        if i % 2 == 1:\n            n *= 2\n            if n > 9:\n                n -= 9\n        total += n\n    return total % 10 == 0",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:50.806176+00:00",
+    "description": "Validate credit card number using Luhn algorithm.",
+    "intent": "Validate credit card number using Luhn algorithm.",
+    "language": "python",
+    "name": "is_valid_credit_card",
+    "source_file": "neurop_forge/sources/bank_utilities.py",
+    "source_line_end": 120,
+    "source_line_start": 107,
+    "tags": [
+      "card",
+      "credit",
+      "valid",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:50.806195+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(card) == string",
+      "card is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(card) == string",
+      "card is not None"
+    ]
+  }
+}

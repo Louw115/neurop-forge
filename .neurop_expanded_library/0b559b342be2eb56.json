@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0b559b342be2eb56f119fb24880c6330ab4c57a12e503f31bacdb0e4a41e1020",
+    "semantic_fingerprint": "826f402463e2da11b02af56b7f67f30ce89b4bb2cbf18544b65dd513a9ac1b22",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if two circles intersect.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter c1",
+        "name": "c1",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter c2",
+        "name": "c2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of circles_intersect",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def circles_intersect(c1: dict, c2: dict) -> bool:\n    \"\"\"Check if two circles intersect.\"\"\"\n    d = point_distance(c1[\"center\"], c2[\"center\"])\n    return d <= c1[\"radius\"] + c2[\"radius\"]",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:49.472750+00:00",
+    "description": "Check if two circles intersect.",
+    "intent": "Check if two circles intersect.",
+    "language": "python",
+    "name": "circles_intersect",
+    "source_file": "neurop_forge/sources/geometry_utilities.py",
+    "source_line_end": 141,
+    "source_line_start": 138,
+    "tags": [
+      "c1",
+      "c2",
+      "circles",
+      "intersect",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.472774+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(c1) == dict",
+      "c1 is not None",
+      "type(c2) == dict",
+      "c2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(c1) == dict",
+      "c1 is not None",
+      "type(c2) == dict",
+      "c2 is not None"
+    ]
+  }
+}

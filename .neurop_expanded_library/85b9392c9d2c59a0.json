@@ -1,0 +1,134 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": false,
+    "io_operations": [
+      "random"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "non_deterministic",
+    "side_effects": [
+      "random"
+    ],
+    "thread_safe": false
+  },
+  "failure_modes": {
+    "can_fail": true,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "raises_exception",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "85b9392c9d2c59a018021ade32061ab6edb096118c9c6170a53fe3906702fd5a",
+    "semantic_fingerprint": "31d4cc9f5e5addd8e3d1a18c3b4a67e103bb9c0900a3fb6f10a389c39d1e4054",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate deterministic random IPv4 address.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seed",
+        "name": "seed",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of random_ip",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def random_ip(seed: int) -> str:\n    \"\"\"Generate deterministic random IPv4 address.\"\"\"\n    parts = [random_int(hash_seed(seed, f\"ip_{i}\"), 0, 255) for i in range(4)]\n    return '.'.join(str(p) for p in parts)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:50.731362+00:00",
+    "description": "Generate deterministic random IPv4 address.",
+    "intent": "Generate deterministic random IPv4 address.",
+    "language": "python",
+    "name": "random_ip",
+    "source_file": "neurop_forge/sources/random_utilities.py",
+    "source_line_end": 163,
+    "source_line_start": 160,
+    "tags": [
+      "random",
+      "seed",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 0.5,
+    "last_verified": "2026-01-10T02:18:50.731379+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.265,
+    "risk_factors": [
+      "impure_function",
+      "non_deterministic",
+      "side_effects: random"
+    ],
+    "risk_level": "medium",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(seed) == integer",
+      "seed is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(seed) == integer",
+      "seed is not None"
+    ]
+  }
+}

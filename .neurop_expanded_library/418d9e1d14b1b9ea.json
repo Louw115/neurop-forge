@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "418d9e1d14b1b9ea1f9ca48855c681ef28537764b42faf6db48f19fc6b3f5f95",
+    "semantic_fingerprint": "7ca2e40524d5374a652fd3de730ba52b759204eb96a6d9dc07eaacb9a5afa416",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Convert a hexadecimal string to an integer.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter hex_str",
+        "name": "hex_str",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of hex_to_integer",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def hex_to_integer(hex_str: str) -> int:\n    \"\"\"Convert a hexadecimal string to an integer.\"\"\"\n    if not hex_str:\n        return 0\n    try:\n        return int(hex_str, 16)\n    except ValueError:\n        return 0",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T02:18:42.625351+00:00",
+    "description": "Convert a hexadecimal string to an integer.",
+    "intent": "Convert a hexadecimal string to an integer.",
+    "language": "python",
+    "name": "hex_to_integer",
+    "source_file": "neurop_forge/sources/type_conversions.py",
+    "source_line_end": 155,
+    "source_line_start": 148,
+    "tags": [
+      "hex",
+      "hex_str",
+      "integer",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:42.625374+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(hex_str) == string",
+      "hex_str is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(hex_str) == string",
+      "hex_str is not None"
+    ]
+  }
+}

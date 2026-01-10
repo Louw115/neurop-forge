@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "aca8e0bea35675b1c70117220a250d07a4507b64885b5f9fb37152aee610e82f",
+    "semantic_fingerprint": "9239cc89ed68bf788fb2f9e072f6d0ef9de77ced5d5e8dd8837b11b71fbcbbef",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format an event for logging (truncate large data).",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter event",
+        "name": "event",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_data_length",
+        "name": "max_data_length",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_event_for_log",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_event_for_log(event: dict, max_data_length: int) -> str:\n    \"\"\"Format an event for logging (truncate large data).\"\"\"\n    import json\n    event_copy = dict(event)\n    if \"data\" in event_copy:\n        data_str = json.dumps(event_copy[\"data\"])\n        if len(data_str) > max_data_length:\n            event_copy[\"data\"] = f\"[truncated: {len(data_str)} chars]\"\n    return json.dumps(event_copy)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:45.813470+00:00",
+    "description": "Format an event for logging (truncate large data).",
+    "intent": "Format an event for logging (truncate large data).",
+    "language": "python",
+    "name": "format_event_for_log",
+    "source_file": "neurop_forge/sources/webhook_patterns.py",
+    "source_line_end": 309,
+    "source_line_start": 301,
+    "tags": [
+      "event",
+      "for",
+      "format",
+      "log",
+      "max_data_length",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.813494+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(event) == dict",
+      "event is not None",
+      "type(max_data_length) == integer",
+      "max_data_length is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(event) == dict",
+      "event is not None",
+      "type(max_data_length) == integer",
+      "max_data_length is not None"
+    ]
+  }
+}

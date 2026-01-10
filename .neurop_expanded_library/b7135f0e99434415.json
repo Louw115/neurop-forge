@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b7135f0e994344159233da7d65bb7c40ed41cf19a0e4ea7a97935c0bad74fd55",
+    "semantic_fingerprint": "98c794741c0f60daface38815687d0442fe9872f087d152ce3e5878148b6866f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Create self-closing HTML element.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter tag",
+        "name": "tag",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter attrs",
+        "name": "attrs",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of create_void_element",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def create_void_element(tag: str, attrs: dict) -> str:\n    \"\"\"Create self-closing HTML element.\"\"\"\n    if attrs:\n        attr_str = \" \".join(f'{k}=\"{escape_html(str(v))}\"' for k, v in attrs.items())\n        return f\"<{tag} {attr_str} />\"\n    return f\"<{tag} />\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:51.763928+00:00",
+    "description": "Create self-closing HTML element.",
+    "intent": "Create self-closing HTML element.",
+    "language": "python",
+    "name": "create_void_element",
+    "source_file": "neurop_forge/sources/html_utilities.py",
+    "source_line_end": 70,
+    "source_line_start": 65,
+    "tags": [
+      "attrs",
+      "create",
+      "element",
+      "string_manipulation",
+      "tag",
+      "void"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:51.763948+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(tag) == string",
+      "tag is not None",
+      "type(attrs) == dict",
+      "attrs is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(tag) == string",
+      "tag is not None",
+      "type(attrs) == dict",
+      "attrs is not None"
+    ]
+  }
+}

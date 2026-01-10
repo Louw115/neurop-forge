@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f03abbbd6c9b05f3d91b3201ade342c3f523582d26122e432f62d421014c6e03",
+    "semantic_fingerprint": "f6381490089ee0efa71353ec0531eb7db1deecc212e4cf5dce795f6cfa9e2a80",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate a coupon code.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter code",
+        "name": "code",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter valid_codes",
+        "name": "valid_codes",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter current_date",
+        "name": "current_date",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of validate_coupon_code",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_coupon_code(code: str, valid_codes: dict, current_date: str) -> dict:\n    \"\"\"Validate a coupon code.\"\"\"\n    if code not in valid_codes:\n        return {\"valid\": False, \"error\": \"Invalid coupon code\"}\n    coupon = valid_codes[code]\n    if coupon.get(\"expires\") and current_date > coupon[\"expires\"]:\n        return {\"valid\": False, \"error\": \"Coupon has expired\"}\n    if coupon.get(\"uses_remaining\", 1) <= 0:\n        return {\"valid\": False, \"error\": \"Coupon usage limit reached\"}\n    return {\"valid\": True, \"discount\": coupon.get(\"discount\", 0), \"type\": coupon.get(\"type\", \"percent\")}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:46.731119+00:00",
+    "description": "Validate a coupon code.",
+    "intent": "Validate a coupon code.",
+    "language": "python",
+    "name": "validate_coupon_code",
+    "source_file": "neurop_forge/sources/ecommerce_patterns.py",
+    "source_line_end": 72,
+    "source_line_start": 63,
+    "tags": [
+      "code",
+      "coupon",
+      "current_date",
+      "valid_codes",
+      "validate",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.731142+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(code) == string",
+      "code is not None",
+      "type(valid_codes) == dict",
+      "valid_codes is not None",
+      "type(current_date) == string",
+      "current_date is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(code) == string",
+      "code is not None",
+      "type(valid_codes) == dict",
+      "valid_codes is not None",
+      "type(current_date) == string",
+      "current_date is not None"
+    ]
+  }
+}

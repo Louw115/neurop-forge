@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7910c55cc4a4d4fafad1b6c1bc74d3b03aff46e02c6a7c40157cde680d930eef",
+    "semantic_fingerprint": "6c72e6a732ae8beb0972a14985b811fee46387e77c61c26fb977270da1ba24f4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if a SQL type is temporal (date/time).",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter sql_type",
+        "name": "sql_type",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_temporal_type",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_temporal_type(sql_type: str) -> bool:\n    \"\"\"Check if a SQL type is temporal (date/time).\"\"\"\n    temporal_types = {\n        \"DATE\", \"TIME\", \"TIMESTAMP\", \"DATETIME\", \"INTERVAL\",\n        \"TIMESTAMPTZ\", \"TIMETZ\"\n    }\n    return sql_type.upper().split(\"(\")[0] in temporal_types",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:44.799438+00:00",
+    "description": "Check if a SQL type is temporal (date/time).",
+    "intent": "Check if a SQL type is temporal (date/time).",
+    "language": "python",
+    "name": "is_temporal_type",
+    "source_file": "neurop_forge/sources/sql_types.py",
+    "source_line_end": 95,
+    "source_line_start": 89,
+    "tags": [
+      "sql_type",
+      "temporal",
+      "type",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.799464+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(sql_type) == string",
+      "sql_type is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(sql_type) == string",
+      "sql_type is not None"
+    ]
+  }
+}

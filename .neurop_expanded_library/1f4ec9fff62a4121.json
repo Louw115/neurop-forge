@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1f4ec9fff62a41210a72a08cb78dba31ea64046b10557d2e69f7d76c00c2fb28",
+    "semantic_fingerprint": "32ca591abc22cf5a76f1133ae824262d2241a1c6708fe24ff7005bdd5898f444",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Create slug from URL path.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter url",
+        "name": "url",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of slug_from_url",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def slug_from_url(url: str) -> str:\n    \"\"\"Create slug from URL path.\"\"\"\n    path = url.split(\"?\")[0].split(\"#\")[0]\n    path = path.rstrip(\"/\").split(\"/\")[-1]\n    return slugify(path) or \"index\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:52.115463+00:00",
+    "description": "Create slug from URL path.",
+    "intent": "Create slug from URL path.",
+    "language": "python",
+    "name": "slug_from_url",
+    "source_file": "neurop_forge/sources/slug_helpers.py",
+    "source_line_end": 74,
+    "source_line_start": 70,
+    "tags": [
+      "from",
+      "slug",
+      "string_manipulation",
+      "url"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.115479+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(url) == string",
+      "url is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(url) == string",
+      "url is not None"
+    ]
+  }
+}

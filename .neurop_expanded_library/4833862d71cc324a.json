@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4833862d71cc324abe513f548e6244f15ef5fc2053fb85e5ac7136c268281da4",
+    "semantic_fingerprint": "70efa92671823711cdbe407e782e2e2db3a4e5bfd5f855e9c48d84efce5cf8c8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Denormalize a min-max scaled value.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter normalized",
+        "name": "normalized",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter min_val",
+        "name": "min_val",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter max_val",
+        "name": "max_val",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of denormalize_minmax",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def denormalize_minmax(normalized: float, min_val: float, max_val: float) -> float:\n    \"\"\"Denormalize a min-max scaled value.\"\"\"\n    return normalized * (max_val - min_val) + min_val",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:46.573820+00:00",
+    "description": "Denormalize a min-max scaled value.",
+    "intent": "Denormalize a min-max scaled value.",
+    "language": "python",
+    "name": "denormalize_minmax",
+    "source_file": "neurop_forge/sources/ml_utilities.py",
+    "source_line_end": 21,
+    "source_line_start": 19,
+    "tags": [
+      "arithmetic",
+      "denormalize",
+      "max_val",
+      "min_val",
+      "minmax",
+      "normalized"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.573847+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(normalized) == float",
+      "normalized is not None",
+      "type(min_val) == float",
+      "min_val is not None",
+      "type(max_val) == float",
+      "max_val is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(normalized) == float",
+      "normalized is not None",
+      "type(min_val) == float",
+      "min_val is not None",
+      "type(max_val) == float",
+      "max_val is not None"
+    ]
+  }
+}

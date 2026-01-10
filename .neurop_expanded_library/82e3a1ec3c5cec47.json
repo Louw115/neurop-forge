@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "82e3a1ec3c5cec476e49d864c0cf2b0e5b618be679df734eb5569ffadeb10657",
+    "semantic_fingerprint": "267584c87eb353f77740ff9527eb59f10c01e43b5b7be68e8abb7a094e44d323",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Convert integer to English words.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter number",
+        "name": "number",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of int_to_words",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def int_to_words(number: int) -> str:\n    \"\"\"Convert integer to English words.\"\"\"\n    if number == 0:\n        return \"zero\"\n    ones = [\"\", \"one\", \"two\", \"three\", \"four\", \"five\", \"six\", \"seven\", \"eight\", \"nine\",\n            \"ten\", \"eleven\", \"twelve\", \"thirteen\", \"fourteen\", \"fifteen\", \"sixteen\",\n            \"seventeen\", \"eighteen\", \"nineteen\"]\n    tens = [\"\", \"\", \"twenty\", \"thirty\", \"forty\", \"fifty\", \"sixty\", \"seventy\", \"eighty\", \"ninety\"]\n    scales = [\"\", \"thousand\", \"million\", \"billion\", \"trillion\"]\n    if number < 0:\n        return \"negative \" + int_to_words(-number)\n    def under_thousand(n):\n        if n < 20:\n            return ones[n]\n        if n < 100:\n            return tens[n // 10] + (\"-\" + ones[n % 10] if n % 10 else \"\")\n        return ones[n // 100] + \" hundred\" + (\" \" + under_thousand(n % 100) if n % 100 else \"\")\n    result = []\n    scale_idx = 0\n    while number > 0:\n        chunk = number % 1000\n        if chunk:\n            part = under_thousand(chunk)\n            if scales[scale_idx]:\n                part += \" \" + scales[scale_idx]\n            result.insert(0, part)\n        number //= 1000\n        scale_idx += 1\n    return \" \".join(result)",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T02:18:49.551801+00:00",
+    "description": "Convert integer to English words.",
+    "intent": "Convert integer to English words.",
+    "language": "python",
+    "name": "int_to_words",
+    "source_file": "neurop_forge/sources/base_conversion.py",
+    "source_line_end": 174,
+    "source_line_start": 146,
+    "tags": [
+      "int",
+      "number",
+      "transformation",
+      "words"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.551823+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(number) == integer",
+      "number is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(number) == integer",
+      "number is not None"
+    ]
+  }
+}

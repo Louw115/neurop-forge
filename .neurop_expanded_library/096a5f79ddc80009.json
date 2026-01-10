@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "096a5f79ddc800091a001d3652946763bffd026c427be4751d459d1164827769",
+    "semantic_fingerprint": "1ba9b2c9cecf78f0c925aa60648e0ecc6ca15ac5a33dd998cb2cd28b93618928",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Convert expression tree to infix string.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter tree",
+        "name": "tree",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of tree_to_infix",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def tree_to_infix(tree: dict) -> str:\n    \"\"\"Convert expression tree to infix string.\"\"\"\n    if tree[\"type\"] == \"value\":\n        token = tree[\"token\"]\n        if token[\"type\"] == \"number\":\n            return str(token[\"value\"])\n        return token[\"value\"]\n    left = tree_to_infix(tree[\"left\"])\n    right = tree_to_infix(tree[\"right\"])\n    return f\"({left} {tree['operator']} {right})\"",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T02:18:49.611360+00:00",
+    "description": "Convert expression tree to infix string.",
+    "intent": "Convert expression tree to infix string.",
+    "language": "python",
+    "name": "tree_to_infix",
+    "source_file": "neurop_forge/sources/expression_parser.py",
+    "source_line_end": 181,
+    "source_line_start": 172,
+    "tags": [
+      "infix",
+      "transformation",
+      "tree"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.611379+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(tree) == dict",
+      "tree is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(tree) == dict",
+      "tree is not None"
+    ]
+  }
+}

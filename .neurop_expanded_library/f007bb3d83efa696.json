@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f007bb3d83efa696caa9eaeb6f6216242a8bcb44f032b3073c4c711230af5f69",
+    "semantic_fingerprint": "8e2bc3d41d23190ba03e95a0d3bc26d58155e5d6e077cb0d1c5fd864041ac1c2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if any saga step has failed.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter saga_steps",
+        "name": "saga_steps",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_saga_failed",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_saga_failed(saga_steps: list) -> bool:\n    \"\"\"Check if any saga step has failed.\"\"\"\n    return any(step.get(\"state\") == \"failed\" for step in saga_steps)",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:46.181065+00:00",
+    "description": "Check if any saga step has failed.",
+    "intent": "Check if any saga step has failed.",
+    "language": "python",
+    "name": "is_saga_failed",
+    "source_file": "neurop_forge/sources/state_machine.py",
+    "source_line_end": 272,
+    "source_line_start": 270,
+    "tags": [
+      "failed",
+      "saga",
+      "saga_steps",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.181091+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(saga_steps) == list",
+      "saga_steps is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(saga_steps) == list",
+      "saga_steps is not None"
+    ]
+  }
+}

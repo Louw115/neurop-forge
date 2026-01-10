@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "cdb0eeab8969c59dd6598ac193817361c8499b6f902543614d704fad218bd0ab",
+    "semantic_fingerprint": "c78d5717c1ea95ce6e9c8b3bdacf3553e1c8a06ec1ade0c2c07c60262e341dc6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract the plus tag from an email.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter email",
+        "name": "email",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of extract_plus_tag",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def extract_plus_tag(email: str) -> str:\n    \"\"\"Extract the plus tag from an email.\"\"\"\n    local = extract_local_part(email)\n    if '+' in local:\n        return local.split('+')[1]\n    return \"\"",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:43.994233+00:00",
+    "description": "Extract the plus tag from an email.",
+    "intent": "Extract the plus tag from an email.",
+    "language": "python",
+    "name": "extract_plus_tag",
+    "source_file": "neurop_forge/sources/email_utilities.py",
+    "source_line_end": 90,
+    "source_line_start": 85,
+    "tags": [
+      "email",
+      "extract",
+      "filtering",
+      "plus",
+      "tag"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.994258+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(email) == string",
+      "email is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(email) == string",
+      "email is not None"
+    ]
+  }
+}

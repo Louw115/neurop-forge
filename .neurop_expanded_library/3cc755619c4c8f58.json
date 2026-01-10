@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3cc755619c4c8f58a0f1a6400609784ea7e79f8a5f4065c865dd0099e6185e21",
+    "semantic_fingerprint": "79e79a6a8db08952eaa59a8d5a161e6afabbd10c047a8e95952c820baa48abd4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if a SQL type can be safely cast to another type.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter from_type",
+        "name": "from_type",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter to_type",
+        "name": "to_type",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of can_cast_safely",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def can_cast_safely(from_type: str, to_type: str) -> bool:\n    \"\"\"Check if a SQL type can be safely cast to another type.\"\"\"\n    from_type = from_type.upper().split(\"(\")[0]\n    to_type = to_type.upper().split(\"(\")[0]\n    safe_casts = {\n        \"INTEGER\": {\"BIGINT\", \"NUMERIC\", \"DOUBLE PRECISION\", \"TEXT\"},\n        \"SMALLINT\": {\"INTEGER\", \"BIGINT\", \"NUMERIC\", \"DOUBLE PRECISION\", \"TEXT\"},\n        \"BIGINT\": {\"NUMERIC\", \"DOUBLE PRECISION\", \"TEXT\"},\n        \"REAL\": {\"DOUBLE PRECISION\", \"TEXT\"},\n        \"TEXT\": set(),\n        \"VARCHAR\": {\"TEXT\"},\n        \"CHAR\": {\"VARCHAR\", \"TEXT\"},\n        \"BOOLEAN\": {\"TEXT\"},\n        \"DATE\": {\"TIMESTAMP\", \"TIMESTAMPTZ\", \"TEXT\"},\n        \"TIME\": {\"TEXT\"},\n        \"TIMESTAMP\": {\"TIMESTAMPTZ\", \"TEXT\"},\n    }\n    if from_type == to_type:\n        return True\n    return to_type in safe_casts.get(from_type, set())",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:44.828841+00:00",
+    "description": "Check if a SQL type can be safely cast to another type.",
+    "intent": "Check if a SQL type can be safely cast to another type.",
+    "language": "python",
+    "name": "can_cast_safely",
+    "source_file": "neurop_forge/sources/sql_types.py",
+    "source_line_end": 224,
+    "source_line_start": 205,
+    "tags": [
+      "can",
+      "cast",
+      "from_type",
+      "safely",
+      "to_type",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.828865+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(from_type) == string",
+      "from_type is not None",
+      "type(to_type) == string",
+      "to_type is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(from_type) == string",
+      "from_type is not None",
+      "type(to_type) == string",
+      "to_type is not None"
+    ]
+  }
+}

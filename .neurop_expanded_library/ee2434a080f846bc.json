@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ee2434a080f846bcd6f5023e660352b56f01f04c0570670a474fb8bab6c615bb",
+    "semantic_fingerprint": "8a6f652ec37ff99ff43fc76615b91f0723200010f267c94f47f4ee228103bb81",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Mask sensitive field values in a record for audit logging.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter record",
+        "name": "record",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter sensitive_fields",
+        "name": "sensitive_fields",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of mask_sensitive_values",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def mask_sensitive_values(record: dict, sensitive_fields: list) -> dict:\n    \"\"\"Mask sensitive field values in a record for audit logging.\"\"\"\n    result = dict(record)\n    for field in sensitive_fields:\n        if field in result and result[field] is not None:\n            result[field] = \"***REDACTED***\"\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:45.490046+00:00",
+    "description": "Mask sensitive field values in a record for audit logging.",
+    "intent": "Mask sensitive field values in a record for audit logging.",
+    "language": "python",
+    "name": "mask_sensitive_values",
+    "source_file": "neurop_forge/sources/audit_logging.py",
+    "source_line_end": 75,
+    "source_line_start": 69,
+    "tags": [
+      "dict_operation",
+      "mask",
+      "record",
+      "sensitive",
+      "sensitive_fields",
+      "values"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.490065+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(record) == dict",
+      "record is not None",
+      "type(sensitive_fields) == list",
+      "sensitive_fields is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(record) == dict",
+      "record is not None",
+      "type(sensitive_fields) == list",
+      "sensitive_fields is not None"
+    ]
+  }
+}

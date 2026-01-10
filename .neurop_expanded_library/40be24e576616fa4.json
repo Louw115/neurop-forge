@@ -1,0 +1,150 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "40be24e576616fa49fc1bc21a4001c14c6c57a22158c3943a04f8dba2fab97bf",
+    "semantic_fingerprint": "57ee56500a6e7ebb092c83a540dc06c42a125a61df25973bc057e4f685bf5323",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Assert value is less than threshold.",
+    "inputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter threshold",
+        "name": "threshold",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter message",
+        "name": "message",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of assert_less_than",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def assert_less_than(value, threshold, message: str) -> dict:\n    \"\"\"Assert value is less than threshold.\"\"\"\n    passed = value < threshold\n    return {\n        \"passed\": passed,\n        \"message\": message,\n        \"actual\": str(value),\n        \"expected\": f\"< {threshold}\",\n        \"error\": None if passed else f\"{value} is not less than {threshold}\"\n    }",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:46.382758+00:00",
+    "description": "Assert value is less than threshold.",
+    "intent": "Assert value is less than threshold.",
+    "language": "python",
+    "name": "assert_less_than",
+    "source_file": "neurop_forge/sources/testing_utilities.py",
+    "source_line_end": 233,
+    "source_line_start": 224,
+    "tags": [
+      "assert",
+      "less",
+      "message",
+      "than",
+      "threshold",
+      "validation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.382784+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "value is not None",
+      "threshold is not None",
+      "type(message) == string",
+      "message is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "value is not None",
+      "threshold is not None",
+      "type(message) == string",
+      "message is not None"
+    ]
+  }
+}

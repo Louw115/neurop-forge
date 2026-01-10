@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3f54a0f6d1d12d35669a509e89ec809ec14f6db3654adc60464d4509cc552614",
+    "semantic_fingerprint": "14cfedacd7cef43624e8a0cc9fb736bbd4be90d9118310a8d5fa05aa1dbbdad4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get metadata for a state.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter machine",
+        "name": "machine",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter state",
+        "name": "state",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of get_state_metadata",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_state_metadata(machine: dict, state: str) -> dict:\n    \"\"\"Get metadata for a state.\"\"\"\n    state_metadata = machine.get(\"state_metadata\", {})\n    return state_metadata.get(state, {})",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:46.163256+00:00",
+    "description": "Get metadata for a state.",
+    "intent": "Get metadata for a state.",
+    "language": "python",
+    "name": "get_state_metadata",
+    "source_file": "neurop_forge/sources/state_machine.py",
+    "source_line_end": 195,
+    "source_line_start": 192,
+    "tags": [
+      "filtering",
+      "get",
+      "machine",
+      "metadata",
+      "state"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.163280+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(machine) == dict",
+      "machine is not None",
+      "type(state) == string",
+      "state is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(machine) == dict",
+      "machine is not None",
+      "type(state) == string",
+      "state is not None"
+    ]
+  }
+}

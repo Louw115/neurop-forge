@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a01b6837d976e54414dfbf8e1947cea8885b13552d0bafab8ad6bcfcd1a1248c",
+    "semantic_fingerprint": "b096f13c48b902d5dd2cdda36980f60221a5ef386a67369207f2038aa9b6fb34",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get default port for scheme.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter scheme",
+        "name": "scheme",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of get_default_port",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_default_port(scheme: str) -> int:\n    \"\"\"Get default port for scheme.\"\"\"\n    ports = {\n        \"http\": 80,\n        \"https\": 443,\n        \"ftp\": 21,\n        \"ssh\": 22,\n        \"telnet\": 23,\n        \"smtp\": 25,\n        \"dns\": 53,\n        \"pop3\": 110,\n        \"imap\": 143,\n        \"ldap\": 389,\n        \"smtps\": 465,\n        \"imaps\": 993,\n        \"pop3s\": 995,\n        \"mysql\": 3306,\n        \"postgresql\": 5432,\n        \"mongodb\": 27017,\n        \"redis\": 6379\n    }\n    return ports.get(scheme.lower(), 0)",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:50.842355+00:00",
+    "description": "Get default port for scheme.",
+    "intent": "Get default port for scheme.",
+    "language": "python",
+    "name": "get_default_port",
+    "source_file": "neurop_forge/sources/protocol_utilities.py",
+    "source_line_end": 97,
+    "source_line_start": 76,
+    "tags": [
+      "default",
+      "filtering",
+      "get",
+      "port",
+      "scheme"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:50.842384+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(scheme) == string",
+      "scheme is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(scheme) == string",
+      "scheme is not None"
+    ]
+  }
+}

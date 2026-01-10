@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7e664090ae4b61f2524656301fd6c05a5bca6c4f44a57ca80636d11cd1be83d3",
+    "semantic_fingerprint": "451674aa4d78c5d9f53f6622589f7ff3705169213a9d95447110354920cab991",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Convert infix tokens to postfix notation.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter tokens",
+        "name": "tokens",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of infix_to_postfix",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def infix_to_postfix(tokens: list) -> list:\n    \"\"\"Convert infix tokens to postfix notation.\"\"\"\n    output = []\n    operators = []\n    for token in tokens:\n        if token[\"type\"] == \"number\" or token[\"type\"] == \"identifier\":\n            output.append(token)\n        elif token[\"type\"] == \"operator\":\n            while (operators and operators[-1][\"type\"] == \"operator\" and\n                   ((not is_right_associative(token[\"value\"]) and\n                     get_operator_precedence(token[\"value\"]) <= get_operator_precedence(operators[-1][\"value\"])) or\n                    (is_right_associative(token[\"value\"]) and\n                     get_operator_precedence(token[\"value\"]) < get_operator_precedence(operators[-1][\"value\"])))):\n                output.append(operators.pop())\n            operators.append(token)\n        elif token[\"value\"] == \"(\":\n            operators.append(token)\n        elif token[\"value\"] == \")\":\n            while operators and operators[-1][\"value\"] != \"(\":\n                output.append(operators.pop())\n            if operators:\n                operators.pop()\n    while operators:\n        output.append(operators.pop())\n    return output",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T02:18:49.593972+00:00",
+    "description": "Convert infix tokens to postfix notation.",
+    "intent": "Convert infix tokens to postfix notation.",
+    "language": "python",
+    "name": "infix_to_postfix",
+    "source_file": "neurop_forge/sources/expression_parser.py",
+    "source_line_end": 82,
+    "source_line_start": 58,
+    "tags": [
+      "infix",
+      "postfix",
+      "tokens",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.594013+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(tokens) == list",
+      "tokens is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(tokens) == list",
+      "tokens is not None"
+    ]
+  }
+}

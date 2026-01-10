@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "6fdcd674e0fb05608e9b9368cb2a3a6c4401b64248f9f405fe8b4941b6f571f8",
+    "semantic_fingerprint": "30f97bcbb60e73b05f54f941c11ffe07c14ac025660538d03309be86264f6615",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Assign jobs to workers for balanced processing.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter jobs",
+        "name": "jobs",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter worker_count",
+        "name": "worker_count",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of build_worker_assignment",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_worker_assignment(jobs: list, worker_count: int) -> list:\n    \"\"\"Assign jobs to workers for balanced processing.\"\"\"\n    assignments = [[] for _ in range(worker_count)]\n    for i, job in enumerate(jobs):\n        worker_idx = i % worker_count\n        assignments[worker_idx].append(job)\n    return assignments",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:46.119850+00:00",
+    "description": "Assign jobs to workers for balanced processing.",
+    "intent": "Assign jobs to workers for balanced processing.",
+    "language": "python",
+    "name": "build_worker_assignment",
+    "source_file": "neurop_forge/sources/job_scheduling.py",
+    "source_line_end": 284,
+    "source_line_start": 278,
+    "tags": [
+      "assignment",
+      "build",
+      "jobs",
+      "list_operation",
+      "worker",
+      "worker_count"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.119869+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(jobs) == list",
+      "jobs is not None",
+      "type(worker_count) == integer",
+      "worker_count is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(jobs) == list",
+      "jobs is not None",
+      "type(worker_count) == integer",
+      "worker_count is not None"
+    ]
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "723fd5072c85f50333004e26e895093d2dc2c549af78d6fbfa6349d17f908afe",
+    "semantic_fingerprint": "da17f6a27c788cc7d644032ca1785992c894e4cfaa7d511474fb2580a0fbe891",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Detect command injection patterns.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter input_str",
+        "name": "input_str",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of detect_command_injection",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def detect_command_injection(input_str: str) -> bool:\n    \"\"\"Detect command injection patterns.\"\"\"\n    patterns = [\";\", \"|\", \"&\", \"`\", \"$(\", \"${\", \"\\n\", \"\\r\"]\n    return any(pattern in input_str for pattern in patterns)",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:46.529758+00:00",
+    "description": "Detect command injection patterns.",
+    "intent": "Detect command injection patterns.",
+    "language": "python",
+    "name": "detect_command_injection",
+    "source_file": "neurop_forge/sources/security_patterns.py",
+    "source_line_end": 204,
+    "source_line_start": 201,
+    "tags": [
+      "command",
+      "detect",
+      "injection",
+      "input_str",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.529776+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(input_str) == string",
+      "input_str is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(input_str) == string",
+      "input_str is not None"
+    ]
+  }
+}

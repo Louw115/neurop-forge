@@ -1,0 +1,155 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b8864f92f93c768c3e5eded9ac52355f0185e4e844365675e1ce153fe0ba5d4d",
+    "semantic_fingerprint": "26ca8c7f75c1d78f63c00a1ec76d9ea68e625cd4db86c0ce989b0f56b3b37848",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a one-time schedule.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter schedule_id",
+        "name": "schedule_id",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter run_at",
+        "name": "run_at",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter task_name",
+        "name": "task_name",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_one_time_schedule",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_one_time_schedule(schedule_id: str, run_at: str, task_name: str) -> dict:\n    \"\"\"Build a one-time schedule.\"\"\"\n    return {\n        \"id\": schedule_id,\n        \"type\": \"one_time\",\n        \"run_at\": run_at,\n        \"task\": task_name,\n        \"executed\": False\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:47.664176+00:00",
+    "description": "Build a one-time schedule.",
+    "intent": "Build a one-time schedule.",
+    "language": "python",
+    "name": "build_one_time_schedule",
+    "source_file": "neurop_forge/sources/scheduler_utilities.py",
+    "source_line_end": 131,
+    "source_line_start": 123,
+    "tags": [
+      "build",
+      "dict_operation",
+      "one",
+      "run_at",
+      "schedule",
+      "schedule_id",
+      "task_name",
+      "time"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.664205+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(schedule_id) == string",
+      "schedule_id is not None",
+      "type(run_at) == string",
+      "run_at is not None",
+      "type(task_name) == string",
+      "task_name is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(schedule_id) == string",
+      "schedule_id is not None",
+      "type(run_at) == string",
+      "run_at is not None",
+      "type(task_name) == string",
+      "task_name is not None"
+    ]
+  }
+}

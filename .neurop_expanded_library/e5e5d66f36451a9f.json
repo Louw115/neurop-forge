@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e5e5d66f36451a9f58c981273c48a6ed76306de90cc588a94e1e1cbcac61b945",
+    "semantic_fingerprint": "da18ba28d40591819b99180955616c736274a917dcdab7d1d8faaa392dec5157",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Transpose a matrix (list of lists).",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter matrix",
+        "name": "matrix",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of matrix_transpose",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def matrix_transpose(matrix: list) -> list:\n    \"\"\"Transpose a matrix (list of lists).\"\"\"\n    if not matrix or not matrix[0]:\n        return []\n    rows = len(matrix)\n    cols = len(matrix[0])\n    return [[matrix[r][c] for r in range(rows)] for c in range(cols)]",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:43.148138+00:00",
+    "description": "Transpose a matrix (list of lists).",
+    "intent": "Transpose a matrix (list of lists).",
+    "language": "python",
+    "name": "matrix_transpose",
+    "source_file": "neurop_forge/sources/array_operations.py",
+    "source_line_end": 94,
+    "source_line_start": 88,
+    "tags": [
+      "list_operation",
+      "matrix",
+      "transpose"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.148156+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(matrix) == list",
+      "matrix is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(matrix) == list",
+      "matrix is not None"
+    ]
+  }
+}

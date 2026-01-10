@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "848a4ccc462611b3e12abded3f3da44deaed9c6d5fa55a5483f88547baafda2f",
+    "semantic_fingerprint": "a46530bb77d122177b70dd6816ef11af45b69a1a01234c896053a9a2941f98be",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find path using BFS.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter graph",
+        "name": "graph",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter start",
+        "name": "start",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter end",
+        "name": "end",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of find_path_bfs",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def find_path_bfs(graph: dict, start: str, end: str) -> list:\n    \"\"\"Find path using BFS.\"\"\"\n    if start not in graph[\"nodes\"] or end not in graph[\"nodes\"]:\n        return []\n    adj = build_adjacency_list(graph)\n    visited = {start}\n    queue = [(start, [start])]\n    while queue:\n        current, path = queue.pop(0)\n        if current == end:\n            return path\n        for neighbor in adj.get(current, []):\n            if neighbor not in visited:\n                visited.add(neighbor)\n                queue.append((neighbor, path + [neighbor]))\n    return []",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:47.215581+00:00",
+    "description": "Find path using BFS.",
+    "intent": "Find path using BFS.",
+    "language": "python",
+    "name": "find_path_bfs",
+    "source_file": "neurop_forge/sources/graph_utilities.py",
+    "source_line_end": 156,
+    "source_line_start": 141,
+    "tags": [
+      "bfs",
+      "end",
+      "filtering",
+      "find",
+      "graph",
+      "path",
+      "start"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.215603+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(graph) == dict",
+      "graph is not None",
+      "type(start) == string",
+      "start is not None",
+      "type(end) == string",
+      "end is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(graph) == dict",
+      "graph is not None",
+      "type(start) == string",
+      "start is not None",
+      "type(end) == string",
+      "end is not None"
+    ]
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "82a06209c5b0463d06e40a983043d8d3b8785a6b2346c7327c4c876448cc7179",
+    "semantic_fingerprint": "e5f89360782ab797cebc64e1498bc6cae9ed694783a2be2b0d84e2fe0b54dd1f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate minimum string length.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter min_len",
+        "name": "min_len",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter message",
+        "name": "message",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of validate_min_length",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_min_length(value: str, min_len: int, message: str) -> dict:\n    \"\"\"Validate minimum string length.\"\"\"\n    is_valid = len(str(value)) >= min_len\n    return {\"valid\": is_valid, \"error\": None if is_valid else message}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:47.702702+00:00",
+    "description": "Validate minimum string length.",
+    "intent": "Validate minimum string length.",
+    "language": "python",
+    "name": "validate_min_length",
+    "source_file": "neurop_forge/sources/form_utilities.py",
+    "source_line_end": 46,
+    "source_line_start": 43,
+    "tags": [
+      "length",
+      "message",
+      "min",
+      "min_len",
+      "validate",
+      "validation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.702718+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == string",
+      "value is not None",
+      "type(min_len) == integer",
+      "min_len is not None",
+      "type(message) == string",
+      "message is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(value) == string",
+      "value is not None",
+      "type(min_len) == integer",
+      "min_len is not None",
+      "type(message) == string",
+      "message is not None"
+    ]
+  }
+}

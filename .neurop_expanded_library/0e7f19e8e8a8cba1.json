@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0e7f19e8e8a8cba1c8b87229cae88bc7443dd0b82956f81e6c1798df9da96e31",
+    "semantic_fingerprint": "e081ee44381d3436f2663a0011bed1eeeac3f2a729defc5a157cf20620194af2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Mask name showing only initials.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter name",
+        "name": "name",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of mask_name",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def mask_name(name: str) -> str:\n    \"\"\"Mask name showing only initials.\"\"\"\n    words = name.split()\n    return \" \".join(w[0] + \"*\" * (len(w) - 1) if len(w) > 1 else w for w in words)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:51.100511+00:00",
+    "description": "Mask name showing only initials.",
+    "intent": "Mask name showing only initials.",
+    "language": "python",
+    "name": "mask_name",
+    "source_file": "neurop_forge/sources/data_masking.py",
+    "source_line_end": 65,
+    "source_line_start": 62,
+    "tags": [
+      "mask",
+      "name",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:51.100535+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(name) == string",
+      "name is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(name) == string",
+      "name is not None"
+    ]
+  }
+}

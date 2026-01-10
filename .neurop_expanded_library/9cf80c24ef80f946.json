@@ -1,0 +1,131 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9cf80c24ef80f9460d337a7f29ae7bedd09f5a45be20a084d683cfbb34aecdec",
+    "semantic_fingerprint": "d157df3ada5db8150c79c4647c051233188c478a3496778afd17d590651217ab",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate a CHECK constraint for non-empty strings.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter column",
+        "name": "column",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_not_empty_check",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_not_empty_check(column: str) -> str:\n    \"\"\"Generate a CHECK constraint for non-empty strings.\"\"\"\n    from neurop_forge.sources.sql_building import escape_sql_identifier\n    return f\"CHECK (LENGTH(TRIM({escape_sql_identifier(column)})) > 0)\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:45.198735+00:00",
+    "description": "Generate a CHECK constraint for non-empty strings.",
+    "intent": "Generate a CHECK constraint for non-empty strings.",
+    "language": "python",
+    "name": "generate_not_empty_check",
+    "source_file": "neurop_forge/sources/data_integrity.py",
+    "source_line_end": 281,
+    "source_line_start": 278,
+    "tags": [
+      "check",
+      "column",
+      "empty",
+      "generate",
+      "not",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.198755+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(column) == string",
+      "column is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(column) == string",
+      "column is not None"
+    ]
+  }
+}

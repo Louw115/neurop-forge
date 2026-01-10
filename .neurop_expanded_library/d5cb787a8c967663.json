@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d5cb787a8c967663fe1972b33f7c5d56463997e9dbe8d3266ac5b64b11b2fb24",
+    "semantic_fingerprint": "cc220c8ab07203990bb5a947c1056d953dc3fb50a151f58705fda6f27a88bb19",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Infer a SQL type from a string value.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of infer_type_from_value",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def infer_type_from_value(value: str) -> str:\n    \"\"\"Infer a SQL type from a string value.\"\"\"\n    if value.lower() in (\"true\", \"false\"):\n        return \"BOOLEAN\"\n    if value.isdigit() or (value.startswith(\"-\") and value[1:].isdigit()):\n        int_val = int(value)\n        if -32768 <= int_val <= 32767:\n            return \"SMALLINT\"\n        if -2147483648 <= int_val <= 2147483647:\n            return \"INTEGER\"\n        return \"BIGINT\"\n    try:\n        float(value)\n        return \"DOUBLE PRECISION\"\n    except ValueError:\n        pass\n    import re\n    if re.match(r'^\\d{4}-\\d{2}-\\d{2}$', value):\n        return \"DATE\"\n    if re.match(r'^\\d{4}-\\d{2}-\\d{2}[T ]\\d{2}:\\d{2}:\\d{2}', value):\n        return \"TIMESTAMP\"\n    if re.match(r'^\\d{2}:\\d{2}:\\d{2}', value):\n        return \"TIME\"\n    if re.match(r'^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$', value.lower()):\n        return \"UUID\"\n    return \"TEXT\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:44.849171+00:00",
+    "description": "Infer a SQL type from a string value.",
+    "intent": "Infer a SQL type from a string value.",
+    "language": "python",
+    "name": "infer_type_from_value",
+    "source_file": "neurop_forge/sources/sql_types.py",
+    "source_line_end": 322,
+    "source_line_start": 297,
+    "tags": [
+      "from",
+      "infer",
+      "string_manipulation",
+      "type",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.849199+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == string",
+      "value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(value) == string",
+      "value is not None"
+    ]
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0db93ba162f4c1c679176bf6f5160d68ef68709c4a0accdf418d0349f6252c06",
+    "semantic_fingerprint": "3f0d6e3a0544d71bf00a08118334453451ca95a301443fc977a4c61118e6ba84",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate notification statistics.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter notifications",
+        "name": "notifications",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of calculate_notification_stats",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_notification_stats(notifications: list) -> dict:\n    \"\"\"Calculate notification statistics.\"\"\"\n    total = len(notifications)\n    sent = sum(1 for n in notifications if n.get(\"sent_at\"))\n    read = sum(1 for n in notifications if n.get(\"read\"))\n    by_channel = {}\n    by_type = {}\n    for n in notifications:\n        channel = n.get(\"channel\", \"unknown\")\n        n_type = n.get(\"type\", \"unknown\")\n        by_channel[channel] = by_channel.get(channel, 0) + 1\n        by_type[n_type] = by_type.get(n_type, 0) + 1\n    return {\n        \"total\": total,\n        \"sent\": sent,\n        \"read\": read,\n        \"read_rate\": (read / sent * 100) if sent > 0 else 0,\n        \"by_channel\": by_channel,\n        \"by_type\": by_type\n    }",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:46.837199+00:00",
+    "description": "Calculate notification statistics.",
+    "intent": "Calculate notification statistics.",
+    "language": "python",
+    "name": "calculate_notification_stats",
+    "source_file": "neurop_forge/sources/notification_patterns.py",
+    "source_line_end": 203,
+    "source_line_start": 184,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "notification",
+      "notifications",
+      "stats"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.837226+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(notifications) == list",
+      "notifications is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(notifications) == list",
+      "notifications is not None"
+    ]
+  }
+}

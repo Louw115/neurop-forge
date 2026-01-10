@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "037f501233961fa445d0f839413583e5e6f40133369c906005b3d2b98cbda981",
+    "semantic_fingerprint": "ecf8f5288864ccf1e58d4cf264c1c994a4d1e188774750c61e01fd194d2e8c52",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract count bits starting at position start.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter start",
+        "name": "start",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter count",
+        "name": "count",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of extract_bits",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def extract_bits(value: int, start: int, count: int) -> int:\n    \"\"\"Extract count bits starting at position start.\"\"\"\n    mask = (1 << count) - 1\n    return (value >> start) & mask",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:48.515840+00:00",
+    "description": "Extract count bits starting at position start.",
+    "intent": "Extract count bits starting at position start.",
+    "language": "python",
+    "name": "extract_bits",
+    "source_file": "neurop_forge/sources/bitwise_utilities.py",
+    "source_line_end": 135,
+    "source_line_start": 132,
+    "tags": [
+      "bits",
+      "count",
+      "extract",
+      "filtering",
+      "start",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.515866+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == integer",
+      "value is not None",
+      "type(start) == integer",
+      "start is not None",
+      "type(count) == integer",
+      "count is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(value) == integer",
+      "value is not None",
+      "type(start) == integer",
+      "start is not None",
+      "type(count) == integer",
+      "count is not None"
+    ]
+  }
+}

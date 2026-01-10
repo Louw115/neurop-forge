@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2f93f4d80de43f4e49524112799be1871827c27dc6054ef3a5fe351d3fad209e",
+    "semantic_fingerprint": "a5cd966cad2f95d80f06e843d6c1b260f5d163dadc9ef166f0e7e2b84a45ffca",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate HMAC-MD5.",
+    "inputs": [
+      {
+        "data_type": "bytes",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      },
+      {
+        "data_type": "bytes",
+        "default_value": null,
+        "description": "Parameter message",
+        "name": "message",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of hmac_md5",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def hmac_md5(key: bytes, message: bytes) -> str:\n    \"\"\"Calculate HMAC-MD5.\"\"\"\n    return hmac.new(key, message, hashlib.md5).hexdigest()",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:50.320265+00:00",
+    "description": "Calculate HMAC-MD5.",
+    "intent": "Calculate HMAC-MD5.",
+    "language": "python",
+    "name": "hmac_md5",
+    "source_file": "neurop_forge/sources/crypto_primitives.py",
+    "source_line_end": 64,
+    "source_line_start": 62,
+    "tags": [
+      "hmac",
+      "key",
+      "md5",
+      "message",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:50.320284+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(key) == bytes",
+      "key is not None",
+      "type(message) == bytes",
+      "message is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(key) == bytes",
+      "key is not None",
+      "type(message) == bytes",
+      "message is not None"
+    ]
+  }
+}

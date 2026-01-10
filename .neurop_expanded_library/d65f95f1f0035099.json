@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d65f95f1f003509948ee6d5fb3cfc8b315bac0a22cf47e918881c9dec1d2f9cd",
+    "semantic_fingerprint": "e43973b3ace0b333491e9f99ff0431803b8513f32e4b3535d0476e65f1b85b79",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if circuit is open.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter breaker",
+        "name": "breaker",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_circuit_open",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_circuit_open(breaker: dict) -> bool:\n    \"\"\"Check if circuit is open.\"\"\"\n    return breaker[\"state\"] == \"open\"",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:49.756511+00:00",
+    "description": "Check if circuit is open.",
+    "intent": "Check if circuit is open.",
+    "language": "python",
+    "name": "is_circuit_open",
+    "source_file": "neurop_forge/sources/retry_patterns.py",
+    "source_line_end": 212,
+    "source_line_start": 210,
+    "tags": [
+      "breaker",
+      "circuit",
+      "open",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.756537+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(breaker) == dict",
+      "breaker is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(breaker) == dict",
+      "breaker is not None"
+    ]
+  }
+}

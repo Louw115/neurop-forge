@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e645bac69474ead2818d81d5752a2481847e76208bdc81207b5abc26ac367228",
+    "semantic_fingerprint": "fb431be7b1f2bedf7ad161624e1ee7d85ec320c7194612a80179d59714eb908c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get currency position for locale.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter locale",
+        "name": "locale",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_currency_position",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_currency_position(locale: str) -> str:\n    \"\"\"Get currency position for locale.\"\"\"\n    suffix_locales = [\"de\", \"fr\", \"es\", \"it\"]\n    language = get_language_code(locale)\n    return \"suffix\" if language in suffix_locales else \"prefix\"",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:52.900422+00:00",
+    "description": "Get currency position for locale.",
+    "intent": "Get currency position for locale.",
+    "language": "python",
+    "name": "get_currency_position",
+    "source_file": "neurop_forge/sources/locale_utilities.py",
+    "source_line_end": 135,
+    "source_line_start": 131,
+    "tags": [
+      "currency",
+      "filtering",
+      "get",
+      "locale",
+      "position"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.900440+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(locale) == string",
+      "locale is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(locale) == string",
+      "locale is not None"
+    ]
+  }
+}

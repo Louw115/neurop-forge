@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic searching block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2dab140e57b9915cdbfa4f40b0721e4c4713c73f8c15405376cc89d487b588ee",
+    "semantic_fingerprint": "51fd9a30220c23ded510ea9229aa7e1a5f300ab728bb903ada073ad2ea83bfcb",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get all key-value pairs.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter ht",
+        "name": "ht",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of hash_table_items",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def hash_table_items(ht: dict) -> list:\n    \"\"\"Get all key-value pairs.\"\"\"\n    items = []\n    for bucket in ht[\"buckets\"]:\n        for k, v in bucket:\n            items.append((k, v))\n    return items",
+  "metadata": {
+    "category": "searching",
+    "created_at": "2026-01-10T02:18:48.864007+00:00",
+    "description": "Get all key-value pairs.",
+    "intent": "Get all key-value pairs.",
+    "language": "python",
+    "name": "hash_table_items",
+    "source_file": "neurop_forge/sources/hash_table.py",
+    "source_line_end": 91,
+    "source_line_start": 85,
+    "tags": [
+      "hash",
+      "ht",
+      "items",
+      "searching",
+      "table"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.864029+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.37,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.8,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(ht) == dict",
+      "ht is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(ht) == dict",
+      "ht is not None"
+    ]
+  }
+}

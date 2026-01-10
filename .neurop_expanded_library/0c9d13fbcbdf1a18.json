@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0c9d13fbcbdf1a180d24ea738d917eba55121a0db8979d6d32c9ef04c716e678",
+    "semantic_fingerprint": "458d90cd379d702e35f9fdd12e31d17a0dae8ac858867b4c7884e4aeb3b8e902",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if entry should be logged based on minimum level.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter entry_level",
+        "name": "entry_level",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter min_level",
+        "name": "min_level",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of should_log",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def should_log(entry_level: str, min_level: str) -> bool:\n    \"\"\"Check if entry should be logged based on minimum level.\"\"\"\n    return get_log_level_priority(entry_level) >= get_log_level_priority(min_level)",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:47.540773+00:00",
+    "description": "Check if entry should be logged based on minimum level.",
+    "intent": "Check if entry should be logged based on minimum level.",
+    "language": "python",
+    "name": "should_log",
+    "source_file": "neurop_forge/sources/logging_utilities.py",
+    "source_line_end": 53,
+    "source_line_start": 51,
+    "tags": [
+      "entry_level",
+      "log",
+      "min_level",
+      "should",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.540791+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(entry_level) == string",
+      "entry_level is not None",
+      "type(min_level) == string",
+      "min_level is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(entry_level) == string",
+      "entry_level is not None",
+      "type(min_level) == string",
+      "min_level is not None"
+    ]
+  }
+}

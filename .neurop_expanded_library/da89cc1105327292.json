@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "da89cc1105327292ef690d700388f5ac763399fb7a9968373cd24bd7c536953c",
+    "semantic_fingerprint": "332442c46d640544604951b23362007a45674cd83c384dcdbeaf8c26fd7d5cb6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate which bucket a timestamp belongs to.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter timestamp",
+        "name": "timestamp",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter window_size",
+        "name": "window_size",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of calculate_window_bucket",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_window_bucket(timestamp: int, window_size: int) -> int:\n    \"\"\"Calculate which bucket a timestamp belongs to.\"\"\"\n    return timestamp // window_size",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:43.850446+00:00",
+    "description": "Calculate which bucket a timestamp belongs to.",
+    "intent": "Calculate which bucket a timestamp belongs to.",
+    "language": "python",
+    "name": "calculate_window_bucket",
+    "source_file": "neurop_forge/sources/caching_utilities.py",
+    "source_line_end": 155,
+    "source_line_start": 153,
+    "tags": [
+      "arithmetic",
+      "bucket",
+      "calculate",
+      "timestamp",
+      "window",
+      "window_size"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.850464+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(timestamp) == integer",
+      "timestamp is not None",
+      "type(window_size) == integer",
+      "window_size is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(timestamp) == integer",
+      "timestamp is not None",
+      "type(window_size) == integer",
+      "window_size is not None"
+    ]
+  }
+}

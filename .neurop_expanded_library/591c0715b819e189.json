@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "591c0715b819e1897a3cf3669162477dadb1e0f534b09870aa242320e32f46c4",
+    "semantic_fingerprint": "b8650e9533971125bd93fde7655a58c8a7f0334813600da8987bd8c64c6cb000",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Filter select options by search term.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter options",
+        "name": "options",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter search_term",
+        "name": "search_term",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter label_key",
+        "name": "label_key",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of filter_options_by_search",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def filter_options_by_search(options: list, search_term: str, label_key: str) -> list:\n    \"\"\"Filter select options by search term.\"\"\"\n    term = search_term.lower()\n    return [opt for opt in options if term in opt[label_key].lower()]",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:46.690428+00:00",
+    "description": "Filter select options by search term.",
+    "intent": "Filter select options by search term.",
+    "language": "python",
+    "name": "filter_options_by_search",
+    "source_file": "neurop_forge/sources/ui_patterns.py",
+    "source_line_end": 182,
+    "source_line_start": 179,
+    "tags": [
+      "filter",
+      "filtering",
+      "label_key",
+      "options",
+      "search",
+      "search_term"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.690448+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(options) == list",
+      "options is not None",
+      "type(search_term) == string",
+      "search_term is not None",
+      "type(label_key) == string",
+      "label_key is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(options) == list",
+      "options is not None",
+      "type(search_term) == string",
+      "search_term is not None",
+      "type(label_key) == string",
+      "label_key is not None"
+    ]
+  }
+}

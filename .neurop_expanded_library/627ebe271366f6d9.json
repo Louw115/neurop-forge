@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "627ebe271366f6d9b812b53d47b6e0902ad8be01004bbd05fb0a4dedd658becb",
+    "semantic_fingerprint": "1e8078a6d3e8d5b9dc92f9d44bc7cea550a2e6465495f533884fc7371594d06a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get next delay based on strategy.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter state",
+        "name": "state",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter strategy",
+        "name": "strategy",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter max_delay",
+        "name": "max_delay",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of get_next_delay",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_next_delay(state: dict, strategy: str, max_delay: float) -> float:\n    \"\"\"Get next delay based on strategy.\"\"\"\n    attempt = state[\"attempt\"] + 1\n    base = state[\"base_delay\"]\n    if strategy == \"constant\":\n        delay = calculate_constant_delay(base, attempt)\n    elif strategy == \"linear\":\n        delay = calculate_linear_delay(base, attempt, base)\n    elif strategy == \"exponential\":\n        delay = calculate_exponential_delay(base, attempt, 2.0)\n    elif strategy == \"fibonacci\":\n        delay = calculate_fibonacci_delay(base, attempt)\n    else:\n        delay = base\n    return cap_delay(delay, max_delay)",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:49.743866+00:00",
+    "description": "Get next delay based on strategy.",
+    "intent": "Get next delay based on strategy.",
+    "language": "python",
+    "name": "get_next_delay",
+    "source_file": "neurop_forge/sources/retry_patterns.py",
+    "source_line_end": 139,
+    "source_line_start": 125,
+    "tags": [
+      "delay",
+      "filtering",
+      "get",
+      "max_delay",
+      "next",
+      "state",
+      "strategy"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.743887+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(state) == dict",
+      "state is not None",
+      "type(strategy) == string",
+      "strategy is not None",
+      "type(max_delay) == float",
+      "max_delay is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(state) == dict",
+      "state is not None",
+      "type(strategy) == string",
+      "strategy is not None",
+      "type(max_delay) == float",
+      "max_delay is not None"
+    ]
+  }
+}

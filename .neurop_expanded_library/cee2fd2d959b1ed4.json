@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "cee2fd2d959b1ed4222594bbd7574a939eb8877a138a974a506a5cdd578c1683",
+    "semantic_fingerprint": "a9ee20ebb76dfa86d459e975d1661b0125126ed8c436f35669b476cbd07d8dea",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Summarize promise states.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter promises",
+        "name": "promises",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of summarize_promises",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def summarize_promises(promises: list) -> dict:\n    \"\"\"Summarize promise states.\"\"\"\n    partition = partition_promises(promises)\n    return {\n        \"total\": len(promises),\n        \"pending\": len(partition[\"pending\"]),\n        \"resolved\": len(partition[\"resolved\"]),\n        \"rejected\": len(partition[\"rejected\"]),\n        \"completion_rate\": len(partition[\"resolved\"]) / len(promises) if promises else 0\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:49.036137+00:00",
+    "description": "Summarize promise states.",
+    "intent": "Summarize promise states.",
+    "language": "python",
+    "name": "summarize_promises",
+    "source_file": "neurop_forge/sources/promise_utilities.py",
+    "source_line_end": 220,
+    "source_line_start": 211,
+    "tags": [
+      "dict_operation",
+      "promises",
+      "summarize"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.036160+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(promises) == list",
+      "promises is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(promises) == list",
+      "promises is not None"
+    ]
+  }
+}

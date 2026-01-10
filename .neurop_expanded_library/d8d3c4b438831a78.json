@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d8d3c4b438831a78735e435e031a935051269d39bc2a1f211337733538a5a8b0",
+    "semantic_fingerprint": "aa85e4fe0509ca8e6989d35dda3348beae18d9c347332c2aa02ceeedb0877388",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if a model has any changed fields.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter original",
+        "name": "original",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter updated",
+        "name": "updated",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_dirty",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_dirty(original: dict, updated: dict) -> bool:\n    \"\"\"Check if a model has any changed fields.\"\"\"\n    return len(get_dirty_fields(original, updated)) > 0",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:45.358840+00:00",
+    "description": "Check if a model has any changed fields.",
+    "intent": "Check if a model has any changed fields.",
+    "language": "python",
+    "name": "is_dirty",
+    "source_file": "neurop_forge/sources/orm_patterns.py",
+    "source_line_end": 133,
+    "source_line_start": 131,
+    "tags": [
+      "dirty",
+      "original",
+      "updated",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.358866+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(original) == dict",
+      "original is not None",
+      "type(updated) == dict",
+      "updated is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(original) == dict",
+      "original is not None",
+      "type(updated) == dict",
+      "updated is not None"
+    ]
+  }
+}

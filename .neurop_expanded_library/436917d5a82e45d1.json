@@ -1,0 +1,156 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception",
+      "KeyError"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "436917d5a82e45d180e3bf498f19096d1d02df43ebbc626d1f1310967a17ea8a",
+    "semantic_fingerprint": "6e2512c10db8f449b61a1018c96b2315cfce390422928991513cb4c022c109d8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Convert a dictionary to a key-value string.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter data",
+        "name": "data",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter pair_separator",
+        "name": "pair_separator",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter kv_separator",
+        "name": "kv_separator",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of dict_to_key_value_string",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def dict_to_key_value_string(data: dict, pair_separator: str, kv_separator: str) -> str:\n    \"\"\"Convert a dictionary to a key-value string.\"\"\"\n    if not data:\n        return \"\"\n    if not pair_separator:\n        pair_separator = '&'\n    if not kv_separator:\n        kv_separator = '='\n    pairs = [f\"{k}{kv_separator}{v}\" for k, v in data.items()]\n    return pair_separator.join(pairs)",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T02:18:42.817782+00:00",
+    "description": "Convert a dictionary to a key-value string.",
+    "intent": "Convert a dictionary to a key-value string.",
+    "language": "python",
+    "name": "dict_to_key_value_string",
+    "source_file": "neurop_forge/sources/data_parsing.py",
+    "source_line_end": 103,
+    "source_line_start": 94,
+    "tags": [
+      "data",
+      "dict",
+      "key",
+      "kv_separator",
+      "pair_separator",
+      "string",
+      "transformation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:42.817803+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(data) == dict",
+      "data is not None",
+      "type(pair_separator) == string",
+      "pair_separator is not None",
+      "type(kv_separator) == string",
+      "kv_separator is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(data) == dict",
+      "data is not None",
+      "type(pair_separator) == string",
+      "pair_separator is not None",
+      "type(kv_separator) == string",
+      "kv_separator is not None"
+    ]
+  }
+}

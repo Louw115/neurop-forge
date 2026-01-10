@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1dc9d890fbd8fdb71e813aae0b2554c16316ef0ba235f543c032aca201d1137b",
+    "semantic_fingerprint": "355c8c9c1ed728ce640ee0da0585dc0285b4a2bdfce952c7033f2b2553c637d5",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Categorize file by type.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter filename",
+        "name": "filename",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of categorize_file",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def categorize_file(filename: str) -> str:\n    \"\"\"Categorize file by type.\"\"\"\n    if is_image_file(filename):\n        return \"image\"\n    if is_video_file(filename):\n        return \"video\"\n    if is_audio_file(filename):\n        return \"audio\"\n    if is_document_file(filename):\n        return \"document\"\n    if is_archive_file(filename):\n        return \"archive\"\n    if is_code_file(filename):\n        return \"code\"\n    return \"other\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:47.022524+00:00",
+    "description": "Categorize file by type.",
+    "intent": "Categorize file by type.",
+    "language": "python",
+    "name": "categorize_file",
+    "source_file": "neurop_forge/sources/file_utilities.py",
+    "source_line_end": 292,
+    "source_line_start": 278,
+    "tags": [
+      "categorize",
+      "file",
+      "filename",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.022541+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(filename) == string",
+      "filename is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(filename) == string",
+      "filename is not None"
+    ]
+  }
+}

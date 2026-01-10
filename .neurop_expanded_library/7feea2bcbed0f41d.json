@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7feea2bcbed0f41daa28eb76f65803ce3ceae1baef244411f778f1d1b000b6b2",
+    "semantic_fingerprint": "35afc2f095915aaf8c71caf32bb73da0fd200a6bde6e920b44ef169587881fce",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Deep merge two JSON objects.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter obj1",
+        "name": "obj1",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter obj2",
+        "name": "obj2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of merge_json",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def merge_json(obj1: dict, obj2: dict) -> dict:\n    \"\"\"Deep merge two JSON objects.\"\"\"\n    result = dict(obj1)\n    for key, value in obj2.items():\n        if key in result and isinstance(result[key], dict) and isinstance(value, dict):\n            result[key] = merge_json(result[key], value)\n        else:\n            result[key] = value\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:50.067601+00:00",
+    "description": "Deep merge two JSON objects.",
+    "intent": "Deep merge two JSON objects.",
+    "language": "python",
+    "name": "merge_json",
+    "source_file": "neurop_forge/sources/json_utilities.py",
+    "source_line_end": 151,
+    "source_line_start": 143,
+    "tags": [
+      "dict_operation",
+      "json",
+      "merge",
+      "obj1",
+      "obj2"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:50.067621+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(obj1) == dict",
+      "obj1 is not None",
+      "type(obj2) == dict",
+      "obj2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(obj1) == dict",
+      "obj1 is not None",
+      "type(obj2) == dict",
+      "obj2 is not None"
+    ]
+  }
+}

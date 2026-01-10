@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ec349d0f63eed3cddeb0d95c24bb3ffb13ad5f532b6992ba115e84bcf3c2ad27",
+    "semantic_fingerprint": "c540b0ba047d0c6fb462851185594cfbac7cfcf7e36e15a1d7b5c2708b424cb0",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Pluralize a word based on count.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter word",
+        "name": "word",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter count",
+        "name": "count",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of pluralize_word",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def pluralize_word(word: str, count: int) -> str:\n    \"\"\"Pluralize a word based on count.\"\"\"\n    if count == 1:\n        return word\n    if word.endswith('y') and len(word) > 1 and word[-2] not in 'aeiou':\n        return word[:-1] + 'ies'\n    if word.endswith(('s', 'x', 'z', 'ch', 'sh')):\n        return word + 'es'\n    return word + 's'",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:46.708826+00:00",
+    "description": "Pluralize a word based on count.",
+    "intent": "Pluralize a word based on count.",
+    "language": "python",
+    "name": "pluralize_word",
+    "source_file": "neurop_forge/sources/ui_patterns.py",
+    "source_line_end": 306,
+    "source_line_start": 298,
+    "tags": [
+      "count",
+      "pluralize",
+      "string_manipulation",
+      "word"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.708846+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(word) == string",
+      "word is not None",
+      "type(count) == integer",
+      "count is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(word) == string",
+      "word is not None",
+      "type(count) == integer",
+      "count is not None"
+    ]
+  }
+}

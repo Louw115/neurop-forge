@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "627e8cc8f56f7c0f50f05833f946aca9daf5cdc0fd1fad86018aaf9ff4cef463",
+    "semantic_fingerprint": "8746605c174924b34abe85dca15f77349a159bdbaac357d6ad6241bb82536d74",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Estimate time to process all messages in seconds.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter queue_depth",
+        "name": "queue_depth",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter throughput",
+        "name": "throughput",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of estimate_processing_time",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def estimate_processing_time(queue_depth: int, throughput: float) -> int:\n    \"\"\"Estimate time to process all messages in seconds.\"\"\"\n    if throughput <= 0:\n        return 0\n    return int(queue_depth / throughput)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:46.323635+00:00",
+    "description": "Estimate time to process all messages in seconds.",
+    "intent": "Estimate time to process all messages in seconds.",
+    "language": "python",
+    "name": "estimate_processing_time",
+    "source_file": "neurop_forge/sources/queue_patterns.py",
+    "source_line_end": 293,
+    "source_line_start": 289,
+    "tags": [
+      "arithmetic",
+      "estimate",
+      "processing",
+      "queue_depth",
+      "throughput",
+      "time"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.323660+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(queue_depth) == integer",
+      "queue_depth is not None",
+      "type(throughput) == float",
+      "throughput is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(queue_depth) == integer",
+      "queue_depth is not None",
+      "type(throughput) == float",
+      "throughput is not None"
+    ]
+  }
+}

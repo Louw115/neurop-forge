@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic sorting block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "30cbe2c38a6f91701019fc94082f2ef79b2c296e34d1e35f5886e02cb0aad022",
+    "semantic_fingerprint": "4800150d03aa4870b3e651bde147c50e29e70c0960e8b0729b8eeb4a6c88ff11",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Deterministic shuffle using seed.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter arr",
+        "name": "arr",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seed",
+        "name": "seed",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of shuffle_deterministic",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def shuffle_deterministic(arr: list, seed: int) -> list:\n    \"\"\"Deterministic shuffle using seed.\"\"\"\n    import hashlib\n    result = list(arr)\n    n = len(result)\n    for i in range(n - 1, 0, -1):\n        h = hashlib.sha256(f\"{seed}-{i}\".encode()).digest()\n        j = h[0] % (i + 1)\n        result[i], result[j] = result[j], result[i]\n    return result",
+  "metadata": {
+    "category": "sorting",
+    "created_at": "2026-01-10T02:18:50.256776+00:00",
+    "description": "Deterministic shuffle using seed.",
+    "intent": "Deterministic shuffle using seed.",
+    "language": "python",
+    "name": "shuffle_deterministic",
+    "source_file": "neurop_forge/sources/array_algorithms.py",
+    "source_line_end": 49,
+    "source_line_start": 40,
+    "tags": [
+      "arr",
+      "deterministic",
+      "seed",
+      "shuffle",
+      "sorting"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:50.256804+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(arr) == list",
+      "arr is not None",
+      "type(seed) == integer",
+      "seed is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(arr) == list",
+      "arr is not None",
+      "type(seed) == integer",
+      "seed is not None"
+    ]
+  }
+}

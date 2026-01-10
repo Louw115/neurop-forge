@@ -1,0 +1,137 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4607dce2eb0c6d90ca01f80ba1b4f1682abf728afb3f090a3ad2a9a3e6c2569e",
+    "semantic_fingerprint": "d9975ea709629fac74ec1dfb11cb729af67431d79122539904274df018b2d5b0",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Assert value is less than threshold.",
+    "inputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter threshold",
+        "name": "threshold",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of assert_less",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def assert_less(value, threshold) -> dict:\n    \"\"\"Assert value is less than threshold.\"\"\"\n    passed = value < threshold\n    return {\n        \"passed\": passed,\n        \"actual\": value,\n        \"threshold\": threshold,\n        \"message\": \"\" if passed else f\"Expected {value} < {threshold}\"\n    }",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:52.078294+00:00",
+    "description": "Assert value is less than threshold.",
+    "intent": "Assert value is less than threshold.",
+    "language": "python",
+    "name": "assert_less",
+    "source_file": "neurop_forge/sources/assertion_utilities.py",
+    "source_line_end": 105,
+    "source_line_start": 97,
+    "tags": [
+      "assert",
+      "less",
+      "threshold",
+      "validation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.078318+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "value is not None",
+      "threshold is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "value is not None",
+      "threshold is not None"
+    ]
+  }
+}

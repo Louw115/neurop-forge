@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4dca706ec182a593eae90fdf156f629690d0bdcefa5fc222d7b1750e2cec2edb",
+    "semantic_fingerprint": "44c57e7bd4fee5da985ec51f9d0bfd0696a3d51ede1f852d00c0e8406e908e9d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if string is valid for given base.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter string",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter base",
+        "name": "base",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_valid_base_string",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_valid_base_string(string: str, base: int) -> bool:\n    \"\"\"Check if string is valid for given base.\"\"\"\n    if not string:\n        return False\n    start = 1 if string[0] == \"-\" else 0\n    for char in string[start:]:\n        idx = DIGITS.find(char.upper() if char.isupper() else char)\n        if idx == -1 or idx >= base:\n            return False\n    return True",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:49.539327+00:00",
+    "description": "Check if string is valid for given base.",
+    "intent": "Check if string is valid for given base.",
+    "language": "python",
+    "name": "is_valid_base_string",
+    "source_file": "neurop_forge/sources/base_conversion.py",
+    "source_line_end": 113,
+    "source_line_start": 104,
+    "tags": [
+      "base",
+      "string",
+      "valid",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.539353+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(string) == string",
+      "string is not None",
+      "type(base) == integer",
+      "base is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(string) == string",
+      "string is not None",
+      "type(base) == integer",
+      "base is not None"
+    ]
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8c75b7454f59452f5d36b0077e18a6005208415064f7801e0ed22d28431e300e",
+    "semantic_fingerprint": "c457e82a858c61cadc529036b7887a8aafe5e765922d58fed36cf4b4e5ca49c2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Determine if debug mode should be enabled based on environment.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter env_name",
+        "name": "env_name",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of should_enable_debug",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def should_enable_debug(env_name: str) -> bool:\n    \"\"\"Determine if debug mode should be enabled based on environment.\"\"\"\n    return not is_production_env(env_name)",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:44.139265+00:00",
+    "description": "Determine if debug mode should be enabled based on environment.",
+    "intent": "Determine if debug mode should be enabled based on environment.",
+    "language": "python",
+    "name": "should_enable_debug",
+    "source_file": "neurop_forge/sources/configuration_utilities.py",
+    "source_line_end": 246,
+    "source_line_start": 244,
+    "tags": [
+      "debug",
+      "enable",
+      "env_name",
+      "should",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.139290+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(env_name) == string",
+      "env_name is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(env_name) == string",
+      "env_name is not None"
+    ]
+  }
+}

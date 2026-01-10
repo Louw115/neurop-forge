@@ -1,0 +1,148 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": false,
+    "io_operations": [
+      "time"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "non_deterministic",
+    "side_effects": [
+      "time"
+    ],
+    "thread_safe": false
+  },
+  "failure_modes": {
+    "can_fail": true,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "raises_exception",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a70bbc1764f692f35f293d1f609904b1fa1962fc4aa3c3520cbf318e5799486f",
+    "semantic_fingerprint": "06ca6210bcf2baf252bc2c6f7c2dde5937b25567324fae9e89a710e4fa37dab7",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate delay in seconds until target time.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter target_timestamp",
+        "name": "target_timestamp",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter current_timestamp",
+        "name": "current_timestamp",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of calculate_schedule_delay",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_schedule_delay(target_timestamp: str, current_timestamp: str) -> int:\n    \"\"\"Calculate delay in seconds until target time.\"\"\"\n    from datetime import datetime\n    target = datetime.fromisoformat(target_timestamp.replace('Z', '+00:00'))\n    current = datetime.fromisoformat(current_timestamp.replace('Z', '+00:00'))\n    diff = (target - current).total_seconds()\n    return max(0, int(diff))",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:47.669667+00:00",
+    "description": "Calculate delay in seconds until target time.",
+    "intent": "Calculate delay in seconds until target time.",
+    "language": "python",
+    "name": "calculate_schedule_delay",
+    "source_file": "neurop_forge/sources/scheduler_utilities.py",
+    "source_line_end": 156,
+    "source_line_start": 150,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "current_timestamp",
+      "delay",
+      "schedule",
+      "target_timestamp"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 0.5,
+    "last_verified": "2026-01-10T02:18:47.669687+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.27999999999999997,
+    "risk_factors": [
+      "impure_function",
+      "non_deterministic",
+      "side_effects: time"
+    ],
+    "risk_level": "medium",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(target_timestamp) == string",
+      "target_timestamp is not None",
+      "type(current_timestamp) == string",
+      "current_timestamp is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(target_timestamp) == string",
+      "target_timestamp is not None",
+      "type(current_timestamp) == string",
+      "current_timestamp is not None"
+    ]
+  }
+}

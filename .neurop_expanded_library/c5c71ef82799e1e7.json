@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c5c71ef82799e1e715209907ae045cd9c4a014cad4ebc336990092275d58e791",
+    "semantic_fingerprint": "372520ae4b9ffcb556f834b9add41ab83c3000e143ade735e4890d2b177bd07c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate Sorensen-Dice coefficient using n-grams.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter s1",
+        "name": "s1",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter s2",
+        "name": "s2",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter n",
+        "name": "n",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of sorensen_dice_coefficient",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def sorensen_dice_coefficient(s1: str, s2: str, n: int) -> float:\n    \"\"\"Calculate Sorensen-Dice coefficient using n-grams.\"\"\"\n    if not s1 or not s2:\n        return 0.0\n    ngrams1 = set(s1[i:i + n] for i in range(len(s1) - n + 1))\n    ngrams2 = set(s2[i:i + n] for i in range(len(s2) - n + 1))\n    intersection = len(ngrams1 & ngrams2)\n    return 2 * intersection / (len(ngrams1) + len(ngrams2))",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:48.628508+00:00",
+    "description": "Calculate Sorensen-Dice coefficient using n-grams.",
+    "intent": "Calculate Sorensen-Dice coefficient using n-grams.",
+    "language": "python",
+    "name": "sorensen_dice_coefficient",
+    "source_file": "neurop_forge/sources/string_distance.py",
+    "source_line_end": 163,
+    "source_line_start": 156,
+    "tags": [
+      "arithmetic",
+      "coefficient",
+      "dice",
+      "n",
+      "s1",
+      "s2",
+      "sorensen"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.628529+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(s1) == string",
+      "s1 is not None",
+      "type(s2) == string",
+      "s2 is not None",
+      "type(n) == integer",
+      "n is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(s1) == string",
+      "s1 is not None",
+      "type(s2) == string",
+      "s2 is not None",
+      "type(n) == integer",
+      "n is not None"
+    ]
+  }
+}

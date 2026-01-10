@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic aggregation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a34321cdff9f962bb7bbc3b464dce73e7d786fde312ff08866a57ec58c85a5c4",
+    "semantic_fingerprint": "7496cd0dc37d2bbcdcf6f01793797e4b28fe3f8f8e520d279fb21db4f7e9d477",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Aggregate events into time windows.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter events",
+        "name": "events",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter window_size",
+        "name": "window_size",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of aggregate_events",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def aggregate_events(events: list, window_size: int) -> list:\n    \"\"\"Aggregate events into time windows.\"\"\"\n    if not events:\n        return []\n    sorted_events = sort_events_chronologically(events, True)\n    windows = []\n    current_window = {\"start\": sorted_events[0][\"timestamp\"], \"events\": []}\n    for event in sorted_events:\n        if event[\"timestamp\"] - current_window[\"start\"] < window_size:\n            current_window[\"events\"].append(event)\n        else:\n            current_window[\"end\"] = current_window[\"start\"] + window_size\n            current_window[\"count\"] = len(current_window[\"events\"])\n            windows.append(current_window)\n            current_window = {\"start\": event[\"timestamp\"], \"events\": [event]}\n    if current_window[\"events\"]:\n        current_window[\"end\"] = current_window[\"start\"] + window_size\n        current_window[\"count\"] = len(current_window[\"events\"])\n        windows.append(current_window)\n    return windows",
+  "metadata": {
+    "category": "aggregation",
+    "created_at": "2026-01-10T02:18:51.318746+00:00",
+    "description": "Aggregate events into time windows.",
+    "intent": "Aggregate events into time windows.",
+    "language": "python",
+    "name": "aggregate_events",
+    "source_file": "neurop_forge/sources/event_utilities.py",
+    "source_line_end": 105,
+    "source_line_start": 86,
+    "tags": [
+      "aggregate",
+      "aggregation",
+      "events",
+      "window_size"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:51.318772+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(events) == list",
+      "events is not None",
+      "type(window_size) == integer",
+      "window_size is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(events) == list",
+      "events is not None",
+      "type(window_size) == integer",
+      "window_size is not None"
+    ]
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "db52037d4045515dd020d980cdfa2aa9a4294917c5b92738e21807975f8be926",
+    "semantic_fingerprint": "3518396384989141866edcb149eb2f3e7d5311e7878db0f374a15b25e4b94ca5",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Apply coupon discount to subtotal.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter subtotal",
+        "name": "subtotal",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter coupon",
+        "name": "coupon",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of apply_coupon_discount",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def apply_coupon_discount(subtotal: float, coupon: dict) -> float:\n    \"\"\"Apply coupon discount to subtotal.\"\"\"\n    if coupon[\"type\"] == \"percent\":\n        return subtotal * (coupon[\"discount\"] / 100)\n    elif coupon[\"type\"] == \"fixed\":\n        return min(subtotal, coupon[\"discount\"])\n    return 0",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:46.733167+00:00",
+    "description": "Apply coupon discount to subtotal.",
+    "intent": "Apply coupon discount to subtotal.",
+    "language": "python",
+    "name": "apply_coupon_discount",
+    "source_file": "neurop_forge/sources/ecommerce_patterns.py",
+    "source_line_end": 81,
+    "source_line_start": 75,
+    "tags": [
+      "apply",
+      "arithmetic",
+      "coupon",
+      "discount",
+      "subtotal"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.733185+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(subtotal) == float",
+      "subtotal is not None",
+      "type(coupon) == dict",
+      "coupon is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(subtotal) == float",
+      "subtotal is not None",
+      "type(coupon) == dict",
+      "coupon is not None"
+    ]
+  }
+}

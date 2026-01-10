@@ -1,0 +1,164 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9a0d11b0c0d88d2aba6e43e688057b8532cc330859ab04779515fafe8485aa5f",
+    "semantic_fingerprint": "2c801b40e1d83658997818c9761c6b6f70dae39486887ebac3b5a7da03486515",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if value is in range.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter min_val",
+        "name": "min_val",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter max_val",
+        "name": "max_val",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter inclusive",
+        "name": "inclusive",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_between",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_between(value: float, min_val: float, max_val: float, inclusive: bool) -> bool:\n    \"\"\"Check if value is in range.\"\"\"\n    if inclusive:\n        return min_val <= value <= max_val\n    return min_val < value < max_val",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:51.538896+00:00",
+    "description": "Check if value is in range.",
+    "intent": "Check if value is in range.",
+    "language": "python",
+    "name": "is_between",
+    "source_file": "neurop_forge/sources/numeric_utilities.py",
+    "source_line_end": 51,
+    "source_line_start": 47,
+    "tags": [
+      "between",
+      "inclusive",
+      "max_val",
+      "min_val",
+      "validation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:51.538925+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == float",
+      "value is not None",
+      "type(min_val) == float",
+      "min_val is not None",
+      "type(max_val) == float",
+      "max_val is not None",
+      "type(inclusive) == boolean",
+      "inclusive is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(value) == float",
+      "value is not None",
+      "type(min_val) == float",
+      "min_val is not None",
+      "type(max_val) == float",
+      "max_val is not None",
+      "type(inclusive) == boolean",
+      "inclusive is not None"
+    ]
+  }
+}

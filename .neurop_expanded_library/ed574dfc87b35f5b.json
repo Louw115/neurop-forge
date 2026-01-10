@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ed574dfc87b35f5b3fb85214a0578f822c2a02ce84db0ed1dc9765753a56b760",
+    "semantic_fingerprint": "0543a653d24df5e7c04d44c0d38266f5ff97d9a294cb87aad2f41a6e5c5af4a9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate random string from charset.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter length",
+        "name": "length",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter charset",
+        "name": "charset",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seed",
+        "name": "seed",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_random_string",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_random_string(length: int, charset: str, seed: int) -> str:\n    \"\"\"Generate random string from charset.\"\"\"\n    return \"\".join(charset[_hash_seed(seed, i) % len(charset)] for i in range(length))",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:48.773968+00:00",
+    "description": "Generate random string from charset.",
+    "intent": "Generate random string from charset.",
+    "language": "python",
+    "name": "generate_random_string",
+    "source_file": "neurop_forge/sources/sampling_utilities.py",
+    "source_line_end": 166,
+    "source_line_start": 164,
+    "tags": [
+      "charset",
+      "generate",
+      "length",
+      "random",
+      "seed",
+      "string",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.774016+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(length) == integer",
+      "length is not None",
+      "type(charset) == string",
+      "charset is not None",
+      "type(seed) == integer",
+      "seed is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(length) == integer",
+      "length is not None",
+      "type(charset) == string",
+      "charset is not None",
+      "type(seed) == integer",
+      "seed is not None"
+    ]
+  }
+}

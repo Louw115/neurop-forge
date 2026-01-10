@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "820f60005760041513846c58586787333d67a211111c5f8c540761156d5c5e64",
+    "semantic_fingerprint": "3cd407ddf1fea2526b890c9f9eca2726ea6cc940150e6534b8e72d322c554d13",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Evaluate an access rule against context.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter rule",
+        "name": "rule",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter context",
+        "name": "context",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of evaluate_access_rule",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def evaluate_access_rule(rule: dict, context: dict) -> str:\n    \"\"\"Evaluate an access rule against context.\"\"\"\n    condition = rule.get(\"condition\")\n    if not condition:\n        return rule.get(\"effect\", \"allow\")\n    if evaluate_condition(condition, context):\n        return rule.get(\"effect\", \"allow\")\n    return \"no_match\"",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:47.767923+00:00",
+    "description": "Evaluate an access rule against context.",
+    "intent": "Evaluate an access rule against context.",
+    "language": "python",
+    "name": "evaluate_access_rule",
+    "source_file": "neurop_forge/sources/permission_utilities.py",
+    "source_line_end": 148,
+    "source_line_start": 141,
+    "tags": [
+      "access",
+      "arithmetic",
+      "context",
+      "evaluate",
+      "rule"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.767942+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(rule) == dict",
+      "rule is not None",
+      "type(context) == dict",
+      "context is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(rule) == dict",
+      "rule is not None",
+      "type(context) == dict",
+      "context is not None"
+    ]
+  }
+}

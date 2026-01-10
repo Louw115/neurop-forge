@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic aggregation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2cafc7d0f4162ec2f2d8f61028da93eba0255d41bff4d338a3a03bc5b717f8dc",
+    "semantic_fingerprint": "10fe299b6acf32a54d50b839b45e981349538046e868fc542607e1fb9d6a61b3",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Count total nodes in tree.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter node",
+        "name": "node",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of count_nodes",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def count_nodes(node: dict) -> int:\n    \"\"\"Count total nodes in tree.\"\"\"\n    return 1 + sum(count_nodes(c) for c in node.get(\"children\", []))",
+  "metadata": {
+    "category": "aggregation",
+    "created_at": "2026-01-10T02:18:48.242628+00:00",
+    "description": "Count total nodes in tree.",
+    "intent": "Count total nodes in tree.",
+    "language": "python",
+    "name": "count_nodes",
+    "source_file": "neurop_forge/sources/tree_utilities.py",
+    "source_line_end": 83,
+    "source_line_start": 81,
+    "tags": [
+      "aggregation",
+      "count",
+      "node",
+      "nodes"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.242645+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(node) == dict",
+      "node is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(node) == dict",
+      "node is not None"
+    ]
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "be5534854e3fda6ceb167bb10fea08fe5e4a919b6dff20d74862047635a16a39",
+    "semantic_fingerprint": "c1d059ce4bea782588d673b15910dd3e5a9e2c300dd7a992799879a80e6f806e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Summarize assertion results.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter results",
+        "name": "results",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of summarize_assertions",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def summarize_assertions(results: list) -> dict:\n    \"\"\"Summarize assertion results.\"\"\"\n    total = len(results)\n    passed = sum(1 for r in results if r.get(\"passed\"))\n    failed = total - passed\n    return {\n        \"total\": total,\n        \"passed\": passed,\n        \"failed\": failed,\n        \"pass_rate\": passed / total if total > 0 else 0,\n        \"all_passed\": failed == 0\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:52.097679+00:00",
+    "description": "Summarize assertion results.",
+    "intent": "Summarize assertion results.",
+    "language": "python",
+    "name": "summarize_assertions",
+    "source_file": "neurop_forge/sources/assertion_utilities.py",
+    "source_line_end": 250,
+    "source_line_start": 239,
+    "tags": [
+      "assertions",
+      "dict_operation",
+      "results",
+      "summarize"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.097697+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(results) == list",
+      "results is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(results) == list",
+      "results is not None"
+    ]
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "978d5bfdd4b96daef0d0a8b3e6232d152fb92bf7a3b739b7afbb5d2e96bd91d2",
+    "semantic_fingerprint": "81467fb01e99876b9d68cb564a433e53020b3a6ce1fce962deec529883ccc4cf",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse Accept header into sorted list.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter header",
+        "name": "header",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of parse_accept",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_accept(header: str) -> list:\n    \"\"\"Parse Accept header into sorted list.\"\"\"\n    types = []\n    for part in header.split(\",\"):\n        part = part.strip()\n        quality = 1.0\n        if \";q=\" in part:\n            type_part, q = part.split(\";q=\", 1)\n            part = type_part.strip()\n            quality = float(q.strip())\n        types.append({\"type\": part, \"quality\": quality})\n    return sorted(types, key=lambda x: -x[\"quality\"])",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T02:18:50.879744+00:00",
+    "description": "Parse Accept header into sorted list.",
+    "intent": "Parse Accept header into sorted list.",
+    "language": "python",
+    "name": "parse_accept",
+    "source_file": "neurop_forge/sources/protocol_utilities.py",
+    "source_line_end": 223,
+    "source_line_start": 212,
+    "tags": [
+      "accept",
+      "header",
+      "parse",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:50.879773+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(header) == string",
+      "header is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(header) == string",
+      "header is not None"
+    ]
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic sorting block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "cf5b23255245e1ed558f8b082598d44f50819e4668c2277f02fbebab291f1b39",
+    "semantic_fingerprint": "b970881a2dd7032c726635911dad88a6a19d3ad0ddc40788bddb63f6e213adc9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Sort reviews by rating.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter reviews",
+        "name": "reviews",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter descending",
+        "name": "descending",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of sort_by_rating",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def sort_by_rating(reviews: list, descending: bool) -> list:\n    \"\"\"Sort reviews by rating.\"\"\"\n    return sorted(reviews, key=lambda r: r.get(\"rating\", 0), reverse=descending)",
+  "metadata": {
+    "category": "sorting",
+    "created_at": "2026-01-10T02:18:52.970238+00:00",
+    "description": "Sort reviews by rating.",
+    "intent": "Sort reviews by rating.",
+    "language": "python",
+    "name": "sort_by_rating",
+    "source_file": "neurop_forge/sources/review_utilities.py",
+    "source_line_end": 112,
+    "source_line_start": 110,
+    "tags": [
+      "descending",
+      "rating",
+      "reviews",
+      "sort",
+      "sorting"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.970255+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(reviews) == list",
+      "reviews is not None",
+      "type(descending) == boolean",
+      "descending is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(reviews) == list",
+      "reviews is not None",
+      "type(descending) == boolean",
+      "descending is not None"
+    ]
+  }
+}

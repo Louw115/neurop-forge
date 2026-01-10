@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c289c3d5638538790233085f4e8c3c1aee93e9bfd7da590351bc85ba9f5484ca",
+    "semantic_fingerprint": "d4f86b2737d05f10d677e74fe38a255a63659877a91b9655ad8dce64d9617494",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate bundle discount.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter bundle_discount",
+        "name": "bundle_discount",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of calculate_bundle_discount",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_bundle_discount(items: list, bundle_discount: float) -> dict:\n    \"\"\"Calculate bundle discount.\"\"\"\n    original = sum(item[\"price\"] for item in items)\n    final = apply_percentage_discount(original, bundle_discount)\n    return {\n        \"items\": len(items),\n        \"original\": original,\n        \"bundle_discount\": bundle_discount,\n        \"savings\": round(original - final, 2),\n        \"final\": final\n    }",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:52.491820+00:00",
+    "description": "Calculate bundle discount.",
+    "intent": "Calculate bundle discount.",
+    "language": "python",
+    "name": "calculate_bundle_discount",
+    "source_file": "neurop_forge/sources/discount_utilities.py",
+    "source_line_end": 110,
+    "source_line_start": 100,
+    "tags": [
+      "arithmetic",
+      "bundle",
+      "bundle_discount",
+      "calculate",
+      "discount",
+      "items"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.491840+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "type(bundle_discount) == float",
+      "bundle_discount is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "type(bundle_discount) == float",
+      "bundle_discount is not None"
+    ]
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5eed2d083f3175093e17d234821f2d81b59005cf98eaa6390bf64692f73e07f9",
+    "semantic_fingerprint": "e8b1ddc428f1b3823a4da30b8b3dd8ff712997d8e9a8b8a629a6fc6b476a50aa",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Classify the impact level of an error.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter status_code",
+        "name": "status_code",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter affected_users",
+        "name": "affected_users",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter is_critical_path",
+        "name": "is_critical_path",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of classify_error_impact",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def classify_error_impact(status_code: int, affected_users: int, is_critical_path: bool) -> str:\n    \"\"\"Classify the impact level of an error.\"\"\"\n    if is_critical_path and status_code >= 500:\n        return \"critical\"\n    if affected_users > 100:\n        return \"high\"\n    if affected_users > 10:\n        return \"medium\"\n    return \"low\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:45.985772+00:00",
+    "description": "Classify the impact level of an error.",
+    "intent": "Classify the impact level of an error.",
+    "language": "python",
+    "name": "classify_error_impact",
+    "source_file": "neurop_forge/sources/error_handling.py",
+    "source_line_end": 181,
+    "source_line_start": 173,
+    "tags": [
+      "affected_users",
+      "classify",
+      "error",
+      "impact",
+      "is_critical_path",
+      "status_code",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.985790+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(status_code) == integer",
+      "status_code is not None",
+      "type(affected_users) == integer",
+      "affected_users is not None",
+      "type(is_critical_path) == boolean",
+      "is_critical_path is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(status_code) == integer",
+      "status_code is not None",
+      "type(affected_users) == integer",
+      "affected_users is not None",
+      "type(is_critical_path) == boolean",
+      "is_critical_path is not None"
+    ]
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c72d1c350dfac9220b0e262c881bb7b8e69bf310eac1417aa4dee20310474931",
+    "semantic_fingerprint": "51edfc86f87a85410cba0b2b3735870a400b539e4a6e9e9d4182babdecbad169",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if two phone numbers match (comparing digits only).",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter phone1",
+        "name": "phone1",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter phone2",
+        "name": "phone2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of phones_match",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def phones_match(phone1: str, phone2: str) -> bool:\n    \"\"\"Check if two phone numbers match (comparing digits only).\"\"\"\n    d1 = normalize_phone(phone1)\n    d2 = normalize_phone(phone2)\n    if len(d1) == 11 and d1[0] == '1':\n        d1 = d1[1:]\n    if len(d2) == 11 and d2[0] == '1':\n        d2 = d2[1:]\n    return d1 == d2 and len(d1) >= 10",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:44.458365+00:00",
+    "description": "Check if two phone numbers match (comparing digits only).",
+    "intent": "Check if two phone numbers match (comparing digits only).",
+    "language": "python",
+    "name": "phones_match",
+    "source_file": "neurop_forge/sources/phone_utilities.py",
+    "source_line_end": 190,
+    "source_line_start": 182,
+    "tags": [
+      "match",
+      "phone1",
+      "phone2",
+      "phones",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.458392+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(phone1) == string",
+      "phone1 is not None",
+      "type(phone2) == string",
+      "phone2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(phone1) == string",
+      "phone1 is not None",
+      "type(phone2) == string",
+      "phone2 is not None"
+    ]
+  }
+}

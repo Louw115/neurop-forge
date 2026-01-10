@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4c2c29f84e09d343198d401ab4a8e7846fde9c3ee4ceb612a41e7f40279862b2",
+    "semantic_fingerprint": "0830a91a76c0cef9c9f432959e3d26b6a54b39cadad8a3e98a5ab801a9cd6ff7",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a permission matrix for roles.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter roles",
+        "name": "roles",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter resources",
+        "name": "resources",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter actions",
+        "name": "actions",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_permission_matrix",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_permission_matrix(roles: dict, resources: list, actions: list) -> dict:\n    \"\"\"Build a permission matrix for roles.\"\"\"\n    matrix = {}\n    for role_id, role in roles.items():\n        matrix[role_id] = {}\n        role_perms = expand_role_permissions(role, roles)\n        for resource in resources:\n            matrix[role_id][resource] = {}\n            for action in actions:\n                perm = build_permission(resource, action)\n                matrix[role_id][resource][action] = has_permission(role_perms, perm)\n    return matrix",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:47.776679+00:00",
+    "description": "Build a permission matrix for roles.",
+    "intent": "Build a permission matrix for roles.",
+    "language": "python",
+    "name": "build_permission_matrix",
+    "source_file": "neurop_forge/sources/permission_utilities.py",
+    "source_line_end": 197,
+    "source_line_start": 186,
+    "tags": [
+      "actions",
+      "build",
+      "dict_operation",
+      "matrix",
+      "permission",
+      "resources",
+      "roles"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.776699+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(roles) == dict",
+      "roles is not None",
+      "type(resources) == list",
+      "resources is not None",
+      "type(actions) == list",
+      "actions is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(roles) == dict",
+      "roles is not None",
+      "type(resources) == list",
+      "resources is not None",
+      "type(actions) == list",
+      "actions is not None"
+    ]
+  }
+}

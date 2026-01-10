@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception",
+      "KeyError"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c299347faf4d5fb6aa0c395b774b3b47a572766310e3dc419ce9adfae03e351b",
+    "semantic_fingerprint": "be1be9e4df3769d057a3e471c9f77d6af7f5277e6e11b372de1a0af1ae1d8c45",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a Redis sorted set key.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter entity_type",
+        "name": "entity_type",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter sort_field",
+        "name": "sort_field",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_redis_sorted_set_key",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_redis_sorted_set_key(entity_type: str, sort_field: str) -> str:\n    \"\"\"Build a Redis sorted set key.\"\"\"\n    return f\"{entity_type}:zset:{sort_field}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:45.274361+00:00",
+    "description": "Build a Redis sorted set key.",
+    "intent": "Build a Redis sorted set key.",
+    "language": "python",
+    "name": "build_redis_sorted_set_key",
+    "source_file": "neurop_forge/sources/nosql_helpers.py",
+    "source_line_end": 199,
+    "source_line_start": 197,
+    "tags": [
+      "build",
+      "entity_type",
+      "key",
+      "redis",
+      "set",
+      "sort_field",
+      "sorted",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.274383+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(entity_type) == string",
+      "entity_type is not None",
+      "type(sort_field) == string",
+      "sort_field is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(entity_type) == string",
+      "entity_type is not None",
+      "type(sort_field) == string",
+      "sort_field is not None"
+    ]
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "fa29a47f1088b8f9bb7382a002d15814f04d28bb4654686e22462d7b2ac91684",
+    "semantic_fingerprint": "d023693ab740150e2d036c5d7ad231bd747732ee09cd8868fcd10956605441aa",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build hierarchical content tree.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter parent_field",
+        "name": "parent_field",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of build_content_tree",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_content_tree(items: list, parent_field: str) -> list:\n    \"\"\"Build hierarchical content tree.\"\"\"\n    by_parent = {}\n    roots = []\n    for item in items:\n        parent_id = item.get(parent_field)\n        if parent_id:\n            if parent_id not in by_parent:\n                by_parent[parent_id] = []\n            by_parent[parent_id].append(item)\n        else:\n            roots.append(item)\n    def attach_children(node):\n        children = by_parent.get(node[\"id\"], [])\n        return {**node, \"children\": [attach_children(c) for c in children]}\n    return [attach_children(root) for root in roots]",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:47.887420+00:00",
+    "description": "Build hierarchical content tree.",
+    "intent": "Build hierarchical content tree.",
+    "language": "python",
+    "name": "build_content_tree",
+    "source_file": "neurop_forge/sources/content_utilities.py",
+    "source_line_end": 226,
+    "source_line_start": 211,
+    "tags": [
+      "build",
+      "content",
+      "items",
+      "list_operation",
+      "parent_field",
+      "tree"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.887445+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "type(parent_field) == string",
+      "parent_field is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "type(parent_field) == string",
+      "parent_field is not None"
+    ]
+  }
+}

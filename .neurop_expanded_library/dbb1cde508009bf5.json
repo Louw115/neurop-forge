@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "dbb1cde508009bf52f03f68b652d8be2e490bba5458fb925f2dc2b6b2b3663c0",
+    "semantic_fingerprint": "c1b6741d0d7171b1953b9aef2d3fc6719f6b42921c9431eae99173f374a2a82b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get marginal tax rate for income.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter income",
+        "name": "income",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter brackets",
+        "name": "brackets",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of get_marginal_rate",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_marginal_rate(income: float, brackets: list) -> float:\n    \"\"\"Get marginal tax rate for income.\"\"\"\n    prev_limit = 0\n    for bracket in brackets:\n        limit = bracket.get(\"limit\", float(\"inf\"))\n        if income <= limit:\n            return bracket[\"rate\"]\n        prev_limit = limit\n    return brackets[-1][\"rate\"] if brackets else 0",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:52.457962+00:00",
+    "description": "Get marginal tax rate for income.",
+    "intent": "Get marginal tax rate for income.",
+    "language": "python",
+    "name": "get_marginal_rate",
+    "source_file": "neurop_forge/sources/tax_utilities.py",
+    "source_line_end": 96,
+    "source_line_start": 88,
+    "tags": [
+      "brackets",
+      "filtering",
+      "get",
+      "income",
+      "marginal",
+      "rate"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.457980+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(income) == float",
+      "income is not None",
+      "type(brackets) == list",
+      "brackets is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(income) == float",
+      "income is not None",
+      "type(brackets) == list",
+      "brackets is not None"
+    ]
+  }
+}

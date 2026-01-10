@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "640fd8c7a8a109f31da2f6f39dec08edaf266bb5e2626436bc68df561166e30c",
+    "semantic_fingerprint": "2abfec63d3a8562ab0cbc55f14b698f99eb4bd2ec4332f6ebf309ddd002193d3",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build pagination display info.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_page",
+        "name": "current_page",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter per_page",
+        "name": "per_page",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter total_items",
+        "name": "total_items",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_pagination_info",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_pagination_info(current_page: int, per_page: int, total_items: int) -> dict:\n    \"\"\"Build pagination display info.\"\"\"\n    total_pages = (total_items + per_page - 1) // per_page if per_page > 0 else 0\n    start_item = (current_page - 1) * per_page + 1\n    end_item = min(current_page * per_page, total_items)\n    return {\n        \"current_page\": current_page,\n        \"total_pages\": total_pages,\n        \"start_item\": start_item,\n        \"end_item\": end_item,\n        \"total_items\": total_items,\n        \"has_prev\": current_page > 1,\n        \"has_next\": current_page < total_pages\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:46.685648+00:00",
+    "description": "Build pagination display info.",
+    "intent": "Build pagination display info.",
+    "language": "python",
+    "name": "build_pagination_info",
+    "source_file": "neurop_forge/sources/ui_patterns.py",
+    "source_line_end": 166,
+    "source_line_start": 153,
+    "tags": [
+      "build",
+      "current_page",
+      "dict_operation",
+      "info",
+      "pagination",
+      "per_page",
+      "total_items"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.685667+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(current_page) == integer",
+      "current_page is not None",
+      "type(per_page) == integer",
+      "per_page is not None",
+      "type(total_items) == integer",
+      "total_items is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(current_page) == integer",
+      "current_page is not None",
+      "type(per_page) == integer",
+      "per_page is not None",
+      "type(total_items) == integer",
+      "total_items is not None"
+    ]
+  }
+}

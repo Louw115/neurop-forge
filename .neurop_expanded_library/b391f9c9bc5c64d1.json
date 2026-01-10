@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b391f9c9bc5c64d1aeb6493dcffa15c01f73353164cb410c985071f6eec86611",
+    "semantic_fingerprint": "7809fd18a74505b714829c0a3978ebdc4193571db02e4575e9738d96d82abde5",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate a session ID.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter prefix",
+        "name": "prefix",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter timestamp",
+        "name": "timestamp",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter random_part",
+        "name": "random_part",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_session_id",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_session_id(prefix: str, timestamp: str, random_part: str) -> str:\n    \"\"\"Generate a session ID.\"\"\"\n    import hashlib\n    combined = f\"{prefix}:{timestamp}:{random_part}\"\n    return hashlib.sha256(combined.encode()).hexdigest()",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:45.692283+00:00",
+    "description": "Generate a session ID.",
+    "intent": "Generate a session ID.",
+    "language": "python",
+    "name": "generate_session_id",
+    "source_file": "neurop_forge/sources/auth_patterns.py",
+    "source_line_end": 171,
+    "source_line_start": 167,
+    "tags": [
+      "generate",
+      "prefix",
+      "random_part",
+      "session",
+      "string_manipulation",
+      "timestamp"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.692304+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(prefix) == string",
+      "prefix is not None",
+      "type(timestamp) == string",
+      "timestamp is not None",
+      "type(random_part) == string",
+      "random_part is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(prefix) == string",
+      "prefix is not None",
+      "type(timestamp) == string",
+      "timestamp is not None",
+      "type(random_part) == string",
+      "random_part is not None"
+    ]
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8969fa6297c70ad3e7ca973b6cfcfdc13b1f18254709e58d0e23b68d2228e3e8",
+    "semantic_fingerprint": "ed2d0f3e0864f1f1ff7e5525bea79532819ccaffabac555d67287efc366c2549",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if a string is a valid KSUID format (27 characters, base62).",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_valid_ksuid",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_valid_ksuid(text: str) -> bool:\n    \"\"\"Check if a string is a valid KSUID format (27 characters, base62).\"\"\"\n    pattern = r'^[0-9A-Za-z]{27}$'\n    return bool(re.match(pattern, text))",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:43.710716+00:00",
+    "description": "Check if a string is a valid KSUID format (27 characters, base62).",
+    "intent": "Check if a string is a valid KSUID format (27 characters, base62).",
+    "language": "python",
+    "name": "is_valid_ksuid",
+    "source_file": "neurop_forge/sources/uuid_utilities.py",
+    "source_line_end": 233,
+    "source_line_start": 230,
+    "tags": [
+      "ksuid",
+      "text",
+      "valid",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.710735+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None"
+    ]
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic sorting block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9a7d8dfac907e896b9a8c5227b5a7e20ddc5cf983de69a8d6b9eef9da41a9b43",
+    "semantic_fingerprint": "28f7099a63d3563f4a042109c506629ff813cc83c93db23da03478d02de167b6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Assign ranks to items (1-based).",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of rank_items",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def rank_items(items: list) -> list:\n    \"\"\"Assign ranks to items (1-based).\"\"\"\n    sorted_items = sorted(enumerate(items), key=lambda x: x[1])\n    ranks = [0] * len(items)\n    for rank, (idx, _) in enumerate(sorted_items, 1):\n        ranks[idx] = rank\n    return ranks",
+  "metadata": {
+    "category": "sorting",
+    "created_at": "2026-01-10T02:18:49.359950+00:00",
+    "description": "Assign ranks to items (1-based).",
+    "intent": "Assign ranks to items (1-based).",
+    "language": "python",
+    "name": "rank_items",
+    "source_file": "neurop_forge/sources/sorting_algorithms.py",
+    "source_line_end": 212,
+    "source_line_start": 206,
+    "tags": [
+      "items",
+      "rank",
+      "sorting"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.359970+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None"
+    ]
+  }
+}

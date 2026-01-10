@@ -1,0 +1,139 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "98e41c9defa33297ed5759711688e3170d564696cddc87c2e1c61f62daad7262",
+    "semantic_fingerprint": "65085958adc4c1a842929b5c30bde07b9579e677a5c86ea4548284bdfef96f0e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Interpolation search for uniformly distributed sorted list.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter target",
+        "name": "target",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of interpolation_search",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def interpolation_search(items: list, target) -> int:\n    \"\"\"Interpolation search for uniformly distributed sorted list.\"\"\"\n    low, high = 0, len(items) - 1\n    while low <= high and items[low] <= target <= items[high]:\n        if items[low] == items[high]:\n            return low if items[low] == target else -1\n        pos = low + int(((target - items[low]) * (high - low)) / (items[high] - items[low]))\n        if items[pos] == target:\n            return pos\n        elif items[pos] < target:\n            low = pos + 1\n        else:\n            high = pos - 1\n    return -1",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:49.388896+00:00",
+    "description": "Interpolation search for uniformly distributed sorted list.",
+    "intent": "Interpolation search for uniformly distributed sorted list.",
+    "language": "python",
+    "name": "interpolation_search",
+    "source_file": "neurop_forge/sources/search_algorithms.py",
+    "source_line_end": 95,
+    "source_line_start": 82,
+    "tags": [
+      "arithmetic",
+      "interpolation",
+      "items",
+      "search",
+      "target"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.388917+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "target is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "target is not None"
+    ]
+  }
+}

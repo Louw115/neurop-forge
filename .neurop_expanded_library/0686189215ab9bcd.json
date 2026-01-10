@@ -1,0 +1,165 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0686189215ab9bcda208930094a3cd1ce07f77585148461906c019e61916a4a6",
+    "semantic_fingerprint": "1d518c83f3ac89eb3da24ac084a97b14477890a2b07db626a523c6d1e781fc36",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Weighted sampling without replacement.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter weights",
+        "name": "weights",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter k",
+        "name": "k",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seed",
+        "name": "seed",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of weighted_sample",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def weighted_sample(items: list, weights: list, k: int, seed: int) -> list:\n    \"\"\"Weighted sampling without replacement.\"\"\"\n    result = []\n    remaining_items = list(items)\n    remaining_weights = list(weights)\n    for i in range(min(k, len(items))):\n        if not remaining_items:\n            break\n        choice = weighted_choice(remaining_items, remaining_weights, seed + i)\n        idx = remaining_items.index(choice)\n        result.append(remaining_items.pop(idx))\n        remaining_weights.pop(idx)\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:48.763063+00:00",
+    "description": "Weighted sampling without replacement.",
+    "intent": "Weighted sampling without replacement.",
+    "language": "python",
+    "name": "weighted_sample",
+    "source_file": "neurop_forge/sources/sampling_utilities.py",
+    "source_line_end": 95,
+    "source_line_start": 83,
+    "tags": [
+      "items",
+      "k",
+      "list_operation",
+      "sample",
+      "seed",
+      "weighted",
+      "weights"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.763084+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "type(weights) == list",
+      "weights is not None",
+      "type(k) == integer",
+      "k is not None",
+      "type(seed) == integer",
+      "seed is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "type(weights) == list",
+      "weights is not None",
+      "type(k) == integer",
+      "k is not None",
+      "type(seed) == integer",
+      "seed is not None"
+    ]
+  }
+}

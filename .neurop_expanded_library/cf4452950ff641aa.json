@@ -1,0 +1,149 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "cf4452950ff641aaa9283f190f46fdd3a5b6d4ab16e4c3ec8d4fdf3fcf2a2a68",
+    "semantic_fingerprint": "5f81258dcdbc66ea63974516d7c44633d05ca9b9a16db975bdc24484b1850a9a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Memoize function result (returns updated cache).",
+    "inputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter fn",
+        "name": "fn",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter args_tuple",
+        "name": "args_tuple",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter cache",
+        "name": "cache",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of memoize_result",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def memoize_result(fn, args_tuple, cache: dict) -> dict:\n    \"\"\"Memoize function result (returns updated cache).\"\"\"\n    if args_tuple in cache:\n        return {\"result\": cache[args_tuple], \"cache\": cache}\n    result = fn(*args_tuple)\n    new_cache = dict(cache)\n    new_cache[args_tuple] = result\n    return {\"result\": result, \"cache\": new_cache}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:49.686486+00:00",
+    "description": "Memoize function result (returns updated cache).",
+    "intent": "Memoize function result (returns updated cache).",
+    "language": "python",
+    "name": "memoize_result",
+    "source_file": "neurop_forge/sources/functional_utilities.py",
+    "source_line_end": 74,
+    "source_line_start": 67,
+    "tags": [
+      "args_tuple",
+      "cache",
+      "dict_operation",
+      "fn",
+      "memoize",
+      "result"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.686514+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "fn is not None",
+      "args_tuple is not None",
+      "type(cache) == dict",
+      "cache is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "fn is not None",
+      "args_tuple is not None",
+      "type(cache) == dict",
+      "cache is not None"
+    ]
+  }
+}

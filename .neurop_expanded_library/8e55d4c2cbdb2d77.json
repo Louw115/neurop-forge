@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8e55d4c2cbdb2d778266e9075bb99db55892a93f21671213cdd6d231f40552ee",
+    "semantic_fingerprint": "a8bcdc7702f76888e00368c7db4acdab43e8d907c04b59d48d2ee2cb946d7a29",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate total shipping cost.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter base",
+        "name": "base",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter surcharges",
+        "name": "surcharges",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter discounts",
+        "name": "discounts",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_total_shipping",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_total_shipping(base: float, surcharges: list, discounts: list) -> float:\n    \"\"\"Calculate total shipping cost.\"\"\"\n    total = base + sum(surcharges)\n    for discount in discounts:\n        if discount[\"type\"] == \"percentage\":\n            total *= (1 - discount[\"value\"] / 100)\n        else:\n            total -= discount[\"value\"]\n    return round(max(0, total), 2)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:52.568575+00:00",
+    "description": "Calculate total shipping cost.",
+    "intent": "Calculate total shipping cost.",
+    "language": "python",
+    "name": "calculate_total_shipping",
+    "source_file": "neurop_forge/sources/shipping_utilities.py",
+    "source_line_end": 118,
+    "source_line_start": 110,
+    "tags": [
+      "arithmetic",
+      "base",
+      "calculate",
+      "discounts",
+      "shipping",
+      "surcharges",
+      "total"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.568599+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(base) == float",
+      "base is not None",
+      "type(surcharges) == list",
+      "surcharges is not None",
+      "type(discounts) == list",
+      "discounts is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(base) == float",
+      "base is not None",
+      "type(surcharges) == list",
+      "surcharges is not None",
+      "type(discounts) == list",
+      "discounts is not None"
+    ]
+  }
+}

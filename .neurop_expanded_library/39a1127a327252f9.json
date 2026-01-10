@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "39a1127a327252f9f8646454461316e528677c45140cdece4051f759b8ebb326",
+    "semantic_fingerprint": "5ca696834f46557649dc5e96bd038046aa370df4232fd79674d98935baea2392",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Reverse calculate VAT from gross.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter gross_amount",
+        "name": "gross_amount",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter vat_rate",
+        "name": "vat_rate",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of reverse_vat",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def reverse_vat(gross_amount: float, vat_rate: float) -> dict:\n    \"\"\"Reverse calculate VAT from gross.\"\"\"\n    net = round(gross_amount / (1 + vat_rate / 100), 2)\n    vat = round(gross_amount - net, 2)\n    return {\n        \"net\": net,\n        \"vat\": vat,\n        \"gross\": gross_amount\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:52.461518+00:00",
+    "description": "Reverse calculate VAT from gross.",
+    "intent": "Reverse calculate VAT from gross.",
+    "language": "python",
+    "name": "reverse_vat",
+    "source_file": "neurop_forge/sources/tax_utilities.py",
+    "source_line_end": 117,
+    "source_line_start": 109,
+    "tags": [
+      "dict_operation",
+      "gross_amount",
+      "reverse",
+      "vat",
+      "vat_rate"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.461537+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(gross_amount) == float",
+      "gross_amount is not None",
+      "type(vat_rate) == float",
+      "vat_rate is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(gross_amount) == float",
+      "gross_amount is not None",
+      "type(vat_rate) == float",
+      "vat_rate is not None"
+    ]
+  }
+}

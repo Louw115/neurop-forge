@@ -1,0 +1,152 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "deb7c95adc7340b33e283d6a3acd8e168ac722d704820dee7aaee00517dfb89d",
+    "semantic_fingerprint": "0eed287dbcae972601d6dd1c420f1264a3203cf8c4d190f91f99a7b6f3dc515c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Scale values from their current range to a new range.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter values",
+        "name": "values",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter new_min",
+        "name": "new_min",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter new_max",
+        "name": "new_max",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of scale_values",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def scale_values(values: list, new_min: float, new_max: float) -> list:\n    \"\"\"Scale values from their current range to a new range.\"\"\"\n    if not values:\n        return []\n    normalized = normalize_values_auto(values)\n    return [v * (new_max - new_min) + new_min for v in normalized]",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:43.489793+00:00",
+    "description": "Scale values from their current range to a new range.",
+    "intent": "Scale values from their current range to a new range.",
+    "language": "python",
+    "name": "scale_values",
+    "source_file": "neurop_forge/sources/data_transformation.py",
+    "source_line_end": 44,
+    "source_line_start": 39,
+    "tags": [
+      "list_operation",
+      "new_max",
+      "new_min",
+      "scale",
+      "values"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.489835+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(values) == list",
+      "values is not None",
+      "type(new_min) == float",
+      "new_min is not None",
+      "type(new_max) == float",
+      "new_max is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(values) == list",
+      "values is not None",
+      "type(new_min) == float",
+      "new_min is not None",
+      "type(new_max) == float",
+      "new_max is not None"
+    ]
+  }
+}

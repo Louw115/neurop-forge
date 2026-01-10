@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "bdb4303620948f6ceb7c0be1de5f67dec434d552c613352066450a55b498cc03",
+    "semantic_fingerprint": "5d19d5f9f80a1e39265d3f01e9951934fe4832021351218be63ca4fa14745b91",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate filter operators are allowed.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter filters",
+        "name": "filters",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter allowed_operators",
+        "name": "allowed_operators",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of validate_filter_operators",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_filter_operators(filters: dict, allowed_operators: list) -> dict:\n    \"\"\"Validate filter operators are allowed.\"\"\"\n    errors = []\n    for key in filters.keys():\n        if \"__\" in key:\n            _, operator = key.rsplit(\"__\", 1)\n            if operator not in allowed_operators:\n                errors.append(f\"Operator '{operator}' not allowed\")\n    return {\"valid\": len(errors) == 0, \"errors\": errors}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:45.881800+00:00",
+    "description": "Validate filter operators are allowed.",
+    "intent": "Validate filter operators are allowed.",
+    "language": "python",
+    "name": "validate_filter_operators",
+    "source_file": "neurop_forge/sources/request_validation.py",
+    "source_line_end": 261,
+    "source_line_start": 253,
+    "tags": [
+      "allowed_operators",
+      "filter",
+      "filters",
+      "operators",
+      "validate",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.881820+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(filters) == dict",
+      "filters is not None",
+      "type(allowed_operators) == list",
+      "allowed_operators is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(filters) == dict",
+      "filters is not None",
+      "type(allowed_operators) == list",
+      "allowed_operators is not None"
+    ]
+  }
+}

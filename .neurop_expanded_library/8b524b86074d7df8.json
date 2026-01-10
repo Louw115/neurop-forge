@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic aggregation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8b524b86074d7df866e585035962d852c1216907a0a4ff7bd881ca58fe0c744e",
+    "semantic_fingerprint": "8c78ecc8211f41cbbcbeec17a6605cfe1f8a9f1a1a66b1f4bdc677a05a0186c3",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Count requests within a sliding window.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter request_times",
+        "name": "request_times",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter window_start",
+        "name": "window_start",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter window_end",
+        "name": "window_end",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of sliding_window_count",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def sliding_window_count(request_times: list, window_start: int, window_end: int) -> int:\n    \"\"\"Count requests within a sliding window.\"\"\"\n    return sum(1 for t in request_times if window_start <= t < window_end)",
+  "metadata": {
+    "category": "aggregation",
+    "created_at": "2026-01-10T02:18:43.903399+00:00",
+    "description": "Count requests within a sliding window.",
+    "intent": "Count requests within a sliding window.",
+    "language": "python",
+    "name": "sliding_window_count",
+    "source_file": "neurop_forge/sources/rate_limiting.py",
+    "source_line_end": 45,
+    "source_line_start": 43,
+    "tags": [
+      "aggregation",
+      "count",
+      "request_times",
+      "sliding",
+      "window",
+      "window_end",
+      "window_start"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.903418+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(request_times) == list",
+      "request_times is not None",
+      "type(window_start) == integer",
+      "window_start is not None",
+      "type(window_end) == integer",
+      "window_end is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(request_times) == list",
+      "request_times is not None",
+      "type(window_start) == integer",
+      "window_start is not None",
+      "type(window_end) == integer",
+      "window_end is not None"
+    ]
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "803d99e3f4dd87edbb5d9650e69a13021bff37f9a29c9736b098299da861f6dd",
+    "semantic_fingerprint": "61a44dc7ed3c38761ab32c9730d75c9e37b37a0732d4b1b8ae420de6b694191a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get a human-readable provider name.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter email",
+        "name": "email",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_email_provider_name",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_email_provider_name(email: str) -> str:\n    \"\"\"Get a human-readable provider name.\"\"\"\n    domain = extract_domain(email).lower()\n    providers = {\n        'gmail.com': 'Gmail',\n        'googlemail.com': 'Gmail',\n        'yahoo.com': 'Yahoo',\n        'hotmail.com': 'Hotmail',\n        'outlook.com': 'Outlook',\n        'live.com': 'Microsoft Live',\n        'icloud.com': 'iCloud',\n        'protonmail.com': 'ProtonMail',\n        'aol.com': 'AOL'\n    }\n    return providers.get(domain, domain.split('.')[0].capitalize())",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:44.020029+00:00",
+    "description": "Get a human-readable provider name.",
+    "intent": "Get a human-readable provider name.",
+    "language": "python",
+    "name": "get_email_provider_name",
+    "source_file": "neurop_forge/sources/email_utilities.py",
+    "source_line_end": 208,
+    "source_line_start": 194,
+    "tags": [
+      "email",
+      "filtering",
+      "get",
+      "name",
+      "provider"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.020055+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(email) == string",
+      "email is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(email) == string",
+      "email is not None"
+    ]
+  }
+}

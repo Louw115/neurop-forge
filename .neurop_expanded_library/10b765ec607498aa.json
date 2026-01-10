@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "10b765ec607498aae9d895cd9ef055aebcdb652b9980031ba400798711f93f02",
+    "semantic_fingerprint": "7513de62c5b067e26730bf3ce043788c3d7ce06b950e51cf00e7a5a261160429",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate address for shipping.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter address",
+        "name": "address",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of validate_address_for_shipping",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_address_for_shipping(address: dict) -> dict:\n    \"\"\"Validate address for shipping.\"\"\"\n    errors = []\n    if not address.get(\"street\"):\n        errors.append(\"Street address required\")\n    if not address.get(\"city\"):\n        errors.append(\"City required\")\n    if not address.get(\"zip\"):\n        errors.append(\"ZIP code required\")\n    return {\"valid\": len(errors) == 0, \"errors\": errors}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:52.554521+00:00",
+    "description": "Validate address for shipping.",
+    "intent": "Validate address for shipping.",
+    "language": "python",
+    "name": "validate_address_for_shipping",
+    "source_file": "neurop_forge/sources/shipping_utilities.py",
+    "source_line_end": 59,
+    "source_line_start": 50,
+    "tags": [
+      "address",
+      "for",
+      "shipping",
+      "validate",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.554546+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(address) == dict",
+      "address is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(address) == dict",
+      "address is not None"
+    ]
+  }
+}

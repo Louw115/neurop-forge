@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b48a5b3f742ee98d2711304820638eaa69ba42e4276a507627450ca58306a2b1",
+    "semantic_fingerprint": "450e2a59646c7690cf2b3c5bb710682a229e3af9f819fb0040b56eaf7264c284",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Assert value is false.",
+    "inputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of assert_false",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def assert_false(value: bool) -> dict:\n    \"\"\"Assert value is false.\"\"\"\n    passed = value is False\n    return {\n        \"passed\": passed,\n        \"actual\": value,\n        \"message\": \"\" if passed else \"Expected False\"\n    }",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:52.069314+00:00",
+    "description": "Assert value is false.",
+    "intent": "Assert value is false.",
+    "language": "python",
+    "name": "assert_false",
+    "source_file": "neurop_forge/sources/assertion_utilities.py",
+    "source_line_end": 52,
+    "source_line_start": 45,
+    "tags": [
+      "assert",
+      "false",
+      "validation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.069338+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == boolean",
+      "value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(value) == boolean",
+      "value is not None"
+    ]
+  }
+}

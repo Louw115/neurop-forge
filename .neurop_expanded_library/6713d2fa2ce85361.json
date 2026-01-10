@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "6713d2fa2ce853611a031af8b6a444b469bac3cd4a94875c78bcbfb57d4fc9b5",
+    "semantic_fingerprint": "9ed7cdcd4cad317015ef788071aed94dc67a227c29ab69a729106db8a15c75d1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Detect potential PII fields from names.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter fields",
+        "name": "fields",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of detect_pii_fields",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def detect_pii_fields(fields: list) -> list:\n    \"\"\"Detect potential PII fields from names.\"\"\"\n    return [f for f in fields if is_pii_field(f)]",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:51.135529+00:00",
+    "description": "Detect potential PII fields from names.",
+    "intent": "Detect potential PII fields from names.",
+    "language": "python",
+    "name": "detect_pii_fields",
+    "source_file": "neurop_forge/sources/data_masking.py",
+    "source_line_end": 173,
+    "source_line_start": 171,
+    "tags": [
+      "detect",
+      "fields",
+      "list_operation",
+      "pii"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:51.135554+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(fields) == list",
+      "fields is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(fields) == list",
+      "fields is not None"
+    ]
+  }
+}

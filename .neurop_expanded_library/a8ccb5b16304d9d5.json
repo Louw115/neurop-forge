@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception",
+      "IndexError"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a8ccb5b16304d9d567b37cce1da5bc22030450d2f174b7cdcd7cbfc1137b209b",
+    "semantic_fingerprint": "d7382186a2bbe56d8a5185ce5af4b278822242a998df53232cef81ebedc97c22",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get the start index (1-based) for items on a page.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter page",
+        "name": "page",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter page_size",
+        "name": "page_size",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of get_start_index",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_start_index(page: int, page_size: int) -> int:\n    \"\"\"Get the start index (1-based) for items on a page.\"\"\"\n    return calculate_offset(page, page_size) + 1",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:44.189750+00:00",
+    "description": "Get the start index (1-based) for items on a page.",
+    "intent": "Get the start index (1-based) for items on a page.",
+    "language": "python",
+    "name": "get_start_index",
+    "source_file": "neurop_forge/sources/pagination_utilities.py",
+    "source_line_end": 80,
+    "source_line_start": 78,
+    "tags": [
+      "filtering",
+      "get",
+      "index",
+      "page",
+      "page_size",
+      "start"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.189773+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(page) == integer",
+      "page is not None",
+      "type(page_size) == integer",
+      "page_size is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(page) == integer",
+      "page is not None",
+      "type(page_size) == integer",
+      "page_size is not None"
+    ]
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "dfcc2f7de62aad75ba1013996083d5e518c7dabe1921e4fbbc5cd2fa999aeaea",
+    "semantic_fingerprint": "cfef419c84e1660be1c841168ae3062f3b1723e669ce849a343a9b7478313a13",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate percentile from histogram buckets.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter buckets",
+        "name": "buckets",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter total_count",
+        "name": "total_count",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter percentile",
+        "name": "percentile",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_histogram_percentile",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_histogram_percentile(buckets: list, total_count: int, percentile: float) -> float:\n    \"\"\"Calculate percentile from histogram buckets.\"\"\"\n    if total_count <= 0:\n        return 0.0\n    target = percentile * total_count / 100\n    for i, bucket in enumerate(buckets):\n        if bucket[\"count\"] >= target:\n            if i == 0:\n                return bucket[\"le\"]\n            prev_count = buckets[i - 1][\"count\"] if i > 0 else 0\n            prev_le = buckets[i - 1][\"le\"] if i > 0 else 0\n            ratio = (target - prev_count) / (bucket[\"count\"] - prev_count) if bucket[\"count\"] > prev_count else 0\n            return prev_le + ratio * (bucket[\"le\"] - prev_le)\n    return buckets[-1][\"le\"] if buckets else 0.0",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:47.325448+00:00",
+    "description": "Calculate percentile from histogram buckets.",
+    "intent": "Calculate percentile from histogram buckets.",
+    "language": "python",
+    "name": "calculate_histogram_percentile",
+    "source_file": "neurop_forge/sources/metrics_patterns.py",
+    "source_line_end": 104,
+    "source_line_start": 91,
+    "tags": [
+      "arithmetic",
+      "buckets",
+      "calculate",
+      "histogram",
+      "percentile",
+      "total_count"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.325468+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(buckets) == list",
+      "buckets is not None",
+      "type(total_count) == integer",
+      "total_count is not None",
+      "type(percentile) == float",
+      "percentile is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(buckets) == list",
+      "buckets is not None",
+      "type(total_count) == integer",
+      "total_count is not None",
+      "type(percentile) == float",
+      "percentile is not None"
+    ]
+  }
+}

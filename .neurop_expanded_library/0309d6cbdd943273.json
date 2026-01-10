@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0309d6cbdd943273bd333cd807eed898d77670131a46c67264120625c795a7dd",
+    "semantic_fingerprint": "7e42984358da8d085f1328daf5bab08831257b7ec2b2cf0b63ee92ebecb8c24f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Route a message to queues based on exchange bindings.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter routing_key",
+        "name": "routing_key",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter exchange",
+        "name": "exchange",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of route_message_to_queues",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def route_message_to_queues(routing_key: str, exchange: dict) -> list:\n    \"\"\"Route a message to queues based on exchange bindings.\"\"\"\n    queues = []\n    exchange_type = exchange.get(\"type\", \"direct\")\n    for binding in exchange.get(\"bindings\", []):\n        pattern = binding.get(\"pattern\", \"\")\n        queue = binding.get(\"queue\", \"\")\n        if exchange_type == \"fanout\":\n            queues.append(queue)\n        elif exchange_type == \"direct\":\n            if pattern == routing_key:\n                queues.append(queue)\n        elif exchange_type == \"topic\":\n            if matches_routing_pattern(routing_key, pattern, \".\", \"*\", \"#\"):\n                queues.append(queue)\n    return list(set(queues))",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:46.303965+00:00",
+    "description": "Route a message to queues based on exchange bindings.",
+    "intent": "Route a message to queues based on exchange bindings.",
+    "language": "python",
+    "name": "route_message_to_queues",
+    "source_file": "neurop_forge/sources/queue_patterns.py",
+    "source_line_end": 214,
+    "source_line_start": 199,
+    "tags": [
+      "exchange",
+      "list_operation",
+      "message",
+      "queues",
+      "route",
+      "routing_key"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.304008+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(routing_key) == string",
+      "routing_key is not None",
+      "type(exchange) == dict",
+      "exchange is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(routing_key) == string",
+      "routing_key is not None",
+      "type(exchange) == dict",
+      "exchange is not None"
+    ]
+  }
+}

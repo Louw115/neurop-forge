@@ -1,0 +1,155 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2e8f5c74149c2e189d820a743eacb4295d557b0a1cdd0a1632766a6e221c21f5",
+    "semantic_fingerprint": "8de9b75a20ec3d1202a9f9e034a79de0e44d70e02df34191dd420d212edea19c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate delay before retry connection attempt.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter attempt",
+        "name": "attempt",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter base_delay_ms",
+        "name": "base_delay_ms",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_delay_ms",
+        "name": "max_delay_ms",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of calculate_retry_connection_delay",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_retry_connection_delay(attempt: int, base_delay_ms: int, max_delay_ms: int) -> int:\n    \"\"\"Calculate delay before retry connection attempt.\"\"\"\n    delay = base_delay_ms * (2 ** attempt)\n    return min(delay, max_delay_ms)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:45.426336+00:00",
+    "description": "Calculate delay before retry connection attempt.",
+    "intent": "Calculate delay before retry connection attempt.",
+    "language": "python",
+    "name": "calculate_retry_connection_delay",
+    "source_file": "neurop_forge/sources/connection_pool.py",
+    "source_line_end": 158,
+    "source_line_start": 155,
+    "tags": [
+      "arithmetic",
+      "attempt",
+      "base_delay_ms",
+      "calculate",
+      "connection",
+      "delay",
+      "max_delay_ms",
+      "retry"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.426353+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(attempt) == integer",
+      "attempt is not None",
+      "type(base_delay_ms) == integer",
+      "base_delay_ms is not None",
+      "type(max_delay_ms) == integer",
+      "max_delay_ms is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(attempt) == integer",
+      "attempt is not None",
+      "type(base_delay_ms) == integer",
+      "base_delay_ms is not None",
+      "type(max_delay_ms) == integer",
+      "max_delay_ms is not None"
+    ]
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1b0a5eec56d71fb42240ba8ab021ad83941568523e8437aa5ef23d8fe17a2657",
+    "semantic_fingerprint": "853bd2986e0830a21c6822a96512c96d780e17881d50455f19ea159fc7324cc1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check order status.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter order",
+        "name": "order",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter status",
+        "name": "status",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_order_status",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_order_status(order: dict, status: str) -> bool:\n    \"\"\"Check order status.\"\"\"\n    return order.get(\"status\") == status",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:52.605271+00:00",
+    "description": "Check order status.",
+    "intent": "Check order status.",
+    "language": "python",
+    "name": "is_order_status",
+    "source_file": "neurop_forge/sources/order_utilities.py",
+    "source_line_end": 72,
+    "source_line_start": 70,
+    "tags": [
+      "order",
+      "status",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.605299+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(order) == dict",
+      "order is not None",
+      "type(status) == string",
+      "status is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(order) == dict",
+      "order is not None",
+      "type(status) == string",
+      "status is not None"
+    ]
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3b72e43e18305bfabe162dc6e0d7d8353ee563284d10ce7154fba28b8ba16c33",
+    "semantic_fingerprint": "d03ea2cc056b1f637fc01355a5cfd9dd16b547d5424c3bf59ca62a7170571045",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get cursor pagination info.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter cursor_field",
+        "name": "cursor_field",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter limit",
+        "name": "limit",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of get_cursor_page_info",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_cursor_page_info(items: list, cursor_field: str, limit: int) -> dict:\n    \"\"\"Get cursor pagination info.\"\"\"\n    if not items:\n        return {\"items\": [], \"has_more\": False, \"end_cursor\": None}\n    has_more = len(items) > limit\n    page_items = items[:limit]\n    end_cursor = None\n    if page_items:\n        last_item = page_items[-1]\n        if isinstance(last_item, dict):\n            end_cursor = create_cursor(str(last_item.get(cursor_field, \"\")))\n    return {\"items\": page_items, \"has_more\": has_more, \"end_cursor\": end_cursor}",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:51.948671+00:00",
+    "description": "Get cursor pagination info.",
+    "intent": "Get cursor pagination info.",
+    "language": "python",
+    "name": "get_cursor_page_info",
+    "source_file": "neurop_forge/sources/pagination_helpers.py",
+    "source_line_end": 110,
+    "source_line_start": 99,
+    "tags": [
+      "cursor",
+      "cursor_field",
+      "filtering",
+      "get",
+      "info",
+      "items",
+      "limit",
+      "page"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:51.948693+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "type(cursor_field) == string",
+      "cursor_field is not None",
+      "type(limit) == integer",
+      "limit is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "type(cursor_field) == string",
+      "cursor_field is not None",
+      "type(limit) == integer",
+      "limit is not None"
+    ]
+  }
+}

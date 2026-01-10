@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "078e01700604724a1d77aa6a70722bf1e6c1c0e0ac216f17eaf7b6e5ea03638c",
+    "semantic_fingerprint": "bbfef2f20d8ecf1e3d740fb48f5afc9c97c2e686cb21bd68d169d5a1cfa495d2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate similarity from diff.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter diff",
+        "name": "diff",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of diff_similarity",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def diff_similarity(diff: list) -> float:\n    \"\"\"Calculate similarity from diff.\"\"\"\n    counts = count_diff_changes(diff)\n    total = counts[\"insertions\"] + counts[\"deletions\"] + counts[\"unchanged\"]\n    if total == 0:\n        return 1.0\n    return counts[\"unchanged\"] / total",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:49.253870+00:00",
+    "description": "Calculate similarity from diff.",
+    "intent": "Calculate similarity from diff.",
+    "language": "python",
+    "name": "diff_similarity",
+    "source_file": "neurop_forge/sources/diff_utilities.py",
+    "source_line_end": 114,
+    "source_line_start": 108,
+    "tags": [
+      "arithmetic",
+      "diff",
+      "similarity"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.253888+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(diff) == list",
+      "diff is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(diff) == list",
+      "diff is not None"
+    ]
+  }
+}

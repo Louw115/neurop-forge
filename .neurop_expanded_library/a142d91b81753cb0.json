@@ -1,0 +1,131 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a142d91b81753cb0b928296ab3666c910804924a1a378d8fed492cd1d42d1c5e",
+    "semantic_fingerprint": "a18b087f8be3b12ab52e86ce08fd389572a1ba1a8bb0de92c319e43e1a58bf65",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate event store statistics.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter events",
+        "name": "events",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of calculate_event_store_size",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_event_store_size(events: list) -> dict:\n    \"\"\"Calculate event store statistics.\"\"\"\n    import json\n    total_events = len(events)\n    by_type = {}\n    by_stream = {}\n    total_size = 0\n    for event in events:\n        event_type = event.get(\"type\", \"unknown\")\n        stream_id = event.get(\"stream_id\", \"unknown\")\n        by_type[event_type] = by_type.get(event_type, 0) + 1\n        by_stream[stream_id] = by_stream.get(stream_id, 0) + 1\n        total_size += len(json.dumps(event))\n    return {\n        \"total_events\": total_events,\n        \"by_type\": by_type,\n        \"by_stream\": by_stream,\n        \"total_size_bytes\": total_size\n    }",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:46.244727+00:00",
+    "description": "Calculate event store statistics.",
+    "intent": "Calculate event store statistics.",
+    "language": "python",
+    "name": "calculate_event_store_size",
+    "source_file": "neurop_forge/sources/event_sourcing.py",
+    "source_line_end": 228,
+    "source_line_start": 210,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "event",
+      "events",
+      "size",
+      "store"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.244755+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(events) == list",
+      "events is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(events) == list",
+      "events is not None"
+    ]
+  }
+}

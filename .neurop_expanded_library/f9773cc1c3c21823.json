@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f9773cc1c3c218237c80aceb202d6bd0216c605e65fc8110b5d1ebd566c0a622",
+    "semantic_fingerprint": "c39a0c48aae0496e81028d97c571d1de5b76068b74f4d01d6b521a61a84b4d13",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Partially mask date.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter date_str",
+        "name": "date_str",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter keep_year",
+        "name": "keep_year",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of mask_date_partial",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def mask_date_partial(date_str: str, keep_year: bool) -> str:\n    \"\"\"Partially mask date.\"\"\"\n    if keep_year:\n        parts = date_str.split(\"-\")\n        if len(parts) >= 3:\n            return f\"{parts[0]}-**-**\"\n    return \"****-**-**\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:51.110751+00:00",
+    "description": "Partially mask date.",
+    "intent": "Partially mask date.",
+    "language": "python",
+    "name": "mask_date_partial",
+    "source_file": "neurop_forge/sources/data_masking.py",
+    "source_line_end": 98,
+    "source_line_start": 92,
+    "tags": [
+      "date",
+      "date_str",
+      "keep_year",
+      "mask",
+      "partial",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:51.110777+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(date_str) == string",
+      "date_str is not None",
+      "type(keep_year) == boolean",
+      "keep_year is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(date_str) == string",
+      "date_str is not None",
+      "type(keep_year) == boolean",
+      "keep_year is not None"
+    ]
+  }
+}

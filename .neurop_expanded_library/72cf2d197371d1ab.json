@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "72cf2d197371d1ab75107a1f4f25717b1cc78f58ec5569b446bdaa7f261d1fe7",
+    "semantic_fingerprint": "8abee5a93457e80c4a8f9b791c1ff1bfb4ce93efdcfb06836a37f45ddac3d24b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Assert value is true.",
+    "inputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter message",
+        "name": "message",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of assert_true",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def assert_true(value: bool, message: str) -> dict:\n    \"\"\"Assert value is true.\"\"\"\n    return {\n        \"passed\": value is True,\n        \"message\": message,\n        \"actual\": str(value),\n        \"expected\": \"True\",\n        \"error\": None if value is True else \"Expected True\"\n    }",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:46.370452+00:00",
+    "description": "Assert value is true.",
+    "intent": "Assert value is true.",
+    "language": "python",
+    "name": "assert_true",
+    "source_file": "neurop_forge/sources/testing_utilities.py",
+    "source_line_end": 152,
+    "source_line_start": 144,
+    "tags": [
+      "assert",
+      "message",
+      "true",
+      "validation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.370471+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == boolean",
+      "value is not None",
+      "type(message) == string",
+      "message is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(value) == boolean",
+      "value is not None",
+      "type(message) == string",
+      "message is not None"
+    ]
+  }
+}

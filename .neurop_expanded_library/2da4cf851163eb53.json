@@ -1,0 +1,138 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2da4cf851163eb53eb287c20a4b4b022010e87d4b5fa9e418bb2486d47f69876",
+    "semantic_fingerprint": "73138ca1a38544efad7d8b94fc803fdb8828ecb3fda11682478e3d753c03acce",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add item to back of queue.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter queue",
+        "name": "queue",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter item",
+        "name": "item",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of queue_enqueue",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def queue_enqueue(queue: dict, item) -> dict:\n    \"\"\"Add item to back of queue.\"\"\"\n    return {\n        \"items\": list(queue[\"items\"]) + [item],\n        \"size\": queue[\"size\"] + 1\n    }",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:48.384818+00:00",
+    "description": "Add item to back of queue.",
+    "intent": "Add item to back of queue.",
+    "language": "python",
+    "name": "queue_enqueue",
+    "source_file": "neurop_forge/sources/queue_utilities.py",
+    "source_line_end": 22,
+    "source_line_start": 17,
+    "tags": [
+      "arithmetic",
+      "enqueue",
+      "item",
+      "queue"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.384838+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(queue) == dict",
+      "queue is not None",
+      "item is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(queue) == dict",
+      "queue is not None",
+      "item is not None"
+    ]
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "85bc9ea8cc536790fcbfa9945866873a9498715c43f8e7accfd3fe85de88ba5a",
+    "semantic_fingerprint": "9e8f4d8ffdfc2c0025e236d85625057499147c0fc7307cf2d6494c10a855209e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Decode a one-hot encoded value.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter encoded",
+        "name": "encoded",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter categories",
+        "name": "categories",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of one_hot_decode",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def one_hot_decode(encoded: list, categories: list) -> str:\n    \"\"\"Decode a one-hot encoded value.\"\"\"\n    for i, val in enumerate(encoded):\n        if val == 1 and i < len(categories):\n            return categories[i]\n    return \"\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:46.586758+00:00",
+    "description": "Decode a one-hot encoded value.",
+    "intent": "Decode a one-hot encoded value.",
+    "language": "python",
+    "name": "one_hot_decode",
+    "source_file": "neurop_forge/sources/ml_utilities.py",
+    "source_line_end": 69,
+    "source_line_start": 64,
+    "tags": [
+      "categories",
+      "decode",
+      "encoded",
+      "hot",
+      "one",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.586786+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(encoded) == list",
+      "encoded is not None",
+      "type(categories) == list",
+      "categories is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(encoded) == list",
+      "encoded is not None",
+      "type(categories) == list",
+      "categories is not None"
+    ]
+  }
+}

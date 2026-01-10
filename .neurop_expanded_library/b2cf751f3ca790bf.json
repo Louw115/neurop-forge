@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b2cf751f3ca790bf4ecb671f88d42ff391acaa82a3d677721d6bd8aa796a5cfa",
+    "semantic_fingerprint": "d1c9a3860402bf5f36a5d8690bc0810207b81d0cfc0d1bdaab17e200ac10cc11",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add NOWAIT to a FOR UPDATE/SHARE query.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter query",
+        "name": "query",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of add_nowait",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def add_nowait(query: str) -> str:\n    \"\"\"Add NOWAIT to a FOR UPDATE/SHARE query.\"\"\"\n    import re\n    if not re.search(r'\\bFOR\\s+(UPDATE|SHARE)\\b', query, re.IGNORECASE):\n        return query\n    return f\"{query.rstrip().rstrip(';')} NOWAIT\"",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:44.950230+00:00",
+    "description": "Add NOWAIT to a FOR UPDATE/SHARE query.",
+    "intent": "Add NOWAIT to a FOR UPDATE/SHARE query.",
+    "language": "python",
+    "name": "add_nowait",
+    "source_file": "neurop_forge/sources/query_helpers.py",
+    "source_line_end": 348,
+    "source_line_start": 343,
+    "tags": [
+      "add",
+      "arithmetic",
+      "nowait",
+      "query"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.950255+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(query) == string",
+      "query is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(query) == string",
+      "query is not None"
+    ]
+  }
+}

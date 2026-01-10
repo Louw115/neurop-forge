@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0ff7b83f961e6a990ae1f133e5567bd4b84e60fd8a7dea58d722696297729289",
+    "semantic_fingerprint": "58a94c5a5af965d3e30d8838c809b113bd0c0a16ee7ea2c7183555a44105f2e6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a MongoDB projection document.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter include_fields",
+        "name": "include_fields",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter exclude_fields",
+        "name": "exclude_fields",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_mongodb_projection",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_mongodb_projection(include_fields: list, exclude_fields: list) -> dict:\n    \"\"\"Build a MongoDB projection document.\"\"\"\n    projection = {}\n    for field in include_fields:\n        projection[field] = 1\n    for field in exclude_fields:\n        projection[field] = 0\n    return projection",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:45.242444+00:00",
+    "description": "Build a MongoDB projection document.",
+    "intent": "Build a MongoDB projection document.",
+    "language": "python",
+    "name": "build_mongodb_projection",
+    "source_file": "neurop_forge/sources/nosql_helpers.py",
+    "source_line_end": 62,
+    "source_line_start": 55,
+    "tags": [
+      "build",
+      "dict_operation",
+      "exclude_fields",
+      "include_fields",
+      "mongodb",
+      "projection"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.242463+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(include_fields) == list",
+      "include_fields is not None",
+      "type(exclude_fields) == list",
+      "exclude_fields is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(include_fields) == list",
+      "include_fields is not None",
+      "type(exclude_fields) == list",
+      "exclude_fields is not None"
+    ]
+  }
+}

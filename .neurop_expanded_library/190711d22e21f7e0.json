@@ -1,0 +1,178 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "190711d22e21f7e07c8f23684671e18ab66a2bb63877c959fd42a2375e52e7a7",
+    "semantic_fingerprint": "e646d79411f0219579404f32db24089f81008416ecd420aab71d719f7e65d23d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Determine if circuit breaker should open.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter failure_count",
+        "name": "failure_count",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter threshold",
+        "name": "threshold",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter window_seconds",
+        "name": "window_seconds",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter oldest_failure_time",
+        "name": "oldest_failure_time",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_time",
+        "name": "current_time",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of should_open_circuit",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def should_open_circuit(failure_count: int, threshold: int, window_seconds: int, oldest_failure_time: int, current_time: int) -> bool:\n    \"\"\"Determine if circuit breaker should open.\"\"\"\n    if failure_count < threshold:\n        return False\n    return (current_time - oldest_failure_time) <= window_seconds",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:46.001738+00:00",
+    "description": "Determine if circuit breaker should open.",
+    "intent": "Determine if circuit breaker should open.",
+    "language": "python",
+    "name": "should_open_circuit",
+    "source_file": "neurop_forge/sources/error_handling.py",
+    "source_line_end": 287,
+    "source_line_start": 283,
+    "tags": [
+      "circuit",
+      "current_time",
+      "failure_count",
+      "oldest_failure_time",
+      "open",
+      "should",
+      "threshold",
+      "validation",
+      "window_seconds"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.001759+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(failure_count) == integer",
+      "failure_count is not None",
+      "type(threshold) == integer",
+      "threshold is not None",
+      "type(window_seconds) == integer",
+      "window_seconds is not None",
+      "type(oldest_failure_time) == integer",
+      "oldest_failure_time is not None",
+      "type(current_time) == integer",
+      "current_time is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(failure_count) == integer",
+      "failure_count is not None",
+      "type(threshold) == integer",
+      "threshold is not None",
+      "type(window_seconds) == integer",
+      "window_seconds is not None",
+      "type(oldest_failure_time) == integer",
+      "oldest_failure_time is not None",
+      "type(current_time) == integer",
+      "current_time is not None"
+    ]
+  }
+}

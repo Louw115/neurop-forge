@@ -1,0 +1,167 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4e01bfeea33d6c31b5550ca4fa515f5ff2c9672b46dc045fac11815a80e53f30",
+    "semantic_fingerprint": "f1abbe264fa86982546bb66ff30e009235da4cbc2b6ea433dd66869870e241d1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format migration content as a structured file.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter version",
+        "name": "version",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter description",
+        "name": "description",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter up_sql",
+        "name": "up_sql",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter down_sql",
+        "name": "down_sql",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_migration_file_content",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_migration_file_content(version: str, description: str, up_sql: str, down_sql: str) -> str:\n    \"\"\"Format migration content as a structured file.\"\"\"\n    return f\"\"\"-- Migration: {version}\n-- Description: {description}\n-- Created: AUTO\n\n-- UP\n{up_sql}\n\n-- DOWN\n{down_sql}\n\"\"\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:45.038953+00:00",
+    "description": "Format migration content as a structured file.",
+    "intent": "Format migration content as a structured file.",
+    "language": "python",
+    "name": "format_migration_file_content",
+    "source_file": "neurop_forge/sources/migration_helpers.py",
+    "source_line_end": 333,
+    "source_line_start": 322,
+    "tags": [
+      "content",
+      "description",
+      "down_sql",
+      "file",
+      "format",
+      "migration",
+      "string_manipulation",
+      "up_sql",
+      "version"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.038979+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(version) == string",
+      "version is not None",
+      "type(description) == string",
+      "description is not None",
+      "type(up_sql) == string",
+      "up_sql is not None",
+      "type(down_sql) == string",
+      "down_sql is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(version) == string",
+      "version is not None",
+      "type(description) == string",
+      "description is not None",
+      "type(up_sql) == string",
+      "up_sql is not None",
+      "type(down_sql) == string",
+      "down_sql is not None"
+    ]
+  }
+}

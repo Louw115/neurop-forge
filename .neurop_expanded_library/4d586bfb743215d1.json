@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4d586bfb743215d1603dff6a46a0236d06ddfce24ad0bac6e2b59bdb4ddc966d",
+    "semantic_fingerprint": "e50ca31a5c5f5c796328cc88bebea1dc2698a5af2037a0bdc5d8045f2fc9b3a1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get weight of an edge.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter graph",
+        "name": "graph",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter from_node",
+        "name": "from_node",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter to_node",
+        "name": "to_node",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of get_edge_weight",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_edge_weight(graph: dict, from_node: str, to_node: str) -> float:\n    \"\"\"Get weight of an edge.\"\"\"\n    for edge in graph[\"edges\"]:\n        if edge[\"from\"] == from_node and edge[\"to\"] == to_node:\n            return edge[\"weight\"]\n        if not graph[\"directed\"] and edge[\"from\"] == to_node and edge[\"to\"] == from_node:\n            return edge[\"weight\"]\n    return 0.0",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:47.205910+00:00",
+    "description": "Get weight of an edge.",
+    "intent": "Get weight of an edge.",
+    "language": "python",
+    "name": "get_edge_weight",
+    "source_file": "neurop_forge/sources/graph_utilities.py",
+    "source_line_end": 113,
+    "source_line_start": 106,
+    "tags": [
+      "edge",
+      "filtering",
+      "from_node",
+      "get",
+      "graph",
+      "to_node",
+      "weight"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.205930+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(graph) == dict",
+      "graph is not None",
+      "type(from_node) == string",
+      "from_node is not None",
+      "type(to_node) == string",
+      "to_node is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(graph) == dict",
+      "graph is not None",
+      "type(from_node) == string",
+      "from_node is not None",
+      "type(to_node) == string",
+      "to_node is not None"
+    ]
+  }
+}

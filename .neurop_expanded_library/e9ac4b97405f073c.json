@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic aggregation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e9ac4b97405f073c8797d242de59cb134f8988b7b15693b350294b0e96521565",
+    "semantic_fingerprint": "aea4f2c7b7ab8b9940b48f3393fa6f382236b33aae0d90035d13aad28770dea4",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Remove item from counting bloom filter.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter bloom",
+        "name": "bloom",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter item",
+        "name": "item",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of counting_bloom_remove",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def counting_bloom_remove(bloom: dict, item: str) -> dict:\n    \"\"\"Remove item from counting bloom filter.\"\"\"\n    counters = list(bloom[\"counters\"])\n    for i in range(bloom[\"num_hashes\"]):\n        idx = _hash_item(item, i, bloom[\"size\"])\n        if counters[idx] > 0:\n            counters[idx] -= 1\n    return {\n        \"counters\": counters,\n        \"size\": bloom[\"size\"],\n        \"num_hashes\": bloom[\"num_hashes\"],\n        \"count\": max(0, bloom[\"count\"] - 1)\n    }",
+  "metadata": {
+    "category": "aggregation",
+    "created_at": "2026-01-10T02:18:48.725589+00:00",
+    "description": "Remove item from counting bloom filter.",
+    "intent": "Remove item from counting bloom filter.",
+    "language": "python",
+    "name": "counting_bloom_remove",
+    "source_file": "neurop_forge/sources/bloom_filter.py",
+    "source_line_end": 153,
+    "source_line_start": 141,
+    "tags": [
+      "aggregation",
+      "bloom",
+      "counting",
+      "item",
+      "remove"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.725617+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(bloom) == dict",
+      "bloom is not None",
+      "type(item) == string",
+      "item is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(bloom) == dict",
+      "bloom is not None",
+      "type(item) == string",
+      "item is not None"
+    ]
+  }
+}

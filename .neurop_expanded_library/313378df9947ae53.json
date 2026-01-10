@@ -1,0 +1,166 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "313378df9947ae538523784a4afd5a7182951895e4eb5a9af71bea5419eedbcc",
+    "semantic_fingerprint": "9469ece7758db1a1695a2b8c236a1513d15f27350aa8db4ba8ecd1d4e629b7f9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate SQL for backfilling a column in batches.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter table",
+        "name": "table",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter column",
+        "name": "column",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter expression",
+        "name": "expression",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter batch_size",
+        "name": "batch_size",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_backfill_sql",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_backfill_sql(table: str, column: str, expression: str, batch_size: int) -> str:\n    \"\"\"Generate SQL for backfilling a column in batches.\"\"\"\n    from neurop_forge.sources.sql_building import escape_sql_identifier\n    return f\"\"\"UPDATE {escape_sql_identifier(table)} \nSET {escape_sql_identifier(column)} = {expression}\nWHERE ctid IN (\n    SELECT ctid FROM {escape_sql_identifier(table)}\n    WHERE {escape_sql_identifier(column)} IS NULL\n    LIMIT {batch_size}\n)\"\"\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:45.028762+00:00",
+    "description": "Generate SQL for backfilling a column in batches.",
+    "intent": "Generate SQL for backfilling a column in batches.",
+    "language": "python",
+    "name": "generate_backfill_sql",
+    "source_file": "neurop_forge/sources/migration_helpers.py",
+    "source_line_end": 277,
+    "source_line_start": 268,
+    "tags": [
+      "backfill",
+      "batch_size",
+      "column",
+      "expression",
+      "generate",
+      "sql",
+      "string_manipulation",
+      "table"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.028778+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(table) == string",
+      "table is not None",
+      "type(column) == string",
+      "column is not None",
+      "type(expression) == string",
+      "expression is not None",
+      "type(batch_size) == integer",
+      "batch_size is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(table) == string",
+      "table is not None",
+      "type(column) == string",
+      "column is not None",
+      "type(expression) == string",
+      "expression is not None",
+      "type(batch_size) == integer",
+      "batch_size is not None"
+    ]
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8bd8e67dc84e0568ac967ebcbe00cb7ba310d6e97d51f12b09b84f12844fe05d",
+    "semantic_fingerprint": "d26243f2241967ec5a389566f6fc6b097d845b7c853f5f911f5d41efa6d892ff",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get distribution of ratings.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter reviews",
+        "name": "reviews",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_rating",
+        "name": "max_rating",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of get_rating_distribution",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_rating_distribution(reviews: list, max_rating: int) -> dict:\n    \"\"\"Get distribution of ratings.\"\"\"\n    dist = {i: 0 for i in range(1, max_rating + 1)}\n    for review in reviews:\n        rating = review.get(\"rating\", 0)\n        if rating in dist:\n            dist[rating] += 1\n    return dist",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:52.958948+00:00",
+    "description": "Get distribution of ratings.",
+    "intent": "Get distribution of ratings.",
+    "language": "python",
+    "name": "get_rating_distribution",
+    "source_file": "neurop_forge/sources/review_utilities.py",
+    "source_line_end": 64,
+    "source_line_start": 57,
+    "tags": [
+      "distribution",
+      "filtering",
+      "get",
+      "max_rating",
+      "rating",
+      "reviews"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.958967+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(reviews) == list",
+      "reviews is not None",
+      "type(max_rating) == integer",
+      "max_rating is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(reviews) == list",
+      "reviews is not None",
+      "type(max_rating) == integer",
+      "max_rating is not None"
+    ]
+  }
+}

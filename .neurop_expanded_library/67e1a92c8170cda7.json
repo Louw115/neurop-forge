@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "67e1a92c8170cda7186df39800b9c23732fe5e4dfe50b82aa1ac1f9cff9a7c94",
+    "semantic_fingerprint": "063abf24663ee45e19328d5be742b8708d901a43e7c1ddc11a4fb72b8773f45a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a Common Table Expression (WITH clause).",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter name",
+        "name": "name",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter query",
+        "name": "query",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_cte",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_cte(name: str, query: str) -> str:\n    \"\"\"Build a Common Table Expression (WITH clause).\"\"\"\n    return f\"WITH {escape_sql_identifier(name)} AS ({query})\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:44.675369+00:00",
+    "description": "Build a Common Table Expression (WITH clause).",
+    "intent": "Build a Common Table Expression (WITH clause).",
+    "language": "python",
+    "name": "build_cte",
+    "source_file": "neurop_forge/sources/sql_building.py",
+    "source_line_end": 223,
+    "source_line_start": 221,
+    "tags": [
+      "build",
+      "cte",
+      "name",
+      "query",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.675398+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(name) == string",
+      "name is not None",
+      "type(query) == string",
+      "query is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(name) == string",
+      "name is not None",
+      "type(query) == string",
+      "query is not None"
+    ]
+  }
+}

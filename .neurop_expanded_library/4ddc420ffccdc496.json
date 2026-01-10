@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4ddc420ffccdc496a76f98ee28ec84ce71bbab808c03d3ad873548a7fd7efebd",
+    "semantic_fingerprint": "cb231c2594f775c9f4fd7bfc0a6b0e05bf7471e2ab6d55dffc92efcccf628cf7",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add tags to content item.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter item",
+        "name": "item",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter tag_ids",
+        "name": "tag_ids",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of add_tags_to_content",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def add_tags_to_content(item: dict, tag_ids: list) -> dict:\n    \"\"\"Add tags to content item.\"\"\"\n    result = dict(item)\n    result[\"tags\"] = list(set(item.get(\"tags\", []) + tag_ids))\n    return result",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:47.870265+00:00",
+    "description": "Add tags to content item.",
+    "intent": "Add tags to content item.",
+    "language": "python",
+    "name": "add_tags_to_content",
+    "source_file": "neurop_forge/sources/content_utilities.py",
+    "source_line_end": 152,
+    "source_line_start": 148,
+    "tags": [
+      "add",
+      "arithmetic",
+      "content",
+      "item",
+      "tag_ids",
+      "tags"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.870286+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(item) == dict",
+      "item is not None",
+      "type(tag_ids) == list",
+      "tag_ids is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(item) == dict",
+      "item is not None",
+      "type(tag_ids) == list",
+      "tag_ids is not None"
+    ]
+  }
+}

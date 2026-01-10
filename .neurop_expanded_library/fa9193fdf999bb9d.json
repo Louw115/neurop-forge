@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "fa9193fdf999bb9deb5bfa8e3360fd391321c0feca440a59f7cd0b5c0e2e7d20",
+    "semantic_fingerprint": "04aa3b30d6280e84832be3fec50d876277a3baaebf4744f3da9bbc3097b41fcc",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Mark debounced call as executed.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter state",
+        "name": "state",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of execute_debounce",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def execute_debounce(state: dict) -> dict:\n    \"\"\"Mark debounced call as executed.\"\"\"\n    return {**state, \"pending\": False}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:52.198106+00:00",
+    "description": "Mark debounced call as executed.",
+    "intent": "Mark debounced call as executed.",
+    "language": "python",
+    "name": "execute_debounce",
+    "source_file": "neurop_forge/sources/throttle_utilities.py",
+    "source_line_end": 105,
+    "source_line_start": 103,
+    "tags": [
+      "debounce",
+      "dict_operation",
+      "execute",
+      "state"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.198134+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(state) == dict",
+      "state is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(state) == dict",
+      "state is not None"
+    ]
+  }
+}

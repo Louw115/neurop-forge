@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "892f7171106a971fdde07001a22adcee9e21fa2dd70fd8d08b0192acc9fb00ae",
+    "semantic_fingerprint": "69f653c6f8616ae77cb60e6dcdf2edfa7ba9f3e8274bc0c7db6b4900452ee759",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a WHERE ... BETWEEN clause.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter column",
+        "name": "column",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter start_placeholder",
+        "name": "start_placeholder",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_where_between",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_where_between(column: str, start_placeholder: int) -> str:\n    \"\"\"Build a WHERE ... BETWEEN clause.\"\"\"\n    return f\"WHERE {escape_sql_identifier(column)} BETWEEN ${start_placeholder} AND ${start_placeholder + 1}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:44.632296+00:00",
+    "description": "Build a WHERE ... BETWEEN clause.",
+    "intent": "Build a WHERE ... BETWEEN clause.",
+    "language": "python",
+    "name": "build_where_between",
+    "source_file": "neurop_forge/sources/sql_building.py",
+    "source_line_end": 86,
+    "source_line_start": 84,
+    "tags": [
+      "between",
+      "build",
+      "column",
+      "start_placeholder",
+      "string_manipulation",
+      "where"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.632325+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(column) == string",
+      "column is not None",
+      "type(start_placeholder) == integer",
+      "start_placeholder is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(column) == string",
+      "column is not None",
+      "type(start_placeholder) == integer",
+      "start_placeholder is not None"
+    ]
+  }
+}

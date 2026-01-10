@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "77a0b929ab4169e7e4a01b8f95cf21bb9af91a915033572eff41d815cab2af1f",
+    "semantic_fingerprint": "874ee9504cc0bfe4101fd6f79899c90d8ab7a91e5f2258b6aeab4f79608392fa",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate if an origin is allowed.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter origin",
+        "name": "origin",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter allowed_origins",
+        "name": "allowed_origins",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of validate_origin",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_origin(origin: str, allowed_origins: list) -> bool:\n    \"\"\"Validate if an origin is allowed.\"\"\"\n    if \"*\" in allowed_origins:\n        return True\n    return origin in allowed_origins",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:45.631500+00:00",
+    "description": "Validate if an origin is allowed.",
+    "intent": "Validate if an origin is allowed.",
+    "language": "python",
+    "name": "validate_origin",
+    "source_file": "neurop_forge/sources/api_patterns.py",
+    "source_line_end": 430,
+    "source_line_start": 426,
+    "tags": [
+      "allowed_origins",
+      "origin",
+      "validate",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.631516+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(origin) == string",
+      "origin is not None",
+      "type(allowed_origins) == list",
+      "allowed_origins is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(origin) == string",
+      "origin is not None",
+      "type(allowed_origins) == list",
+      "allowed_origins is not None"
+    ]
+  }
+}

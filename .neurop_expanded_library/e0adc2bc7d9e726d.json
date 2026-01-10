@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e0adc2bc7d9e726d3e1dbe75ce784e6f289fb34485925af29412ecb70a56fef0",
+    "semantic_fingerprint": "41abb7591029b8725c1a656c0ad6f5e32107845f15375349b069e497dd8645ad",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a COUNT query.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter table",
+        "name": "table",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter column",
+        "name": "column",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_count_query",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_count_query(table: str, column: str) -> str:\n    \"\"\"Build a COUNT query.\"\"\"\n    if column == \"*\":\n        return f\"SELECT COUNT(*) FROM {escape_sql_identifier(table)}\"\n    return f\"SELECT COUNT({escape_sql_identifier(column)}) FROM {escape_sql_identifier(table)}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:44.649719+00:00",
+    "description": "Build a COUNT query.",
+    "intent": "Build a COUNT query.",
+    "language": "python",
+    "name": "build_count_query",
+    "source_file": "neurop_forge/sources/sql_building.py",
+    "source_line_end": 142,
+    "source_line_start": 138,
+    "tags": [
+      "build",
+      "column",
+      "count",
+      "query",
+      "string_manipulation",
+      "table"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.649747+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(table) == string",
+      "table is not None",
+      "type(column) == string",
+      "column is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(table) == string",
+      "table is not None",
+      "type(column) == string",
+      "column is not None"
+    ]
+  }
+}

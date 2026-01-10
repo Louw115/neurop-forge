@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "975d696beb773a65719ed91527a790054f7f70d0e2f35c451321feb3fa466e32",
+    "semantic_fingerprint": "2a2c3c9d6e3e7739320074cbfcabb76ef75638c6c2b68a19d56ec32a15f75826",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a standard error response.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter status_code",
+        "name": "status_code",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter message",
+        "name": "message",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter errors",
+        "name": "errors",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_error_response",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_error_response(status_code: int, message: str, errors: list) -> dict:\n    \"\"\"Build a standard error response.\"\"\"\n    return {\n        \"success\": False,\n        \"error\": {\n            \"code\": status_code,\n            \"message\": message,\n            \"details\": errors\n        }\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:45.596367+00:00",
+    "description": "Build a standard error response.",
+    "intent": "Build a standard error response.",
+    "language": "python",
+    "name": "build_error_response",
+    "source_file": "neurop_forge/sources/api_patterns.py",
+    "source_line_end": 212,
+    "source_line_start": 203,
+    "tags": [
+      "build",
+      "dict_operation",
+      "error",
+      "errors",
+      "message",
+      "response",
+      "status_code"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.596386+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(status_code) == integer",
+      "status_code is not None",
+      "type(message) == string",
+      "message is not None",
+      "type(errors) == list",
+      "errors is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(status_code) == integer",
+      "status_code is not None",
+      "type(message) == string",
+      "message is not None",
+      "type(errors) == list",
+      "errors is not None"
+    ]
+  }
+}

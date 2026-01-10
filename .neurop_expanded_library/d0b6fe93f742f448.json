@@ -1,0 +1,136 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic aggregation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": false,
+    "io_operations": [
+      "file_read"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "non_deterministic",
+    "side_effects": [
+      "file_io"
+    ],
+    "thread_safe": false
+  },
+  "failure_modes": {
+    "can_fail": true,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "raises_exception",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d0b6fe93f742f4487fb2e80205ce65240097f3861efc479093b5c531b42431af",
+    "semantic_fingerprint": "dafaf9a05c6f1d436fa2e50d714dbb03647a4c7eb44dbc13e12a3f7432d0ef2c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Group log entries by request ID.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter entries",
+        "name": "entries",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of group_logs_by_request",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def group_logs_by_request(entries: list) -> dict:\n    \"\"\"Group log entries by request ID.\"\"\"\n    groups = {}\n    for entry in entries:\n        request_id = entry.get(\"context\", {}).get(\"request_id\", \"unknown\")\n        if request_id not in groups:\n            groups[request_id] = []\n        groups[request_id].append(entry)\n    return groups",
+  "metadata": {
+    "category": "aggregation",
+    "created_at": "2026-01-10T02:18:47.563326+00:00",
+    "description": "Group log entries by request ID.",
+    "intent": "Group log entries by request ID.",
+    "language": "python",
+    "name": "group_logs_by_request",
+    "source_file": "neurop_forge/sources/logging_utilities.py",
+    "source_line_end": 164,
+    "source_line_start": 156,
+    "tags": [
+      "aggregation",
+      "entries",
+      "group",
+      "logs",
+      "request"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 0.5,
+    "last_verified": "2026-01-10T02:18:47.563348+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3025,
+    "risk_factors": [
+      "impure_function",
+      "non_deterministic",
+      "side_effects: file_io"
+    ],
+    "risk_level": "medium",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(entries) == list",
+      "entries is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(entries) == list",
+      "entries is not None"
+    ]
+  }
+}

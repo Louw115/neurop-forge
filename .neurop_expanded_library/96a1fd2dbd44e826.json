@@ -1,0 +1,139 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "96a1fd2dbd44e826a1850d9ba3694ef9cf4f7217e0b2ef1ad4221d8ca31707f8",
+    "semantic_fingerprint": "67cba8dc8008abf1634f50bc38e69b10ec409a659ae39ae220c6ef98aa15ea37",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Search in rotated sorted array.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter target",
+        "name": "target",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of search_rotated",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def search_rotated(items: list, target) -> int:\n    \"\"\"Search in rotated sorted array.\"\"\"\n    left, right = 0, len(items) - 1\n    while left <= right:\n        mid = (left + right) // 2\n        if items[mid] == target:\n            return mid\n        if items[left] <= items[mid]:\n            if items[left] <= target < items[mid]:\n                right = mid - 1\n            else:\n                left = mid + 1\n        else:\n            if items[mid] < target <= items[right]:\n                left = mid + 1\n            else:\n                right = mid - 1\n    return -1",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:49.414695+00:00",
+    "description": "Search in rotated sorted array.",
+    "intent": "Search in rotated sorted array.",
+    "language": "python",
+    "name": "search_rotated",
+    "source_file": "neurop_forge/sources/search_algorithms.py",
+    "source_line_end": 227,
+    "source_line_start": 210,
+    "tags": [
+      "filtering",
+      "items",
+      "rotated",
+      "search",
+      "target"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.414714+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "target is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "target is not None"
+    ]
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7570792358017a7244fd998735cf870e05f6b1fd4a41d74a9e0156b4c566bc66",
+    "semantic_fingerprint": "bba64be528dd819cbd2b0dccf4ec8dae3a520e88948be2d0d53a41feffb5e8e1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if an error message indicates a transient error.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter error_message",
+        "name": "error_message",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_transient_error",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_transient_error(error_message: str) -> bool:\n    \"\"\"Check if an error message indicates a transient error.\"\"\"\n    transient_patterns = [\n        \"timeout\", \"timed out\", \"connection refused\", \"connection reset\",\n        \"temporarily unavailable\", \"service unavailable\", \"try again\",\n        \"rate limit\", \"too many requests\", \"overloaded\"\n    ]\n    message_lower = error_message.lower()\n    return any(pattern in message_lower for pattern in transient_patterns)",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:45.995979+00:00",
+    "description": "Check if an error message indicates a transient error.",
+    "intent": "Check if an error message indicates a transient error.",
+    "language": "python",
+    "name": "is_transient_error",
+    "source_file": "neurop_forge/sources/error_handling.py",
+    "source_line_end": 243,
+    "source_line_start": 235,
+    "tags": [
+      "error",
+      "error_message",
+      "transient",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.996016+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(error_message) == string",
+      "error_message is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(error_message) == string",
+      "error_message is not None"
+    ]
+  }
+}

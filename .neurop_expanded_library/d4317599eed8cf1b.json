@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d4317599eed8cf1b18b9d3fbdb6c1155d974e3e49290daeb7bd5d545c34b3cf8",
+    "semantic_fingerprint": "ecfc68b5e9379b15a3238ec42832f7cfe4a454779ba24ff8b5aeabda1f868e7a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Apply masking configuration to data.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter data",
+        "name": "data",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter config",
+        "name": "config",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of apply_masking_config",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def apply_masking_config(data: dict, config: dict) -> dict:\n    \"\"\"Apply masking configuration to data.\"\"\"\n    result = dict(data)\n    for field, mask_type in config.get(\"fields\", {}).items():\n        if field in result:\n            if mask_type == \"email\":\n                result[field] = mask_email(str(result[field]))\n            elif mask_type == \"phone\":\n                result[field] = mask_phone(str(result[field]))\n            elif mask_type == \"credit_card\":\n                result[field] = mask_credit_card(str(result[field]))\n            elif mask_type == \"redact\":\n                result[field] = redact_field(str(result[field]))\n            elif mask_type == \"name\":\n                result[field] = mask_name(str(result[field]))\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:51.129851+00:00",
+    "description": "Apply masking configuration to data.",
+    "intent": "Apply masking configuration to data.",
+    "language": "python",
+    "name": "apply_masking_config",
+    "source_file": "neurop_forge/sources/data_masking.py",
+    "source_line_end": 161,
+    "source_line_start": 146,
+    "tags": [
+      "apply",
+      "config",
+      "data",
+      "dict_operation",
+      "masking"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:51.129880+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(data) == dict",
+      "data is not None",
+      "type(config) == dict",
+      "config is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(data) == dict",
+      "data is not None",
+      "type(config) == dict",
+      "config is not None"
+    ]
+  }
+}

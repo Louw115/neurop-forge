@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "73c07a79c1a00631047e94b8a6ce5448e4228d43ddb4687f2d7287e39c44b209",
+    "semantic_fingerprint": "b7d1129d29b1ce7085cc487393c7ecc9f17b6423a32e513b5e06ff4d82ccc8b6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generalize ZIP code.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter zip_code",
+        "name": "zip_code",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter keep_digits",
+        "name": "keep_digits",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generalize_zip",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generalize_zip(zip_code: str, keep_digits: int) -> str:\n    \"\"\"Generalize ZIP code.\"\"\"\n    return zip_code[:keep_digits] + \"*\" * (len(zip_code) - keep_digits)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:51.117591+00:00",
+    "description": "Generalize ZIP code.",
+    "intent": "Generalize ZIP code.",
+    "language": "python",
+    "name": "generalize_zip",
+    "source_file": "neurop_forge/sources/data_masking.py",
+    "source_line_end": 119,
+    "source_line_start": 117,
+    "tags": [
+      "generalize",
+      "keep_digits",
+      "string_manipulation",
+      "zip",
+      "zip_code"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:51.117619+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(zip_code) == string",
+      "zip_code is not None",
+      "type(keep_digits) == integer",
+      "keep_digits is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(zip_code) == string",
+      "zip_code is not None",
+      "type(keep_digits) == integer",
+      "keep_digits is not None"
+    ]
+  }
+}

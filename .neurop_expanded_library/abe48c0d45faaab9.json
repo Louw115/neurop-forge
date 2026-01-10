@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "abe48c0d45faaab999a638b4d4d2457ef400167471ec3793b5e760f212401d21",
+    "semantic_fingerprint": "7beb39c10c9bfcdfae768d91d3e8a2d5661ee35692de5b5026015599a4a8fc23",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse US address into components.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter address",
+        "name": "address",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of parse_us_address",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_us_address(address: str) -> dict:\n    \"\"\"Parse US address into components.\"\"\"\n    lines = parse_address_lines(address)\n    result = {\n        \"street1\": \"\",\n        \"street2\": \"\",\n        \"city\": \"\",\n        \"state\": \"\",\n        \"zip\": \"\"\n    }\n    if lines:\n        result[\"street1\"] = lines[0]\n    if len(lines) > 1:\n        last_line = lines[-1]\n        city_state_zip = re.match(r'^(.+?),?\\s+([A-Z]{2})\\s+(\\d{5}(?:-\\d{4})?)$', last_line, re.IGNORECASE)\n        if city_state_zip:\n            result[\"city\"] = city_state_zip.group(1).strip(\",\")\n            result[\"state\"] = city_state_zip.group(2).upper()\n            result[\"zip\"] = city_state_zip.group(3)\n        if len(lines) > 2:\n            result[\"street2\"] = lines[1]\n    return result",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T02:18:52.284183+00:00",
+    "description": "Parse US address into components.",
+    "intent": "Parse US address into components.",
+    "language": "python",
+    "name": "parse_us_address",
+    "source_file": "neurop_forge/sources/address_utilities.py",
+    "source_line_end": 101,
+    "source_line_start": 80,
+    "tags": [
+      "address",
+      "parse",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.284204+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(address) == string",
+      "address is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(address) == string",
+      "address is not None"
+    ]
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "609de7acdc15fd79b6c0fbcd3dbb03f9c31675c2b2b7130f962dcbcdd9985027",
+    "semantic_fingerprint": "16bf587590568738c99c7e05c7f7c8b24630cfd0a0188273bb743a7545e41dfd",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get the last n words from text.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter n",
+        "name": "n",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_last_n_words",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_last_n_words(text: str, n: int) -> str:\n    \"\"\"Get the last n words from text.\"\"\"\n    if not text or n <= 0:\n        return \"\"\n    words = text.split()\n    return ' '.join(words[-n:])",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:42.962381+00:00",
+    "description": "Get the last n words from text.",
+    "intent": "Get the last n words from text.",
+    "language": "python",
+    "name": "get_last_n_words",
+    "source_file": "neurop_forge/sources/text_analysis.py",
+    "source_line_end": 194,
+    "source_line_start": 189,
+    "tags": [
+      "filtering",
+      "get",
+      "last",
+      "n",
+      "text",
+      "words"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:42.962408+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None",
+      "type(n) == integer",
+      "n is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None",
+      "type(n) == integer",
+      "n is not None"
+    ]
+  }
+}

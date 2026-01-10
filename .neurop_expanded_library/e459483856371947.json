@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e4594838563719471164363f605e62f1df56201341fecd78634471c37a4a7878",
+    "semantic_fingerprint": "5363f2260d66eae30e081af30d1a9d0f89ff515bb887e025331231a71864f81d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find differences between two dicts.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter dict1",
+        "name": "dict1",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter dict2",
+        "name": "dict2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of diff_dicts",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def diff_dicts(dict1: dict, dict2: dict) -> dict:\n    \"\"\"Find differences between two dicts.\"\"\"\n    result = {\"added\": {}, \"removed\": {}, \"changed\": {}}\n    all_keys = set(dict1.keys()) | set(dict2.keys())\n    for key in all_keys:\n        if key not in dict1:\n            result[\"added\"][key] = dict2[key]\n        elif key not in dict2:\n            result[\"removed\"][key] = dict1[key]\n        elif dict1[key] != dict2[key]:\n            result[\"changed\"][key] = {\"old\": dict1[key], \"new\": dict2[key]}\n    return result",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:43.528603+00:00",
+    "description": "Find differences between two dicts.",
+    "intent": "Find differences between two dicts.",
+    "language": "python",
+    "name": "diff_dicts",
+    "source_file": "neurop_forge/sources/data_transformation.py",
+    "source_line_end": 246,
+    "source_line_start": 235,
+    "tags": [
+      "arithmetic",
+      "dict1",
+      "dict2",
+      "dicts",
+      "diff"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.528631+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(dict1) == dict",
+      "dict1 is not None",
+      "type(dict2) == dict",
+      "dict2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(dict1) == dict",
+      "dict1 is not None",
+      "type(dict2) == dict",
+      "dict2 is not None"
+    ]
+  }
+}

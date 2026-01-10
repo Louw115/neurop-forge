@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "974bf6b5e7368c7eaa2f6b5848a1678e29db761a4c8cd434fb3edf7ec2759709",
+    "semantic_fingerprint": "25810eeea6adc6be3b14d7c75f0661682d4f92a88fd9c68a242687782ccfd495",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Tokenize search query into terms.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter query",
+        "name": "query",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of tokenize_query",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def tokenize_query(query: str) -> list:\n    \"\"\"Tokenize search query into terms.\"\"\"\n    return [t.strip() for t in query.split() if t.strip()]",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:52.915814+00:00",
+    "description": "Tokenize search query into terms.",
+    "intent": "Tokenize search query into terms.",
+    "language": "python",
+    "name": "tokenize_query",
+    "source_file": "neurop_forge/sources/search_helpers.py",
+    "source_line_end": 24,
+    "source_line_start": 22,
+    "tags": [
+      "query",
+      "string_manipulation",
+      "tokenize"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.915831+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(query) == string",
+      "query is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(query) == string",
+      "query is not None"
+    ]
+  }
+}

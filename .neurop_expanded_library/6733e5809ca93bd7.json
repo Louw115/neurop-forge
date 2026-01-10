@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "6733e5809ca93bd75ce9ef9053a8b083ab696a3340f61b773f6bb12291b3215a",
+    "semantic_fingerprint": "ad6e569fcd40b53b9ca2f16790b55a2aa1dbda4c9f45395ab41d8c7219224b50",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Convert list of pairs to query string.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter pairs",
+        "name": "pairs",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of pairs_to_query",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def pairs_to_query(pairs: list) -> str:\n    \"\"\"Convert list of pairs to query string.\"\"\"\n    result = []\n    for pair in pairs:\n        if len(pair) >= 2:\n            result.append(f\"{quote(str(pair[0]))}={quote(str(pair[1]))}\")\n    return \"&\".join(result)",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T02:18:52.043401+00:00",
+    "description": "Convert list of pairs to query string.",
+    "intent": "Convert list of pairs to query string.",
+    "language": "python",
+    "name": "pairs_to_query",
+    "source_file": "neurop_forge/sources/query_string.py",
+    "source_line_end": 126,
+    "source_line_start": 120,
+    "tags": [
+      "pairs",
+      "query",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.043426+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(pairs) == list",
+      "pairs is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(pairs) == list",
+      "pairs is not None"
+    ]
+  }
+}

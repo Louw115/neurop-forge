@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "526da44641f57470a8d25da6d0097830dcd69810a66195d87d3e2534ae6ad107",
+    "semantic_fingerprint": "65a1b550c24c1d4ee83686c0fccc33e3c76792fc0bdde2ae08e00805f8160d94",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Evaluate postfix expression using stack.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter tokens",
+        "name": "tokens",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of evaluate_postfix",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def evaluate_postfix(tokens: list) -> float:\n    \"\"\"Evaluate postfix expression using stack.\"\"\"\n    stack = []\n    for token in tokens:\n        if isinstance(token, (int, float)):\n            stack.append(token)\n        elif token == \"+\":\n            b, a = stack.pop(), stack.pop()\n            stack.append(a + b)\n        elif token == \"-\":\n            b, a = stack.pop(), stack.pop()\n            stack.append(a - b)\n        elif token == \"*\":\n            b, a = stack.pop(), stack.pop()\n            stack.append(a * b)\n        elif token == \"/\":\n            b, a = stack.pop(), stack.pop()\n            stack.append(a / b if b != 0 else 0)\n    return stack[0] if stack else 0",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:48.479323+00:00",
+    "description": "Evaluate postfix expression using stack.",
+    "intent": "Evaluate postfix expression using stack.",
+    "language": "python",
+    "name": "evaluate_postfix",
+    "source_file": "neurop_forge/sources/stack_utilities.py",
+    "source_line_end": 248,
+    "source_line_start": 230,
+    "tags": [
+      "arithmetic",
+      "evaluate",
+      "postfix",
+      "tokens"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.479345+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(tokens) == list",
+      "tokens is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(tokens) == list",
+      "tokens is not None"
+    ]
+  }
+}

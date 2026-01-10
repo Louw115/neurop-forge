@@ -218,7 +218,7 @@ class BlockBuilder:
                 metadata=metadata,
                 interface=interface,
                 constraints=constraints,
-                logic=normalized.normalized,
+                logic=normalized.original,
                 validation_rules=validation_rules,
                 trust_score=trust_score,
                 failure_modes=failure_modes,

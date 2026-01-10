@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "23582307545f90badd51271be234d476db7b61fe29c0b193c2e25f9afad78080",
+    "semantic_fingerprint": "3722bdb908afe21d0732c25ff11c9bd505eb275439455843c21906a27c82d4ad",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Create order timeline from status changes.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter order",
+        "name": "order",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of create_order_timeline",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def create_order_timeline(order: dict) -> list:\n    \"\"\"Create order timeline from status changes.\"\"\"\n    return [\n        {\"status\": order[\"status\"], \"timestamp\": order[\"updated_at\"]}\n    ]",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:52.634795+00:00",
+    "description": "Create order timeline from status changes.",
+    "intent": "Create order timeline from status changes.",
+    "language": "python",
+    "name": "create_order_timeline",
+    "source_file": "neurop_forge/sources/order_utilities.py",
+    "source_line_end": 173,
+    "source_line_start": 169,
+    "tags": [
+      "create",
+      "list_operation",
+      "order",
+      "timeline"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.634819+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(order) == dict",
+      "order is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(order) == dict",
+      "order is not None"
+    ]
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0e9822d465deb7f500c0f2dedfc5b8a7fe1b087303dd3c819ef7898d73e6f195",
+    "semantic_fingerprint": "cb3aa128e5b3c62e6d180833ffe35cb9398ab3d5ae1564e900c5eba84c4539ae",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate train/test split indices deterministically.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter total",
+        "name": "total",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter test_ratio",
+        "name": "test_ratio",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seed",
+        "name": "seed",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of train_test_split_indices",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def train_test_split_indices(total: int, test_ratio: float, seed: int) -> dict:\n    \"\"\"Calculate train/test split indices deterministically.\"\"\"\n    import hashlib\n    test_count = int(total * test_ratio)\n    indices = list(range(total))\n    for i in range(total - 1, 0, -1):\n        hash_val = hashlib.sha256(f\"{seed}:{i}\".encode()).digest()\n        j = int.from_bytes(hash_val[:4], 'big') % (i + 1)\n        indices[i], indices[j] = indices[j], indices[i]\n    return {\n        \"test\": sorted(indices[:test_count]),\n        \"train\": sorted(indices[test_count:])\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:46.624056+00:00",
+    "description": "Calculate train/test split indices deterministically.",
+    "intent": "Calculate train/test split indices deterministically.",
+    "language": "python",
+    "name": "train_test_split_indices",
+    "source_file": "neurop_forge/sources/ml_utilities.py",
+    "source_line_end": 213,
+    "source_line_start": 201,
+    "tags": [
+      "dict_operation",
+      "indices",
+      "seed",
+      "split",
+      "test",
+      "test_ratio",
+      "total",
+      "train"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.624078+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(total) == integer",
+      "total is not None",
+      "type(test_ratio) == float",
+      "test_ratio is not None",
+      "type(seed) == integer",
+      "seed is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(total) == integer",
+      "total is not None",
+      "type(test_ratio) == float",
+      "test_ratio is not None",
+      "type(seed) == integer",
+      "seed is not None"
+    ]
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d42a5bccfbe421585c60f2d7f48ab1acebc6f4efbe24c8f1378969590eeac77f",
+    "semantic_fingerprint": "dce79b536cea9fffdb3c38e17fb990dc163649f9f9ce1fc2d526ac1f3faaf2ab",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Apply progressive tax brackets.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter income",
+        "name": "income",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter brackets",
+        "name": "brackets",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of apply_tax_bracket",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def apply_tax_bracket(income: float, brackets: list) -> float:\n    \"\"\"Apply progressive tax brackets.\"\"\"\n    total_tax = 0\n    remaining = income\n    prev_limit = 0\n    for bracket in brackets:\n        limit = bracket.get(\"limit\", float(\"inf\"))\n        rate = bracket[\"rate\"]\n        taxable = min(remaining, limit - prev_limit)\n        if taxable <= 0:\n            break\n        total_tax += taxable * rate / 100\n        remaining -= taxable\n        prev_limit = limit\n    return round(total_tax, 2)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:52.455921+00:00",
+    "description": "Apply progressive tax brackets.",
+    "intent": "Apply progressive tax brackets.",
+    "language": "python",
+    "name": "apply_tax_bracket",
+    "source_file": "neurop_forge/sources/tax_utilities.py",
+    "source_line_end": 85,
+    "source_line_start": 71,
+    "tags": [
+      "apply",
+      "arithmetic",
+      "bracket",
+      "brackets",
+      "income",
+      "tax"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.455939+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(income) == float",
+      "income is not None",
+      "type(brackets) == list",
+      "brackets is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(income) == float",
+      "income is not None",
+      "type(brackets) == list",
+      "brackets is not None"
+    ]
+  }
+}

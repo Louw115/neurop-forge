@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "891b10547d560412530288f140425902af752c135489f6a5a6e4a3ed4126fcd7",
+    "semantic_fingerprint": "598d5497910d7f545e1e7e41eaa532cf77e979547ac5f160489c1f5c2f0939ef",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Apply a mathematical function.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter func_name",
+        "name": "func_name",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter args",
+        "name": "args",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of apply_function",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def apply_function(func_name: str, args: list) -> float:\n    \"\"\"Apply a mathematical function.\"\"\"\n    import math\n    functions = {\n        \"sin\": lambda x: math.sin(x[0]),\n        \"cos\": lambda x: math.cos(x[0]),\n        \"tan\": lambda x: math.tan(x[0]),\n        \"sqrt\": lambda x: math.sqrt(x[0]),\n        \"abs\": lambda x: abs(x[0]),\n        \"log\": lambda x: math.log(x[0]),\n        \"log10\": lambda x: math.log10(x[0]),\n        \"exp\": lambda x: math.exp(x[0]),\n        \"floor\": lambda x: math.floor(x[0]),\n        \"ceil\": lambda x: math.ceil(x[0]),\n        \"max\": lambda x: max(x),\n        \"min\": lambda x: min(x),\n        \"sum\": lambda x: sum(x),\n        \"avg\": lambda x: sum(x) / len(x) if x else 0,\n    }\n    if func_name in functions:\n        return functions[func_name](args)\n    return 0",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:49.619082+00:00",
+    "description": "Apply a mathematical function.",
+    "intent": "Apply a mathematical function.",
+    "language": "python",
+    "name": "apply_function",
+    "source_file": "neurop_forge/sources/expression_parser.py",
+    "source_line_end": 239,
+    "source_line_start": 218,
+    "tags": [
+      "apply",
+      "arithmetic",
+      "func_name",
+      "function"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.619103+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(func_name) == string",
+      "func_name is not None",
+      "type(args) == list",
+      "args is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(func_name) == string",
+      "func_name is not None",
+      "type(args) == list",
+      "args is not None"
+    ]
+  }
+}

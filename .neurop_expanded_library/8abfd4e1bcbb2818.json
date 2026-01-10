@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8abfd4e1bcbb2818ea2cc625318d651c8bd08f04216a348ae1e7433fd8349efa",
+    "semantic_fingerprint": "70de781079a9f7d8e435df642d393127fdd99ca53a478d16e9053c59c5d15e87",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Transpose a dict of lists to a list of dicts.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter data",
+        "name": "data",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of transpose_dict_of_lists",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def transpose_dict_of_lists(data: dict) -> list:\n    \"\"\"Transpose a dict of lists to a list of dicts.\"\"\"\n    if not data:\n        return []\n    keys = list(data.keys())\n    if not keys:\n        return []\n    length = len(data[keys[0]])\n    return [{k: data[k][i] for k in keys} for i in range(length)]",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:43.521318+00:00",
+    "description": "Transpose a dict of lists to a list of dicts.",
+    "intent": "Transpose a dict of lists to a list of dicts.",
+    "language": "python",
+    "name": "transpose_dict_of_lists",
+    "source_file": "neurop_forge/sources/data_transformation.py",
+    "source_line_end": 213,
+    "source_line_start": 205,
+    "tags": [
+      "data",
+      "dict",
+      "list_operation",
+      "lists",
+      "transpose"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.521345+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(data) == dict",
+      "data is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(data) == dict",
+      "data is not None"
+    ]
+  }
+}

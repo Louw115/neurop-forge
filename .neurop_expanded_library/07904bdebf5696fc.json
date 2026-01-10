@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "07904bdebf5696fcc67b52454d825f3529a90745eb1b36aebbe6365b2c83533b",
+    "semantic_fingerprint": "f3db2d52eec54b15c80785aeddf1b4c0227c210bc3dd81b727a0ca78fe954e4e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format time in 12-hour format.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter hours",
+        "name": "hours",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter minutes",
+        "name": "minutes",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_time_12h",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_time_12h(hours: int, minutes: int) -> str:\n    \"\"\"Format time in 12-hour format.\"\"\"\n    period = \"AM\" if hours < 12 else \"PM\"\n    display_hours = hours % 12\n    if display_hours == 0:\n        display_hours = 12\n    return f\"{display_hours}:{minutes:02d} {period}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:51.729010+00:00",
+    "description": "Format time in 12-hour format.",
+    "intent": "Format time in 12-hour format.",
+    "language": "python",
+    "name": "format_time_12h",
+    "source_file": "neurop_forge/sources/date_formatting.py",
+    "source_line_end": 93,
+    "source_line_start": 87,
+    "tags": [
+      "12h",
+      "format",
+      "hours",
+      "minutes",
+      "string_manipulation",
+      "time"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:51.729038+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(hours) == integer",
+      "hours is not None",
+      "type(minutes) == integer",
+      "minutes is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(hours) == integer",
+      "hours is not None",
+      "type(minutes) == integer",
+      "minutes is not None"
+    ]
+  }
+}

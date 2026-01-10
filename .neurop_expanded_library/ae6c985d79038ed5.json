@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ae6c985d79038ed5a8e4249a483190a4a6637c12b31851013602c2c839ebb97c",
+    "semantic_fingerprint": "6c1df7a2a5b04da39b92b21de2dbbd41527319f0df49f03592a4fd7408139a32",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Create HTTP error object.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter status",
+        "name": "status",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter message",
+        "name": "message",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of create_http_error",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def create_http_error(status: int, message: str) -> dict:\n    \"\"\"Create HTTP error object.\"\"\"\n    return {\n        \"status\": status,\n        \"message\": message,\n        \"category\": categorize_http_status(status)\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:51.454118+00:00",
+    "description": "Create HTTP error object.",
+    "intent": "Create HTTP error object.",
+    "language": "python",
+    "name": "create_http_error",
+    "source_file": "neurop_forge/sources/exception_utilities.py",
+    "source_line_end": 185,
+    "source_line_start": 179,
+    "tags": [
+      "create",
+      "dict_operation",
+      "error",
+      "http",
+      "message",
+      "status"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:51.454147+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(status) == integer",
+      "status is not None",
+      "type(message) == string",
+      "message is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(status) == integer",
+      "status is not None",
+      "type(message) == string",
+      "message is not None"
+    ]
+  }
+}

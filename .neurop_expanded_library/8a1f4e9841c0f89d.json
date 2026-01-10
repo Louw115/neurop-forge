@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8a1f4e9841c0f89db0c5ab6bf48d55ac6e4b3fdabed7a653b244801caf7f4a86",
+    "semantic_fingerprint": "39a3c85faabb6e385da1b7e94abb33106658528cd51ce36cb7f0b4b3a9f8222f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a LAST_VALUE() window function.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter column",
+        "name": "column",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter partition_by",
+        "name": "partition_by",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter order_by",
+        "name": "order_by",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_last_value",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_last_value(column: str, partition_by: list, order_by: list) -> str:\n    \"\"\"Build a LAST_VALUE() window function.\"\"\"\n    func = f\"LAST_VALUE({escape_sql_identifier(column)})\"\n    return build_window_function(func, \"\", partition_by, order_by)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:44.771058+00:00",
+    "description": "Build a LAST_VALUE() window function.",
+    "intent": "Build a LAST_VALUE() window function.",
+    "language": "python",
+    "name": "build_last_value",
+    "source_file": "neurop_forge/sources/sql_building.py",
+    "source_line_end": 548,
+    "source_line_start": 545,
+    "tags": [
+      "build",
+      "column",
+      "last",
+      "order_by",
+      "partition_by",
+      "string_manipulation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.771084+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(column) == string",
+      "column is not None",
+      "type(partition_by) == list",
+      "partition_by is not None",
+      "type(order_by) == list",
+      "order_by is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(column) == string",
+      "column is not None",
+      "type(partition_by) == list",
+      "partition_by is not None",
+      "type(order_by) == list",
+      "order_by is not None"
+    ]
+  }
+}

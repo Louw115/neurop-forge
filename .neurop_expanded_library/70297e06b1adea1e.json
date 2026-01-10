@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "70297e06b1adea1e31a35b11ad8cc8cb08c779a4cac59c1fa7d103fb20be6885",
+    "semantic_fingerprint": "6eb00a44141a755cb2b8c87a5ec5e67863c6642a6c92120dc666bcd306eb2a94",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate a deterministic test phone number.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seed",
+        "name": "seed",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_test_phone",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_test_phone(seed: int) -> str:\n    \"\"\"Generate a deterministic test phone number.\"\"\"\n    import hashlib\n    hash_val = hashlib.sha256(f\"phone:{seed}\".encode()).hexdigest()\n    digits = \"\".join(c for c in hash_val if c.isdigit())[:10]\n    return f\"+1{digits}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:46.344494+00:00",
+    "description": "Generate a deterministic test phone number.",
+    "intent": "Generate a deterministic test phone number.",
+    "language": "python",
+    "name": "generate_test_phone",
+    "source_file": "neurop_forge/sources/testing_utilities.py",
+    "source_line_end": 36,
+    "source_line_start": 31,
+    "tags": [
+      "generate",
+      "phone",
+      "seed",
+      "string_manipulation",
+      "test"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.344520+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(seed) == integer",
+      "seed is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(seed) == integer",
+      "seed is not None"
+    ]
+  }
+}

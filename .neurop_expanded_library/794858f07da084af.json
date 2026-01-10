@@ -1,0 +1,178 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "794858f07da084af36b78ab01b3641a5a4e73aa131d387afb1018cfb56d0ef76",
+    "semantic_fingerprint": "aa4ab692484eb19a3720104a53166120c6ccd2102e9e523782ae17732563b463",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate a form field.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter required",
+        "name": "required",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter min_length",
+        "name": "min_length",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_length",
+        "name": "max_length",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter pattern",
+        "name": "pattern",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of validate_form_field",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_form_field(value: str, required: bool, min_length: int, max_length: int, pattern: str) -> dict:\n    \"\"\"Validate a form field.\"\"\"\n    errors = []\n    if required and not value:\n        errors.append(\"This field is required\")\n    elif value:\n        if min_length > 0 and len(value) < min_length:\n            errors.append(f\"Minimum {min_length} characters required\")\n        if max_length > 0 and len(value) > max_length:\n            errors.append(f\"Maximum {max_length} characters allowed\")\n        if pattern:\n            import re\n            if not re.match(pattern, value):\n                errors.append(\"Invalid format\")\n    return {\"valid\": len(errors) == 0, \"errors\": errors}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:46.693427+00:00",
+    "description": "Validate a form field.",
+    "intent": "Validate a form field.",
+    "language": "python",
+    "name": "validate_form_field",
+    "source_file": "neurop_forge/sources/ui_patterns.py",
+    "source_line_end": 199,
+    "source_line_start": 185,
+    "tags": [
+      "field",
+      "form",
+      "max_length",
+      "min_length",
+      "pattern",
+      "required",
+      "validate",
+      "validation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.693458+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == string",
+      "value is not None",
+      "type(required) == boolean",
+      "required is not None",
+      "type(min_length) == integer",
+      "min_length is not None",
+      "type(max_length) == integer",
+      "max_length is not None",
+      "type(pattern) == string",
+      "pattern is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(value) == string",
+      "value is not None",
+      "type(required) == boolean",
+      "required is not None",
+      "type(min_length) == integer",
+      "min_length is not None",
+      "type(max_length) == integer",
+      "max_length is not None",
+      "type(pattern) == string",
+      "pattern is not None"
+    ]
+  }
+}

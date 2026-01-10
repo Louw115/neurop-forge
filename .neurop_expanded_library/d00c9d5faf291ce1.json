@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d00c9d5faf291ce173081d0cc7286b874fd3aee37d2409bb8a10073f645ad828",
+    "semantic_fingerprint": "2bce5e5edce399713b80eafc3b84f0d2bce42f0c51b2810debe3ed95fb249dff",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Split a US phone number into parts.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter phone",
+        "name": "phone",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of split_phone_parts",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def split_phone_parts(phone: str) -> dict:\n    \"\"\"Split a US phone number into parts.\"\"\"\n    return {\n        'area_code': get_area_code(phone),\n        'exchange': get_exchange_code(phone),\n        'subscriber': get_subscriber_number(phone)\n    }",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:44.470061+00:00",
+    "description": "Split a US phone number into parts.",
+    "intent": "Split a US phone number into parts.",
+    "language": "python",
+    "name": "split_phone_parts",
+    "source_file": "neurop_forge/sources/phone_utilities.py",
+    "source_line_end": 239,
+    "source_line_start": 233,
+    "tags": [
+      "parts",
+      "phone",
+      "split",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.470086+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(phone) == string",
+      "phone is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(phone) == string",
+      "phone is not None"
+    ]
+  }
+}

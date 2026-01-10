@@ -1,0 +1,139 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f092af2d3001f9a9e6009133ddee52b541f31c67bdfc65afb17504cee225254c",
+    "semantic_fingerprint": "240a84bbf04f7ee20c7bd4845afc9bb9a35628bc0df9e474318e174607b47717",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Apply transformation to all items.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter buffer",
+        "name": "buffer",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter transform",
+        "name": "transform",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of ring_map",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def ring_map(buffer: dict, transform) -> dict:\n    \"\"\"Apply transformation to all items.\"\"\"\n    items = [transform(i) if i is not None else None for i in buffer[\"items\"]]\n    return {**buffer, \"items\": items}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:49.074368+00:00",
+    "description": "Apply transformation to all items.",
+    "intent": "Apply transformation to all items.",
+    "language": "python",
+    "name": "ring_map",
+    "source_file": "neurop_forge/sources/ring_buffer.py",
+    "source_line_end": 162,
+    "source_line_start": 159,
+    "tags": [
+      "buffer",
+      "dict_operation",
+      "map",
+      "ring",
+      "transform"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.074395+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(buffer) == dict",
+      "buffer is not None",
+      "transform is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(buffer) == dict",
+      "buffer is not None",
+      "transform is not None"
+    ]
+  }
+}

@@ -1,0 +1,159 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": false,
+    "io_operations": [
+      "random"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "non_deterministic",
+    "side_effects": [
+      "random"
+    ],
+    "thread_safe": false
+  },
+  "failure_modes": {
+    "can_fail": true,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "raises_exception",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "dac2b56daae2ff9a518fe2ef9b77df6ec5d65b9d899cc575d789682305c26df4",
+    "semantic_fingerprint": "7c27e42a9965104129cc8caef47aaa895485f3ebf5f638ce32a9da6f783b3057",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate deterministic random string.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seed",
+        "name": "seed",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter length",
+        "name": "length",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter charset",
+        "name": "charset",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of random_string",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def random_string(seed: int, length: int, charset: str) -> str:\n    \"\"\"Generate deterministic random string.\"\"\"\n    result = []\n    for i in range(length):\n        idx = random_int(hash_seed(seed, f\"char_{i}\"), 0, len(charset) - 1)\n        result.append(charset[idx])\n    return ''.join(result)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:50.713218+00:00",
+    "description": "Generate deterministic random string.",
+    "intent": "Generate deterministic random string.",
+    "language": "python",
+    "name": "random_string",
+    "source_file": "neurop_forge/sources/random_utilities.py",
+    "source_line_end": 74,
+    "source_line_start": 68,
+    "tags": [
+      "charset",
+      "length",
+      "random",
+      "seed",
+      "string",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 0.5,
+    "last_verified": "2026-01-10T02:18:50.713238+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.265,
+    "risk_factors": [
+      "impure_function",
+      "non_deterministic",
+      "side_effects: random"
+    ],
+    "risk_level": "medium",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(seed) == integer",
+      "seed is not None",
+      "type(length) == integer",
+      "length is not None",
+      "type(charset) == string",
+      "charset is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(seed) == integer",
+      "seed is not None",
+      "type(length) == integer",
+      "length is not None",
+      "type(charset) == string",
+      "charset is not None"
+    ]
+  }
+}

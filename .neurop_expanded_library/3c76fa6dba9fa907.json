@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3c76fa6dba9fa907de34a9793b01a121a1824859cb6c5befb6901c1655ba60e9",
+    "semantic_fingerprint": "8202142a1f9a0875c9f6a4b56ca8e5df43daa0fd658c16d49732b0df3e795a4f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate deterministic UUID v4.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seed",
+        "name": "seed",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_uuid_v4",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_uuid_v4(seed: int) -> str:\n    \"\"\"Generate deterministic UUID v4.\"\"\"\n    h = hashlib.sha256(str(seed).encode()).hexdigest()\n    uuid = f\"{h[:8]}-{h[8:12]}-4{h[13:16]}-{['8', '9', 'a', 'b'][_hash_seed(seed, 1) % 4]}{h[17:20]}-{h[20:32]}\"\n    return uuid",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:48.772267+00:00",
+    "description": "Generate deterministic UUID v4.",
+    "intent": "Generate deterministic UUID v4.",
+    "language": "python",
+    "name": "generate_uuid_v4",
+    "source_file": "neurop_forge/sources/sampling_utilities.py",
+    "source_line_end": 161,
+    "source_line_start": 157,
+    "tags": [
+      "generate",
+      "seed",
+      "string_manipulation",
+      "uuid"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.772287+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(seed) == integer",
+      "seed is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(seed) == integer",
+      "seed is not None"
+    ]
+  }
+}

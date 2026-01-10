@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d438912c0faea9b1700bb62dca7018b6eb2ccaf2a7c5ce7e669811a6537b8d2e",
+    "semantic_fingerprint": "d9020c0b7b6d5b5882b048ca1c62f594884c6f181ae0801f4e91edabca6c99ef",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if current date is in a freeze period.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter freeze_periods",
+        "name": "freeze_periods",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter current_date",
+        "name": "current_date",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_deployment_frozen",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_deployment_frozen(freeze_periods: list, current_date: str) -> bool:\n    \"\"\"Check if current date is in a freeze period.\"\"\"\n    for period in freeze_periods:\n        if period.get(\"start\") <= current_date <= period.get(\"end\"):\n            return True\n    return False",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:46.460180+00:00",
+    "description": "Check if current date is in a freeze period.",
+    "intent": "Check if current date is in a freeze period.",
+    "language": "python",
+    "name": "is_deployment_frozen",
+    "source_file": "neurop_forge/sources/devops_utilities.py",
+    "source_line_end": 210,
+    "source_line_start": 205,
+    "tags": [
+      "current_date",
+      "deployment",
+      "freeze_periods",
+      "frozen",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.460199+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(freeze_periods) == list",
+      "freeze_periods is not None",
+      "type(current_date) == string",
+      "current_date is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(freeze_periods) == list",
+      "freeze_periods is not None",
+      "type(current_date) == string",
+      "current_date is not None"
+    ]
+  }
+}

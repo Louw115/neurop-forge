@@ -1,0 +1,139 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "27748fbe4bd8540a6a6e179d2d7abae020959c0fd9eea35b5478d2f7819a6e7d",
+    "semantic_fingerprint": "2322b5dd4f6c2b6cfa7685f1964e4a7584de5145d0ba145466a2d1c1bb7d69f0",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find index of element closest to target in sorted list.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter target",
+        "name": "target",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of find_closest",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def find_closest(items: list, target) -> int:\n    \"\"\"Find index of element closest to target in sorted list.\"\"\"\n    if not items:\n        return -1\n    if target <= items[0]:\n        return 0\n    if target >= items[-1]:\n        return len(items) - 1\n    left, right = 0, len(items) - 1\n    while left < right - 1:\n        mid = (left + right) // 2\n        if items[mid] == target:\n            return mid\n        elif items[mid] < target:\n            left = mid\n        else:\n            right = mid\n    return left if abs(items[left] - target) <= abs(items[right] - target) else right",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:49.418317+00:00",
+    "description": "Find index of element closest to target in sorted list.",
+    "intent": "Find index of element closest to target in sorted list.",
+    "language": "python",
+    "name": "find_closest",
+    "source_file": "neurop_forge/sources/search_algorithms.py",
+    "source_line_end": 247,
+    "source_line_start": 230,
+    "tags": [
+      "closest",
+      "filtering",
+      "find",
+      "items",
+      "target"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.418345+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "target is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "target is not None"
+    ]
+  }
+}

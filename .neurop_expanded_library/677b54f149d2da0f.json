@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "677b54f149d2da0f8e13bdcc4b6dcfcc97d90ceba54bd408ace3a670643e2d08",
+    "semantic_fingerprint": "531d015faef7f7dd76425b64534dc953d3018250d87a548b162483662437d809",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get category from error code.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter error_code",
+        "name": "error_code",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_error_category",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_error_category(error_code: str) -> str:\n    \"\"\"Get category from error code.\"\"\"\n    return parse_error_code(error_code)[\"category\"]",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:52.146994+00:00",
+    "description": "Get category from error code.",
+    "intent": "Get category from error code.",
+    "language": "python",
+    "name": "get_error_category",
+    "source_file": "neurop_forge/sources/error_codes.py",
+    "source_line_end": 40,
+    "source_line_start": 38,
+    "tags": [
+      "category",
+      "error",
+      "error_code",
+      "filtering",
+      "get"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.147012+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(error_code) == string",
+      "error_code is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(error_code) == string",
+      "error_code is not None"
+    ]
+  }
+}

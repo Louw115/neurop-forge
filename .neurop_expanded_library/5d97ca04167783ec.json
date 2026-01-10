@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5d97ca04167783eca1a74d8a48308f1dddb23e3e28018b7bb609920ba69884d1",
+    "semantic_fingerprint": "c0821aeb6c1cdf99da894d85094579a706cbad7684eda040f89f68f11abe0ce3",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Remove control characters from text.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of remove_control_characters",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def remove_control_characters(text: str) -> str:\n    \"\"\"Remove control characters from text.\"\"\"\n    if not text:\n        return \"\"\n    return ''.join(c for c in text if ord(c) >= 32 or c in '\\t\\n\\r')",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:43.233221+00:00",
+    "description": "Remove control characters from text.",
+    "intent": "Remove control characters from text.",
+    "language": "python",
+    "name": "remove_control_characters",
+    "source_file": "neurop_forge/sources/security_utilities.py",
+    "source_line_end": 151,
+    "source_line_start": 147,
+    "tags": [
+      "characters",
+      "control",
+      "remove",
+      "string_manipulation",
+      "text"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.233239+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None"
+    ]
+  }
+}

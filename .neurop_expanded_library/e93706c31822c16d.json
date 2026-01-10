@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e93706c31822c16dc24dc6c95b86357b10851a6d321a98a3a35af12865042a05",
+    "semantic_fingerprint": "ebe0d187160f062a7b9a39dd83c8b5135cd8a3cc7f57cd066fa427b21f25ad97",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Filter out expired notifications.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter notifications",
+        "name": "notifications",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter expiry_hours",
+        "name": "expiry_hours",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter current_timestamp",
+        "name": "current_timestamp",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of filter_active_notifications",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def filter_active_notifications(notifications: list, expiry_hours: int, current_timestamp: str) -> list:\n    \"\"\"Filter out expired notifications.\"\"\"\n    return [n for n in notifications if not is_notification_expired(n, expiry_hours, current_timestamp)]",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:46.852689+00:00",
+    "description": "Filter out expired notifications.",
+    "intent": "Filter out expired notifications.",
+    "language": "python",
+    "name": "filter_active_notifications",
+    "source_file": "neurop_forge/sources/notification_patterns.py",
+    "source_line_end": 251,
+    "source_line_start": 249,
+    "tags": [
+      "active",
+      "current_timestamp",
+      "expiry_hours",
+      "filter",
+      "filtering",
+      "notifications"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.852721+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(notifications) == list",
+      "notifications is not None",
+      "type(expiry_hours) == integer",
+      "expiry_hours is not None",
+      "type(current_timestamp) == string",
+      "current_timestamp is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(notifications) == list",
+      "notifications is not None",
+      "type(expiry_hours) == integer",
+      "expiry_hours is not None",
+      "type(current_timestamp) == string",
+      "current_timestamp is not None"
+    ]
+  }
+}

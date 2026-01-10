@@ -1,0 +1,143 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b64f9fe3a2b9d3771509e8f99a0aac80eeed6a0fb9940d5e00bdd96cf0412d69",
+    "semantic_fingerprint": "b260af6fa3dd8398a719eb7f44d3ff390dc653584dc7c982659b74dec51c8e53",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build the SET clause for an UPDATE statement.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter columns",
+        "name": "columns",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter start_placeholder",
+        "name": "start_placeholder",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_update_set_clause",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_update_set_clause(columns: list, start_placeholder: int) -> str:\n    \"\"\"Build the SET clause for an UPDATE statement.\"\"\"\n    parts = []\n    for i, col in enumerate(columns):\n        parts.append(f\"{escape_sql_identifier(col)} = ${start_placeholder + i}\")\n    return \", \".join(parts)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:44.624854+00:00",
+    "description": "Build the SET clause for an UPDATE statement.",
+    "intent": "Build the SET clause for an UPDATE statement.",
+    "language": "python",
+    "name": "build_update_set_clause",
+    "source_file": "neurop_forge/sources/sql_building.py",
+    "source_line_end": 68,
+    "source_line_start": 63,
+    "tags": [
+      "build",
+      "clause",
+      "columns",
+      "set",
+      "start_placeholder",
+      "string_manipulation",
+      "update"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.624878+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(columns) == list",
+      "columns is not None",
+      "type(start_placeholder) == integer",
+      "start_placeholder is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(columns) == list",
+      "columns is not None",
+      "type(start_placeholder) == integer",
+      "start_placeholder is not None"
+    ]
+  }
+}

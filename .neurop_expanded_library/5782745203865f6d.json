@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic sorting block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5782745203865f6df5542a30b656d8963dbab7aabff2b5f4d9655bb0277283b2",
+    "semantic_fingerprint": "3bbca6daf865b67331470868a85410eeceb39a951ae54a38f5b5cee7d39cbdbb",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Sort reviews by helpful count.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter reviews",
+        "name": "reviews",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of sort_by_helpful",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def sort_by_helpful(reviews: list) -> list:\n    \"\"\"Sort reviews by helpful count.\"\"\"\n    return sorted(reviews, key=lambda r: -r.get(\"helpful_count\", 0))",
+  "metadata": {
+    "category": "sorting",
+    "created_at": "2026-01-10T02:18:52.967437+00:00",
+    "description": "Sort reviews by helpful count.",
+    "intent": "Sort reviews by helpful count.",
+    "language": "python",
+    "name": "sort_by_helpful",
+    "source_file": "neurop_forge/sources/review_utilities.py",
+    "source_line_end": 102,
+    "source_line_start": 100,
+    "tags": [
+      "helpful",
+      "reviews",
+      "sort",
+      "sorting"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.967454+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(reviews) == list",
+      "reviews is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(reviews) == list",
+      "reviews is not None"
+    ]
+  }
+}

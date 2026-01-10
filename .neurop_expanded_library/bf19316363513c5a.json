@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "bf19316363513c5a3dfde8f2a5d19574d305eedd416ee5537455b524bcb8b2af",
+    "semantic_fingerprint": "ea460e3f37ecbf051d20427d9907ef5eb5d65d0a89bec09226ddd129235f0d21",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Filter query string to allowed keys.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter query",
+        "name": "query",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter allowed_keys",
+        "name": "allowed_keys",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of filter_params",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def filter_params(query: str, allowed_keys: list) -> str:\n    \"\"\"Filter query string to allowed keys.\"\"\"\n    params = parse_query_string(query)\n    filtered = {k: v for k, v in params.items() if k in allowed_keys}\n    return build_query_string(filtered)",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:52.035738+00:00",
+    "description": "Filter query string to allowed keys.",
+    "intent": "Filter query string to allowed keys.",
+    "language": "python",
+    "name": "filter_params",
+    "source_file": "neurop_forge/sources/query_string.py",
+    "source_line_end": 90,
+    "source_line_start": 86,
+    "tags": [
+      "allowed_keys",
+      "filter",
+      "filtering",
+      "params",
+      "query"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.035767+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(query) == string",
+      "query is not None",
+      "type(allowed_keys) == list",
+      "allowed_keys is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(query) == string",
+      "query is not None",
+      "type(allowed_keys) == list",
+      "allowed_keys is not None"
+    ]
+  }
+}

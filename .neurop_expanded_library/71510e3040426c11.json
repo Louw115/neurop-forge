@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "71510e3040426c11a68de6f9decf9b71452739e58a2de3234f2be301813c83f8",
+    "semantic_fingerprint": "61bcfda01da6c681e4e862489a5cef7ded9df68d78092b0eaed84859c3dec6dc",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format timezone offset.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter offset_minutes",
+        "name": "offset_minutes",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of timezone_offset_hours",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def timezone_offset_hours(offset_minutes: int) -> str:\n    \"\"\"Format timezone offset.\"\"\"\n    sign = \"+\" if offset_minutes >= 0 else \"-\"\n    hours = abs(offset_minutes) // 60\n    mins = abs(offset_minutes) % 60\n    return f\"{sign}{hours:02d}:{mins:02d}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:49.977830+00:00",
+    "description": "Format timezone offset.",
+    "intent": "Format timezone offset.",
+    "language": "python",
+    "name": "timezone_offset_hours",
+    "source_file": "neurop_forge/sources/time_utilities.py",
+    "source_line_end": 215,
+    "source_line_start": 210,
+    "tags": [
+      "hours",
+      "offset",
+      "offset_minutes",
+      "string_manipulation",
+      "timezone"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.977851+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(offset_minutes) == integer",
+      "offset_minutes is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(offset_minutes) == integer",
+      "offset_minutes is not None"
+    ]
+  }
+}

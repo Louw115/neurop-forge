@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "05509661bc75d4e537dd5121180545e93b470ddf449ddcfe0fdff45f08d0f165",
+    "semantic_fingerprint": "377f68866f57dacea0f2212837e7b3af51ac2b72f3ff5e8f950d36912fbe7023",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Three-way partition around pivot.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter pivot",
+        "name": "pivot",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of three_way_partition",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def three_way_partition(items: list, pivot) -> dict:\n    \"\"\"Three-way partition around pivot.\"\"\"\n    less = [x for x in items if x < pivot]\n    equal = [x for x in items if x == pivot]\n    greater = [x for x in items if x > pivot]\n    return {\"less\": less, \"equal\": equal, \"greater\": greater}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:49.363340+00:00",
+    "description": "Three-way partition around pivot.",
+    "intent": "Three-way partition around pivot.",
+    "language": "python",
+    "name": "three_way_partition",
+    "source_file": "neurop_forge/sources/sorting_algorithms.py",
+    "source_line_end": 230,
+    "source_line_start": 225,
+    "tags": [
+      "dict_operation",
+      "items",
+      "partition",
+      "pivot",
+      "three",
+      "way"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.363359+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "pivot is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "pivot is not None"
+    ]
+  }
+}

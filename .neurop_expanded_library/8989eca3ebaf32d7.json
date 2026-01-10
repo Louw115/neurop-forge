@@ -1,0 +1,160 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": false,
+    "io_operations": [
+      "time"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "non_deterministic",
+    "side_effects": [
+      "time"
+    ],
+    "thread_safe": false
+  },
+  "failure_modes": {
+    "can_fail": true,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "raises_exception",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8989eca3ebaf32d787a73d0c6b8cf1b2e0914b95938de65014a97da89fb0a18a",
+    "semantic_fingerprint": "76f656aa589626ca41adc71aff03b0beed3c920cfef08c49633c5b98982295a7",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if item is eligible for return.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter purchase_date",
+        "name": "purchase_date",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter current_date",
+        "name": "current_date",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter return_window_days",
+        "name": "return_window_days",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_eligible_for_return",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_eligible_for_return(purchase_date: str, current_date: str, return_window_days: int) -> bool:\n    \"\"\"Check if item is eligible for return.\"\"\"\n    from datetime import datetime\n    purchase = datetime.fromisoformat(purchase_date)\n    current = datetime.fromisoformat(current_date)\n    days_since = (current - purchase).days\n    return days_since <= return_window_days",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:46.746578+00:00",
+    "description": "Check if item is eligible for return.",
+    "intent": "Check if item is eligible for return.",
+    "language": "python",
+    "name": "is_eligible_for_return",
+    "source_file": "neurop_forge/sources/ecommerce_patterns.py",
+    "source_line_end": 139,
+    "source_line_start": 133,
+    "tags": [
+      "current_date",
+      "eligible",
+      "for",
+      "purchase_date",
+      "return",
+      "return_window_days",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 0.5,
+    "last_verified": "2026-01-10T02:18:46.746598+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.31,
+    "risk_factors": [
+      "impure_function",
+      "non_deterministic",
+      "side_effects: time"
+    ],
+    "risk_level": "medium",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(purchase_date) == string",
+      "purchase_date is not None",
+      "type(current_date) == string",
+      "current_date is not None",
+      "type(return_window_days) == integer",
+      "return_window_days is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(purchase_date) == string",
+      "purchase_date is not None",
+      "type(current_date) == string",
+      "current_date is not None",
+      "type(return_window_days) == integer",
+      "return_window_days is not None"
+    ]
+  }
+}

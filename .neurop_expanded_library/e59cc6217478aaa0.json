@@ -1,0 +1,131 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e59cc6217478aaa0f50af2c39f4fdba0f9707658afd1abc62d193d2e6991d3e8",
+    "semantic_fingerprint": "c189e06487ba68b21d4b078280e86acf41f38cc83299f660b99da779da8ee393",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get a hint about expected compression for a file type.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter extension",
+        "name": "extension",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_compression_ratio_hint",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_compression_ratio_hint(extension: str) -> str:\n    \"\"\"Get a hint about expected compression for a file type.\"\"\"\n    extension = extension.lower().lstrip('.')\n    already_compressed = {\n        \"jpg\", \"jpeg\", \"png\", \"gif\", \"webp\",\n        \"mp3\", \"aac\", \"ogg\", \"flac\",\n        \"mp4\", \"webm\", \"mkv\", \"avi\",\n        \"zip\", \"rar\", \"7z\", \"gz\", \"bz2\", \"xz\",\n        \"pdf\", \"docx\", \"xlsx\", \"pptx\",\n    }\n    if extension in already_compressed:\n        return \"low\"\n    highly_compressible = {\"txt\", \"log\", \"csv\", \"json\", \"xml\", \"html\", \"css\", \"js\", \"ts\", \"py\", \"java\", \"c\", \"cpp\", \"md\"}\n    if extension in highly_compressible:\n        return \"high\"\n    return \"medium\"",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:43.386592+00:00",
+    "description": "Get a hint about expected compression for a file type.",
+    "intent": "Get a hint about expected compression for a file type.",
+    "language": "python",
+    "name": "get_compression_ratio_hint",
+    "source_file": "neurop_forge/sources/file_type_detection.py",
+    "source_line_end": 276,
+    "source_line_start": 261,
+    "tags": [
+      "compression",
+      "extension",
+      "filtering",
+      "get",
+      "hint",
+      "ratio"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.386616+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(extension) == string",
+      "extension is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(extension) == string",
+      "extension is not None"
+    ]
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e46ff2e7c51746f4c89590bde07b7ef4ed4dfebead0020ffb926218d54e565a1",
+    "semantic_fingerprint": "a47cb7582e3afcb6a5e8a9a79aada73f1babf7e32f8eb69727d70260bc22947b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if current weekday is a scheduled day.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_weekday",
+        "name": "current_weekday",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter scheduled_days",
+        "name": "scheduled_days",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_scheduled_day",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_scheduled_day(current_weekday: int, scheduled_days: list) -> bool:\n    \"\"\"Check if current weekday is a scheduled day.\"\"\"\n    day_names = [\"monday\", \"tuesday\", \"wednesday\", \"thursday\", \"friday\", \"saturday\", \"sunday\"]\n    current_day_name = day_names[current_weekday]\n    return current_day_name in [d.lower() for d in scheduled_days]",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:47.657472+00:00",
+    "description": "Check if current weekday is a scheduled day.",
+    "intent": "Check if current weekday is a scheduled day.",
+    "language": "python",
+    "name": "is_scheduled_day",
+    "source_file": "neurop_forge/sources/scheduler_utilities.py",
+    "source_line_end": 105,
+    "source_line_start": 101,
+    "tags": [
+      "current_weekday",
+      "day",
+      "scheduled",
+      "scheduled_days",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.657499+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(current_weekday) == integer",
+      "current_weekday is not None",
+      "type(scheduled_days) == list",
+      "scheduled_days is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(current_weekday) == integer",
+      "current_weekday is not None",
+      "type(scheduled_days) == list",
+      "scheduled_days is not None"
+    ]
+  }
+}

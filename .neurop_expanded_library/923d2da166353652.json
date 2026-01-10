@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "923d2da1663536522bc48184a5def30c5a536af627a5428dd5d2b3fbaf3838fd",
+    "semantic_fingerprint": "ddde17b99b97fb35bb77a21dd1eb40e8b88f4a6d32dae7a3af2ec65b1a09ee1f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Multiply two matrices.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter m1",
+        "name": "m1",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter m2",
+        "name": "m2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of matrix_multiply",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def matrix_multiply(m1: dict, m2: dict) -> dict:\n    \"\"\"Multiply two matrices.\"\"\"\n    rows = []\n    for i in range(m1[\"num_rows\"]):\n        row = []\n        for j in range(m2[\"num_cols\"]):\n            val = sum(m1[\"rows\"][i][k] * m2[\"rows\"][k][j] for k in range(m1[\"num_cols\"]))\n            row.append(val)\n        rows.append(row)\n    return create_matrix(rows)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:48.123742+00:00",
+    "description": "Multiply two matrices.",
+    "intent": "Multiply two matrices.",
+    "language": "python",
+    "name": "matrix_multiply",
+    "source_file": "neurop_forge/sources/matrix_utilities.py",
+    "source_line_end": 60,
+    "source_line_start": 51,
+    "tags": [
+      "arithmetic",
+      "m1",
+      "m2",
+      "matrix",
+      "multiply"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.123762+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(m1) == dict",
+      "m1 is not None",
+      "type(m2) == dict",
+      "m2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(m1) == dict",
+      "m1 is not None",
+      "type(m2) == dict",
+      "m2 is not None"
+    ]
+  }
+}

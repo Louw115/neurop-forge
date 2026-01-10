@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c6391bbe02dc3c5c4f22620f21c78986822cd7726e2a402950b9dbed536a7107",
+    "semantic_fingerprint": "8e4f67f7a956272f396311a12dea9e4126c54591a4d7c1e04795b9986e6daa96",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Split list into pages.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter page_size",
+        "name": "page_size",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of split_into_pages",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def split_into_pages(items: list, page_size: int) -> list:\n    \"\"\"Split list into pages.\"\"\"\n    return [items[i:i + page_size] for i in range(0, len(items), page_size)]",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:51.954166+00:00",
+    "description": "Split list into pages.",
+    "intent": "Split list into pages.",
+    "language": "python",
+    "name": "split_into_pages",
+    "source_file": "neurop_forge/sources/pagination_helpers.py",
+    "source_line_end": 151,
+    "source_line_start": 149,
+    "tags": [
+      "into",
+      "items",
+      "page_size",
+      "pages",
+      "split",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:51.954183+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "type(page_size) == integer",
+      "page_size is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "type(page_size) == integer",
+      "page_size is not None"
+    ]
+  }
+}

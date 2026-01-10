@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "418f3030e398f0befe513985710ba732ee0e4d1ebf8b878b2ebf28f8882c31f3",
+    "semantic_fingerprint": "69e1d4bb1eaed3b3c96130b9072d5d6e30d055f26401cdb486205d732fe9c73a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get top n items from heap.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter heap",
+        "name": "heap",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter n",
+        "name": "n",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of get_top_n",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_top_n(heap: dict, n: int) -> list:\n    \"\"\"Get top n items from heap.\"\"\"\n    result = []\n    current = {\"type\": heap[\"type\"], \"items\": list(heap[\"items\"])}\n    for _ in range(min(n, len(current[\"items\"]))):\n        pop_result = heap_pop(current)\n        result.append(pop_result[\"value\"])\n        current = pop_result[\"heap\"]\n    return result",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:48.300433+00:00",
+    "description": "Get top n items from heap.",
+    "intent": "Get top n items from heap.",
+    "language": "python",
+    "name": "get_top_n",
+    "source_file": "neurop_forge/sources/heap_utilities.py",
+    "source_line_end": 175,
+    "source_line_start": 167,
+    "tags": [
+      "filtering",
+      "get",
+      "heap",
+      "n",
+      "top"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.300453+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(heap) == dict",
+      "heap is not None",
+      "type(n) == integer",
+      "n is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(heap) == dict",
+      "heap is not None",
+      "type(n) == integer",
+      "n is not None"
+    ]
+  }
+}

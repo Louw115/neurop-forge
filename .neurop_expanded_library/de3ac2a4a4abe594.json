@@ -1,0 +1,138 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "de3ac2a4a4abe594dcc5f9eaaff256efe3a1196b8cdc8cb2cc40c63e4c1eaa29",
+    "semantic_fingerprint": "307c66a75776b135991098ab8c6ff5ea5c6a47c7c39f5af1d25cf265dc08a2ae",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Scale interval around midpoint.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter interval",
+        "name": "interval",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter factor",
+        "name": "factor",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of interval_scale",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def interval_scale(interval: dict, factor) -> dict:\n    \"\"\"Scale interval around midpoint.\"\"\"\n    mid = interval_midpoint(interval)\n    half_length = interval_length(interval) / 2 * factor\n    return create_interval(mid - half_length, mid + half_length)",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:48.570815+00:00",
+    "description": "Scale interval around midpoint.",
+    "intent": "Scale interval around midpoint.",
+    "language": "python",
+    "name": "interval_scale",
+    "source_file": "neurop_forge/sources/interval_utilities.py",
+    "source_line_end": 117,
+    "source_line_start": 113,
+    "tags": [
+      "dict_operation",
+      "factor",
+      "interval",
+      "scale"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.570839+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(interval) == dict",
+      "interval is not None",
+      "factor is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(interval) == dict",
+      "interval is not None",
+      "factor is not None"
+    ]
+  }
+}

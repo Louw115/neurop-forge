@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "501dd9638ec8b2b5d8cb3630c8d5ad8dcfc397228004142a3cfec5ba3cea86ec",
+    "semantic_fingerprint": "992fcda3b336679dfc4aed32311f8a9446fe8dee4d29b30b9529dea0755c3515",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Filter scheduled messages that are ready for delivery.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter messages",
+        "name": "messages",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_time",
+        "name": "current_time",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of filter_ready_scheduled_messages",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def filter_ready_scheduled_messages(messages: list, current_time: int) -> list:\n    \"\"\"Filter scheduled messages that are ready for delivery.\"\"\"\n    return [m for m in messages if m.get(\"status\") == \"scheduled\" and is_scheduled_ready(m, current_time)]",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:46.320173+00:00",
+    "description": "Filter scheduled messages that are ready for delivery.",
+    "intent": "Filter scheduled messages that are ready for delivery.",
+    "language": "python",
+    "name": "filter_ready_scheduled_messages",
+    "source_file": "neurop_forge/sources/queue_patterns.py",
+    "source_line_end": 281,
+    "source_line_start": 279,
+    "tags": [
+      "current_time",
+      "filter",
+      "filtering",
+      "messages",
+      "ready",
+      "scheduled"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.320201+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(messages) == list",
+      "messages is not None",
+      "type(current_time) == integer",
+      "current_time is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(messages) == list",
+      "messages is not None",
+      "type(current_time) == integer",
+      "current_time is not None"
+    ]
+  }
+}

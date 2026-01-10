@@ -1,0 +1,131 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d4c29ad7d29d5b90a4dd214d6c06b4c5c1baaf5dad63d0b1c3876485f8834dcb",
+    "semantic_fingerprint": "a7a7c793dddc192f994b2ee60219ece9b7885a7d111b0841df553de246573c1b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a validation error response.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter errors",
+        "name": "errors",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_validation_error_response",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_validation_error_response(errors: list) -> dict:\n    \"\"\"Build a validation error response.\"\"\"\n    return {\n        \"success\": False,\n        \"error\": {\n            \"code\": 400,\n            \"message\": \"Validation failed\",\n            \"details\": errors\n        }\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:45.886527+00:00",
+    "description": "Build a validation error response.",
+    "intent": "Build a validation error response.",
+    "language": "python",
+    "name": "build_validation_error_response",
+    "source_file": "neurop_forge/sources/request_validation.py",
+    "source_line_end": 313,
+    "source_line_start": 304,
+    "tags": [
+      "build",
+      "dict_operation",
+      "error",
+      "errors",
+      "response",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.886544+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(errors) == list",
+      "errors is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(errors) == list",
+      "errors is not None"
+    ]
+  }
+}

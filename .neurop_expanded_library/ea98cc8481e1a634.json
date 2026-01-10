@@ -1,0 +1,178 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ea98cc8481e1a6345944dfb20047208a699f56af416439ccd410043cbec08686",
+    "semantic_fingerprint": "f8386bf97d8631e46b228abb959ed65e78fc551f24c9a56afcc9555508b7278d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build file metadata object.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter filename",
+        "name": "filename",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter size",
+        "name": "size",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter mime_type",
+        "name": "mime_type",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter checksum",
+        "name": "checksum",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter uploaded_at",
+        "name": "uploaded_at",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_file_metadata",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_file_metadata(filename: str, size: int, mime_type: str, checksum: str, uploaded_at: str) -> dict:\n    \"\"\"Build file metadata object.\"\"\"\n    return {\n        \"filename\": filename,\n        \"size\": size,\n        \"size_formatted\": format_file_size(size),\n        \"mime_type\": mime_type,\n        \"extension\": get_file_extension(filename),\n        \"checksum\": checksum,\n        \"uploaded_at\": uploaded_at\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:47.012783+00:00",
+    "description": "Build file metadata object.",
+    "intent": "Build file metadata object.",
+    "language": "python",
+    "name": "build_file_metadata",
+    "source_file": "neurop_forge/sources/file_utilities.py",
+    "source_line_end": 234,
+    "source_line_start": 224,
+    "tags": [
+      "build",
+      "checksum",
+      "dict_operation",
+      "file",
+      "filename",
+      "metadata",
+      "mime_type",
+      "size",
+      "uploaded_at"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.012802+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(filename) == string",
+      "filename is not None",
+      "type(size) == integer",
+      "size is not None",
+      "type(mime_type) == string",
+      "mime_type is not None",
+      "type(checksum) == string",
+      "checksum is not None",
+      "type(uploaded_at) == string",
+      "uploaded_at is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(filename) == string",
+      "filename is not None",
+      "type(size) == integer",
+      "size is not None",
+      "type(mime_type) == string",
+      "mime_type is not None",
+      "type(checksum) == string",
+      "checksum is not None",
+      "type(uploaded_at) == string",
+      "uploaded_at is not None"
+    ]
+  }
+}

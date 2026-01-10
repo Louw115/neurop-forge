@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic comparison block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "71af1616b301c4f8e11ae41e59b0dee92082a638bb5a315b8586bc8adfb46be0",
+    "semantic_fingerprint": "9e2beceefb7a63064042cb8f18260d6ef9ff397a409e12e82a2e95068813583a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Compare addresses for similarity.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter addr1",
+        "name": "addr1",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter addr2",
+        "name": "addr2",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of compare_addresses",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def compare_addresses(addr1: str, addr2: str) -> bool:\n    \"\"\"Compare addresses for similarity.\"\"\"\n    def normalize(a):\n        a = normalize_address(a)\n        a = re.sub(r'[^\\w\\s]', '', a)\n        return a.lower().split()\n    words1 = set(normalize(addr1))\n    words2 = set(normalize(addr2))\n    if not words1 or not words2:\n        return False\n    intersection = len(words1 & words2)\n    return intersection / max(len(words1), len(words2)) > 0.8",
+  "metadata": {
+    "category": "comparison",
+    "created_at": "2026-01-10T02:18:52.294073+00:00",
+    "description": "Compare addresses for similarity.",
+    "intent": "Compare addresses for similarity.",
+    "language": "python",
+    "name": "compare_addresses",
+    "source_file": "neurop_forge/sources/address_utilities.py",
+    "source_line_end": 151,
+    "source_line_start": 140,
+    "tags": [
+      "addr1",
+      "addr2",
+      "addresses",
+      "compare",
+      "comparison"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.294101+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(addr1) == string",
+      "addr1 is not None",
+      "type(addr2) == string",
+      "addr2 is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(addr1) == string",
+      "addr1 is not None",
+      "type(addr2) == string",
+      "addr2 is not None"
+    ]
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c3e393fa04cec3194d05b867427642d379022f1073e12a38b10cde0d60f3aa69",
+    "semantic_fingerprint": "a1da3dbd26a576089df456e0ea5b3634452af35ed22e70425651b16acb1d0a3d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get image format from MIME type.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter mime_type",
+        "name": "mime_type",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_image_format_from_mime",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_image_format_from_mime(mime_type: str) -> str:\n    \"\"\"Get image format from MIME type.\"\"\"\n    formats = {\n        \"image/jpeg\": \"jpg\",\n        \"image/png\": \"png\",\n        \"image/gif\": \"gif\",\n        \"image/webp\": \"webp\",\n        \"image/svg+xml\": \"svg\",\n        \"image/bmp\": \"bmp\",\n        \"image/tiff\": \"tiff\"\n    }\n    return formats.get(mime_type.lower(), \"unknown\")",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:47.413739+00:00",
+    "description": "Get image format from MIME type.",
+    "intent": "Get image format from MIME type.",
+    "language": "python",
+    "name": "get_image_format_from_mime",
+    "source_file": "neurop_forge/sources/image_utilities.py",
+    "source_line_end": 196,
+    "source_line_start": 185,
+    "tags": [
+      "filtering",
+      "format",
+      "from",
+      "get",
+      "image",
+      "mime",
+      "mime_type"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.413766+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(mime_type) == string",
+      "mime_type is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(mime_type) == string",
+      "mime_type is not None"
+    ]
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b58728d94cc386b9d0885672dee29ef2bce30490439fecf523dc451e6ee66302",
+    "semantic_fingerprint": "5bd9f688cb9f7bb546a8d6050c98bb9adf58607b31cacefac36117d41ffeec98",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format a list of values for an IN clause (with proper quoting).",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter values",
+        "name": "values",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_in_clause_values",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_in_clause_values(values: list) -> str:\n    \"\"\"Format a list of values for an IN clause (with proper quoting).\"\"\"\n    formatted = []\n    for v in values:\n        if isinstance(v, str):\n            escaped = v.replace(\"'\", \"''\")\n            formatted.append(f\"'{escaped}'\")\n        elif v is None:\n            formatted.append(\"NULL\")\n        elif isinstance(v, bool):\n            formatted.append(\"TRUE\" if v else \"FALSE\")\n        else:\n            formatted.append(str(v))\n    return \", \".join(formatted)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:44.938536+00:00",
+    "description": "Format a list of values for an IN clause (with proper quoting).",
+    "intent": "Format a list of values for an IN clause (with proper quoting).",
+    "language": "python",
+    "name": "format_in_clause_values",
+    "source_file": "neurop_forge/sources/query_helpers.py",
+    "source_line_end": 310,
+    "source_line_start": 297,
+    "tags": [
+      "clause",
+      "format",
+      "string_manipulation",
+      "values"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.938562+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(values) == list",
+      "values is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(values) == list",
+      "values is not None"
+    ]
+  }
+}

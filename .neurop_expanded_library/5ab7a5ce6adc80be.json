@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5ab7a5ce6adc80be7ed07574dcf2b52080960e0b3f4b269081e579f0a07aaba6",
+    "semantic_fingerprint": "01f66602f238d7c29ec436ab12687f3789ffd61980eaa702914b2c9927b1b2b9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if current date is in a blackout period.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter blackouts",
+        "name": "blackouts",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter current_date",
+        "name": "current_date",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_in_blackout",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_in_blackout(blackouts: list, current_date: str) -> bool:\n    \"\"\"Check if current date is in a blackout period.\"\"\"\n    for blackout in blackouts:\n        if blackout[\"start_date\"] <= current_date <= blackout[\"end_date\"]:\n            return True\n    return False",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:47.680701+00:00",
+    "description": "Check if current date is in a blackout period.",
+    "intent": "Check if current date is in a blackout period.",
+    "language": "python",
+    "name": "is_in_blackout",
+    "source_file": "neurop_forge/sources/scheduler_utilities.py",
+    "source_line_end": 201,
+    "source_line_start": 196,
+    "tags": [
+      "blackout",
+      "blackouts",
+      "current_date",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.680729+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(blackouts) == list",
+      "blackouts is not None",
+      "type(current_date) == string",
+      "current_date is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(blackouts) == list",
+      "blackouts is not None",
+      "type(current_date) == string",
+      "current_date is not None"
+    ]
+  }
+}

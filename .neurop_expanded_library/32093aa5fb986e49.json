@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "32093aa5fb986e49a90981440a23161087200f9bb13bbed254d7e4cc4f736bdf",
+    "semantic_fingerprint": "872ef2700e7072f5f7d09bf6aeddb953c2ea5749d44e81b944819a17d1243e13",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if a migration is safe (no data loss risk).",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter sql",
+        "name": "sql",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_safe_migration",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_safe_migration(sql: str) -> bool:\n    \"\"\"Check if a migration is safe (no data loss risk).\"\"\"\n    sql_upper = sql.upper()\n    dangerous_patterns = [\n        \"DROP TABLE\", \"DROP COLUMN\", \"TRUNCATE\",\n        \"DELETE FROM\", \"DROP DATABASE\", \"DROP SCHEMA\"\n    ]\n    return not any(pattern in sql_upper for pattern in dangerous_patterns)",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:45.036450+00:00",
+    "description": "Check if a migration is safe (no data loss risk).",
+    "intent": "Check if a migration is safe (no data loss risk).",
+    "language": "python",
+    "name": "is_safe_migration",
+    "source_file": "neurop_forge/sources/migration_helpers.py",
+    "source_line_end": 313,
+    "source_line_start": 306,
+    "tags": [
+      "migration",
+      "safe",
+      "sql",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.036467+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(sql) == string",
+      "sql is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(sql) == string",
+      "sql is not None"
+    ]
+  }
+}

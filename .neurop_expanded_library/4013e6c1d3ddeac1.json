@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4013e6c1d3ddeac1f5593535af929fd403d7786f32676b3b658127480723cb59",
+    "semantic_fingerprint": "7054a97926f2471c4499d1aafc529720e1151a3bba56f70049c4bfac4c8049e1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add item to scalable bloom filter.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter bloom",
+        "name": "bloom",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter item",
+        "name": "item",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of scalable_bloom_add",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def scalable_bloom_add(bloom: dict, item: str) -> dict:\n    \"\"\"Add item to scalable bloom filter.\"\"\"\n    current_filter = bloom[\"filters\"][-1]\n    if bloom_fill_ratio(current_filter) > 0.5:\n        new_size = current_filter[\"size\"] * bloom[\"growth_factor\"]\n        num_hashes = calculate_optimal_hashes(new_size, new_size)\n        new_filter = create_bloom_filter(new_size, num_hashes)\n        new_filter = bloom_add(new_filter, item)\n        return {\n            \"filters\": bloom[\"filters\"] + [new_filter],\n            \"growth_factor\": bloom[\"growth_factor\"],\n            \"false_positive_rate\": bloom[\"false_positive_rate\"],\n            \"total_count\": bloom[\"total_count\"] + 1\n        }\n    updated_filter = bloom_add(current_filter, item)\n    return {\n        \"filters\": bloom[\"filters\"][:-1] + [updated_filter],\n        \"growth_factor\": bloom[\"growth_factor\"],\n        \"false_positive_rate\": bloom[\"false_positive_rate\"],\n        \"total_count\": bloom[\"total_count\"] + 1\n    }",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:48.732672+00:00",
+    "description": "Add item to scalable bloom filter.",
+    "intent": "Add item to scalable bloom filter.",
+    "language": "python",
+    "name": "scalable_bloom_add",
+    "source_file": "neurop_forge/sources/bloom_filter.py",
+    "source_line_end": 196,
+    "source_line_start": 176,
+    "tags": [
+      "add",
+      "arithmetic",
+      "bloom",
+      "item",
+      "scalable"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.732693+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(bloom) == dict",
+      "bloom is not None",
+      "type(item) == string",
+      "item is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(bloom) == dict",
+      "bloom is not None",
+      "type(item) == string",
+      "item is not None"
+    ]
+  }
+}

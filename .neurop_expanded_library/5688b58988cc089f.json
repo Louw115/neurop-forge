@@ -1,0 +1,138 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5688b58988cc089f774def4a6dbfe79c60d43028bb97c3a9ef7a6e877a9017b9",
+    "semantic_fingerprint": "d619158c90385d5673629f68fd8a9c103148f0fd2d4dfba8b8f6a5e9565e2d71",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if value is in allowed list.",
+    "inputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter allowed_values",
+        "name": "allowed_values",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of is_in_list",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_in_list(value, allowed_values: list) -> dict:\n    \"\"\"Check if value is in allowed list.\"\"\"\n    valid = value in allowed_values\n    return {\"valid\": valid, \"error\": f\"Must be one of: {allowed_values}\" if not valid else None}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:50.425717+00:00",
+    "description": "Check if value is in allowed list.",
+    "intent": "Check if value is in allowed list.",
+    "language": "python",
+    "name": "is_in_list",
+    "source_file": "neurop_forge/sources/validation_rules.py",
+    "source_line_end": 148,
+    "source_line_start": 145,
+    "tags": [
+      "allowed_values",
+      "list",
+      "validation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:50.425739+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "value is not None",
+      "type(allowed_values) == list",
+      "allowed_values is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "value is not None",
+      "type(allowed_values) == list",
+      "allowed_values is not None"
+    ]
+  }
+}

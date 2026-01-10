@@ -1,0 +1,145 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic aggregation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f6a6256502d271460e4193121bf773fbe8f368b0a661bf26052bb3bc7fc61f12",
+    "semantic_fingerprint": "dfaea16a8b5187cd147adf12f5e32ff9f0783ae00bf3e6021ba5b4e46c437ddc",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Reduce set to single value.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter combine",
+        "name": "combine",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter initial",
+        "name": "initial",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Return value of set_reduce",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def set_reduce(items: list, combine, initial):\n    \"\"\"Reduce set to single value.\"\"\"\n    result = initial\n    for item in set(items):\n        result = combine(result, item)\n    return result",
+  "metadata": {
+    "category": "aggregation",
+    "created_at": "2026-01-10T02:18:48.365839+00:00",
+    "description": "Reduce set to single value.",
+    "intent": "Reduce set to single value.",
+    "language": "python",
+    "name": "set_reduce",
+    "source_file": "neurop_forge/sources/set_utilities.py",
+    "source_line_end": 219,
+    "source_line_start": 214,
+    "tags": [
+      "aggregation",
+      "combine",
+      "initial",
+      "items",
+      "reduce",
+      "set"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.365865+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "combine is not None",
+      "initial is not None"
+    ],
+    "invariants": [],
+    "output_validators": [],
+    "postconditions": [],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "combine is not None",
+      "initial is not None"
+    ]
+  }
+}

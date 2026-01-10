@@ -1,0 +1,148 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": false,
+    "io_operations": [
+      "time"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "non_deterministic",
+    "side_effects": [
+      "time"
+    ],
+    "thread_safe": false
+  },
+  "failure_modes": {
+    "can_fail": true,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "raises_exception",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "54e12c40e499f75476fe94b36b19575edb5364827d20b6473c13559e2975a7c1",
+    "semantic_fingerprint": "b96e705b072ca56833763800b8809b3557f2547cdb0b4d8e61092bd481fb2546",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate queue age statistics.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter messages",
+        "name": "messages",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_time",
+        "name": "current_time",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of calculate_queue_age",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_queue_age(messages: list, current_time: int) -> dict:\n    \"\"\"Calculate queue age statistics.\"\"\"\n    if not messages:\n        return {\"oldest_seconds\": 0, \"average_seconds\": 0}\n    from datetime import datetime\n    ages = []\n    for m in messages:\n        try:\n            ts = datetime.fromisoformat(m.get(\"timestamp\", \"\").replace('Z', '+00:00'))\n            age = current_time - int(ts.timestamp())\n            ages.append(age)\n        except:\n            pass\n    if not ages:\n        return {\"oldest_seconds\": 0, \"average_seconds\": 0}\n    return {\n        \"oldest_seconds\": max(ages),\n        \"average_seconds\": sum(ages) // len(ages)\n    }",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:46.287509+00:00",
+    "description": "Calculate queue age statistics.",
+    "intent": "Calculate queue age statistics.",
+    "language": "python",
+    "name": "calculate_queue_age",
+    "source_file": "neurop_forge/sources/queue_patterns.py",
+    "source_line_end": 115,
+    "source_line_start": 97,
+    "tags": [
+      "age",
+      "arithmetic",
+      "calculate",
+      "current_time",
+      "messages",
+      "queue"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 0.5,
+    "last_verified": "2026-01-10T02:18:46.287534+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.27999999999999997,
+    "risk_factors": [
+      "impure_function",
+      "non_deterministic",
+      "side_effects: time"
+    ],
+    "risk_level": "medium",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(messages) == list",
+      "messages is not None",
+      "type(current_time) == integer",
+      "current_time is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(messages) == list",
+      "messages is not None",
+      "type(current_time) == integer",
+      "current_time is not None"
+    ]
+  }
+}

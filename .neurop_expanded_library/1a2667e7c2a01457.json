@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1a2667e7c2a014579adff4cb32c1ae8b14d821c2d828d130f7275956339738ed",
+    "semantic_fingerprint": "757a2b990cadc7f52db8fcd3e9f7b7e63a1b9219bb5838776e230f20c4ce1926",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Singularize a resource name.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter name",
+        "name": "name",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of singularize_resource",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def singularize_resource(name: str) -> str:\n    \"\"\"Singularize a resource name.\"\"\"\n    if name.endswith('ies'):\n        return name[:-3] + 'y'\n    if name.endswith('es') and len(name) > 3 and name[-3] in 'sxz':\n        return name[:-2]\n    if name.endswith('s') and not name.endswith('ss'):\n        return name[:-1]\n    return name",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:45.620258+00:00",
+    "description": "Singularize a resource name.",
+    "intent": "Singularize a resource name.",
+    "language": "python",
+    "name": "singularize_resource",
+    "source_file": "neurop_forge/sources/api_patterns.py",
+    "source_line_end": 342,
+    "source_line_start": 334,
+    "tags": [
+      "name",
+      "resource",
+      "singularize",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.620276+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(name) == string",
+      "name is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(name) == string",
+      "name is not None"
+    ]
+  }
+}

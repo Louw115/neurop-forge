@@ -1,0 +1,165 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e0cd5cc56a4e0bce1a483430fba80c768b59f133dfc845b3886b813a2e7acf9f",
+    "semantic_fingerprint": "d510e59dc3b0184e685d51c94b4045cbdefb174865fa3fd3b20e95e9640b5725",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Mask portion of string.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter start",
+        "name": "start",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter end",
+        "name": "end",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter mask_char",
+        "name": "mask_char",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of mask_string",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def mask_string(text: str, start: int, end: int, mask_char: str) -> str:\n    \"\"\"Mask portion of string.\"\"\"\n    if start >= len(text):\n        return text\n    end = min(end, len(text))\n    return text[:start] + mask_char * (end - start) + text[end:]",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:50.034243+00:00",
+    "description": "Mask portion of string.",
+    "intent": "Mask portion of string.",
+    "language": "python",
+    "name": "mask_string",
+    "source_file": "neurop_forge/sources/string_patterns.py",
+    "source_line_end": 265,
+    "source_line_start": 260,
+    "tags": [
+      "end",
+      "mask",
+      "mask_char",
+      "start",
+      "string",
+      "string_manipulation",
+      "text"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:50.034265+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None",
+      "type(start) == integer",
+      "start is not None",
+      "type(end) == integer",
+      "end is not None",
+      "type(mask_char) == string",
+      "mask_char is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None",
+      "type(start) == integer",
+      "start is not None",
+      "type(end) == integer",
+      "end is not None",
+      "type(mask_char) == string",
+      "mask_char is not None"
+    ]
+  }
+}

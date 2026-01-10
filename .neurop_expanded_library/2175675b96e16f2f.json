@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2175675b96e16f2ff9b1afe360bdff9a6cd30c53d5014b5de7ee8705085968dd",
+    "semantic_fingerprint": "01485708a91f6d43f635da53c393ae2d97861b6ff3f1c33ac6d83c7fcad4184d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Paginate data for template.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter page",
+        "name": "page",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter per_page",
+        "name": "per_page",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of paginate_template_data",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def paginate_template_data(items: list, page: int, per_page: int) -> dict:\n    \"\"\"Paginate data for template.\"\"\"\n    total = len(items)\n    total_pages = (total + per_page - 1) // per_page\n    start = (page - 1) * per_page\n    end = start + per_page\n    return {\n        \"items\": items[start:end],\n        \"page\": page,\n        \"per_page\": per_page,\n        \"total\": total,\n        \"total_pages\": total_pages,\n        \"has_prev\": page > 1,\n        \"has_next\": page < total_pages\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:47.945946+00:00",
+    "description": "Paginate data for template.",
+    "intent": "Paginate data for template.",
+    "language": "python",
+    "name": "paginate_template_data",
+    "source_file": "neurop_forge/sources/template_utilities.py",
+    "source_line_end": 190,
+    "source_line_start": 176,
+    "tags": [
+      "data",
+      "dict_operation",
+      "items",
+      "page",
+      "paginate",
+      "per_page",
+      "template"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.945975+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "type(page) == integer",
+      "page is not None",
+      "type(per_page) == integer",
+      "per_page is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "type(page) == integer",
+      "page is not None",
+      "type(per_page) == integer",
+      "per_page is not None"
+    ]
+  }
+}

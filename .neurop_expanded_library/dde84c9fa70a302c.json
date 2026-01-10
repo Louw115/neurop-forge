@@ -1,0 +1,165 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "dde84c9fa70a302c9886879d2a79466551222af80d8b17be9205989063afa4dd",
+    "semantic_fingerprint": "0acb0af565bc2aad7aa748544ab8cfbb500781c0e2ba8015b0067048029519d3",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check rate limit status.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter requests",
+        "name": "requests",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter limit",
+        "name": "limit",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter window_seconds",
+        "name": "window_seconds",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of check_rate_limit",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def check_rate_limit(key: str, requests: int, limit: int, window_seconds: int) -> dict:\n    \"\"\"Check rate limit status.\"\"\"\n    remaining = max(0, limit - requests)\n    exceeded = requests > limit\n    return {\n        \"allowed\": not exceeded,\n        \"remaining\": remaining,\n        \"limit\": limit,\n        \"window_seconds\": window_seconds,\n        \"key\": key\n    }",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:46.044714+00:00",
+    "description": "Check rate limit status.",
+    "intent": "Check rate limit status.",
+    "language": "python",
+    "name": "check_rate_limit",
+    "source_file": "neurop_forge/sources/middleware_patterns.py",
+    "source_line_end": 205,
+    "source_line_start": 195,
+    "tags": [
+      "check",
+      "key",
+      "limit",
+      "rate",
+      "requests",
+      "validation",
+      "window_seconds"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.044734+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(key) == string",
+      "key is not None",
+      "type(requests) == integer",
+      "requests is not None",
+      "type(limit) == integer",
+      "limit is not None",
+      "type(window_seconds) == integer",
+      "window_seconds is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(key) == string",
+      "key is not None",
+      "type(requests) == integer",
+      "requests is not None",
+      "type(limit) == integer",
+      "limit is not None",
+      "type(window_seconds) == integer",
+      "window_seconds is not None"
+    ]
+  }
+}

@@ -1,0 +1,131 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4bafb4def06efd7cd12ecb5fd2bf50026c6f6ea39fc4eaa3cc994bc144ce8296",
+    "semantic_fingerprint": "8eabbdb06e013ef14611bbd030ae90444559dd5387d7503a378a680eb5aa2ab2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get the time-related portion of the UUID.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter uuid_str",
+        "name": "uuid_str",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_uuid_time_part",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_uuid_time_part(uuid_str: str) -> str:\n    \"\"\"Get the time-related portion of the UUID.\"\"\"\n    normalized = normalize_uuid(uuid_str)\n    if not normalized:\n        return \"\"\n    return normalized[:18]",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:43.713456+00:00",
+    "description": "Get the time-related portion of the UUID.",
+    "intent": "Get the time-related portion of the UUID.",
+    "language": "python",
+    "name": "get_uuid_time_part",
+    "source_file": "neurop_forge/sources/uuid_utilities.py",
+    "source_line_end": 249,
+    "source_line_start": 244,
+    "tags": [
+      "filtering",
+      "get",
+      "part",
+      "time",
+      "uuid",
+      "uuid_str"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.713473+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(uuid_str) == string",
+      "uuid_str is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(uuid_str) == string",
+      "uuid_str is not None"
+    ]
+  }
+}

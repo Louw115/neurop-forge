@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e4e46b501eddcb096c16ced83bf7a7db543d8a3be898d30159548836396a0003",
+    "semantic_fingerprint": "62085b5d00f050d0e628c964500c4bfd3cfa6e40845532ed92a53d5c23317e82",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format file size in human-readable form.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter bytes_count",
+        "name": "bytes_count",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter precision",
+        "name": "precision",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of format_file_size",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_file_size(bytes_count: int, precision: int) -> str:\n    \"\"\"Format file size in human-readable form.\"\"\"\n    units = [\"B\", \"KB\", \"MB\", \"GB\", \"TB\"]\n    size = float(bytes_count)\n    unit_index = 0\n    while size >= 1024 and unit_index < len(units) - 1:\n        size /= 1024\n        unit_index += 1\n    return f\"{size:.{precision}f} {units[unit_index]}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:46.662747+00:00",
+    "description": "Format file size in human-readable form.",
+    "intent": "Format file size in human-readable form.",
+    "language": "python",
+    "name": "format_file_size",
+    "source_file": "neurop_forge/sources/ui_patterns.py",
+    "source_line_end": 42,
+    "source_line_start": 34,
+    "tags": [
+      "bytes_count",
+      "file",
+      "format",
+      "precision",
+      "size",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.662768+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(bytes_count) == integer",
+      "bytes_count is not None",
+      "type(precision) == integer",
+      "precision is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(bytes_count) == integer",
+      "bytes_count is not None",
+      "type(precision) == integer",
+      "precision is not None"
+    ]
+  }
+}

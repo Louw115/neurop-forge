@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8c1016dc820579fd4a6d6a2759393b66600b43dcf8f3c8aa334f2dcf90d8dcec",
+    "semantic_fingerprint": "abe70ff7bf1fb123b9e60d2cd48b0bb797f1a01d15fb2e443ed214ef81ad9f25",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get notification summary.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter notifications",
+        "name": "notifications",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of get_notification_summary",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_notification_summary(notifications: list) -> dict:\n    \"\"\"Get notification summary.\"\"\"\n    unread = count_unread(notifications)\n    by_type = {}\n    for n in notifications:\n        t = n.get(\"type\", \"unknown\")\n        by_type[t] = by_type.get(t, 0) + 1\n    return {\n        \"total\": len(notifications),\n        \"unread\": unread,\n        \"by_type\": by_type\n    }",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:52.861767+00:00",
+    "description": "Get notification summary.",
+    "intent": "Get notification summary.",
+    "language": "python",
+    "name": "get_notification_summary",
+    "source_file": "neurop_forge/sources/notification_helpers.py",
+    "source_line_end": 117,
+    "source_line_start": 106,
+    "tags": [
+      "filtering",
+      "get",
+      "notification",
+      "notifications",
+      "summary"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.861786+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(notifications) == list",
+      "notifications is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(notifications) == list",
+      "notifications is not None"
+    ]
+  }
+}

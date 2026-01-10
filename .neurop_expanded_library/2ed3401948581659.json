@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2ed340194858165919a54215c80ccc24ab5cef62af6b6eafe089c0d35454cc55",
+    "semantic_fingerprint": "834751f89d04f70ae135a5b3bfa5ab0453078384e264d33eb1d1caf651b90b2e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if a status code indicates success (2xx).",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter code",
+        "name": "code",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_success_status",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_success_status(code: int) -> bool:\n    \"\"\"Check if a status code indicates success (2xx).\"\"\"\n    return 200 <= code < 300",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:43.261517+00:00",
+    "description": "Check if a status code indicates success (2xx).",
+    "intent": "Check if a status code indicates success (2xx).",
+    "language": "python",
+    "name": "is_success_status",
+    "source_file": "neurop_forge/sources/http_utilities.py",
+    "source_line_end": 60,
+    "source_line_start": 58,
+    "tags": [
+      "code",
+      "status",
+      "success",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.261535+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(code) == integer",
+      "code is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(code) == integer",
+      "code is not None"
+    ]
+  }
+}

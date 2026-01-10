@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "fdbadcb9c6bd069cb06b62adcf5485ca6aaf01aad810259098fbd4da9e066f18",
+    "semantic_fingerprint": "ae305a3aff6d972d8ce33ecc6d3d7b1b0889a0d4254972076e82f87d2e395e72",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get depth of a node in tree.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter root",
+        "name": "root",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter node_id",
+        "name": "node_id",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of get_depth",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_depth(root: dict, node_id: str) -> int:\n    \"\"\"Get depth of a node in tree.\"\"\"\n    path = get_node_path(root, node_id)\n    return len(path) - 1 if path else -1",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:48.239953+00:00",
+    "description": "Get depth of a node in tree.",
+    "intent": "Get depth of a node in tree.",
+    "language": "python",
+    "name": "get_depth",
+    "source_file": "neurop_forge/sources/tree_utilities.py",
+    "source_line_end": 71,
+    "source_line_start": 68,
+    "tags": [
+      "depth",
+      "filtering",
+      "get",
+      "node_id",
+      "root"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.239970+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(root) == dict",
+      "root is not None",
+      "type(node_id) == string",
+      "node_id is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(root) == dict",
+      "root is not None",
+      "type(node_id) == string",
+      "node_id is not None"
+    ]
+  }
+}

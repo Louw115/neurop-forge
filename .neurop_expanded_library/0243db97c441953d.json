@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0243db97c441953db0e6c0dc520cfa9e22113952990d8c66811fdb41e20260e3",
+    "semantic_fingerprint": "df7912aad6b6c16fbf587cf9f596209c82c1143d4e09c75ba974e6b7580f98d6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build breadcrumb items from a path.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter path",
+        "name": "path",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter separator",
+        "name": "separator",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of build_breadcrumb",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_breadcrumb(path: str, separator: str) -> list:\n    \"\"\"Build breadcrumb items from a path.\"\"\"\n    parts = path.strip(\"/\").split(\"/\")\n    items = []\n    current_path = \"\"\n    for part in parts:\n        if part:\n            current_path += \"/\" + part\n            items.append({\"label\": part.replace(\"-\", \" \").title(), \"path\": current_path})\n    return items",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:46.679670+00:00",
+    "description": "Build breadcrumb items from a path.",
+    "intent": "Build breadcrumb items from a path.",
+    "language": "python",
+    "name": "build_breadcrumb",
+    "source_file": "neurop_forge/sources/ui_patterns.py",
+    "source_line_end": 133,
+    "source_line_start": 124,
+    "tags": [
+      "breadcrumb",
+      "build",
+      "list_operation",
+      "path",
+      "separator"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.679690+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(path) == string",
+      "path is not None",
+      "type(separator) == string",
+      "separator is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(path) == string",
+      "path is not None",
+      "type(separator) == string",
+      "separator is not None"
+    ]
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d6ce77daf9457b597a996397b1072d056bd8aeb5ab2dfc5d1f6a6552d376493a",
+    "semantic_fingerprint": "eccc45c43126497d13b278c6bbd10f33b42ab33888aa9eef93820019e2f0be78",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if item might be in scalable bloom filter.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter bloom",
+        "name": "bloom",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter item",
+        "name": "item",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of scalable_bloom_might_contain",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def scalable_bloom_might_contain(bloom: dict, item: str) -> bool:\n    \"\"\"Check if item might be in scalable bloom filter.\"\"\"\n    return any(bloom_might_contain(f, item) for f in bloom[\"filters\"])",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:48.735039+00:00",
+    "description": "Check if item might be in scalable bloom filter.",
+    "intent": "Check if item might be in scalable bloom filter.",
+    "language": "python",
+    "name": "scalable_bloom_might_contain",
+    "source_file": "neurop_forge/sources/bloom_filter.py",
+    "source_line_end": 201,
+    "source_line_start": 199,
+    "tags": [
+      "bloom",
+      "contain",
+      "item",
+      "might",
+      "scalable",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.735059+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(bloom) == dict",
+      "bloom is not None",
+      "type(item) == string",
+      "item is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(bloom) == dict",
+      "bloom is not None",
+      "type(item) == string",
+      "item is not None"
+    ]
+  }
+}

@@ -1,0 +1,164 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b2d1180a8b599c35162e09e486948b38669bc98d0604134f8a59914fb9b80ecb",
+    "semantic_fingerprint": "c2074fa3ce99294bade94ce240e467eefe4bcc5e179a68740b0388e29d2c5e3f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Increase saturation.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter r",
+        "name": "r",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter g",
+        "name": "g",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter b",
+        "name": "b",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter amount",
+        "name": "amount",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of saturate",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def saturate(r: int, g: int, b: int, amount: float) -> dict:\n    \"\"\"Increase saturation.\"\"\"\n    hsl = rgb_to_hsl(r, g, b)\n    new_s = min(100, hsl[\"s\"] + amount * 100)\n    return hsl_to_rgb(hsl[\"h\"], round(new_s), hsl[\"l\"])",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:50.141724+00:00",
+    "description": "Increase saturation.",
+    "intent": "Increase saturation.",
+    "language": "python",
+    "name": "saturate",
+    "source_file": "neurop_forge/sources/color_math.py",
+    "source_line_end": 195,
+    "source_line_start": 191,
+    "tags": [
+      "amount",
+      "b",
+      "dict_operation",
+      "g",
+      "r",
+      "saturate"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:50.141755+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(r) == integer",
+      "r is not None",
+      "type(g) == integer",
+      "g is not None",
+      "type(b) == integer",
+      "b is not None",
+      "type(amount) == float",
+      "amount is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(r) == integer",
+      "r is not None",
+      "type(g) == integer",
+      "g is not None",
+      "type(b) == integer",
+      "b is not None",
+      "type(amount) == float",
+      "amount is not None"
+    ]
+  }
+}

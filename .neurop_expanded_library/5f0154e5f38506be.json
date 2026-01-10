@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5f0154e5f38506be07ea74def2108b5b516757cb116d50f59ac96d35367d62b7",
+    "semantic_fingerprint": "dc56d4f8a017eff3252ce4d80296e80a442df04efc061a0b00dc42c8a01e1589",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse a Cache-Control header into directives.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter header",
+        "name": "header",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of parse_cache_control",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_cache_control(header: str) -> dict:\n    \"\"\"Parse a Cache-Control header into directives.\"\"\"\n    if not header:\n        return {}\n    result = {}\n    parts = header.split(',')\n    for part in parts:\n        part = part.strip()\n        if '=' in part:\n            key, value = part.split('=', 1)\n            try:\n                result[key.strip()] = int(value.strip())\n            except ValueError:\n                result[key.strip()] = value.strip()\n        else:\n            result[part] = True\n    return result",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T02:18:43.287607+00:00",
+    "description": "Parse a Cache-Control header into directives.",
+    "intent": "Parse a Cache-Control header into directives.",
+    "language": "python",
+    "name": "parse_cache_control",
+    "source_file": "neurop_forge/sources/http_utilities.py",
+    "source_line_end": 269,
+    "source_line_start": 253,
+    "tags": [
+      "cache",
+      "control",
+      "header",
+      "parse",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.287626+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(header) == string",
+      "header is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(header) == string",
+      "header is not None"
+    ]
+  }
+}

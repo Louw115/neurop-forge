@@ -1,0 +1,164 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b2a1399b30ba031a29ca599919e197237690feb987c1199709a686c0a2417a89",
+    "semantic_fingerprint": "1dbbf3fc3a6ffd5e2cdcb3d24a1b29b07e7fb77a2e8830a58d16ecbadf34f088",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Advance workflow to next step.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter workflow",
+        "name": "workflow",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter next_step",
+        "name": "next_step",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter timestamp",
+        "name": "timestamp",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter metadata",
+        "name": "metadata",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of advance_workflow",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def advance_workflow(workflow: dict, next_step: str, timestamp: str, metadata: dict) -> dict:\n    \"\"\"Advance workflow to next step.\"\"\"\n    result = dict(workflow)\n    result[\"history\"] = list(workflow.get(\"history\", []))\n    result[\"history\"].append({\n        \"action\": \"advanced\",\n        \"from_step\": workflow.get(\"current_step\"),\n        \"to_step\": next_step,\n        \"timestamp\": timestamp,\n        \"metadata\": metadata\n    })\n    result[\"current_step\"] = next_step\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:47.142732+00:00",
+    "description": "Advance workflow to next step.",
+    "intent": "Advance workflow to next step.",
+    "language": "python",
+    "name": "advance_workflow",
+    "source_file": "neurop_forge/sources/workflow_patterns.py",
+    "source_line_end": 59,
+    "source_line_start": 47,
+    "tags": [
+      "advance",
+      "dict_operation",
+      "metadata",
+      "next_step",
+      "timestamp",
+      "workflow"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.142752+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(workflow) == dict",
+      "workflow is not None",
+      "type(next_step) == string",
+      "next_step is not None",
+      "type(timestamp) == string",
+      "timestamp is not None",
+      "type(metadata) == dict",
+      "metadata is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(workflow) == dict",
+      "workflow is not None",
+      "type(next_step) == string",
+      "next_step is not None",
+      "type(timestamp) == string",
+      "timestamp is not None",
+      "type(metadata) == dict",
+      "metadata is not None"
+    ]
+  }
+}

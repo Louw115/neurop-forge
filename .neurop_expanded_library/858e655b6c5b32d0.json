@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "858e655b6c5b32d0452158c1168cc07a1a003c1a52e0e57e7b5a3c7802fa5434",
+    "semantic_fingerprint": "7c58b3b2568eb9623c8208c6aa234e9b8a616e1b0c150764f77b83d706d30249",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Reverse a directed graph.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter graph",
+        "name": "graph",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of reverse_graph",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def reverse_graph(graph: dict) -> dict:\n    \"\"\"Reverse a directed graph.\"\"\"\n    if not graph[\"directed\"]:\n        return graph\n    return {\n        \"directed\": True,\n        \"nodes\": dict(graph[\"nodes\"]),\n        \"edges\": [{\"from\": e[\"to\"], \"to\": e[\"from\"], \"weight\": e[\"weight\"], \"data\": e[\"data\"]} for e in graph[\"edges\"]]\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:47.236538+00:00",
+    "description": "Reverse a directed graph.",
+    "intent": "Reverse a directed graph.",
+    "language": "python",
+    "name": "reverse_graph",
+    "source_file": "neurop_forge/sources/graph_utilities.py",
+    "source_line_end": 286,
+    "source_line_start": 278,
+    "tags": [
+      "dict_operation",
+      "graph",
+      "reverse"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.236562+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(graph) == dict",
+      "graph is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(graph) == dict",
+      "graph is not None"
+    ]
+  }
+}

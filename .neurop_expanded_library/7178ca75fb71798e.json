@@ -1,0 +1,136 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7178ca75fb71798eab18b5409dbc1b312298b48dc0f82072d6896a14e1384234",
+    "semantic_fingerprint": "eb13fdd2e4f6fef968169032c9486e47ca6ca39fcddf272ed0a2ccc898febdf6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find smallest key >= given key.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter sl",
+        "name": "sl",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Return value of skip_list_ceiling",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def skip_list_ceiling(sl: dict, key):\n    \"\"\"Find smallest key >= given key.\"\"\"\n    node = sl[\"head\"]\n    for i in range(sl[\"level\"] - 1, -1, -1):\n        while node[\"forward\"][i] and node[\"forward\"][i][\"key\"] < key:\n            node = node[\"forward\"][i]\n    node = node[\"forward\"][0]\n    return node[\"key\"] if node else None",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:49.223954+00:00",
+    "description": "Find smallest key >= given key.",
+    "intent": "Find smallest key >= given key.",
+    "language": "python",
+    "name": "skip_list_ceiling",
+    "source_file": "neurop_forge/sources/skip_list.py",
+    "source_line_end": 210,
+    "source_line_start": 203,
+    "tags": [
+      "ceiling",
+      "filtering",
+      "key",
+      "list",
+      "skip",
+      "sl"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.223977+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33925,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.595,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(sl) == dict",
+      "sl is not None",
+      "key is not None"
+    ],
+    "invariants": [],
+    "output_validators": [],
+    "postconditions": [],
+    "preconditions": [
+      "type(sl) == dict",
+      "sl is not None",
+      "key is not None"
+    ]
+  }
+}

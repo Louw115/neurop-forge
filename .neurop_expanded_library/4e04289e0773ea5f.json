@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4e04289e0773ea5f05c1906ea5880068e1562a89329b48c9d89ee5a03542ed6e",
+    "semantic_fingerprint": "9bb99e1a56b7c9f2d05bb21d6a7cee9deee70b38260a284394d6f7a12c5c30f1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Extract numeric suffix from slug.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter slug",
+        "name": "slug",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter separator",
+        "name": "separator",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of extract_numeric_suffix",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def extract_numeric_suffix(slug: str, separator: str) -> dict:\n    \"\"\"Extract numeric suffix from slug.\"\"\"\n    parts = slug.rsplit(separator, 1)\n    if len(parts) == 2 and parts[1].isdigit():\n        return {\"base\": parts[0], \"number\": int(parts[1])}\n    return {\"base\": slug, \"number\": None}",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:52.128941+00:00",
+    "description": "Extract numeric suffix from slug.",
+    "intent": "Extract numeric suffix from slug.",
+    "language": "python",
+    "name": "extract_numeric_suffix",
+    "source_file": "neurop_forge/sources/slug_helpers.py",
+    "source_line_end": 130,
+    "source_line_start": 125,
+    "tags": [
+      "extract",
+      "filtering",
+      "numeric",
+      "separator",
+      "slug",
+      "suffix"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.128960+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(slug) == string",
+      "slug is not None",
+      "type(separator) == string",
+      "separator is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(slug) == string",
+      "slug is not None",
+      "type(separator) == string",
+      "separator is not None"
+    ]
+  }
+}

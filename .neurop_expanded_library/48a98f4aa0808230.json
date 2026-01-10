@@ -1,0 +1,139 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic aggregation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "48a98f4aa080823085854f7e0471d6293f49f910de589257f36c78b7565d50b3",
+    "semantic_fingerprint": "2d0f6ac1023a8f40a15df343701f9228abcdf7b2e07ce1322cd2e1c3fe7159ec",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Aggregate metric values.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter metrics",
+        "name": "metrics",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter aggregation",
+        "name": "aggregation",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of aggregate_metrics",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def aggregate_metrics(metrics: list, aggregation: str) -> float:\n    \"\"\"Aggregate metric values.\"\"\"\n    if not metrics:\n        return 0.0\n    values = [m.get(\"value\", 0) for m in metrics]\n    if aggregation == \"sum\":\n        return sum(values)\n    elif aggregation == \"avg\":\n        return sum(values) / len(values)\n    elif aggregation == \"min\":\n        return min(values)\n    elif aggregation == \"max\":\n        return max(values)\n    elif aggregation == \"count\":\n        return len(values)\n    return sum(values)",
+  "metadata": {
+    "category": "aggregation",
+    "created_at": "2026-01-10T02:18:46.949630+00:00",
+    "description": "Aggregate metric values.",
+    "intent": "Aggregate metric values.",
+    "language": "python",
+    "name": "aggregate_metrics",
+    "source_file": "neurop_forge/sources/analytics_patterns.py",
+    "source_line_end": 282,
+    "source_line_start": 267,
+    "tags": [
+      "aggregate",
+      "aggregation",
+      "metrics"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.949650+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(metrics) == list",
+      "metrics is not None",
+      "type(aggregation) == string",
+      "aggregation is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(metrics) == list",
+      "metrics is not None",
+      "type(aggregation) == string",
+      "aggregation is not None"
+    ]
+  }
+}

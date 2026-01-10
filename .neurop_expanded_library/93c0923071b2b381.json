@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "93c0923071b2b381c89af69eaf3a3b2a1a2a15ab4778a3084c0b5a2f1b451536",
+    "semantic_fingerprint": "1814df407ad2809bcfab91104ec06f118abdd69b31a67b20b7fd957bd4581ac7",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Create token for value.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter salt",
+        "name": "salt",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of tokenize_value",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def tokenize_value(value: str, salt: str) -> str:\n    \"\"\"Create token for value.\"\"\"\n    return f\"TOK_{hash_identifier(value, salt)}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:51.108618+00:00",
+    "description": "Create token for value.",
+    "intent": "Create token for value.",
+    "language": "python",
+    "name": "tokenize_value",
+    "source_file": "neurop_forge/sources/data_masking.py",
+    "source_line_end": 89,
+    "source_line_start": 87,
+    "tags": [
+      "salt",
+      "string_manipulation",
+      "tokenize",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:51.108646+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == string",
+      "value is not None",
+      "type(salt) == string",
+      "salt is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(value) == string",
+      "value is not None",
+      "type(salt) == string",
+      "salt is not None"
+    ]
+  }
+}

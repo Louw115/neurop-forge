@@ -1,0 +1,167 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "cb4f8611a536faed44c38c4236a8571ebfc235ba2a0f23adcb7f155a5ea68b98",
+    "semantic_fingerprint": "39b175c103260352cfbb35431d0562661d206be474f71b771c03093cefcecc26",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build parameters for presigned URL generation.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter bucket",
+        "name": "bucket",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter expiration_seconds",
+        "name": "expiration_seconds",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter content_type",
+        "name": "content_type",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_presigned_url_params",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_presigned_url_params(bucket: str, key: str, expiration_seconds: int, content_type: str) -> dict:\n    \"\"\"Build parameters for presigned URL generation.\"\"\"\n    return {\n        \"bucket\": bucket,\n        \"key\": key,\n        \"expiration\": expiration_seconds,\n        \"content_type\": content_type\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:47.018572+00:00",
+    "description": "Build parameters for presigned URL generation.",
+    "intent": "Build parameters for presigned URL generation.",
+    "language": "python",
+    "name": "build_presigned_url_params",
+    "source_file": "neurop_forge/sources/file_utilities.py",
+    "source_line_end": 268,
+    "source_line_start": 261,
+    "tags": [
+      "bucket",
+      "build",
+      "content_type",
+      "dict_operation",
+      "expiration_seconds",
+      "key",
+      "params",
+      "presigned",
+      "url"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.018591+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(bucket) == string",
+      "bucket is not None",
+      "type(key) == string",
+      "key is not None",
+      "type(expiration_seconds) == integer",
+      "expiration_seconds is not None",
+      "type(content_type) == string",
+      "content_type is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(bucket) == string",
+      "bucket is not None",
+      "type(key) == string",
+      "key is not None",
+      "type(expiration_seconds) == integer",
+      "expiration_seconds is not None",
+      "type(content_type) == string",
+      "content_type is not None"
+    ]
+  }
+}

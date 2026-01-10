@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8fb7532c092c37770d43cf81ac7539824a914325e08fea790d3e30dca2ab51fa",
+    "semantic_fingerprint": "8b857a67607567326a39c81938f4ba4672eb684b423cb3c4ce3055f3977b8e60",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate request priority based on rules.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter path",
+        "name": "path",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter method",
+        "name": "method",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter priority_rules",
+        "name": "priority_rules",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of calculate_request_priority",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_request_priority(path: str, method: str, priority_rules: list) -> int:\n    \"\"\"Calculate request priority based on rules.\"\"\"\n    for rule in priority_rules:\n        if path.startswith(rule.get(\"path_prefix\", \"\")):\n            if not rule.get(\"method\") or rule.get(\"method\") == method:\n                return rule.get(\"priority\", 5)\n    return 5",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:46.064794+00:00",
+    "description": "Calculate request priority based on rules.",
+    "intent": "Calculate request priority based on rules.",
+    "language": "python",
+    "name": "calculate_request_priority",
+    "source_file": "neurop_forge/sources/middleware_patterns.py",
+    "source_line_end": 325,
+    "source_line_start": 319,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "method",
+      "path",
+      "priority",
+      "priority_rules",
+      "request"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.064819+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(path) == string",
+      "path is not None",
+      "type(method) == string",
+      "method is not None",
+      "type(priority_rules) == list",
+      "priority_rules is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(path) == string",
+      "path is not None",
+      "type(method) == string",
+      "method is not None",
+      "type(priority_rules) == list",
+      "priority_rules is not None"
+    ]
+  }
+}

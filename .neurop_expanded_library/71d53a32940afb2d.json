@@ -1,0 +1,125 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "71d53a32940afb2dea2dc346854dab5c3b935ba14a6e4228cbbf66efb5f5f656",
+    "semantic_fingerprint": "008e63e8ad4dd3c21536ee0c0d59a0269345b805ea9142d47d596f521f22ad7a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get promise error if rejected.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter promise",
+        "name": "promise",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Return value of get_error",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_error(promise: dict):\n    \"\"\"Get promise error if rejected.\"\"\"\n    return promise[\"error\"] if is_rejected(promise) else None",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:49.012187+00:00",
+    "description": "Get promise error if rejected.",
+    "intent": "Get promise error if rejected.",
+    "language": "python",
+    "name": "get_error",
+    "source_file": "neurop_forge/sources/promise_utilities.py",
+    "source_line_end": 76,
+    "source_line_start": 74,
+    "tags": [
+      "error",
+      "filtering",
+      "get",
+      "promise"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.012208+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(promise) == dict",
+      "promise is not None"
+    ],
+    "invariants": [],
+    "output_validators": [],
+    "postconditions": [],
+    "preconditions": [
+      "type(promise) == dict",
+      "promise is not None"
+    ]
+  }
+}

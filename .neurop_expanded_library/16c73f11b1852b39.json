@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "16c73f11b1852b39217c37b2793f8bd05f1fa1cf449012fdcf0c8352ef3c2af5",
+    "semantic_fingerprint": "4f46f09e0550208ce700b12506880dee08371124235145d6bf8ec3ffd155fdda",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Determine if connection should be retried based on error.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter error_code",
+        "name": "error_code",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter attempt",
+        "name": "attempt",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_attempts",
+        "name": "max_attempts",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of should_retry_connection",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def should_retry_connection(error_code: str, attempt: int, max_attempts: int) -> bool:\n    \"\"\"Determine if connection should be retried based on error.\"\"\"\n    retriable_codes = {\"08001\", \"08003\", \"08004\", \"08006\", \"08007\", \"57P01\", \"57P02\", \"57P03\"}\n    return error_code in retriable_codes and attempt < max_attempts",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:45.427976+00:00",
+    "description": "Determine if connection should be retried based on error.",
+    "intent": "Determine if connection should be retried based on error.",
+    "language": "python",
+    "name": "should_retry_connection",
+    "source_file": "neurop_forge/sources/connection_pool.py",
+    "source_line_end": 164,
+    "source_line_start": 161,
+    "tags": [
+      "attempt",
+      "connection",
+      "error_code",
+      "max_attempts",
+      "retry",
+      "should",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.428019+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(error_code) == string",
+      "error_code is not None",
+      "type(attempt) == integer",
+      "attempt is not None",
+      "type(max_attempts) == integer",
+      "max_attempts is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(error_code) == string",
+      "error_code is not None",
+      "type(attempt) == integer",
+      "attempt is not None",
+      "type(max_attempts) == integer",
+      "max_attempts is not None"
+    ]
+  }
+}

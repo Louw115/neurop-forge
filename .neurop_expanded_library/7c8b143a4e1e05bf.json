@@ -1,0 +1,167 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7c8b143a4e1e05bfbccad611930b866c4e81ade3c6d435c05ff9e407dce63ce1",
+    "semantic_fingerprint": "9ab69d16bc8ff344ac65ad1145bb8c2c585db7e4edd5daac62304f25e407b503",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Format an error in JSON:API format.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter status",
+        "name": "status",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter title",
+        "name": "title",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter detail",
+        "name": "detail",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter source",
+        "name": "source",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of format_json_api_error",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def format_json_api_error(status: int, title: str, detail: str, source: str) -> dict:\n    \"\"\"Format an error in JSON:API format.\"\"\"\n    return {\n        \"errors\": [{\n            \"status\": str(status),\n            \"title\": title,\n            \"detail\": detail,\n            \"source\": {\"pointer\": source} if source else {}\n        }]\n    }",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:45.592799+00:00",
+    "description": "Format an error in JSON:API format.",
+    "intent": "Format an error in JSON:API format.",
+    "language": "python",
+    "name": "format_json_api_error",
+    "source_file": "neurop_forge/sources/api_patterns.py",
+    "source_line_end": 189,
+    "source_line_start": 180,
+    "tags": [
+      "api",
+      "detail",
+      "error",
+      "format",
+      "json",
+      "source",
+      "status",
+      "string_manipulation",
+      "title"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.592828+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(status) == integer",
+      "status is not None",
+      "type(title) == string",
+      "title is not None",
+      "type(detail) == string",
+      "detail is not None",
+      "type(source) == string",
+      "source is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(status) == integer",
+      "status is not None",
+      "type(title) == string",
+      "title is not None",
+      "type(detail) == string",
+      "detail is not None",
+      "type(source) == string",
+      "source is not None"
+    ]
+  }
+}

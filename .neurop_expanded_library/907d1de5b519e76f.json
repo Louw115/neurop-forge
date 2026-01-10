@@ -1,0 +1,149 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "907d1de5b519e76f9a644acbc4cabb23b5b654f902c56f7a7bb72351f584291f",
+    "semantic_fingerprint": "f3588793d1b7761bda9b3aa4f6f1340c6029207d710ded6dc618b778e7d159ec",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate maximum numeric value.",
+    "inputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter max_val",
+        "name": "max_val",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter message",
+        "name": "message",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of validate_max_value",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_max_value(value, max_val, message: str) -> dict:\n    \"\"\"Validate maximum numeric value.\"\"\"\n    try:\n        is_valid = float(value) <= max_val\n        return {\"valid\": is_valid, \"error\": None if is_valid else message}\n    except (ValueError, TypeError):\n        return {\"valid\": False, \"error\": message}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:47.714266+00:00",
+    "description": "Validate maximum numeric value.",
+    "intent": "Validate maximum numeric value.",
+    "language": "python",
+    "name": "validate_max_value",
+    "source_file": "neurop_forge/sources/form_utilities.py",
+    "source_line_end": 110,
+    "source_line_start": 104,
+    "tags": [
+      "max",
+      "max_val",
+      "message",
+      "validate",
+      "validation",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.714283+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "value is not None",
+      "max_val is not None",
+      "type(message) == string",
+      "message is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "value is not None",
+      "max_val is not None",
+      "type(message) == string",
+      "message is not None"
+    ]
+  }
+}

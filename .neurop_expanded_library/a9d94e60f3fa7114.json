@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a9d94e60f3fa71142a4ad27fe412815e63eaf4cdd87149219cf67245240af32a",
+    "semantic_fingerprint": "c5feb05ed64a406fb370ff08340145df27217632782c3e933f926947de1a8a40",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Split a path into its components.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter path",
+        "name": "path",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of split_path",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def split_path(path: str) -> list:\n    \"\"\"Split a path into its components.\"\"\"\n    if not path:\n        return []\n    normalized = normalize_path(path)\n    parts = normalized.split('/')\n    return [p for p in parts if p]",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:42.781311+00:00",
+    "description": "Split a path into its components.",
+    "intent": "Split a path into its components.",
+    "language": "python",
+    "name": "split_path",
+    "source_file": "neurop_forge/sources/path_utilities.py",
+    "source_line_end": 129,
+    "source_line_start": 123,
+    "tags": [
+      "path",
+      "split",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:42.781329+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(path) == string",
+      "path is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(path) == string",
+      "path is not None"
+    ]
+  }
+}

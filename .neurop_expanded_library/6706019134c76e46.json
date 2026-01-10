@@ -1,0 +1,131 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "6706019134c76e46c2c4976160862a2c3a018b53e5e3a50349b49b2aec1a0a08",
+    "semantic_fingerprint": "2b347c512d84332b80716bd3d4e08cd75b58c80d4f2955c521db19ddfaff7659",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get level statistics.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter sl",
+        "name": "sl",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of skip_list_level_stats",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def skip_list_level_stats(sl: dict) -> dict:\n    \"\"\"Get level statistics.\"\"\"\n    level_counts = [0] * sl[\"level\"]\n    node = sl[\"head\"][\"forward\"][0]\n    while node:\n        for i in range(len(node[\"forward\"])):\n            if node[\"forward\"][i]:\n                level_counts[i] += 1\n        node = node[\"forward\"][0]\n    return {\n        \"current_level\": sl[\"level\"],\n        \"max_level\": sl[\"max_level\"],\n        \"level_counts\": level_counts\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:49.227516+00:00",
+    "description": "Get level statistics.",
+    "intent": "Get level statistics.",
+    "language": "python",
+    "name": "skip_list_level_stats",
+    "source_file": "neurop_forge/sources/skip_list.py",
+    "source_line_end": 234,
+    "source_line_start": 221,
+    "tags": [
+      "dict_operation",
+      "level",
+      "list",
+      "skip",
+      "sl",
+      "stats"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.227533+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(sl) == dict",
+      "sl is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(sl) == dict",
+      "sl is not None"
+    ]
+  }
+}

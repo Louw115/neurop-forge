@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a7197f92cc145f5066534e33cd4f2b77aab73e4bcb84f5b3d45bc2a7ce1e4332",
+    "semantic_fingerprint": "2a2df0dcdaf0530dfde4f46d984c142712f924d119202d602903efe43244175f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate transfer time in seconds.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter size_bytes",
+        "name": "size_bytes",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter bandwidth_mbps",
+        "name": "bandwidth_mbps",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_transfer_time",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_transfer_time(size_bytes: int, bandwidth_mbps: float) -> float:\n    \"\"\"Calculate transfer time in seconds.\"\"\"\n    if bandwidth_mbps <= 0:\n        return 0.0\n    bits = size_bytes * 8\n    return bits / (bandwidth_mbps * 1000000)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:47.468581+00:00",
+    "description": "Calculate transfer time in seconds.",
+    "intent": "Calculate transfer time in seconds.",
+    "language": "python",
+    "name": "calculate_transfer_time",
+    "source_file": "neurop_forge/sources/network_utilities.py",
+    "source_line_end": 204,
+    "source_line_start": 199,
+    "tags": [
+      "arithmetic",
+      "bandwidth_mbps",
+      "calculate",
+      "size_bytes",
+      "time",
+      "transfer"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.468600+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(size_bytes) == integer",
+      "size_bytes is not None",
+      "type(bandwidth_mbps) == float",
+      "bandwidth_mbps is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(size_bytes) == integer",
+      "size_bytes is not None",
+      "type(bandwidth_mbps) == float",
+      "bandwidth_mbps is not None"
+    ]
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic sorting block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "21edb3028a91ef90b97ab5a0e317be37004deb22e4b17c22d07508908d702224",
+    "semantic_fingerprint": "b79f0c2d03c3522e3578d38b659e183c8b4d24da2572b85b62fc7c326b827d0a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Sort notifications by timestamp.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter notifications",
+        "name": "notifications",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter newest_first",
+        "name": "newest_first",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of sort_by_timestamp",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def sort_by_timestamp(notifications: list, newest_first: bool) -> list:\n    \"\"\"Sort notifications by timestamp.\"\"\"\n    return sorted(notifications, key=lambda n: n.get(\"timestamp\", 0), reverse=newest_first)",
+  "metadata": {
+    "category": "sorting",
+    "created_at": "2026-01-10T02:18:52.854732+00:00",
+    "description": "Sort notifications by timestamp.",
+    "intent": "Sort notifications by timestamp.",
+    "language": "python",
+    "name": "sort_by_timestamp",
+    "source_file": "neurop_forge/sources/notification_helpers.py",
+    "source_line_end": 76,
+    "source_line_start": 74,
+    "tags": [
+      "newest_first",
+      "notifications",
+      "sort",
+      "sorting",
+      "timestamp"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.854750+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(notifications) == list",
+      "notifications is not None",
+      "type(newest_first) == boolean",
+      "newest_first is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(notifications) == list",
+      "notifications is not None",
+      "type(newest_first) == boolean",
+      "newest_first is not None"
+    ]
+  }
+}

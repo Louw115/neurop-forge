@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c1f4da1ed2facb5342365aed90142d6d4f2ad1d2c8e8d2e4d491f5a25ea67c8f",
+    "semantic_fingerprint": "a9ac934a728b028b2d42e1c9734fda838a8eec580c89147f159812dc283c223d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Validate a record against a set of rules.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter record",
+        "name": "record",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter rules",
+        "name": "rules",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of validate_record",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def validate_record(record: dict, rules: dict) -> dict:\n    \"\"\"Validate a record against a set of rules.\"\"\"\n    results = []\n    for field, validators in rules.items():\n        value = record.get(field)\n        for validator_name, params in validators.items():\n            if validator_name == \"not_null\":\n                results.append(check_not_null(value, field))\n            elif validator_name == \"not_empty\" and isinstance(value, str):\n                results.append(check_not_empty(value, field))\n            elif validator_name == \"min_length\" and isinstance(value, str):\n                results.append(check_min_length(value, params, field))\n            elif validator_name == \"max_length\" and isinstance(value, str):\n                results.append(check_max_length(value, params, field))\n            elif validator_name == \"positive\" and isinstance(value, (int, float)):\n                results.append(check_positive(value, field))\n            elif validator_name == \"non_negative\" and isinstance(value, (int, float)):\n                results.append(check_non_negative(value, field))\n            elif validator_name == \"in_list\":\n                results.append(check_in_list(value, params, field))\n            elif validator_name == \"pattern\" and isinstance(value, str):\n                results.append(check_pattern(value, params, field))\n    return combine_validation_results(results)",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:45.176309+00:00",
+    "description": "Validate a record against a set of rules.",
+    "intent": "Validate a record against a set of rules.",
+    "language": "python",
+    "name": "validate_record",
+    "source_file": "neurop_forge/sources/data_integrity.py",
+    "source_line_end": 191,
+    "source_line_start": 169,
+    "tags": [
+      "record",
+      "rules",
+      "validate",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.176331+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(record) == dict",
+      "record is not None",
+      "type(rules) == dict",
+      "rules is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(record) == dict",
+      "record is not None",
+      "type(rules) == dict",
+      "rules is not None"
+    ]
+  }
+}

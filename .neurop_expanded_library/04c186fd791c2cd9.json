@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic sorting block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "04c186fd791c2cd987681a8ffed206f60aaff75bc0a9e6bd28cf7fd113df7c2f",
+    "semantic_fingerprint": "3bbe48744eded1f0ffc535982f5bf66f81662dd7f23ce2efe81f29d06981a886",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Sort jobs by priority (highest first).",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter jobs",
+        "name": "jobs",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of sort_jobs_by_priority",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def sort_jobs_by_priority(jobs: list) -> list:\n    \"\"\"Sort jobs by priority (highest first).\"\"\"\n    return sorted(jobs, key=lambda j: j.get(\"priority\", 0), reverse=True)",
+  "metadata": {
+    "category": "sorting",
+    "created_at": "2026-01-10T02:18:46.084240+00:00",
+    "description": "Sort jobs by priority (highest first).",
+    "intent": "Sort jobs by priority (highest first).",
+    "language": "python",
+    "name": "sort_jobs_by_priority",
+    "source_file": "neurop_forge/sources/job_scheduling.py",
+    "source_line_end": 100,
+    "source_line_start": 98,
+    "tags": [
+      "jobs",
+      "priority",
+      "sort",
+      "sorting"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.084265+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(jobs) == list",
+      "jobs is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(jobs) == list",
+      "jobs is not None"
+    ]
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7a354359608a012d910eabe2d678e8990446b49acb2ae28b1446e32215b4a3f4",
+    "semantic_fingerprint": "baaea437fab7e7bfb2f72d50e96581a659fdba2e505183499c8f4ca373b48b99",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get all reviews for item.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter reviews",
+        "name": "reviews",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter item_id",
+        "name": "item_id",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of get_item_reviews",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_item_reviews(reviews: list, item_id: str) -> list:\n    \"\"\"Get all reviews for item.\"\"\"\n    return [r for r in reviews if r.get(\"item_id\") == item_id]",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:52.978030+00:00",
+    "description": "Get all reviews for item.",
+    "intent": "Get all reviews for item.",
+    "language": "python",
+    "name": "get_item_reviews",
+    "source_file": "neurop_forge/sources/review_utilities.py",
+    "source_line_end": 149,
+    "source_line_start": 147,
+    "tags": [
+      "filtering",
+      "get",
+      "item",
+      "item_id",
+      "reviews"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.978048+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(reviews) == list",
+      "reviews is not None",
+      "type(item_id) == string",
+      "item_id is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(reviews) == list",
+      "reviews is not None",
+      "type(item_id) == string",
+      "item_id is not None"
+    ]
+  }
+}

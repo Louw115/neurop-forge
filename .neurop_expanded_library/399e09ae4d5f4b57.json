@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "399e09ae4d5f4b57ed35eff4def4af1bdc243ea56d440cac8898139e54449955",
+    "semantic_fingerprint": "b519d05016e419d7504a07a3ebba12bf3aa85c70fce234bf7f811955ef2dd9d5",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Take n newest items.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter buffer",
+        "name": "buffer",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter n",
+        "name": "n",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of ring_take_latest",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def ring_take_latest(buffer: dict, n: int) -> list:\n    \"\"\"Take n newest items.\"\"\"\n    items = ring_to_list(buffer)\n    return items[-n:] if n < len(items) else items",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:49.069939+00:00",
+    "description": "Take n newest items.",
+    "intent": "Take n newest items.",
+    "language": "python",
+    "name": "ring_take_latest",
+    "source_file": "neurop_forge/sources/ring_buffer.py",
+    "source_line_end": 147,
+    "source_line_start": 144,
+    "tags": [
+      "buffer",
+      "latest",
+      "list_operation",
+      "n",
+      "ring",
+      "take"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.069966+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(buffer) == dict",
+      "buffer is not None",
+      "type(n) == integer",
+      "n is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(buffer) == dict",
+      "buffer is not None",
+      "type(n) == integer",
+      "n is not None"
+    ]
+  }
+}

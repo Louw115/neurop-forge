@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "435a14b77f1ce0a272151228ba6e1e2b8fc3d4689cac466e5d47fcbd569fa288",
+    "semantic_fingerprint": "7f51fe11f4783a66936d9f64766790b22453233f4c478b203883ea496ad1f4b2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Apply ROT13 encoding/decoding to a string.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of rot13",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def rot13(text: str) -> str:\n    \"\"\"Apply ROT13 encoding/decoding to a string.\"\"\"\n    if not text:\n        return \"\"\n    result = []\n    for char in text:\n        if 'a' <= char <= 'z':\n            result.append(chr((ord(char) - ord('a') + 13) % 26 + ord('a')))\n        elif 'A' <= char <= 'Z':\n            result.append(chr((ord(char) - ord('A') + 13) % 26 + ord('A')))\n        else:\n            result.append(char)\n    return ''.join(result)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:42.867239+00:00",
+    "description": "Apply ROT13 encoding/decoding to a string.",
+    "intent": "Apply ROT13 encoding/decoding to a string.",
+    "language": "python",
+    "name": "rot13",
+    "source_file": "neurop_forge/sources/encoding_utilities.py",
+    "source_line_end": 154,
+    "source_line_start": 142,
+    "tags": [
+      "rot13",
+      "string_manipulation",
+      "text"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:42.867256+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None"
+    ]
+  }
+}

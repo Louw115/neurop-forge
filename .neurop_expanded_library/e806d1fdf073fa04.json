@@ -1,0 +1,177 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e806d1fdf073fa046de4899e19cf47fbfc727cae14d86050637c3eaf301c9926",
+    "semantic_fingerprint": "9f76be6da578b3cc091d878beb9960e5af61e1d15ca03e1824f83a25bbd994d7",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add an edge to the graph.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter graph",
+        "name": "graph",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter from_node",
+        "name": "from_node",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter to_node",
+        "name": "to_node",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter weight",
+        "name": "weight",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter data",
+        "name": "data",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of add_edge",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def add_edge(graph: dict, from_node: str, to_node: str, weight: float, data: dict) -> dict:\n    \"\"\"Add an edge to the graph.\"\"\"\n    result = {\n        \"directed\": graph[\"directed\"],\n        \"nodes\": dict(graph[\"nodes\"]),\n        \"edges\": list(graph[\"edges\"])\n    }\n    result[\"edges\"].append({\n        \"from\": from_node,\n        \"to\": to_node,\n        \"weight\": weight,\n        \"data\": data\n    })\n    return result",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:47.192810+00:00",
+    "description": "Add an edge to the graph.",
+    "intent": "Add an edge to the graph.",
+    "language": "python",
+    "name": "add_edge",
+    "source_file": "neurop_forge/sources/graph_utilities.py",
+    "source_line_end": 55,
+    "source_line_start": 42,
+    "tags": [
+      "add",
+      "arithmetic",
+      "data",
+      "edge",
+      "from_node",
+      "graph",
+      "to_node",
+      "weight"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.192838+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(graph) == dict",
+      "graph is not None",
+      "type(from_node) == string",
+      "from_node is not None",
+      "type(to_node) == string",
+      "to_node is not None",
+      "type(weight) == float",
+      "weight is not None",
+      "type(data) == dict",
+      "data is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(graph) == dict",
+      "graph is not None",
+      "type(from_node) == string",
+      "from_node is not None",
+      "type(to_node) == string",
+      "to_node is not None",
+      "type(weight) == float",
+      "weight is not None",
+      "type(data) == dict",
+      "data is not None"
+    ]
+  }
+}

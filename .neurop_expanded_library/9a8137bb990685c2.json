@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9a8137bb990685c202cd65568c21fcdd974fe40319340b39a8db56991f633c69",
+    "semantic_fingerprint": "9b5e440c8d1e9e272deb0a2363a92105495fd95b53b149550584ae5830a19209",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Mask a credit card number.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter number",
+        "name": "number",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of mask_credit_card",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def mask_credit_card(number: str) -> str:\n    \"\"\"Mask a credit card number.\"\"\"\n    digits = \"\".join(c for c in number if c.isdigit())\n    if len(digits) < 4:\n        return \"*\" * len(number)\n    return \"*\" * (len(digits) - 4) + digits[-4:]",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:46.545318+00:00",
+    "description": "Mask a credit card number.",
+    "intent": "Mask a credit card number.",
+    "language": "python",
+    "name": "mask_credit_card",
+    "source_file": "neurop_forge/sources/security_patterns.py",
+    "source_line_end": 265,
+    "source_line_start": 260,
+    "tags": [
+      "card",
+      "credit",
+      "mask",
+      "number",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.545346+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(number) == string",
+      "number is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(number) == string",
+      "number is not None"
+    ]
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3d7261e01d48874d886fa159eb48f4064bd05696b5f66147713a1bc00433c709",
+    "semantic_fingerprint": "fcddb5405568f1219762ac9a3026096ac6f5c60e9a142208ba88806e8dbe0f4a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get Bank Identification Number (first 6 digits).",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter card",
+        "name": "card",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_bin",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_bin(card: str) -> str:\n    \"\"\"Get Bank Identification Number (first 6 digits).\"\"\"\n    digits = extract_digits(card)\n    return digits[:6] if len(digits) >= 6 else digits",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:52.411805+00:00",
+    "description": "Get Bank Identification Number (first 6 digits).",
+    "intent": "Get Bank Identification Number (first 6 digits).",
+    "language": "python",
+    "name": "get_bin",
+    "source_file": "neurop_forge/sources/credit_card_utilities.py",
+    "source_line_end": 111,
+    "source_line_start": 108,
+    "tags": [
+      "bin",
+      "card",
+      "filtering",
+      "get"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.411833+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(card) == string",
+      "card is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(card) == string",
+      "card is not None"
+    ]
+  }
+}

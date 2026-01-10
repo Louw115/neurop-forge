@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e747db46d600a231f501aa101fb7c2fd2248f124d42b88d06d45bc21270a0b28",
+    "semantic_fingerprint": "2fd81214fec36cea7f8d147d3c422a8bf08fa6b9a6dc59edc12608aafff6072e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add sorting to search query.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter query",
+        "name": "query",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter field",
+        "name": "field",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter direction",
+        "name": "direction",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of add_sort_to_query",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def add_sort_to_query(query: dict, field: str, direction: str) -> dict:\n    \"\"\"Add sorting to search query.\"\"\"\n    result = dict(query)\n    result[\"sort\"] = {\"field\": field, \"direction\": direction}\n    return result",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:47.038170+00:00",
+    "description": "Add sorting to search query.",
+    "intent": "Add sorting to search query.",
+    "language": "python",
+    "name": "add_sort_to_query",
+    "source_file": "neurop_forge/sources/search_patterns.py",
+    "source_line_end": 53,
+    "source_line_start": 49,
+    "tags": [
+      "add",
+      "arithmetic",
+      "direction",
+      "field",
+      "query",
+      "sort"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.038189+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(query) == dict",
+      "query is not None",
+      "type(field) == string",
+      "field is not None",
+      "type(direction) == string",
+      "direction is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(query) == dict",
+      "query is not None",
+      "type(field) == string",
+      "field is not None",
+      "type(direction) == string",
+      "direction is not None"
+    ]
+  }
+}

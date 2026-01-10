@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "6a889eb38f141eb4a9ee1ee1f384645537a99cd0d64d6907f0211292a8436091",
+    "semantic_fingerprint": "c1929790275b0dd4b15250261c16298a46cca0765b24c43f8b3a1c074544715d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if a connection has exceeded maximum age.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter created_at_timestamp",
+        "name": "created_at_timestamp",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_timestamp",
+        "name": "current_timestamp",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_age_seconds",
+        "name": "max_age_seconds",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_connection_stale",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_connection_stale(created_at_timestamp: int, current_timestamp: int, max_age_seconds: int) -> bool:\n    \"\"\"Check if a connection has exceeded maximum age.\"\"\"\n    return calculate_connection_age_seconds(created_at_timestamp, current_timestamp) > max_age_seconds",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:45.408835+00:00",
+    "description": "Check if a connection has exceeded maximum age.",
+    "intent": "Check if a connection has exceeded maximum age.",
+    "language": "python",
+    "name": "is_connection_stale",
+    "source_file": "neurop_forge/sources/connection_pool.py",
+    "source_line_end": 41,
+    "source_line_start": 39,
+    "tags": [
+      "connection",
+      "created_at_timestamp",
+      "current_timestamp",
+      "max_age_seconds",
+      "stale",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.408852+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(created_at_timestamp) == integer",
+      "created_at_timestamp is not None",
+      "type(current_timestamp) == integer",
+      "current_timestamp is not None",
+      "type(max_age_seconds) == integer",
+      "max_age_seconds is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(created_at_timestamp) == integer",
+      "created_at_timestamp is not None",
+      "type(current_timestamp) == integer",
+      "current_timestamp is not None",
+      "type(max_age_seconds) == integer",
+      "max_age_seconds is not None"
+    ]
+  }
+}

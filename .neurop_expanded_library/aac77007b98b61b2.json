@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "aac77007b98b61b2b079b93862854278e86f6803ae1da2fe23531339fa935fe6",
+    "semantic_fingerprint": "84fea19e4ccb6e9d51f146aa4108a60ca55ab31b48544171039d04a33aba9698",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Create a circular buffer.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter capacity",
+        "name": "capacity",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of create_circular_buffer",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def create_circular_buffer(capacity: int) -> dict:\n    \"\"\"Create a circular buffer.\"\"\"\n    return {\n        \"items\": [None] * capacity,\n        \"capacity\": capacity,\n        \"head\": 0,\n        \"tail\": 0,\n        \"size\": 0\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:48.399537+00:00",
+    "description": "Create a circular buffer.",
+    "intent": "Create a circular buffer.",
+    "language": "python",
+    "name": "create_circular_buffer",
+    "source_file": "neurop_forge/sources/queue_utilities.py",
+    "source_line_end": 132,
+    "source_line_start": 124,
+    "tags": [
+      "buffer",
+      "capacity",
+      "circular",
+      "create",
+      "dict_operation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.399561+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(capacity) == integer",
+      "capacity is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(capacity) == integer",
+      "capacity is not None"
+    ]
+  }
+}

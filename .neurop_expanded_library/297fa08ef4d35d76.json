@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "297fa08ef4d35d76045b71928fdd32892d3a07b63f4f3ef6bdabc3308f21c16c",
+    "semantic_fingerprint": "36adde5f0f1c771903238b3dd2c48a72338269c2335bd19818f49121ab30bab2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate approximate internal rate of return.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter cash_flows",
+        "name": "cash_flows",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_iterations",
+        "name": "max_iterations",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter tolerance",
+        "name": "tolerance",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_irr_approx",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_irr_approx(cash_flows: list, max_iterations: int, tolerance: float) -> float:\n    \"\"\"Calculate approximate internal rate of return.\"\"\"\n    if not cash_flows:\n        return 0.0\n    low_rate, high_rate = -50.0, 100.0\n    for _ in range(max_iterations):\n        mid_rate = (low_rate + high_rate) / 2\n        npv = calculate_npv(cash_flows, mid_rate)\n        if abs(npv) < tolerance:\n            return mid_rate\n        if npv > 0:\n            low_rate = mid_rate\n        else:\n            high_rate = mid_rate\n    return (low_rate + high_rate) / 2",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:47.597309+00:00",
+    "description": "Calculate approximate internal rate of return.",
+    "intent": "Calculate approximate internal rate of return.",
+    "language": "python",
+    "name": "calculate_irr_approx",
+    "source_file": "neurop_forge/sources/financial_utilities.py",
+    "source_line_end": 103,
+    "source_line_start": 89,
+    "tags": [
+      "approx",
+      "arithmetic",
+      "calculate",
+      "cash_flows",
+      "irr",
+      "max_iterations",
+      "tolerance"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.597330+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(cash_flows) == list",
+      "cash_flows is not None",
+      "type(max_iterations) == integer",
+      "max_iterations is not None",
+      "type(tolerance) == float",
+      "tolerance is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(cash_flows) == list",
+      "cash_flows is not None",
+      "type(max_iterations) == integer",
+      "max_iterations is not None",
+      "type(tolerance) == float",
+      "tolerance is not None"
+    ]
+  }
+}

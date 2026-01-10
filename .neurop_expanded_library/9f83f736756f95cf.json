@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9f83f736756f95cf049c0a7da752739ef9e6480e37d9953823fb840e4d3fde50",
+    "semantic_fingerprint": "6f3a278feaf82067d76f9c02c9d270b5081c02da063dc31595a9096130cfabf9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate break-even quantity.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter fixed_costs",
+        "name": "fixed_costs",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter price_per_unit",
+        "name": "price_per_unit",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter variable_cost_per_unit",
+        "name": "variable_cost_per_unit",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_break_even",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_break_even(fixed_costs: float, price_per_unit: float, variable_cost_per_unit: float) -> float:\n    \"\"\"Calculate break-even quantity.\"\"\"\n    margin = price_per_unit - variable_cost_per_unit\n    if margin <= 0:\n        return float('inf')\n    return fixed_costs / margin",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:47.602493+00:00",
+    "description": "Calculate break-even quantity.",
+    "intent": "Calculate break-even quantity.",
+    "language": "python",
+    "name": "calculate_break_even",
+    "source_file": "neurop_forge/sources/financial_utilities.py",
+    "source_line_end": 125,
+    "source_line_start": 120,
+    "tags": [
+      "arithmetic",
+      "break",
+      "calculate",
+      "even",
+      "fixed_costs",
+      "price_per_unit",
+      "variable_cost_per_unit"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.602513+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(fixed_costs) == float",
+      "fixed_costs is not None",
+      "type(price_per_unit) == float",
+      "price_per_unit is not None",
+      "type(variable_cost_per_unit) == float",
+      "variable_cost_per_unit is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(fixed_costs) == float",
+      "fixed_costs is not None",
+      "type(price_per_unit) == float",
+      "price_per_unit is not None",
+      "type(variable_cost_per_unit) == float",
+      "variable_cost_per_unit is not None"
+    ]
+  }
+}

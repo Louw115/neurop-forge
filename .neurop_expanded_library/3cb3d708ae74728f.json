@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "3cb3d708ae74728f98986dcfc9ea427318a7c346d8babb6faadd8d53caea4164",
+    "semantic_fingerprint": "7450b80e6d6253dbf8e940cd99429323d2c06b22046419aa7423fbb8d0c5cf5d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Record a call in throttle state.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter state",
+        "name": "state",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter timestamp",
+        "name": "timestamp",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of record_call",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def record_call(state: dict, timestamp: int) -> dict:\n    \"\"\"Record a call in throttle state.\"\"\"\n    window_start = timestamp - state[\"window_ms\"]\n    recent_calls = [t for t in state[\"calls\"] if t >= window_start]\n    recent_calls.append(timestamp)\n    return {\n        **state,\n        \"calls\": recent_calls\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:52.182694+00:00",
+    "description": "Record a call in throttle state.",
+    "intent": "Record a call in throttle state.",
+    "language": "python",
+    "name": "record_call",
+    "source_file": "neurop_forge/sources/throttle_utilities.py",
+    "source_line_end": 38,
+    "source_line_start": 30,
+    "tags": [
+      "call",
+      "dict_operation",
+      "record",
+      "state",
+      "timestamp"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.182719+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(state) == dict",
+      "state is not None",
+      "type(timestamp) == integer",
+      "timestamp is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(state) == dict",
+      "state is not None",
+      "type(timestamp) == integer",
+      "timestamp is not None"
+    ]
+  }
+}

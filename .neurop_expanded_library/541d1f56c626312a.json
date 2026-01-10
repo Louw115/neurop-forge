@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "541d1f56c626312abe833cf0b2aa1f36b851eccb382d897f86252e5421a907ac",
+    "semantic_fingerprint": "8c3ac9340dbc4dfca032a24cb044268da07d519f5c49e0a097e5ab2f514a228e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Reservoir sampling for streaming data.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter k",
+        "name": "k",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seed",
+        "name": "seed",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of reservoir_sample",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def reservoir_sample(items: list, k: int, seed: int) -> list:\n    \"\"\"Reservoir sampling for streaming data.\"\"\"\n    if len(items) <= k:\n        return list(items)\n    reservoir = list(items[:k])\n    for i in range(k, len(items)):\n        j = _hash_seed(seed, i) % (i + 1)\n        if j < k:\n            reservoir[j] = items[i]\n    return reservoir",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:48.765565+00:00",
+    "description": "Reservoir sampling for streaming data.",
+    "intent": "Reservoir sampling for streaming data.",
+    "language": "python",
+    "name": "reservoir_sample",
+    "source_file": "neurop_forge/sources/sampling_utilities.py",
+    "source_line_end": 107,
+    "source_line_start": 98,
+    "tags": [
+      "items",
+      "k",
+      "list_operation",
+      "reservoir",
+      "sample",
+      "seed"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.765585+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(items) == list",
+      "items is not None",
+      "type(k) == integer",
+      "k is not None",
+      "type(seed) == integer",
+      "seed is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(items) == list",
+      "items is not None",
+      "type(k) == integer",
+      "k is not None",
+      "type(seed) == integer",
+      "seed is not None"
+    ]
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic aggregation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ea4418485326043d6d0ed5da61474972f4ed2e1d563fbf943882cc5cf3a211fe",
+    "semantic_fingerprint": "07be2ade46ec4f476285438a2769852d7f54cc2a6c5dcbadd02f6a246b244600",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Group consecutive equal elements.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter arr",
+        "name": "arr",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of group_consecutive",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def group_consecutive(arr: list) -> list:\n    \"\"\"Group consecutive equal elements.\"\"\"\n    if not arr:\n        return []\n    groups = []\n    current = [arr[0]]\n    for item in arr[1:]:\n        if item == current[-1]:\n            current.append(item)\n        else:\n            groups.append(current)\n            current = [item]\n    groups.append(current)\n    return groups",
+  "metadata": {
+    "category": "aggregation",
+    "created_at": "2026-01-10T02:18:50.291025+00:00",
+    "description": "Group consecutive equal elements.",
+    "intent": "Group consecutive equal elements.",
+    "language": "python",
+    "name": "group_consecutive",
+    "source_file": "neurop_forge/sources/array_algorithms.py",
+    "source_line_end": 204,
+    "source_line_start": 191,
+    "tags": [
+      "aggregation",
+      "arr",
+      "consecutive",
+      "group"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:50.291050+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(arr) == list",
+      "arr is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(arr) == list",
+      "arr is not None"
+    ]
+  }
+}

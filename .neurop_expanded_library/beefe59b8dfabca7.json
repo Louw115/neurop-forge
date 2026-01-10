@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "beefe59b8dfabca7b96f74ef880386c4a3b75369e763d95038115ea9c5c10c01",
+    "semantic_fingerprint": "2348a3f9106e9d5aa1a94218a3746ec347c2538ba77454897ff25c5fb35f70a2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Pop oldest item from ring buffer.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter buffer",
+        "name": "buffer",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of ring_pop",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def ring_pop(buffer: dict) -> dict:\n    \"\"\"Pop oldest item from ring buffer.\"\"\"\n    if buffer[\"size\"] == 0:\n        return {\"buffer\": buffer, \"item\": None}\n    item = buffer[\"items\"][buffer[\"head\"]]\n    items = list(buffer[\"items\"])\n    items[buffer[\"head\"]] = None\n    new_head = (buffer[\"head\"] + 1) % buffer[\"capacity\"]\n    return {\n        \"buffer\": {\n            \"items\": items,\n            \"capacity\": buffer[\"capacity\"],\n            \"head\": new_head,\n            \"tail\": buffer[\"tail\"],\n            \"size\": buffer[\"size\"] - 1,\n            \"full\": False\n        },\n        \"item\": item\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:49.049642+00:00",
+    "description": "Pop oldest item from ring buffer.",
+    "intent": "Pop oldest item from ring buffer.",
+    "language": "python",
+    "name": "ring_pop",
+    "source_file": "neurop_forge/sources/ring_buffer.py",
+    "source_line_end": 63,
+    "source_line_start": 45,
+    "tags": [
+      "buffer",
+      "list_operation",
+      "pop",
+      "ring"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.049661+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(buffer) == dict",
+      "buffer is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(buffer) == dict",
+      "buffer is not None"
+    ]
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8d4dff2246b725cc87ff0497721956d88652b0f1176292e3e9a94494deeb6331",
+    "semantic_fingerprint": "2d38f59cb0787342e623a98f2793daef7426975c30b9483557d2c8847d050d87",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Tokenize a mathematical expression.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter expr",
+        "name": "expr",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of tokenize_expression",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def tokenize_expression(expr: str) -> list:\n    \"\"\"Tokenize a mathematical expression.\"\"\"\n    tokens = []\n    i = 0\n    while i < len(expr):\n        char = expr[i]\n        if char.isspace():\n            i += 1\n            continue\n        if char.isdigit() or char == \".\":\n            j = i\n            while j < len(expr) and (expr[j].isdigit() or expr[j] == \".\"):\n                j += 1\n            tokens.append({\"type\": \"number\", \"value\": float(expr[i:j])})\n            i = j\n        elif char.isalpha():\n            j = i\n            while j < len(expr) and (expr[j].isalnum() or expr[j] == \"_\"):\n                j += 1\n            tokens.append({\"type\": \"identifier\", \"value\": expr[i:j]})\n            i = j\n        elif char in \"+-*/%^\":\n            tokens.append({\"type\": \"operator\", \"value\": char})\n            i += 1\n        elif char in \"()\":\n            tokens.append({\"type\": \"paren\", \"value\": char})\n            i += 1\n        elif char == \",\":\n            tokens.append({\"type\": \"comma\", \"value\": \",\"})\n            i += 1\n        else:\n            i += 1\n    return tokens",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:49.584672+00:00",
+    "description": "Tokenize a mathematical expression.",
+    "intent": "Tokenize a mathematical expression.",
+    "language": "python",
+    "name": "tokenize_expression",
+    "source_file": "neurop_forge/sources/expression_parser.py",
+    "source_line_end": 44,
+    "source_line_start": 12,
+    "tags": [
+      "expr",
+      "expression",
+      "string_manipulation",
+      "tokenize"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.584699+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(expr) == string",
+      "expr is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(expr) == string",
+      "expr is not None"
+    ]
+  }
+}

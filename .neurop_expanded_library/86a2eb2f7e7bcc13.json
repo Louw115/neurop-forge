@@ -1,0 +1,132 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception",
+      "KeyError"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "86a2eb2f7e7bcc13eda0935d789f83a38d2d7510b8b8e28f62c79d778fa885d7",
+    "semantic_fingerprint": "aec1600a4ec4319f7d1a127c8f2fe0b50d67d6153c69bb540812b60c6c08a628",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a PRIMARY KEY constraint.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter columns",
+        "name": "columns",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_primary_key_constraint",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_primary_key_constraint(columns: list) -> str:\n    \"\"\"Build a PRIMARY KEY constraint.\"\"\"\n    col_list = \", \".join(escape_sql_identifier(col) for col in columns)\n    return f\"PRIMARY KEY ({col_list})\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:44.709102+00:00",
+    "description": "Build a PRIMARY KEY constraint.",
+    "intent": "Build a PRIMARY KEY constraint.",
+    "language": "python",
+    "name": "build_primary_key_constraint",
+    "source_file": "neurop_forge/sources/sql_building.py",
+    "source_line_end": 337,
+    "source_line_start": 334,
+    "tags": [
+      "build",
+      "columns",
+      "constraint",
+      "key",
+      "primary",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.709135+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(columns) == list",
+      "columns is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(columns) == list",
+      "columns is not None"
+    ]
+  }
+}

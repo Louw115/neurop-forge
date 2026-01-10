@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1de903656fbfc00e7974aa21b1eb0641c75a0fc308db9b0fc9b7adf5ef09f6a3",
+    "semantic_fingerprint": "cd0a7fc3cb52e364f301b33925fc1ee5929dd98f396e6761724bc070f9b072df",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Estimate transaction duration in milliseconds.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter statement_count",
+        "name": "statement_count",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter complexity",
+        "name": "complexity",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of estimate_transaction_duration",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def estimate_transaction_duration(statement_count: int, complexity: str) -> int:\n    \"\"\"Estimate transaction duration in milliseconds.\"\"\"\n    base_per_statement = {\"simple\": 5, \"medium\": 20, \"complex\": 100}\n    base = base_per_statement.get(complexity, 20)\n    return statement_count * base",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:45.103315+00:00",
+    "description": "Estimate transaction duration in milliseconds.",
+    "intent": "Estimate transaction duration in milliseconds.",
+    "language": "python",
+    "name": "estimate_transaction_duration",
+    "source_file": "neurop_forge/sources/transaction_helpers.py",
+    "source_line_end": 255,
+    "source_line_start": 251,
+    "tags": [
+      "arithmetic",
+      "complexity",
+      "duration",
+      "estimate",
+      "statement_count",
+      "transaction"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.103333+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(statement_count) == integer",
+      "statement_count is not None",
+      "type(complexity) == string",
+      "complexity is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(statement_count) == integer",
+      "statement_count is not None",
+      "type(complexity) == string",
+      "complexity is not None"
+    ]
+  }
+}

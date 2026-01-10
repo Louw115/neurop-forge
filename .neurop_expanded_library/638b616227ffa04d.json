@@ -1,0 +1,139 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "638b616227ffa04d2bddf23ad6031940216d6b04601a2e5142fc464506272e75",
+    "semantic_fingerprint": "f007afa5870e31fee40cfb0bc15220c333e74f7d44a57e6583471b329b7e0b28",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if no items match predicate.",
+    "inputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter predicate",
+        "name": "predicate",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter items",
+        "name": "items",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of none_match",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def none_match(predicate, items: list) -> bool:\n    \"\"\"Check if no items match predicate.\"\"\"\n    return not any(predicate(item) for item in items)",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:49.708252+00:00",
+    "description": "Check if no items match predicate.",
+    "intent": "Check if no items match predicate.",
+    "language": "python",
+    "name": "none_match",
+    "source_file": "neurop_forge/sources/functional_utilities.py",
+    "source_line_end": 211,
+    "source_line_start": 209,
+    "tags": [
+      "items",
+      "match",
+      "none",
+      "predicate",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.708268+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "predicate is not None",
+      "type(items) == list",
+      "items is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "predicate is not None",
+      "type(items) == list",
+      "items is not None"
+    ]
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f97de13a6919a9354626198928d610dd5c627cd4d7550e5cb276a654ec278ed6",
+    "semantic_fingerprint": "a5c98eedca045ea4866ba9e8a6f29d608d2ee586a0d1fe896e81b212cc0aa9d0",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate installment payment amount.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter total",
+        "name": "total",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter num_installments",
+        "name": "num_installments",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter fee_percent",
+        "name": "fee_percent",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_installment_amount",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_installment_amount(total: float, num_installments: int, fee_percent: float) -> float:\n    \"\"\"Calculate installment payment amount.\"\"\"\n    total_with_fee = total * (1 + fee_percent / 100)\n    return total_with_fee / num_installments",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:46.754724+00:00",
+    "description": "Calculate installment payment amount.",
+    "intent": "Calculate installment payment amount.",
+    "language": "python",
+    "name": "calculate_installment_amount",
+    "source_file": "neurop_forge/sources/ecommerce_patterns.py",
+    "source_line_end": 182,
+    "source_line_start": 179,
+    "tags": [
+      "amount",
+      "arithmetic",
+      "calculate",
+      "fee_percent",
+      "installment",
+      "num_installments",
+      "total"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.754743+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(total) == float",
+      "total is not None",
+      "type(num_installments) == integer",
+      "num_installments is not None",
+      "type(fee_percent) == float",
+      "fee_percent is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(total) == float",
+      "total is not None",
+      "type(num_installments) == integer",
+      "num_installments is not None",
+      "type(fee_percent) == float",
+      "fee_percent is not None"
+    ]
+  }
+}

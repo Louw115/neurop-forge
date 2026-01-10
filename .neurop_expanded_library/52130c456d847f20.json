@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "52130c456d847f20b7c35463ccf3247d4d137291e9a3e2e0a6ba9bad2cfe45b5",
+    "semantic_fingerprint": "0ec54b6f6348524628baf566a1179475ab0dbfd1340e84d6677b1da1f6be57c8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add role inheritance.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter role",
+        "name": "role",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter parent_role_id",
+        "name": "parent_role_id",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of add_role_inheritance",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def add_role_inheritance(role: dict, parent_role_id: str) -> dict:\n    \"\"\"Add role inheritance.\"\"\"\n    result = dict(role)\n    result[\"inherits\"] = list(role.get(\"inherits\", []))\n    if parent_role_id not in result[\"inherits\"]:\n        result[\"inherits\"].append(parent_role_id)\n    return result",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:47.754040+00:00",
+    "description": "Add role inheritance.",
+    "intent": "Add role inheritance.",
+    "language": "python",
+    "name": "add_role_inheritance",
+    "source_file": "neurop_forge/sources/permission_utilities.py",
+    "source_line_end": 57,
+    "source_line_start": 51,
+    "tags": [
+      "add",
+      "arithmetic",
+      "inheritance",
+      "parent_role_id",
+      "role"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.754065+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(role) == dict",
+      "role is not None",
+      "type(parent_role_id) == string",
+      "parent_role_id is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(role) == dict",
+      "role is not None",
+      "type(parent_role_id) == string",
+      "parent_role_id is not None"
+    ]
+  }
+}

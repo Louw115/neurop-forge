@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d54089bf91aa8ec6c997027b5d987c3c5e063a82fc045044c30dfa5b68248354",
+    "semantic_fingerprint": "d53a72cf8358a78cec800da47dce7da8052ce1079d15e88f244d598f3bbbd8af",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Convert BST to dictionary.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter tree",
+        "name": "tree",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of bst_to_dict",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def bst_to_dict(tree: dict) -> dict:\n    \"\"\"Convert BST to dictionary.\"\"\"\n    result = {}\n    def collect(node):\n        if node:\n            collect(node[\"left\"])\n            result[node[\"key\"]] = node[\"value\"]\n            collect(node[\"right\"])\n    collect(tree[\"root\"])\n    return result",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T02:18:48.941593+00:00",
+    "description": "Convert BST to dictionary.",
+    "intent": "Convert BST to dictionary.",
+    "language": "python",
+    "name": "bst_to_dict",
+    "source_file": "neurop_forge/sources/binary_search_tree.py",
+    "source_line_end": 240,
+    "source_line_start": 231,
+    "tags": [
+      "bst",
+      "dict",
+      "transformation",
+      "tree"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.941611+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(tree) == dict",
+      "tree is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(tree) == dict",
+      "tree is not None"
+    ]
+  }
+}

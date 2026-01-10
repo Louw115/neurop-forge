@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "534103f5823db90459fb0a5443125acc57c088f4ce4ba9533b5cb3bd6136c06a",
+    "semantic_fingerprint": "7cf54047b78da4e794cd109c31d2e3a92a9a8c13922f32fe38d7fec4cd4be77d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Create order summary.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter order",
+        "name": "order",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of create_order_summary",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def create_order_summary(order: dict) -> dict:\n    \"\"\"Create order summary.\"\"\"\n    items = order.get(\"items\", [])\n    return {\n        \"order_id\": order[\"order_id\"],\n        \"status\": order[\"status\"],\n        \"item_count\": get_order_item_count(order),\n        \"unique_items\": get_unique_item_count(order),\n        \"subtotal\": calculate_order_subtotal(items)\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:52.621669+00:00",
+    "description": "Create order summary.",
+    "intent": "Create order summary.",
+    "language": "python",
+    "name": "create_order_summary",
+    "source_file": "neurop_forge/sources/order_utilities.py",
+    "source_line_end": 142,
+    "source_line_start": 133,
+    "tags": [
+      "create",
+      "dict_operation",
+      "order",
+      "summary"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.621695+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(order) == dict",
+      "order is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(order) == dict",
+      "order is not None"
+    ]
+  }
+}

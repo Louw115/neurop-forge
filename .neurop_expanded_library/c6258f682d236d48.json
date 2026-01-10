@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c6258f682d236d48f5f1d812e75f2e5d217c8c29df14218f3fe3a9cc417990db",
+    "semantic_fingerprint": "a76e7f2a8ba87dddfe5b24bfec0a06b5bb6d9b08f765c7b11a88e009fca3575d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate deterministic random integer in range.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seed",
+        "name": "seed",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter min_val",
+        "name": "min_val",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_val",
+        "name": "max_val",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of random_int",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def random_int(seed: int, min_val: int, max_val: int) -> int:\n    \"\"\"Generate deterministic random integer in range.\"\"\"\n    h = _hash_seed(seed, 0)\n    return min_val + (h % (max_val - min_val + 1))",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:48.749385+00:00",
+    "description": "Generate deterministic random integer in range.",
+    "intent": "Generate deterministic random integer in range.",
+    "language": "python",
+    "name": "random_int",
+    "source_file": "neurop_forge/sources/sampling_utilities.py",
+    "source_line_end": 24,
+    "source_line_start": 21,
+    "tags": [
+      "arithmetic",
+      "int",
+      "max_val",
+      "min_val",
+      "random",
+      "seed"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.749414+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(seed) == integer",
+      "seed is not None",
+      "type(min_val) == integer",
+      "min_val is not None",
+      "type(max_val) == integer",
+      "max_val is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(seed) == integer",
+      "seed is not None",
+      "type(min_val) == integer",
+      "min_val is not None",
+      "type(max_val) == integer",
+      "max_val is not None"
+    ]
+  }
+}

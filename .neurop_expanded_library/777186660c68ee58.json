@@ -1,0 +1,150 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "777186660c68ee58df707a574a9cd844fc2383a9bbbe4d3aae992ae1b8fdfba8",
+    "semantic_fingerprint": "df832911913da32b2238709bd1f9f7006f63bc868f4fd40e780b62552a34ff11",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Insert a key-value pair into trie.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter trie",
+        "name": "trie",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of trie_insert",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def trie_insert(trie: dict, key: str, value) -> dict:\n    \"\"\"Insert a key-value pair into trie.\"\"\"\n    def insert_helper(node: dict, key: str, pos: int, value) -> dict:\n        result = {\n            \"children\": dict(node[\"children\"]),\n            \"is_end\": node[\"is_end\"],\n            \"value\": node[\"value\"]\n        }\n        if pos == len(key):\n            result[\"is_end\"] = True\n            result[\"value\"] = value\n            return result\n        char = key[pos]\n        if char in result[\"children\"]:\n            result[\"children\"][char] = insert_helper(result[\"children\"][char], key, pos + 1, value)\n        else:\n            new_node = create_trie_node()\n            result[\"children\"][char] = insert_helper(new_node, key, pos + 1, value)\n        return result\n    new_root = insert_helper(trie[\"root\"], key, 0, value)\n    return {\"root\": new_root, \"size\": trie[\"size\"] + 1}",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:48.663964+00:00",
+    "description": "Insert a key-value pair into trie.",
+    "intent": "Insert a key-value pair into trie.",
+    "language": "python",
+    "name": "trie_insert",
+    "source_file": "neurop_forge/sources/trie_utilities.py",
+    "source_line_end": 42,
+    "source_line_start": 22,
+    "tags": [
+      "dict_operation",
+      "insert",
+      "key",
+      "trie",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.664003+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(trie) == dict",
+      "trie is not None",
+      "type(key) == string",
+      "key is not None",
+      "value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(trie) == dict",
+      "trie is not None",
+      "type(key) == string",
+      "key is not None",
+      "value is not None"
+    ]
+  }
+}

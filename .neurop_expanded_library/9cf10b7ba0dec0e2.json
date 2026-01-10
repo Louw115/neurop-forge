@@ -1,0 +1,138 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9cf10b7ba0dec0e21d3c3eede47dd2128bf290a134d966ab4cf5d532763f46bd",
+    "semantic_fingerprint": "1c635520cbeb35a26fc54b1062bf636e8ed957513ae3d9c7651870fa06cda7e1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Recover from rejected promise.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter promise",
+        "name": "promise",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter recovery_fn",
+        "name": "recovery_fn",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of recover_promise",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def recover_promise(promise: dict, recovery_fn) -> dict:\n    \"\"\"Recover from rejected promise.\"\"\"\n    if not is_rejected(promise):\n        return promise\n    return {\n        \"id\": promise[\"id\"],\n        \"status\": \"resolved\",\n        \"value\": recovery_fn(promise[\"error\"]),\n        \"error\": None,\n        \"timestamp\": promise[\"timestamp\"]\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:49.017216+00:00",
+    "description": "Recover from rejected promise.",
+    "intent": "Recover from rejected promise.",
+    "language": "python",
+    "name": "recover_promise",
+    "source_file": "neurop_forge/sources/promise_utilities.py",
+    "source_line_end": 104,
+    "source_line_start": 94,
+    "tags": [
+      "dict_operation",
+      "promise",
+      "recover",
+      "recovery_fn"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.017234+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(promise) == dict",
+      "promise is not None",
+      "recovery_fn is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(promise) == dict",
+      "promise is not None",
+      "recovery_fn is not None"
+    ]
+  }
+}

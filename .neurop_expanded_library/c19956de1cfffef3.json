@@ -1,0 +1,178 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c19956de1cfffef389fd11e3566561e067b925488d3b18e4b8ecc387377839ab",
+    "semantic_fingerprint": "ac151a9fdd98714300def17bb6168b1bfceb1c1a20be7202f19453909844fd58",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a connection string from components.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter protocol",
+        "name": "protocol",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter host",
+        "name": "host",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter port",
+        "name": "port",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter path",
+        "name": "path",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter auth",
+        "name": "auth",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_connection_string",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_connection_string(protocol: str, host: str, port: int, path: str, auth: str) -> str:\n    \"\"\"Build a connection string from components.\"\"\"\n    result = f\"{protocol}://\"\n    if auth:\n        result += f\"{auth}@\"\n    result += host\n    if port:\n        result += f\":{port}\"\n    if path:\n        result += f\"/{path}\"\n    return result",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:44.120037+00:00",
+    "description": "Build a connection string from components.",
+    "intent": "Build a connection string from components.",
+    "language": "python",
+    "name": "build_connection_string",
+    "source_file": "neurop_forge/sources/configuration_utilities.py",
+    "source_line_end": 189,
+    "source_line_start": 179,
+    "tags": [
+      "auth",
+      "build",
+      "connection",
+      "host",
+      "path",
+      "port",
+      "protocol",
+      "string",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.120068+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(protocol) == string",
+      "protocol is not None",
+      "type(host) == string",
+      "host is not None",
+      "type(port) == integer",
+      "port is not None",
+      "type(path) == string",
+      "path is not None",
+      "type(auth) == string",
+      "auth is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(protocol) == string",
+      "protocol is not None",
+      "type(host) == string",
+      "host is not None",
+      "type(port) == integer",
+      "port is not None",
+      "type(path) == string",
+      "path is not None",
+      "type(auth) == string",
+      "auth is not None"
+    ]
+  }
+}

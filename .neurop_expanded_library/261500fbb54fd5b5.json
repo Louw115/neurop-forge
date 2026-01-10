@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "261500fbb54fd5b54e59a711e5d3f426430dbbf07083664871f1d392407d312d",
+    "semantic_fingerprint": "8c3b88af3c4fb745c6734c48f4ab7319b97d344605867da9ef8cfc70e1de9243",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build the column portion of an INSERT statement.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter columns",
+        "name": "columns",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_insert_columns",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_insert_columns(columns: list) -> str:\n    \"\"\"Build the column portion of an INSERT statement.\"\"\"\n    return \"(\" + build_column_list(columns) + \")\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:44.619336+00:00",
+    "description": "Build the column portion of an INSERT statement.",
+    "intent": "Build the column portion of an INSERT statement.",
+    "language": "python",
+    "name": "build_insert_columns",
+    "source_file": "neurop_forge/sources/sql_building.py",
+    "source_line_end": 47,
+    "source_line_start": 45,
+    "tags": [
+      "build",
+      "columns",
+      "insert",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.619355+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(columns) == list",
+      "columns is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(columns) == list",
+      "columns is not None"
+    ]
+  }
+}

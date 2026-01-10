@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "dc5fc0823c9e2a2e9c7ae66a80f0775d2d8801e861e3e4116c1f060042dd53b5",
+    "semantic_fingerprint": "656adfd26ab2687f7c616714b44efd7b6e4023e2aebd3a28a884b7e542c657b3",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if card is a known test card.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter card",
+        "name": "card",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_test_card",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_test_card(card: str) -> bool:\n    \"\"\"Check if card is a known test card.\"\"\"\n    test_cards = [\n        \"4111111111111111\",\n        \"5555555555554444\",\n        \"378282246310005\",\n        \"6011111111111117\",\n        \"4242424242424242\"\n    ]\n    return extract_digits(card) in test_cards",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:52.414439+00:00",
+    "description": "Check if card is a known test card.",
+    "intent": "Check if card is a known test card.",
+    "language": "python",
+    "name": "is_test_card",
+    "source_file": "neurop_forge/sources/credit_card_utilities.py",
+    "source_line_end": 123,
+    "source_line_start": 114,
+    "tags": [
+      "card",
+      "test",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.414487+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(card) == string",
+      "card is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(card) == string",
+      "card is not None"
+    ]
+  }
+}

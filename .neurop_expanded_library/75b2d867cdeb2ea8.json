@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "75b2d867cdeb2ea8f19e8a840c5d081772966c7aea1c5ad8abd4ea735e53f2d1",
+    "semantic_fingerprint": "4ffa3495dde4738a95cb2bce33f4b0e6afa10fd6cc1a7542fba55a50af0ff83f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Random eviction using deterministic seed.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter keys",
+        "name": "keys",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seed",
+        "name": "seed",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of random_evict",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def random_evict(keys: list, seed: int) -> str:\n    \"\"\"Random eviction using deterministic seed.\"\"\"\n    if not keys:\n        return None\n    h = hashlib.sha256(str(seed).encode()).digest()\n    idx = h[0] % len(keys)\n    return keys[idx]",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:51.046700+00:00",
+    "description": "Random eviction using deterministic seed.",
+    "intent": "Random eviction using deterministic seed.",
+    "language": "python",
+    "name": "random_evict",
+    "source_file": "neurop_forge/sources/cache_strategies.py",
+    "source_line_end": 103,
+    "source_line_start": 97,
+    "tags": [
+      "evict",
+      "keys",
+      "random",
+      "seed",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:51.046728+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(keys) == list",
+      "keys is not None",
+      "type(seed) == integer",
+      "seed is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(keys) == list",
+      "keys is not None",
+      "type(seed) == integer",
+      "seed is not None"
+    ]
+  }
+}

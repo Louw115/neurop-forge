@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "622300fde3e654e4689bdfffa1108aae38cce242d9c0abd88f42c483e07c304d",
+    "semantic_fingerprint": "225da65760748d8eacf7e8832412bc1ef0b7b920c8a4cf4210f0519cf7d54d38",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate notification send delay in seconds.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter priority",
+        "name": "priority",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter is_quiet_hours",
+        "name": "is_quiet_hours",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of calculate_send_delay",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_send_delay(priority: str, is_quiet_hours: bool) -> int:\n    \"\"\"Calculate notification send delay in seconds.\"\"\"\n    if priority == \"urgent\":\n        return 0\n    if priority == \"high\":\n        return 60 if is_quiet_hours else 0\n    if priority == \"normal\":\n        return 3600 if is_quiet_hours else 300\n    return 3600",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:46.819181+00:00",
+    "description": "Calculate notification send delay in seconds.",
+    "intent": "Calculate notification send delay in seconds.",
+    "language": "python",
+    "name": "calculate_send_delay",
+    "source_file": "neurop_forge/sources/notification_patterns.py",
+    "source_line_end": 120,
+    "source_line_start": 112,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "delay",
+      "is_quiet_hours",
+      "priority",
+      "send"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.819212+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(priority) == string",
+      "priority is not None",
+      "type(is_quiet_hours) == boolean",
+      "is_quiet_hours is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(priority) == string",
+      "priority is not None",
+      "type(is_quiet_hours) == boolean",
+      "is_quiet_hours is not None"
+    ]
+  }
+}

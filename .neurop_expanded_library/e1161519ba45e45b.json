@@ -1,0 +1,155 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e1161519ba45e45bd3f9966a750cbc2f5b781b2fbbe7629b912e3a4ebe039955",
+    "semantic_fingerprint": "f06cc9714d984111b1de588a25c0a9c1aa54b29719e4d5adcc79c51fbb27ad3d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate total interest paid over loan term.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter principal",
+        "name": "principal",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter annual_rate",
+        "name": "annual_rate",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter months",
+        "name": "months",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of calculate_total_interest_paid",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_total_interest_paid(principal: float, annual_rate: float, months: int) -> float:\n    \"\"\"Calculate total interest paid over loan term.\"\"\"\n    monthly_payment = calculate_monthly_payment(principal, annual_rate, months)\n    return (monthly_payment * months) - principal",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:47.589559+00:00",
+    "description": "Calculate total interest paid over loan term.",
+    "intent": "Calculate total interest paid over loan term.",
+    "language": "python",
+    "name": "calculate_total_interest_paid",
+    "source_file": "neurop_forge/sources/financial_utilities.py",
+    "source_line_end": 64,
+    "source_line_start": 61,
+    "tags": [
+      "annual_rate",
+      "arithmetic",
+      "calculate",
+      "interest",
+      "months",
+      "paid",
+      "principal",
+      "total"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.589579+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(principal) == float",
+      "principal is not None",
+      "type(annual_rate) == float",
+      "annual_rate is not None",
+      "type(months) == integer",
+      "months is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(principal) == float",
+      "principal is not None",
+      "type(annual_rate) == float",
+      "annual_rate is not None",
+      "type(months) == integer",
+      "months is not None"
+    ]
+  }
+}

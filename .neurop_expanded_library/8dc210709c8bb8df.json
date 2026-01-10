@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8dc210709c8bb8df77f6920ea2763b3ce3c72596fd32e3bf683c093e26a4fbfd",
+    "semantic_fingerprint": "bd035d3a0896ee5186e28f4f3807c90010508c47c89a3cd22ab98b44070d0f67",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if any promise is resolved.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter promises",
+        "name": "promises",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of any_resolved",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def any_resolved(promises: list) -> bool:\n    \"\"\"Check if any promise is resolved.\"\"\"\n    return any(is_resolved(p) for p in promises)",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:49.019520+00:00",
+    "description": "Check if any promise is resolved.",
+    "intent": "Check if any promise is resolved.",
+    "language": "python",
+    "name": "any_resolved",
+    "source_file": "neurop_forge/sources/promise_utilities.py",
+    "source_line_end": 114,
+    "source_line_start": 112,
+    "tags": [
+      "any",
+      "promises",
+      "resolved",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.019534+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(promises) == list",
+      "promises is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(promises) == list",
+      "promises is not None"
+    ]
+  }
+}

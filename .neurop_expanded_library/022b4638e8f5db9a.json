@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "022b4638e8f5db9a542e072f8bec24248be6fe20368a8388615951cfd79e3164",
+    "semantic_fingerprint": "02b9928c6e98234955cfd9e88e8f7b92c1388946d3eb8b44bea9bcc9f390d179",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Decode a URL-safe base64 string.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter encoded",
+        "name": "encoded",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of base64_url_decode",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def base64_url_decode(encoded: str) -> str:\n    \"\"\"Decode a URL-safe base64 string.\"\"\"\n    if not encoded:\n        return \"\"\n    try:\n        return base64.urlsafe_b64decode(encoded.encode('utf-8')).decode('utf-8')\n    except Exception:\n        return \"\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:42.857472+00:00",
+    "description": "Decode a URL-safe base64 string.",
+    "intent": "Decode a URL-safe base64 string.",
+    "language": "python",
+    "name": "base64_url_decode",
+    "source_file": "neurop_forge/sources/encoding_utilities.py",
+    "source_line_end": 81,
+    "source_line_start": 74,
+    "tags": [
+      "base64",
+      "decode",
+      "encoded",
+      "string_manipulation",
+      "url"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:42.857490+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(encoded) == string",
+      "encoded is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(encoded) == string",
+      "encoded is not None"
+    ]
+  }
+}

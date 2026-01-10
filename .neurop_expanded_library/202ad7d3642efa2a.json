@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "202ad7d3642efa2af0cb4c4104fb4f42a5e744a7f46ed004e96a30570eb48a0a",
+    "semantic_fingerprint": "b6ed2c8aab337c3a6a3be675deb06961a783f3e48de63c8d484fbeeba374ab38",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get all ancestor nodes.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter root",
+        "name": "root",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter node_id",
+        "name": "node_id",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of get_ancestors",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_ancestors(root: dict, node_id: str) -> list:\n    \"\"\"Get all ancestor nodes.\"\"\"\n    path = get_node_path(root, node_id)\n    if len(path) <= 1:\n        return []\n    ancestors = []\n    current = root\n    for p in path[:-1]:\n        if current[\"id\"] == p:\n            ancestors.append(current)\n        for child in current.get(\"children\", []):\n            if child[\"id\"] in path:\n                current = child\n                break\n    return ancestors",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:48.261949+00:00",
+    "description": "Get all ancestor nodes.",
+    "intent": "Get all ancestor nodes.",
+    "language": "python",
+    "name": "get_ancestors",
+    "source_file": "neurop_forge/sources/tree_utilities.py",
+    "source_line_end": 212,
+    "source_line_start": 198,
+    "tags": [
+      "ancestors",
+      "filtering",
+      "get",
+      "node_id",
+      "root"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.261968+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(root) == dict",
+      "root is not None",
+      "type(node_id) == string",
+      "node_id is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(root) == dict",
+      "root is not None",
+      "type(node_id) == string",
+      "node_id is not None"
+    ]
+  }
+}

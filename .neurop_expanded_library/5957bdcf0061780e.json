@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "5957bdcf0061780e50ed99c08cdb2918bfacfd9efa1d5f82bf11d624cdebc9ef",
+    "semantic_fingerprint": "f90d053437b87f4e121d7c9e76722806d1401247725a4d455dc1f828d4638bfe",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Filter events by type.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter events",
+        "name": "events",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter event_types",
+        "name": "event_types",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of filter_events_by_type",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def filter_events_by_type(events: list, event_types: list) -> list:\n    \"\"\"Filter events by type.\"\"\"\n    if not event_types:\n        return events\n    type_set = set(event_types)\n    return [e for e in events if e.get(\"type\") in type_set]",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:46.205372+00:00",
+    "description": "Filter events by type.",
+    "intent": "Filter events by type.",
+    "language": "python",
+    "name": "filter_events_by_type",
+    "source_file": "neurop_forge/sources/event_sourcing.py",
+    "source_line_end": 57,
+    "source_line_start": 52,
+    "tags": [
+      "event_types",
+      "events",
+      "filter",
+      "filtering",
+      "type"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.205399+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(events) == list",
+      "events is not None",
+      "type(event_types) == list",
+      "event_types is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(events) == list",
+      "events is not None",
+      "type(event_types) == list",
+      "event_types is not None"
+    ]
+  }
+}

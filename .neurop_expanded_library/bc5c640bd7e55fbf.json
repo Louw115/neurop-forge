@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic searching block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "bc5c640bd7e55fbfb6fd256e969f4c503caf9450ab0285b761cd18f8df64b380",
+    "semantic_fingerprint": "c779544ff938d34b56d6a64d3cb662a02ff21c870ab63b3bb6d404313b58a721",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Filter entries by predicate.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter ht",
+        "name": "ht",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter predicate",
+        "name": "predicate",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of hash_table_filter",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def hash_table_filter(ht: dict, predicate) -> dict:\n    \"\"\"Filter entries by predicate.\"\"\"\n    result = create_hash_table(ht[\"size\"])\n    for k, v in hash_table_items(ht):\n        if predicate(k, v):\n            result = hash_table_put(result, k, v)\n    return result",
+  "metadata": {
+    "category": "searching",
+    "created_at": "2026-01-10T02:18:48.875979+00:00",
+    "description": "Filter entries by predicate.",
+    "intent": "Filter entries by predicate.",
+    "language": "python",
+    "name": "hash_table_filter",
+    "source_file": "neurop_forge/sources/hash_table.py",
+    "source_line_end": 158,
+    "source_line_start": 152,
+    "tags": [
+      "filter",
+      "hash",
+      "ht",
+      "predicate",
+      "searching",
+      "table"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.876015+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.37,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.8,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(ht) == dict",
+      "ht is not None",
+      "predicate is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(ht) == dict",
+      "ht is not None",
+      "predicate is not None"
+    ]
+  }
+}

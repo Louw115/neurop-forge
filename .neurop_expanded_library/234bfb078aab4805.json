@@ -1,0 +1,138 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "234bfb078aab48050cd4c5eeb8df5e2d91dd82f0bf41ddf463d0c3864983e618",
+    "semantic_fingerprint": "fa4a0bea1c84ce990f9def1dd7c1ecf6495dee03d82bf1b4dee0c5e0922c9c0c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Expand interval by amount on both sides.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter interval",
+        "name": "interval",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter amount",
+        "name": "amount",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of interval_expand",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def interval_expand(interval: dict, amount) -> dict:\n    \"\"\"Expand interval by amount on both sides.\"\"\"\n    return create_interval(interval[\"start\"] - amount, interval[\"end\"] + amount)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:48.565818+00:00",
+    "description": "Expand interval by amount on both sides.",
+    "intent": "Expand interval by amount on both sides.",
+    "language": "python",
+    "name": "interval_expand",
+    "source_file": "neurop_forge/sources/interval_utilities.py",
+    "source_line_end": 95,
+    "source_line_start": 93,
+    "tags": [
+      "amount",
+      "arithmetic",
+      "expand",
+      "interval"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.565841+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(interval) == dict",
+      "interval is not None",
+      "amount is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(interval) == dict",
+      "interval is not None",
+      "amount is not None"
+    ]
+  }
+}

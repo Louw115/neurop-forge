@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f20321234fef4936958ba16fc6ae86cfaed77e90e5bafee7dfa759fa896a7662",
+    "semantic_fingerprint": "373a03ed74713abe50888b8dd04668cf51d9f555883cf3131dcbce29df84b1c7",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Create a leaky bucket rate limiter.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter capacity",
+        "name": "capacity",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter leak_rate",
+        "name": "leak_rate",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of create_leaky_bucket",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def create_leaky_bucket(capacity: int, leak_rate: float) -> dict:\n    \"\"\"Create a leaky bucket rate limiter.\"\"\"\n    return {\n        \"capacity\": capacity,\n        \"leak_rate\": leak_rate,\n        \"water\": 0,\n        \"last_leak\": 0\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:49.301413+00:00",
+    "description": "Create a leaky bucket rate limiter.",
+    "intent": "Create a leaky bucket rate limiter.",
+    "language": "python",
+    "name": "create_leaky_bucket",
+    "source_file": "neurop_forge/sources/rate_limiter.py",
+    "source_line_end": 136,
+    "source_line_start": 129,
+    "tags": [
+      "bucket",
+      "capacity",
+      "create",
+      "dict_operation",
+      "leak_rate",
+      "leaky"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.301429+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(capacity) == integer",
+      "capacity is not None",
+      "type(leak_rate) == float",
+      "leak_rate is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(capacity) == integer",
+      "capacity is not None",
+      "type(leak_rate) == float",
+      "leak_rate is not None"
+    ]
+  }
+}

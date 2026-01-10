@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b877f0d4c513e3b4dac89708d1ed0d7b4e694226874e1899ca5227f8340b2926",
+    "semantic_fingerprint": "c7ea06800fca28e6751203b493120537ffa6fa9c3e77b81e5f468c94a7b765e2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add tax to an amount.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter amount",
+        "name": "amount",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter tax_rate",
+        "name": "tax_rate",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of add_tax",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def add_tax(amount: float, tax_rate: float) -> float:\n    \"\"\"Add tax to an amount.\"\"\"\n    return round_to_cents(amount * (1 + tax_rate / 100))",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:44.335072+00:00",
+    "description": "Add tax to an amount.",
+    "intent": "Add tax to an amount.",
+    "language": "python",
+    "name": "add_tax",
+    "source_file": "neurop_forge/sources/money_utilities.py",
+    "source_line_end": 96,
+    "source_line_start": 94,
+    "tags": [
+      "add",
+      "amount",
+      "arithmetic",
+      "tax",
+      "tax_rate"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.335097+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(amount) == float",
+      "amount is not None",
+      "type(tax_rate) == float",
+      "tax_rate is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(amount) == float",
+      "amount is not None",
+      "type(tax_rate) == float",
+      "tax_rate is not None"
+    ]
+  }
+}

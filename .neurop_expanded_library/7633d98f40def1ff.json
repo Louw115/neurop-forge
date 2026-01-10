@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "7633d98f40def1ff261fee52b5309751e0126485e7922851545563cc01fc6867",
+    "semantic_fingerprint": "2160dc891d6a824a3408c6810f6de83181063041b2c48f580b5c487714cf2cfa",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Compare which discount is better for cart.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter discount1",
+        "name": "discount1",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter discount2",
+        "name": "discount2",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter cart_total",
+        "name": "cart_total",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_better_discount",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_better_discount(discount1: dict, discount2: dict, cart_total: float) -> bool:\n    \"\"\"Compare which discount is better for cart.\"\"\"\n    def get_final(d):\n        if d[\"type\"] == \"percentage\":\n            return apply_percentage_discount(cart_total, d[\"value\"])\n        return apply_fixed_discount(cart_total, d[\"value\"])\n    return get_final(discount1) < get_final(discount2)",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:52.500019+00:00",
+    "description": "Compare which discount is better for cart.",
+    "intent": "Compare which discount is better for cart.",
+    "language": "python",
+    "name": "is_better_discount",
+    "source_file": "neurop_forge/sources/discount_utilities.py",
+    "source_line_end": 153,
+    "source_line_start": 147,
+    "tags": [
+      "better",
+      "cart_total",
+      "discount",
+      "discount1",
+      "discount2",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.500039+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(discount1) == dict",
+      "discount1 is not None",
+      "type(discount2) == dict",
+      "discount2 is not None",
+      "type(cart_total) == float",
+      "cart_total is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(discount1) == dict",
+      "discount1 is not None",
+      "type(discount2) == dict",
+      "discount2 is not None",
+      "type(cart_total) == float",
+      "cart_total is not None"
+    ]
+  }
+}

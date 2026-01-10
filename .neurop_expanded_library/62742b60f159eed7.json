@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "62742b60f159eed7769f6880e077c60c0ba1b7117027cb3d951a3a6218182db2",
+    "semantic_fingerprint": "b49424c03f1c035a3972573b20d2736510ee6c91b2c1055c4755530faf3fc65f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get weekday name in locale.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter weekday",
+        "name": "weekday",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter locale",
+        "name": "locale",
+        "optional": false
+      },
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Parameter short",
+        "name": "short",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_weekday_name",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_weekday_name(weekday: int, locale: str, short: bool) -> str:\n    \"\"\"Get weekday name in locale.\"\"\"\n    days_en = [\"Monday\", \"Tuesday\", \"Wednesday\", \"Thursday\", \"Friday\", \"Saturday\", \"Sunday\"]\n    days_short_en = [\"Mon\", \"Tue\", \"Wed\", \"Thu\", \"Fri\", \"Sat\", \"Sun\"]\n    days_de = [\"Montag\", \"Dienstag\", \"Mittwoch\", \"Donnerstag\", \"Freitag\", \"Samstag\", \"Sonntag\"]\n    days_short_de = [\"Mo\", \"Di\", \"Mi\", \"Do\", \"Fr\", \"Sa\", \"So\"]\n    days_es = [\"Lunes\", \"Martes\", \"Mi\u00e9rcoles\", \"Jueves\", \"Viernes\", \"S\u00e1bado\", \"Domingo\"]\n    days_short_es = [\"Lun\", \"Mar\", \"Mi\u00e9\", \"Jue\", \"Vie\", \"S\u00e1b\", \"Dom\"]\n    lang = get_locale_language(locale)\n    if lang == \"de\":\n        return days_short_de[weekday] if short else days_de[weekday]\n    elif lang == \"es\":\n        return days_short_es[weekday] if short else days_es[weekday]\n    return days_short_en[weekday] if short else days_en[weekday]",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:47.104180+00:00",
+    "description": "Get weekday name in locale.",
+    "intent": "Get weekday name in locale.",
+    "language": "python",
+    "name": "get_weekday_name",
+    "source_file": "neurop_forge/sources/i18n_patterns.py",
+    "source_line_end": 102,
+    "source_line_start": 89,
+    "tags": [
+      "filtering",
+      "get",
+      "locale",
+      "name",
+      "short",
+      "weekday"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.104200+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(weekday) == integer",
+      "weekday is not None",
+      "type(locale) == string",
+      "locale is not None",
+      "type(short) == boolean",
+      "short is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(weekday) == integer",
+      "weekday is not None",
+      "type(locale) == string",
+      "locale is not None",
+      "type(short) == boolean",
+      "short is not None"
+    ]
+  }
+}

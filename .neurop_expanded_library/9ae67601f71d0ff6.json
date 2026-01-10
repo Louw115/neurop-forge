@@ -1,0 +1,137 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9ae67601f71d0ff647e8caa3daefbc99d3a697c04c9ad8de543ea19688cfb522",
+    "semantic_fingerprint": "197cea0d7aa4bfa1e49ac0b84e6c45c973ef28bc46b955171d5a87572dfa5709",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get item at index (0 = oldest).",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter buffer",
+        "name": "buffer",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter index",
+        "name": "index",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Return value of ring_get",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def ring_get(buffer: dict, index: int):\n    \"\"\"Get item at index (0 = oldest).\"\"\"\n    if index < 0 or index >= buffer[\"size\"]:\n        return None\n    idx = (buffer[\"head\"] + index) % buffer[\"capacity\"]\n    return buffer[\"items\"][idx]",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:49.064529+00:00",
+    "description": "Get item at index (0 = oldest).",
+    "intent": "Get item at index (0 = oldest).",
+    "language": "python",
+    "name": "ring_get",
+    "source_file": "neurop_forge/sources/ring_buffer.py",
+    "source_line_end": 128,
+    "source_line_start": 123,
+    "tags": [
+      "buffer",
+      "filtering",
+      "get",
+      "index",
+      "ring"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.064554+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3235,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.48999999999999994,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(buffer) == dict",
+      "buffer is not None",
+      "type(index) == integer",
+      "index is not None"
+    ],
+    "invariants": [],
+    "output_validators": [],
+    "postconditions": [],
+    "preconditions": [
+      "type(buffer) == dict",
+      "buffer is not None",
+      "type(index) == integer",
+      "index is not None"
+    ]
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "cb15559db16816f4593261cb4e3b6b2eba4fe17f83fd50baa587e1714344d66b",
+    "semantic_fingerprint": "8ea3c6c3a940aa8826910571dc81160ecb6401cb6dedd10b67033bfc20e954a6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check for optimistic concurrency conflict.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter expected_version",
+        "name": "expected_version",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_version",
+        "name": "current_version",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of check_optimistic_concurrency",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def check_optimistic_concurrency(expected_version: int, current_version: int) -> dict:\n    \"\"\"Check for optimistic concurrency conflict.\"\"\"\n    if expected_version != current_version:\n        return {\n            \"valid\": False,\n            \"error\": f\"Concurrency conflict: expected version {expected_version}, got {current_version}\"\n        }\n    return {\"valid\": True, \"error\": None}",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:46.235184+00:00",
+    "description": "Check for optimistic concurrency conflict.",
+    "intent": "Check for optimistic concurrency conflict.",
+    "language": "python",
+    "name": "check_optimistic_concurrency",
+    "source_file": "neurop_forge/sources/event_sourcing.py",
+    "source_line_end": 166,
+    "source_line_start": 159,
+    "tags": [
+      "check",
+      "concurrency",
+      "current_version",
+      "expected_version",
+      "optimistic",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.235204+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(expected_version) == integer",
+      "expected_version is not None",
+      "type(current_version) == integer",
+      "current_version is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(expected_version) == integer",
+      "expected_version is not None",
+      "type(current_version) == integer",
+      "current_version is not None"
+    ]
+  }
+}

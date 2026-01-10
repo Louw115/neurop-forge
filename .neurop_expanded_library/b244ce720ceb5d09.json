@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b244ce720ceb5d0925126adbdc014d4445cd9c3d1d12110586d2a4c7f9bd4c31",
+    "semantic_fingerprint": "bbeed31f154d2291d3916e89317b6810c88f5d3f89c8c41059550ee42b1ba267",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a WHERE ... IS NULL clause.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter column",
+        "name": "column",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_where_null",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_where_null(column: str) -> str:\n    \"\"\"Build a WHERE ... IS NULL clause.\"\"\"\n    return f\"WHERE {escape_sql_identifier(column)} IS NULL\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:44.640151+00:00",
+    "description": "Build a WHERE ... IS NULL clause.",
+    "intent": "Build a WHERE ... IS NULL clause.",
+    "language": "python",
+    "name": "build_where_null",
+    "source_file": "neurop_forge/sources/sql_building.py",
+    "source_line_end": 101,
+    "source_line_start": 99,
+    "tags": [
+      "build",
+      "column",
+      "null",
+      "string_manipulation",
+      "where"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.640179+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(column) == string",
+      "column is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(column) == string",
+      "column is not None"
+    ]
+  }
+}

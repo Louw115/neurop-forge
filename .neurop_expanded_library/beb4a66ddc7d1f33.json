@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "beb4a66ddc7d1f331554dd6bdd5587105be693c7950f521ac2b8ef066c306405",
+    "semantic_fingerprint": "f6d4546e000f82949262cc9a0f15ae812d38e91cba968ac59ae9a3d667fc2ba0",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Determine if log should be sampled.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter sample_rate",
+        "name": "sample_rate",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seed",
+        "name": "seed",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of should_sample_log",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def should_sample_log(sample_rate: float, seed: int) -> bool:\n    \"\"\"Determine if log should be sampled.\"\"\"\n    import hashlib\n    hash_val = hashlib.sha256(str(seed).encode()).digest()\n    normalized = hash_val[0] / 255.0\n    return normalized < sample_rate",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:47.570299+00:00",
+    "description": "Determine if log should be sampled.",
+    "intent": "Determine if log should be sampled.",
+    "language": "python",
+    "name": "should_sample_log",
+    "source_file": "neurop_forge/sources/logging_utilities.py",
+    "source_line_end": 206,
+    "source_line_start": 201,
+    "tags": [
+      "log",
+      "sample",
+      "sample_rate",
+      "seed",
+      "should",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.570318+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(sample_rate) == float",
+      "sample_rate is not None",
+      "type(seed) == integer",
+      "seed is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(sample_rate) == float",
+      "sample_rate is not None",
+      "type(seed) == integer",
+      "seed is not None"
+    ]
+  }
+}

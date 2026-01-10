@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c81c4c24e2de066594f2125d803b3f4958a71b6e0194d7d6904f32d812332c36",
+    "semantic_fingerprint": "8b9b53c28d7e608a87161d78c13f7c24aab7b9303efcafb60204e65aec2a086c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate quantity that would be backordered.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter available_qty",
+        "name": "available_qty",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter requested_qty",
+        "name": "requested_qty",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of calculate_backorder_qty",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_backorder_qty(available_qty: int, requested_qty: int) -> int:\n    \"\"\"Calculate quantity that would be backordered.\"\"\"\n    return max(0, requested_qty - available_qty)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:46.736897+00:00",
+    "description": "Calculate quantity that would be backordered.",
+    "intent": "Calculate quantity that would be backordered.",
+    "language": "python",
+    "name": "calculate_backorder_qty",
+    "source_file": "neurop_forge/sources/ecommerce_patterns.py",
+    "source_line_end": 96,
+    "source_line_start": 94,
+    "tags": [
+      "arithmetic",
+      "available_qty",
+      "backorder",
+      "calculate",
+      "qty",
+      "requested_qty"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.736914+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(available_qty) == integer",
+      "available_qty is not None",
+      "type(requested_qty) == integer",
+      "requested_qty is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(available_qty) == integer",
+      "available_qty is not None",
+      "type(requested_qty) == integer",
+      "requested_qty is not None"
+    ]
+  }
+}

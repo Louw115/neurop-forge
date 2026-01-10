@@ -1,0 +1,161 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": false,
+    "io_operations": [
+      "time"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "non_deterministic",
+    "side_effects": [
+      "time"
+    ],
+    "thread_safe": false
+  },
+  "failure_modes": {
+    "can_fail": true,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "raises_exception",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d4731bd3ed584bcd0a815208f0122c7725260e7455129cca4f8c5ad813d18838",
+    "semantic_fingerprint": "0a2717341952528728d078223f88e457de855e203e4413e11ac1276b92cfe8c6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Create password reset token.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter user_id",
+        "name": "user_id",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter timestamp",
+        "name": "timestamp",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter secret",
+        "name": "secret",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of create_password_reset_token",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def create_password_reset_token(user_id: str, timestamp: int, secret: str) -> str:\n    \"\"\"Create password reset token.\"\"\"\n    return create_one_time_token(f\"{user_id}{secret}\", \"password_reset\", timestamp)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:52.719163+00:00",
+    "description": "Create password reset token.",
+    "intent": "Create password reset token.",
+    "language": "python",
+    "name": "create_password_reset_token",
+    "source_file": "neurop_forge/sources/token_utilities.py",
+    "source_line_end": 139,
+    "source_line_start": 137,
+    "tags": [
+      "create",
+      "password",
+      "reset",
+      "secret",
+      "string_manipulation",
+      "timestamp",
+      "token",
+      "user_id"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 0.5,
+    "last_verified": "2026-01-10T02:18:52.719192+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.265,
+    "risk_factors": [
+      "impure_function",
+      "non_deterministic",
+      "side_effects: time"
+    ],
+    "risk_level": "medium",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(user_id) == string",
+      "user_id is not None",
+      "type(timestamp) == integer",
+      "timestamp is not None",
+      "type(secret) == string",
+      "secret is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(user_id) == string",
+      "user_id is not None",
+      "type(timestamp) == integer",
+      "timestamp is not None",
+      "type(secret) == string",
+      "secret is not None"
+    ]
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0afb7f26960fbb1672dd0f2c8c4c748d0ab18a9c8054c83d594f738223a3b01c",
+    "semantic_fingerprint": "9520a84c71fc062505d12a1018336a82b224deac7f88701f97e1c62c022a17b6",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate water level after leaking.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter current_level",
+        "name": "current_level",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter leak_rate",
+        "name": "leak_rate",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter elapsed_seconds",
+        "name": "elapsed_seconds",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of leaky_bucket_water_level",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def leaky_bucket_water_level(current_level: float, leak_rate: float, elapsed_seconds: float) -> float:\n    \"\"\"Calculate water level after leaking.\"\"\"\n    return max(0, current_level - (leak_rate * elapsed_seconds))",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:43.913196+00:00",
+    "description": "Calculate water level after leaking.",
+    "intent": "Calculate water level after leaking.",
+    "language": "python",
+    "name": "leaky_bucket_water_level",
+    "source_file": "neurop_forge/sources/rate_limiting.py",
+    "source_line_end": 81,
+    "source_line_start": 79,
+    "tags": [
+      "arithmetic",
+      "bucket",
+      "current_level",
+      "elapsed_seconds",
+      "leak_rate",
+      "leaky",
+      "level",
+      "water"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.913220+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(current_level) == float",
+      "current_level is not None",
+      "type(leak_rate) == float",
+      "leak_rate is not None",
+      "type(elapsed_seconds) == float",
+      "elapsed_seconds is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(current_level) == float",
+      "current_level is not None",
+      "type(leak_rate) == float",
+      "leak_rate is not None",
+      "type(elapsed_seconds) == float",
+      "elapsed_seconds is not None"
+    ]
+  }
+}

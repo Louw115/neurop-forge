@@ -1,0 +1,166 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "97e97e3fed97ecef222d930cd4bfe159c07ba8505f1099757e63c35d713ca86c",
+    "semantic_fingerprint": "6c4e8b8e86805c07f45e88a3ab276ce9716bcee77a191351088df6441f99c9cc",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate retry delay based on strategy.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter attempt",
+        "name": "attempt",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter base_delay",
+        "name": "base_delay",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_delay",
+        "name": "max_delay",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter strategy",
+        "name": "strategy",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of calculate_retry_delay",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_retry_delay(attempt: int, base_delay: int, max_delay: int, strategy: str) -> int:\n    \"\"\"Calculate retry delay based on strategy.\"\"\"\n    if strategy == \"exponential\":\n        delay = base_delay * (2 ** attempt)\n    elif strategy == \"linear\":\n        delay = base_delay * (attempt + 1)\n    elif strategy == \"constant\":\n        delay = base_delay\n    else:\n        delay = base_delay * (2 ** attempt)\n    return min(delay, max_delay)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:46.093092+00:00",
+    "description": "Calculate retry delay based on strategy.",
+    "intent": "Calculate retry delay based on strategy.",
+    "language": "python",
+    "name": "calculate_retry_delay",
+    "source_file": "neurop_forge/sources/job_scheduling.py",
+    "source_line_end": 144,
+    "source_line_start": 134,
+    "tags": [
+      "arithmetic",
+      "attempt",
+      "base_delay",
+      "calculate",
+      "delay",
+      "max_delay",
+      "retry",
+      "strategy"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.093127+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(attempt) == integer",
+      "attempt is not None",
+      "type(base_delay) == integer",
+      "base_delay is not None",
+      "type(max_delay) == integer",
+      "max_delay is not None",
+      "type(strategy) == string",
+      "strategy is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(attempt) == integer",
+      "attempt is not None",
+      "type(base_delay) == integer",
+      "base_delay is not None",
+      "type(max_delay) == integer",
+      "max_delay is not None",
+      "type(strategy) == string",
+      "strategy is not None"
+    ]
+  }
+}

@@ -1,0 +1,166 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "efbf3e153ee27e54f6877563a06107d4ece8bb6eca2db7b7e34146fd65d4e4e4",
+    "semantic_fingerprint": "99650806d660214265ee65e285611146a6b322ef03ca9ae667c19d21ff31dc44",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Apply decorrelated jitter.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter prev_delay",
+        "name": "prev_delay",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter base_delay",
+        "name": "base_delay",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter max_delay",
+        "name": "max_delay",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter seed",
+        "name": "seed",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of apply_decorrelated_jitter",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def apply_decorrelated_jitter(prev_delay: float, base_delay: float, max_delay: float, seed: int) -> float:\n    \"\"\"Apply decorrelated jitter.\"\"\"\n    h = hashlib.sha256(str(seed).encode()).digest()\n    random_val = h[0] / 255.0\n    return min(max_delay, base_delay + random_val * (prev_delay * 3 - base_delay))",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:49.731969+00:00",
+    "description": "Apply decorrelated jitter.",
+    "intent": "Apply decorrelated jitter.",
+    "language": "python",
+    "name": "apply_decorrelated_jitter",
+    "source_file": "neurop_forge/sources/retry_patterns.py",
+    "source_line_end": 65,
+    "source_line_start": 61,
+    "tags": [
+      "apply",
+      "arithmetic",
+      "base_delay",
+      "decorrelated",
+      "jitter",
+      "max_delay",
+      "prev_delay",
+      "seed"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.732009+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(prev_delay) == float",
+      "prev_delay is not None",
+      "type(base_delay) == float",
+      "base_delay is not None",
+      "type(max_delay) == float",
+      "max_delay is not None",
+      "type(seed) == integer",
+      "seed is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(prev_delay) == float",
+      "prev_delay is not None",
+      "type(base_delay) == float",
+      "base_delay is not None",
+      "type(max_delay) == float",
+      "max_delay is not None",
+      "type(seed) == integer",
+      "seed is not None"
+    ]
+  }
+}

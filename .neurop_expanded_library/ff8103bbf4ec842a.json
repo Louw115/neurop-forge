@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "ff8103bbf4ec842a1826b33d18abf74c1ae78388ba738582aff0c4f9c1cc7d00",
+    "semantic_fingerprint": "e0152d8c73d158526ebb076bef19ec4f1ff6650d5f5ef9053bc525ffb5d33e0d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse a Cookie header into a dictionary.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter cookie_header",
+        "name": "cookie_header",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of parse_cookie_header",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_cookie_header(cookie_header: str) -> dict:\n    \"\"\"Parse a Cookie header into a dictionary.\"\"\"\n    cookies = {}\n    if not cookie_header:\n        return cookies\n    for pair in cookie_header.split(';'):\n        pair = pair.strip()\n        if '=' in pair:\n            key, value = pair.split('=', 1)\n            cookies[key.strip()] = value.strip()\n    return cookies",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T02:18:45.694641+00:00",
+    "description": "Parse a Cookie header into a dictionary.",
+    "intent": "Parse a Cookie header into a dictionary.",
+    "language": "python",
+    "name": "parse_cookie_header",
+    "source_file": "neurop_forge/sources/auth_patterns.py",
+    "source_line_end": 202,
+    "source_line_start": 192,
+    "tags": [
+      "cookie",
+      "cookie_header",
+      "header",
+      "parse",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.694679+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(cookie_header) == string",
+      "cookie_header is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(cookie_header) == string",
+      "cookie_header is not None"
+    ]
+  }
+}

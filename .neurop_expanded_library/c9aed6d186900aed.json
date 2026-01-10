@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c9aed6d186900aedf481aea5df24763223460923ee8a474b364213a5f71d65cb",
+    "semantic_fingerprint": "5c94a7d872a6c61f82b61350580372fa6fef29aaa4a3701124a38c866e3e2af1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if a failed job should be retried.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter job",
+        "name": "job",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of should_retry_job",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def should_retry_job(job: dict) -> bool:\n    \"\"\"Check if a failed job should be retried.\"\"\"\n    attempts = job.get(\"attempts\", 0)\n    max_retries = job.get(\"max_retries\", 0)\n    return attempts < max_retries",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:46.091217+00:00",
+    "description": "Check if a failed job should be retried.",
+    "intent": "Check if a failed job should be retried.",
+    "language": "python",
+    "name": "should_retry_job",
+    "source_file": "neurop_forge/sources/job_scheduling.py",
+    "source_line_end": 131,
+    "source_line_start": 127,
+    "tags": [
+      "job",
+      "retry",
+      "should",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.091236+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(job) == dict",
+      "job is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(job) == dict",
+      "job is not None"
+    ]
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a45f3d0de4b9b6204d8c34de623780b876b3269c5bbfc8ddb8b45d16eb24bf73",
+    "semantic_fingerprint": "d1f43a4789368eb8b64b7887021566a1a257aa1c90e5faec433808b89fb99fb8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if parameter exists.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter query",
+        "name": "query",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter key",
+        "name": "key",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of has_param",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def has_param(query: str, key: str) -> bool:\n    \"\"\"Check if parameter exists.\"\"\"\n    params = parse_query_string(query)\n    return key in params",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:52.031779+00:00",
+    "description": "Check if parameter exists.",
+    "intent": "Check if parameter exists.",
+    "language": "python",
+    "name": "has_param",
+    "source_file": "neurop_forge/sources/query_string.py",
+    "source_line_end": 75,
+    "source_line_start": 72,
+    "tags": [
+      "has",
+      "key",
+      "param",
+      "query",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.031802+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(query) == string",
+      "query is not None",
+      "type(key) == string",
+      "key is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(query) == string",
+      "query is not None",
+      "type(key) == string",
+      "key is not None"
+    ]
+  }
+}

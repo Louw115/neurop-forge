@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f66a8cb5f6a1f90bb9086bd29c1740e5fc2a786b7dd1edb2203bc0c09a5b9eab",
+    "semantic_fingerprint": "86c487ff5591b79441c47fe9274b959200c25596b738f6fea9cef13edb7f00f1",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if circuit breaker should be open.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter failure_count",
+        "name": "failure_count",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter threshold",
+        "name": "threshold",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_circuit_open",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_circuit_open(failure_count: int, threshold: int) -> bool:\n    \"\"\"Check if circuit breaker should be open.\"\"\"\n    return failure_count >= threshold",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:43.962080+00:00",
+    "description": "Check if circuit breaker should be open.",
+    "intent": "Check if circuit breaker should be open.",
+    "language": "python",
+    "name": "is_circuit_open",
+    "source_file": "neurop_forge/sources/rate_limiting.py",
+    "source_line_end": 277,
+    "source_line_start": 275,
+    "tags": [
+      "circuit",
+      "failure_count",
+      "open",
+      "threshold",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.962105+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(failure_count) == integer",
+      "failure_count is not None",
+      "type(threshold) == integer",
+      "threshold is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(failure_count) == integer",
+      "failure_count is not None",
+      "type(threshold) == integer",
+      "threshold is not None"
+    ]
+  }
+}

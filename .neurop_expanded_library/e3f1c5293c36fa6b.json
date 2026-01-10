@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic sorting block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e3f1c5293c36fa6b4d7521d62f88874148e2631dead7b7f44423d0f4ed727a59",
+    "semantic_fingerprint": "413166be8d07583dee5fc90aa40f827ed71a642dc40a3fc3820102f1cd510680",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Rank results by relevance.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter results",
+        "name": "results",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter terms",
+        "name": "terms",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of rank_results",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def rank_results(results: list, terms: list) -> list:\n    \"\"\"Rank results by relevance.\"\"\"\n    scored = []\n    for result in results:\n        text = result.get(\"text\", \"\") or result.get(\"title\", \"\")\n        score = calculate_relevance(text, terms)\n        scored.append({\"result\": result, \"score\": score})\n    return sorted(scored, key=lambda x: -x[\"score\"])",
+  "metadata": {
+    "category": "sorting",
+    "created_at": "2026-01-10T02:18:52.926534+00:00",
+    "description": "Rank results by relevance.",
+    "intent": "Rank results by relevance.",
+    "language": "python",
+    "name": "rank_results",
+    "source_file": "neurop_forge/sources/search_helpers.py",
+    "source_line_end": 81,
+    "source_line_start": 74,
+    "tags": [
+      "rank",
+      "results",
+      "sorting",
+      "terms"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.926552+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(results) == list",
+      "results is not None",
+      "type(terms) == list",
+      "terms is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(results) == list",
+      "results is not None",
+      "type(terms) == list",
+      "terms is not None"
+    ]
+  }
+}

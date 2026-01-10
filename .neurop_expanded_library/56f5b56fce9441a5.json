@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "56f5b56fce9441a512c0b3c21c978ff0f8fd1bdab23e2709b29322e2f301cc0b",
+    "semantic_fingerprint": "af2cebce375ee992d3c2479c8ec27a15a8582a805541f974e0680143ac14fa58",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get compensation actions for saga rollback.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter saga_steps",
+        "name": "saga_steps",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter failed_step_index",
+        "name": "failed_step_index",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of get_compensation_actions",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_compensation_actions(saga_steps: list, failed_step_index: int) -> list:\n    \"\"\"Get compensation actions for saga rollback.\"\"\"\n    compensations = []\n    for i in range(failed_step_index - 1, -1, -1):\n        step = saga_steps[i]\n        if step.get(\"state\") == \"completed\":\n            compensations.append({\n                \"step_name\": step.get(\"name\"),\n                \"compensation\": step.get(\"compensation\")\n            })\n    return compensations",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:46.176938+00:00",
+    "description": "Get compensation actions for saga rollback.",
+    "intent": "Get compensation actions for saga rollback.",
+    "language": "python",
+    "name": "get_compensation_actions",
+    "source_file": "neurop_forge/sources/state_machine.py",
+    "source_line_end": 262,
+    "source_line_start": 252,
+    "tags": [
+      "actions",
+      "compensation",
+      "failed_step_index",
+      "filtering",
+      "get",
+      "saga_steps"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.176967+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(saga_steps) == list",
+      "saga_steps is not None",
+      "type(failed_step_index) == integer",
+      "failed_step_index is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(saga_steps) == list",
+      "saga_steps is not None",
+      "type(failed_step_index) == integer",
+      "failed_step_index is not None"
+    ]
+  }
+}

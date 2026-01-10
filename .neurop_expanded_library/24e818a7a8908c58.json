@@ -1,0 +1,155 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "24e818a7a8908c589af465474680a7723372ea66570ad66a1fa39ee28ec33e10",
+    "semantic_fingerprint": "0445e4d53b555e0894ab559b78afe23b567ec9b5d9e11c7dd2195f9cd7f7e54c",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a dead letter queue entry.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter job",
+        "name": "job",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter error",
+        "name": "error",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter timestamp",
+        "name": "timestamp",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_dead_letter_entry",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_dead_letter_entry(job: dict, error: str, timestamp: str) -> dict:\n    \"\"\"Build a dead letter queue entry.\"\"\"\n    return {\n        \"original_job\": job,\n        \"final_error\": error,\n        \"failed_at\": timestamp,\n        \"attempts\": job.get(\"attempts\", 0)\n    }",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:46.110286+00:00",
+    "description": "Build a dead letter queue entry.",
+    "intent": "Build a dead letter queue entry.",
+    "language": "python",
+    "name": "build_dead_letter_entry",
+    "source_file": "neurop_forge/sources/job_scheduling.py",
+    "source_line_end": 235,
+    "source_line_start": 228,
+    "tags": [
+      "build",
+      "dead",
+      "dict_operation",
+      "entry",
+      "error",
+      "job",
+      "letter",
+      "timestamp"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.110312+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(job) == dict",
+      "job is not None",
+      "type(error) == string",
+      "error is not None",
+      "type(timestamp) == string",
+      "timestamp is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(job) == dict",
+      "job is not None",
+      "type(error) == string",
+      "error is not None",
+      "type(timestamp) == string",
+      "timestamp is not None"
+    ]
+  }
+}

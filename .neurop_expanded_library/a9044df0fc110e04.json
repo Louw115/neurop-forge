@@ -1,0 +1,138 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a9044df0fc110e043f830554ec7a1bb04de322beb8463808e53d81ace25e7aa3",
+    "semantic_fingerprint": "1cd286b4892bf5b0c9a1e9598682d787cc5cc51c12cca31e72f98d5ed7e26b27",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Assert two values are not equal.",
+    "inputs": [
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter actual",
+        "name": "actual",
+        "optional": false
+      },
+      {
+        "data_type": "any",
+        "default_value": null,
+        "description": "Parameter not_expected",
+        "name": "not_expected",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of assert_not_equals",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def assert_not_equals(actual, not_expected) -> dict:\n    \"\"\"Assert two values are not equal.\"\"\"\n    passed = actual != not_expected\n    return {\n        \"passed\": passed,\n        \"actual\": actual,\n        \"not_expected\": not_expected,\n        \"message\": \"\" if passed else f\"Expected not to equal {not_expected}\"\n    }",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:52.064915+00:00",
+    "description": "Assert two values are not equal.",
+    "intent": "Assert two values are not equal.",
+    "language": "python",
+    "name": "assert_not_equals",
+    "source_file": "neurop_forge/sources/assertion_utilities.py",
+    "source_line_end": 32,
+    "source_line_start": 24,
+    "tags": [
+      "actual",
+      "assert",
+      "equals",
+      "not",
+      "not_expected",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.064942+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "actual is not None",
+      "not_expected is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "actual is not None",
+      "not_expected is not None"
+    ]
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8425b864083a4ccd2999a71789b6e5190ecf52dbc3a782187e8a712c48122d14",
+    "semantic_fingerprint": "015f0ee550ff74a1e4e501e9c9810733319c7f95297c2ffff5972e7c2972cb5a",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate order hash for verification.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter order",
+        "name": "order",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_order_hash",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_order_hash(order: dict) -> str:\n    \"\"\"Generate order hash for verification.\"\"\"\n    data = f\"{order['order_id']}{order['customer_id']}{len(order.get('items', []))}\"\n    return hashlib.sha256(data.encode()).hexdigest()[:16]",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:52.629562+00:00",
+    "description": "Generate order hash for verification.",
+    "intent": "Generate order hash for verification.",
+    "language": "python",
+    "name": "generate_order_hash",
+    "source_file": "neurop_forge/sources/order_utilities.py",
+    "source_line_end": 157,
+    "source_line_start": 154,
+    "tags": [
+      "generate",
+      "hash",
+      "order",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.629589+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(order) == dict",
+      "order is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(order) == dict",
+      "order is not None"
+    ]
+  }
+}

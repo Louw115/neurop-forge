@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "bcf386d545bda72ce63b968f59d5b13106748e278e72ca763ff1a930289d7142",
+    "semantic_fingerprint": "9e03d5767096bbd6a3a2a8162f27bc7312b484d8b878acd39223a52fde5444cf",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Mask a phone number showing only last 4 digits.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter phone",
+        "name": "phone",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of mask_phone",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def mask_phone(phone: str) -> str:\n    \"\"\"Mask a phone number showing only last 4 digits.\"\"\"\n    if not phone:\n        return \"\"\n    digits = ''.join(c for c in phone if c.isdigit())\n    if len(digits) <= 4:\n        return '*' * len(digits)\n    return '*' * (len(digits) - 4) + digits[-4:]",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:43.222905+00:00",
+    "description": "Mask a phone number showing only last 4 digits.",
+    "intent": "Mask a phone number showing only last 4 digits.",
+    "language": "python",
+    "name": "mask_phone",
+    "source_file": "neurop_forge/sources/security_utilities.py",
+    "source_line_end": 79,
+    "source_line_start": 72,
+    "tags": [
+      "mask",
+      "phone",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.222927+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(phone) == string",
+      "phone is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(phone) == string",
+      "phone is not None"
+    ]
+  }
+}

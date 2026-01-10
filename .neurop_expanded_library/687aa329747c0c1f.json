@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "687aa329747c0c1f48fe77729557605cf2e805317c4a7fc5f9861934f49dc9d9",
+    "semantic_fingerprint": "6f989dd38fa24c72fca36dce7dd33fa6eb61fedba30c6a0c5d5a86d01e9e2e0b",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate queue depth for a given status.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter jobs",
+        "name": "jobs",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter status",
+        "name": "status",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of calculate_queue_depth",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_queue_depth(jobs: list, status: str) -> int:\n    \"\"\"Calculate queue depth for a given status.\"\"\"\n    return sum(1 for j in jobs if j.get(\"status\") == status)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:46.103147+00:00",
+    "description": "Calculate queue depth for a given status.",
+    "intent": "Calculate queue depth for a given status.",
+    "language": "python",
+    "name": "calculate_queue_depth",
+    "source_file": "neurop_forge/sources/job_scheduling.py",
+    "source_line_end": 194,
+    "source_line_start": 192,
+    "tags": [
+      "arithmetic",
+      "calculate",
+      "depth",
+      "jobs",
+      "queue",
+      "status"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.103165+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(jobs) == list",
+      "jobs is not None",
+      "type(status) == string",
+      "status is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(jobs) == list",
+      "jobs is not None",
+      "type(status) == string",
+      "status is not None"
+    ]
+  }
+}

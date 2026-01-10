@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4eeeb1bd11690247a2ed91b2f39875b8f0c35385bfc3082671b25551b97d6c14",
+    "semantic_fingerprint": "ff74ca22eb3aa12edcc4584473b3ecc356d5fb1772839fee39959cebcbc8c918",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Estimate Shannon entropy from frequency table.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter frequencies",
+        "name": "frequencies",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of estimate_entropy",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def estimate_entropy(frequencies: dict) -> float:\n    \"\"\"Estimate Shannon entropy from frequency table.\"\"\"\n    import math\n    total = sum(frequencies.values())\n    if total <= 0:\n        return 0.0\n    entropy = 0.0\n    for freq in frequencies.values():\n        if freq > 0:\n            p = freq / total\n            entropy -= p * math.log2(p)\n    return entropy",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:47.273019+00:00",
+    "description": "Estimate Shannon entropy from frequency table.",
+    "intent": "Estimate Shannon entropy from frequency table.",
+    "language": "python",
+    "name": "estimate_entropy",
+    "source_file": "neurop_forge/sources/compression_utilities.py",
+    "source_line_end": 129,
+    "source_line_start": 118,
+    "tags": [
+      "arithmetic",
+      "entropy",
+      "estimate",
+      "frequencies"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.273046+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(frequencies) == dict",
+      "frequencies is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(frequencies) == dict",
+      "frequencies is not None"
+    ]
+  }
+}

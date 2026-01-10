@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b4ec63e1dd6e02470b65fa71752cb3736d87ff06e0d66e28d2ec4d9d04cfd073",
+    "semantic_fingerprint": "fbdf0ad5e6a9f728a2e48c3a3c46e812d9e8c1692fe6485c4cec1b299d4b3fe0",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build breadcrumb navigation data.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter path_segments",
+        "name": "path_segments",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter base_url",
+        "name": "base_url",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of build_breadcrumbs",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_breadcrumbs(path_segments: list, base_url: str) -> list:\n    \"\"\"Build breadcrumb navigation data.\"\"\"\n    breadcrumbs = [{\"label\": \"Home\", \"url\": base_url}]\n    current_path = base_url\n    for segment in path_segments:\n        current_path = f\"{current_path}/{segment}\"\n        breadcrumbs.append({\"label\": segment.replace(\"-\", \" \").title(), \"url\": current_path})\n    return breadcrumbs",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:47.948668+00:00",
+    "description": "Build breadcrumb navigation data.",
+    "intent": "Build breadcrumb navigation data.",
+    "language": "python",
+    "name": "build_breadcrumbs",
+    "source_file": "neurop_forge/sources/template_utilities.py",
+    "source_line_end": 200,
+    "source_line_start": 193,
+    "tags": [
+      "base_url",
+      "breadcrumbs",
+      "build",
+      "list_operation",
+      "path_segments"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.948695+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(path_segments) == list",
+      "path_segments is not None",
+      "type(base_url) == string",
+      "base_url is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(path_segments) == list",
+      "path_segments is not None",
+      "type(base_url) == string",
+      "base_url is not None"
+    ]
+  }
+}

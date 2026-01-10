@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "a2a40d124f190e09c9197324c7d5c6feb39e2d86a414ffdca671ec786fbb26ef",
+    "semantic_fingerprint": "0b737b4d0489ce06807c77cef0354756e56d8586922b92599722c880a8048744",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if user has all required permissions.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter user_permissions",
+        "name": "user_permissions",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter required_permissions",
+        "name": "required_permissions",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of has_all_permissions",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def has_all_permissions(user_permissions: list, required_permissions: list) -> bool:\n    \"\"\"Check if user has all required permissions.\"\"\"\n    return all(has_permission(user_permissions, req) for req in required_permissions)",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:46.514937+00:00",
+    "description": "Check if user has all required permissions.",
+    "intent": "Check if user has all required permissions.",
+    "language": "python",
+    "name": "has_all_permissions",
+    "source_file": "neurop_forge/sources/security_patterns.py",
+    "source_line_end": 96,
+    "source_line_start": 94,
+    "tags": [
+      "all",
+      "has",
+      "permissions",
+      "required_permissions",
+      "user_permissions",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.514960+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(user_permissions) == list",
+      "user_permissions is not None",
+      "type(required_permissions) == list",
+      "required_permissions is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(user_permissions) == list",
+      "user_permissions is not None",
+      "type(required_permissions) == list",
+      "required_permissions is not None"
+    ]
+  }
+}

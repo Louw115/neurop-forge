@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c148515bdf3ecec3f9a40eecda3b93b82d66bf1dca9e32c1ad18572655a52523",
+    "semantic_fingerprint": "d7adad547f479a70fffffe3e16a98ad6650c627baf128fe3ff46376f271fd104",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate moving average.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter values",
+        "name": "values",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter window",
+        "name": "window",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of calculate_moving_average",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_moving_average(values: list, window: int) -> list:\n    \"\"\"Calculate moving average.\"\"\"\n    if window <= 0 or not values:\n        return []\n    result = []\n    for i in range(len(values)):\n        start = max(0, i - window + 1)\n        window_values = values[start:i + 1]\n        result.append(sum(window_values) / len(window_values))\n    return result",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:46.941869+00:00",
+    "description": "Calculate moving average.",
+    "intent": "Calculate moving average.",
+    "language": "python",
+    "name": "calculate_moving_average",
+    "source_file": "neurop_forge/sources/analytics_patterns.py",
+    "source_line_end": 233,
+    "source_line_start": 224,
+    "tags": [
+      "arithmetic",
+      "average",
+      "calculate",
+      "moving",
+      "values",
+      "window"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.941889+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(values) == list",
+      "values is not None",
+      "type(window) == integer",
+      "window is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(values) == list",
+      "values is not None",
+      "type(window) == integer",
+      "window is not None"
+    ]
+  }
+}

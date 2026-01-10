@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d7f4fc42927bac1461ab8c57ef76c2448ef26b01abed0d4b2fff66dc497a3c01",
+    "semantic_fingerprint": "68528e0ef46b0d4cb7536d5ba4317cf9ccc575844f98daa71b6a5ed88db815c3",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Find all expired entries.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter entries",
+        "name": "entries",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter current_time",
+        "name": "current_time",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of ttl_evict_candidates",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def ttl_evict_candidates(entries: dict, current_time: int) -> list:\n    \"\"\"Find all expired entries.\"\"\"\n    return [k for k, v in entries.items() if is_expired(v, current_time)]",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:51.048778+00:00",
+    "description": "Find all expired entries.",
+    "intent": "Find all expired entries.",
+    "language": "python",
+    "name": "ttl_evict_candidates",
+    "source_file": "neurop_forge/sources/cache_strategies.py",
+    "source_line_end": 108,
+    "source_line_start": 106,
+    "tags": [
+      "candidates",
+      "current_time",
+      "entries",
+      "evict",
+      "list_operation",
+      "ttl"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:51.048805+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(entries) == dict",
+      "entries is not None",
+      "type(current_time) == integer",
+      "current_time is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(entries) == dict",
+      "entries is not None",
+      "type(current_time) == integer",
+      "current_time is not None"
+    ]
+  }
+}

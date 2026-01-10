@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "b146ad1d8a0b25068e1650f0b505bbfc1f67ff707922c157dd180b226a5fad21",
+    "semantic_fingerprint": "cf6b21b226c7637f2d503eeb4874b71c376e9d74b789b908ed7dfc9789150695",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if type is safe for upload.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter mime_type",
+        "name": "mime_type",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_safe_upload_type",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_safe_upload_type(mime_type: str) -> bool:\n    \"\"\"Check if type is safe for upload.\"\"\"\n    unsafe = [\"application/x-httpd-php\", \"text/x-php\", \"application/x-executable\"]\n    return mime_type not in unsafe",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:51.873396+00:00",
+    "description": "Check if type is safe for upload.",
+    "intent": "Check if type is safe for upload.",
+    "language": "python",
+    "name": "is_safe_upload_type",
+    "source_file": "neurop_forge/sources/mime_utilities.py",
+    "source_line_end": 186,
+    "source_line_start": 183,
+    "tags": [
+      "mime_type",
+      "safe",
+      "type",
+      "upload",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:51.873414+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(mime_type) == string",
+      "mime_type is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(mime_type) == string",
+      "mime_type is not None"
+    ]
+  }
+}

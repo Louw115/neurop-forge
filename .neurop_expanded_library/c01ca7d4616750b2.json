@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c01ca7d4616750b2a925729744cd32542d8235d05bb6177329438cc03a1dabb0",
+    "semantic_fingerprint": "68f637a3da7b54e80e4fdda945bec624bf73a154d318fb34dc745f6da4249b47",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse a Range header into list of tuples.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter header",
+        "name": "header",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Return value of parse_range_header",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_range_header(header: str) -> list:\n    \"\"\"Parse a Range header into list of tuples.\"\"\"\n    if not header or not header.startswith(\"bytes=\"):\n        return []\n    ranges = []\n    range_spec = header[6:]\n    for part in range_spec.split(','):\n        part = part.strip()\n        if '-' in part:\n            start, end = part.split('-', 1)\n            start = int(start) if start else None\n            end = int(end) if end else None\n            ranges.append((start, end))\n    return ranges",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T02:18:43.304056+00:00",
+    "description": "Parse a Range header into list of tuples.",
+    "intent": "Parse a Range header into list of tuples.",
+    "language": "python",
+    "name": "parse_range_header",
+    "source_file": "neurop_forge/sources/http_utilities.py",
+    "source_line_end": 384,
+    "source_line_start": 371,
+    "tags": [
+      "header",
+      "parse",
+      "range",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.304074+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(header) == string",
+      "header is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == list"
+    ],
+    "postconditions": [
+      "type(result) == list"
+    ],
+    "preconditions": [
+      "type(header) == string",
+      "header is not None"
+    ]
+  }
+}

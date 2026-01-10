@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "6f4afb23800925d63529eb14d81b2b5ef0a6168196e459915e48794718eb2a39",
+    "semantic_fingerprint": "0dbf7661a4e4e03a3f64dc09135ff2e54f31a9954d12ff8d759a8204f6c405aa",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if a domain is a free email provider.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter domain",
+        "name": "domain",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_free_email_provider",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_free_email_provider(domain: str) -> bool:\n    \"\"\"Check if a domain is a free email provider.\"\"\"\n    free_providers = [\n        'gmail.com', 'googlemail.com', 'yahoo.com', 'yahoo.co.uk',\n        'hotmail.com', 'hotmail.co.uk', 'outlook.com', 'live.com',\n        'aol.com', 'mail.com', 'protonmail.com', 'icloud.com',\n        'zoho.com', 'yandex.com', 'gmx.com', 'fastmail.com'\n    ]\n    return domain.lower() in free_providers",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:44.000748+00:00",
+    "description": "Check if a domain is a free email provider.",
+    "intent": "Check if a domain is a free email provider.",
+    "language": "python",
+    "name": "is_free_email_provider",
+    "source_file": "neurop_forge/sources/email_utilities.py",
+    "source_line_end": 115,
+    "source_line_start": 107,
+    "tags": [
+      "domain",
+      "email",
+      "free",
+      "provider",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:44.000772+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(domain) == string",
+      "domain is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(domain) == string",
+      "domain is not None"
+    ]
+  }
+}

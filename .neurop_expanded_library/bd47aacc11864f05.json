@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "bd47aacc11864f05f11cb65c776c06e1e84b690383870e640174164439381025",
+    "semantic_fingerprint": "bd12d1cc4bb0b702b8a20c7aba20317afa6afd272b799d457fe7792d0f544457",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if an extension represents a text-based file.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter extension",
+        "name": "extension",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_text_based_extension",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_text_based_extension(extension: str) -> bool:\n    \"\"\"Check if an extension represents a text-based file.\"\"\"\n    category = get_file_category(extension)\n    return category in (\"code\", \"web\", \"data\", \"document\") or extension.lower().lstrip('.') in (\"txt\", \"md\", \"csv\", \"log\")",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:43.360300+00:00",
+    "description": "Check if an extension represents a text-based file.",
+    "intent": "Check if an extension represents a text-based file.",
+    "language": "python",
+    "name": "is_text_based_extension",
+    "source_file": "neurop_forge/sources/file_type_detection.py",
+    "source_line_end": 123,
+    "source_line_start": 120,
+    "tags": [
+      "based",
+      "extension",
+      "text",
+      "validation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.360325+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(extension) == string",
+      "extension is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(extension) == string",
+      "extension is not None"
+    ]
+  }
+}

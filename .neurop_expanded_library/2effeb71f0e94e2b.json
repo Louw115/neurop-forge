@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2effeb71f0e94e2b47497c6c478da3e58c1deaf41253b20b56c72441d64d7435",
+    "semantic_fingerprint": "4a0b0ca048e9a3928b950b3f050ac1df967342ebbed49f9a5e6c1431c5d56dfb",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Calculate reorder quantity.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter item",
+        "name": "item",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter target_days",
+        "name": "target_days",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter avg_daily_usage",
+        "name": "avg_daily_usage",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of calculate_reorder_quantity",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def calculate_reorder_quantity(item: dict, target_days: int, avg_daily_usage: float) -> int:\n    \"\"\"Calculate reorder quantity.\"\"\"\n    target = int(target_days * avg_daily_usage)\n    return max(0, target - item[\"quantity\"])",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:52.521155+00:00",
+    "description": "Calculate reorder quantity.",
+    "intent": "Calculate reorder quantity.",
+    "language": "python",
+    "name": "calculate_reorder_quantity",
+    "source_file": "neurop_forge/sources/inventory_utilities.py",
+    "source_line_end": 72,
+    "source_line_start": 69,
+    "tags": [
+      "arithmetic",
+      "avg_daily_usage",
+      "calculate",
+      "item",
+      "quantity",
+      "reorder",
+      "target_days"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:52.521174+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(item) == dict",
+      "item is not None",
+      "type(target_days) == integer",
+      "target_days is not None",
+      "type(avg_daily_usage) == float",
+      "avg_daily_usage is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(item) == dict",
+      "item is not None",
+      "type(target_days) == integer",
+      "target_days is not None",
+      "type(avg_daily_usage) == float",
+      "avg_daily_usage is not None"
+    ]
+  }
+}

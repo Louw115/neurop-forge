@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic transformation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "991986aa2ce0e73afa85e84e576e71bb9d2290928e351db068ef6613c1caf5fa",
+    "semantic_fingerprint": "bb520d792cb9511f2bcc136e3c871a4df50ee31fc83ee76413db083308b83f5d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Parse a structured error code.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter code",
+        "name": "code",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of parse_error_code",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def parse_error_code(code: str) -> dict:\n    \"\"\"Parse a structured error code.\"\"\"\n    parts = code.split('_')\n    if len(parts) >= 3:\n        return {\n            \"category\": parts[0],\n            \"subcategory\": parts[1],\n            \"sequence\": int(parts[2]) if parts[2].isdigit() else 0\n        }\n    return {\"category\": code, \"subcategory\": \"\", \"sequence\": 0}",
+  "metadata": {
+    "category": "transformation",
+    "created_at": "2026-01-10T02:18:45.976564+00:00",
+    "description": "Parse a structured error code.",
+    "intent": "Parse a structured error code.",
+    "language": "python",
+    "name": "parse_error_code",
+    "source_file": "neurop_forge/sources/error_handling.py",
+    "source_line_end": 125,
+    "source_line_start": 116,
+    "tags": [
+      "code",
+      "error",
+      "parse",
+      "transformation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.976584+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(code) == string",
+      "code is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(code) == string",
+      "code is not None"
+    ]
+  }
+}

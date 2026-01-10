@@ -1,0 +1,152 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "c5db0c6e03568a50ff5ebf95ddbb5a56798769447d26c5932668c8ed06e7f28c",
+    "semantic_fingerprint": "b436770b7b549400e3f4074a5c5f3190f1ca6d2c4bf11bc3485bd1a823e9ebf8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Smoother step interpolation.",
+    "inputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter edge0",
+        "name": "edge0",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter edge1",
+        "name": "edge1",
+        "optional": false
+      },
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Parameter x",
+        "name": "x",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "float",
+        "default_value": null,
+        "description": "Return value of smootherstep",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def smootherstep(edge0: float, edge1: float, x: float) -> float:\n    \"\"\"Smoother step interpolation.\"\"\"\n    t = clamp((x - edge0) / (edge1 - edge0), 0, 1)\n    return t * t * t * (t * (t * 6 - 15) + 10)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:51.557950+00:00",
+    "description": "Smoother step interpolation.",
+    "intent": "Smoother step interpolation.",
+    "language": "python",
+    "name": "smootherstep",
+    "source_file": "neurop_forge/sources/numeric_utilities.py",
+    "source_line_end": 105,
+    "source_line_start": 102,
+    "tags": [
+      "arithmetic",
+      "edge0",
+      "edge1",
+      "smootherstep",
+      "x"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:51.557976+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(edge0) == float",
+      "edge0 is not None",
+      "type(edge1) == float",
+      "edge1 is not None",
+      "type(x) == float",
+      "x is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == float"
+    ],
+    "postconditions": [
+      "type(result) == float"
+    ],
+    "preconditions": [
+      "type(edge0) == float",
+      "edge0 is not None",
+      "type(edge1) == float",
+      "edge1 is not None",
+      "type(x) == float",
+      "x is not None"
+    ]
+  }
+}

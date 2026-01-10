@@ -1,0 +1,154 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4e551907da671c178534397f01aa2b2a596237aa7cafab9f669cf3b3145c7660",
+    "semantic_fingerprint": "10ec2b60ec747f8f3bf5f1cc43c1705ff60d746b0e4024ee7db6b0ba97d935e2",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build HTML radio buttons.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter name",
+        "name": "name",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter options",
+        "name": "options",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter selected",
+        "name": "selected",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_radio_buttons",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_radio_buttons(name: str, options: list, selected: str) -> str:\n    \"\"\"Build HTML radio buttons.\"\"\"\n    result = []\n    for opt in options:\n        value = opt if isinstance(opt, str) else opt.get(\"value\", \"\")\n        label = opt if isinstance(opt, str) else opt.get(\"label\", value)\n        checked = ' checked' if value == selected else ''\n        result.append(f'<label><input type=\"radio\" name=\"{name}\" value=\"{value}\"{checked}> {label}</label>')\n    return \"\".join(result)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:47.939825+00:00",
+    "description": "Build HTML radio buttons.",
+    "intent": "Build HTML radio buttons.",
+    "language": "python",
+    "name": "build_radio_buttons",
+    "source_file": "neurop_forge/sources/template_utilities.py",
+    "source_line_end": 162,
+    "source_line_start": 154,
+    "tags": [
+      "build",
+      "buttons",
+      "name",
+      "options",
+      "radio",
+      "selected",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.939844+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(name) == string",
+      "name is not None",
+      "type(options) == list",
+      "options is not None",
+      "type(selected) == string",
+      "selected is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(name) == string",
+      "name is not None",
+      "type(options) == list",
+      "options is not None",
+      "type(selected) == string",
+      "selected is not None"
+    ]
+  }
+}

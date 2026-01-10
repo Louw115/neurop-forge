@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "1554bab07578bbbfe874a49fa1ecb11e0064c918e3e75c30aff46f10a2626b5c",
+    "semantic_fingerprint": "4dc93f9dfd59a142c2da23ce8fe83a76915f8a60bd4f6db134adb255020307ef",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Compress IPv6 address to shortest form.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter ip",
+        "name": "ip",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of compress_ipv6",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def compress_ipv6(ip: str) -> str:\n    \"\"\"Compress IPv6 address to shortest form.\"\"\"\n    expanded = expand_ipv6(ip)\n    parts = [p.lstrip('0') or '0' for p in expanded.split(':')]\n    best_start = -1\n    best_len = 0\n    current_start = -1\n    current_len = 0\n    for i, p in enumerate(parts):\n        if p == '0':\n            if current_start == -1:\n                current_start = i\n            current_len += 1\n        else:\n            if current_len > best_len:\n                best_start = current_start\n                best_len = current_len\n            current_start = -1\n            current_len = 0\n    if current_len > best_len:\n        best_start = current_start\n        best_len = current_len\n    if best_len > 1:\n        before = ':'.join(parts[:best_start])\n        after = ':'.join(parts[best_start + best_len:])\n        return f\"{before}::{after}\"\n    return ':'.join(parts)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:50.695088+00:00",
+    "description": "Compress IPv6 address to shortest form.",
+    "intent": "Compress IPv6 address to shortest form.",
+    "language": "python",
+    "name": "compress_ipv6",
+    "source_file": "neurop_forge/sources/ip_utilities.py",
+    "source_line_end": 212,
+    "source_line_start": 186,
+    "tags": [
+      "compress",
+      "ip",
+      "ipv6",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:50.695107+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(ip) == string",
+      "ip is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(ip) == string",
+      "ip is not None"
+    ]
+  }
+}

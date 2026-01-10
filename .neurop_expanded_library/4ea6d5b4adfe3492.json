@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4ea6d5b4adfe34923100cd7487957e3b06f9c4ee71227684271c4cb3ca2ec352",
+    "semantic_fingerprint": "78a59f0e1d620436d4981d958f9f9dc3d8c264080f0791dc32ecc8bf9bf21639",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Remove an edge from the graph.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter graph",
+        "name": "graph",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter from_node",
+        "name": "from_node",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter to_node",
+        "name": "to_node",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of remove_edge",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def remove_edge(graph: dict, from_node: str, to_node: str) -> dict:\n    \"\"\"Remove an edge from the graph.\"\"\"\n    result = {\n        \"directed\": graph[\"directed\"],\n        \"nodes\": dict(graph[\"nodes\"]),\n        \"edges\": [e for e in graph[\"edges\"] if not (e[\"from\"] == from_node and e[\"to\"] == to_node)]\n    }\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:47.195240+00:00",
+    "description": "Remove an edge from the graph.",
+    "intent": "Remove an edge from the graph.",
+    "language": "python",
+    "name": "remove_edge",
+    "source_file": "neurop_forge/sources/graph_utilities.py",
+    "source_line_end": 65,
+    "source_line_start": 58,
+    "tags": [
+      "dict_operation",
+      "edge",
+      "from_node",
+      "graph",
+      "remove",
+      "to_node"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.195261+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(graph) == dict",
+      "graph is not None",
+      "type(from_node) == string",
+      "from_node is not None",
+      "type(to_node) == string",
+      "to_node is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(graph) == dict",
+      "graph is not None",
+      "type(from_node) == string",
+      "from_node is not None",
+      "type(to_node) == string",
+      "to_node is not None"
+    ]
+  }
+}

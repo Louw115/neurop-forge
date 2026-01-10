@@ -1,0 +1,131 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "339c1e329e96b39c4a6822cae75a26dc8c6d15842a85a1178b11554a88fb3d22",
+    "semantic_fingerprint": "14a8b56370404cc546a2de36088e2d8a6495691f1bdecec3790c015c1277f0ca",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Generate SET TRANSACTION ISOLATION LEVEL SQL.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter level",
+        "name": "level",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of generate_set_transaction_isolation",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def generate_set_transaction_isolation(level: str) -> str:\n    \"\"\"Generate SET TRANSACTION ISOLATION LEVEL SQL.\"\"\"\n    valid_levels = {\"READ UNCOMMITTED\", \"READ COMMITTED\", \"REPEATABLE READ\", \"SERIALIZABLE\"}\n    normalized = level.upper()\n    if normalized not in valid_levels:\n        normalized = \"READ COMMITTED\"\n    return f\"SET TRANSACTION ISOLATION LEVEL {normalized}\"",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:45.063338+00:00",
+    "description": "Generate SET TRANSACTION ISOLATION LEVEL SQL.",
+    "intent": "Generate SET TRANSACTION ISOLATION LEVEL SQL.",
+    "language": "python",
+    "name": "generate_set_transaction_isolation",
+    "source_file": "neurop_forge/sources/transaction_helpers.py",
+    "source_line_end": 49,
+    "source_line_start": 43,
+    "tags": [
+      "generate",
+      "isolation",
+      "level",
+      "set",
+      "string_manipulation",
+      "transaction"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.063355+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(level) == string",
+      "level is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(level) == string",
+      "level is not None"
+    ]
+  }
+}

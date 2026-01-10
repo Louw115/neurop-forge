@@ -181,11 +181,16 @@ class CodeNormalizer:
         Rename local variables to canonical names.
         
         This helps identify semantically equivalent code with different
-        variable names.
+        variable names. Uses two-pass approach to ensure function parameters
+        are collected before renaming begins.
         """
         try:
             tree = ast.parse(source)
-            renamer = _PythonVariableRenamer()
+            
+            collector = _ParameterCollector()
+            collector.visit(tree)
+            
+            renamer = _PythonVariableRenamer(function_params=collector.params)
             renamed_tree = renamer.visit(tree)
             return ast.unparse(renamed_tree)
         except SyntaxError:
@@ -252,12 +257,40 @@ class _PythonASTNormalizer(ast.NodeTransformer):
         return ast.fix_missing_locations(new_node)
 
 
-class _PythonVariableRenamer(ast.NodeTransformer):
-    """Rename local variables to canonical names."""
-
+class _ParameterCollector(ast.NodeVisitor):
+    """First pass: Collect all function parameter names."""
+    
     def __init__(self):
+        self.params: set = set()
+    
+    def visit_FunctionDef(self, node: ast.FunctionDef):
+        for arg in node.args.args:
+            self.params.add(arg.arg)
+        for arg in node.args.posonlyargs:
+            self.params.add(arg.arg)
+        for arg in node.args.kwonlyargs:
+            self.params.add(arg.arg)
+        if node.args.vararg:
+            self.params.add(node.args.vararg.arg)
+        if node.args.kwarg:
+            self.params.add(node.args.kwarg.arg)
+        self.generic_visit(node)
+    
+    visit_AsyncFunctionDef = visit_FunctionDef
+
+
+class _PythonVariableRenamer(ast.NodeTransformer):
+    """Rename local variables to canonical names while preserving function parameters.
+    
+    Uses two-pass approach:
+    1. First collect all function parameters (done externally)
+    2. Then rename variables, skipping parameters
+    """
+
+    def __init__(self, function_params: set = None):
         self._var_counter = 0
         self._var_map: Dict[str, str] = {}
+        self._function_params: set = function_params or set()
         self._preserved_names = {
             'self', 'cls', 'args', 'kwargs',
             'True', 'False', 'None',
@@ -265,10 +298,18 @@ class _PythonVariableRenamer(ast.NodeTransformer):
             'set', 'tuple', 'bool', 'type', 'isinstance', 'hasattr', 'getattr',
             'setattr', 'open', 'input', 'sum', 'min', 'max', 'abs', 'round',
             'sorted', 'reversed', 'enumerate', 'zip', 'map', 'filter',
+            'ord', 'chr', 'hex', 'oct', 'bin', 'bytes', 'bytearray',
+            'all', 'any', 'iter', 'next', 'slice', 'super', 'object',
+            'staticmethod', 'classmethod', 'property', 'callable',
+            'divmod', 'pow', 'hash', 'id', 'repr', 'format', 'vars',
+            'Exception', 'ValueError', 'TypeError', 'KeyError', 'IndexError',
+            'AttributeError', 'NameError', 'RuntimeError', 'StopIteration',
         }
 
     def _get_canonical_name(self, original: str) -> str:
         if original in self._preserved_names:
+            return original
+        if original in self._function_params:
             return original
         if original.startswith('_'):
             return original
@@ -282,9 +323,9 @@ class _PythonVariableRenamer(ast.NodeTransformer):
         return ast.Name(id=new_name, ctx=node.ctx)
 
     def visit_arg(self, node: ast.arg) -> ast.arg:
-        new_name = self._get_canonical_name(node.arg)
-        return ast.arg(arg=new_name, annotation=node.annotation)
+        return node
 
     def visit_FunctionDef(self, node: ast.FunctionDef) -> ast.FunctionDef:
-        self.generic_visit(node)
-        return node
+        return self.generic_visit(node)
+    
+    visit_AsyncFunctionDef = visit_FunctionDef

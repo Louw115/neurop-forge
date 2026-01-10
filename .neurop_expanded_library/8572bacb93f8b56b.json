@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8572bacb93f8b56bc48da0a5f2b2f59f22a6791b854444fcfc1e0f83630a2c0a",
+    "semantic_fingerprint": "dc3afc3ad5379cc14cb34bd4c6e6f9b874a8652d4ddaab19fc304bd407b0e102",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Pluralize a resource name for collection endpoints.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter name",
+        "name": "name",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of pluralize_resource",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def pluralize_resource(name: str) -> str:\n    \"\"\"Pluralize a resource name for collection endpoints.\"\"\"\n    if name.endswith('y') and len(name) > 1 and name[-2] not in 'aeiou':\n        return name[:-1] + 'ies'\n    if name.endswith(('s', 'x', 'z', 'ch', 'sh')):\n        return name + 'es'\n    return name + 's'",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:45.618343+00:00",
+    "description": "Pluralize a resource name for collection endpoints.",
+    "intent": "Pluralize a resource name for collection endpoints.",
+    "language": "python",
+    "name": "pluralize_resource",
+    "source_file": "neurop_forge/sources/api_patterns.py",
+    "source_line_end": 331,
+    "source_line_start": 325,
+    "tags": [
+      "name",
+      "pluralize",
+      "resource",
+      "string_manipulation"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.618361+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(name) == string",
+      "name is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(name) == string",
+      "name is not None"
+    ]
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "47de6f0a4f5384385827da10e06dbc56f6095adb361feb9dd5cc753d5d070b3c",
+    "semantic_fingerprint": "0905622d6222d139f32883feee88318493c1e9057b67e11073ac4247ea1cfb00",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get current breakpoint name for width.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter width",
+        "name": "width",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter breakpoints",
+        "name": "breakpoints",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_current_breakpoint",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_current_breakpoint(width: int, breakpoints: dict) -> str:\n    \"\"\"Get current breakpoint name for width.\"\"\"\n    current = \"xs\"\n    for name, min_width in sorted(breakpoints.items(), key=lambda x: x[1]):\n        if width >= min_width:\n            current = name\n    return current",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:46.706648+00:00",
+    "description": "Get current breakpoint name for width.",
+    "intent": "Get current breakpoint name for width.",
+    "language": "python",
+    "name": "get_current_breakpoint",
+    "source_file": "neurop_forge/sources/ui_patterns.py",
+    "source_line_end": 284,
+    "source_line_start": 278,
+    "tags": [
+      "breakpoint",
+      "breakpoints",
+      "current",
+      "filtering",
+      "get",
+      "width"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.706667+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(width) == integer",
+      "width is not None",
+      "type(breakpoints) == dict",
+      "breakpoints is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(width) == integer",
+      "width is not None",
+      "type(breakpoints) == dict",
+      "breakpoints is not None"
+    ]
+  }
+}

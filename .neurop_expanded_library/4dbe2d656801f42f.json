@@ -1,0 +1,128 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "4dbe2d656801f42f629b7c2824f66354bf84c9644a13c6ccf54fb780e899dd14",
+    "semantic_fingerprint": "1794f56dc7bdf82a66c2c3698e50e7b93f02b804d7f527553026fd57e5559d1e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Pluralize an English word (basic rules).",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter word",
+        "name": "word",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of pluralize",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def pluralize(word: str) -> str:\n    \"\"\"Pluralize an English word (basic rules).\"\"\"\n    if word.endswith('y') and len(word) > 1 and word[-2] not in 'aeiou':\n        return word[:-1] + 'ies'\n    if word.endswith(('s', 'x', 'z', 'ch', 'sh')):\n        return word + 'es'\n    if word.endswith('f'):\n        return word[:-1] + 'ves'\n    if word.endswith('fe'):\n        return word[:-2] + 'ves'\n    return word + 's'",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:45.337954+00:00",
+    "description": "Pluralize an English word (basic rules).",
+    "intent": "Pluralize an English word (basic rules).",
+    "language": "python",
+    "name": "pluralize",
+    "source_file": "neurop_forge/sources/orm_patterns.py",
+    "source_line_end": 40,
+    "source_line_start": 30,
+    "tags": [
+      "pluralize",
+      "string_manipulation",
+      "word"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.337981+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(word) == string",
+      "word is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(word) == string",
+      "word is not None"
+    ]
+  }
+}

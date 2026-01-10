@@ -1,0 +1,140 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "d3bb0dfd56c194f1da6c343406c35317ac992e39c313893050fbae24afdb7fd3",
+    "semantic_fingerprint": "36d1e591c12da595b437fdf774f0ccff4e76fa5f35d234264bb7e51bcf84f69d",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add error to chain.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter chain",
+        "name": "chain",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter error",
+        "name": "error",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of add_to_chain",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def add_to_chain(chain: dict, error: str) -> dict:\n    \"\"\"Add error to chain.\"\"\"\n    new_errors = chain.get(\"errors\", []) + [error]\n    return create_error_chain(new_errors)",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:51.442463+00:00",
+    "description": "Add error to chain.",
+    "intent": "Add error to chain.",
+    "language": "python",
+    "name": "add_to_chain",
+    "source_file": "neurop_forge/sources/exception_utilities.py",
+    "source_line_end": 127,
+    "source_line_start": 124,
+    "tags": [
+      "add",
+      "arithmetic",
+      "chain",
+      "error"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:51.442484+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(chain) == dict",
+      "chain is not None",
+      "type(error) == string",
+      "error is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(chain) == dict",
+      "chain is not None",
+      "type(error) == string",
+      "error is not None"
+    ]
+  }
+}

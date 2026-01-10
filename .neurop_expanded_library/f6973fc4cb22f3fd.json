@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "f6973fc4cb22f3fd269e99f4323c5d729c80f437cf8af9cdd7da780d7952c34d",
+    "semantic_fingerprint": "0349580a3dd100199be26d9a556d9b859d666e2b81d17787d463448d7d670674",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add context to log entry.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter entry",
+        "name": "entry",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter additional_context",
+        "name": "additional_context",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of add_context_to_entry",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def add_context_to_entry(entry: dict, additional_context: dict) -> dict:\n    \"\"\"Add context to log entry.\"\"\"\n    result = dict(entry)\n    result[\"context\"] = {**entry.get(\"context\", {}), **additional_context}\n    return result",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:47.546651+00:00",
+    "description": "Add context to log entry.",
+    "intent": "Add context to log entry.",
+    "language": "python",
+    "name": "add_context_to_entry",
+    "source_file": "neurop_forge/sources/logging_utilities.py",
+    "source_line_end": 82,
+    "source_line_start": 78,
+    "tags": [
+      "add",
+      "additional_context",
+      "arithmetic",
+      "context",
+      "entry"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:47.546667+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(entry) == dict",
+      "entry is not None",
+      "type(additional_context) == dict",
+      "additional_context is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(entry) == dict",
+      "entry is not None",
+      "type(additional_context) == dict",
+      "additional_context is not None"
+    ]
+  }
+}

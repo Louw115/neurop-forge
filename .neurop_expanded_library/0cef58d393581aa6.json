@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0cef58d393581aa68bb1e02a71ae29de8b3fe4e05b83c4c3b9d8d6f87f2c307d",
+    "semantic_fingerprint": "93ab28ab1fe773612ec103384abc6babbf68b4d8aecd35255c7191cae63f46b8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Truncate stack trace to maximum lines.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter stack_trace",
+        "name": "stack_trace",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter max_lines",
+        "name": "max_lines",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of truncate_stack_trace",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def truncate_stack_trace(stack_trace: str, max_lines: int) -> str:\n    \"\"\"Truncate stack trace to maximum lines.\"\"\"\n    lines = stack_trace.split('\\n')\n    if len(lines) <= max_lines:\n        return stack_trace\n    return '\\n'.join(lines[:max_lines]) + f'\\n... ({len(lines) - max_lines} more lines)'",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:46.000068+00:00",
+    "description": "Truncate stack trace to maximum lines.",
+    "intent": "Truncate stack trace to maximum lines.",
+    "language": "python",
+    "name": "truncate_stack_trace",
+    "source_file": "neurop_forge/sources/error_handling.py",
+    "source_line_end": 261,
+    "source_line_start": 256,
+    "tags": [
+      "max_lines",
+      "stack",
+      "stack_trace",
+      "string_manipulation",
+      "trace",
+      "truncate"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.000087+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(stack_trace) == string",
+      "stack_trace is not None",
+      "type(max_lines) == integer",
+      "max_lines is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(stack_trace) == string",
+      "stack_trace is not None",
+      "type(max_lines) == integer",
+      "max_lines is not None"
+    ]
+  }
+}

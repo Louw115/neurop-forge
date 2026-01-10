@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "42793e49fcd6a7b2c9b7289cfe722ac5c20c570f739cb07e1619899ece109fd4",
+    "semantic_fingerprint": "285bf58933b1a6e382c27573133f4da0cb7a413dc03d23b261bd3b0299cd98e8",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Unescape control characters.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter text",
+        "name": "text",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of unescape_control_chars",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def unescape_control_chars(text: str) -> str:\n    \"\"\"Unescape control characters.\"\"\"\n    import re\n    def replace(match):\n        return chr(int(match.group(1), 16))\n    return re.sub(r'\\\\x([0-9A-Fa-f]{2})', replace, text)",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:51.690453+00:00",
+    "description": "Unescape control characters.",
+    "intent": "Unescape control characters.",
+    "language": "python",
+    "name": "unescape_control_chars",
+    "source_file": "neurop_forge/sources/ascii_utilities.py",
+    "source_line_end": 184,
+    "source_line_start": 179,
+    "tags": [
+      "chars",
+      "control",
+      "string_manipulation",
+      "text",
+      "unescape"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:51.690480+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(text) == string",
+      "text is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(text) == string",
+      "text is not None"
+    ]
+  }
+}

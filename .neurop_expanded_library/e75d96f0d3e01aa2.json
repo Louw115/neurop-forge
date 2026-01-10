@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic arithmetic block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e75d96f0d3e01aa2893ecc3563e70433390a711fbbca12914ca52991b987240a",
+    "semantic_fingerprint": "a7af852915115f5b3fb409c85ff1d4a19fd06da2ee7e15ecb271c049c86a8fec",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Add SELECT clause.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter builder",
+        "name": "builder",
+        "optional": false
+      },
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter columns",
+        "name": "columns",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of sql_select",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def sql_select(builder: dict, columns: list) -> dict:\n    \"\"\"Add SELECT clause.\"\"\"\n    clause = \"SELECT \" + \", \".join(columns)\n    return {**builder, \"clauses\": builder[\"clauses\"] + [clause]}",
+  "metadata": {
+    "category": "arithmetic",
+    "created_at": "2026-01-10T02:18:49.807061+00:00",
+    "description": "Add SELECT clause.",
+    "intent": "Add SELECT clause.",
+    "language": "python",
+    "name": "sql_select",
+    "source_file": "neurop_forge/sources/string_builder.py",
+    "source_line_end": 159,
+    "source_line_start": 156,
+    "tags": [
+      "arithmetic",
+      "builder",
+      "columns",
+      "select",
+      "sql"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.807086+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.34450000000000003,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.63,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(builder) == dict",
+      "builder is not None",
+      "type(columns) == list",
+      "columns is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(builder) == dict",
+      "builder is not None",
+      "type(columns) == list",
+      "columns is not None"
+    ]
+  }
+}

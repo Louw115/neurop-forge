@@ -1,0 +1,142 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "72e6c6612f79b785c524a0488cd7d97d17a5196cc96d11bf3aaea8acc123f56d",
+    "semantic_fingerprint": "f84dc8984615125acd5282e0bee6c074aa6bc2a1b7a481da2efe75629ff2984f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get fields that have changed between two model versions.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter original",
+        "name": "original",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter updated",
+        "name": "updated",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of get_changed_fields",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_changed_fields(original: dict, updated: dict) -> dict:\n    \"\"\"Get fields that have changed between two model versions.\"\"\"\n    changed = {}\n    for key, value in updated.items():\n        if key in original and original[key] != value:\n            changed[key] = {\"old\": original[key], \"new\": value}\n    return changed",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:45.355958+00:00",
+    "description": "Get fields that have changed between two model versions.",
+    "intent": "Get fields that have changed between two model versions.",
+    "language": "python",
+    "name": "get_changed_fields",
+    "source_file": "neurop_forge/sources/orm_patterns.py",
+    "source_line_end": 123,
+    "source_line_start": 117,
+    "tags": [
+      "changed",
+      "fields",
+      "filtering",
+      "get",
+      "original",
+      "updated"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.355977+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(original) == dict",
+      "original is not None",
+      "type(updated) == dict",
+      "updated is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(original) == dict",
+      "original is not None",
+      "type(updated) == dict",
+      "updated is not None"
+    ]
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic filtering block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "9b917e3d0141a1d87835f79319c4a5ff42a8d85eda8c42666342f36e04f8be89",
+    "semantic_fingerprint": "3d042df1b95578a55b6d9fd9c6d3c60c414704daf83fa11178852144114e4bd5",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Get the general category for a file extension.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter extension",
+        "name": "extension",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of get_file_category",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def get_file_category(extension: str) -> str:\n    \"\"\"Get the general category for a file extension.\"\"\"\n    extension = extension.lower().lstrip('.')\n    categories = {\n        \"image\": [\"png\", \"jpg\", \"jpeg\", \"gif\", \"webp\", \"svg\", \"ico\", \"bmp\", \"tiff\", \"tif\", \"psd\", \"raw\", \"heic\", \"heif\"],\n        \"video\": [\"mp4\", \"webm\", \"avi\", \"mov\", \"mkv\", \"flv\", \"wmv\", \"m4v\", \"mpeg\", \"mpg\", \"3gp\"],\n        \"audio\": [\"mp3\", \"wav\", \"ogg\", \"flac\", \"aac\", \"wma\", \"m4a\", \"opus\", \"aiff\"],\n        \"document\": [\"pdf\", \"doc\", \"docx\", \"odt\", \"rtf\", \"txt\", \"md\", \"tex\", \"epub\", \"mobi\"],\n        \"spreadsheet\": [\"xls\", \"xlsx\", \"csv\", \"ods\", \"tsv\"],\n        \"presentation\": [\"ppt\", \"pptx\", \"odp\", \"key\"],\n        \"archive\": [\"zip\", \"rar\", \"7z\", \"tar\", \"gz\", \"bz2\", \"xz\", \"tgz\"],\n        \"code\": [\"py\", \"js\", \"ts\", \"jsx\", \"tsx\", \"java\", \"c\", \"cpp\", \"h\", \"hpp\", \"cs\", \"go\", \"rs\", \"rb\", \"php\", \"swift\", \"kt\", \"scala\", \"r\", \"lua\", \"pl\", \"sh\", \"bash\", \"zsh\", \"ps1\"],\n        \"web\": [\"html\", \"htm\", \"css\", \"scss\", \"sass\", \"less\", \"vue\", \"svelte\"],\n        \"data\": [\"json\", \"xml\", \"yaml\", \"yml\", \"toml\", \"ini\", \"cfg\", \"conf\"],\n        \"font\": [\"ttf\", \"otf\", \"woff\", \"woff2\", \"eot\"],\n        \"executable\": [\"exe\", \"msi\", \"dmg\", \"app\", \"deb\", \"rpm\", \"apk\", \"ipa\"],\n        \"database\": [\"sql\", \"db\", \"sqlite\", \"sqlite3\", \"mdb\", \"accdb\"],\n    }\n    for category, extensions in categories.items():\n        if extension in extensions:\n            return category\n    return \"other\"",
+  "metadata": {
+    "category": "filtering",
+    "created_at": "2026-01-10T02:18:43.340383+00:00",
+    "description": "Get the general category for a file extension.",
+    "intent": "Get the general category for a file extension.",
+    "language": "python",
+    "name": "get_file_category",
+    "source_file": "neurop_forge/sources/file_type_detection.py",
+    "source_line_end": 71,
+    "source_line_start": 50,
+    "tags": [
+      "category",
+      "extension",
+      "file",
+      "filtering",
+      "get"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:43.340410+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.355,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.7,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(extension) == string",
+      "extension is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(extension) == string",
+      "extension is not None"
+    ]
+  }
+}

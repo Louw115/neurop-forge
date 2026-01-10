@@ -1,0 +1,153 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "e5abe8336df1fe7a0d6a605ee8e204e096238fc09ef948142b5961c7ae03e835",
+    "semantic_fingerprint": "638ae893498af43c4e37c8d926c4c0eb8c266bf7e81da172983e61b69ab387f5",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Rotate bits left.",
+    "inputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter value",
+        "name": "value",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter positions",
+        "name": "positions",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter bits",
+        "name": "bits",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Return value of rotate_left",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def rotate_left(value: int, positions: int, bits: int) -> int:\n    \"\"\"Rotate bits left.\"\"\"\n    positions = positions % bits\n    mask = (1 << bits) - 1\n    return ((value << positions) | (value >> (bits - positions))) & mask",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:48.520388+00:00",
+    "description": "Rotate bits left.",
+    "intent": "Rotate bits left.",
+    "language": "python",
+    "name": "rotate_left",
+    "source_file": "neurop_forge/sources/bitwise_utilities.py",
+    "source_line_end": 158,
+    "source_line_start": 154,
+    "tags": [
+      "bits",
+      "left",
+      "list_operation",
+      "positions",
+      "rotate",
+      "value"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:48.520406+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.3775,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.85,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(value) == integer",
+      "value is not None",
+      "type(positions) == integer",
+      "positions is not None",
+      "type(bits) == integer",
+      "bits is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == integer"
+    ],
+    "postconditions": [
+      "type(result) == integer"
+    ],
+    "preconditions": [
+      "type(value) == integer",
+      "value is not None",
+      "type(positions) == integer",
+      "positions is not None",
+      "type(bits) == integer",
+      "bits is not None"
+    ]
+  }
+}

@@ -1,0 +1,167 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception",
+      "KeyError"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "477a6c5f1bdf8c54ae590af61c59f9ee004fc9c38eff9811c2dadf8873dc397a",
+    "semantic_fingerprint": "3e1987fed42039f0d6ed98874b1c092dc8401248bac5c737967a1400e02977e9",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build a DynamoDB key dictionary.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter partition_key",
+        "name": "partition_key",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter pk_value",
+        "name": "pk_value",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter sort_key",
+        "name": "sort_key",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter sk_value",
+        "name": "sk_value",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of build_dynamodb_key",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_dynamodb_key(partition_key: str, pk_value: str, sort_key: str, sk_value: str) -> dict:\n    \"\"\"Build a DynamoDB key dictionary.\"\"\"\n    key = {partition_key: pk_value}\n    if sort_key and sk_value:\n        key[sort_key] = sk_value\n    return key",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:45.292066+00:00",
+    "description": "Build a DynamoDB key dictionary.",
+    "intent": "Build a DynamoDB key dictionary.",
+    "language": "python",
+    "name": "build_dynamodb_key",
+    "source_file": "neurop_forge/sources/nosql_helpers.py",
+    "source_line_end": 260,
+    "source_line_start": 255,
+    "tags": [
+      "build",
+      "dict_operation",
+      "dynamodb",
+      "key",
+      "partition_key",
+      "pk_value",
+      "sk_value",
+      "sort_key"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.292094+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(partition_key) == string",
+      "partition_key is not None",
+      "type(pk_value) == string",
+      "pk_value is not None",
+      "type(sort_key) == string",
+      "sort_key is not None",
+      "type(sk_value) == string",
+      "sk_value is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(partition_key) == string",
+      "partition_key is not None",
+      "type(pk_value) == string",
+      "pk_value is not None",
+      "type(sort_key) == string",
+      "sort_key is not None",
+      "type(sk_value) == string",
+      "sk_value is not None"
+    ]
+  }
+}

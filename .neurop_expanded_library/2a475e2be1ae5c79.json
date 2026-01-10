@@ -1,0 +1,129 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic validation block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "2a475e2be1ae5c79ccbe2dc57d0c268bbe9fe6e3d6ae0d67a6dc1d7a35807b6d",
+    "semantic_fingerprint": "d0de6efb8a23cc18e73c40e0ac3c4a58dec527dadd9ac10edad392f74fe3a97f",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Check if any statement in a transaction is a write operation.",
+    "inputs": [
+      {
+        "data_type": "list",
+        "default_value": null,
+        "description": "Parameter statements",
+        "name": "statements",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "boolean",
+        "default_value": null,
+        "description": "Return value of is_write_transaction",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def is_write_transaction(statements: list) -> bool:\n    \"\"\"Check if any statement in a transaction is a write operation.\"\"\"\n    from neurop_forge.sources.query_helpers import is_mutating_query, is_ddl_query\n    return any(is_mutating_query(s) or is_ddl_query(s) for s in statements)",
+  "metadata": {
+    "category": "validation",
+    "created_at": "2026-01-10T02:18:45.101761+00:00",
+    "description": "Check if any statement in a transaction is a write operation.",
+    "intent": "Check if any statement in a transaction is a write operation.",
+    "language": "python",
+    "name": "is_write_transaction",
+    "source_file": "neurop_forge/sources/transaction_helpers.py",
+    "source_line_end": 248,
+    "source_line_start": 245,
+    "tags": [
+      "statements",
+      "transaction",
+      "validation",
+      "write"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.101779+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.385,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.9,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(statements) == list",
+      "statements is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == boolean"
+    ],
+    "postconditions": [
+      "type(result) == boolean"
+    ],
+    "preconditions": [
+      "type(statements) == list",
+      "statements is not None"
+    ]
+  }
+}

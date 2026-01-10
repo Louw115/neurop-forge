@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "8ddb1b1cd05f3a941f2d3fa1fe6b58f0fe38800532733a1974006ba19a9823ce",
+    "semantic_fingerprint": "22af452174a98b006c087e460101ddddfcc19426414bd3d840d3997d7e1bfb76",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Increment a semantic version.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter version",
+        "name": "version",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter increment_type",
+        "name": "increment_type",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of increment_semver",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def increment_semver(version: str, increment_type: str) -> str:\n    \"\"\"Increment a semantic version.\"\"\"\n    parsed = parse_semver(version)\n    if not parsed[\"valid\"]:\n        return version\n    if increment_type == \"major\":\n        return format_semver(parsed[\"major\"] + 1, 0, 0, \"\", \"\")\n    elif increment_type == \"minor\":\n        return format_semver(parsed[\"major\"], parsed[\"minor\"] + 1, 0, \"\", \"\")\n    elif increment_type == \"patch\":\n        return format_semver(parsed[\"major\"], parsed[\"minor\"], parsed[\"patch\"] + 1, \"\", \"\")\n    return version",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:46.432997+00:00",
+    "description": "Increment a semantic version.",
+    "intent": "Increment a semantic version.",
+    "language": "python",
+    "name": "increment_semver",
+    "source_file": "neurop_forge/sources/devops_utilities.py",
+    "source_line_end": 62,
+    "source_line_start": 51,
+    "tags": [
+      "increment",
+      "increment_type",
+      "semver",
+      "string_manipulation",
+      "version"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:46.433019+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(version) == string",
+      "version is not None",
+      "type(increment_type) == string",
+      "increment_type is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(version) == string",
+      "version is not None",
+      "type(increment_type) == string",
+      "increment_type is not None"
+    ]
+  }
+}

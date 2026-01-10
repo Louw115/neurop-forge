@@ -1,0 +1,167 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic string block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "80a980cd0f1c948d877ac385a4f7e9936da21298f7a8b73b3c1575d8f8cec990",
+    "semantic_fingerprint": "e7d4712e0af8abce9f68dabf835e047d03a24fa160d875b50130ad662e47fc19",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Build SQL for querying audit records.",
+    "inputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter audit_table",
+        "name": "audit_table",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter table_filter",
+        "name": "table_filter",
+        "optional": false
+      },
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Parameter operation_filter",
+        "name": "operation_filter",
+        "optional": false
+      },
+      {
+        "data_type": "integer",
+        "default_value": null,
+        "description": "Parameter limit",
+        "name": "limit",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "string",
+        "default_value": null,
+        "description": "Return value of build_audit_query_sql",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def build_audit_query_sql(audit_table: str, table_filter: str, operation_filter: str, limit: int) -> str:\n    \"\"\"Build SQL for querying audit records.\"\"\"\n    from neurop_forge.sources.sql_building import escape_sql_identifier\n    sql = f\"SELECT * FROM {escape_sql_identifier(audit_table)} WHERE 1=1\"\n    placeholder = 1\n    if table_filter:\n        sql += f\" AND table_name = ${placeholder}\"\n        placeholder += 1\n    if operation_filter:\n        sql += f\" AND operation = ${placeholder}\"\n        placeholder += 1\n    sql += \" ORDER BY timestamp DESC\"\n    if limit > 0:\n        sql += f\" LIMIT {limit}\"\n    return sql",
+  "metadata": {
+    "category": "string",
+    "created_at": "2026-01-10T02:18:45.498408+00:00",
+    "description": "Build SQL for querying audit records.",
+    "intent": "Build SQL for querying audit records.",
+    "language": "python",
+    "name": "build_audit_query_sql",
+    "source_file": "neurop_forge/sources/audit_logging.py",
+    "source_line_end": 115,
+    "source_line_start": 101,
+    "tags": [
+      "audit",
+      "audit_table",
+      "build",
+      "limit",
+      "operation_filter",
+      "query",
+      "sql",
+      "string_manipulation",
+      "table_filter"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:45.498439+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(audit_table) == string",
+      "audit_table is not None",
+      "type(table_filter) == string",
+      "table_filter is not None",
+      "type(operation_filter) == string",
+      "operation_filter is not None",
+      "type(limit) == integer",
+      "limit is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == string"
+    ],
+    "postconditions": [
+      "type(result) == string"
+    ],
+    "preconditions": [
+      "type(audit_table) == string",
+      "audit_table is not None",
+      "type(table_filter) == string",
+      "table_filter is not None",
+      "type(operation_filter) == string",
+      "operation_filter is not None",
+      "type(limit) == integer",
+      "limit is not None"
+    ]
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "composition": {
+    "composable": true,
+    "composition_notes": "Atomic collection block, composable with standard types",
+    "conflicts_with": [],
+    "input_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "utility"
+    ],
+    "output_compatible_types": [
+      "arithmetic",
+      "string",
+      "collection",
+      "validation",
+      "utility"
+    ],
+    "requires_blocks": []
+  },
+  "constraints": {
+    "deterministic": true,
+    "io_operations": [
+      "none"
+    ],
+    "max_execution_time_ms": null,
+    "max_memory_bytes": null,
+    "purity": "pure",
+    "side_effects": [],
+    "thread_safe": true
+  },
+  "failure_modes": {
+    "can_fail": false,
+    "error_conditions": [
+      "Invalid input types",
+      "None values when not allowed"
+    ],
+    "failure_mode": "never",
+    "possible_exceptions": [
+      "Exception"
+    ],
+    "recovery_hints": [
+      "Validate inputs before calling",
+      "Handle exceptions appropriately"
+    ]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "dd5ce694e2e4c82fe2c4153303599178e844708b1e9509a7edd3868d73a823a2",
+    "semantic_fingerprint": "653a25fde7b2a1cd1f5f11ad8623ca4f26989ca7a64cc15fa358adaf99e8562e",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "description": "Apply dictionary diff to original.",
+    "inputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter original",
+        "name": "original",
+        "optional": false
+      },
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Parameter diff",
+        "name": "diff",
+        "optional": false
+      }
+    ],
+    "outputs": [
+      {
+        "data_type": "dict",
+        "default_value": null,
+        "description": "Return value of apply_dict_diff",
+        "name": "result",
+        "optional": false
+      }
+    ]
+  },
+  "logic": "def apply_dict_diff(original: dict, diff: dict) -> dict:\n    \"\"\"Apply dictionary diff to original.\"\"\"\n    result = dict(original)\n    for k in diff.get(\"removed\", {}):\n        if k in result:\n            del result[k]\n    for k, v in diff.get(\"added\", {}).items():\n        result[k] = v\n    for k, changes in diff.get(\"modified\", {}).items():\n        result[k] = changes[\"new\"]\n    return result",
+  "metadata": {
+    "category": "collection",
+    "created_at": "2026-01-10T02:18:49.261613+00:00",
+    "description": "Apply dictionary diff to original.",
+    "intent": "Apply dictionary diff to original.",
+    "language": "python",
+    "name": "apply_dict_diff",
+    "source_file": "neurop_forge/sources/diff_utilities.py",
+    "source_line_end": 167,
+    "source_line_start": 157,
+    "tags": [
+      "apply",
+      "dict",
+      "dict_operation",
+      "diff",
+      "original"
+    ],
+    "version": "1.0.0"
+  },
+  "ownership": {
+    "attribution_required": true,
+    "license_type": "MIT",
+    "license_url": null,
+    "modifications_allowed": true,
+    "original_author": "Lourens Wasserman",
+    "original_repository": "neurop-block-forge"
+  },
+  "sealed": true,
+  "trust_score": {
+    "determinism_score": 1.0,
+    "last_verified": "2026-01-10T02:18:49.261638+00:00",
+    "license_score": 1.0,
+    "overall_score": 0.33999999999999997,
+    "risk_factors": [],
+    "risk_level": "low",
+    "static_analysis_score": 0.6,
+    "test_coverage_score": 0.0
+  },
+  "validation_rules": {
+    "input_validators": [
+      "type(original) == dict",
+      "original is not None",
+      "type(diff) == dict",
+      "diff is not None"
+    ],
+    "invariants": [],
+    "output_validators": [
+      "type(result) == dict"
+    ],
+    "postconditions": [
+      "type(result) == dict"
+    ],
+    "preconditions": [
+      "type(original) == dict",
+      "original is not None",
+      "type(diff) == dict",
+      "diff is not None"
+    ]
+  }
+}
