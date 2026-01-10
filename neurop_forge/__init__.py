@@ -18,8 +18,8 @@ Or use convenience functions:
     blocks = list_blocks(category="string", tier="A")
 """
 
-__version__ = "1.0.0"
-__author__ = "Neurop Project"
+__version__ = "2.0.0"
+__author__ = "Lourens Wasserman"
 
 from neurop_forge.api import (
     NeuropForge,
