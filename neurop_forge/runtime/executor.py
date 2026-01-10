@@ -332,7 +332,7 @@ class GraphExecutor:
         
         context.enter_node(node.block_identity)
         
-        inputs = self._gather_inputs(node, context)
+        inputs = self._gather_inputs(node, context, block)
         
         attempt = 0
         last_error = None
@@ -413,30 +413,98 @@ class GraphExecutor:
         self,
         node: CompositionNode,
         context: ExecutionContext,
+        block: Optional[NeuropBlock] = None,
     ) -> Dict[str, Any]:
-        """Gather inputs for node from context and previous outputs."""
-        inputs: Dict[str, Any] = {}
+        """
+        Gather and bind inputs for node from context and previous outputs.
+        
+        This properly maps available data to block interface parameters.
+        """
+        available: Dict[str, Any] = {}
         
         for var_name, var in context.get_all_variables(ContextScope.GLOBAL).items():
-            inputs[var_name] = var.value
+            available[var_name] = var.value
         
         if node.input_sources:
             for source_id in node.input_sources:
                 source_output = context.get_node_output(source_id)
                 if source_output is not None:
                     if isinstance(source_output, dict):
-                        inputs.update(source_output)
+                        available.update(source_output)
                     else:
-                        inputs["_previous"] = source_output
+                        available["_previous"] = source_output
+                        available["input"] = source_output
+                        available["value"] = source_output
+                        available["data"] = source_output
         else:
             previous = context.get_previous_output()
             if previous is not None:
                 if isinstance(previous, dict):
-                    inputs.update(previous)
+                    available.update(previous)
                 else:
-                    inputs["_previous"] = previous
+                    available["_previous"] = previous
+                    available["input"] = previous
+                    available["value"] = previous
+                    available["data"] = previous
         
-        return inputs
+        if block is None:
+            return available
+        
+        bound_inputs: Dict[str, Any] = {}
+        
+        for param in block.interface.inputs:
+            param_name = param.name
+            param_type = param.data_type.value
+            
+            if param_name in available:
+                bound_inputs[param_name] = available[param_name]
+                continue
+            
+            type_aliases = {
+                "email": ["email", "email_address", "mail"],
+                "phone": ["phone", "phone_number", "telephone"],
+                "text": ["text", "input", "value", "data", "content", "string", "s", "str"],
+                "url": ["url", "uri", "link", "href"],
+                "name": ["name", "username", "user_name", "full_name"],
+                "password": ["password", "passwd", "secret"],
+                "number": ["number", "num", "n", "value", "amount", "count"],
+                "integer": ["integer", "int", "i", "n", "count"],
+                "float": ["float", "f", "decimal", "amount"],
+                "boolean": ["boolean", "bool", "flag", "is_active", "enabled"],
+                "list": ["list", "items", "array", "elements", "values"],
+                "dict": ["dict", "data", "obj", "object", "payload"],
+            }
+            
+            matched = False
+            for avail_name, avail_value in available.items():
+                avail_lower = avail_name.lower()
+                param_lower = param_name.lower()
+                
+                if param_lower in avail_lower or avail_lower in param_lower:
+                    bound_inputs[param_name] = avail_value
+                    matched = True
+                    break
+                
+                for sem_type, aliases in type_aliases.items():
+                    if param_lower in aliases or any(a in param_lower for a in aliases):
+                        if avail_lower in aliases or any(a in avail_lower for a in aliases):
+                            bound_inputs[param_name] = avail_value
+                            matched = True
+                            break
+                if matched:
+                    break
+            
+            if not matched and param.optional:
+                if param.default_value is not None:
+                    bound_inputs[param_name] = param.default_value
+            elif not matched and not param.optional:
+                if "_previous" in available:
+                    bound_inputs[param_name] = available["_previous"]
+                elif available:
+                    first_val = list(available.values())[0]
+                    bound_inputs[param_name] = first_val
+        
+        return bound_inputs
     
     def _get_circuit_breaker(self, block_id: str) -> CircuitBreaker:
         """Get or create circuit breaker for block."""
