@@ -177,6 +177,30 @@ def cmd_stats(args) -> int:
         return 1
 
 
+def cmd_license(args) -> int:
+    """Display license information."""
+    print(f"Neurop Block Forge v{__version__}")
+    print("=" * 50)
+    print()
+    print("LICENSE: Dual License (Non-Commercial / Commercial)")
+    print()
+    print("NON-COMMERCIAL USE (FREE)")
+    print("  You may use Neurop Forge free of charge for")
+    print("  non-commercial purposes with attribution.")
+    print()
+    print("  Required attribution:")
+    print('  "Powered by Neurop Forge v2.0.0"')
+    print("  https://github.com/Louw115/neurop-forge")
+    print()
+    print("COMMERCIAL USE (PAID LICENSE REQUIRED)")
+    print("  Commercial use requires a separate paid license.")
+    print("  Contact: wassermanlourens@gmail.com")
+    print()
+    print("=" * 50)
+    print("Full license: https://github.com/Louw115/neurop-forge/blob/main/LICENSE.md")
+    return 0
+
+
 def cmd_test(args) -> int:
     """Run block compatibility tests."""
     print("Running block compatibility tests...")
@@ -334,6 +358,9 @@ def main() -> int:
     
     stats_parser = subparsers.add_parser("stats", help="Show library statistics")
     stats_parser.set_defaults(func=cmd_stats)
+    
+    license_parser = subparsers.add_parser("license", help="Display license information")
+    license_parser.set_defaults(func=cmd_license)
     
     test_parser = subparsers.add_parser("test", help="Run block compatibility tests")
     test_parser.add_argument("--all", "-a", action="store_true", 
