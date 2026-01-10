@@ -56,6 +56,10 @@ from neurop_forge.library.fetch_engine import FetchEngine, BlockGraph
 from neurop_forge.composition.compatibility import CompatibilityChecker
 from neurop_forge.composition.graph_rules import GraphValidator, CompositionGraph
 
+from neurop_forge.semantic.intent_schema import SemanticIntent, SemanticDomain, SemanticOperation, SemanticType
+from neurop_forge.semantic.intent_extractor import SemanticIntentExtractor
+from neurop_forge.semantic.composer import SemanticComposer, SemanticIndexEntry
+
 
 class NeuropForge:
     """
@@ -102,12 +106,16 @@ class NeuropForge:
         self._compatibility_checker = CompatibilityChecker(strict_mode=strict_mode)
         self._graph_validator = GraphValidator(self._compatibility_checker)
 
+        self._semantic_extractor = SemanticIntentExtractor()
+        self._semantic_composer = SemanticComposer()
+
         self._load_existing_blocks()
 
     def _load_existing_blocks(self) -> None:
         """Load and index existing blocks from storage."""
         for block in self._block_store.get_all():
             self._indexer.index_block(block)
+            self._index_block_semantically(block)
 
     def ingest_source(
         self,
@@ -252,6 +260,7 @@ class NeuropForge:
 
         if store_result.is_success():
             self._indexer.index_block(block)
+            self._index_block_semantically(block)
             return {
                 "status": "stored",
                 "identity": block.get_identity_hash(),
@@ -334,6 +343,56 @@ class NeuropForge:
         graph = self._graph_validator.create_graph(blocks)
         result = self._graph_validator.validate(graph)
         return result.to_dict()
+
+    def _index_block_semantically(self, block: NeuropBlock) -> None:
+        """Index a block in the semantic composer."""
+        param_names = [p.name for p in block.interface.inputs]
+        
+        semantic_intent = self._semantic_extractor.extract(
+            function_name=block.metadata.name,
+            docstring=block.metadata.description,
+            param_names=param_names,
+            return_type_hint=None,
+            category=block.metadata.category,
+        )
+        
+        entry = SemanticIndexEntry(
+            block_identity=block.get_identity_hash(),
+            name=block.metadata.name,
+            description=block.metadata.description,
+            category=block.metadata.category,
+            semantic_intent=semantic_intent,
+            input_data_types=tuple(p.data_type.value for p in block.interface.inputs),
+            output_data_types=tuple(p.data_type.value for p in block.interface.outputs),
+            trust_score=block.trust_score.overall_score,
+            is_pure=block.is_pure(),
+            is_deterministic=block.is_deterministic(),
+        )
+        
+        self._semantic_composer.index_block(entry)
+
+    def compose_semantic_graph(self, intent: str, min_trust: float = 0.2) -> Dict[str, Any]:
+        """
+        Compose a block graph using SEMANTIC intent matching.
+        
+        This is the CORRECT way to compose blocks - matching by:
+        1. Semantic domain (validation, formatting, transformation, etc.)
+        2. Type flow validation
+        3. Operation ordering
+        
+        Args:
+            intent: Natural language intent description
+            min_trust: Minimum trust score for blocks
+            
+        Returns:
+            SemanticGraph with validated composition
+        """
+        graph = self._semantic_composer.compose(intent, min_trust=min_trust)
+        return graph.to_dict()
+
+    def get_semantic_statistics(self) -> Dict[str, Any]:
+        """Get statistics about the semantic index."""
+        return self._semantic_composer.get_statistics()
 
 
 def demonstrate_expanded_library():
@@ -610,32 +669,79 @@ def demonstrate_expanded_library():
 
     print()
 
-    print("STEP 5: Compose Complex Graph - 'validate and format user input'")
+    print("STEP 5: SEMANTIC COMPOSITION - The Key Innovation")
     print("-" * 50)
-    print("Query: 'validate format trim string check empty convert'")
+    print("Query: 'validate and format user input'")
     print()
-
-    graph_result = forge.compose_graph("validate format trim string check empty convert")
-
-    print("RESULT: Block Graph (NOT CODE)")
+    
+    print("A) OLD APPROACH (Keyword Matching):")
+    print("   Would match blocks containing 'validate', 'format', 'user', 'input'")
+    print("   Problem: Returns irrelevant blocks like 'is_light_color' or 'format_bytes'")
+    print()
+    
+    old_graph_result = forge.compose_graph("validate and format user input")
+    if old_graph_result.get("graph"):
+        old_graph = old_graph_result["graph"]
+        print(f"   Keyword-matched blocks: {len(old_graph['nodes'])}")
+        for node in old_graph['nodes'][:3]:
+            print(f"     - {node['block_name']}")
+    print()
+    
+    print("B) NEW APPROACH (Semantic Intent Matching):")
+    print("   Matches by DOMAIN: validation -> formatting")
+    print("   Matches by TYPE FLOW: input types -> output types")
+    print("   Orders by OPERATION: validate first, then format")
+    print()
+    
+    semantic_graph_result = forge.compose_semantic_graph("validate and format user input")
+    
+    print("RESULT: Semantic Block Graph")
     print("-" * 50)
-
-    if graph_result.get("graph"):
-        graph = graph_result["graph"]
-        print(f"Graph Valid: {graph['is_valid']}")
-        print(f"Total Trust Score: {graph['total_trust_score']:.2f}")
-        print(f"Number of Nodes: {len(graph['nodes'])}")
+    
+    if semantic_graph_result.get("nodes"):
+        print(f"Graph Valid: {semantic_graph_result['is_valid']}")
+        print(f"Composition Confidence: {semantic_graph_result['composition_confidence']:.2%}")
+        print(f"Total Trust Score: {semantic_graph_result['total_trust_score']:.2f}")
+        print(f"Number of Nodes: {len(semantic_graph_result['nodes'])}")
         print()
-        print("Blocks in Composition Graph:")
-        for node in graph['nodes'][:10]:
+        
+        print("Intent Analysis:")
+        intent_analysis = semantic_graph_result.get("intent_analysis", {})
+        required_domains = intent_analysis.get("required_domains", [])
+        print(f"  Required Domains: {', '.join(str(d) for d in required_domains)}")
+        print(f"  Flow Direction: {intent_analysis.get('flow_direction', 'unknown')}")
+        print()
+        
+        print("Blocks in Semantic Graph (ordered by operation semantics):")
+        for node in semantic_graph_result['nodes'][:10]:
+            intent = node.get('semantic_intent', {})
+            domain = intent.get('domain', 'unknown')
+            operation = intent.get('operation', 'unknown')
             print(f"  [{node['position']}] {node['block_name']}")
-            print(f"      Intent: {node['intent'][:50]}...")
-
-        if len(graph['nodes']) > 10:
-            print(f"  ... and {len(graph['nodes']) - 10} more blocks")
+            print(f"      Domain: {domain} | Operation: {operation}")
+            print(f"      Why Selected: {node.get('why_selected', 'N/A')}")
+        
+        if semantic_graph_result.get('validation_details'):
+            print()
+            print("Validation Notes:")
+            for note in semantic_graph_result['validation_details']:
+                print(f"  - {note}")
     else:
-        print("Composition in progress - blocks available for assembly")
+        print("No semantic graph generated - checking index status")
+        sem_stats = forge.get_semantic_statistics()
+        print(f"  Semantic index contains: {sem_stats.get('total_blocks', 0)} blocks")
 
+    print()
+    
+    print("STEP 5b: Semantic Index Statistics")
+    print("-" * 50)
+    sem_stats = forge.get_semantic_statistics()
+    print(f"Total Semantically Indexed: {sem_stats.get('total_blocks', 0)} blocks")
+    print()
+    print("Blocks by Semantic Domain:")
+    domains = sem_stats.get('domains', {})
+    for domain, count in sorted(domains.items(), key=lambda x: -x[1])[:10]:
+        print(f"  {domain}: {count} blocks")
     print()
 
     print("STEP 6: Library Breakdown by Category")
