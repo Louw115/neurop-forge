@@ -152,12 +152,12 @@ AVAILABLE_BLOCKS = [
         "type": "function",
         "function": {
             "name": "calculate_tax_amount",
-            "description": "Calculate tax amount given a price and tax rate",
+            "description": "Calculate tax amount given a price and tax rate percentage",
             "parameters": {
                 "type": "object",
                 "properties": {
-                    "amount": {"type": "number", "description": "The base amount"},
-                    "rate": {"type": "number", "description": "The tax rate as a decimal (e.g., 0.08 for 8%)"}
+                    "amount": {"type": "number", "description": "The base amount in dollars"},
+                    "rate": {"type": "number", "description": "The tax rate as a percentage (e.g., 8.5 for 8.5%)"}
                 },
                 "required": ["amount", "rate"]
             }
