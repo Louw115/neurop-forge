@@ -94,6 +94,8 @@ Neurop Forge turns AI agents from unpredictable authors into controlled operator
 
 2,700+ verified blocks. Full execution trace. Zero code modification.
 
+Neurop Forge does not generate code, modify logic, or allow AI to change execution behavior.
+
 ---
 
 **Contact:** Lourens Wasserman  

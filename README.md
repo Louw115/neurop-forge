@@ -71,6 +71,8 @@ The AI used three blocks. It modified zero lines of code.
 pip install neurop-forge
 ```
 
+Neurop Forge is designed to sit under AI agents, not replace them.
+
 ## CLI
 
 ```bash
@@ -117,6 +119,8 @@ neurop-forge workflows                                # Available workflows
 - **Deduplication Engine** — removes duplicate blocks automatically
 - **Parameter Standardization** — canonical names with alias support
 - **Full Execution Trace** — every run is logged and auditable
+
+v2.0.0 establishes the execution and trust layer. Policy engines and orchestration remain external by design.
 
 ## License
 
