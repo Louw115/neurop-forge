@@ -110,7 +110,7 @@ def mega_analyze(text):
     block_count += 1
     print(f"  15. contains_digit: {results['has_digit']}")
     
-    results["digit_count"] = run_block("count_digits", {"text": text})
+    results["digit_count"] = run_block("count_digits", {"password": text})
     block_count += 1
     print(f"  16. count_digits: {results['digit_count']}")
     
@@ -141,10 +141,10 @@ def mega_analyze(text):
     print("\n[PHASE 6: ENCODING & CIPHERS]")
     print("-" * 40)
     
-    results["base64"] = run_block("base64_encode", {"text": text})
+    results["base64"] = run_block("encode_token_base64", {"text": text})
     block_count += 1
     b64_preview = str(results['base64'])[:50] + "..." if len(str(results['base64'])) > 50 else str(results['base64'])
-    print(f"  22. base64_encode: {b64_preview}")
+    print(f"  22. encode_token_base64: {b64_preview}")
     
     results["atbash"] = run_block("atbash_cipher", {"text": text})
     block_count += 1
@@ -154,13 +154,13 @@ def mega_analyze(text):
     print("\n[PHASE 7: CASE CONVERSIONS]")
     print("-" * 40)
     
-    results["snake"] = run_block("camel_to_snake", {"text": text.replace(" ", "")[:30]})
+    results["camel_snake"] = run_block("camel_to_snake", {"text": text.replace(" ", "")[:30]})
     block_count += 1
-    print(f"  24. camel_to_snake: {results['snake']}")
+    print(f"  24. camel_to_snake: {results['camel_snake']}")
     
-    results["kebab"] = run_block("to_kebab_case", {"text": text[:30]})
+    results["snakecase"] = run_block("to_snakecase", {"text": text[:30]})
     block_count += 1
-    print(f"  25. to_kebab_case: {results['kebab']}")
+    print(f"  25. to_snakecase: {results['snakecase']}")
     
     print("\n" + "=" * 70)
     print(f"  ANALYSIS COMPLETE: {block_count} BLOCKS EXECUTED SUCCESSFULLY")
