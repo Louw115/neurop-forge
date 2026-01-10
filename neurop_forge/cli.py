@@ -17,6 +17,7 @@ import json
 import sys
 from typing import Optional
 
+from neurop_forge import __version__
 from neurop_forge.api import NeuropForge
 from neurop_forge.validation.block_compatibility_tester import BlockCompatibilityTester
 from neurop_forge.deduplication import (
@@ -160,7 +161,7 @@ def cmd_stats(args) -> int:
         forge = NeuropForge()
         stats = forge.stats
         
-        print("Neurop Block Forge v1.0.0")
+        print(f"Neurop Block Forge v{__version__}")
         print("=" * 40)
         print(f"Total Verified Blocks: {stats['total_verified']}")
         print(f"  Tier-A (Deterministic): {stats['tier_a']}")
