@@ -25,6 +25,11 @@ import inspect
 import re
 import ast
 
+from neurop_forge.standardization.canonical_names import (
+    CANONICAL_BY_TYPE,
+    get_canonical_name,
+)
+
 
 @dataclass
 class FunctionSignature:
@@ -218,11 +223,13 @@ class SemanticInputMapper:
         self,
         param_name: str,
         available_inputs: Dict[str, Any],
+        data_type: str = "any",
     ) -> Optional[str]:
         """
         Find the best matching input for a parameter.
         
         Returns the key from available_inputs that best matches param_name.
+        Now also checks canonical name mappings from the standardization module.
         """
         param_lower = param_name.lower()
         
@@ -230,6 +237,15 @@ class SemanticInputMapper:
             return param_name
         if param_lower in available_inputs:
             return param_lower
+        
+        param_canonical = get_canonical_name(param_lower, data_type)
+        if param_canonical:
+            if param_canonical in available_inputs:
+                return param_canonical
+            canonical_aliases = CANONICAL_BY_TYPE.get(data_type, {}).get(param_canonical, [])
+            for alias in canonical_aliases:
+                if alias in available_inputs:
+                    return alias
         
         for input_name in available_inputs:
             input_lower = input_name.lower()
