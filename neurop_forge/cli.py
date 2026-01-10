@@ -19,6 +19,11 @@ from typing import Optional
 
 from neurop_forge.api import NeuropForge
 from neurop_forge.validation.block_compatibility_tester import BlockCompatibilityTester
+from neurop_forge.deduplication import (
+    DeduplicationProcessor,
+    DeduplicationPolicy,
+    DeduplicationReport,
+)
 
 
 def cmd_execute(args) -> int:
@@ -196,6 +201,42 @@ def cmd_test(args) -> int:
         return 1
 
 
+def cmd_dedup(args) -> int:
+    """Analyze and remove duplicate blocks."""
+    policy_map = {
+        "keep_best": DeduplicationPolicy.KEEP_BEST,
+        "namespace": DeduplicationPolicy.NAMESPACE,
+        "quarantine": DeduplicationPolicy.QUARANTINE,
+    }
+    policy = policy_map.get(args.policy, DeduplicationPolicy.KEEP_BEST)
+    
+    print(f"Running deduplication analysis (policy: {args.policy})...")
+    print()
+    
+    try:
+        processor = DeduplicationProcessor(policy=policy)
+        result = processor.run(execute=args.execute)
+        report = DeduplicationReport(processor.get_hasher(), result)
+        
+        if args.json:
+            print(json.dumps(report.generate_json_report(), indent=2))
+        elif args.detailed:
+            print(report.generate_detailed_report())
+        else:
+            print(report.generate_summary())
+        
+        if args.execute:
+            print(f"\nDeduplicated library created at: .neurop_deduplicated_library/")
+            print(f"To use: Update library_path in your code or copy files.")
+        else:
+            print("\nThis was a dry run. Use --execute to create deduplicated library.")
+        
+        return 0
+    except Exception as e:
+        print(f"Error: {e}", file=sys.stderr)
+        return 1
+
+
 def main() -> int:
     """Main CLI entry point."""
     parser = argparse.ArgumentParser(
@@ -240,6 +281,19 @@ def main() -> int:
     test_parser.add_argument("--json", "-j", action="store_true", 
                             help="Output JSON summary")
     test_parser.set_defaults(func=cmd_test)
+    
+    dedup_parser = subparsers.add_parser("dedup", help="Analyze and remove duplicate blocks")
+    dedup_parser.add_argument("--policy", "-p", 
+                             choices=["keep_best", "namespace", "quarantine"],
+                             default="keep_best",
+                             help="Deduplication policy (default: keep_best)")
+    dedup_parser.add_argument("--execute", "-x", action="store_true",
+                             help="Actually execute deduplication (creates new library)")
+    dedup_parser.add_argument("--detailed", "-d", action="store_true",
+                             help="Show detailed report with duplicate groups")
+    dedup_parser.add_argument("--json", "-j", action="store_true",
+                             help="Output JSON report")
+    dedup_parser.set_defaults(func=cmd_dedup)
     
     args = parser.parse_args()
     
