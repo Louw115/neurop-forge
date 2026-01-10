@@ -160,9 +160,9 @@ class SemanticIntent:
 
 DOMAIN_CHAIN_RULES = {
     SemanticDomain.PARSING: [SemanticDomain.VALIDATION, SemanticDomain.TRANSFORMATION],
-    SemanticDomain.VALIDATION: [SemanticDomain.TRANSFORMATION, SemanticDomain.FORMATTING, SemanticDomain.SECURITY],
+    SemanticDomain.VALIDATION: [SemanticDomain.TRANSFORMATION, SemanticDomain.FORMATTING, SemanticDomain.SECURITY, SemanticDomain.STRING],
     SemanticDomain.TRANSFORMATION: [SemanticDomain.FORMATTING, SemanticDomain.VALIDATION, SemanticDomain.ENCODING],
-    SemanticDomain.FORMATTING: [SemanticDomain.ENCODING, SemanticDomain.UTILITY],
+    SemanticDomain.FORMATTING: [SemanticDomain.ENCODING, SemanticDomain.UTILITY, SemanticDomain.STRING],
     SemanticDomain.SECURITY: [SemanticDomain.VALIDATION, SemanticDomain.HASHING, SemanticDomain.ENCODING],
     SemanticDomain.ENCODING: [SemanticDomain.HASHING, SemanticDomain.UTILITY],
     SemanticDomain.HASHING: [SemanticDomain.COMPARISON, SemanticDomain.UTILITY],
@@ -172,6 +172,7 @@ DOMAIN_CHAIN_RULES = {
     SemanticDomain.AGGREGATION: [SemanticDomain.FORMATTING, SemanticDomain.UTILITY],
     SemanticDomain.SEARCHING: [SemanticDomain.FILTERING, SemanticDomain.TRANSFORMATION],
     SemanticDomain.SORTING: [SemanticDomain.FILTERING, SemanticDomain.UTILITY],
+    SemanticDomain.STRING: [SemanticDomain.FORMATTING, SemanticDomain.VALIDATION, SemanticDomain.TRANSFORMATION],
 }
 
 
@@ -200,23 +201,26 @@ OPERATION_ORDER = {
 
 
 SEMANTIC_TYPE_COMPATIBILITY = {
-    SemanticType.RAW_INPUT: [SemanticType.VALIDATED_INPUT, SemanticType.TEXT, SemanticType.GENERIC],
-    SemanticType.TEXT: [SemanticType.FORMATTED_TEXT, SemanticType.EMAIL, SemanticType.URL, SemanticType.PHONE, SemanticType.NAME, SemanticType.GENERIC],
-    SemanticType.VALIDATED_INPUT: [SemanticType.FORMATTED_TEXT, SemanticType.USER_DATA, SemanticType.GENERIC],
+    SemanticType.RAW_INPUT: [SemanticType.VALIDATED_INPUT, SemanticType.TEXT, SemanticType.GENERIC, SemanticType.BOOLEAN_RESULT],
+    SemanticType.TEXT: [SemanticType.FORMATTED_TEXT, SemanticType.EMAIL, SemanticType.URL, SemanticType.PHONE, SemanticType.NAME, SemanticType.GENERIC, SemanticType.BOOLEAN_RESULT],
+    SemanticType.VALIDATED_INPUT: [SemanticType.FORMATTED_TEXT, SemanticType.USER_DATA, SemanticType.GENERIC, SemanticType.TEXT],
     SemanticType.EMAIL: [SemanticType.TEXT, SemanticType.FORMATTED_TEXT, SemanticType.HASH],
     SemanticType.URL: [SemanticType.TEXT, SemanticType.FORMATTED_TEXT, SemanticType.PATH],
     SemanticType.PASSWORD: [SemanticType.HASH, SemanticType.TOKEN],
-    SemanticType.NUMERIC_VALUE: [SemanticType.FORMATTED_TEXT, SemanticType.CURRENCY, SemanticType.MEASUREMENT],
-    SemanticType.DATE: [SemanticType.FORMATTED_TEXT, SemanticType.DATETIME],
-    SemanticType.TIME: [SemanticType.FORMATTED_TEXT, SemanticType.DATETIME],
+    SemanticType.NUMERIC_VALUE: [SemanticType.FORMATTED_TEXT, SemanticType.CURRENCY, SemanticType.MEASUREMENT, SemanticType.TEXT],
+    SemanticType.DATE: [SemanticType.FORMATTED_TEXT, SemanticType.DATETIME, SemanticType.TEXT],
+    SemanticType.TIME: [SemanticType.FORMATTED_TEXT, SemanticType.DATETIME, SemanticType.TEXT],
     SemanticType.JSON: [SemanticType.TEXT, SemanticType.GENERIC],
-    SemanticType.COLLECTION: [SemanticType.GENERIC],
-    SemanticType.GENERIC: [SemanticType.TEXT, SemanticType.FORMATTED_TEXT],
+    SemanticType.COLLECTION: [SemanticType.GENERIC, SemanticType.TEXT],
+    SemanticType.GENERIC: [SemanticType.TEXT, SemanticType.FORMATTED_TEXT, SemanticType.BOOLEAN_RESULT],
+    SemanticType.BOOLEAN_RESULT: [SemanticType.TEXT, SemanticType.FORMATTED_TEXT, SemanticType.GENERIC],
 }
 
 
 def can_chain(source_intent: SemanticIntent, target_intent: SemanticIntent) -> bool:
     """Check if source block output can chain to target block input."""
+    if source_intent.domain == target_intent.domain:
+        return True
     if target_intent.domain in source_intent.can_chain_to:
         return True
     if source_intent.domain in target_intent.can_chain_from:

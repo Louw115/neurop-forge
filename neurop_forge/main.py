@@ -832,7 +832,7 @@ def demonstrate_expanded_library():
         "module_results": module_results,
         "library_stats": stats,
         "total_created": total_created,
-        "graph_result": graph_result,
+        "semantic_graph_result": semantic_graph_result,
     }
 
 

@@ -20,7 +20,7 @@ from neurop_forge.semantic.intent_schema import (
 DOMAIN_KEYWORDS = {
     SemanticDomain.VALIDATION: ["valid", "check", "verify", "is_", "has_", "ensure", "assert", "require"],
     SemanticDomain.TRANSFORMATION: ["transform", "convert", "map", "to_", "from_", "change", "modify"],
-    SemanticDomain.FORMATTING: ["format", "display", "render", "pretty", "humanize", "stringify"],
+    SemanticDomain.FORMATTING: ["format_", "format", "display", "render", "pretty", "humanize", "stringify", "to_display", "as_string", "readable", "human_readable"],
     SemanticDomain.PARSING: ["parse", "extract", "split", "tokenize", "decode", "deserialize"],
     SemanticDomain.SECURITY: ["secure", "sanitize", "escape", "encrypt", "decrypt", "protect", "mask"],
     SemanticDomain.AUTHENTICATION: ["auth", "login", "logout", "session", "token", "password", "credential"],

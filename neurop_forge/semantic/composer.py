@@ -410,6 +410,13 @@ class SemanticComposer:
         """Find blocks matching a semantic domain."""
         block_ids = self._domain_index.get(domain, set())
         
+        if not block_ids:
+            fallback_domains = self._get_fallback_domains(domain)
+            for fallback in fallback_domains:
+                block_ids = self._domain_index.get(fallback, set())
+                if block_ids:
+                    break
+        
         candidates: List[SemanticIndexEntry] = []
         for block_id in block_ids:
             entry = self._semantic_index.get(block_id)
@@ -492,6 +499,24 @@ class SemanticComposer:
         confidence = (domain_coverage * 0.5 + edge_ratio * 0.5) - error_penalty
         
         return max(0.0, min(1.0, confidence))
+
+    def _get_fallback_domains(self, domain: SemanticDomain) -> List[SemanticDomain]:
+        """Get fallback domains when primary domain has no blocks."""
+        fallback_map = {
+            SemanticDomain.FORMATTING: [SemanticDomain.STRING, SemanticDomain.TRANSFORMATION],
+            SemanticDomain.PARSING: [SemanticDomain.STRING, SemanticDomain.TRANSFORMATION],
+            SemanticDomain.ENCODING: [SemanticDomain.TRANSFORMATION, SemanticDomain.STRING],
+            SemanticDomain.HASHING: [SemanticDomain.SECURITY, SemanticDomain.ENCODING],
+            SemanticDomain.SECURITY: [SemanticDomain.VALIDATION, SemanticDomain.TRANSFORMATION],
+            SemanticDomain.AUTHENTICATION: [SemanticDomain.SECURITY, SemanticDomain.VALIDATION],
+            SemanticDomain.AGGREGATION: [SemanticDomain.COLLECTION, SemanticDomain.CALCULATION],
+            SemanticDomain.SEARCHING: [SemanticDomain.FILTERING, SemanticDomain.COLLECTION],
+            SemanticDomain.SORTING: [SemanticDomain.COLLECTION, SemanticDomain.FILTERING],
+            SemanticDomain.COMPARISON: [SemanticDomain.VALIDATION, SemanticDomain.CALCULATION],
+            SemanticDomain.NUMERIC: [SemanticDomain.CALCULATION, SemanticDomain.TRANSFORMATION],
+            SemanticDomain.DATETIME: [SemanticDomain.STRING, SemanticDomain.CALCULATION],
+        }
+        return fallback_map.get(domain, [SemanticDomain.UTILITY])
 
     def get_blocks_by_domain(self, domain: SemanticDomain) -> List[SemanticIndexEntry]:
         """Get all blocks in a semantic domain."""
