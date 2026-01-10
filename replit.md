@@ -52,12 +52,12 @@ Intent -> Compose -> Execute -> Result
 3. **Execute**: Deterministic graph execution with input/output chaining
 4. **Result**: Full execution trace with timing, outputs, and error handling
 
-## Running the Demo
+## Running Production Validation
 ```bash
 python -m neurop_forge.main
 ```
 
-This demonstrates:
+This validates:
 1. Ingesting 175 source modules
 2. Creating 4,500+ validated NeuropBlocks
 3. Semantic composition with 100% confidence graphs
@@ -79,7 +79,7 @@ The verification system ensures only working blocks are used in semantic composi
 - Auto-verification pass tests all blocks with generated inputs
 - Verified blocks stored in `.neurop_verified/registry.json`
 - Semantic Composer filters to verified blocks only
-- Golden Demo: 10/10 blocks pass with expected output validation
+- Golden Validation Suite: 10/10 blocks pass with expected output validation
 
 ### Semantic Domains Covered
 1. String (924 blocks)

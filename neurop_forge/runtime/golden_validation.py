@@ -1,12 +1,12 @@
 """
-Golden Demo - Known-Working Blocks Demonstration
+Golden Validation Suite - Known-Working Blocks
 
-This module provides a curated demo using only blocks that are:
+This module provides a curated validation suite using only blocks that are:
 1. Single-function (no external dependencies)
 2. 100% success rate in testing
 3. Deterministic output for given inputs
 
-The golden demo proves the full loop:
+The golden validation suite proves the full loop:
 Intent -> Compose -> Execute -> Result -> Trust Update
 """
 
@@ -20,7 +20,7 @@ from neurop_forge.runtime.trust_tracker import get_trust_tracker
 
 @dataclass
 class GoldenBlock:
-    """A pre-validated block for the golden demo."""
+    """A pre-validated block for the golden validation suite."""
     name: str
     intent: str
     test_input: Dict[str, Any]
@@ -42,8 +42,8 @@ GOLDEN_BLOCKS = [
 ]
 
 
-class GoldenDemoRunner:
-    """Runs the golden demo with pre-validated blocks."""
+class GoldenValidationRunner:
+    """Runs the golden validation suite with pre-validated blocks."""
 
     def __init__(self, block_store):
         self._block_store = block_store
@@ -65,7 +65,7 @@ class GoldenDemoRunner:
         return self._validated_blocks
 
     def _is_golden_candidate(self, block: NeuropBlock) -> bool:
-        """Check if a block is a candidate for golden demo."""
+        """Check if a block is a candidate for golden validation."""
         if len(block.interface.inputs) == 0:
             return False
         if len(block.interface.inputs) > 2:
@@ -76,8 +76,8 @@ class GoldenDemoRunner:
             return False
         return True
 
-    def run_golden_demo(self) -> Dict[str, Any]:
-        """Run the complete golden demo."""
+    def run_golden_validation(self) -> Dict[str, Any]:
+        """Run the complete golden validation suite."""
         results = {
             "blocks_tested": 0,
             "blocks_succeeded": 0,
@@ -149,8 +149,8 @@ class GoldenDemoRunner:
 
         return results
 
-    def run_string_pipeline_demo(self) -> Dict[str, Any]:
-        """Demo: String normalization pipeline (trim -> lowercase -> word_count)."""
+    def run_string_pipeline(self) -> Dict[str, Any]:
+        """String normalization pipeline (trim -> lowercase -> word_count)."""
         result = {
             "pipeline": "string_normalization",
             "stages": [],
@@ -193,23 +193,23 @@ class GoldenDemoRunner:
         return result
 
 
-def run_golden_demo(block_store) -> Dict[str, Any]:
-    """Convenience function to run the golden demo."""
-    runner = GoldenDemoRunner(block_store)
-    results = runner.run_golden_demo()
-    pipeline_result = runner.run_string_pipeline_demo()
+def run_golden_validation(block_store) -> Dict[str, Any]:
+    """Convenience function to run the golden validation suite."""
+    runner = GoldenValidationRunner(block_store)
+    results = runner.run_golden_validation()
+    pipeline_result = runner.run_string_pipeline()
     
     return {
         "golden_blocks": results,
-        "pipeline_demo": pipeline_result,
+        "pipeline_result": pipeline_result,
     }
 
 
-def print_golden_demo_results(results: Dict[str, Any]) -> None:
-    """Print golden demo results in a formatted way."""
+def print_golden_validation_results(results: Dict[str, Any]) -> None:
+    """Print golden validation results in a formatted way."""
     print()
     print("=" * 60)
-    print("GOLDEN DEMO - Known-Working Blocks")
+    print("GOLDEN VALIDATION SUITE - Known-Working Blocks")
     print("=" * 60)
     print()
 
@@ -240,9 +240,9 @@ def print_golden_demo_results(results: Dict[str, Any]) -> None:
             print(f"  {stat['block_name']:<20} {stat['execution_count']:>6} {stat['success_rate']*100:>7.1f}% {stat['avg_duration_ms']:>8.2f}")
     print()
 
-    pipeline = results.get("pipeline_demo", {})
+    pipeline = results.get("pipeline_result", {})
     if pipeline.get("stages"):
-        print("Pipeline Demo: String Normalization")
+        print("Pipeline Execution: String Normalization")
         print("-" * 40)
         for stage in pipeline["stages"]:
             print(f"  {stage['stage']}: {stage['input']} -> {stage['output']}")

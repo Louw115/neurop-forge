@@ -467,20 +467,20 @@ class NeuropForge:
         )
 
 
-def demonstrate_expanded_library():
+def run_production_validation():
     """
-    Demonstration: Converting multiple function modules to NeuropBlocks
+    Production Validation: Converting multiple function modules to NeuropBlocks
     and building an expanded library for comprehensive block composition.
     
-    This demonstrates:
+    This validates:
     1. Ingesting multiple source modules (string, list, validation, etc.)
     2. Converting pure functions into atomic blocks at scale
-    3. Building a comprehensive library of 70+ blocks
+    3. Building a comprehensive library of 4500+ blocks
     4. AI query with expanded capabilities
     5. Block composition across multiple domains
     """
     print("=" * 70)
-    print("NEUROP BLOCK FORGE - EXPANDED LIBRARY DEMONSTRATION")
+    print("NEUROP BLOCK FORGE - PRODUCTION VALIDATION")
     print("=" * 70)
     print()
 
@@ -833,7 +833,7 @@ def demonstrate_expanded_library():
     print()
 
     print("=" * 70)
-    print("EXPANDED LIBRARY DEMONSTRATION COMPLETE")
+    print("LIBRARY INGESTION COMPLETE")
     print("=" * 70)
     print()
     print("SUMMARY:")
@@ -900,7 +900,7 @@ def demonstrate_expanded_library():
     print("STEP 7: RUNTIME EXECUTION - Complete the Loop")
     print("-" * 50)
     print()
-    print("Now demonstrating the FULL pipeline:")
+    print("Executing the FULL pipeline:")
     print("  Intent -> Compose -> Execute -> Result")
     print()
     
@@ -1020,12 +1020,12 @@ def demonstrate_expanded_library():
     print()
     
     print()
-    print("D) Golden Demo - Known-Working Blocks:")
+    print("D) Golden Validation Suite - Known-Working Blocks:")
     print("-" * 40)
     
-    from neurop_forge.runtime.golden_demo import run_golden_demo, print_golden_demo_results
-    golden_results = run_golden_demo(forge._block_store)
-    print_golden_demo_results(golden_results)
+    from neurop_forge.runtime.golden_validation import run_golden_validation, print_golden_validation_results
+    golden_results = run_golden_validation(forge._block_store)
+    print_golden_validation_results(golden_results)
     
     print("=" * 70)
     print("NEUROP BLOCK FORGE - PHASE 2 COMPLETE")
@@ -1052,9 +1052,9 @@ def demonstrate_expanded_library():
         "total_created": total_created,
         "semantic_graph_result": semantic_graph_result,
         "execution_result": execution_result,
-        "golden_demo_results": golden_results,
+        "golden_validation_results": golden_results,
     }
 
 
 if __name__ == "__main__":
-    demonstrate_expanded_library()
+    run_production_validation()
