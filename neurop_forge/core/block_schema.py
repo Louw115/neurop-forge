@@ -300,6 +300,15 @@ class TrustScore:
     risk_level: RiskLevel
     risk_factors: tuple  # Tuple of risk factor strings
     last_verified: str
+    execution_count: int = 0
+    success_count: int = 0
+    failure_count: int = 0
+
+    @property
+    def success_rate(self) -> float:
+        if self.execution_count == 0:
+            return 0.0
+        return self.success_count / self.execution_count
 
     def to_dict(self) -> Dict[str, Any]:
         return {
@@ -311,6 +320,10 @@ class TrustScore:
             "risk_level": self.risk_level.value,
             "risk_factors": list(self.risk_factors),
             "last_verified": self.last_verified,
+            "execution_count": self.execution_count,
+            "success_count": self.success_count,
+            "failure_count": self.failure_count,
+            "success_rate": self.success_rate,
         }
 
     @classmethod
@@ -324,6 +337,9 @@ class TrustScore:
             risk_level=RiskLevel(data["risk_level"]),
             risk_factors=tuple(data["risk_factors"]),
             last_verified=data["last_verified"],
+            execution_count=data.get("execution_count", 0),
+            success_count=data.get("success_count", 0),
+            failure_count=data.get("failure_count", 0),
         )
 
 

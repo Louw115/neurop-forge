@@ -74,7 +74,7 @@
   "logic": "def parse_us_address(address: str) -> dict:\n    \"\"\"Parse US address into components.\"\"\"\n    lines = parse_address_lines(address)\n    result = {\n        \"street1\": \"\",\n        \"street2\": \"\",\n        \"city\": \"\",\n        \"state\": \"\",\n        \"zip\": \"\"\n    }\n    if lines:\n        result[\"street1\"] = lines[0]\n    if len(lines) > 1:\n        last_line = lines[-1]\n        city_state_zip = re.match(r'^(.+?),?\\s+([A-Z]{2})\\s+(\\d{5}(?:-\\d{4})?)$', last_line, re.IGNORECASE)\n        if city_state_zip:\n            result[\"city\"] = city_state_zip.group(1).strip(\",\")\n            result[\"state\"] = city_state_zip.group(2).upper()\n            result[\"zip\"] = city_state_zip.group(3)\n        if len(lines) > 2:\n            result[\"street2\"] = lines[1]\n    return result",
   "metadata": {
     "category": "transformation",
-    "created_at": "2026-01-10T02:18:52.284183+00:00",
+    "created_at": "2026-01-10T02:26:07.075528+00:00",
     "description": "Parse US address into components.",
     "intent": "Parse US address into components.",
     "language": "python",
@@ -100,12 +100,16 @@
   "sealed": true,
   "trust_score": {
     "determinism_score": 1.0,
-    "last_verified": "2026-01-10T02:18:52.284204+00:00",
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T02:26:07.075556+00:00",
     "license_score": 1.0,
     "overall_score": 0.3775,
     "risk_factors": [],
     "risk_level": "low",
     "static_analysis_score": 0.85,
+    "success_count": 0,
+    "success_rate": 0.0,
     "test_coverage_score": 0.0
   },
   "validation_rules": {

@@ -81,7 +81,7 @@
   "logic": "def delete_by_path(obj: dict, path: str) -> dict:\n    \"\"\"Delete value at JSON path, returning new object.\"\"\"\n    import json\n    result = json.loads(json.dumps(obj))\n    parts = parse_path(path)\n    if not parts:\n        return result\n    current = result\n    for part in parts[:-1]:\n        if isinstance(current, dict) and part in current:\n            current = current[part]\n        elif isinstance(current, list):\n            idx = int(part)\n            current = current[idx]\n        else:\n            return result\n    last = parts[-1]\n    if isinstance(current, dict) and last in current:\n        del current[last]\n    elif isinstance(current, list):\n        idx = int(last)\n        if 0 <= idx < len(current):\n            current.pop(idx)\n    return result",
   "metadata": {
     "category": "collection",
-    "created_at": "2026-01-10T02:18:51.986136+00:00",
+    "created_at": "2026-01-10T02:26:06.767472+00:00",
     "description": "Delete value at JSON path, returning new object.",
     "intent": "Delete value at JSON path, returning new object.",
     "language": "python",
@@ -108,12 +108,16 @@
   "sealed": true,
   "trust_score": {
     "determinism_score": 1.0,
-    "last_verified": "2026-01-10T02:18:51.986167+00:00",
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T02:26:06.767521+00:00",
     "license_score": 1.0,
     "overall_score": 0.33999999999999997,
     "risk_factors": [],
     "risk_level": "low",
     "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
     "test_coverage_score": 0.0
   },
   "validation_rules": {

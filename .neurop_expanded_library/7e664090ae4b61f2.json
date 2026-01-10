@@ -74,7 +74,7 @@
   "logic": "def infix_to_postfix(tokens: list) -> list:\n    \"\"\"Convert infix tokens to postfix notation.\"\"\"\n    output = []\n    operators = []\n    for token in tokens:\n        if token[\"type\"] == \"number\" or token[\"type\"] == \"identifier\":\n            output.append(token)\n        elif token[\"type\"] == \"operator\":\n            while (operators and operators[-1][\"type\"] == \"operator\" and\n                   ((not is_right_associative(token[\"value\"]) and\n                     get_operator_precedence(token[\"value\"]) <= get_operator_precedence(operators[-1][\"value\"])) or\n                    (is_right_associative(token[\"value\"]) and\n                     get_operator_precedence(token[\"value\"]) < get_operator_precedence(operators[-1][\"value\"])))):\n                output.append(operators.pop())\n            operators.append(token)\n        elif token[\"value\"] == \"(\":\n            operators.append(token)\n        elif token[\"value\"] == \")\":\n            while operators and operators[-1][\"value\"] != \"(\":\n                output.append(operators.pop())\n            if operators:\n                operators.pop()\n    while operators:\n        output.append(operators.pop())\n    return output",
   "metadata": {
     "category": "transformation",
-    "created_at": "2026-01-10T02:18:49.593972+00:00",
+    "created_at": "2026-01-10T02:26:03.983096+00:00",
     "description": "Convert infix tokens to postfix notation.",
     "intent": "Convert infix tokens to postfix notation.",
     "language": "python",
@@ -101,12 +101,16 @@
   "sealed": true,
   "trust_score": {
     "determinism_score": 1.0,
-    "last_verified": "2026-01-10T02:18:49.594013+00:00",
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T02:26:03.983134+00:00",
     "license_score": 1.0,
     "overall_score": 0.34450000000000003,
     "risk_factors": [],
     "risk_level": "low",
     "static_analysis_score": 0.63,
+    "success_count": 0,
+    "success_rate": 0.0,
     "test_coverage_score": 0.0
   },
   "validation_rules": {

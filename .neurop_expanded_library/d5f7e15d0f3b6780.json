@@ -21,15 +21,15 @@
   "constraints": {
     "deterministic": false,
     "io_operations": [
-      "file_read",
-      "time"
+      "time",
+      "file_read"
     ],
     "max_execution_time_ms": null,
     "max_memory_bytes": null,
     "purity": "non_deterministic",
     "side_effects": [
-      "file_io",
-      "time"
+      "time",
+      "file_io"
     ],
     "thread_safe": false
   },
@@ -50,8 +50,8 @@
   },
   "identity": {
     "algorithm": "sha256",
-    "hash_value": "5f45199debb54992bcaecd093975342e2613af63f8663c3bb9e47e5325644cc7",
-    "semantic_fingerprint": "81c64b73f3581f75abf8eeefd714d579c65cb0b76b0b157f9bc5f23503707148",
+    "hash_value": "d5f7e15d0f3b67807783fdcf816b7c1c5c498cfc3a3fc72e127c010a2b7a5929",
+    "semantic_fingerprint": "6bb71d05ebbf0dcb77884a8c480243e1cb1ecc690d3a57e20dce2e7183a6be88",
     "version": "1.0.0"
   },
   "interface": {
@@ -85,7 +85,7 @@
   "logic": "def calculate_total_time_in_state(transitions_history: list, state: str) -> int:\n    \"\"\"Calculate total time spent in a state from history.\"\"\"\n    total = 0\n    for i, t in enumerate(transitions_history):\n        if t.get(\"from_state\") == state:\n            if i + 1 < len(transitions_history):\n                from datetime import datetime\n                start = t.get(\"timestamp\", \"\")\n                end = transitions_history[i + 1].get(\"timestamp\", \"\")\n                if start and end:\n                    try:\n                        s = datetime.fromisoformat(start.replace('Z', '+00:00'))\n                        e = datetime.fromisoformat(end.replace('Z', '+00:00'))\n                        total += int((e - s).total_seconds())\n                    except:\n                        pass\n    return total",
   "metadata": {
     "category": "arithmetic",
-    "created_at": "2026-01-10T02:18:46.169353+00:00",
+    "created_at": "2026-01-10T02:25:59.798793+00:00",
     "description": "Calculate total time spent in a state from history.",
     "intent": "Calculate total time spent in a state from history.",
     "language": "python",
@@ -114,16 +114,20 @@
   "sealed": true,
   "trust_score": {
     "determinism_score": 0.5,
-    "last_verified": "2026-01-10T02:18:46.169380+00:00",
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T02:25:59.798821+00:00",
     "license_score": 1.0,
     "overall_score": 0.27999999999999997,
     "risk_factors": [
       "impure_function",
       "non_deterministic",
-      "side_effects: file_io, time"
+      "side_effects: time, file_io"
     ],
     "risk_level": "medium",
     "static_analysis_score": 0.7,
+    "success_count": 0,
+    "success_rate": 0.0,
     "test_coverage_score": 0.0
   },
   "validation_rules": {

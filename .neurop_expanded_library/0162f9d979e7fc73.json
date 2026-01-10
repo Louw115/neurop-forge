@@ -81,7 +81,7 @@
   "logic": "def select_variant(flag: dict, user_id: str) -> dict:\n    \"\"\"Select variant for user based on weights.\"\"\"\n    variants = flag.get(\"variants\", [])\n    if not variants:\n        return {}\n    import hashlib\n    hash_val = hashlib.sha256(f\"{flag['id']}:{user_id}\".encode()).digest()\n    bucket = int.from_bytes(hash_val[:4], 'big') % 100\n    total_weight = sum(v.get(\"weight\", 0) for v in variants)\n    if total_weight == 0:\n        return variants[0]\n    cumulative = 0\n    for variant in variants:\n        weight_percent = (variant.get(\"weight\", 0) / total_weight) * 100\n        cumulative += weight_percent\n        if bucket < cumulative:\n            return variant\n    return variants[-1]",
   "metadata": {
     "category": "filtering",
-    "created_at": "2026-01-10T02:18:47.815820+00:00",
+    "created_at": "2026-01-10T02:26:01.783447+00:00",
     "description": "Select variant for user based on weights.",
     "intent": "Select variant for user based on weights.",
     "language": "python",
@@ -109,12 +109,16 @@
   "sealed": true,
   "trust_score": {
     "determinism_score": 1.0,
-    "last_verified": "2026-01-10T02:18:47.815842+00:00",
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T02:26:01.783476+00:00",
     "license_score": 1.0,
     "overall_score": 0.385,
     "risk_factors": [],
     "risk_level": "low",
     "static_analysis_score": 0.9,
+    "success_count": 0,
+    "success_rate": 0.0,
     "test_coverage_score": 0.0
   },
   "validation_rules": {

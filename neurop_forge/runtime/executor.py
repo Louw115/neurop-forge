@@ -25,6 +25,7 @@ from neurop_forge.runtime.context import ExecutionContext, ContextScope
 from neurop_forge.runtime.result import ExecutionResult, ExecutionTrace, ExecutionStatus
 from neurop_forge.runtime.guards import RetryPolicy, CircuitBreaker, ExecutionGuard
 from neurop_forge.runtime.adapter import FunctionAdapter
+from neurop_forge.runtime.trust_tracker import record_block_execution, get_trust_tracker
 from neurop_forge.semantic.composer import SemanticGraph, CompositionNode
 from neurop_forge.core.block_schema import NeuropBlock
 
@@ -127,6 +128,7 @@ class BlockExecutor:
         Returns:
             Tuple of (outputs dict, error message or None)
         """
+        start_time = time.time()
         try:
             local_namespace = dict(self._execution_namespace)
             local_namespace.update(inputs)
@@ -155,17 +157,27 @@ class BlockExecutor:
                 )
                 
                 if adapt_error:
+                    duration_ms = (time.time() - start_time) * 1000
+                    record_block_execution(block_id, False, duration_ms, inputs, error=Exception(adapt_error))
                     return {}, adapt_error
                 
                 result = func(**adapted_inputs)
                 
                 outputs = self._prepare_outputs(block, result)
+                duration_ms = (time.time() - start_time) * 1000
+                record_block_execution(block_id, True, duration_ms, inputs, outputs=outputs)
                 return outputs, None
             else:
-                return {"result": None}, f"Function {func_name} not found in block logic"
+                duration_ms = (time.time() - start_time) * 1000
+                error_msg = f"Function {func_name} not found in block logic"
+                record_block_execution(block_id, False, duration_ms, inputs, error=Exception(error_msg))
+                return {"result": None}, error_msg
                 
         except Exception as e:
+            duration_ms = (time.time() - start_time) * 1000
             error_msg = f"{type(e).__name__}: {str(e)}"
+            block_id = block.identity.get('content_hash', id(block)) if isinstance(block.identity, dict) else id(block)
+            record_block_execution(str(block_id), False, duration_ms, inputs, error=e)
             return {}, error_msg
     
     def _prepare_inputs(

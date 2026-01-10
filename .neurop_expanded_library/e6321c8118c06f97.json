@@ -81,7 +81,7 @@
   "logic": "def rabin_karp_search(text: str, pattern: str) -> list:\n    \"\"\"Rabin-Karp pattern search algorithm.\"\"\"\n    if not pattern or len(pattern) > len(text):\n        return []\n    d = 256\n    q = 101\n    m, n = len(pattern), len(text)\n    h = pow(d, m - 1) % q\n    p = t = 0\n    matches = []\n    for i in range(m):\n        p = (d * p + ord(pattern[i])) % q\n        t = (d * t + ord(text[i])) % q\n    for i in range(n - m + 1):\n        if p == t:\n            if text[i:i+m] == pattern:\n                matches.append(i)\n        if i < n - m:\n            t = (d * (t - ord(text[i]) * h) + ord(text[i + m])) % q\n            if t < 0:\n                t += q\n    return matches",
   "metadata": {
     "category": "collection",
-    "created_at": "2026-01-10T02:18:51.274807+00:00",
+    "created_at": "2026-01-10T02:26:06.059256+00:00",
     "description": "Rabin-Karp pattern search algorithm.",
     "intent": "Rabin-Karp pattern search algorithm.",
     "language": "python",
@@ -110,12 +110,16 @@
   "sealed": true,
   "trust_score": {
     "determinism_score": 1.0,
-    "last_verified": "2026-01-10T02:18:51.274844+00:00",
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T02:26:06.059287+00:00",
     "license_score": 1.0,
     "overall_score": 0.33999999999999997,
     "risk_factors": [],
     "risk_level": "low",
     "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
     "test_coverage_score": 0.0
   },
   "validation_rules": {

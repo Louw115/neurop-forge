@@ -998,6 +998,14 @@ def demonstrate_expanded_library():
             print(f"  {key}: {val_str}")
     print()
     
+    print()
+    print("C) Golden Demo - Known-Working Blocks:")
+    print("-" * 40)
+    
+    from neurop_forge.runtime.golden_demo import run_golden_demo, print_golden_demo_results
+    golden_results = run_golden_demo(forge._block_store)
+    print_golden_demo_results(golden_results)
+    
     print("=" * 70)
     print("NEUROP BLOCK FORGE - PHASE 2 COMPLETE")
     print("=" * 70)
@@ -1007,6 +1015,12 @@ def demonstrate_expanded_library():
     print("  2. Compose -> Validated block graph with type flow")
     print("  3. Execute -> Deterministic graph execution")
     print("  4. Result -> Full trace with timing and outputs")
+    print("  5. Trust -> Execution tracking updates trust scores")
+    print()
+    print("CONTRACT VERSION: v1.0.0")
+    print("  - Block.logic stores ORIGINAL source code")
+    print("  - TrustScore includes execution_count, success_count, success_rate")
+    print("  - Interface.inputs aligns with function parameters")
     print()
     print("AI can now compose block graphs across all these domains.")
     print("This is the foundation for building anything - from validated blocks.")
@@ -1017,6 +1031,7 @@ def demonstrate_expanded_library():
         "total_created": total_created,
         "semantic_graph_result": semantic_graph_result,
         "execution_result": execution_result,
+        "golden_demo_results": golden_results,
     }
 
 

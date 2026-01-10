@@ -88,7 +88,7 @@
   "logic": "def update_circuit_breaker(breaker: dict, success: bool, current_time: float) -> dict:\n    \"\"\"Update circuit breaker state.\"\"\"\n    if breaker[\"state\"] == \"open\":\n        if current_time - breaker[\"last_failure_time\"] >= breaker[\"reset_timeout\"]:\n            return {**breaker, \"state\": \"half-open\", \"success_count\": 0}\n        return breaker\n    if breaker[\"state\"] == \"half-open\":\n        if success:\n            return {**breaker, \"state\": \"closed\", \"failures\": 0, \"success_count\": breaker[\"success_count\"] + 1}\n        else:\n            return {**breaker, \"state\": \"open\", \"last_failure_time\": current_time}\n    if success:\n        return {**breaker, \"failures\": 0}\n    else:\n        new_failures = breaker[\"failures\"] + 1\n        if new_failures >= breaker[\"failure_threshold\"]:\n            return {**breaker, \"state\": \"open\", \"failures\": new_failures, \"last_failure_time\": current_time}\n        return {**breaker, \"failures\": new_failures}",
   "metadata": {
     "category": "collection",
-    "created_at": "2026-01-10T02:18:49.753710+00:00",
+    "created_at": "2026-01-10T02:26:04.280539+00:00",
     "description": "Update circuit breaker state.",
     "intent": "Update circuit breaker state.",
     "language": "python",
@@ -117,12 +117,16 @@
   "sealed": true,
   "trust_score": {
     "determinism_score": 1.0,
-    "last_verified": "2026-01-10T02:18:49.753739+00:00",
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T02:26:04.280567+00:00",
     "license_score": 1.0,
     "overall_score": 0.33999999999999997,
     "risk_factors": [],
     "risk_level": "low",
     "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
     "test_coverage_score": 0.0
   },
   "validation_rules": {

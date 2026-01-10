@@ -81,7 +81,7 @@
   "logic": "def skip_list_delete(sl: dict, key) -> dict:\n    \"\"\"Delete a key.\"\"\"\n    update = [None] * sl[\"max_level\"]\n    node = _clone_node(sl[\"head\"])\n    head = node\n    for i in range(sl[\"level\"] - 1, -1, -1):\n        while node[\"forward\"][i] and node[\"forward\"][i][\"key\"] < key:\n            next_node = _clone_node(node[\"forward\"][i])\n            node[\"forward\"][i] = next_node\n            node = next_node\n        update[i] = node\n    target = node[\"forward\"][0]\n    if not target or target[\"key\"] != key:\n        return sl\n    for i in range(sl[\"level\"]):\n        if update[i][\"forward\"][i] != target:\n            break\n        update[i][\"forward\"][i] = target[\"forward\"][i] if i < len(target[\"forward\"]) else None\n    level = sl[\"level\"]\n    while level > 1 and head[\"forward\"][level - 1] is None:\n        level -= 1\n    return {\n        \"head\": head,\n        \"max_level\": sl[\"max_level\"],\n        \"level\": level,\n        \"size\": sl[\"size\"] - 1\n    }",
   "metadata": {
     "category": "collection",
-    "created_at": "2026-01-10T02:18:49.175054+00:00",
+    "created_at": "2026-01-10T02:26:03.471159+00:00",
     "description": "Delete a key.",
     "intent": "Delete a key.",
     "language": "python",
@@ -110,12 +110,16 @@
   "sealed": true,
   "trust_score": {
     "determinism_score": 1.0,
-    "last_verified": "2026-01-10T02:18:49.175074+00:00",
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T02:26:03.471186+00:00",
     "license_score": 1.0,
     "overall_score": 0.33999999999999997,
     "risk_factors": [],
     "risk_level": "low",
     "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
     "test_coverage_score": 0.0
   },
   "validation_rules": {

@@ -81,7 +81,7 @@
   "logic": "def jaro_similarity(s1: str, s2: str) -> float:\n    \"\"\"Calculate Jaro similarity.\"\"\"\n    if s1 == s2:\n        return 1.0\n    len1, len2 = len(s1), len(s2)\n    if len1 == 0 or len2 == 0:\n        return 0.0\n    match_dist = max(len1, len2) // 2 - 1\n    s1_matches = [False] * len1\n    s2_matches = [False] * len2\n    matches = 0\n    transpositions = 0\n    for i in range(len1):\n        start = max(0, i - match_dist)\n        end = min(i + match_dist + 1, len2)\n        for j in range(start, end):\n            if s2_matches[j] or s1[i] != s2[j]:\n                continue\n            s1_matches[i] = True\n            s2_matches[j] = True\n            matches += 1\n            break\n    if matches == 0:\n        return 0.0\n    k = 0\n    for i in range(len1):\n        if not s1_matches[i]:\n            continue\n        while not s2_matches[k]:\n            k += 1\n        if s1[i] != s2[k]:\n            transpositions += 1\n        k += 1\n    return (matches/len1 + matches/len2 + (matches-transpositions/2)/matches) / 3",
   "metadata": {
     "category": "arithmetic",
-    "created_at": "2026-01-10T02:18:51.246193+00:00",
+    "created_at": "2026-01-10T02:26:06.035745+00:00",
     "description": "Calculate Jaro similarity.",
     "intent": "Calculate Jaro similarity.",
     "language": "python",
@@ -109,12 +109,16 @@
   "sealed": true,
   "trust_score": {
     "determinism_score": 1.0,
-    "last_verified": "2026-01-10T02:18:51.246223+00:00",
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T02:26:06.035775+00:00",
     "license_score": 1.0,
     "overall_score": 0.33999999999999997,
     "risk_factors": [],
     "risk_level": "low",
     "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
     "test_coverage_score": 0.0
   },
   "validation_rules": {

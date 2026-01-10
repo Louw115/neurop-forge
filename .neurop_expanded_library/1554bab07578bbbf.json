@@ -74,7 +74,7 @@
   "logic": "def compress_ipv6(ip: str) -> str:\n    \"\"\"Compress IPv6 address to shortest form.\"\"\"\n    expanded = expand_ipv6(ip)\n    parts = [p.lstrip('0') or '0' for p in expanded.split(':')]\n    best_start = -1\n    best_len = 0\n    current_start = -1\n    current_len = 0\n    for i, p in enumerate(parts):\n        if p == '0':\n            if current_start == -1:\n                current_start = i\n            current_len += 1\n        else:\n            if current_len > best_len:\n                best_start = current_start\n                best_len = current_len\n            current_start = -1\n            current_len = 0\n    if current_len > best_len:\n        best_start = current_start\n        best_len = current_len\n    if best_len > 1:\n        before = ':'.join(parts[:best_start])\n        after = ':'.join(parts[best_start + best_len:])\n        return f\"{before}::{after}\"\n    return ':'.join(parts)",
   "metadata": {
     "category": "string",
-    "created_at": "2026-01-10T02:18:50.695088+00:00",
+    "created_at": "2026-01-10T02:26:05.450226+00:00",
     "description": "Compress IPv6 address to shortest form.",
     "intent": "Compress IPv6 address to shortest form.",
     "language": "python",
@@ -101,12 +101,16 @@
   "sealed": true,
   "trust_score": {
     "determinism_score": 1.0,
-    "last_verified": "2026-01-10T02:18:50.695107+00:00",
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T02:26:05.450255+00:00",
     "license_score": 1.0,
     "overall_score": 0.33999999999999997,
     "risk_factors": [],
     "risk_level": "low",
     "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
     "test_coverage_score": 0.0
   },
   "validation_rules": {

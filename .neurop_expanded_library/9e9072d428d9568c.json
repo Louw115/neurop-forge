@@ -74,7 +74,7 @@
   "logic": "def estimate_result_columns(query: str) -> int:\n    \"\"\"Estimate the number of result columns from a SELECT query.\"\"\"\n    import re\n    if not is_select_query(query):\n        return 0\n    match = re.search(r'SELECT\\s+(.*?)\\s+FROM', query, re.IGNORECASE | re.DOTALL)\n    if not match:\n        return 0\n    columns_str = match.group(1)\n    if columns_str.strip() == '*':\n        return -1\n    depth = 0\n    count = 1\n    for char in columns_str:\n        if char in '([':\n            depth += 1\n        elif char in ')]':\n            depth -= 1\n        elif char == ',' and depth == 0:\n            count += 1\n    return count",
   "metadata": {
     "category": "arithmetic",
-    "created_at": "2026-01-10T02:18:44.955919+00:00",
+    "created_at": "2026-01-10T02:25:58.132633+00:00",
     "description": "Estimate the number of result columns from a SELECT query.",
     "intent": "Estimate the number of result columns from a SELECT query.",
     "language": "python",
@@ -102,12 +102,16 @@
   "sealed": true,
   "trust_score": {
     "determinism_score": 1.0,
-    "last_verified": "2026-01-10T02:18:44.955947+00:00",
+    "execution_count": 0,
+    "failure_count": 0,
+    "last_verified": "2026-01-10T02:25:58.132662+00:00",
     "license_score": 1.0,
     "overall_score": 0.33999999999999997,
     "risk_factors": [],
     "risk_level": "low",
     "static_analysis_score": 0.6,
+    "success_count": 0,
+    "success_rate": 0.0,
     "test_coverage_score": 0.0
   },
   "validation_rules": {
