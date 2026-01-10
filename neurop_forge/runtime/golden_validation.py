@@ -73,7 +73,7 @@ class GoldenValidationRunner:
         """Check if block output matches expected type (prefer bool over dict for boolean tests)."""
         if golden.expected_output_type == "boolean":
             if block.interface.outputs:
-                out_type = block.interface.outputs[0].type
+                out_type = block.interface.outputs[0].data_type
                 if hasattr(out_type, 'value'):
                     out_type = out_type.value
                 return str(out_type).lower() in ('bool', 'boolean')
