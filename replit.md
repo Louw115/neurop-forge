@@ -224,6 +224,13 @@ The FunctionAdapter bridges semantic inputs and actual function signatures:
 - Full execution trace
 
 ## Recent Changes
+- **V2 Parameter Standardization Engine** (Phase 2): Canonical parameter names with runtime alias resolution
+  - CanonicalNames: Defines canonical names per data type (text, n, items, value, etc.)
+  - ParameterMapper: Analyzes blocks and suggests mappings with confidence scoring
+  - InterfaceNormalizer: Updates block metadata while preserving original names as aliases
+  - SemanticInputMapper integration: Runtime alias resolution via canonical names
+  - CLI: `neurop-forge standardize [--detailed] [--execute]`
+  - Results: 735 mappable parameters across 686 blocks (9% mapping rate)
 - **V2 Block Deduplication Engine** (Phase 1): Automated duplicate block detection and removal
   - SignatureHasher: Detects duplicates by name + parameter signature (order-preserving)
   - PolicyEngine: KEEP_BEST (default), NAMESPACE, QUARANTINE strategies
@@ -260,8 +267,34 @@ result = forge.deduplicate_library(execute=True, swap_in_place=True)
 print(f"Removed {result['blocks_removed']} duplicates")
 ```
 
+## Standardization Engine (V2)
+```
+neurop_forge/standardization/
+├── __init__.py              # Module exports
+├── canonical_names.py       # CANONICAL_BY_TYPE, get_canonical_name, is_canonical
+├── parameter_mapper.py      # ParameterMapper, MappingConfidence, BlockMappingResult
+└── interface_normalizer.py  # InterfaceNormalizer (analyze, normalize)
+```
+
+### Usage
+```python
+from neurop_forge.standardization import InterfaceNormalizer
+
+normalizer = InterfaceNormalizer(library_path=".neurop_expanded_library")
+stats = normalizer.analyze()  # Dry run
+result = normalizer.normalize(execute=True, preserve_aliases=True)  # Apply
+```
+
+### Canonical Names by Type
+- **string**: `text` (aliases: s, str, string, content, message, txt)
+- **integer**: `n` (aliases: num, number, count, i, index)
+- **list**: `items` (aliases: values, lst, arr, array, elements)
+- **dict**: `data` (aliases: obj, object, payload, record)
+- **float**: `value` (aliases: x, amount, price, rate)
+
 ## Production Validation Results
 - Golden Validation Suite: 10/10 blocks pass with expected output validation
-- Production Reference Workflows: 4/5 passing (text_normalization, string_analysis, input_validation, text_transform_chain)
+- Production Reference Workflows: 5/5 passing (text_normalization, string_analysis, data_extraction, input_validation, text_transform_chain)
 - Direct block execution: SUCCESS (`reverse_string` → `'dlrow olleh'`, `is_empty` → `False`)
 - Deduplication: 360 duplicate groups resolved, 0 remaining duplicates
+- Standardization: 735 mappable parameters, 9% mapping rate
