@@ -67,8 +67,16 @@ The AI used three blocks. It modified zero lines of code.
 
 ## Installation
 
+**From PyPI:**
 ```bash
 pip install neurop-forge
+```
+
+**From Source (GitHub):**
+```bash
+git clone https://github.com/Louw115/neurop-forge.git
+cd neurop-forge
+python -m pip install -e .
 ```
 
 Neurop Forge is designed to sit under AI agents, not replace them.
