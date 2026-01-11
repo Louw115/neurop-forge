@@ -83,6 +83,68 @@ neurop-forge info reverse_string                      # Block details
 neurop-forge workflows                                # Available workflows
 ```
 
+## AI Agent Demo
+
+See GPT-4 call verified blocks with zero code generation:
+
+```bash
+# Set your OpenAI API key
+export OPENAI_API_KEY=your-key-here
+
+# Run the demo
+python demos/ai_agent_demo.py
+```
+
+### Example Output
+
+```
+======================================================================
+  NEUROP FORGE - AI AGENT DEMO
+  GPT as a Controlled Operator (Not a Code Writer)
+======================================================================
+
+  USER REQUEST:
+  "I need to validate some customer data. Check if the email john.doe@company.com
+   is valid, verify the phone number +1-555-867-5309, and also sanitize this
+   HTML input: <script>alert('xss')</script>"
+----------------------------------------------------------------------
+
+  AI AGENT REASONING...
+
+  EXECUTING VERIFIED BLOCKS:
+  ----------------------------------------
+  | Block: is_valid_email
+  | Input: {"email": "john.doe@company.com"}
+  | Output: True
+  ----------------------------------------
+  | Block: is_valid_phone
+  | Input: {"phone": "+1-555-867-5309"}
+  | Output: True
+  ----------------------------------------
+  | Block: sanitize_html
+  | Input: {"text": "<script>alert('xss')</script>"}
+  | Output: &lt;script&gt;alert(&#x27;xss&#x27;)&lt;/script&gt;
+  ----------------------------------------
+
+======================================================================
+  AI AGENT RESPONSE:
+======================================================================
+
+  1. Email Validation: john.doe@company.com is valid: True
+  2. Phone Validation: +1-555-867-5309 is valid: True
+  3. HTML Sanitization: XSS attack neutralized
+
+======================================================================
+  EXECUTION SUMMARY
+======================================================================
+  Verified Blocks Called: 3
+  Lines of Code Written by AI: 0
+  All blocks are: VERIFIED, IMMUTABLE, DETERMINISTIC
+======================================================================
+```
+
+The AI selected 3 blocks from 23 available. It executed them with real inputs. It wrote zero code.
+
 ## What's Included
 
 **2,740 verified blocks** across 175 source modules and 30+ categories:
