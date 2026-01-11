@@ -1,7 +1,7 @@
 # Neurop Forge
 
-> **AI that can't go rogue.**  
-> Every action logged. Every decision auditable. Every operation reversible.
+> **Controlled AI Execution for Regulated Industries**  
+> Every action verified. Every decision auditable. Every operation reversible.
 
 ---
 
