@@ -295,8 +295,8 @@ v2.0.0 establishes the execution and trust layer. Policy engines and orchestrati
 
 ## License
 
-Dual License:
-- **Non-Commercial**: Free with attribution
-- **Commercial**: Contact for licensing
+Apache License 2.0
 
-Copyright (c) 2024-2026 Lourens Wasserman. All rights reserved.
+Neurop Forge is open source. Enterprise and compliance extensions are available separately — contact wassermanlourens@gmail.com for inquiries.
+
+Copyright (c) 2024-2026 Lourens Wasserman.
