@@ -1,6 +1,15 @@
 # Neurop Forge
 
-**2,700+ verified function blocks AI can execute but never modify.**
+> **AI that can't go rogue.**  
+> Every action logged. Every decision auditable. Every operation reversible.
+
+---
+
+**For Executives:** Your AI agents are already making decisions in your systems. Neurop Forge ensures those decisions are controlled, traceable, and compliant with regulations. AI executes pre-approved operations only — it cannot write code, delete data, or bypass your policies. Full audit trail for regulators. Ready for SOC 2, HIPAA, PCI-DSS.
+
+**For Engineers:** 2,700+ verified, immutable function blocks. AI searches, composes, and executes — but never modifies. Hash-locked identity, trust tier classification, cryptographic audit chain. Drop-in library for Python.
+
+---
 
 Neurop Forge is an immutable function library for AI systems. AI agents can search, compose, and execute blocks — but they cannot write code, alter logic, or bypass trust rules.
 
