@@ -1,0 +1,148 @@
+
+C:\Users\Lourens\Desktop\NeuropForge>python demos\enterprise_compliance_demo.py
+
+======================================================================
+  NEUROP FORGE - ENTERPRISE COMPLIANCE DEMO
+  AI Agent Execution with Cryptographic Audit Trail
+======================================================================
+
+  POLICY CONFIGURATION:
+  ----------------------------------------
+  Mode: WHITELIST (only approved blocks)
+  Allowed Blocks: 7
+  Allowed Tiers: A only (deterministic, safe)
+  Max Calls Per Block: 10
+  ----------------------------------------
+
+======================================================================
+  SCENARIO: Customer Payment Validation
+======================================================================
+  Customer: john.doe@acme.com
+  Phone: +1-555-123-4567
+  Payment: $500.00 USD + 8.5% tax
+  Card: 4111-1111-1111-1111
+======================================================================
+
+  EXECUTING VERIFIED BLOCKS (REAL EXECUTION):
+  ------------------------------------------------------------
+  [PASS] is_valid_email
+         Validate customer email
+         Result: True
+  ------------------------------------------------------------
+  [PASS] is_valid_phone
+         Validate customer phone
+         Result: True
+  ------------------------------------------------------------
+  [PASS] is_valid_credit_card
+         Validate credit card (Luhn check)
+         Result: True
+  ------------------------------------------------------------
+  [PASS] mask_email
+         Mask email for audit log
+         Result: j******e@acme.com
+  ------------------------------------------------------------
+  [PASS] calculate_tax_amount
+         Calculate 8.5% sales tax ($42.50)
+         Result: 42.5
+  ------------------------------------------------------------
+  [PASS] sanitize_html
+         Sanitize user input for XSS
+         Result: &lt;script&gt;alert(&#39;xss&#39;)&lt;/script&gt;
+  ------------------------------------------------------------
+  [PASS] parse_json
+         Parse customer metadata
+         Result: {'success': True, 'data': {'customer': 'john.do...
+  ------------------------------------------------------------
+
+======================================================================
+  AI AGENT ATTEMPTS UNAUTHORIZED OPERATIONS:
+======================================================================
+
+  POLICY ENFORCEMENT:
+  ------------------------------------------------------------
+  [BLOCKED] delete_record
+         Attempt to delete customer record
+         Policy: Block 'delete_record' not in allowed whitelist
+  ------------------------------------------------------------
+  [BLOCKED] execute_sql
+         Attempt to execute raw SQL
+         Policy: Block 'execute_sql' not in allowed whitelist
+  ------------------------------------------------------------
+  [BLOCKED] modify_account
+         Attempt to modify account balance
+         Policy: Block 'modify_account' not in allowed whitelist
+  ------------------------------------------------------------
+
+======================================================================
+  CRYPTOGRAPHIC AUDIT CHAIN VERIFICATION
+======================================================================
+
+  Chain Integrity: VERIFIED
+  Total Audit Entries: 10
+  Successful Executions: 7
+  Policy Violations Blocked: 3
+  First Entry Hash: aa151334aa360e04...
+  Last Entry Hash: d6dcfece080dab08...
+
+======================================================================
+  COMPLIANCE REPORT
+======================================================================
+  Report ID: CR-20260111-125705
+  Generated: 2026-01-11 12:57:05 UTC
+----------------------------------------------------------------------
+  STATUS: VIOLATIONS_DETECTED
+  Risk Level: HIGH
+----------------------------------------------------------------------
+  Total Operations: 7
+  Success Rate: 100.0%
+  Violations Detected: 3
+  Chain Integrity: VERIFIED
+  Code Written by AI: 0 lines
+======================================================================
+
+  COMPLIANCE ASSERTIONS:
+----------------------------------------------------------------------
+  [PASS] IMMUTABILITY
+        AI agent executed pre-verified blocks only, no code generation
+  [PASS] AUDIT_TRAIL_INTEGRITY
+        Cryptographic chain integrity verified
+  [WARN] POLICY_ENFORCEMENT
+        All block calls checked against policy before execution
+  [PASS] TRACEABILITY
+        Full execution trace with inputs, outputs, and timestamps
+======================================================================
+
+  Full audit report saved to: audit_report_20260111_145705.json
+
+======================================================================
+  WHAT THIS DEMO PROVES
+======================================================================
+
+  1. REAL EXECUTION: All 7 blocks executed via neurop_forge.execute_block()
+     - No mocks, no fakes, no fallbacks
+     - Actual verified blocks from the Neurop Forge library
+
+  2. POLICY ENFORCEMENT: 3 dangerous operations were BLOCKED
+     - delete_record: DENIED (not in whitelist)
+     - execute_sql: DENIED (not in whitelist)
+     - modify_account: DENIED (not in whitelist)
+
+  3. CRYPTOGRAPHIC AUDIT: Every operation is hash-linked
+     - Each entry contains SHA-256 hash of previous entry
+     - Tamper-proof: any modification breaks the chain
+     - Regulators can independently verify integrity
+
+  4. COMPLIANCE READY: Audit report includes
+     - Full execution trace with timestamps
+     - Input/output pairs for every block call
+     - Policy violation log with reasons
+     - SOC 2 / HIPAA / PCI-DSS style assertions
+
+======================================================================
+  This is Neurop Forge: AI as operator, not author.
+  Auditable. Reversible. Insurable.
+  https://github.com/Louw115/neurop-forge
+======================================================================
+
+
+C:\Users\Lourens\Desktop\NeuropForge>
