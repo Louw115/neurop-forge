@@ -1,96 +1,7 @@
 # Neurop Block Forge
 
 ## Overview
-Neurop Block Forge is a production-grade system owned by Lourens Wasserman for converting source code into validated, immutable NeuropBlocks that AI can search, compose, and execute but never modify. This is the first AI-native software memory system with dual licensing (free with attribution for non-commercial OR paid commercial license).
-
-## System Architecture
-```
-neurop_forge/
-├── core/           # Identity, schema, normalization
-├── intake/         # Source fetching, license enforcement
-├── parsing/        # AST analysis (Python, JavaScript)
-├── conversion/     # Intent classification, block building
-├── validation/     # Static analysis, dynamic testing, schema enforcement
-├── scoring/        # Trust model
-├── library/        # Block storage, indexing, AI fetch engine
-├── composition/    # Type/contract matching, graph rules
-├── semantic/       # Semantic intent matching, composer (Phase 1)
-├── runtime/        # Execution engine, context, guards (Phase 2)
-└── main.py         # Orchestrator
-```
-
-## Key Concepts
-
-### NeuropBlock
-An immutable, validated unit of functionality with:
-- Hash-consistent identity
-- Typed interface
-- Explicit constraints (purity, determinism, I/O)
-- Trust score
-- Composition compatibility
-
-### AI Usage Model
-AI can:
-- Search library by intent
-- Reason over metadata
-- Compose semantic block graphs
-- Execute graphs with data
-- Verify compatibility
-
-AI cannot:
-- Write code
-- Modify blocks
-- Bypass trust rules
-
-## The Full Loop (Phase 2 Complete)
-```
-Intent -> Compose -> Execute -> Result
-```
-
-1. **Intent**: Natural language query parsed into semantic requirements
-2. **Compose**: Semantic domain matching, type flow validation, operation ordering
-3. **Execute**: Deterministic graph execution with input/output chaining
-4. **Result**: Full execution trace with timing, outputs, and error handling
-
-## v1.0.0 API Usage
-
-### Python Library
-```python
-from neurop_forge import NeuropForge, execute_block, run_workflow, list_blocks
-
-# Initialize
-forge = NeuropForge()
-
-# Execute a block
-result = forge.execute_block("reverse_string", {"s": "hello"})
-print(result)  # {'result': 'olleh', 'success': True}
-
-# Run a workflow
-workflow = forge.run_workflow("text_normalization", {"text": "Hello World"})
-
-# List blocks
-blocks = forge.list_verified_blocks(category="string", tier="A")
-```
-
-### CLI
-```bash
-neurop-forge stats                                    # Show library stats
-neurop-forge execute reverse_string -i '{"s":"hi"}'   # Execute block
-neurop-forge list --tier A --limit 10                 # List blocks
-neurop-forge workflows                                # List workflows
-neurop-forge info reverse_string                      # Block details
-```
-
-## Running Production Validation
-```bash
-python -m neurop_forge.main
-```
-
-This validates:
-1. Ingesting 175 source modules
-2. Creating 4,500+ validated NeuropBlocks
-3. Semantic composition with 100% confidence graphs
-4. Runtime execution with full trace
+Neurop Block Forge is a production-grade system for converting source code into validated, immutable NeuropBlocks that AI can search, compose, and execute but never modify. It is the first AI-native software memory system, designed to transform AI agents from unpredictable authors into controlled operators. The system offers dual licensing: free with attribution for non-commercial use, or a paid commercial license. It aims to provide over 2,700 verified blocks that AI can utilize.
 
 ## User Preferences
 - Production-grade quality only
@@ -99,213 +10,60 @@ This validates:
 - Strict schema enforcement
 - Owned by Lourens Wasserman
 
-## Library Status
-**4,552 total blocks** across 175 source modules
-**2,740 verified blocks** (60.2% verification rate) - verified-only mode for semantic composition
-**2,060 Tier-A blocks** (deterministic, pure functions)
-**680 Tier-B blocks** (context-dependent, require explicit opt-in)
+## System Architecture
+Neurop Block Forge is structured around core functionalities:
+- **`core/`**: Handles identity, schema, and normalization.
+- **`intake/`**: Manages source fetching and license enforcement.
+- **`parsing/`**: Performs AST analysis for languages like Python and JavaScript.
+- **`conversion/`**: Focuses on intent classification and NeuropBlock building.
+- **`validation/`**: Ensures block integrity through static analysis, dynamic testing, and schema enforcement.
+- **`scoring/`**: Implements a trust model for blocks.
+- **`library/`**: Manages block storage, indexing, and the AI fetch engine.
+- **`composition/`**: Facilitates block assembly using type/contract matching and graph rules.
+- **`semantic/`**: (Phase 1) Handles semantic intent matching and composition.
+- **`runtime/`**: (Phase 2) Provides an execution engine with context and guards.
+- **`compliance/`**: (Phase 3) Manages the audit chain, policy engine, and compliance reports.
+- **`main.py`**: Orchestrates the entire system.
 
-## v2.0.0 Packaging Status
-- **Golden Validation**: 10/10 PASS
-- **Reference Workflows**: 5/5 PASS
-- **pip install**: Ready (editable install tested)
-- **CLI**: `neurop-forge` command working
-- **STATUS**: PACKAGED AND READY FOR DISTRIBUTION
+A **NeuropBlock** is an immutable, validated unit of functionality with a hash-consistent identity, typed interface, explicit constraints (purity, determinism, I/O), a trust score, and composition compatibility. AI can search, reason over metadata, compose semantic block graphs, execute these graphs, and verify compatibility, but cannot write code, modify blocks, or bypass trust rules.
 
-## Documentation
-- `README.md` - Developer-facing, PyPI landing page
-- `docs/exec-one-pager.md` - Executive/compliance audience
-- `docs/dev-one-pager.md` - Platform teams/AI developers
+The system supports a full `Intent -> Compose -> Execute -> Result` loop:
+1. **Intent**: Natural language queries are parsed into semantic requirements.
+2. **Compose**: Semantic domain matching, type flow validation, and operation ordering occur.
+3. **Execute**: Deterministic graph execution with input/output chaining is performed.
+4. **Result**: A full execution trace with timing, outputs, and error handling is provided.
 
-## Positioning
-**Core message**: "2,700+ verified blocks AI can execute but never modify"
-**Boardroom line**: "Turns AI agents from unpredictable authors into controlled operators"
+**Block Tier Classification** ensures safer AI composition:
+- **Tier-A**: Deterministic, pure functions with no external dependencies (75% of verified blocks).
+- **Tier-B**: Context-dependent or blocks with complex input requirements (25% of verified blocks).
 
-Required data directories (generated by running `python -m neurop_forge.main`):
-- `.neurop_verified/` - Verified block and tier registries
-- `.neurop_expanded_library/` - Block JSON files with logic
+**Block Verification System**: Ensures only working blocks are used. It includes an auto-verification pass, a verified registry, a Golden Validation Suite, and Production Reference Workflows.
 
-### Block Tier Classification
-Verified blocks are classified into tiers for safer AI composition:
-- **Tier-A: 2,060 blocks (75%)** - Deterministic, pure functions, no external deps
-- **Tier-B: 680 blocks (25%)** - Context-dependent or complex input requirements
-- Classification stored in `.neurop_verified/tier_registry.json`
+**Runtime Execution Layer**: Includes:
+- **`adapter.py`**: Bridges semantic inputs to actual function signatures (FunctionAdapter).
+- **`context.py`**: Manages execution state (ExecutionContext).
+- **`executor.py`**: Handles deterministic graph execution (GraphExecutor).
+- **`result.py`**: Captures execution traces (ExecutionResult).
+- **`guards.py`**: Implements retry policies and circuit breakers (ExecutionGuard).
 
-### Block Verification System
-The verification system ensures only working blocks are used in semantic composition:
-- Auto-verification pass tests all blocks with generated inputs
-- Verified blocks stored in `.neurop_verified/registry.json`
-- Semantic Composer filters to verified blocks only
-- Golden Validation Suite: 10/10 blocks pass with expected output validation
-- Production Reference Workflows: 4/5 passing with real-world semantic graphs
+**Compliance Layer**: Provides:
+- **`audit_chain.py`**: A cryptographic hash chain for tamper-proof logging.
+- **`policy_engine.py`**: Controls block access via whitelist/blacklist policies.
+- **`compliance_report.py`**: Generates SOC 2/HIPAA/PCI-DSS style reports.
 
-### Semantic Domains Covered
-1. String (924 blocks)
-2. Validation (837 blocks)
-3. Collection (611 blocks)
-4. Filtering (544 blocks)
-5. Calculation (442 blocks)
-6. Transformation (347 blocks)
-7. IO (259 blocks)
-8. Utility (150 blocks)
-9. Aggregation (93 blocks)
-10. Comparison (55 blocks)
+**Deduplication Engine**: Automates the detection and removal of duplicate blocks based on name and parameter signature.
 
-### Categories Covered
-- String manipulation (trim, split, join, replace)
-- Collection operations (flatten, unique, sort, chunk)
-- Data validation (email, URL, phone, patterns)
-- Type conversions (int, float, string, boolean)
-- Comparison logic (equals, between, clamp, coalesce)
-- Date/time utilities (days between, leap year, format)
-- Math & statistics (sqrt, median, variance, trig)
-- Path utilities (join path, get extension, is_image)
-- Data parsing (JSON, CSV, key-value, nested dict)
-- Encoding & hashing (MD5, SHA256, base64, URL encode)
-- URL utilities (parse URL, query strings, domains)
-- Text analysis (word count, reading time, lexical diversity)
-- Color utilities (hex to RGB, blend, brightness)
-- Formatting (currency, bytes, duration, ordinals)
-- Array operations (matrix multiply, transpose, vectors)
-- Security (sanitize, mask, detect injection)
-- HTTP utilities (status codes, MIME types, headers, cookies)
-- File type detection (extensions, magic bytes, categories)
-- Cryptography helpers (JWT, HMAC, base64, hashing patterns)
-- Data transformation (normalize, pivot, aggregate, window)
-- Regex utilities (pattern building, extraction, replacement)
-- UUID utilities (validation, parsing, version detection)
-- Geolocation (haversine distance, bearing, coordinates)
-- Caching utilities (TTL, keys, eviction, ETag, hit rate)
-- Rate limiting (token bucket, sliding window, backoff)
-- Email utilities (validation, parsing, masking, mailto)
-- Configuration (env parsing, feature flags, DSN parsing)
-- Pagination (offset/limit, cursor, page calculations)
-- Slug utilities (URL slugs, base62/36 IDs, checksum)
-- Money utilities (currency formatting, tax, interest)
-- Phone utilities (parsing, formatting, validation)
-- Markdown utilities (formatting, parsing, TOC generation)
-- SQL building (query construction, escaping, DDL)
-- SQL types (type mapping, validation, casting)
-- Query helpers (analysis, manipulation, pagination)
-- Migration helpers (schema changes, versioning)
-- Transaction helpers (isolation, locking, retries)
-- Data integrity (validation, constraints, checksums)
-- NoSQL helpers (MongoDB, Redis, DynamoDB patterns)
-- ORM patterns (model mapping, relationships, scopes)
-- Connection pool (sizing, health, metrics)
-- Batch operations (bulk insert, parallel processing)
-- Audit logging (change tracking, compliance)
-- API patterns (REST endpoints, versioning, HATEOAS)
-- Auth patterns (JWT, OAuth, sessions, API keys)
-- Webhook patterns (signatures, retries, delivery)
-- Request validation (fields, formats, constraints)
-- Response formatting (pagination, errors, JSONAPI)
-- Error handling (categorization, retry, circuit breaker)
-- Middleware patterns (logging, tracing, security)
-- Job scheduling (cron, queues, retries, workers)
-- State machines (transitions, sagas, workflows)
-- Event sourcing (events, snapshots, projections)
-- Queue patterns (routing, acknowledgments, DLQ)
+**Standardization Engine**: Normalizes parameter names across blocks for consistency, using canonical names per data type.
 
-## Runtime Execution Layer (Phase 2)
-```
-neurop_forge/runtime/
-├── __init__.py     # Module exports
-├── adapter.py      # FunctionAdapter - semantic input to signature mapping
-├── context.py      # ExecutionContext - state, variables, data flow
-├── executor.py     # GraphExecutor - deterministic graph execution
-├── result.py       # ExecutionResult - trace, timing, outputs
-└── guards.py       # RetryPolicy, CircuitBreaker, ExecutionGuard
-```
+## Recent Changes (January 2026)
+- **Enterprise Compliance Demo**: Added `demos/enterprise_compliance_demo.py` showcasing cryptographic audit trails, policy enforcement (3 dangerous operations blocked), and compliance reporting for regulated industries.
+- **Compliance Module**: `neurop_forge/compliance/` with AuditChain, PolicyEngine, ComplianceReport.
+- **AI Agent Demo**: `demos/ai_agent_demo.py` with 23 verified blocks and GPT integration.
+- **GitHub/PyPI Release**: Public release with dual license structure.
 
-### Adapter Layer (Block Contract Normalization)
-The FunctionAdapter bridges semantic inputs and actual function signatures:
-- **FunctionSignature**: AST-based introspection of function parameters, defaults, types
-- **SemanticInputMapper**: Maps semantic aliases (email→email_address, text→s, etc.)
-- **Auto-generated parameter handling**: v1, v2, v3 patterns mapped via interface metadata
-- **Signature caching**: Per-block cache for performance
-
-### Features
-- Scoped variable management (global, graph, node)
-- Type-safe input/output binding
-- Checkpointing for rollback
-- Retry with exponential backoff
-- Circuit breaker pattern
-- Timeout protection
-- Full execution trace
-
-## Recent Changes
-- **V2 Parameter Standardization Engine** (Phase 2): Canonical parameter names with runtime alias resolution
-  - CanonicalNames: Defines canonical names per data type (text, n, items, value, etc.)
-  - ParameterMapper: Analyzes blocks and suggests mappings with confidence scoring
-  - InterfaceNormalizer: Updates block metadata while preserving original names as aliases
-  - SemanticInputMapper integration: Runtime alias resolution via canonical names
-  - CLI: `neurop-forge standardize [--detailed] [--execute]`
-  - Results: 735 mappable parameters across 686 blocks (9% mapping rate)
-- **V2 Block Deduplication Engine** (Phase 1): Automated duplicate block detection and removal
-  - SignatureHasher: Detects duplicates by name + parameter signature (order-preserving)
-  - PolicyEngine: KEEP_BEST (default), NAMESPACE, QUARANTINE strategies
-  - DeduplicationProcessor: Full pipeline with swap-in-place and backup
-  - Registry rebuild: Updates verified/tier registries after deduplication
-  - CLI: `neurop-forge dedup [--detailed] [--execute] [--policy namespace]`
-  - Results: 4,552 → 4,141 blocks (9% reduction), 0 duplicate names
-- **Production Reference Workflows**: 5 real-world semantic graph templates with 4/5 passing
-- **Tier-A/Tier-B Block Classification**: Automated classification of verified blocks
-  - Tier-A (75%): Deterministic, pure functions, no external dependencies
-  - Tier-B (25%): Context-dependent or complex input requirements
-- **Auto-Verification Gate**: Blocks must pass through gate before being admitted to verified registry
-- **Adapter Layer**: FunctionAdapter bridges semantic inputs to actual function signatures
-- Phase 2 complete: Runtime Executor with full Intent -> Compose -> Execute -> Result loop
-- 4,141 unique blocks from 175 source modules (after deduplication)
-- 100% composition confidence on semantic graphs
-
-## Deduplication Engine (V2)
-```
-neurop_forge/deduplication/
-├── __init__.py         # Module exports
-├── signature_hasher.py # BlockSignature, SignatureHasher (order-preserving)
-├── policy_engine.py    # DeduplicationPolicy, DeduplicationDecision, PolicyEngine
-├── dedup_processor.py  # DeduplicationProcessor (orchestrator)
-└── dedup_report.py     # DeduplicationReport (summary, detailed, JSON)
-```
-
-### Usage
-```python
-from neurop_forge.main import NeuropForge
-
-forge = NeuropForge(storage_path='.neurop_expanded_library')
-result = forge.deduplicate_library(execute=True, swap_in_place=True)
-print(f"Removed {result['blocks_removed']} duplicates")
-```
-
-## Standardization Engine (V2)
-```
-neurop_forge/standardization/
-├── __init__.py              # Module exports
-├── canonical_names.py       # CANONICAL_BY_TYPE, get_canonical_name, is_canonical
-├── parameter_mapper.py      # ParameterMapper, MappingConfidence, BlockMappingResult
-└── interface_normalizer.py  # InterfaceNormalizer (analyze, normalize)
-```
-
-### Usage
-```python
-from neurop_forge.standardization import InterfaceNormalizer
-
-normalizer = InterfaceNormalizer(library_path=".neurop_expanded_library")
-stats = normalizer.analyze()  # Dry run
-result = normalizer.normalize(execute=True, preserve_aliases=True)  # Apply
-```
-
-### Canonical Names by Type
-- **string**: `text` (aliases: s, str, string, content, message, txt)
-- **integer**: `n` (aliases: num, number, count, i, index)
-- **list**: `items` (aliases: values, lst, arr, array, elements)
-- **dict**: `data` (aliases: obj, object, payload, record)
-- **float**: `value` (aliases: x, amount, price, rate)
-
-## Production Validation Results
-- Golden Validation Suite: 10/10 blocks pass with expected output validation
-- Production Reference Workflows: 5/5 passing (text_normalization, string_analysis, data_extraction, input_validation, text_transform_chain)
-- Direct block execution: SUCCESS (`reverse_string` → `'dlrow olleh'`, `is_empty` → `False`)
-- Deduplication: 360 duplicate groups resolved, 0 remaining duplicates
-- Standardization: 735 mappable parameters, 9% mapping rate
+## External Dependencies
+The system integrates with:
+- **Python libraries**: For internal functionalities like `neurop_forge`.
+- **CLI tools**: `neurop-forge` for command-line operations.
+- **Source code repositories**: For ingesting source modules.
+- **JSON files**: For storing block definitions and registries.
