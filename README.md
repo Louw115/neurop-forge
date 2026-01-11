@@ -1,19 +1,61 @@
-# Neurop Forge
+# Neurop Forge — AI-Native Execution Control Layer
 
-> **The First AI-Native Software Memory System**  
 > 2,700+ verified operations that AI can search, compose, and execute — but never modify.
 
----
-
-**For Executives:** Your AI agents are already making decisions. Neurop Forge makes those decisions controlled, traceable, and compliant. AI executes pre-approved operations only — it cannot write code, delete data, or bypass your policies. Every operation is cryptographically logged in a tamper-proof audit chain. Policy enforcement blocks unauthorized actions before they happen. Ready for SOC 2, HIPAA, and PCI-DSS compliance reviews.
-
-**For Engineers:** 2,700+ production-grade function blocks with hash-locked immutability. Trust tier classification (Tier-A: safe for unrestricted use, Tier-B: requires explicit permission). Semantic search and composition — AI finds blocks by intent and chains them into workflows. Full execution traces with inputs, outputs, and timestamps. Whitelist/blacklist policy engine. Drop-in Python library.
+**CATEGORY:** AI Execution Control Layer
 
 ---
 
-Neurop Forge transforms AI agents from unpredictable code writers into controlled operators. AI searches a verified library, composes block workflows, and executes with full traceability — but it cannot generate code, alter existing logic, or bypass trust rules.
+## For Executives
 
-**The result:** Auditable AI. Reversible decisions. Insurable operations.
+Your AI agents are already making decisions. Neurop Forge makes those decisions controlled, traceable, and compliant.
+
+- AI executes pre-approved operations only — it cannot write code, delete data, or bypass your policies.
+- Every operation is cryptographically logged in a tamper-proof audit chain.
+- Policy enforcement blocks unauthorized actions before they happen.
+- Designed for regulated environments.
+- Ready for SOC 2, HIPAA, and PCI-DSS compliance reviews.
+
+## For Engineers
+
+2,700+ production-grade function blocks with hash-locked immutability.
+
+**Trust tier classification:**
+- **Tier-A:** safe for unrestricted AI use
+- **Tier-B:** requires explicit permission
+
+- Semantic search and composition — AI finds blocks by intent and chains them into workflows.
+- Full execution traces with inputs, outputs, and timestamps.
+- Whitelist / blacklist policy engine.
+- Drop-in Python library.
+
+---
+
+## What Neurop Forge Is
+
+Neurop Forge transforms AI agents from unpredictable code writers into controlled operators.
+
+- AI does not generate code.
+- AI does not modify logic.
+- AI does not bypass trust rules.
+
+**Instead, AI:**
+- Searches a verified library by intent
+- Composes block workflows
+- Executes deterministically with full traceability
+
+---
+
+**The result:**  
+Auditable AI. Reversible decisions. Insurable operations.
+
+---
+
+## One-Line Definition
+
+> Neurop Forge is an AI Execution Control Layer that allows AI agents to build and operate software by executing pre-verified, policy-governed blocks — without generating or modifying code.
+
+---
 
 ## The Problem
 
