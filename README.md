@@ -1,19 +1,19 @@
 # Neurop Forge
 
-> **Controlled AI Execution for Regulated Industries**  
-> Every action verified. Every decision auditable. Every operation reversible.
+> **The First AI-Native Software Memory System**  
+> 2,700+ verified operations that AI can search, compose, and execute — but never modify.
 
 ---
 
-**For Executives:** Your AI agents are already making decisions in your systems. Neurop Forge ensures those decisions are controlled, traceable, and compliant with regulations. AI executes pre-approved operations only — it cannot write code, delete data, or bypass your policies. Full audit trail for regulators. Ready for SOC 2, HIPAA, PCI-DSS.
+**For Executives:** Your AI agents are already making decisions. Neurop Forge makes those decisions controlled, traceable, and compliant. AI executes pre-approved operations only — it cannot write code, delete data, or bypass your policies. Every operation is cryptographically logged in a tamper-proof audit chain. Policy enforcement blocks unauthorized actions before they happen. Ready for SOC 2, HIPAA, and PCI-DSS compliance reviews.
 
-**For Engineers:** 2,700+ verified, immutable function blocks. AI searches, composes, and executes — but never modifies. Hash-locked identity, trust tier classification, cryptographic audit chain. Drop-in library for Python.
+**For Engineers:** 2,700+ production-grade function blocks with hash-locked immutability. Trust tier classification (Tier-A: safe for unrestricted use, Tier-B: requires explicit permission). Semantic search and composition — AI finds blocks by intent and chains them into workflows. Full execution traces with inputs, outputs, and timestamps. Whitelist/blacklist policy engine. Drop-in Python library.
 
 ---
 
-Neurop Forge is an immutable function library for AI systems. AI agents can search, compose, and execute blocks — but they cannot write code, alter logic, or bypass trust rules.
+Neurop Forge transforms AI agents from unpredictable code writers into controlled operators. AI searches a verified library, composes block workflows, and executes with full traceability — but it cannot generate code, alter existing logic, or bypass trust rules.
 
-This turns AI from unpredictable authors into controlled operators.
+**The result:** Auditable AI. Reversible decisions. Insurable operations.
 
 ## The Problem
 
