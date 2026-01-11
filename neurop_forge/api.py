@@ -66,9 +66,10 @@ class NeuropForge:
             with open(registry_path) as f:
                 registry_data = json.load(f)
             for block_id, block_data in registry_data.get("verified_blocks", {}).items():
-                self._verified_ids.add(block_id)
-                if "block_name" in block_data:
-                    self._name_to_id[block_data["block_name"]] = block_id
+                if block_data.get("verified", False):
+                    self._verified_ids.add(block_id)
+                    if "block_name" in block_data:
+                        self._name_to_id[block_data["block_name"]] = block_id
         
         if tier_registry_path.exists():
             with open(tier_registry_path) as f:
