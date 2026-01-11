@@ -1,69 +1,52 @@
-# Neurop Block Forge
+# Neurop Forge
 
 ## Overview
-Neurop Block Forge is a production-grade system for converting source code into validated, immutable NeuropBlocks that AI can search, compose, and execute but never modify. It is the first AI-native software memory system, designed to transform AI agents from unpredictable authors into controlled operators. The system offers dual licensing: free with attribution for non-commercial use, or a paid commercial license. It aims to provide over 2,700 verified blocks that AI can utilize.
+
+Neurop Forge is an AI-native execution control layer that provides a library of 2,700+ pre-verified, hash-locked function blocks that AI agents can search, compose, and execute—but never modify. The system transforms AI agents from unpredictable code generators into controlled operators that work within a deterministic, auditable framework.
+
+The core value proposition is controlled AI execution: AI cannot generate arbitrary code, modify logic, or bypass trust rules. Instead, it searches a verified library by intent, composes block workflows, and executes deterministically with full traceability. This makes AI operations auditable, reversible, and suitable for regulated environments (SOC 2, HIPAA, PCI-DSS).
 
 ## User Preferences
-- Production-grade quality only
-- No stubs or TODOs
-- No approximations
-- Strict schema enforcement
-- Owned by Lourens Wasserman
+
+Preferred communication style: Simple, everyday language.
 
 ## System Architecture
-Neurop Block Forge is structured around core functionalities:
-- **`core/`**: Handles identity, schema, and normalization.
-- **`intake/`**: Manages source fetching and license enforcement.
-- **`parsing/`**: Performs AST analysis for languages like Python and JavaScript.
-- **`conversion/`**: Focuses on intent classification and NeuropBlock building.
-- **`validation/`**: Ensures block integrity through static analysis, dynamic testing, and schema enforcement.
-- **`scoring/`**: Implements a trust model for blocks.
-- **`library/`**: Manages block storage, indexing, and the AI fetch engine.
-- **`composition/`**: Facilitates block assembly using type/contract matching and graph rules.
-- **`semantic/`**: (Phase 1) Handles semantic intent matching and composition.
-- **`runtime/`**: (Phase 2) Provides an execution engine with context and guards.
-- **`compliance/`**: (Phase 3) Manages the audit chain, policy engine, and compliance reports.
-- **`main.py`**: Orchestrates the entire system.
 
-A **NeuropBlock** is an immutable, validated unit of functionality with a hash-consistent identity, typed interface, explicit constraints (purity, determinism, I/O), a trust score, and composition compatibility. AI can search, reason over metadata, compose semantic block graphs, execute these graphs, and verify compatibility, but cannot write code, modify blocks, or bypass trust rules.
+### Block Library System
+- **Immutable Function Blocks**: Each operation is stored as a JSON file in `.neurop_expanded_library/` with a SHA256 hash identifier
+- **Block Categories**: Blocks are classified by type (arithmetic, string, collection, validation, filtering, transformation, comparison, sorting, aggregation)
+- **Trust Tiers**: Tier-A blocks are safe for unrestricted AI use; Tier-B blocks require explicit permission
+- **Cryptographic Identity**: Every block has a `hash_value` and `semantic_fingerprint` for verification
 
-The system supports a full `Intent -> Compose -> Execute -> Result` loop:
-1. **Intent**: Natural language queries are parsed into semantic requirements.
-2. **Compose**: Semantic domain matching, type flow validation, and operation ordering occur.
-3. **Execute**: Deterministic graph execution with input/output chaining is performed.
-4. **Result**: A full execution trace with timing, outputs, and error handling is provided.
+### Block Metadata Structure
+Each block JSON contains:
+- **Identity**: Hash algorithm, hash value, semantic fingerprint for immutability verification
+- **Composition**: Compatibility rules for chaining blocks (input/output types, conflicts, dependencies)
+- **Constraints**: Purity level, determinism, thread safety, I/O operations, side effects
+- **Failure Modes**: Exception handling, recovery hints, error conditions
 
-**Block Tier Classification** ensures safer AI composition:
-- **Tier-A**: Deterministic, pure functions with no external dependencies (75% of verified blocks).
-- **Tier-B**: Context-dependent or blocks with complex input requirements (25% of verified blocks).
+### Execution Model
+- **Pure Functions**: Most blocks are deterministic, thread-safe, with no side effects
+- **Composability**: Blocks can be chained based on compatible input/output types (arithmetic, string, collection, validation, utility)
+- **Audit Trail**: All executions are cryptographically logged in a tamper-proof chain
 
-**Block Verification System**: Ensures only working blocks are used. It includes an auto-verification pass, a verified registry, a Golden Validation Suite, and Production Reference Workflows.
-
-**Runtime Execution Layer**: Includes:
-- **`adapter.py`**: Bridges semantic inputs to actual function signatures (FunctionAdapter).
-- **`context.py`**: Manages execution state (ExecutionContext).
-- **`executor.py`**: Handles deterministic graph execution (GraphExecutor).
-- **`result.py`**: Captures execution traces (ExecutionResult).
-- **`guards.py`**: Implements retry policies and circuit breakers (ExecutionGuard).
-
-**Compliance Layer**: Provides:
-- **`audit_chain.py`**: A cryptographic hash chain for tamper-proof logging.
-- **`policy_engine.py`**: Controls block access via whitelist/blacklist policies.
-- **`compliance_report.py`**: Generates SOC 2/HIPAA/PCI-DSS style reports.
-
-**Deduplication Engine**: Automates the detection and removal of duplicate blocks based on name and parameter signature.
-
-**Standardization Engine**: Normalizes parameter names across blocks for consistency, using canonical names per data type.
-
-## Recent Changes (January 2026)
-- **Enterprise Compliance Demo**: Added `demos/enterprise_compliance_demo.py` showcasing cryptographic audit trails, policy enforcement (3 dangerous operations blocked), and compliance reporting for regulated industries.
-- **Compliance Module**: `neurop_forge/compliance/` with AuditChain, PolicyEngine, ComplianceReport.
-- **AI Agent Demo**: `demos/ai_agent_demo.py` with 23 verified blocks and GPT integration.
-- **GitHub/PyPI Release**: Public release with dual license structure.
+### Policy Engine
+- Whitelist/blacklist system for controlling which blocks AI can access
+- Policy enforcement blocks unauthorized actions before execution
+- Designed for compliance with regulated industry standards
 
 ## External Dependencies
-The system integrates with:
-- **Python libraries**: For internal functionalities like `neurop_forge`.
-- **CLI tools**: `neurop-forge` for command-line operations.
-- **Source code repositories**: For ingesting source modules.
-- **JSON files**: For storing block definitions and registries.
+
+### Core Dependencies
+- **Python**: Primary language for the drop-in library
+- **SHA256 Hashing**: Used for block identity and integrity verification
+
+### No External Services Required
+- The library is self-contained with no external API dependencies
+- Block definitions are stored locally as JSON files
+- No database required—file-based storage using hash-named JSON files
+
+### Optional Integrations
+- Semantic search capabilities for AI to find blocks by intent
+- Audit logging system (implementation-specific)
+- Policy configuration system for enterprise deployments
