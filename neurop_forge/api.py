@@ -78,7 +78,7 @@ class NeuropForge:
         
         for block_id, block in self._block_store._blocks.items():
             name = block.metadata.name
-            if name and block_id not in self._name_to_id.values():
+            if name and name not in self._name_to_id:
                 self._name_to_id[name] = block_id
         
         self._initialized = True
