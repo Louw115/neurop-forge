@@ -145,6 +145,56 @@ python demos/ai_agent_demo.py
 
 The AI selected 3 blocks from 23 available. It executed them with real inputs. It wrote zero code.
 
+## Enterprise Compliance Demo
+
+For regulated industries, Neurop Forge provides cryptographic audit trails and policy enforcement:
+
+```bash
+python demos/enterprise_compliance_demo.py
+```
+
+### What It Shows
+
+1. **Payment Processing**: AI validates a $500 transaction through 7 verified blocks
+2. **Policy Enforcement**: AI attempts 3 dangerous operations - all BLOCKED
+3. **Cryptographic Audit**: Every operation hash-linked (tamper-proof chain)
+4. **Compliance Report**: Full audit trail exported to JSON
+
+### Example Output
+
+```
+======================================================================
+  SCENARIO: Customer Payment Validation
+======================================================================
+  [PASS] is_valid_email - Validate customer email: True
+  [PASS] is_valid_phone - Validate customer phone: True
+  [PASS] is_valid_credit_card - Validate credit card (Luhn): True
+  [PASS] mask_email - Mask for audit: j******e@acme.com
+  [PASS] calculate_tax_amount - 8.5% tax: $42.50
+  [PASS] sanitize_html - XSS neutralized
+  [PASS] parse_json - Customer metadata parsed
+  
+  AI ATTEMPTS UNAUTHORIZED OPERATIONS:
+  [BLOCKED] delete_record - Not in allowed whitelist
+  [BLOCKED] execute_sql - Not in allowed whitelist
+  [BLOCKED] modify_account - Not in allowed whitelist
+
+======================================================================
+  COMPLIANCE REPORT
+======================================================================
+  Chain Integrity: VERIFIED (SHA-256 hash chain)
+  Successful Executions: 7
+  Policy Violations Blocked: 3
+  Code Written by AI: 0 lines
+  
+  [PASS] IMMUTABILITY - Pre-verified blocks only
+  [PASS] AUDIT_TRAIL_INTEGRITY - Cryptographic chain verified
+  [PASS] TRACEABILITY - Full execution trace with timestamps
+======================================================================
+```
+
+**The enterprise pitch**: "Your AI agents are already making decisions. Neurop Forge makes those decisions auditable, reversible, and insurable."
+
 ## What's Included
 
 **2,740 verified blocks** across 175 source modules and 30+ categories:
