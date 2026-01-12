@@ -1,5 +1,7 @@
 # Neurop Forge — AI-Native Execution Control Layer
 
+[![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+
 > 2,700+ verified operations that AI can search, compose, and execute — but never modify.
 
 **CATEGORY:** AI Execution Control Layer
@@ -297,6 +299,8 @@ v2.0.0 establishes the execution and trust layer. Policy engines and orchestrati
 
 Apache License 2.0
 
-Neurop Forge is open source. Enterprise and compliance extensions are available separately — contact wassermanlourens@gmail.com for inquiries.
+Neurop Forge is fully open source under the permissive Apache 2.0 license, allowing free commercial use, modification, and distribution.
+
+Enterprise/compliance extensions, premium support, and custom integrations are available separately — contact wassermanlourens@gmail.com for inquiries.
 
 Copyright (c) 2024-2026 Lourens Wasserman.
