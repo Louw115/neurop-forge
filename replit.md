@@ -50,3 +50,26 @@ Each block JSON contains:
 - Semantic search capabilities for AI to find blocks by intent
 - Audit logging system (implementation-specific)
 - Policy configuration system for enterprise deployments
+
+## Hosted API (for Render Deployment)
+
+### API Endpoints
+The FastAPI server in `api/main.py` provides remote execution:
+- `GET /health` - Health check, returns block count
+- `POST /execute` - Execute blocks by natural language query (requires X-API-Key header)
+- `POST /search` - Search blocks by intent (requires X-API-Key header)
+- `GET /stats` - Library and usage statistics
+- `GET /audit/chain` - Audit chain verification
+
+### Deployment Files
+- `render.yaml` - Render deployment configuration
+- `requirements-api.txt` - API-specific dependencies
+- `docs/RENDER_DEPLOYMENT.md` - Deployment instructions
+
+### IP Protection Strategy
+The `.neurop_expanded_library/` folder contains 4,500+ pre-verified blocks and is:
+- Excluded from GitHub via .gitignore
+- Excluded from PyPI distribution via MANIFEST.in
+- Only accessible via the hosted API
+
+This protects the library as proprietary IP while allowing users to access functionality through the API.
