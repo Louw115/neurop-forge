@@ -12,15 +12,23 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
-args = "Neurop Forge"
+args = "Neurop Forge API"
 
 [[workflows.workflow]]
-name = "Neurop Forge"
+name = "Neurop Forge API"
 author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "python -m neurop_forge.main"
+args = "uvicorn api.main:app --host 0.0.0.0 --port 5000 --reload"
+waitForPort = 5000
 
 [workflows.workflow.metadata]
-outputType = "console"
+outputType = "webview"
+
+[nix]
+channel = "stable-25_05"
+
+[[ports]]
+localPort = 5000
+externalPort = 80
