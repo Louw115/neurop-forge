@@ -264,7 +264,7 @@ curl -X POST https://neurop-forge.onrender.com/execute-block \
 ## Installation
 
 ```bash
-pip install neurop-forge
+pip install neuropforge
 ```
 
 Or from source:
@@ -286,10 +286,10 @@ Live API for testing: `https://neurop-forge.onrender.com`
 curl https://neurop-forge.onrender.com/health
 
 # Execute a block (requires API key)
-curl -X POST https://neurop-forge.onrender.com/execute \
+curl -X POST https://neurop-forge.onrender.com/execute-block \
   -H "X-API-Key: your-key" \
   -H "Content-Type: application/json" \
-  -d '{"query": "reverse the string hello"}'
+  -d '{"block_name": "to_uppercase", "inputs": {"text": "hello"}}'
 ```
 
 ---
