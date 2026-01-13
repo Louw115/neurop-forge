@@ -1575,7 +1575,6 @@ async def ai_chat(req: AIChatRequest, request: Request):
                 block_list.append(f"- {semantic_name}({', '.join(inputs)}): {block.metadata.description[:80]}")
     
     blocks_context = "\n".join(block_list)
-    print(f"Sending {len(block_list)} blocks to AI, first 5: {block_list[:5]}")  # Debug
     
     system_prompt = f"""You are Neurop Forge's execution assistant. You help users execute pre-verified function blocks.
 
@@ -1586,12 +1585,14 @@ When the user asks to do something:
 1. Find the matching block name
 2. Extract the input values from their request
 3. Respond with ONLY valid JSON in this exact format:
-{{"block": "block_name", "inputs": {{"param1": value1, "param2": value2}}}}
+{{"block": "block_name", "inputs": {{"param1": value1}}}}
+
+For list inputs, use actual JSON arrays: {{"items": [5, 3]}} NOT {{"items": "[5, 3]"}}
 
 If you can't find a matching block, respond with:
 {{"error": "No matching block found for this request"}}
 
-IMPORTANT: Respond with ONLY the JSON, no other text."""
+Respond with ONLY the JSON, no other text."""
 
     try:
         async with httpx.AsyncClient() as client:
@@ -1618,7 +1619,6 @@ IMPORTANT: Respond with ONLY the JSON, no other text."""
             
             ai_response = response.json()
             ai_text = ai_response["choices"][0]["message"]["content"].strip()
-            print(f"AI Response: {ai_text}")  # Debug
             
             # Parse AI response
             try:
@@ -1638,26 +1638,39 @@ IMPORTANT: Respond with ONLY the JSON, no other text."""
             block_name = ai_json.get("block")
             inputs = ai_json.get("inputs", {})
             
-            if not block_name or block_name not in block_library:
+            # Find block by semantic name (same as /demo/execute)
+            target_block = None
+            for block_id, block in block_library.items():
+                if block.metadata.name == block_name:
+                    target_block = block
+                    break
+            
+            if not block_name or target_block is None:
                 return {"success": False, "error": f"Block '{block_name}' not found"}
             
-            # Execute the block
-            block = block_library[block_name]
+            # Execute the block (same pattern as /demo/execute)
+            block = target_block
             start_time = time.time()
             
             try:
-                result = block.execute(inputs)
+                from neurop_forge.runtime.executor import BlockExecutor
+                block_executor = BlockExecutor()
+                result, error = block_executor.execute(block, inputs)
+                
+                if error:
+                    return {"success": False, "error": f"Execution error: {error}", "block": block_name}
                 execution_time = (time.time() - start_time) * 1000
                 
-                # Create audit entry
+                # Create simple audit (same as /demo/execute)
                 execution_id = str(uuid.uuid4())[:8]
-                audit_entry = audit_chain.log_execution(
-                    block_hash=block.identity.hash_value,
-                    inputs=inputs,
-                    output=result,
-                    agent_id="demo-ai-chat",
-                    execution_id=execution_id
-                )
+                audit_data = {
+                    "execution_id": execution_id,
+                    "timestamp": datetime.utcnow().isoformat(),
+                    "block_name": block_name,
+                    "inputs": inputs,
+                    "success": True,
+                }
+                audit_hash = hashlib.sha256(json.dumps(audit_data, sort_keys=True).encode()).hexdigest()
                 
                 return {
                     "success": True,
@@ -1668,8 +1681,8 @@ IMPORTANT: Respond with ONLY the JSON, no other text."""
                     "execution_time_ms": round(execution_time, 2),
                     "execution_id": execution_id,
                     "audit": {
-                        "timestamp": audit_entry.get("timestamp", datetime.now().isoformat()),
-                        "hash": audit_entry.get("entry_hash", "")[:32] + "..."
+                        "timestamp": audit_data["timestamp"],
+                        "hash": audit_hash[:32] + "..."
                     }
                 }
             except Exception as e:
