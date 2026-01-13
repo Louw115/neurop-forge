@@ -10,6 +10,7 @@ import hashlib
 import time
 import uuid
 import random
+import traceback
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 from pathlib import Path
@@ -569,6 +570,123 @@ async def search(request: SearchRequest, api_key: str = Depends(get_api_key)):
         
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+class DirectExecuteRequest(BaseModel):
+    block_name: str = Field(..., description="Exact name of the block to execute")
+    inputs: Dict[str, Any] = Field(default_factory=dict, description="Input values for the block")
+
+
+class DirectExecuteResponse(BaseModel):
+    success: bool
+    block_name: str
+    result: Optional[Any] = None
+    execution_time_ms: float
+    error: Optional[str] = None
+    debug_info: Optional[Dict[str, Any]] = None
+
+
+@app.post("/execute-block", response_model=DirectExecuteResponse)
+async def execute_block_direct(request: DirectExecuteRequest, api_key: str = Depends(get_api_key)):
+    """
+    Execute a single block directly by name.
+    
+    This bypasses semantic search and graph composition for direct testing.
+    Use this to verify individual blocks work correctly.
+    """
+    start_time = time.time()
+    
+    if not block_library:
+        raise HTTPException(status_code=503, detail="Library not loaded")
+    
+    target_block = None
+    target_block_id = None
+    
+    for block_id, block in block_library.items():
+        if block.metadata.name == request.block_name:
+            target_block = block
+            target_block_id = block_id
+            break
+    
+    if target_block is None:
+        execution_time = (time.time() - start_time) * 1000
+        return DirectExecuteResponse(
+            success=False,
+            block_name=request.block_name,
+            result=None,
+            execution_time_ms=execution_time,
+            error=f"Block '{request.block_name}' not found in library",
+            debug_info={"available_blocks_sample": list(block.metadata.name for block in list(block_library.values())[:10])}
+        )
+    
+    try:
+        from neurop_forge.runtime.executor import BlockExecutor
+        block_executor = BlockExecutor()
+        
+        outputs, error = block_executor.execute(target_block, request.inputs)
+        
+        execution_time = (time.time() - start_time) * 1000
+        
+        if error:
+            return DirectExecuteResponse(
+                success=False,
+                block_name=request.block_name,
+                result=None,
+                execution_time_ms=execution_time,
+                error=error,
+                debug_info={
+                    "block_id": target_block_id,
+                    "inputs_received": list(request.inputs.keys()),
+                    "expected_inputs": [p.name for p in target_block.interface.inputs],
+                }
+            )
+        
+        log_usage(api_key, "/execute-block", request.block_name, True, execution_time)
+        
+        return DirectExecuteResponse(
+            success=True,
+            block_name=request.block_name,
+            result=outputs,
+            execution_time_ms=execution_time,
+            error=None,
+            debug_info={"block_id": target_block_id}
+        )
+        
+    except Exception as e:
+        execution_time = (time.time() - start_time) * 1000
+        return DirectExecuteResponse(
+            success=False,
+            block_name=request.block_name,
+            result=None,
+            execution_time_ms=execution_time,
+            error=f"Execution failed: {type(e).__name__}",
+            debug_info={
+                "block_id": target_block_id,
+                "inputs_received": list(request.inputs.keys()) if request.inputs else [],
+            }
+        )
+
+
+@app.get("/blocks")
+async def list_blocks(api_key: str = Depends(get_api_key), limit: int = 50, category: Optional[str] = None):
+    """List available blocks with their names and categories."""
+    if not block_library:
+        raise HTTPException(status_code=503, detail="Library not loaded")
+    
+    blocks = []
+    for block_id, block in block_library.items():
+        if category and block.metadata.category.lower() != category.lower():
+            continue
+        blocks.append({
+            "name": block.metadata.name,
+            "category": block.metadata.category,
+            "description": block.metadata.description,
+            "inputs": [p.name for p in block.interface.inputs],
+        })
+        if len(blocks) >= limit:
+            break
+    
+    return {"blocks": blocks, "total": len(blocks)}
 
 
 @app.get("/stats")
