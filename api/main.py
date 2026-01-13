@@ -18,6 +18,7 @@ from contextlib import contextmanager
 
 from fastapi import FastAPI, HTTPException, Depends, Header, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from neurop_forge.core.block_schema import NeuropBlock
@@ -52,6 +53,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+STATIC_DIR = Path(__file__).parent / "static"
+if STATIC_DIR.exists():
+    app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 
 API_KEYS: Dict[str, Dict[str, Any]] = {}
 USAGE_LOG: List[Dict[str, Any]] = []
@@ -2211,7 +2216,10 @@ PLAYGROUND_HTML = """
 </head>
 <body>
     <div class="header">
-        <h1>Neurop Forge</h1>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 20px;">
+            <img src="/static/logo.jpg" alt="Neurop Forge" style="width: 80px; height: 80px; border-radius: 16px; box-shadow: 0 0 30px rgba(0,212,255,0.4);" />
+            <h1>Neurop Forge</h1>
+        </div>
         <p class="tagline">Try to break the execution layer.</p>
         <p class="subtitle">AI agents can only execute verified blocks. No code generation. No exceptions. Every action is logged with cryptographic proof.</p>
         <div class="stats-bar">
