@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
-> 2,700+ verified operations that AI can search, compose, and execute — but never modify.
+> 4,500+ verified operations that AI can search, compose, and execute — but never modify.
 
 **CATEGORY:** AI Execution Control Layer
 
@@ -20,7 +20,7 @@ Your AI agents are already making decisions. Neurop Forge makes those decisions 
 
 ## For Engineers
 
-2,700+ production-grade function blocks with hash-locked immutability.
+4,500+ production-grade function blocks with hash-locked immutability.
 
 **Trust tier classification:**
 - **Tier-A:** safe for unrestricted AI use
@@ -90,8 +90,8 @@ Blocks are classified into safety tiers for controlled AI composition:
 
 | Tier | Count | What It Means |
 |------|-------|---------------|
-| **A** | 2,060 | Deterministic, pure functions, no side effects, no external dependencies |
-| **B** | 680 | Context-dependent, may require specific inputs, explicit opt-in required |
+| **A** | 3,400+ | Deterministic, pure functions, no side effects, no external dependencies |
+| **B** | 1,150+ | Context-dependent, may require specific inputs, explicit opt-in required |
 
 Tier-A blocks are safe for unrestricted AI use.  
 Tier-B blocks require explicit permission — AI cannot silently use them.
@@ -204,7 +204,7 @@ python demos/ai_agent_demo.py
 ======================================================================
 ```
 
-The AI selected 3 blocks from 23 available. It executed them with real inputs. It wrote zero code.
+The AI selected 3 blocks from 4,500+ available. It executed them with real inputs. It wrote zero code.
 
 ## Enterprise Compliance Demo
 
@@ -258,7 +258,7 @@ python demos/enterprise_compliance_demo.py
 
 ## What's Included
 
-**2,740 verified blocks** across 175 source modules and 30+ categories:
+**4,500+ verified blocks** across 175 source modules and 30+ categories:
 
 - String manipulation (trim, split, join, replace, case conversion)
 - Collection operations (flatten, unique, sort, chunk, filter)
