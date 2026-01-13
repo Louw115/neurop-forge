@@ -208,20 +208,55 @@ The chain is tamper-proof. If any record is modified, the chain breaks.
 
 ## Quick Start
 
+### Python SDK
+
+```bash
+pip install neuropforge
+```
+
 ```python
-from neurop_forge import NeuropForge
+from neuropforge import NeuropForge
 
-forge = NeuropForge()
+# Initialize with your API key
+client = NeuropForge(api_key="your_key")
 
-# Execute a verified block
-result = forge.execute_block("reverse_string", {"s": "hello"})
-print(result)  # {'result': 'olleh', 'success': True}
+# Execute a block by exact name
+result = client.execute("to_uppercase", text="hello world")
+print(result.result)  # "HELLO WORLD"
 
-# Search blocks by intent
-blocks = forge.search_blocks("validate email address")
+# Search for blocks (discovery only)
+blocks = client.search("validate email")
+for block in blocks:
+    print(f"{block.name} - {block.domain}/{block.operation}")
 
-# List blocks by category
-validation_blocks = forge.list_verified_blocks(category="validation")
+# List available blocks
+blocks = client.list_blocks(limit=10, category="validation")
+```
+
+### CLI Tool
+
+```bash
+# Check API health
+nf health
+
+# List blocks
+nf blocks --limit 10 --category validation
+
+# Search for blocks
+nf search "validate email"
+
+# Execute a block
+nf exec to_uppercase --input text="hello world"
+nf exec string_length -i text="Neurop Forge"
+```
+
+### Direct API
+
+```bash
+curl -X POST https://neurop-forge.onrender.com/execute-block \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: your_key" \
+  -d '{"block_name": "to_uppercase", "inputs": {"text": "hello"}}'
 ```
 
 ---
