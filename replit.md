@@ -71,6 +71,16 @@ The FastAPI server in `api/main.py` provides simple, deterministic block executi
 - `GET /stats` - Library and usage statistics
 - `GET /audit/chain` - Audit chain verification
 
+**Public Demo Endpoints (No Authentication Required):**
+- `GET /playground` - Interactive web playground for browsing, searching, and executing blocks
+- `GET /demo/blocks` - Browse available blocks with categories
+- `POST /demo/search` - Search blocks by intent (natural language)
+- `POST /demo/execute` - Execute a block with audit trail
+- `GET /demo/audit` - View recent execution audit trail
+- `GET /demo/categories` - Get all categories with counts
+
+The demo endpoints are rate-limited (30 requests/minute per IP) and designed for Hacker News demos and investor outreach - no signup or API key required.
+
 ### Deployment Files
 - `render.yaml` - Render deployment configuration
 - `requirements-api.txt` - API-specific dependencies
