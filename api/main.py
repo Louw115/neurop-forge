@@ -1528,7 +1528,7 @@ PLAYGROUND_HTML = """
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neurop Forge - AI Execution Control Layer</title>
+    <title>Neurop Forge - Try to Break the Execution Layer</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -1543,8 +1543,15 @@ PLAYGROUND_HTML = """
             border-bottom: 1px solid #333;
         }
         .header h1 {
-            font-size: 28px;
+            font-size: 32px;
             color: #00d4ff;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        .header .tagline {
+            color: #ff6b6b;
+            font-size: 18px;
+            font-weight: 500;
             margin-bottom: 8px;
         }
         .header p {
@@ -1809,8 +1816,9 @@ PLAYGROUND_HTML = """
 </head>
 <body>
     <div class="header">
-        <h1>Neurop Forge <span class="no-auth-badge">LIVE DEMO</span></h1>
-        <p>AI-Native Execution Control Layer - 4,500+ verified blocks, zero code generation</p>
+        <h1>Neurop Forge</h1>
+        <p class="tagline">Try to break the execution layer.</p>
+        <p>4,552 verified blocks. Zero code generation. Every action logged.</p>
         <div class="stats-bar" id="stats-bar">
             <div class="stat">
                 <div class="stat-value" id="block-count">-</div>
@@ -2046,18 +2054,18 @@ PLAYGROUND_HTML = """
 </html>
 """
 
-@app.get("/playground", response_class=HTMLResponse)
-async def playground():
+@app.get("/demo", response_class=HTMLResponse)
+async def demo():
     """
-    PUBLIC DEMO: Interactive playground - no auth required.
-    Browse, search, and execute blocks in your browser.
+    PUBLIC DEMO: Try to break the execution layer.
+    4,552 verified blocks. Zero code generation. Every action logged.
     """
     return PLAYGROUND_HTML
 
 
-@app.get("/demo", response_class=HTMLResponse)
-async def demo_redirect():
-    """Redirect /demo to /playground"""
+@app.get("/playground", response_class=HTMLResponse)
+async def playground_redirect():
+    """Redirect /playground to /demo for backwards compatibility"""
     return PLAYGROUND_HTML
 
 
