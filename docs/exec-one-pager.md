@@ -52,8 +52,8 @@ Every execution is:
 | Verified blocks | 4,500+ |
 | Source modules | 175 |
 | Categories | 30+ |
-| Tier-A (deterministic) | 3,400+ |
-| Tier-B (context-dependent) | 1,150+ |
+| Tier-A (deterministic) | 4,400+ |
+| Tier-B (context-dependent) | ~60 |
 
 ---
 

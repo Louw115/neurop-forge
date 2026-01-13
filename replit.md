@@ -2,7 +2,7 @@
 
 ## Overview
 
-Neurop Forge is an AI-native execution control layer that provides a library of 2,700+ pre-verified, hash-locked function blocks that AI agents can search, compose, and execute—but never modify. The system transforms AI agents from unpredictable code generators into controlled operators that work within a deterministic, auditable framework.
+Neurop Forge is an AI-native execution control layer that provides a library of 4,500+ pre-verified, hash-locked function blocks that AI agents can search, compose, and execute—but never modify. The system transforms AI agents from unpredictable code generators into controlled operators that work within a deterministic, auditable framework.
 
 The core value proposition is controlled AI execution: AI cannot generate arbitrary code, modify logic, or bypass trust rules. Instead, it searches a verified library by intent, composes block workflows, and executes deterministically with full traceability. This makes AI operations auditable, reversible, and suitable for regulated environments (SOC 2, HIPAA, PCI-DSS).
 

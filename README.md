@@ -90,8 +90,8 @@ Blocks are classified into safety tiers for controlled AI composition:
 
 | Tier | Count | What It Means |
 |------|-------|---------------|
-| **A** | 3,400+ | Deterministic, pure functions, no side effects, no external dependencies |
-| **B** | 1,150+ | Context-dependent, may require specific inputs, explicit opt-in required |
+| **A** | 4,400+ | Deterministic, pure functions, no side effects, no external dependencies |
+| **B** | ~60 | Context-dependent, may require specific inputs, explicit opt-in required |
 
 Tier-A blocks are safe for unrestricted AI use.  
 Tier-B blocks require explicit permission — AI cannot silently use them.

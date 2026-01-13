@@ -39,8 +39,8 @@ When AI executes verified blocks:
 
 | Tier | Count | Description | AI Access |
 |------|-------|-------------|-----------|
-| A | 3,400+ | Pure, deterministic, no side effects | Unrestricted |
-| B | 1,150+ | Context-dependent, complex inputs | Opt-in only |
+| A | 4,400+ | Pure, deterministic, no side effects | Unrestricted |
+| B | ~60 | Context-dependent, complex inputs | Opt-in only |
 
 ```python
 # Tier-A only (default, safe)
@@ -79,7 +79,7 @@ forge.list_verified_blocks(category="string", tier="A", limit=10)
 
 # Library stats
 forge.stats
-# {'total_verified': 4552, 'tier_a': 3400, 'tier_b': 1152}
+# {'total_verified': 4552, 'tier_a': 4489, 'tier_b': 63}
 ```
 
 ---
