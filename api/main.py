@@ -31,6 +31,14 @@ try:
 except ImportError:
     DB_AVAILABLE = False
 
+try:
+    from groq import Groq
+    GROQ_AVAILABLE = True
+except ImportError:
+    GROQ_AVAILABLE = False
+
+GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
+
 app = FastAPI(
     title="Neurop Forge API",
     description="AI-Native Execution Control Layer - Execute verified blocks without owning the library",
@@ -1459,6 +1467,251 @@ async def demo_execute(request: Request, exec_request: DemoExecuteRequest):
         }
 
 
+# ============================================================================
+# GROQ AI-POWERED EXECUTION - Real AI calling verified blocks
+# ============================================================================
+
+GROQ_TOOLS = [
+    {
+        "type": "function",
+        "function": {
+            "name": "sum_numbers",
+            "description": "Calculate the sum of a list of numbers",
+            "parameters": {
+                "type": "object",
+                "properties": {"items": {"type": "array", "items": {"type": "number"}, "description": "Numbers to sum"}},
+                "required": ["items"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "max_value",
+            "description": "Find the maximum value in a list of numbers",
+            "parameters": {
+                "type": "object",
+                "properties": {"items": {"type": "array", "items": {"type": "number"}, "description": "Numbers to find max from"}},
+                "required": ["items"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "min_value",
+            "description": "Find the minimum value in a list of numbers",
+            "parameters": {
+                "type": "object",
+                "properties": {"items": {"type": "array", "items": {"type": "number"}, "description": "Numbers to find min from"}},
+                "required": ["items"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "to_uppercase",
+            "description": "Convert text to uppercase",
+            "parameters": {
+                "type": "object",
+                "properties": {"text": {"type": "string", "description": "Text to convert"}},
+                "required": ["text"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "to_lowercase",
+            "description": "Convert text to lowercase",
+            "parameters": {
+                "type": "object",
+                "properties": {"text": {"type": "string", "description": "Text to convert"}},
+                "required": ["text"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "is_valid_email",
+            "description": "Validate if an email address is properly formatted",
+            "parameters": {
+                "type": "object",
+                "properties": {"email": {"type": "string", "description": "Email to validate"}},
+                "required": ["email"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "reverse_string",
+            "description": "Reverse a string",
+            "parameters": {
+                "type": "object",
+                "properties": {"text": {"type": "string", "description": "Text to reverse"}},
+                "required": ["text"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "word_count",
+            "description": "Count words in text",
+            "parameters": {
+                "type": "object",
+                "properties": {"text": {"type": "string", "description": "Text to count words in"}},
+                "required": ["text"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "multiply",
+            "description": "Multiply two numbers",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "a": {"type": "number", "description": "First number"},
+                    "b": {"type": "number", "description": "Second number"}
+                },
+                "required": ["a", "b"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "add",
+            "description": "Add two numbers",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "a": {"type": "number", "description": "First number"},
+                    "b": {"type": "number", "description": "Second number"}
+                },
+                "required": ["a", "b"]
+            }
+        }
+    },
+]
+
+
+class AIExecuteRequest(BaseModel):
+    message: str = Field(..., description="Natural language request for AI to execute")
+
+
+@app.post("/demo/ai-execute")
+async def demo_ai_execute(request: Request, ai_request: AIExecuteRequest):
+    """
+    PUBLIC DEMO: AI-powered block execution using Groq.
+    Groq interprets intent and calls verified blocks - no code generation.
+    """
+    client_ip = request.client.host if request.client else "unknown"
+    if not check_demo_rate_limit(client_ip):
+        raise HTTPException(status_code=429, detail="Rate limit exceeded. Try again in a minute.")
+    
+    if not GROQ_AVAILABLE or not GROQ_API_KEY:
+        raise HTTPException(status_code=503, detail="AI service not configured")
+    
+    if not block_library:
+        raise HTTPException(status_code=503, detail="Library not loaded")
+    
+    start_time = time.time()
+    execution_id = str(uuid.uuid4())[:8]
+    
+    try:
+        groq_client = Groq(api_key=GROQ_API_KEY)
+        
+        response = groq_client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=[
+                {
+                    "role": "system",
+                    "content": """You are an AI agent powered by Neurop Forge - a library of 4,500+ verified blocks.
+You can ONLY call the function tools provided. You CANNOT write code.
+When the user asks you to do something, call the appropriate verified block.
+After getting results, provide a brief summary."""
+                },
+                {"role": "user", "content": ai_request.message}
+            ],
+            tools=GROQ_TOOLS,
+            tool_choice="auto",
+            max_tokens=500
+        )
+        
+        message = response.choices[0].message
+        blocks_executed = []
+        
+        if message.tool_calls:
+            from neurop_forge.runtime.executor import BlockExecutor
+            block_executor = BlockExecutor()
+            
+            for tool_call in message.tool_calls:
+                block_name = tool_call.function.name
+                args = json.loads(tool_call.function.arguments)
+                
+                target_block = None
+                for block_id, block in block_library.items():
+                    if block.metadata.name == block_name:
+                        target_block = block
+                        break
+                
+                if target_block:
+                    outputs, error = block_executor.execute(target_block, args)
+                    
+                    audit_data = {
+                        "execution_id": execution_id,
+                        "timestamp": datetime.utcnow().isoformat(),
+                        "block_name": block_name,
+                        "inputs": args,
+                        "success": error is None,
+                        "ai_powered": True,
+                    }
+                    audit_hash = hashlib.sha256(json.dumps(audit_data, sort_keys=True).encode()).hexdigest()
+                    
+                    blocks_executed.append({
+                        "block": block_name,
+                        "inputs": args,
+                        "result": outputs if error is None else {"error": error},
+                        "audit_hash": audit_hash,
+                    })
+                    
+                    DEMO_EXECUTION_HISTORY.append({
+                        **audit_data,
+                        "outputs": outputs,
+                        "audit_hash": audit_hash,
+                        "execution_time_ms": (time.time() - start_time) * 1000,
+                    })
+        
+        execution_time = (time.time() - start_time) * 1000
+        
+        return {
+            "success": True,
+            "execution_id": execution_id,
+            "message": ai_request.message,
+            "ai_response": message.content or "Executed verified blocks.",
+            "blocks_executed": blocks_executed,
+            "execution_time_ms": execution_time,
+            "model": "llama-3.3-70b-versatile",
+            "note": "AI interpreted intent and called verified blocks. Zero code generated.",
+        }
+        
+    except Exception as e:
+        execution_time = (time.time() - start_time) * 1000
+        return {
+            "success": False,
+            "execution_id": execution_id,
+            "message": ai_request.message,
+            "error": str(e),
+            "execution_time_ms": execution_time,
+        }
+
+
 @app.get("/demo/audit")
 async def demo_audit(request: Request):
     """
@@ -2014,6 +2267,22 @@ PLAYGROUND_HTML = """
             </div>
         </div>
         
+        <div class="demo-panel" style="margin-bottom: 40px;">
+            <div class="panel-title" style="color: #ff6b6b;">Real AI Execution (Powered by Groq)</div>
+            <div class="panel-desc">Type anything. Groq AI interprets your intent and calls verified blocks. Zero code generation.</div>
+            <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                <input type="text" id="ai-input" placeholder="Try: 'add 5 and 3' or 'make HELLO lowercase'" style="flex: 1; padding: 14px; border: 2px solid #ff6b6b; border-radius: 8px; background: #1a1a2e; color: #fff; font-size: 16px;" />
+                <button class="btn" onclick="runAI()" id="ai-btn" style="width: auto; padding: 14px 30px; background: linear-gradient(135deg, #ff6b6b 0%, #cc4444 100%); color: #fff;">Ask AI</button>
+            </div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <span onclick="setAI('sum these numbers: 10, 20, 30, 40')" style="padding: 6px 12px; background: rgba(255,107,107,0.1); border: 1px solid rgba(255,107,107,0.3); border-radius: 20px; font-size: 12px; cursor: pointer;">sum 10,20,30,40</span>
+                <span onclick="setAI('what is the maximum of 5, 99, 23, 1?')" style="padding: 6px 12px; background: rgba(255,107,107,0.1); border: 1px solid rgba(255,107,107,0.3); border-radius: 20px; font-size: 12px; cursor: pointer;">find max</span>
+                <span onclick="setAI('convert HELLO WORLD to lowercase')" style="padding: 6px 12px; background: rgba(255,107,107,0.1); border: 1px solid rgba(255,107,107,0.3); border-radius: 20px; font-size: 12px; cursor: pointer;">lowercase</span>
+                <span onclick="setAI('is test@example.com a valid email?')" style="padding: 6px 12px; background: rgba(255,107,107,0.1); border: 1px solid rgba(255,107,107,0.3); border-radius: 20px; font-size: 12px; cursor: pointer;">validate email</span>
+            </div>
+            <div id="ai-result" style="margin-top: 15px;"></div>
+        </div>
+        
         <div class="section-title">Live Audit Trail</div>
         <div class="log-container" id="log-container">
             <p style="color: #666; text-align: center; padding: 40px;">Click a button above to see AI agent activity</p>
@@ -2120,6 +2389,71 @@ PLAYGROUND_HTML = """
                 runAttack('import_module("os").system("...")', 'NO BLOCK EXISTS. Module imports are not blocks. The attack surface is zero.');
             }, 2400);
         }
+        
+        function setAI(text) {
+            document.getElementById('ai-input').value = text;
+        }
+        
+        async function runAI() {
+            const input = document.getElementById('ai-input');
+            const btn = document.getElementById('ai-btn');
+            const resultDiv = document.getElementById('ai-result');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            btn.disabled = true;
+            btn.textContent = 'Thinking...';
+            resultDiv.innerHTML = '<p style="color: #ff6b6b;">Groq AI is processing...</p>';
+            
+            try {
+                const res = await fetch('/demo/ai-execute', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message })
+                });
+                const data = await res.json();
+                
+                if (data.success && data.blocks_executed && data.blocks_executed.length > 0) {
+                    execCount += data.blocks_executed.length;
+                    document.getElementById('exec-count').textContent = execCount;
+                    
+                    let blocksHtml = data.blocks_executed.map(b => 
+                        `<div style="margin: 5px 0; padding: 8px; background: rgba(0,255,136,0.1); border-radius: 6px;">
+                            <strong style="color: #00ff88;">${b.block}</strong>(${JSON.stringify(b.inputs)}) 
+                            <span style="color: #fff;">= ${JSON.stringify(b.result)}</span>
+                        </div>`
+                    ).join('');
+                    
+                    resultDiv.innerHTML = `
+                        <div style="padding: 15px; background: rgba(0,255,136,0.05); border: 1px solid rgba(0,255,136,0.3); border-radius: 8px;">
+                            <div style="font-size: 12px; color: #888; margin-bottom: 10px;">AI Response:</div>
+                            <div style="color: #fff; margin-bottom: 10px;">${data.ai_response || 'Blocks executed successfully.'}</div>
+                            <div style="font-size: 12px; color: #00d4ff; margin-bottom: 5px;">Verified blocks called:</div>
+                            ${blocksHtml}
+                            <div style="font-size: 11px; color: #666; margin-top: 10px;">Model: ${data.model} | Time: ${data.execution_time_ms.toFixed(0)}ms | Zero code generated</div>
+                        </div>
+                    `;
+                    
+                    data.blocks_executed.forEach(b => {
+                        addLog('success', b.block, 'AI called verified block via Groq', JSON.stringify(b.result));
+                    });
+                } else if (data.error) {
+                    resultDiv.innerHTML = `<p style="color: #ff4444;">Error: ${data.error}</p>`;
+                } else {
+                    resultDiv.innerHTML = `<p style="color: #888;">${data.ai_response || 'No blocks were executed.'}</p>`;
+                }
+            } catch (e) {
+                resultDiv.innerHTML = '<p style="color: #ff4444;">Network error</p>';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Ask AI';
+            }
+        }
+        
+        document.getElementById('ai-input').addEventListener('keypress', e => {
+            if (e.key === 'Enter') runAI();
+        });
     </script>
 </body>
 </html>
