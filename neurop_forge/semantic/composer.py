@@ -351,14 +351,17 @@ class SemanticComposer:
         selected_blocks: List[SemanticIndexEntry] = []
         why_selected: Dict[str, str] = {}
         
+        selected_names: set = set()
+        
         for domain in required_domains:
             domain_blocks = self._find_blocks_for_domain(
                 domain, required_types, min_trust, query_words
             )
             
             for block in domain_blocks[:3]:
-                if block.block_identity not in [b.block_identity for b in selected_blocks]:
+                if block.name not in selected_names:
                     selected_blocks.append(block)
+                    selected_names.add(block.name)
                     why_selected[block.block_identity] = f"Matches domain: {domain.value}"
         
         selected_blocks = self._order_by_operation(selected_blocks)

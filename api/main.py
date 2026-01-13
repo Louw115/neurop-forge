@@ -416,10 +416,13 @@ def load_library():
                 can_chain_to=tuple(block_data.get("composition", {}).get("output_compatible_types", [])),
             )
             
+            input_param_names = " ".join(p.name for p in block.interface.inputs)
+            enriched_description = f"{block.metadata.description} Inputs: {input_param_names}"
+            
             entry = SemanticIndexEntry(
                 block_identity=block_id,
                 name=block.metadata.name,
-                description=block.metadata.description,
+                description=enriched_description,
                 category=block.metadata.category,
                 semantic_intent=semantic_intent,
                 input_data_types=tuple(p.data_type.value for p in block.interface.inputs),
