@@ -2205,6 +2205,62 @@ PLAYGROUND_HTML = """
             font-size: 14px;
             line-height: 1.6;
         }
+        .flow-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            margin-bottom: 40px;
+        }
+        .flow-step {
+            background: rgba(30,30,50,0.9);
+            border: 2px solid #333;
+            border-radius: 12px;
+            padding: 20px 30px;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+        }
+        .flow-agent { border-color: #00d4ff; background: rgba(0,212,255,0.1); }
+        .flow-search { border-color: #9966ff; }
+        .flow-policy { border-color: #00ff88; }
+        .flow-execute { border-color: #ffaa00; }
+        .flow-result { border-color: #00ff88; background: rgba(0,255,136,0.1); }
+        .flow-icon {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        .flow-number {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            color: #000;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 14px;
+            line-height: 28px;
+            margin-bottom: 5px;
+        }
+        .flow-label {
+            font-size: 14px;
+            font-weight: bold;
+            color: #00d4ff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+        .flow-content {
+            font-size: 14px;
+            color: #ccc;
+            line-height: 1.5;
+        }
+        .flow-arrow {
+            color: #00d4ff;
+            font-size: 24px;
+            padding: 5px 0;
+        }
         @media (max-width: 900px) {
             .demo-grid { grid-template-columns: 1fr; }
             .header { padding: 30px 20px; }
@@ -2294,6 +2350,43 @@ PLAYGROUND_HTML = """
         <div class="section-title">Live Audit Trail</div>
         <div class="log-container" id="log-container">
             <p style="color: #666; text-align: center; padding: 40px;">Click a button above to see AI agent activity</p>
+        </div>
+        
+        <div class="section-title" style="margin-top: 40px;">How It Works</div>
+        <div class="flow-diagram">
+            <div class="flow-step flow-agent">
+                <div class="flow-icon">&#129302;</div>
+                <div class="flow-label">AI AGENT</div>
+                <div class="flow-content">"I need to validate an email and calculate tax"</div>
+            </div>
+            <div class="flow-arrow">&#9660;</div>
+            <div class="flow-step flow-search">
+                <div class="flow-number">1</div>
+                <div class="flow-label">SEARCH</div>
+                <div class="flow-content">AI searches library by intent<br><span style="color: #00d4ff;">Found: is_valid_email, calculate_tax_amount</span></div>
+            </div>
+            <div class="flow-arrow">&#9660;</div>
+            <div class="flow-step flow-policy">
+                <div class="flow-number">2</div>
+                <div class="flow-label">POLICY CHECK</div>
+                <div class="flow-content">Policy engine checks whitelist<br><span style="color: #00ff88;">&#10003; is_valid_email — ALLOWED</span><br><span style="color: #00ff88;">&#10003; calculate_tax_amount — ALLOWED</span></div>
+            </div>
+            <div class="flow-arrow">&#9660;</div>
+            <div class="flow-step flow-execute">
+                <div class="flow-number">3</div>
+                <div class="flow-label">EXECUTE</div>
+                <div class="flow-content">Blocks run with full audit trace<br>Every input, output, and timestamp logged</div>
+            </div>
+            <div class="flow-arrow">&#9660;</div>
+            <div class="flow-step flow-result">
+                <div class="flow-icon">&#10004;</div>
+                <div class="flow-label">RESULT</div>
+                <div class="flow-content">
+                    <span style="color: #00ff88;">Email: valid</span><br>
+                    <span style="color: #00ff88;">Tax: $42.50</span><br>
+                    <strong style="color: #ff6b6b;">Code written by AI: 0 lines</strong>
+                </div>
+            </div>
         </div>
         
         <div class="message-box">
