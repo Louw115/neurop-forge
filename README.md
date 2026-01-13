@@ -1,283 +1,288 @@
-# Neurop Forge — AI-Native Execution Control Layer
+# Neurop Forge
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+**AI-Native Execution Control Layer**
 
-> 4,500+ verified operations that AI can search, compose, and execute — but never modify.
-
-**CATEGORY:** AI Execution Control Layer
+> Others try to control what AI says. We control what AI can do.
 
 ---
 
-## For Executives
+## Current Status: Alpha
 
-Your AI agents are already making decisions. Neurop Forge makes those decisions controlled, traceable, and compliant.
+Neurop Forge is in active development. We're building the foundation for controlled AI execution and seeking strategic design partners to shape the enterprise roadmap.
 
-- AI executes pre-approved operations only — it cannot write code, delete data, or bypass your policies.
-- Every operation is cryptographically logged in a tamper-proof audit chain.
-- Policy enforcement blocks unauthorized actions before they happen.
-- Designed for regulated environments.
-- Ready for SOC 2, HIPAA, and PCI-DSS compliance reviews.
+**What's Working:**
+- 4,552 verified function blocks
+- Policy engine with whitelist enforcement
+- Cryptographic audit chain
+- Hosted API with stress testing
 
-## For Engineers
+**What We're Building:**
+- Enterprise integrations (SSO, SIEM)
+- Compliance documentation (SOC 2, HIPAA alignment)
+- Production SLAs and monitoring
 
-4,500+ production-grade function blocks with hash-locked immutability.
-
-**Trust tier classification:**
-- **Tier-A:** safe for unrestricted AI use
-- **Tier-B:** requires explicit permission
-
-- Semantic search and composition — AI finds blocks by intent and chains them into workflows.
-- Full execution traces with inputs, outputs, and timestamps.
-- Whitelist / blacklist policy engine.
-- Drop-in Python library.
+**Contact:** wassermanlourens@gmail.com
 
 ---
 
-## What Neurop Forge Is
+## What Is Neurop Forge?
 
-Neurop Forge transforms AI agents from unpredictable code writers into controlled operators.
+Neurop Forge is a library of **verified function blocks** that AI agents can search, compose, and execute — but never modify or create.
 
-- AI does not generate code.
-- AI does not modify logic.
-- AI does not bypass trust rules.
+**The core idea:**
+- AI does not generate code
+- AI does not modify logic
+- AI executes pre-verified operations only
 
-**Instead, AI:**
-- Searches a verified library by intent
-- Composes block workflows
-- Executes deterministically with full traceability
+This makes AI execution auditable, reversible, and suitable for regulated environments.
 
 ---
 
-**The result:**  
-Auditable AI. Reversible decisions. Insurable operations.
+## What Is a Block?
+
+A **block** is a single, verified function stored as an immutable JSON file with a cryptographic hash.
+
+Each block contains:
+- **Identity** — SHA256 hash that locks the block forever
+- **Logic** — The actual Python function
+- **Interface** — Inputs, outputs, and data types
+- **Constraints** — Purity, determinism, thread safety
+- **Trust Score** — Risk level and verification status
+
+### Example Block
+
+```json
+{
+  "metadata": {
+    "name": "calculate_weighted_average",
+    "category": "arithmetic",
+    "description": "Calculate weighted average rating.",
+    "tags": ["arithmetic", "average", "calculate", "ratings"]
+  },
+  "identity": {
+    "algorithm": "sha256",
+    "hash_value": "0002097c2ca8f771...",
+    "version": "1.0.0"
+  },
+  "interface": {
+    "inputs": [
+      {"name": "ratings", "data_type": "list"},
+      {"name": "weights", "data_type": "list"}
+    ],
+    "outputs": [
+      {"name": "result", "data_type": "float"}
+    ]
+  },
+  "constraints": {
+    "purity": "pure",
+    "deterministic": true,
+    "thread_safe": true,
+    "side_effects": []
+  },
+  "logic": "def calculate_weighted_average(ratings, weights): ..."
+}
+```
+
+**Key point:** The hash locks the block. If anyone tries to modify the logic, the hash changes and the block is rejected.
 
 ---
 
-## One-Line Definition
+## How AI Uses Blocks
 
-> Neurop Forge is an AI Execution Control Layer that allows AI agents to build and operate software by executing pre-verified, policy-governed blocks — without generating or modifying code.
+```
+┌─────────────────────────────────────────────────────────────┐
+│                      AI AGENT                               │
+│  "I need to validate an email and calculate tax"            │
+└─────────────────────┬───────────────────────────────────────┘
+                      │
+                      ▼
+┌─────────────────────────────────────────────────────────────┐
+│                   1. SEARCH                                 │
+│  AI searches library by intent                              │
+│  Found: is_valid_email, calculate_tax_amount                │
+└─────────────────────┬───────────────────────────────────────┘
+                      │
+                      ▼
+┌─────────────────────────────────────────────────────────────┐
+│                   2. POLICY CHECK                           │
+│  Policy engine checks whitelist                             │
+│  ✓ is_valid_email — ALLOWED                                 │
+│  ✓ calculate_tax_amount — ALLOWED                           │
+└─────────────────────┬───────────────────────────────────────┘
+                      │
+                      ▼
+┌─────────────────────────────────────────────────────────────┐
+│                   3. EXECUTE                                │
+│  Blocks run with full audit trace                           │
+│  Every input, output, and timestamp logged                  │
+└─────────────────────┬───────────────────────────────────────┘
+                      │
+                      ▼
+┌─────────────────────────────────────────────────────────────┐
+│                   RESULT                                    │
+│  Email: valid                                               │
+│  Tax: $42.50                                                │
+│  Code written by AI: 0 lines                                │
+└─────────────────────────────────────────────────────────────┘
+```
 
 ---
 
-## The Problem
+## The Library
 
-AI systems that generate or modify code are:
-- Unpredictable
-- Impossible to audit
-- Difficult to roll back
-- Risky in production
+**4,552 verified blocks** across 30+ categories:
 
-## The Solution
-
-Neurop Forge enforces immutability at the architecture level:
-
-| What AI Can Do | What AI Cannot Do |
-|----------------|-------------------|
-| Search blocks by intent | Write new code |
-| Compose block graphs | Modify existing blocks |
-| Execute with full trace | Bypass verification |
-| Reason over metadata | Skip trust tiers |
+| Category | Examples |
+|----------|----------|
+| Arithmetic | calculate_tax, weighted_average, percentage |
+| String | trim, split, join, replace, case_convert |
+| Validation | is_valid_email, is_valid_phone, is_valid_url |
+| Security | sanitize_html, mask_email, detect_injection |
+| Collection | flatten, unique, sort, chunk, filter |
+| Date/Time | format_date, calculate_age, time_difference |
+| Encoding | base64_encode, sha256_hash, url_encode |
+| HTTP | parse_headers, validate_status_code |
 
 Every block is:
-- **Verified** — passes automated validation before admission
-- **Immutable** — hash-locked, cannot be altered
-- **Traced** — full execution lineage on every run
-- **Scored** — trust tier classification (A or B)
+- **Verified** — Passes validation before admission
+- **Immutable** — Hash-locked, cannot be altered
+- **Traced** — Full execution lineage on every run
 
-## Trust Tiers
+---
 
-Blocks are classified into safety tiers for controlled AI composition:
+## Policy Engine
 
-| Tier | Count | What It Means |
-|------|-------|---------------|
-| **A** | 4,400+ | Deterministic, pure functions, no side effects, no external dependencies |
-| **B** | ~60 | Context-dependent, may require specific inputs, explicit opt-in required |
+The policy engine controls which blocks AI can use:
 
-Tier-A blocks are safe for unrestricted AI use.  
-Tier-B blocks require explicit permission — AI cannot silently use them.
+```python
+# Whitelist mode: AI can ONLY use these blocks
+policy = PolicyEngine(mode="whitelist")
+policy.allow("is_valid_email")
+policy.allow("calculate_tax_amount")
 
-## Quick Example
+# AI tries to use a block
+policy.check("is_valid_email")      # ✓ ALLOWED
+policy.check("delete_database")     # ✗ BLOCKED (not in whitelist)
+```
 
-AI executes blocks. AI does not write code.
+**Result:** AI cannot execute operations you haven't approved.
+
+---
+
+## Audit Chain
+
+Every execution is cryptographically logged:
+
+```python
+{
+  "block_id": "a1b2c3d4...",
+  "block_name": "calculate_tax_amount",
+  "inputs": {"amount": 500, "rate": 0.085},
+  "output": 42.5,
+  "timestamp": "2026-01-13T10:30:00Z",
+  "chain_hash": "f7e8d9c0...",
+  "previous_hash": "b4a3c2d1..."
+}
+```
+
+The chain is tamper-proof. If any record is modified, the chain breaks.
+
+---
+
+## Why This Matters
+
+| Traditional AI | Neurop Forge |
+|----------------|--------------|
+| AI generates arbitrary code | AI executes verified blocks only |
+| Unpredictable output | Deterministic execution |
+| Hard to audit | Full cryptographic trace |
+| Risky in production | Policy-controlled, reversible |
+
+**The architecture is designed for:**
+- SOC 2 compliance requirements
+- HIPAA audit trails
+- PCI-DSS transaction logging
+- Enterprise governance policies
+
+---
+
+## Quick Start
 
 ```python
 from neurop_forge import NeuropForge
 
 forge = NeuropForge()
 
-# AI executes a verified block
+# Execute a verified block
 result = forge.execute_block("reverse_string", {"s": "hello"})
 print(result)  # {'result': 'olleh', 'success': True}
 
-# AI composes a workflow from verified blocks
-workflow = forge.run_workflow("text_normalization", {"text": "Hello World"})
+# Search blocks by intent
+blocks = forge.search_blocks("validate email address")
 
-# AI queries the library
-blocks = forge.list_verified_blocks(category="string", tier="A", limit=10)
+# List blocks by category
+validation_blocks = forge.list_verified_blocks(category="validation")
 ```
 
-The AI used three blocks. It modified zero lines of code.
+---
 
 ## Installation
 
-**From PyPI:**
 ```bash
 pip install neurop-forge
 ```
 
-**From Source (GitHub):**
+Or from source:
+
 ```bash
 git clone https://github.com/Louw115/neurop-forge.git
 cd neurop-forge
-python -m pip install -e .
+pip install -e .
 ```
 
-Neurop Forge is designed to sit under AI agents, not replace them.
+---
 
-## CLI
+## Hosted API
+
+Live API for testing: `https://neurop-forge.onrender.com`
 
 ```bash
-neurop-forge stats                                    # Library overview
-neurop-forge execute reverse_string -i '{"s":"hi"}'   # Execute a block
-neurop-forge list --tier A --limit 10                 # List Tier-A blocks
-neurop-forge info reverse_string                      # Block details
-neurop-forge workflows                                # Available workflows
+# Health check
+curl https://neurop-forge.onrender.com/health
+
+# Execute a block (requires API key)
+curl -X POST https://neurop-forge.onrender.com/execute \
+  -H "X-API-Key: your-key" \
+  -H "Content-Type: application/json" \
+  -d '{"query": "reverse the string hello"}'
 ```
 
-## AI Agent Demo
+---
 
-See GPT-4 call verified blocks with zero code generation:
+## Stress Test Results
 
-```bash
-# Set your OpenAI API key
-export OPENAI_API_KEY=your-key-here
+Our policy engine blocks 100% of attack attempts:
 
-# Run the demo
-python demos/ai_agent_demo.py
-```
+| Test | Result |
+|------|--------|
+| SQL Injection | BLOCKED |
+| Ransomware | BLOCKED |
+| Data Exfiltration | BLOCKED |
+| AI Jailbreaks | BLOCKED |
+| Privilege Escalation | BLOCKED |
 
-### Example Output
+**112 attack vectors tested. 112 blocked.**
 
-```
-======================================================================
-  NEUROP FORGE - AI AGENT DEMO
-  GPT as a Controlled Operator (Not a Code Writer)
-======================================================================
+Legitimate operations (payments, registrations, data processing) pass through when using approved blocks.
 
-  USER REQUEST:
-  "I need to validate some customer data. Check if the email john.doe@company.com
-   is valid, verify the phone number +1-555-867-5309, and also sanitize this
-   HTML input: <script>alert('xss')</script>"
-----------------------------------------------------------------------
-
-  AI AGENT REASONING...
-
-  EXECUTING VERIFIED BLOCKS:
-  ----------------------------------------
-  | Block: is_valid_email
-  | Input: {"email": "john.doe@company.com"}
-  | Output: True
-  ----------------------------------------
-  | Block: is_valid_phone
-  | Input: {"phone": "+1-555-867-5309"}
-  | Output: True
-  ----------------------------------------
-  | Block: sanitize_html
-  | Input: {"text": "<script>alert('xss')</script>"}
-  | Output: &lt;script&gt;alert(&#x27;xss&#x27;)&lt;/script&gt;
-  ----------------------------------------
-
-======================================================================
-  AI AGENT RESPONSE:
-======================================================================
-
-  1. Email Validation: john.doe@company.com is valid: True
-  2. Phone Validation: +1-555-867-5309 is valid: True
-  3. HTML Sanitization: XSS attack neutralized
-
-======================================================================
-  EXECUTION SUMMARY
-======================================================================
-  Verified Blocks Called: 3
-  Lines of Code Written by AI: 0
-  All blocks are: VERIFIED, IMMUTABLE, DETERMINISTIC
-======================================================================
-```
-
-The AI selected 3 blocks from 4,500+ available. It executed them with real inputs. It wrote zero code.
-
-## Enterprise Compliance Demo
-
-For regulated industries, Neurop Forge provides cryptographic audit trails and policy enforcement:
-
-```bash
-python demos/enterprise_compliance_demo.py
-```
-
-### What It Shows
-
-1. **Payment Processing**: AI validates a $500 transaction through 7 verified blocks
-2. **Policy Enforcement**: AI attempts 3 dangerous operations - all BLOCKED
-3. **Cryptographic Audit**: Every operation hash-linked (tamper-proof chain)
-4. **Compliance Report**: Full audit trail exported to JSON
-
-### Example Output
-
-```
-======================================================================
-  SCENARIO: Customer Payment Validation
-======================================================================
-  [PASS] is_valid_email - Validate customer email: True
-  [PASS] is_valid_phone - Validate customer phone: True
-  [PASS] is_valid_credit_card - Validate credit card (Luhn): True
-  [PASS] mask_email - Mask for audit: j******e@acme.com
-  [PASS] calculate_tax_amount - 8.5% tax: $42.50
-  [PASS] sanitize_html - XSS neutralized
-  [PASS] parse_json - Customer metadata parsed
-  
-  AI ATTEMPTS UNAUTHORIZED OPERATIONS:
-  [BLOCKED] delete_record - Not in allowed whitelist
-  [BLOCKED] execute_sql - Not in allowed whitelist
-  [BLOCKED] modify_account - Not in allowed whitelist
-
-======================================================================
-  COMPLIANCE REPORT
-======================================================================
-  Chain Integrity: VERIFIED (SHA-256 hash chain)
-  Successful Executions: 7
-  Policy Violations Blocked: 3
-  Code Written by AI: 0 lines
-  
-  [PASS] IMMUTABILITY - Pre-verified blocks only
-  [PASS] AUDIT_TRAIL_INTEGRITY - Cryptographic chain verified
-  [PASS] TRACEABILITY - Full execution trace with timestamps
-======================================================================
-```
-
-**The enterprise pitch**: "Your AI agents are already making decisions. Neurop Forge makes those decisions auditable, reversible, and insurable."
-
-## What's Included
-
-**4,500+ verified blocks** across 175 source modules and 30+ categories:
-
-- String manipulation (trim, split, join, replace, case conversion)
-- Collection operations (flatten, unique, sort, chunk, filter)
-- Data validation (email, URL, phone, patterns, schemas)
-- Type conversions (int, float, string, boolean, parsing)
-- Date/time utilities (formatting, calculation, comparison)
-- Math & statistics (sqrt, median, variance, trigonometry)
-- Encoding & hashing (MD5, SHA256, base64, URL encode)
-- Security utilities (sanitize, mask, injection detection)
-- HTTP/API helpers (status codes, headers, cookies, MIME types)
-- Database patterns (SQL building, migrations, transactions)
-- And more...
+---
 
 ## Who This Is For
 
 **Good fit:**
 - Teams deploying AI agents in production
 - Enterprises needing auditable AI execution
-- Platforms requiring deterministic AI behavior
+- Regulated industries (finance, healthcare, insurance)
 - Developers building AI-powered automation
 
 **Not a fit:**
@@ -285,22 +290,22 @@ python demos/enterprise_compliance_demo.py
 - Research on unconstrained AI capabilities
 - Applications where auditability doesn't matter
 
-## V2.0.0 Features
+---
 
-- **Verification Gate** — blocks must pass validation to enter the library
-- **Tier Classification** — automated A/B safety classification
-- **Deduplication Engine** — removes duplicate blocks automatically
-- **Parameter Standardization** — canonical names with alias support
-- **Full Execution Trace** — every run is logged and auditable
+## Design Partner Program
 
-v2.0.0 establishes the execution and trust layer. Policy engines and orchestration remain external by design.
+We're inviting select partners to shape the enterprise roadmap:
+
+- Early access to new features
+- Input on compliance requirements
+- Favorable terms for early adopters
+
+**Contact:** wassermanlourens@gmail.com
+
+---
 
 ## License
 
 Apache License 2.0
 
-Neurop Forge is fully open source under the permissive Apache 2.0 license, allowing free commercial use, modification, and distribution.
-
-Enterprise/compliance extensions, premium support, and custom integrations are available separately — contact wassermanlourens@gmail.com for inquiries.
-
-Copyright (c) 2024-2026 Lourens Wasserman.
+Copyright (c) 2024-2026 Lourens Wasserman
