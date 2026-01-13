@@ -472,70 +472,6 @@ async def health():
     )
 
 
-@app.post("/execute", response_model=ExecuteResponse)
-async def execute(request: ExecuteRequest, api_key: str = Depends(get_api_key)):
-    """
-    Execute a block workflow based on natural language intent.
-    
-    The AI agent describes what it wants to do, we find the right blocks,
-    compose them, execute, and return results with full audit trail.
-    """
-    start_time = time.time()
-    
-    if composer is None or executor is None:
-        raise HTTPException(status_code=503, detail="Library not loaded")
-    
-    try:
-        graph = composer.compose(
-            query=request.query,
-            min_trust=request.options.get("min_trust", 0.2) if request.options else 0.2,
-            max_nodes=request.options.get("max_nodes", 10) if request.options else 10,
-        )
-        
-        if not graph.nodes:
-            execution_time = (time.time() - start_time) * 1000
-            log_usage(api_key, "/execute", request.query, False, execution_time)
-            return ExecuteResponse(
-                success=False,
-                execution_id=hashlib.sha256(f"{time.time()}{request.query}".encode()).hexdigest()[:16],
-                result=None,
-                audit_hash="no_blocks_found",
-                blocks_used=[],
-                execution_time_ms=execution_time,
-                error="No matching blocks found for query",
-            )
-        
-        result = executor.execute(graph, initial_inputs=request.inputs)
-        
-        if audit_chain:
-            audit_chain.log_execution(
-                block_name=graph.nodes[0].block_name if graph.nodes else "unknown",
-                inputs=request.inputs,
-                outputs=result.final_outputs,
-                success=result.is_success,
-                execution_time_ms=(time.time() - start_time) * 1000,
-            )
-            audit_hash = audit_chain.last_hash
-        else:
-            audit_hash = hashlib.sha256(f"{result.execution_id}".encode()).hexdigest()[:32]
-        
-        execution_time = (time.time() - start_time) * 1000
-        log_usage(api_key, "/execute", request.query, result.is_success, execution_time)
-        
-        return ExecuteResponse(
-            success=result.is_success,
-            execution_id=result.execution_id,
-            result=result.final_outputs if result.is_success else None,
-            audit_hash=audit_hash,
-            blocks_used=[n.block_name for n in graph.nodes],
-            execution_time_ms=execution_time,
-            error=result.error if not result.is_success else None,
-        )
-        
-    except Exception as e:
-        execution_time = (time.time() - start_time) * 1000
-        log_usage(api_key, "/execute", request.query, False, execution_time)
-        raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.post("/search", response_model=SearchResponse)
@@ -544,24 +480,55 @@ async def search(request: SearchRequest, api_key: str = Depends(get_api_key)):
     Search for blocks by natural language query.
     
     Returns matching blocks with their metadata (but not the actual code).
+    Simple text matching - no complex composition.
     """
-    if composer is None:
+    if not block_library:
         raise HTTPException(status_code=503, detail="Library not loaded")
     
     try:
-        graph = composer.compose(
-            query=request.query,
-            min_trust=request.min_trust,
-            max_nodes=request.limit,
-        )
+        import re
+        query_words = [re.sub(r'[^\w]', '', w).lower() for w in request.query.split() if len(w) >= 3]
+        
+        scored_blocks = []
+        seen_names = set()
+        
+        for block_id, block in block_library.items():
+            if block.metadata.name in seen_names:
+                continue
+            seen_names.add(block.metadata.name)
+            
+            score = 0.0
+            name_lower = block.metadata.name.lower()
+            desc_lower = block.metadata.description.lower() if block.metadata.description else ""
+            category_lower = block.metadata.category.lower() if block.metadata.category else ""
+            
+            for word in query_words:
+                if word in name_lower:
+                    score += 3.0
+                if word in desc_lower:
+                    score += 1.0
+                if word in category_lower:
+                    score += 0.5
+            
+            if score > 0:
+                scored_blocks.append({
+                    "name": block.metadata.name,
+                    "description": block.metadata.description,
+                    "category": block.metadata.category,
+                    "inputs": [p.name for p in block.interface.inputs],
+                    "score": score,
+                })
+        
+        scored_blocks.sort(key=lambda x: x["score"], reverse=True)
+        top_blocks = scored_blocks[:request.limit]
         
         blocks = []
-        for node in graph.nodes:
+        for b in top_blocks:
             blocks.append({
-                "name": node.block_name,
-                "domain": node.semantic_intent.domain.value,
-                "operation": node.semantic_intent.operation.value,
-                "why_selected": node.why_selected,
+                "name": b["name"],
+                "domain": b["category"],
+                "operation": "execute",
+                "why_selected": f"Matches query (score: {b['score']:.1f})",
             })
         
         log_usage(api_key, "/search", request.query, True, 0)
@@ -592,10 +559,13 @@ class DirectExecuteResponse(BaseModel):
 @app.post("/execute-block", response_model=DirectExecuteResponse)
 async def execute_block_direct(request: DirectExecuteRequest, api_key: str = Depends(get_api_key)):
     """
-    Execute a single block directly by name.
+    Execute a block by name - THE PRIMARY EXECUTION ENDPOINT.
     
-    This bypasses semantic search and graph composition for direct testing.
-    Use this to verify individual blocks work correctly.
+    AI agents should:
+    1. Use /search or /blocks to discover available blocks
+    2. Call this endpoint with the exact block name and inputs
+    
+    This is deterministic, auditable, and safe.
     """
     start_time = time.time()
     
