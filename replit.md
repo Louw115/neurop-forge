@@ -54,10 +54,20 @@ Each block JSON contains:
 ## Hosted API (for Render Deployment)
 
 ### API Endpoints
-The FastAPI server in `api/main.py` provides remote execution:
+The FastAPI server in `api/main.py` provides simple, deterministic block execution:
+
+**Core Endpoints:**
 - `GET /health` - Health check, returns block count
-- `POST /execute` - Execute blocks by natural language query (requires X-API-Key header)
-- `POST /search` - Search blocks by intent (requires X-API-Key header)
+- `GET /blocks` - List available blocks with their inputs
+- `POST /search` - Discover blocks by natural language query (simple text matching)
+- `POST /execute-block` - **PRIMARY ENDPOINT** - Execute a block by exact name
+
+**Usage Pattern for AI Agents:**
+1. Use `/blocks` or `/search` to discover available blocks
+2. Call `/execute-block` with exact block name and inputs
+3. Receive deterministic, auditable results
+
+**Other Endpoints:**
 - `GET /stats` - Library and usage statistics
 - `GET /audit/chain` - Audit chain verification
 
