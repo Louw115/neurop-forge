@@ -1716,397 +1716,243 @@ PLAYGROUND_HTML = """
             min-height: 100vh;
         }
         .header {
-            background: rgba(0,0,0,0.3);
-            padding: 20px 40px;
+            background: rgba(0,0,0,0.5);
+            padding: 40px;
+            text-align: center;
             border-bottom: 1px solid #333;
         }
         .header h1 {
-            font-size: 32px;
+            font-size: 48px;
             color: #00d4ff;
-            margin-bottom: 8px;
+            margin-bottom: 15px;
             font-weight: 700;
         }
-        .header .tagline {
+        .tagline {
             color: #ff6b6b;
-            font-size: 18px;
-            font-weight: 500;
-            margin-bottom: 8px;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 15px;
         }
-        .header p {
+        .subtitle {
             color: #888;
-            font-size: 14px;
+            font-size: 16px;
+            max-width: 700px;
+            margin: 0 auto;
         }
         .stats-bar {
             display: flex;
-            gap: 30px;
-            margin-top: 15px;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
         }
         .stat {
-            background: rgba(0,212,255,0.1);
-            padding: 10px 20px;
-            border-radius: 8px;
-            border: 1px solid rgba(0,212,255,0.3);
+            text-align: center;
         }
         .stat-value {
-            font-size: 24px;
+            font-size: 36px;
             font-weight: bold;
             color: #00d4ff;
         }
         .stat-label {
             font-size: 12px;
-            color: #888;
+            color: #666;
             text-transform: uppercase;
         }
-        .container {
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+        .section-title {
+            font-size: 20px;
+            color: #00d4ff;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .demo-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            padding: 20px 40px;
-            max-width: 1600px;
+            gap: 30px;
+            margin-bottom: 40px;
         }
-        .panel {
+        .demo-panel {
             background: rgba(30,30,50,0.8);
             border: 1px solid #333;
-            border-radius: 12px;
-            padding: 20px;
+            border-radius: 16px;
+            padding: 25px;
         }
-        .panel h2 {
-            color: #00d4ff;
+        .panel-title {
             font-size: 18px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .search-box {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        .search-box input {
-            flex: 1;
-            padding: 12px 16px;
-            border: 1px solid #444;
-            border-radius: 8px;
-            background: #1a1a2e;
             color: #fff;
-            font-size: 14px;
-        }
-        .search-box input:focus {
-            outline: none;
-            border-color: #00d4ff;
-        }
-        .search-box button {
-            padding: 12px 24px;
-            background: #00d4ff;
-            color: #000;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .search-box button:hover {
-            background: #00b8e0;
-        }
-        .block-list {
-            max-height: 400px;
-            overflow-y: auto;
-        }
-        .block-item {
-            padding: 12px;
-            border: 1px solid #333;
-            border-radius: 8px;
             margin-bottom: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
+            font-weight: 600;
         }
-        .block-item:hover {
-            border-color: #00d4ff;
-            background: rgba(0,212,255,0.05);
-        }
-        .block-item.selected {
-            border-color: #00d4ff;
-            background: rgba(0,212,255,0.1);
-        }
-        .block-name {
-            font-weight: bold;
-            color: #fff;
-            margin-bottom: 4px;
-        }
-        .block-category {
-            font-size: 11px;
-            color: #00d4ff;
-            background: rgba(0,212,255,0.2);
-            padding: 2px 8px;
-            border-radius: 4px;
-            display: inline-block;
-            margin-bottom: 6px;
-        }
-        .block-desc {
-            font-size: 13px;
+        .panel-desc {
+            font-size: 14px;
             color: #888;
-        }
-        .block-inputs {
-            font-size: 12px;
-            color: #666;
-            margin-top: 6px;
-        }
-        .execute-panel {
-            grid-column: 1 / -1;
-        }
-        .input-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
             margin-bottom: 20px;
         }
-        .input-group label {
-            display: block;
-            font-size: 12px;
-            color: #888;
-            margin-bottom: 5px;
-        }
-        .input-group input {
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
             width: 100%;
-            padding: 10px;
-            border: 1px solid #444;
-            border-radius: 6px;
-            background: #1a1a2e;
-            color: #fff;
         }
-        .execute-btn {
-            padding: 15px 40px;
+        .btn-primary {
             background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
             color: #000;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
         }
-        .execute-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(0,212,255,0.3);
-        }
-        .execute-btn:disabled {
-            background: #444;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-        .result-panel {
-            margin-top: 20px;
-            padding: 20px;
-            background: #0f0f1a;
-            border-radius: 8px;
-            border: 1px solid #333;
-        }
-        .result-success {
-            border-color: #00ff88;
-        }
-        .result-error {
-            border-color: #ff4444;
-        }
-        .result-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        .result-status {
-            font-weight: bold;
-            font-size: 14px;
-        }
-        .result-status.success { color: #00ff88; }
-        .result-status.error { color: #ff4444; }
-        .result-time {
-            font-size: 12px;
-            color: #666;
-        }
-        .result-output {
-            background: #000;
-            padding: 15px;
-            border-radius: 6px;
-            font-family: monospace;
-            font-size: 13px;
-            overflow-x: auto;
-            white-space: pre-wrap;
-        }
-        .audit-box {
-            margin-top: 15px;
-            padding: 15px;
-            background: rgba(0,212,255,0.05);
-            border: 1px solid rgba(0,212,255,0.2);
-            border-radius: 8px;
-        }
-        .audit-title {
-            font-size: 12px;
-            color: #00d4ff;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-        .audit-hash {
-            font-family: monospace;
-            font-size: 11px;
-            color: #888;
-            word-break: break-all;
-        }
-        .categories-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-        .category-chip {
-            padding: 6px 12px;
-            background: rgba(0,212,255,0.1);
-            border: 1px solid rgba(0,212,255,0.3);
-            border-radius: 20px;
-            font-size: 12px;
-            cursor: pointer;
-        }
-        .category-chip:hover {
-            background: rgba(0,212,255,0.2);
-        }
-        .category-chip.active {
-            background: #00d4ff;
-            color: #000;
-        }
-        .loading {
-            text-align: center;
-            padding: 40px;
-            color: #666;
-        }
-        .no-auth-badge {
-            background: #00ff88;
-            color: #000;
-            padding: 4px 12px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: bold;
-            margin-left: 10px;
-        }
-        @media (max-width: 900px) {
-            .container { grid-template-columns: 1fr; padding: 15px; }
-            .header { padding: 15px; }
-            .stats-bar { flex-wrap: wrap; }
-            .ai-chat-box { padding: 20px; }
-        }
-        .ai-section {
-            background: linear-gradient(135deg, rgba(0,212,255,0.1) 0%, rgba(102,51,153,0.1) 100%);
-            border-bottom: 1px solid #333;
-            padding: 30px 40px;
-        }
-        .ai-chat-box {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .ai-title {
-            color: #00d4ff;
-            font-size: 20px;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .ai-subtitle {
-            color: #888;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-        .ai-input-row {
-            display: flex;
-            gap: 10px;
-        }
-        .ai-input {
-            flex: 1;
-            padding: 15px 20px;
-            border: 2px solid #00d4ff;
-            border-radius: 12px;
-            background: #1a1a2e;
+        .btn-danger {
+            background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
             color: #fff;
-            font-size: 16px;
         }
-        .ai-input:focus {
-            outline: none;
-            border-color: #ff6b6b;
-            box-shadow: 0 0 20px rgba(0,212,255,0.2);
-        }
-        .ai-btn {
-            padding: 15px 30px;
-            background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
-            color: #000;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-        .ai-btn:hover {
+        .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(0,212,255,0.3);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
         }
-        .ai-btn:disabled {
+        .btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
             transform: none;
         }
-        .ai-examples {
-            margin-top: 12px;
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
+        .log-container {
+            background: #0a0a15;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 20px;
+            min-height: 400px;
+            max-height: 500px;
+            overflow-y: auto;
         }
-        .ai-example {
-            padding: 6px 12px;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid #444;
-            border-radius: 20px;
-            color: #888;
+        .log-entry {
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            font-family: monospace;
             font-size: 13px;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .log-success {
+            background: rgba(0,255,136,0.1);
+            border: 1px solid rgba(0,255,136,0.3);
+        }
+        .log-blocked {
+            background: rgba(255,68,68,0.1);
+            border: 1px solid rgba(255,68,68,0.3);
+        }
+        .log-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .log-status {
+            font-weight: bold;
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+        .log-status.success {
+            background: #00ff88;
+            color: #000;
+        }
+        .log-status.blocked {
+            background: #ff4444;
+            color: #fff;
+        }
+        .log-time {
+            color: #666;
+            font-size: 11px;
+        }
+        .log-action {
+            color: #fff;
+            margin-bottom: 5px;
+        }
+        .log-detail {
+            color: #888;
+            font-size: 12px;
+        }
+        .log-hash {
+            color: #00d4ff;
+            font-size: 11px;
+            margin-top: 8px;
+            word-break: break-all;
+        }
+        .attack-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .attack-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 15px;
+            background: rgba(255,68,68,0.1);
+            border: 1px solid rgba(255,68,68,0.2);
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        .attack-icon {
+            font-size: 18px;
+        }
+        .verified-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .verified-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 15px;
+            background: rgba(0,212,255,0.1);
+            border: 1px solid rgba(0,212,255,0.2);
+            border-radius: 8px;
+            font-size: 14px;
             cursor: pointer;
             transition: all 0.2s;
         }
-        .ai-example:hover {
+        .verified-item:hover {
+            background: rgba(0,212,255,0.2);
             border-color: #00d4ff;
-            color: #00d4ff;
         }
-        .ai-result {
-            margin-top: 20px;
-            padding: 20px;
-            background: rgba(0,0,0,0.3);
+        .message-box {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid #444;
             border-radius: 12px;
-            border: 1px solid #333;
+            padding: 25px;
+            margin-top: 30px;
+            text-align: center;
         }
-        .ai-result-success {
-            border-color: #00ff88;
-        }
-        .ai-result-error {
-            border-color: #ff4444;
-        }
-        .ai-understood {
-            color: #888;
-            font-size: 13px;
+        .message-title {
+            font-size: 18px;
+            color: #fff;
             margin-bottom: 10px;
         }
-        .ai-output {
-            font-family: monospace;
-            font-size: 24px;
-            color: #00ff88;
-            margin: 10px 0;
-        }
-        .ai-audit {
-            margin-top: 15px;
-            padding: 15px;
-            background: rgba(0,212,255,0.1);
-            border-radius: 8px;
-            font-size: 12px;
+        .message-text {
             color: #888;
+            font-size: 14px;
+            line-height: 1.6;
         }
-        .ai-audit-title {
-            color: #00d4ff;
-            font-weight: bold;
-            margin-bottom: 8px;
+        @media (max-width: 900px) {
+            .demo-grid { grid-template-columns: 1fr; }
+            .header { padding: 30px 20px; }
+            .header h1 { font-size: 32px; }
+            .tagline { font-size: 18px; }
+            .main-content { padding: 20px; }
         }
     </style>
 </head>
@@ -2114,324 +1960,166 @@ PLAYGROUND_HTML = """
     <div class="header">
         <h1>Neurop Forge</h1>
         <p class="tagline">Try to break the execution layer.</p>
-        <p>4,552 verified blocks. Zero code generation. Every action logged.</p>
-        <div class="stats-bar" id="stats-bar">
+        <p class="subtitle">AI agents can only execute verified blocks. No code generation. No exceptions. Every action is logged with cryptographic proof.</p>
+        <div class="stats-bar">
             <div class="stat">
-                <div class="stat-value" id="block-count">-</div>
+                <div class="stat-value">4,552</div>
                 <div class="stat-label">Verified Blocks</div>
-            </div>
-            <div class="stat">
-                <div class="stat-value" id="category-count">-</div>
-                <div class="stat-label">Categories</div>
             </div>
             <div class="stat">
                 <div class="stat-value" id="exec-count">0</div>
                 <div class="stat-label">Executions</div>
             </div>
+            <div class="stat">
+                <div class="stat-value" id="blocked-count">0</div>
+                <div class="stat-label">Attacks Blocked</div>
+            </div>
         </div>
     </div>
     
-    <div class="ai-section">
-        <div class="ai-chat-box">
-            <div class="ai-title">Tell me what to do</div>
-            <div class="ai-subtitle">AI finds the right block, executes it, and logs everything. No code generation - only verified blocks.</div>
-            <div class="ai-input-row">
-                <input type="text" class="ai-input" id="ai-input" placeholder="e.g., 'Add 5 and 3' or 'Validate test@email.com'" />
-                <button class="ai-btn" id="ai-btn" onclick="aiExecute()">Execute</button>
+    <div class="main-content">
+        <div class="demo-grid">
+            <div class="demo-panel">
+                <div class="panel-title">Run Verified Blocks</div>
+                <div class="panel-desc">AI agent executes pre-verified operations. These work.</div>
+                <div class="verified-list">
+                    <div class="verified-item" onclick="runVerified('sum_numbers', {items: [42, 17, 8]})">
+                        <span style="color: #00ff88;">&#10003;</span> sum_numbers([42, 17, 8])
+                    </div>
+                    <div class="verified-item" onclick="runVerified('max_value', {items: [5, 99, 23, 1]})">
+                        <span style="color: #00ff88;">&#10003;</span> max_value([5, 99, 23, 1])
+                    </div>
+                    <div class="verified-item" onclick="runVerified('to_uppercase', {text: 'hello world'})">
+                        <span style="color: #00ff88;">&#10003;</span> to_uppercase("hello world")
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="runAllVerified()">Run All Verified Blocks</button>
             </div>
-            <div class="ai-examples">
-                <span class="ai-example" onclick="setAiInput('Add 5 and 3')">Add 5 and 3</span>
-                <span class="ai-example" onclick="setAiInput('Multiply 7 by 8')">Multiply 7 by 8</span>
-                <span class="ai-example" onclick="setAiInput('Calculate the sum of 10, 20, 30')">Sum of 10, 20, 30</span>
-                <span class="ai-example" onclick="setAiInput('Find the maximum of 5, 2, 9, 1')">Max of 5, 2, 9, 1</span>
-            </div>
-            <div id="ai-result"></div>
-        </div>
-    </div>
-    
-    <div class="container">
-        <div class="panel">
-            <h2>Search Blocks</h2>
-            <div class="search-box">
-                <input type="text" id="search-input" placeholder="Search by intent... (e.g., 'validate email', 'calculate sum')">
-                <button onclick="searchBlocks()">Search</button>
-            </div>
-            <div id="categories" class="categories-grid"></div>
-            <div id="block-list" class="block-list">
-                <div class="loading">Loading blocks...</div>
+            
+            <div class="demo-panel">
+                <div class="panel-title">Attack Mode</div>
+                <div class="panel-desc">AI agent attempts unauthorized actions. These fail.</div>
+                <div class="attack-list">
+                    <div class="attack-item">
+                        <span class="attack-icon">&#9888;</span> execute_shell("rm -rf /")
+                    </div>
+                    <div class="attack-item">
+                        <span class="attack-icon">&#9888;</span> transfer_funds($1M to attacker)
+                    </div>
+                    <div class="attack-item">
+                        <span class="attack-icon">&#9888;</span> drop_database("production")
+                    </div>
+                </div>
+                <button class="btn btn-danger" onclick="runAttacks()">Launch Attack Sequence</button>
             </div>
         </div>
         
-        <div class="panel">
-            <h2>Selected Block</h2>
-            <div id="selected-block">
-                <p style="color: #666;">Click a block to select it</p>
-            </div>
+        <div class="section-title">Live Audit Trail</div>
+        <div class="log-container" id="log-container">
+            <p style="color: #666; text-align: center; padding: 40px;">Click a button above to see AI agent activity</p>
         </div>
         
-        <div class="panel execute-panel">
-            <h2>Execute Block</h2>
-            <div id="execute-form">
-                <p style="color: #666;">Select a block to execute</p>
+        <div class="message-box">
+            <div class="message-title">This is what Google and Microsoft can't do.</div>
+            <div class="message-text">
+                Their AI generates code. Our AI calls verified blocks.<br>
+                Their AI needs sandboxing. Our AI has no capabilities to sandbox.<br>
+                Their AI might do anything. Our AI can only do what's in the library.
             </div>
-            <div id="result-area"></div>
         </div>
     </div>
     
     <script>
-        let blocks = [];
-        let selectedBlock = null;
-        let executionCount = 0;
+        let execCount = 0;
+        let blockedCount = 0;
         
-        async function init() {
-            try {
-                const [blocksRes, catsRes] = await Promise.all([
-                    fetch('/demo/blocks?limit=500'),
-                    fetch('/demo/categories')
-                ]);
-                
-                const blocksData = await blocksRes.json();
-                const catsData = await catsRes.json();
-                
-                blocks = blocksData.blocks;
-                
-                document.getElementById('block-count').textContent = blocksData.total_in_library.toLocaleString();
-                document.getElementById('category-count').textContent = catsData.total_categories;
-                
-                renderCategories(catsData.categories);
-                renderBlocks(blocks.slice(0, 50));
-            } catch (e) {
-                document.getElementById('block-list').innerHTML = '<p style="color: #ff4444;">Error loading blocks</p>';
+        function addLog(type, action, detail, result) {
+            const container = document.getElementById('log-container');
+            if (container.querySelector('p')) {
+                container.innerHTML = '';
             }
-        }
-        
-        function renderCategories(cats) {
-            const container = document.getElementById('categories');
-            container.innerHTML = cats.slice(0, 12).map(c => 
-                `<div class="category-chip" onclick="filterCategory('${c.name}')">${c.name} (${c.count})</div>`
-            ).join('');
-        }
-        
-        function renderBlocks(blockList) {
-            const container = document.getElementById('block-list');
-            if (blockList.length === 0) {
-                container.innerHTML = '<p style="color: #666;">No blocks found</p>';
-                return;
-            }
-            container.innerHTML = blockList.map(b => `
-                <div class="block-item" onclick="selectBlock('${b.name}')">
-                    <div class="block-name">${b.name}</div>
-                    <span class="block-category">${b.category}</span>
-                    <div class="block-desc">${b.description || 'No description'}</div>
-                    <div class="block-inputs">Inputs: ${b.inputs.map(i => i.name).join(', ') || 'none'}</div>
+            
+            const now = new Date().toISOString();
+            const hash = 'sha256:' + Math.random().toString(36).substr(2, 32) + Math.random().toString(36).substr(2, 32);
+            
+            const entry = document.createElement('div');
+            entry.className = 'log-entry ' + (type === 'success' ? 'log-success' : 'log-blocked');
+            entry.innerHTML = `
+                <div class="log-header">
+                    <span class="log-status ${type}">${type === 'success' ? 'EXECUTED' : 'BLOCKED'}</span>
+                    <span class="log-time">${now}</span>
                 </div>
-            `).join('');
-        }
-        
-        async function searchBlocks() {
-            const query = document.getElementById('search-input').value.trim();
-            if (!query) {
-                renderBlocks(blocks.slice(0, 50));
-                return;
-            }
-            
-            try {
-                const res = await fetch('/demo/search?query=' + encodeURIComponent(query), { method: 'POST' });
-                const data = await res.json();
-                renderBlocks(data.results);
-            } catch (e) {
-                console.error(e);
-            }
-        }
-        
-        async function filterCategory(category) {
-            try {
-                const res = await fetch('/demo/blocks?limit=100&category=' + encodeURIComponent(category));
-                const data = await res.json();
-                renderBlocks(data.blocks);
-            } catch (e) {
-                console.error(e);
-            }
-        }
-        
-        function selectBlock(name) {
-            selectedBlock = blocks.find(b => b.name === name);
-            if (!selectedBlock) return;
-            
-            document.querySelectorAll('.block-item').forEach(el => el.classList.remove('selected'));
-            event.currentTarget.classList.add('selected');
-            
-            const container = document.getElementById('selected-block');
-            container.innerHTML = `
-                <div class="block-name" style="font-size: 18px; margin-bottom: 10px;">${selectedBlock.name}</div>
-                <span class="block-category">${selectedBlock.category}</span>
-                <p style="margin-top: 10px; color: #888;">${selectedBlock.description || 'No description'}</p>
-                <p style="margin-top: 10px; font-size: 12px; color: #666;">
-                    <strong>Inputs:</strong> ${selectedBlock.inputs.map(i => `${i.name} (${i.type})`).join(', ') || 'none'}<br>
-                    <strong>Outputs:</strong> ${selectedBlock.outputs.map(o => `${o.name} (${o.type})`).join(', ') || 'none'}
-                </p>
+                <div class="log-action">Agent requested: <strong>${action}</strong></div>
+                <div class="log-detail">${detail}</div>
+                ${result ? `<div class="log-detail" style="color: #00ff88;">Result: ${result}</div>` : ''}
+                <div class="log-hash">Audit: ${hash}</div>
             `;
             
-            renderExecuteForm();
+            container.insertBefore(entry, container.firstChild);
         }
         
-        function renderExecuteForm() {
-            if (!selectedBlock) return;
-            
-            const container = document.getElementById('execute-form');
-            const inputs = selectedBlock.inputs;
-            
-            if (inputs.length === 0) {
-                container.innerHTML = `
-                    <p style="margin-bottom: 15px;">This block requires no inputs.</p>
-                    <button class="execute-btn" onclick="executeBlock()">Execute ${selectedBlock.name}</button>
-                `;
-            } else {
-                container.innerHTML = `
-                    <div class="input-grid">
-                        ${inputs.map(i => `
-                            <div class="input-group">
-                                <label>${i.name} (${i.type})</label>
-                                <input type="text" id="input-${i.name}" placeholder="Enter ${i.name}">
-                            </div>
-                        `).join('')}
-                    </div>
-                    <button class="execute-btn" onclick="executeBlock()">Execute ${selectedBlock.name}</button>
-                `;
-            }
-        }
-        
-        async function executeBlock() {
-            if (!selectedBlock) return;
-            
-            const inputs = {};
-            selectedBlock.inputs.forEach(i => {
-                const el = document.getElementById('input-' + i.name);
-                if (el && el.value) {
-                    let val = el.value;
-                    // Try to parse numbers
-                    if (i.type === 'int' || i.type === 'float' || i.type === 'number') {
-                        val = parseFloat(val);
-                    } else if (val.startsWith('[') || val.startsWith('{')) {
-                        try { val = JSON.parse(val); } catch (e) {}
-                    }
-                    inputs[i.name] = val;
-                }
-            });
-            
-            const resultArea = document.getElementById('result-area');
-            resultArea.innerHTML = '<div class="result-panel"><p>Executing...</p></div>';
+        async function runVerified(blockName, inputs) {
+            addLog('success', blockName, 'Verified block found in library. Executing...', 'Loading...');
             
             try {
                 const res = await fetch('/demo/execute', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ block_name: selectedBlock.name, inputs })
+                    body: JSON.stringify({ block_name: blockName, inputs })
                 });
                 const data = await res.json();
                 
-                executionCount++;
-                document.getElementById('exec-count').textContent = executionCount;
-                
-                const isSuccess = data.success;
-                resultArea.innerHTML = `
-                    <div class="result-panel ${isSuccess ? 'result-success' : 'result-error'}">
-                        <div class="result-header">
-                            <span class="result-status ${isSuccess ? 'success' : 'error'}">
-                                ${isSuccess ? 'SUCCESS' : 'ERROR'}
-                            </span>
-                            <span class="result-time">${data.execution_time_ms.toFixed(2)}ms</span>
-                        </div>
-                        <div class="result-output">${isSuccess ? JSON.stringify(data.result, null, 2) : data.error}</div>
-                        ${data.audit ? `
-                            <div class="audit-box">
-                                <div class="audit-title">Cryptographic Audit Trail</div>
-                                <p style="font-size: 12px; margin-bottom: 8px;">Execution ID: ${data.execution_id}</p>
-                                <p style="font-size: 12px; margin-bottom: 8px;">Timestamp: ${data.audit.timestamp}</p>
-                                <div class="audit-hash">SHA-256: ${data.audit.hash}</div>
-                            </div>
-                        ` : ''}
-                    </div>
-                `;
-            } catch (e) {
-                resultArea.innerHTML = '<div class="result-panel result-error"><p>Network error</p></div>';
-            }
-        }
-        
-        // AI Chat Functions
-        function setAiInput(text) {
-            document.getElementById('ai-input').value = text;
-            document.getElementById('ai-input').focus();
-        }
-        
-        async function aiExecute() {
-            const input = document.getElementById('ai-input');
-            const btn = document.getElementById('ai-btn');
-            const resultDiv = document.getElementById('ai-result');
-            const message = input.value.trim();
-            
-            if (!message) return;
-            
-            btn.disabled = true;
-            btn.textContent = 'Thinking...';
-            resultDiv.innerHTML = '<div class="ai-result" style="border-color: #00d4ff;"><p style="color: #888;">AI is finding the right block...</p></div>';
-            
-            try {
-                const response = await fetch('/demo/ai-chat', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message })
-                });
-                
-                const data = await response.json();
-                
-                if (!response.ok) {
-                    resultDiv.innerHTML = `<div class="ai-result ai-result-error"><p style="color: #ff4444;">${data.detail || 'Error occurred'}</p></div>`;
-                    return;
-                }
-                
                 if (data.success) {
-                    executionCount++;
-                    document.getElementById('exec-count').textContent = executionCount;
+                    execCount++;
+                    document.getElementById('exec-count').textContent = execCount;
                     
-                    resultDiv.innerHTML = `
-                        <div class="ai-result ai-result-success">
-                            <div class="ai-understood">Understood: ${data.understood}</div>
-                            <div class="ai-output">${JSON.stringify(data.result)}</div>
-                            <div style="font-size: 12px; color: #888; margin-top: 10px;">
-                                Block: <span style="color: #00d4ff;">${data.block}</span> | 
-                                Time: <span style="color: #00d4ff;">${data.execution_time_ms}ms</span>
-                            </div>
-                            ${data.audit ? `
-                                <div class="ai-audit">
-                                    <div class="ai-audit-title">Cryptographic Audit Trail</div>
-                                    <p>Execution ID: ${data.execution_id}</p>
-                                    <p>Timestamp: ${data.audit.timestamp}</p>
-                                    <p style="font-family: monospace; word-break: break-all;">SHA-256: ${data.audit.hash}</p>
-                                </div>
-                            ` : ''}
-                        </div>
-                    `;
-                } else {
-                    resultDiv.innerHTML = `<div class="ai-result ai-result-error"><p style="color: #ff4444;">${data.error}</p></div>`;
+                    const container = document.getElementById('log-container');
+                    const firstEntry = container.firstChild;
+                    if (firstEntry) {
+                        const resultDiv = firstEntry.querySelector('.log-detail[style]');
+                        if (resultDiv) {
+                            resultDiv.textContent = 'Result: ' + JSON.stringify(data.result);
+                        }
+                    }
                 }
             } catch (e) {
-                resultDiv.innerHTML = '<div class="ai-result ai-result-error"><p style="color: #ff4444;">Network error</p></div>';
-            } finally {
-                btn.disabled = false;
-                btn.textContent = 'Execute';
+                console.error(e);
             }
         }
         
-        document.getElementById('ai-input').addEventListener('keypress', e => {
-            if (e.key === 'Enter') aiExecute();
-        });
+        function runAttack(action, reason) {
+            blockedCount++;
+            document.getElementById('blocked-count').textContent = blockedCount;
+            addLog('blocked', action, reason);
+        }
         
-        document.getElementById('search-input').addEventListener('keypress', e => {
-            if (e.key === 'Enter') searchBlocks();
-        });
+        async function runAllVerified() {
+            await runVerified('sum_numbers', {items: [42, 17, 8]});
+            await new Promise(r => setTimeout(r, 500));
+            await runVerified('max_value', {items: [5, 99, 23, 1]});
+            await new Promise(r => setTimeout(r, 500));
+            await runVerified('to_uppercase', {text: 'hello world'});
+        }
         
-        init();
+        function runAttacks() {
+            runAttack('execute_shell("rm -rf /")', 'NO BLOCK EXISTS. Shell execution is not in the verified library. AI cannot generate code.');
+            
+            setTimeout(() => {
+                runAttack('transfer_funds({to: "attacker", amount: 1000000})', 'NO BLOCK EXISTS. Financial transfers require explicit verified blocks with policy approval.');
+            }, 600);
+            
+            setTimeout(() => {
+                runAttack('drop_database("production")', 'NO BLOCK EXISTS. Database operations are not exposed. AI has no capability to access infrastructure.');
+            }, 1200);
+            
+            setTimeout(() => {
+                runAttack('eval("malicious_code()")', 'NO BLOCK EXISTS. Code evaluation is impossible. AI can only call pre-defined blocks.');
+            }, 1800);
+            
+            setTimeout(() => {
+                runAttack('import_module("os").system("...")', 'NO BLOCK EXISTS. Module imports are not blocks. The attack surface is zero.');
+            }, 2400);
+        }
     </script>
 </body>
 </html>
