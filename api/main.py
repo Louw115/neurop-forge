@@ -1969,66 +1969,50 @@ PLAYGROUND_HTML = """
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
-            background: #0a0a0a;
-            color: #e0e0e0;
+            background: #000;
+            color: #aaa;
             min-height: 100vh;
             padding: 20px;
         }
         .terminal-container {
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
         }
         .terminal {
-            background: #1a1a1a;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            background: #0a0a0a;
+            border: 1px solid #222;
             margin-bottom: 20px;
         }
         .terminal-header {
-            background: #2d2d2d;
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .terminal-btn {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-        .btn-red { background: #ff5f56; }
-        .btn-yellow { background: #ffbd2e; }
-        .btn-green { background: #27ca40; }
-        .terminal-title {
-            color: #888;
-            font-size: 13px;
-            margin-left: 10px;
+            background: #111;
+            padding: 8px 12px;
+            border-bottom: 1px solid #222;
+            font-size: 12px;
+            color: #555;
         }
         .terminal-body {
-            padding: 20px;
-            font-size: 14px;
-            line-height: 1.6;
-            min-height: 400px;
-            max-height: 600px;
+            padding: 15px;
+            font-size: 13px;
+            line-height: 1.5;
+            min-height: 350px;
+            max-height: 500px;
             overflow-y: auto;
         }
-        .prompt { color: #00ff88; }
-        .command { color: #fff; }
-        .comment { color: #666; }
-        .output { color: #ccc; }
-        .success { color: #00ff88; }
-        .error { color: #ff5555; }
-        .cyan { color: #00d4ff; }
-        .yellow { color: #ffcc00; }
-        .dim { color: #555; }
-        .line { margin-bottom: 4px; }
-        .block { margin: 15px 0; }
+        .prompt { color: #888; }
+        .command { color: #ccc; }
+        .comment { color: #444; }
+        .output { color: #888; }
+        .success { color: #6a6; }
+        .error { color: #a66; }
+        .cyan { color: #888; }
+        .yellow { color: #aa8; }
+        .dim { color: #444; }
+        .line { margin-bottom: 3px; }
         .cursor {
             display: inline-block;
-            width: 8px;
-            height: 16px;
-            background: #00ff88;
+            width: 7px;
+            height: 14px;
+            background: #666;
             animation: blink 1s infinite;
             vertical-align: middle;
         }
@@ -2038,132 +2022,100 @@ PLAYGROUND_HTML = """
         }
         .demo-buttons {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         .demo-btn {
-            background: #2d2d2d;
-            border: 1px solid #444;
-            color: #00d4ff;
-            padding: 10px 20px;
-            border-radius: 6px;
+            background: #111;
+            border: 1px solid #333;
+            color: #888;
+            padding: 8px 14px;
             cursor: pointer;
             font-family: inherit;
-            font-size: 13px;
-            transition: all 0.2s;
+            font-size: 12px;
         }
         .demo-btn:hover {
-            background: #3d3d3d;
-            border-color: #00d4ff;
-        }
-        .demo-btn.danger {
-            color: #ff5555;
-        }
-        .demo-btn.danger:hover {
-            border-color: #ff5555;
+            background: #1a1a1a;
+            color: #aaa;
         }
         .header-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
             margin-bottom: 20px;
-            padding: 15px;
-            background: #1a1a1a;
-            border-radius: 8px;
-        }
-        .header-info img {
-            width: 50px;
-            height: 50px;
-            border-radius: 8px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #222;
         }
         .header-info h1 {
-            color: #00d4ff;
-            font-size: 24px;
-            font-weight: 600;
+            color: #ccc;
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 4px;
         }
         .header-info p {
-            color: #666;
-            font-size: 12px;
+            color: #555;
+            font-size: 11px;
         }
         .input-line {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #333;
+            gap: 8px;
+            padding: 10px 15px;
+            border-top: 1px solid #222;
+            background: #0a0a0a;
         }
         .input-line input {
             flex: 1;
             background: transparent;
             border: none;
-            color: #fff;
+            color: #aaa;
             font-family: inherit;
-            font-size: 14px;
+            font-size: 13px;
             outline: none;
         }
         .input-line button {
-            background: #00d4ff;
-            color: #000;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
+            background: #222;
+            color: #888;
+            border: 1px solid #333;
+            padding: 6px 12px;
             cursor: pointer;
             font-family: inherit;
-            font-weight: bold;
+            font-size: 12px;
+        }
+        .input-line button:hover {
+            background: #333;
+            color: #aaa;
         }
     </style>
 </head>
 <body>
     <div class="terminal-container">
         <div class="header-info">
-            <img src="/static/logo.jpg" alt="Neurop Forge" />
-            <div>
-                <h1>Neurop Forge</h1>
-                <p>4,552 verified blocks | Zero code generation | Full audit trail</p>
-            </div>
+            <h1>neurop-forge</h1>
+            <p>4,552 verified blocks / zero code generation / audit trail</p>
         </div>
         
         <div class="demo-buttons">
-            <button class="demo-btn" onclick="runDemo('verified')">python demo_verified.py</button>
-            <button class="demo-btn danger" onclick="runDemo('attack')">python demo_attack.py</button>
-            <button class="demo-btn" onclick="runDemo('workflow')">python demo_workflow.py</button>
+            <button class="demo-btn" onclick="runDemo('verified')">demo_verified.py</button>
+            <button class="demo-btn" onclick="runDemo('attack')">demo_attack.py</button>
+            <button class="demo-btn" onclick="runDemo('workflow')">demo_workflow.py</button>
             <button class="demo-btn" onclick="clearTerminal()">clear</button>
         </div>
         
         <div class="terminal">
-            <div class="terminal-header">
-                <div class="terminal-btn btn-red"></div>
-                <div class="terminal-btn btn-yellow"></div>
-                <div class="terminal-btn btn-green"></div>
-                <span class="terminal-title">neurop-forge ~/demos</span>
-            </div>
+            <div class="terminal-header">~/demos</div>
             <div class="terminal-body" id="terminal">
-                <div class="line"><span class="prompt">$</span> <span class="command">python demo_verified.py</span></div>
-                <div class="block">
-                    <div class="line cyan">Neurop Forge v1.0 - AI Execution Control Layer</div>
-                    <div class="line dim">Loading 4,552 verified blocks...</div>
-                    <div class="line"></div>
-                </div>
                 <div class="line"><span class="prompt">$</span> <span class="cursor"></span></div>
             </div>
         </div>
         
         <div class="terminal">
-            <div class="terminal-header">
-                <div class="terminal-btn btn-red"></div>
-                <div class="terminal-btn btn-yellow"></div>
-                <div class="terminal-btn btn-green"></div>
-                <span class="terminal-title">AI Chat - Ask anything</span>
+            <div class="terminal-header">ai-agent</div>
+            <div class="terminal-body" id="ai-terminal" style="min-height: 120px;">
+                <div class="line dim"># natural language -> verified block execution</div>
             </div>
-            <div class="terminal-body" id="ai-terminal" style="min-height: 150px;">
-                <div class="line dim"># Type a natural language request. AI will call verified blocks only.</div>
-            </div>
-            <div class="input-line" style="padding: 15px; border-top: 1px solid #333;">
-                <span class="prompt">AI&gt;</span>
-                <input type="text" id="ai-input" placeholder="Try: add 5 and 3, or: make HELLO lowercase" onkeypress="if(event.key==='Enter')runAI()" />
-                <button onclick="runAI()">Run</button>
+            <div class="input-line">
+                <span class="prompt">&gt;</span>
+                <input type="text" id="ai-input" placeholder="add 5 and 3" onkeypress="if(event.key==='Enter')runAI()" />
+                <button onclick="runAI()">run</button>
             </div>
         </div>
     </div>
