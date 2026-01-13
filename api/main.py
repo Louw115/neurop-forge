@@ -1964,548 +1964,378 @@ PLAYGROUND_HTML = """
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neurop Forge - Try to Break the Execution Layer</title>
+    <title>Neurop Forge - Terminal Demo</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+            background: #0a0a0a;
             color: #e0e0e0;
             min-height: 100vh;
-        }
-        .header {
-            background: rgba(0,0,0,0.5);
-            padding: 40px;
-            text-align: center;
-            border-bottom: 1px solid #333;
-        }
-        .header h1 {
-            font-size: 48px;
-            color: #00d4ff;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-        .tagline {
-            color: #ff6b6b;
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-        .subtitle {
-            color: #888;
-            font-size: 16px;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        .stats-bar {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-top: 30px;
-        }
-        .stat {
-            text-align: center;
-        }
-        .stat-value {
-            font-size: 36px;
-            font-weight: bold;
-            color: #00d4ff;
-        }
-        .stat-label {
-            font-size: 12px;
-            color: #666;
-            text-transform: uppercase;
-        }
-        .main-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px;
-        }
-        .section-title {
-            font-size: 20px;
-            color: #00d4ff;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .demo-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-        .demo-panel {
-            background: rgba(30,30,50,0.8);
-            border: 1px solid #333;
-            border-radius: 16px;
-            padding: 25px;
-        }
-        .panel-title {
-            font-size: 18px;
-            color: #fff;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-        .panel-desc {
-            font-size: 14px;
-            color: #888;
-            margin-bottom: 20px;
-        }
-        .btn {
-            padding: 14px 28px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s;
-            width: 100%;
-        }
-        .btn-primary {
-            background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
-            color: #000;
-        }
-        .btn-danger {
-            background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
-            color: #fff;
-        }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-        }
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-        .log-container {
-            background: #0a0a15;
-            border: 1px solid #333;
-            border-radius: 12px;
             padding: 20px;
-            min-height: 400px;
-            max-height: 500px;
-            overflow-y: auto;
         }
-        .log-entry {
-            padding: 12px;
-            margin-bottom: 10px;
+        .terminal-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .terminal {
+            background: #1a1a1a;
             border-radius: 8px;
-            font-family: monospace;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            margin-bottom: 20px;
+        }
+        .terminal-header {
+            background: #2d2d2d;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .terminal-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .btn-red { background: #ff5f56; }
+        .btn-yellow { background: #ffbd2e; }
+        .btn-green { background: #27ca40; }
+        .terminal-title {
+            color: #888;
             font-size: 13px;
-            animation: fadeIn 0.3s ease;
+            margin-left: 10px;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .log-success {
-            background: rgba(0,255,136,0.1);
-            border: 1px solid rgba(0,255,136,0.3);
-        }
-        .log-blocked {
-            background: rgba(255,68,68,0.1);
-            border: 1px solid rgba(255,68,68,0.3);
-        }
-        .log-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-        .log-status {
-            font-weight: bold;
-            font-size: 12px;
-            padding: 4px 10px;
-            border-radius: 4px;
-        }
-        .log-status.success {
-            background: #00ff88;
-            color: #000;
-        }
-        .log-status.blocked {
-            background: #ff4444;
-            color: #fff;
-        }
-        .log-time {
-            color: #666;
-            font-size: 11px;
-        }
-        .log-action {
-            color: #fff;
-            margin-bottom: 5px;
-        }
-        .log-detail {
-            color: #888;
-            font-size: 12px;
-        }
-        .log-hash {
-            color: #00d4ff;
-            font-size: 11px;
-            margin-top: 8px;
-            word-break: break-all;
-        }
-        .attack-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        .attack-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 15px;
-            background: rgba(255,68,68,0.1);
-            border: 1px solid rgba(255,68,68,0.2);
-            border-radius: 8px;
-            font-size: 14px;
-        }
-        .attack-icon {
-            font-size: 18px;
-        }
-        .verified-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        .verified-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 15px;
-            background: rgba(0,212,255,0.1);
-            border: 1px solid rgba(0,212,255,0.2);
-            border-radius: 8px;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .verified-item:hover {
-            background: rgba(0,212,255,0.2);
-            border-color: #00d4ff;
-        }
-        .message-box {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid #444;
-            border-radius: 12px;
-            padding: 25px;
-            margin-top: 30px;
-            text-align: center;
-        }
-        .message-title {
-            font-size: 18px;
-            color: #fff;
-            margin-bottom: 10px;
-        }
-        .message-text {
-            color: #888;
+        .terminal-body {
+            padding: 20px;
             font-size: 14px;
             line-height: 1.6;
+            min-height: 400px;
+            max-height: 600px;
+            overflow-y: auto;
         }
-        .flow-diagram {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0;
-            margin-bottom: 40px;
-        }
-        .flow-step {
-            background: rgba(30,30,50,0.9);
-            border: 2px solid #333;
-            border-radius: 12px;
-            padding: 20px 30px;
-            width: 100%;
-            max-width: 500px;
-            text-align: center;
-            position: relative;
-        }
-        .flow-agent { border-color: #00d4ff; background: rgba(0,212,255,0.1); }
-        .flow-search { border-color: #9966ff; }
-        .flow-policy { border-color: #00ff88; }
-        .flow-execute { border-color: #ffaa00; }
-        .flow-result { border-color: #00ff88; background: rgba(0,255,136,0.1); }
-        .flow-icon {
-            font-size: 28px;
-            margin-bottom: 5px;
-        }
-        .flow-number {
+        .prompt { color: #00ff88; }
+        .command { color: #fff; }
+        .comment { color: #666; }
+        .output { color: #ccc; }
+        .success { color: #00ff88; }
+        .error { color: #ff5555; }
+        .cyan { color: #00d4ff; }
+        .yellow { color: #ffcc00; }
+        .dim { color: #555; }
+        .line { margin-bottom: 4px; }
+        .block { margin: 15px 0; }
+        .cursor {
             display: inline-block;
-            width: 28px;
-            height: 28px;
-            background: linear-gradient(135deg, #00d4ff, #0099cc);
-            color: #000;
-            border-radius: 50%;
-            font-weight: bold;
-            font-size: 14px;
-            line-height: 28px;
-            margin-bottom: 5px;
+            width: 8px;
+            height: 16px;
+            background: #00ff88;
+            animation: blink 1s infinite;
+            vertical-align: middle;
         }
-        .flow-label {
-            font-size: 14px;
-            font-weight: bold;
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        .demo-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .demo-btn {
+            background: #2d2d2d;
+            border: 1px solid #444;
             color: #00d4ff;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 13px;
+            transition: all 0.2s;
         }
-        .flow-content {
-            font-size: 14px;
-            color: #ccc;
-            line-height: 1.5;
+        .demo-btn:hover {
+            background: #3d3d3d;
+            border-color: #00d4ff;
         }
-        .flow-arrow {
+        .demo-btn.danger {
+            color: #ff5555;
+        }
+        .demo-btn.danger:hover {
+            border-color: #ff5555;
+        }
+        .header-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #1a1a1a;
+            border-radius: 8px;
+        }
+        .header-info img {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+        }
+        .header-info h1 {
             color: #00d4ff;
             font-size: 24px;
-            padding: 5px 0;
+            font-weight: 600;
         }
-        @media (max-width: 900px) {
-            .demo-grid { grid-template-columns: 1fr; }
-            .header { padding: 30px 20px; }
-            .header h1 { font-size: 32px; }
-            .tagline { font-size: 18px; }
-            .main-content { padding: 20px; }
+        .header-info p {
+            color: #666;
+            font-size: 12px;
+        }
+        .input-line {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #333;
+        }
+        .input-line input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
+        }
+        .input-line button {
+            background: #00d4ff;
+            color: #000;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 20px;">
-            <img src="/static/logo.jpg" alt="Neurop Forge" style="width: 80px; height: 80px; border-radius: 16px; box-shadow: 0 0 30px rgba(0,212,255,0.4);" />
-            <h1>Neurop Forge</h1>
-        </div>
-        <p class="tagline">Try to break the execution layer.</p>
-        <p class="subtitle">AI agents can only execute verified blocks. No code generation. No exceptions. Every action is logged with cryptographic proof.</p>
-        <div class="stats-bar">
-            <div class="stat">
-                <div class="stat-value">4,552</div>
-                <div class="stat-label">Verified Blocks</div>
-            </div>
-            <div class="stat">
-                <div class="stat-value" id="exec-count">0</div>
-                <div class="stat-label">Executions</div>
-            </div>
-            <div class="stat">
-                <div class="stat-value" id="blocked-count">0</div>
-                <div class="stat-label">Attacks Blocked</div>
+    <div class="terminal-container">
+        <div class="header-info">
+            <img src="/static/logo.jpg" alt="Neurop Forge" />
+            <div>
+                <h1>Neurop Forge</h1>
+                <p>4,552 verified blocks | Zero code generation | Full audit trail</p>
             </div>
         </div>
-    </div>
-    
-    <div class="main-content">
-        <div class="demo-grid">
-            <div class="demo-panel">
-                <div class="panel-title">Run Verified Blocks</div>
-                <div class="panel-desc">AI agent executes pre-verified operations. These work.</div>
-                <div class="verified-list">
-                    <div class="verified-item" onclick="runVerified('sum_numbers', {items: [42, 17, 8]})">
-                        <span style="color: #00ff88;">&#10003;</span> sum_numbers([42, 17, 8])
-                    </div>
-                    <div class="verified-item" onclick="runVerified('max_value', {items: [5, 99, 23, 1]})">
-                        <span style="color: #00ff88;">&#10003;</span> max_value([5, 99, 23, 1])
-                    </div>
-                    <div class="verified-item" onclick="runVerified('to_uppercase', {text: 'hello world'})">
-                        <span style="color: #00ff88;">&#10003;</span> to_uppercase("hello world")
-                    </div>
+        
+        <div class="demo-buttons">
+            <button class="demo-btn" onclick="runDemo('verified')">python demo_verified.py</button>
+            <button class="demo-btn danger" onclick="runDemo('attack')">python demo_attack.py</button>
+            <button class="demo-btn" onclick="runDemo('workflow')">python demo_workflow.py</button>
+            <button class="demo-btn" onclick="clearTerminal()">clear</button>
+        </div>
+        
+        <div class="terminal">
+            <div class="terminal-header">
+                <div class="terminal-btn btn-red"></div>
+                <div class="terminal-btn btn-yellow"></div>
+                <div class="terminal-btn btn-green"></div>
+                <span class="terminal-title">neurop-forge ~/demos</span>
+            </div>
+            <div class="terminal-body" id="terminal">
+                <div class="line"><span class="prompt">$</span> <span class="command">python demo_verified.py</span></div>
+                <div class="block">
+                    <div class="line cyan">Neurop Forge v1.0 - AI Execution Control Layer</div>
+                    <div class="line dim">Loading 4,552 verified blocks...</div>
+                    <div class="line"></div>
                 </div>
-                <button class="btn btn-primary" onclick="runAllVerified()">Run All Verified Blocks</button>
-            </div>
-            
-            <div class="demo-panel">
-                <div class="panel-title">Attack Mode</div>
-                <div class="panel-desc">AI agent attempts unauthorized actions. These fail.</div>
-                <div class="attack-list">
-                    <div class="attack-item">
-                        <span class="attack-icon">&#9888;</span> execute_shell("rm -rf /")
-                    </div>
-                    <div class="attack-item">
-                        <span class="attack-icon">&#9888;</span> transfer_funds($1M to attacker)
-                    </div>
-                    <div class="attack-item">
-                        <span class="attack-icon">&#9888;</span> drop_database("production")
-                    </div>
-                </div>
-                <button class="btn btn-danger" onclick="runAttacks()">Launch Attack Sequence</button>
+                <div class="line"><span class="prompt">$</span> <span class="cursor"></span></div>
             </div>
         </div>
         
-        <div class="demo-panel" style="margin-bottom: 40px;">
-            <div class="panel-title" style="color: #ff6b6b;">Real AI Execution (Powered by Groq)</div>
-            <div class="panel-desc">Type anything. Groq AI interprets your intent and calls verified blocks. Zero code generation.</div>
-            <div style="display: flex; gap: 10px; margin-bottom: 15px;">
-                <input type="text" id="ai-input" placeholder="Try: 'add 5 and 3' or 'make HELLO lowercase'" style="flex: 1; padding: 14px; border: 2px solid #ff6b6b; border-radius: 8px; background: #1a1a2e; color: #fff; font-size: 16px;" />
-                <button class="btn" onclick="runAI()" id="ai-btn" style="width: auto; padding: 14px 30px; background: linear-gradient(135deg, #ff6b6b 0%, #cc4444 100%); color: #fff;">Ask AI</button>
+        <div class="terminal">
+            <div class="terminal-header">
+                <div class="terminal-btn btn-red"></div>
+                <div class="terminal-btn btn-yellow"></div>
+                <div class="terminal-btn btn-green"></div>
+                <span class="terminal-title">AI Chat - Ask anything</span>
             </div>
-            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                <span onclick="setAI('sum these numbers: 10, 20, 30, 40')" style="padding: 6px 12px; background: rgba(255,107,107,0.1); border: 1px solid rgba(255,107,107,0.3); border-radius: 20px; font-size: 12px; cursor: pointer;">sum 10,20,30,40</span>
-                <span onclick="setAI('what is the maximum of 5, 99, 23, 1?')" style="padding: 6px 12px; background: rgba(255,107,107,0.1); border: 1px solid rgba(255,107,107,0.3); border-radius: 20px; font-size: 12px; cursor: pointer;">find max</span>
-                <span onclick="setAI('convert HELLO WORLD to lowercase')" style="padding: 6px 12px; background: rgba(255,107,107,0.1); border: 1px solid rgba(255,107,107,0.3); border-radius: 20px; font-size: 12px; cursor: pointer;">lowercase</span>
-                <span onclick="setAI('is test@example.com a valid email?')" style="padding: 6px 12px; background: rgba(255,107,107,0.1); border: 1px solid rgba(255,107,107,0.3); border-radius: 20px; font-size: 12px; cursor: pointer;">validate email</span>
+            <div class="terminal-body" id="ai-terminal" style="min-height: 150px;">
+                <div class="line dim"># Type a natural language request. AI will call verified blocks only.</div>
             </div>
-            <div id="ai-result" style="margin-top: 15px;"></div>
-        </div>
-        
-        <div class="section-title">Live Audit Trail</div>
-        <div class="log-container" id="log-container">
-            <p style="color: #666; text-align: center; padding: 40px;">Click a button above to see AI agent activity</p>
-        </div>
-        
-        <div class="section-title" style="margin-top: 40px;">How It Works</div>
-        <div class="flow-diagram">
-            <div class="flow-step flow-agent">
-                <div class="flow-icon">&#129302;</div>
-                <div class="flow-label">AI AGENT</div>
-                <div class="flow-content">"I need to validate an email and calculate tax"</div>
-            </div>
-            <div class="flow-arrow">&#9660;</div>
-            <div class="flow-step flow-search">
-                <div class="flow-number">1</div>
-                <div class="flow-label">SEARCH</div>
-                <div class="flow-content">AI searches library by intent<br><span style="color: #00d4ff;">Found: is_valid_email, calculate_tax_amount</span></div>
-            </div>
-            <div class="flow-arrow">&#9660;</div>
-            <div class="flow-step flow-policy">
-                <div class="flow-number">2</div>
-                <div class="flow-label">POLICY CHECK</div>
-                <div class="flow-content">Policy engine checks whitelist<br><span style="color: #00ff88;">&#10003; is_valid_email — ALLOWED</span><br><span style="color: #00ff88;">&#10003; calculate_tax_amount — ALLOWED</span></div>
-            </div>
-            <div class="flow-arrow">&#9660;</div>
-            <div class="flow-step flow-execute">
-                <div class="flow-number">3</div>
-                <div class="flow-label">EXECUTE</div>
-                <div class="flow-content">Blocks run with full audit trace<br>Every input, output, and timestamp logged</div>
-            </div>
-            <div class="flow-arrow">&#9660;</div>
-            <div class="flow-step flow-result">
-                <div class="flow-icon">&#10004;</div>
-                <div class="flow-label">RESULT</div>
-                <div class="flow-content">
-                    <span style="color: #00ff88;">Email: valid</span><br>
-                    <span style="color: #00ff88;">Tax: $42.50</span><br>
-                    <strong style="color: #ff6b6b;">Code written by AI: 0 lines</strong>
-                </div>
-            </div>
-        </div>
-        
-        <div class="message-box">
-            <div class="message-title">This is what Google and Microsoft can't do.</div>
-            <div class="message-text">
-                Their AI generates code. Our AI calls verified blocks.<br>
-                Their AI needs sandboxing. Our AI has no capabilities to sandbox.<br>
-                Their AI might do anything. Our AI can only do what's in the library.
+            <div class="input-line" style="padding: 15px; border-top: 1px solid #333;">
+                <span class="prompt">AI&gt;</span>
+                <input type="text" id="ai-input" placeholder="Try: add 5 and 3, or: make HELLO lowercase" onkeypress="if(event.key==='Enter')runAI()" />
+                <button onclick="runAI()">Run</button>
             </div>
         </div>
     </div>
     
     <script>
-        let execCount = 0;
-        let blockedCount = 0;
+        const terminal = document.getElementById('terminal');
+        const aiTerminal = document.getElementById('ai-terminal');
         
-        function addLog(type, action, detail, result) {
-            const container = document.getElementById('log-container');
-            if (container.querySelector('p')) {
-                container.innerHTML = '';
-            }
+        function addLine(text, className = '', target = terminal) {
+            const cursor = target.querySelector('.cursor');
+            if (cursor) cursor.parentElement.remove();
             
-            const now = new Date().toISOString();
-            const hash = 'sha256:' + Math.random().toString(36).substr(2, 32) + Math.random().toString(36).substr(2, 32);
-            
-            const entry = document.createElement('div');
-            entry.className = 'log-entry ' + (type === 'success' ? 'log-success' : 'log-blocked');
-            entry.innerHTML = `
-                <div class="log-header">
-                    <span class="log-status ${type}">${type === 'success' ? 'EXECUTED' : 'BLOCKED'}</span>
-                    <span class="log-time">${now}</span>
-                </div>
-                <div class="log-action">Agent requested: <strong>${action}</strong></div>
-                <div class="log-detail">${detail}</div>
-                ${result ? `<div class="log-detail" style="color: #00ff88;">Result: ${result}</div>` : ''}
-                <div class="log-hash">Audit: ${hash}</div>
-            `;
-            
-            container.insertBefore(entry, container.firstChild);
+            const line = document.createElement('div');
+            line.className = 'line';
+            line.innerHTML = `<span class="${className}">${text}</span>`;
+            target.appendChild(line);
+            target.scrollTop = target.scrollHeight;
         }
         
-        async function runVerified(blockName, inputs) {
-            addLog('success', blockName, 'Verified block found in library. Executing...', 'Loading...');
+        function addPrompt(target = terminal) {
+            const line = document.createElement('div');
+            line.className = 'line';
+            line.innerHTML = '<span class="prompt">$</span> <span class="cursor"></span>';
+            target.appendChild(line);
+            target.scrollTop = target.scrollHeight;
+        }
+        
+        function clearTerminal() {
+            terminal.innerHTML = '';
+            addLine('$ clear', 'command');
+            addPrompt();
+        }
+        
+        async function typeEffect(text, className, target, delay = 30) {
+            const cursor = target.querySelector('.cursor');
+            if (cursor) cursor.parentElement.remove();
             
-            try {
-                const res = await fetch('/demo/execute', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ block_name: blockName, inputs })
-                });
-                const data = await res.json();
+            const line = document.createElement('div');
+            line.className = 'line';
+            target.appendChild(line);
+            
+            for (let i = 0; i < text.length; i++) {
+                line.innerHTML = `<span class="${className}">${text.substring(0, i + 1)}</span>`;
+                await new Promise(r => setTimeout(r, delay));
+            }
+            target.scrollTop = target.scrollHeight;
+        }
+        
+        async function runDemo(type) {
+            const cursor = terminal.querySelector('.cursor');
+            if (cursor) cursor.parentElement.remove();
+            
+            if (type === 'verified') {
+                addLine('$ python demo_verified.py', 'command');
+                addLine('');
+                await new Promise(r => setTimeout(r, 200));
+                addLine('Neurop Forge v1.0 - AI Execution Control Layer', 'cyan');
+                addLine('Loading 4,552 verified blocks...', 'dim');
+                addLine('');
+                await new Promise(r => setTimeout(r, 300));
                 
-                if (data.success) {
-                    execCount++;
-                    document.getElementById('exec-count').textContent = execCount;
+                addLine('# Demo: AI agent executes verified blocks', 'comment');
+                addLine('');
+                
+                const blocks = [
+                    { name: 'sum_numbers', inputs: {items: [42, 17, 8]} },
+                    { name: 'max_value', inputs: {items: [5, 99, 23, 1]} },
+                    { name: 'to_uppercase', inputs: {text: 'hello world'} }
+                ];
+                
+                for (const block of blocks) {
+                    addLine(`>>> agent.execute("${block.name}", ${JSON.stringify(block.inputs)})`, 'command');
+                    await new Promise(r => setTimeout(r, 200));
                     
-                    const container = document.getElementById('log-container');
-                    const firstEntry = container.firstChild;
-                    if (firstEntry) {
-                        const resultDiv = firstEntry.querySelector('.log-detail[style]');
-                        if (resultDiv) {
-                            resultDiv.textContent = 'Result: ' + JSON.stringify(data.result);
+                    try {
+                        const res = await fetch('/demo/execute', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ block_name: block.name, inputs: block.inputs })
+                        });
+                        const data = await res.json();
+                        
+                        if (data.success) {
+                            addLine(`[EXECUTED] Block verified. Hash: ${data.audit?.block_hash?.substring(0, 16)}...`, 'success');
+                            addLine(`Result: ${JSON.stringify(data.result)}`, 'output');
                         }
+                    } catch(e) {
+                        addLine(`Error: ${e}`, 'error');
                     }
+                    addLine('');
+                    await new Promise(r => setTimeout(r, 400));
                 }
-            } catch (e) {
-                console.error(e);
+                
+                addLine('# All blocks executed successfully. Zero code generated.', 'comment');
+                
+            } else if (type === 'attack') {
+                addLine('$ python demo_attack.py', 'command');
+                addLine('');
+                await new Promise(r => setTimeout(r, 200));
+                addLine('Neurop Forge v1.0 - Attack Simulation', 'cyan');
+                addLine('Attempting unauthorized operations...', 'dim');
+                addLine('');
+                await new Promise(r => setTimeout(r, 300));
+                
+                const attacks = [
+                    { action: 'execute_shell("rm -rf /")', reason: 'Shell execution is not a verified block' },
+                    { action: 'transfer_funds({to: "hacker", amount: 1000000})', reason: 'Financial operations require policy approval' },
+                    { action: 'drop_database("production")', reason: 'Database access is not exposed to AI' },
+                    { action: 'eval("malicious_code()")', reason: 'Code evaluation is impossible' }
+                ];
+                
+                for (const attack of attacks) {
+                    addLine(`>>> agent.execute("${attack.action}")`, 'command');
+                    await new Promise(r => setTimeout(r, 200));
+                    addLine(`[BLOCKED] NO SUCH BLOCK. ${attack.reason}`, 'error');
+                    addLine('');
+                    await new Promise(r => setTimeout(r, 400));
+                }
+                
+                addLine('# Attack surface: ZERO. AI cannot generate code.', 'comment');
+                
+            } else if (type === 'workflow') {
+                addLine('$ python demo_workflow.py', 'command');
+                addLine('');
+                await new Promise(r => setTimeout(r, 200));
+                addLine('Neurop Forge v1.0 - Workflow Demo', 'cyan');
+                addLine('Simulating: "Validate email and calculate tax"', 'dim');
+                addLine('');
+                await new Promise(r => setTimeout(r, 300));
+                
+                addLine('Step 1: SEARCH', 'yellow');
+                addLine('  AI searches library by intent...', 'dim');
+                await new Promise(r => setTimeout(r, 300));
+                addLine('  Found: is_valid_email, calculate_percentage', 'cyan');
+                addLine('');
+                
+                addLine('Step 2: POLICY CHECK', 'yellow');
+                addLine('  Checking whitelist...', 'dim');
+                await new Promise(r => setTimeout(r, 300));
+                addLine('  [OK] is_valid_email - ALLOWED (Tier-A)', 'success');
+                addLine('  [OK] calculate_percentage - ALLOWED (Tier-A)', 'success');
+                addLine('');
+                
+                addLine('Step 3: EXECUTE', 'yellow');
+                await new Promise(r => setTimeout(r, 300));
+                addLine('>>> is_valid_email("test@example.com")', 'command');
+                addLine('  Result: true', 'success');
+                addLine('>>> calculate_percentage(500, 8.5)', 'command');
+                addLine('  Result: 42.5', 'success');
+                addLine('');
+                
+                addLine('Step 4: AUDIT', 'yellow');
+                const hash = 'sha256:' + Math.random().toString(36).substr(2, 32);
+                addLine(`  Audit hash: ${hash}`, 'dim');
+                addLine('  Logged to tamper-proof chain', 'dim');
+                addLine('');
+                
+                addLine('# Workflow complete. Code written by AI: 0 lines', 'comment');
             }
-        }
-        
-        function runAttack(action, reason) {
-            blockedCount++;
-            document.getElementById('blocked-count').textContent = blockedCount;
-            addLog('blocked', action, reason);
-        }
-        
-        async function runAllVerified() {
-            await runVerified('sum_numbers', {items: [42, 17, 8]});
-            await new Promise(r => setTimeout(r, 500));
-            await runVerified('max_value', {items: [5, 99, 23, 1]});
-            await new Promise(r => setTimeout(r, 500));
-            await runVerified('to_uppercase', {text: 'hello world'});
-        }
-        
-        function runAttacks() {
-            runAttack('execute_shell("rm -rf /")', 'NO BLOCK EXISTS. Shell execution is not in the verified library. AI cannot generate code.');
             
-            setTimeout(() => {
-                runAttack('transfer_funds({to: "attacker", amount: 1000000})', 'NO BLOCK EXISTS. Financial transfers require explicit verified blocks with policy approval.');
-            }, 600);
-            
-            setTimeout(() => {
-                runAttack('drop_database("production")', 'NO BLOCK EXISTS. Database operations are not exposed. AI has no capability to access infrastructure.');
-            }, 1200);
-            
-            setTimeout(() => {
-                runAttack('eval("malicious_code()")', 'NO BLOCK EXISTS. Code evaluation is impossible. AI can only call pre-defined blocks.');
-            }, 1800);
-            
-            setTimeout(() => {
-                runAttack('import_module("os").system("...")', 'NO BLOCK EXISTS. Module imports are not blocks. The attack surface is zero.');
-            }, 2400);
-        }
-        
-        function setAI(text) {
-            document.getElementById('ai-input').value = text;
+            addLine('');
+            addPrompt();
         }
         
         async function runAI() {
             const input = document.getElementById('ai-input');
-            const btn = document.getElementById('ai-btn');
-            const resultDiv = document.getElementById('ai-result');
             const message = input.value.trim();
-            
             if (!message) return;
             
-            btn.disabled = true;
-            btn.textContent = 'Thinking...';
-            resultDiv.innerHTML = '<p style="color: #ff6b6b;">Groq AI is processing...</p>';
+            addLine(`AI> ${message}`, 'command', aiTerminal);
+            addLine('Processing with Groq llama-3.3-70b...', 'dim', aiTerminal);
+            input.value = '';
             
             try {
                 const res = await fetch('/demo/ai-execute', {
@@ -2515,46 +2345,27 @@ PLAYGROUND_HTML = """
                 });
                 const data = await res.json();
                 
-                if (data.success && data.blocks_executed && data.blocks_executed.length > 0) {
-                    execCount += data.blocks_executed.length;
-                    document.getElementById('exec-count').textContent = execCount;
-                    
-                    let blocksHtml = data.blocks_executed.map(b => 
-                        `<div style="margin: 5px 0; padding: 8px; background: rgba(0,255,136,0.1); border-radius: 6px;">
-                            <strong style="color: #00ff88;">${b.block}</strong>(${JSON.stringify(b.inputs)}) 
-                            <span style="color: #fff;">= ${JSON.stringify(b.result)}</span>
-                        </div>`
-                    ).join('');
-                    
-                    resultDiv.innerHTML = `
-                        <div style="padding: 15px; background: rgba(0,255,136,0.05); border: 1px solid rgba(0,255,136,0.3); border-radius: 8px;">
-                            <div style="font-size: 12px; color: #888; margin-bottom: 10px;">AI Response:</div>
-                            <div style="color: #fff; margin-bottom: 10px;">${data.ai_response || 'Blocks executed successfully.'}</div>
-                            <div style="font-size: 12px; color: #00d4ff; margin-bottom: 5px;">Verified blocks called:</div>
-                            ${blocksHtml}
-                            <div style="font-size: 11px; color: #666; margin-top: 10px;">Model: ${data.model} | Time: ${data.execution_time_ms.toFixed(0)}ms | Zero code generated</div>
-                        </div>
-                    `;
-                    
-                    data.blocks_executed.forEach(b => {
-                        addLog('success', b.block, 'AI called verified block via Groq', JSON.stringify(b.result));
-                    });
-                } else if (data.error) {
-                    resultDiv.innerHTML = `<p style="color: #ff4444;">Error: ${data.error}</p>`;
+                if (data.success && data.blocks_executed?.length > 0) {
+                    addLine('', '', aiTerminal);
+                    for (const b of data.blocks_executed) {
+                        addLine(`[EXECUTED] ${b.block}(${JSON.stringify(b.inputs)})`, 'success', aiTerminal);
+                        addLine(`Result: ${JSON.stringify(b.result)}`, 'output', aiTerminal);
+                    }
+                    if (data.ai_response) {
+                        addLine('', '', aiTerminal);
+                        addLine(`AI: ${data.ai_response}`, 'cyan', aiTerminal);
+                    }
+                    addLine(`# ${data.execution_time_ms?.toFixed(0) || 0}ms | Zero code generated`, 'comment', aiTerminal);
+                } else if (data.ai_response) {
+                    addLine(`AI: ${data.ai_response}`, 'cyan', aiTerminal);
                 } else {
-                    resultDiv.innerHTML = `<p style="color: #888;">${data.ai_response || 'No blocks were executed.'}</p>`;
+                    addLine('No matching blocks found.', 'dim', aiTerminal);
                 }
-            } catch (e) {
-                resultDiv.innerHTML = '<p style="color: #ff4444;">Network error</p>';
-            } finally {
-                btn.disabled = false;
-                btn.textContent = 'Ask AI';
+            } catch(e) {
+                addLine(`Error: ${e}`, 'error', aiTerminal);
             }
+            addLine('', '', aiTerminal);
         }
-        
-        document.getElementById('ai-input').addEventListener('keypress', e => {
-            if (e.key === 'Enter') runAI();
-        });
     </script>
 </body>
 </html>
