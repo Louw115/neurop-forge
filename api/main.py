@@ -1517,6 +1517,171 @@ async def demo_categories(request: Request):
 
 
 # ============================================================================
+# AI CHAT - Natural language block execution using Groq
+# ============================================================================
+
+import httpx
+
+GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
+
+class AIChatRequest(BaseModel):
+    message: str = Field(..., description="Natural language request like 'add 5 and 3'")
+
+@app.post("/demo/ai-chat")
+async def ai_chat(req: AIChatRequest, request: Request):
+    """
+    PUBLIC DEMO: AI-powered block execution.
+    Tell the AI what you want to do, it finds and executes the right block.
+    """
+    client_ip = request.client.host if request.client else "unknown"
+    if not check_demo_rate_limit(client_ip):
+        raise HTTPException(status_code=429, detail="Rate limit exceeded. Try again in a minute.")
+    
+    if not GROQ_API_KEY:
+        raise HTTPException(status_code=503, detail="AI service not configured")
+    
+    if not block_library:
+        raise HTTPException(status_code=503, detail="Library not loaded")
+    
+    # Build a compact list of available blocks for the AI, sampling from each category
+    block_list = []
+    categories_seen: Dict[str, int] = {}
+    priority_block_names = set()
+    
+    # Priority blocks - common operations users might ask for
+    priority_names = {'sum_numbers', 'product_numbers', 'min_value', 'max_value', 'average_value',
+                      'string_length', 'list_length', 'to_uppercase', 'to_lowercase', 
+                      'capitalize_first', 'trim_left', 'trim_right', 'reverse_string',
+                      'contains_substring', 'split_by_delimiter'}
+    
+    # First pass: add priority blocks by semantic name (block.metadata.name)
+    for block_id, block in block_library.items():
+        semantic_name = block.metadata.name
+        if semantic_name in priority_names:
+            inputs = [f"{p.name}: {p.data_type.value}" for p in block.interface.inputs]
+            block_list.append(f"- {semantic_name}({', '.join(inputs)}): {block.metadata.description[:80]}")
+            priority_block_names.add(semantic_name)
+    
+    # Then add samples from each category (using semantic names)
+    for block_id, block in block_library.items():
+        if len(block_list) >= 150:
+            break
+        semantic_name = block.metadata.name
+        cat = block.metadata.category
+        if categories_seen.get(cat, 0) < 15:  # Max 15 per category
+            categories_seen[cat] = categories_seen.get(cat, 0) + 1
+            if semantic_name not in priority_block_names:
+                inputs = [f"{p.name}: {p.data_type.value}" for p in block.interface.inputs]
+                block_list.append(f"- {semantic_name}({', '.join(inputs)}): {block.metadata.description[:80]}")
+    
+    blocks_context = "\n".join(block_list)
+    print(f"Sending {len(block_list)} blocks to AI, first 5: {block_list[:5]}")  # Debug
+    
+    system_prompt = f"""You are Neurop Forge's execution assistant. You help users execute pre-verified function blocks.
+
+Available blocks (sample):
+{blocks_context}
+
+When the user asks to do something:
+1. Find the matching block name
+2. Extract the input values from their request
+3. Respond with ONLY valid JSON in this exact format:
+{{"block": "block_name", "inputs": {{"param1": value1, "param2": value2}}}}
+
+If you can't find a matching block, respond with:
+{{"error": "No matching block found for this request"}}
+
+IMPORTANT: Respond with ONLY the JSON, no other text."""
+
+    try:
+        async with httpx.AsyncClient() as client:
+            response = await client.post(
+                "https://api.groq.com/openai/v1/chat/completions",
+                headers={
+                    "Authorization": f"Bearer {GROQ_API_KEY}",
+                    "Content-Type": "application/json"
+                },
+                json={
+                    "model": "llama-3.3-70b-versatile",
+                    "messages": [
+                        {"role": "system", "content": system_prompt},
+                        {"role": "user", "content": req.message}
+                    ],
+                    "temperature": 0.1,
+                    "max_tokens": 200
+                },
+                timeout=30.0
+            )
+            
+            if response.status_code != 200:
+                raise HTTPException(status_code=502, detail="AI service error")
+            
+            ai_response = response.json()
+            ai_text = ai_response["choices"][0]["message"]["content"].strip()
+            print(f"AI Response: {ai_text}")  # Debug
+            
+            # Parse AI response
+            try:
+                ai_json = json.loads(ai_text)
+            except json.JSONDecodeError:
+                # Try to extract JSON from response
+                import re
+                json_match = re.search(r'\{.*\}', ai_text, re.DOTALL)
+                if json_match:
+                    ai_json = json.loads(json_match.group())
+                else:
+                    return {"success": False, "error": "AI couldn't understand the request", "ai_response": ai_text}
+            
+            if "error" in ai_json:
+                return {"success": False, "error": ai_json["error"]}
+            
+            block_name = ai_json.get("block")
+            inputs = ai_json.get("inputs", {})
+            
+            if not block_name or block_name not in block_library:
+                return {"success": False, "error": f"Block '{block_name}' not found"}
+            
+            # Execute the block
+            block = block_library[block_name]
+            start_time = time.time()
+            
+            try:
+                result = block.execute(inputs)
+                execution_time = (time.time() - start_time) * 1000
+                
+                # Create audit entry
+                execution_id = str(uuid.uuid4())[:8]
+                audit_entry = audit_chain.log_execution(
+                    block_hash=block.identity.hash_value,
+                    inputs=inputs,
+                    output=result,
+                    agent_id="demo-ai-chat",
+                    execution_id=execution_id
+                )
+                
+                return {
+                    "success": True,
+                    "understood": f"Execute {block_name} with {inputs}",
+                    "block": block_name,
+                    "inputs": inputs,
+                    "result": result,
+                    "execution_time_ms": round(execution_time, 2),
+                    "execution_id": execution_id,
+                    "audit": {
+                        "timestamp": audit_entry.get("timestamp", datetime.now().isoformat()),
+                        "hash": audit_entry.get("entry_hash", "")[:32] + "..."
+                    }
+                }
+            except Exception as e:
+                return {"success": False, "error": f"Execution error: {str(e)}", "block": block_name}
+                
+    except httpx.TimeoutException:
+        raise HTTPException(status_code=504, detail="AI request timed out")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"AI error: {str(e)}")
+
+
+# ============================================================================
 # FRONTEND PLAYGROUND - Served as HTML
 # ============================================================================
 
@@ -1811,6 +1976,124 @@ PLAYGROUND_HTML = """
             .container { grid-template-columns: 1fr; padding: 15px; }
             .header { padding: 15px; }
             .stats-bar { flex-wrap: wrap; }
+            .ai-chat-box { padding: 20px; }
+        }
+        .ai-section {
+            background: linear-gradient(135deg, rgba(0,212,255,0.1) 0%, rgba(102,51,153,0.1) 100%);
+            border-bottom: 1px solid #333;
+            padding: 30px 40px;
+        }
+        .ai-chat-box {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .ai-title {
+            color: #00d4ff;
+            font-size: 20px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .ai-subtitle {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        .ai-input-row {
+            display: flex;
+            gap: 10px;
+        }
+        .ai-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid #00d4ff;
+            border-radius: 12px;
+            background: #1a1a2e;
+            color: #fff;
+            font-size: 16px;
+        }
+        .ai-input:focus {
+            outline: none;
+            border-color: #ff6b6b;
+            box-shadow: 0 0 20px rgba(0,212,255,0.2);
+        }
+        .ai-btn {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+            color: #000;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .ai-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0,212,255,0.3);
+        }
+        .ai-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .ai-examples {
+            margin-top: 12px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .ai-example {
+            padding: 6px 12px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid #444;
+            border-radius: 20px;
+            color: #888;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .ai-example:hover {
+            border-color: #00d4ff;
+            color: #00d4ff;
+        }
+        .ai-result {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            border: 1px solid #333;
+        }
+        .ai-result-success {
+            border-color: #00ff88;
+        }
+        .ai-result-error {
+            border-color: #ff4444;
+        }
+        .ai-understood {
+            color: #888;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+        .ai-output {
+            font-family: monospace;
+            font-size: 24px;
+            color: #00ff88;
+            margin: 10px 0;
+        }
+        .ai-audit {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(0,212,255,0.1);
+            border-radius: 8px;
+            font-size: 12px;
+            color: #888;
+        }
+        .ai-audit-title {
+            color: #00d4ff;
+            font-weight: bold;
+            margin-bottom: 8px;
         }
     </style>
 </head>
@@ -1832,6 +2115,24 @@ PLAYGROUND_HTML = """
                 <div class="stat-value" id="exec-count">0</div>
                 <div class="stat-label">Executions</div>
             </div>
+        </div>
+    </div>
+    
+    <div class="ai-section">
+        <div class="ai-chat-box">
+            <div class="ai-title">Tell me what to do</div>
+            <div class="ai-subtitle">AI finds the right block, executes it, and logs everything. No code generation - only verified blocks.</div>
+            <div class="ai-input-row">
+                <input type="text" class="ai-input" id="ai-input" placeholder="e.g., 'Add 5 and 3' or 'Validate test@email.com'" />
+                <button class="ai-btn" id="ai-btn" onclick="aiExecute()">Execute</button>
+            </div>
+            <div class="ai-examples">
+                <span class="ai-example" onclick="setAiInput('Add 5 and 3')">Add 5 and 3</span>
+                <span class="ai-example" onclick="setAiInput('Multiply 7 by 8')">Multiply 7 by 8</span>
+                <span class="ai-example" onclick="setAiInput('Calculate the sum of 10, 20, 30')">Sum of 10, 20, 30</span>
+                <span class="ai-example" onclick="setAiInput('Find the maximum of 5, 2, 9, 1')">Max of 5, 2, 9, 1</span>
+            </div>
+            <div id="ai-result"></div>
         </div>
     </div>
     
@@ -2043,6 +2344,75 @@ PLAYGROUND_HTML = """
                 resultArea.innerHTML = '<div class="result-panel result-error"><p>Network error</p></div>';
             }
         }
+        
+        // AI Chat Functions
+        function setAiInput(text) {
+            document.getElementById('ai-input').value = text;
+            document.getElementById('ai-input').focus();
+        }
+        
+        async function aiExecute() {
+            const input = document.getElementById('ai-input');
+            const btn = document.getElementById('ai-btn');
+            const resultDiv = document.getElementById('ai-result');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            btn.disabled = true;
+            btn.textContent = 'Thinking...';
+            resultDiv.innerHTML = '<div class="ai-result" style="border-color: #00d4ff;"><p style="color: #888;">AI is finding the right block...</p></div>';
+            
+            try {
+                const response = await fetch('/demo/ai-chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message })
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    resultDiv.innerHTML = `<div class="ai-result ai-result-error"><p style="color: #ff4444;">${data.detail || 'Error occurred'}</p></div>`;
+                    return;
+                }
+                
+                if (data.success) {
+                    executionCount++;
+                    document.getElementById('exec-count').textContent = executionCount;
+                    
+                    resultDiv.innerHTML = `
+                        <div class="ai-result ai-result-success">
+                            <div class="ai-understood">Understood: ${data.understood}</div>
+                            <div class="ai-output">${JSON.stringify(data.result)}</div>
+                            <div style="font-size: 12px; color: #888; margin-top: 10px;">
+                                Block: <span style="color: #00d4ff;">${data.block}</span> | 
+                                Time: <span style="color: #00d4ff;">${data.execution_time_ms}ms</span>
+                            </div>
+                            ${data.audit ? `
+                                <div class="ai-audit">
+                                    <div class="ai-audit-title">Cryptographic Audit Trail</div>
+                                    <p>Execution ID: ${data.execution_id}</p>
+                                    <p>Timestamp: ${data.audit.timestamp}</p>
+                                    <p style="font-family: monospace; word-break: break-all;">SHA-256: ${data.audit.hash}</p>
+                                </div>
+                            ` : ''}
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `<div class="ai-result ai-result-error"><p style="color: #ff4444;">${data.error}</p></div>`;
+                }
+            } catch (e) {
+                resultDiv.innerHTML = '<div class="ai-result ai-result-error"><p style="color: #ff4444;">Network error</p></div>';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Execute';
+            }
+        }
+        
+        document.getElementById('ai-input').addEventListener('keypress', e => {
+            if (e.key === 'Enter') aiExecute();
+        });
         
         document.getElementById('search-input').addEventListener('keypress', e => {
             if (e.key === 'Enter') searchBlocks();
