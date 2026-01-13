@@ -9,7 +9,7 @@
 > We banned AI from writing code. Here's what we built instead.
 
 **Option C (Enterprise):**
-> 2,700 verified functions AI agents can run — but never change.
+> 4,500+ verified functions AI agents can run — but never change.
 
 ---
 
@@ -17,7 +17,7 @@
 
 We banned AI from writing code.
 
-Instead, we built an immutable library of 2,700+ verified functions that AI can search, compose, and execute — but never modify.
+Instead, we built an immutable library of 4,500+ verified functions that AI can search, compose, and execute — but never modify.
 
 Every block is:
 - Verified before admission
@@ -54,7 +54,7 @@ We asked: what if AI couldn't write code at all?
 
 **The answer: Neurop Forge.**
 
-It's an immutable library of 2,700+ verified functions. AI agents can:
+It's an immutable library of 4,500+ verified functions. AI agents can:
 - Search by intent
 - Compose into graphs
 - Execute with full trace
@@ -115,7 +115,7 @@ v2.0.0 is live on PyPI:
 pip install neurop-forge
 ```
 
-2,740 verified blocks. 175 source modules. 30+ categories.
+4,500+ verified blocks. 175 source modules. 30+ categories.
 
 Happy to answer questions about the architecture, trust model, or why we think execution control is the missing layer in AI infrastructure.
 

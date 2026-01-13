@@ -101,5 +101,5 @@ For production use:
 - Consider paid tier for production use
 
 **Memory errors:**
-- 2,700 blocks may exceed free tier memory
+- 4,500+ blocks may exceed free tier memory
 - Consider lazy loading or paid tier with more RAM

@@ -49,11 +49,11 @@ Every execution is:
 
 | Metric | Value |
 |--------|-------|
-| Verified blocks | 2,740 |
+| Verified blocks | 4,500+ |
 | Source modules | 175 |
 | Categories | 30+ |
-| Tier-A (deterministic) | 2,060 |
-| Tier-B (context-dependent) | 680 |
+| Tier-A (deterministic) | 3,400+ |
+| Tier-B (context-dependent) | 1,150+ |
 
 ---
 
@@ -92,7 +92,7 @@ Every execution is:
 
 Neurop Forge turns AI agents from unpredictable authors into controlled operators.
 
-2,700+ verified blocks. Full execution trace. Zero code modification.
+4,500+ verified blocks. Full execution trace. Zero code modification.
 
 Neurop Forge does not generate code, modify logic, or allow AI to change execution behavior.
 

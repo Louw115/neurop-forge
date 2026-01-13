@@ -5,7 +5,7 @@
 
 ### What It Is
 
-An immutable function library for AI agents. 2,700+ verified blocks that AI can search, compose, and execute — but never modify.
+An immutable function library for AI agents. 4,500+ verified blocks that AI can search, compose, and execute — but never modify.
 
 ```python
 from neurop_forge import NeuropForge
@@ -39,8 +39,8 @@ When AI executes verified blocks:
 
 | Tier | Count | Description | AI Access |
 |------|-------|-------------|-----------|
-| A | 2,060 | Pure, deterministic, no side effects | Unrestricted |
-| B | 680 | Context-dependent, complex inputs | Opt-in only |
+| A | 3,400+ | Pure, deterministic, no side effects | Unrestricted |
+| B | 1,150+ | Context-dependent, complex inputs | Opt-in only |
 
 ```python
 # Tier-A only (default, safe)
@@ -79,7 +79,7 @@ forge.list_verified_blocks(category="string", tier="A", limit=10)
 
 # Library stats
 forge.stats
-# {'total_verified': 2740, 'tier_a': 2060, 'tier_b': 680}
+# {'total_verified': 4552, 'tier_a': 3400, 'tier_b': 1152}
 ```
 
 ---
@@ -135,7 +135,7 @@ def handle_user_request(intent: str, data: dict):
 
 ### What You Get
 
-- **2,740 verified blocks** ready to use
+- **4,500+ verified blocks** ready to use
 - **Full execution trace** on every call
 - **Trust tier enforcement** by default
 - **Immutability guarantee** — blocks are hash-locked

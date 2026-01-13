@@ -11,7 +11,7 @@ This demo shows GPT acting as a CONTROLLED OPERATOR:
 THE KEY INSIGHT: GPT calls pre-verified, immutable blocks.
 GPT writes ZERO code. GPT can EXECUTE but never MODIFY.
 
-This is Neurop Forge: 2,700+ verified blocks that AI can
+This is Neurop Forge: 4,500+ verified blocks that AI can
 call but never change.
 
 Requirements:
@@ -365,7 +365,7 @@ def run_agent(user_request: str):
     messages = [
         {
             "role": "system",
-            "content": """You are an AI assistant powered by Neurop Forge - a library of 2,700+ verified, immutable code blocks.
+            "content": """You are an AI assistant powered by Neurop Forge - a library of 4,500+ verified, immutable code blocks.
 
 IMPORTANT: You can ONLY use the function tools provided. You CANNOT write code.
 When the user asks you to process data, call the appropriate blocks.
