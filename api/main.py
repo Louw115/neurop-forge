@@ -20,10 +20,7 @@ from fastapi import FastAPI, HTTPException, Depends, Header, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
-from neurop_forge.semantic.composer import SemanticComposer, SemanticIndexEntry
-from neurop_forge.semantic.intent_schema import SemanticIntent, SemanticDomain, SemanticOperation, SemanticType
-from neurop_forge.runtime.executor import GraphExecutor
-from neurop_forge.core.block_schema import NeuropBlock, PurityLevel
+from neurop_forge.core.block_schema import NeuropBlock
 from neurop_forge.compliance.audit_chain import AuditChain
 from neurop_forge.compliance.policy_engine import PolicyEngine
 
@@ -239,8 +236,6 @@ def delete_report_from_db(report_id: str) -> bool:
             print(f"Error deleting report: {e}")
             return False
 
-composer: Optional[SemanticComposer] = None
-executor: Optional[GraphExecutor] = None
 audit_chain: Optional[AuditChain] = None
 policy_engine: Optional[PolicyEngine] = None
 block_library: Dict[str, NeuropBlock] = {}
@@ -309,49 +304,14 @@ def log_usage(api_key: str, endpoint: str, query: str, success: bool, execution_
         USAGE_LOG.pop(0)
 
 
-def safe_get_operation(op_str: str) -> SemanticOperation:
-    """Get SemanticOperation with fallback for unknown values."""
-    op_mapping = {
-        "process": SemanticOperation.TRANSFORM,
-        "execute": SemanticOperation.TRANSFORM,
-        "run": SemanticOperation.TRANSFORM,
-        "apply": SemanticOperation.TRANSFORM,
-        "compute": SemanticOperation.CALCULATE,
-        "validate": SemanticOperation.VALIDATE,
-        "check": SemanticOperation.CHECK,
-    }
-    try:
-        return SemanticOperation(op_str)
-    except ValueError:
-        return op_mapping.get(op_str, SemanticOperation.TRANSFORM)
-
-
-def safe_get_domain(domain_str: str) -> SemanticDomain:
-    """Get SemanticDomain with fallback for unknown values."""
-    try:
-        return SemanticDomain(domain_str)
-    except ValueError:
-        return SemanticDomain.UTILITY
-
-
-def safe_get_semantic_type(type_str: str) -> SemanticType:
-    """Get SemanticType with fallback for unknown values."""
-    try:
-        return SemanticType(type_str)
-    except ValueError:
-        return SemanticType.GENERIC
-
-
 def load_library():
     """Load the block library from disk."""
-    global composer, executor, audit_chain, policy_engine, block_library
+    global audit_chain, policy_engine, block_library
     
     if not LIBRARY_PATH.exists():
         print(f"Library path {LIBRARY_PATH} does not exist")
         return False
     
-    composer = SemanticComposer()
-    executor = GraphExecutor()
     audit_chain = AuditChain()
     policy_engine = PolicyEngine()
     
@@ -363,76 +323,8 @@ def load_library():
                 block_data = json.load(f)
             
             block = NeuropBlock.from_dict(block_data)
-            
             block_id = block_data.get("identity", {}).get("content_hash", block_file.stem)
-            
             block_library[block_id] = block
-            executor.register_block(block_id, block)
-            
-            category = block.metadata.category.lower()
-            
-            category_to_domain = {
-                "validation": "validation",
-                "arithmetic": "calculation",
-                "string": "string",
-                "collection": "collection",
-                "filtering": "filtering",
-                "transformation": "transformation",
-                "sorting": "sorting",
-                "aggregation": "aggregation",
-                "comparison": "comparison",
-                "encoding": "encoding",
-                "hashing": "hashing",
-                "datetime": "datetime",
-                "numeric": "numeric",
-                "utility": "utility",
-            }
-            
-            category_to_operation = {
-                "validation": "validate",
-                "arithmetic": "calculate",
-                "string": "transform",
-                "collection": "transform",
-                "filtering": "filter",
-                "transformation": "transform",
-                "sorting": "sort",
-                "aggregation": "reduce",
-                "comparison": "compare",
-                "encoding": "encode",
-                "hashing": "hash",
-            }
-            
-            domain_str = category_to_domain.get(category, "utility")
-            operation_str = category_to_operation.get(category, "transform")
-            
-            semantic_intent = SemanticIntent(
-                domain=safe_get_domain(domain_str),
-                operation=safe_get_operation(operation_str),
-                input_semantic_types=(SemanticType.GENERIC,),
-                output_semantic_types=(SemanticType.GENERIC,),
-                preconditions=tuple(block_data.get("validation_rules", {}).get("preconditions", [])),
-                postconditions=tuple(block_data.get("validation_rules", {}).get("postconditions", [])),
-                can_chain_from=tuple(block_data.get("composition", {}).get("input_compatible_types", [])),
-                can_chain_to=tuple(block_data.get("composition", {}).get("output_compatible_types", [])),
-            )
-            
-            input_param_names = " ".join(p.name for p in block.interface.inputs)
-            enriched_description = f"{block.metadata.description} Inputs: {input_param_names}"
-            
-            entry = SemanticIndexEntry(
-                block_identity=block_id,
-                name=block.metadata.name,
-                description=enriched_description,
-                category=block.metadata.category,
-                semantic_intent=semantic_intent,
-                input_data_types=tuple(p.data_type.value for p in block.interface.inputs),
-                output_data_types=tuple(p.data_type.value for p in block.interface.outputs),
-                trust_score=block_data.get("trust_tier", {}).get("score", 0.8),
-                is_pure=block.constraints.purity == PurityLevel.PURE,
-                is_deterministic=block.constraints.deterministic,
-            )
-            
-            composer.index_block(entry)
             block_count += 1
             
         except Exception as e:
@@ -455,7 +347,7 @@ async def root():
     """Health check endpoint."""
     return HealthResponse(
         status="healthy",
-        library_loaded=composer is not None and len(block_library) > 0,
+        library_loaded=len(block_library) > 0,
         block_count=len(block_library),
         version="2.0.0",
     )
@@ -466,7 +358,7 @@ async def health():
     """Health check endpoint."""
     return HealthResponse(
         status="healthy",
-        library_loaded=composer is not None and len(block_library) > 0,
+        library_loaded=len(block_library) > 0,
         block_count=len(block_library),
         version="2.0.0",
     )
@@ -682,15 +574,18 @@ async def list_blocks(api_key: str = Depends(get_api_key), limit: int = 50, cate
 @app.get("/stats")
 async def stats(api_key: str = Depends(get_api_key)):
     """Get library and usage statistics."""
-    if composer is None:
+    if not block_library:
         raise HTTPException(status_code=503, detail="Library not loaded")
     
-    composer_stats = composer.get_statistics()
+    categories = {}
+    for block in block_library.values():
+        cat = block.metadata.category
+        categories[cat] = categories.get(cat, 0) + 1
     
     return {
         "library": {
             "total_blocks": len(block_library),
-            **composer_stats,
+            "categories": categories,
         },
         "usage": {
             "total_requests": len(USAGE_LOG),
