@@ -345,12 +345,15 @@ class SemanticComposer:
         required_domains = intent_analysis["required_domains"]
         required_types = intent_analysis["required_semantic_types"]
         
+        import re
+        query_words = list(set(re.sub(r'[^\w\s]', '', w).lower() for w in query.split() if len(w) >= 3))
+        
         selected_blocks: List[SemanticIndexEntry] = []
         why_selected: Dict[str, str] = {}
         
         for domain in required_domains:
             domain_blocks = self._find_blocks_for_domain(
-                domain, required_types, min_trust
+                domain, required_types, min_trust, query_words
             )
             
             for block in domain_blocks[:3]:
@@ -424,8 +427,9 @@ class SemanticComposer:
         domain: SemanticDomain,
         required_types: List[SemanticType],
         min_trust: float,
+        query_words: Optional[List[str]] = None,
     ) -> List[SemanticIndexEntry]:
-        """Find blocks matching a semantic domain."""
+        """Find blocks matching a semantic domain, with text matching against query words."""
         block_ids = self._domain_index.get(domain, set())
         
         if not block_ids:
@@ -455,6 +459,26 @@ class SemanticComposer:
                 score += 0.1
             if block.is_deterministic:
                 score += 0.1
+            
+            if query_words:
+                block_name_lower = block.name.lower()
+                block_desc_lower = block.description.lower() if block.description else ""
+                block_category_lower = block.category.lower() if block.category else ""
+                
+                text_bonus = 0.0
+                for word in query_words:
+                    word_lower = word.lower()
+                    if len(word_lower) < 3:
+                        continue
+                    if word_lower in block_name_lower:
+                        text_bonus += 2.0
+                    if word_lower in block_desc_lower:
+                        text_bonus += 0.5
+                    if word_lower in block_category_lower:
+                        text_bonus += 0.3
+                
+                score += min(text_bonus, 5.0)
+            
             return score
         
         candidates.sort(key=score_block, reverse=True)
