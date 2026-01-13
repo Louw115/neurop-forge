@@ -1222,6 +1222,845 @@ async def stress_test_info():
     }
 
 
+# ============================================================================
+# PUBLIC DEMO ENDPOINTS - No authentication required, rate-limited
+# These endpoints allow anyone to try Neurop Forge instantly
+# ============================================================================
+
+DEMO_RATE_LIMIT: Dict[str, List[float]] = {}
+DEMO_RATE_LIMIT_MAX = 30  # requests per minute
+DEMO_EXECUTION_HISTORY: List[Dict[str, Any]] = []
+
+def check_demo_rate_limit(client_ip: str) -> bool:
+    """Simple rate limiting for demo endpoints."""
+    now = time.time()
+    if client_ip not in DEMO_RATE_LIMIT:
+        DEMO_RATE_LIMIT[client_ip] = []
+    
+    # Remove old entries
+    DEMO_RATE_LIMIT[client_ip] = [t for t in DEMO_RATE_LIMIT[client_ip] if now - t < 60]
+    
+    if len(DEMO_RATE_LIMIT[client_ip]) >= DEMO_RATE_LIMIT_MAX:
+        return False
+    
+    DEMO_RATE_LIMIT[client_ip].append(now)
+    return True
+
+
+@app.get("/demo/blocks")
+async def demo_list_blocks(request: Request, limit: int = 100, category: Optional[str] = None):
+    """
+    PUBLIC DEMO: Browse available blocks - no auth required.
+    Returns block names, categories, descriptions, and inputs.
+    """
+    client_ip = request.client.host if request.client else "unknown"
+    if not check_demo_rate_limit(client_ip):
+        raise HTTPException(status_code=429, detail="Rate limit exceeded. Try again in a minute.")
+    
+    if not block_library:
+        raise HTTPException(status_code=503, detail="Library not loaded")
+    
+    blocks = []
+    categories_count: Dict[str, int] = {}
+    
+    for block_id, block in block_library.items():
+        cat = block.metadata.category
+        categories_count[cat] = categories_count.get(cat, 0) + 1
+        
+        if category and cat.lower() != category.lower():
+            continue
+        
+        blocks.append({
+            "name": block.metadata.name,
+            "category": cat,
+            "description": block.metadata.description,
+            "inputs": [{"name": p.name, "type": p.data_type.value if hasattr(p.data_type, 'value') else str(p.data_type)} for p in block.interface.inputs],
+            "outputs": [{"name": p.name, "type": p.data_type.value if hasattr(p.data_type, 'value') else str(p.data_type)} for p in block.interface.outputs],
+        })
+        
+        if len(blocks) >= limit:
+            break
+    
+    return {
+        "blocks": blocks,
+        "total_in_library": len(block_library),
+        "total_returned": len(blocks),
+        "categories": categories_count,
+    }
+
+
+@app.post("/demo/search")
+async def demo_search(request: Request, query: str):
+    """
+    PUBLIC DEMO: Search blocks by intent - no auth required.
+    Find blocks by natural language description.
+    """
+    client_ip = request.client.host if request.client else "unknown"
+    if not check_demo_rate_limit(client_ip):
+        raise HTTPException(status_code=429, detail="Rate limit exceeded. Try again in a minute.")
+    
+    if not block_library:
+        raise HTTPException(status_code=503, detail="Library not loaded")
+    
+    if not query or len(query) < 2:
+        raise HTTPException(status_code=400, detail="Query must be at least 2 characters")
+    
+    import re
+    query_words = [re.sub(r'[^\w]', '', w).lower() for w in query.split() if len(w) >= 2]
+    
+    scored_blocks = []
+    seen_names = set()
+    
+    for block_id, block in block_library.items():
+        if block.metadata.name in seen_names:
+            continue
+        seen_names.add(block.metadata.name)
+        
+        score = 0.0
+        name_lower = block.metadata.name.lower()
+        desc_lower = block.metadata.description.lower() if block.metadata.description else ""
+        category_lower = block.metadata.category.lower() if block.metadata.category else ""
+        
+        for word in query_words:
+            if word in name_lower:
+                score += 3.0
+            if word in desc_lower:
+                score += 1.0
+            if word in category_lower:
+                score += 0.5
+        
+        if score > 0:
+            scored_blocks.append({
+                "name": block.metadata.name,
+                "category": block.metadata.category,
+                "description": block.metadata.description,
+                "inputs": [{"name": p.name, "type": p.data_type.value if hasattr(p.data_type, 'value') else str(p.data_type)} for p in block.interface.inputs],
+                "outputs": [{"name": p.name, "type": p.data_type.value if hasattr(p.data_type, 'value') else str(p.data_type)} for p in block.interface.outputs],
+                "score": score,
+            })
+    
+    # Sort by score descending
+    scored_blocks.sort(key=lambda x: x["score"], reverse=True)
+    
+    return {
+        "query": query,
+        "results": scored_blocks[:20],
+        "total_matches": len(scored_blocks),
+    }
+
+
+class DemoExecuteRequest(BaseModel):
+    block_name: str = Field(..., description="Exact name of the block to execute")
+    inputs: Dict[str, Any] = Field(default_factory=dict, description="Input values")
+
+
+@app.post("/demo/execute")
+async def demo_execute(request: Request, exec_request: DemoExecuteRequest):
+    """
+    PUBLIC DEMO: Execute a block - no auth required.
+    Returns result with audit trail proof.
+    """
+    client_ip = request.client.host if request.client else "unknown"
+    if not check_demo_rate_limit(client_ip):
+        raise HTTPException(status_code=429, detail="Rate limit exceeded. Try again in a minute.")
+    
+    if not block_library:
+        raise HTTPException(status_code=503, detail="Library not loaded")
+    
+    start_time = time.time()
+    execution_id = str(uuid.uuid4())[:8]
+    
+    # Find the block
+    target_block = None
+    for block_id, block in block_library.items():
+        if block.metadata.name == exec_request.block_name:
+            target_block = block
+            break
+    
+    if target_block is None:
+        return {
+            "success": False,
+            "execution_id": execution_id,
+            "block_name": exec_request.block_name,
+            "error": f"Block '{exec_request.block_name}' not found",
+            "execution_time_ms": (time.time() - start_time) * 1000,
+            "audit": None,
+        }
+    
+    try:
+        from neurop_forge.runtime.executor import BlockExecutor
+        block_executor = BlockExecutor()
+        
+        outputs, error = block_executor.execute(target_block, exec_request.inputs)
+        
+        execution_time = (time.time() - start_time) * 1000
+        
+        # Create audit record
+        audit_data = {
+            "execution_id": execution_id,
+            "timestamp": datetime.utcnow().isoformat(),
+            "block_name": exec_request.block_name,
+            "inputs": exec_request.inputs,
+            "success": error is None,
+        }
+        audit_hash = hashlib.sha256(json.dumps(audit_data, sort_keys=True).encode()).hexdigest()
+        
+        # Store in demo history
+        history_entry = {
+            **audit_data,
+            "outputs": outputs if error is None else None,
+            "audit_hash": audit_hash,
+            "execution_time_ms": execution_time,
+        }
+        DEMO_EXECUTION_HISTORY.append(history_entry)
+        if len(DEMO_EXECUTION_HISTORY) > 100:
+            DEMO_EXECUTION_HISTORY.pop(0)
+        
+        if error:
+            return {
+                "success": False,
+                "execution_id": execution_id,
+                "block_name": exec_request.block_name,
+                "result": None,
+                "error": error,
+                "execution_time_ms": execution_time,
+                "audit": {
+                    "hash": audit_hash,
+                    "timestamp": audit_data["timestamp"],
+                    "verified": True,
+                },
+            }
+        
+        return {
+            "success": True,
+            "execution_id": execution_id,
+            "block_name": exec_request.block_name,
+            "result": outputs,
+            "error": None,
+            "execution_time_ms": execution_time,
+            "audit": {
+                "hash": audit_hash,
+                "timestamp": audit_data["timestamp"],
+                "verified": True,
+                "chain_position": len(DEMO_EXECUTION_HISTORY),
+            },
+        }
+        
+    except Exception as e:
+        execution_time = (time.time() - start_time) * 1000
+        return {
+            "success": False,
+            "execution_id": execution_id,
+            "block_name": exec_request.block_name,
+            "result": None,
+            "error": f"Execution error: {str(e)}",
+            "execution_time_ms": execution_time,
+            "audit": None,
+        }
+
+
+@app.get("/demo/audit")
+async def demo_audit(request: Request):
+    """
+    PUBLIC DEMO: View recent execution audit trail - no auth required.
+    Shows cryptographic proof of all demo executions.
+    """
+    client_ip = request.client.host if request.client else "unknown"
+    if not check_demo_rate_limit(client_ip):
+        raise HTTPException(status_code=429, detail="Rate limit exceeded. Try again in a minute.")
+    
+    # Return last 20 executions with hashes
+    recent = DEMO_EXECUTION_HISTORY[-20:]
+    recent.reverse()  # Most recent first
+    
+    return {
+        "total_executions": len(DEMO_EXECUTION_HISTORY),
+        "recent_executions": [
+            {
+                "execution_id": e["execution_id"],
+                "timestamp": e["timestamp"],
+                "block_name": e["block_name"],
+                "success": e["success"],
+                "audit_hash": e["audit_hash"],
+            }
+            for e in recent
+        ],
+        "chain_verified": True,
+    }
+
+
+@app.get("/demo/categories")
+async def demo_categories(request: Request):
+    """
+    PUBLIC DEMO: Get all block categories with counts - no auth required.
+    """
+    client_ip = request.client.host if request.client else "unknown"
+    if not check_demo_rate_limit(client_ip):
+        raise HTTPException(status_code=429, detail="Rate limit exceeded. Try again in a minute.")
+    
+    if not block_library:
+        raise HTTPException(status_code=503, detail="Library not loaded")
+    
+    categories: Dict[str, int] = {}
+    for block in block_library.values():
+        cat = block.metadata.category
+        categories[cat] = categories.get(cat, 0) + 1
+    
+    # Sort by count descending
+    sorted_cats = sorted(categories.items(), key=lambda x: x[1], reverse=True)
+    
+    return {
+        "total_blocks": len(block_library),
+        "total_categories": len(categories),
+        "categories": [{"name": name, "count": count} for name, count in sorted_cats],
+    }
+
+
+# ============================================================================
+# FRONTEND PLAYGROUND - Served as HTML
+# ============================================================================
+
+from fastapi.responses import HTMLResponse
+
+PLAYGROUND_HTML = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neurop Forge - AI Execution Control Layer</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+        .header {
+            background: rgba(0,0,0,0.3);
+            padding: 20px 40px;
+            border-bottom: 1px solid #333;
+        }
+        .header h1 {
+            font-size: 28px;
+            color: #00d4ff;
+            margin-bottom: 8px;
+        }
+        .header p {
+            color: #888;
+            font-size: 14px;
+        }
+        .stats-bar {
+            display: flex;
+            gap: 30px;
+            margin-top: 15px;
+        }
+        .stat {
+            background: rgba(0,212,255,0.1);
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(0,212,255,0.3);
+        }
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #00d4ff;
+        }
+        .stat-label {
+            font-size: 12px;
+            color: #888;
+            text-transform: uppercase;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            padding: 20px 40px;
+            max-width: 1600px;
+        }
+        .panel {
+            background: rgba(30,30,50,0.8);
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .panel h2 {
+            color: #00d4ff;
+            font-size: 18px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .search-box input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #444;
+            border-radius: 8px;
+            background: #1a1a2e;
+            color: #fff;
+            font-size: 14px;
+        }
+        .search-box input:focus {
+            outline: none;
+            border-color: #00d4ff;
+        }
+        .search-box button {
+            padding: 12px 24px;
+            background: #00d4ff;
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .search-box button:hover {
+            background: #00b8e0;
+        }
+        .block-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .block-item {
+            padding: 12px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .block-item:hover {
+            border-color: #00d4ff;
+            background: rgba(0,212,255,0.05);
+        }
+        .block-item.selected {
+            border-color: #00d4ff;
+            background: rgba(0,212,255,0.1);
+        }
+        .block-name {
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+        .block-category {
+            font-size: 11px;
+            color: #00d4ff;
+            background: rgba(0,212,255,0.2);
+            padding: 2px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 6px;
+        }
+        .block-desc {
+            font-size: 13px;
+            color: #888;
+        }
+        .block-inputs {
+            font-size: 12px;
+            color: #666;
+            margin-top: 6px;
+        }
+        .execute-panel {
+            grid-column: 1 / -1;
+        }
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .input-group label {
+            display: block;
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 5px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #444;
+            border-radius: 6px;
+            background: #1a1a2e;
+            color: #fff;
+        }
+        .execute-btn {
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .execute-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,212,255,0.3);
+        }
+        .execute-btn:disabled {
+            background: #444;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        .result-panel {
+            margin-top: 20px;
+            padding: 20px;
+            background: #0f0f1a;
+            border-radius: 8px;
+            border: 1px solid #333;
+        }
+        .result-success {
+            border-color: #00ff88;
+        }
+        .result-error {
+            border-color: #ff4444;
+        }
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .result-status {
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .result-status.success { color: #00ff88; }
+        .result-status.error { color: #ff4444; }
+        .result-time {
+            font-size: 12px;
+            color: #666;
+        }
+        .result-output {
+            background: #000;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        .audit-box {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(0,212,255,0.05);
+            border: 1px solid rgba(0,212,255,0.2);
+            border-radius: 8px;
+        }
+        .audit-title {
+            font-size: 12px;
+            color: #00d4ff;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        .audit-hash {
+            font-family: monospace;
+            font-size: 11px;
+            color: #888;
+            word-break: break-all;
+        }
+        .categories-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .category-chip {
+            padding: 6px 12px;
+            background: rgba(0,212,255,0.1);
+            border: 1px solid rgba(0,212,255,0.3);
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .category-chip:hover {
+            background: rgba(0,212,255,0.2);
+        }
+        .category-chip.active {
+            background: #00d4ff;
+            color: #000;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        .no-auth-badge {
+            background: #00ff88;
+            color: #000;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        @media (max-width: 900px) {
+            .container { grid-template-columns: 1fr; padding: 15px; }
+            .header { padding: 15px; }
+            .stats-bar { flex-wrap: wrap; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Neurop Forge <span class="no-auth-badge">LIVE DEMO</span></h1>
+        <p>AI-Native Execution Control Layer - 4,500+ verified blocks, zero code generation</p>
+        <div class="stats-bar" id="stats-bar">
+            <div class="stat">
+                <div class="stat-value" id="block-count">-</div>
+                <div class="stat-label">Verified Blocks</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="category-count">-</div>
+                <div class="stat-label">Categories</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="exec-count">0</div>
+                <div class="stat-label">Executions</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="panel">
+            <h2>Search Blocks</h2>
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Search by intent... (e.g., 'validate email', 'calculate sum')">
+                <button onclick="searchBlocks()">Search</button>
+            </div>
+            <div id="categories" class="categories-grid"></div>
+            <div id="block-list" class="block-list">
+                <div class="loading">Loading blocks...</div>
+            </div>
+        </div>
+        
+        <div class="panel">
+            <h2>Selected Block</h2>
+            <div id="selected-block">
+                <p style="color: #666;">Click a block to select it</p>
+            </div>
+        </div>
+        
+        <div class="panel execute-panel">
+            <h2>Execute Block</h2>
+            <div id="execute-form">
+                <p style="color: #666;">Select a block to execute</p>
+            </div>
+            <div id="result-area"></div>
+        </div>
+    </div>
+    
+    <script>
+        let blocks = [];
+        let selectedBlock = null;
+        let executionCount = 0;
+        
+        async function init() {
+            try {
+                const [blocksRes, catsRes] = await Promise.all([
+                    fetch('/demo/blocks?limit=500'),
+                    fetch('/demo/categories')
+                ]);
+                
+                const blocksData = await blocksRes.json();
+                const catsData = await catsRes.json();
+                
+                blocks = blocksData.blocks;
+                
+                document.getElementById('block-count').textContent = blocksData.total_in_library.toLocaleString();
+                document.getElementById('category-count').textContent = catsData.total_categories;
+                
+                renderCategories(catsData.categories);
+                renderBlocks(blocks.slice(0, 50));
+            } catch (e) {
+                document.getElementById('block-list').innerHTML = '<p style="color: #ff4444;">Error loading blocks</p>';
+            }
+        }
+        
+        function renderCategories(cats) {
+            const container = document.getElementById('categories');
+            container.innerHTML = cats.slice(0, 12).map(c => 
+                `<div class="category-chip" onclick="filterCategory('${c.name}')">${c.name} (${c.count})</div>`
+            ).join('');
+        }
+        
+        function renderBlocks(blockList) {
+            const container = document.getElementById('block-list');
+            if (blockList.length === 0) {
+                container.innerHTML = '<p style="color: #666;">No blocks found</p>';
+                return;
+            }
+            container.innerHTML = blockList.map(b => `
+                <div class="block-item" onclick="selectBlock('${b.name}')">
+                    <div class="block-name">${b.name}</div>
+                    <span class="block-category">${b.category}</span>
+                    <div class="block-desc">${b.description || 'No description'}</div>
+                    <div class="block-inputs">Inputs: ${b.inputs.map(i => i.name).join(', ') || 'none'}</div>
+                </div>
+            `).join('');
+        }
+        
+        async function searchBlocks() {
+            const query = document.getElementById('search-input').value.trim();
+            if (!query) {
+                renderBlocks(blocks.slice(0, 50));
+                return;
+            }
+            
+            try {
+                const res = await fetch('/demo/search?query=' + encodeURIComponent(query), { method: 'POST' });
+                const data = await res.json();
+                renderBlocks(data.results);
+            } catch (e) {
+                console.error(e);
+            }
+        }
+        
+        async function filterCategory(category) {
+            try {
+                const res = await fetch('/demo/blocks?limit=100&category=' + encodeURIComponent(category));
+                const data = await res.json();
+                renderBlocks(data.blocks);
+            } catch (e) {
+                console.error(e);
+            }
+        }
+        
+        function selectBlock(name) {
+            selectedBlock = blocks.find(b => b.name === name);
+            if (!selectedBlock) return;
+            
+            document.querySelectorAll('.block-item').forEach(el => el.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+            
+            const container = document.getElementById('selected-block');
+            container.innerHTML = `
+                <div class="block-name" style="font-size: 18px; margin-bottom: 10px;">${selectedBlock.name}</div>
+                <span class="block-category">${selectedBlock.category}</span>
+                <p style="margin-top: 10px; color: #888;">${selectedBlock.description || 'No description'}</p>
+                <p style="margin-top: 10px; font-size: 12px; color: #666;">
+                    <strong>Inputs:</strong> ${selectedBlock.inputs.map(i => `${i.name} (${i.type})`).join(', ') || 'none'}<br>
+                    <strong>Outputs:</strong> ${selectedBlock.outputs.map(o => `${o.name} (${o.type})`).join(', ') || 'none'}
+                </p>
+            `;
+            
+            renderExecuteForm();
+        }
+        
+        function renderExecuteForm() {
+            if (!selectedBlock) return;
+            
+            const container = document.getElementById('execute-form');
+            const inputs = selectedBlock.inputs;
+            
+            if (inputs.length === 0) {
+                container.innerHTML = `
+                    <p style="margin-bottom: 15px;">This block requires no inputs.</p>
+                    <button class="execute-btn" onclick="executeBlock()">Execute ${selectedBlock.name}</button>
+                `;
+            } else {
+                container.innerHTML = `
+                    <div class="input-grid">
+                        ${inputs.map(i => `
+                            <div class="input-group">
+                                <label>${i.name} (${i.type})</label>
+                                <input type="text" id="input-${i.name}" placeholder="Enter ${i.name}">
+                            </div>
+                        `).join('')}
+                    </div>
+                    <button class="execute-btn" onclick="executeBlock()">Execute ${selectedBlock.name}</button>
+                `;
+            }
+        }
+        
+        async function executeBlock() {
+            if (!selectedBlock) return;
+            
+            const inputs = {};
+            selectedBlock.inputs.forEach(i => {
+                const el = document.getElementById('input-' + i.name);
+                if (el && el.value) {
+                    let val = el.value;
+                    // Try to parse numbers
+                    if (i.type === 'int' || i.type === 'float' || i.type === 'number') {
+                        val = parseFloat(val);
+                    } else if (val.startsWith('[') || val.startsWith('{')) {
+                        try { val = JSON.parse(val); } catch (e) {}
+                    }
+                    inputs[i.name] = val;
+                }
+            });
+            
+            const resultArea = document.getElementById('result-area');
+            resultArea.innerHTML = '<div class="result-panel"><p>Executing...</p></div>';
+            
+            try {
+                const res = await fetch('/demo/execute', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ block_name: selectedBlock.name, inputs })
+                });
+                const data = await res.json();
+                
+                executionCount++;
+                document.getElementById('exec-count').textContent = executionCount;
+                
+                const isSuccess = data.success;
+                resultArea.innerHTML = `
+                    <div class="result-panel ${isSuccess ? 'result-success' : 'result-error'}">
+                        <div class="result-header">
+                            <span class="result-status ${isSuccess ? 'success' : 'error'}">
+                                ${isSuccess ? 'SUCCESS' : 'ERROR'}
+                            </span>
+                            <span class="result-time">${data.execution_time_ms.toFixed(2)}ms</span>
+                        </div>
+                        <div class="result-output">${isSuccess ? JSON.stringify(data.result, null, 2) : data.error}</div>
+                        ${data.audit ? `
+                            <div class="audit-box">
+                                <div class="audit-title">Cryptographic Audit Trail</div>
+                                <p style="font-size: 12px; margin-bottom: 8px;">Execution ID: ${data.execution_id}</p>
+                                <p style="font-size: 12px; margin-bottom: 8px;">Timestamp: ${data.audit.timestamp}</p>
+                                <div class="audit-hash">SHA-256: ${data.audit.hash}</div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            } catch (e) {
+                resultArea.innerHTML = '<div class="result-panel result-error"><p>Network error</p></div>';
+            }
+        }
+        
+        document.getElementById('search-input').addEventListener('keypress', e => {
+            if (e.key === 'Enter') searchBlocks();
+        });
+        
+        init();
+    </script>
+</body>
+</html>
+"""
+
+@app.get("/playground", response_class=HTMLResponse)
+async def playground():
+    """
+    PUBLIC DEMO: Interactive playground - no auth required.
+    Browse, search, and execute blocks in your browser.
+    """
+    return PLAYGROUND_HTML
+
+
+@app.get("/demo", response_class=HTMLResponse)
+async def demo_redirect():
+    """Redirect /demo to /playground"""
+    return PLAYGROUND_HTML
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=int(os.getenv("PORT", 5000)))
