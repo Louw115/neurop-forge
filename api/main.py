@@ -511,10 +511,27 @@ async def search(request: SearchRequest, api_key: str = Depends(get_api_key)):
                     score += 0.5
             
             if score > 0:
+                category = block.metadata.category.lower() if block.metadata.category else "utility"
+                operation_map = {
+                    "validation": "validate",
+                    "arithmetic": "calculate",
+                    "string": "transform",
+                    "collection": "transform",
+                    "filtering": "filter",
+                    "transformation": "transform",
+                    "sorting": "sort",
+                    "aggregation": "aggregate",
+                    "comparison": "compare",
+                    "encoding": "encode",
+                    "hashing": "hash",
+                }
+                operation = operation_map.get(category, "transform")
+                
                 scored_blocks.append({
                     "name": block.metadata.name,
                     "description": block.metadata.description,
                     "category": block.metadata.category,
+                    "operation": operation,
                     "inputs": [p.name for p in block.interface.inputs],
                     "score": score,
                 })
@@ -527,7 +544,7 @@ async def search(request: SearchRequest, api_key: str = Depends(get_api_key)):
             blocks.append({
                 "name": b["name"],
                 "domain": b["category"],
-                "operation": "execute",
+                "operation": b["operation"],
                 "why_selected": f"Matches query (score: {b['score']:.1f})",
             })
         
