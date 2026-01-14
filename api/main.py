@@ -2042,9 +2042,9 @@ PLAYGROUND_HTML = """
         .command { color: #cccccc; }
         .comment { color: #cccccc; }
         .output { color: #cccccc; }
-        .success { color: #cccccc; }
-        .error { color: #cccccc; }
-        .dim { color: #cccccc; }
+        .success { color: #00ff00; }
+        .error { color: #ff0000; }
+        .dim { color: #888888; }
         .bold { color: #cccccc; }
         .spacer { margin-bottom: 14px; }
     </style>
