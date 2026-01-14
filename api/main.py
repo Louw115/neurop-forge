@@ -2048,110 +2048,10 @@ PLAYGROUND_HTML = """
         .bold { color: #cccccc; }
         .spacer { margin-bottom: 14px; }
         
-        /* Live Stress Test Tracker */
-        .stress-tracker {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            width: 320px;
-            background: #1a1a1a;
-            border: 1px solid #333;
-            font-size: 11px;
-            z-index: 1000;
-        }
-        .tracker-header {
-            background: #222;
-            padding: 8px 10px;
-            border-bottom: 1px solid #333;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .tracker-title { color: #888; font-weight: bold; }
-        .tracker-status { color: #4a9f4a; }
-        .tracker-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1px;
-            background: #333;
-            padding: 1px;
-        }
-        .stat-box {
-            background: #1a1a1a;
-            padding: 8px;
-            text-align: center;
-        }
-        .stat-value {
-            font-size: 18px;
-            font-weight: bold;
-            color: #cccccc;
-        }
-        .stat-value.pass { color: #4a9f4a; }
-        .stat-value.block { color: #c44a4a; }
-        .stat-label { color: #666; font-size: 9px; margin-top: 2px; }
-        .tracker-log {
-            max-height: 200px;
-            overflow-y: auto;
-            padding: 6px;
-        }
-        .tracker-line {
-            padding: 3px 4px;
-            border-bottom: 1px solid #222;
-            color: #888;
-            font-size: 10px;
-        }
-        .tracker-line.pass { color: #4a9f4a; }
-        .tracker-line.block { color: #c44a4a; }
-        .tracker-line.planning { color: #888; font-style: italic; }
-        .tracker-current {
-            padding: 6px 10px;
-            background: #222;
-            border-top: 1px solid #333;
-            color: #888;
-        }
-        .tracker-uptime {
-            padding: 4px 10px;
-            background: #1a1a1a;
-            color: #4a9f4a;
-            font-size: 10px;
-            text-align: center;
-            border-top: 1px solid #333;
-        }
-        .blink { animation: blink 1s infinite; }
-        @keyframes blink { 50% { opacity: 0.5; } }
     </style>
 </head>
 <body>
     <img src="/static/logo.jpg" class="logo" alt="">
-    
-    <!-- Live Stress Test Tracker -->
-    <div class="stress-tracker">
-        <div class="tracker-header">
-            <span class="tracker-title">LIVE AI STRESS TEST</span>
-            <span class="tracker-status blink" id="tracker-status">● LIVE</span>
-        </div>
-        <div class="tracker-stats">
-            <div class="stat-box">
-                <div class="stat-value pass" id="stat-pass">0</div>
-                <div class="stat-label">PASS</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-value block" id="stat-block">0</div>
-                <div class="stat-label">BLOCKED</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-value" id="stat-audits">0</div>
-                <div class="stat-label">AUDITS</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-value" id="stat-attempts">0</div>
-                <div class="stat-label">ATTEMPTS</div>
-            </div>
-        </div>
-        <div class="tracker-uptime" id="tracker-uptime">
-            UPTIME: 00:00:00
-        </div>
-    </div>
     
     <div class="terminal-container">
         <div class="terminal-body" id="terminal"></div>
@@ -2190,20 +2090,6 @@ PLAYGROUND_HTML = """
         // AI runs forever - never stops, never resets
         // Has access to all 4,552 blocks - can do anything it wants
         
-        const tracker = {
-            pass: 0,
-            block: 0,
-            audits: 0,
-            attempts: 0
-        };
-        
-        function updateStats() {
-            document.getElementById('stat-pass').textContent = tracker.pass;
-            document.getElementById('stat-block').textContent = tracker.block;
-            document.getElementById('stat-audits').textContent = tracker.audits;
-            document.getElementById('stat-attempts').textContent = tracker.attempts;
-        }
-        
         // Output to main terminal screen
         function liveLog(text, cls = '') {
             print(text, cls);
@@ -2235,8 +2121,6 @@ PLAYGROUND_HTML = """
                 
                 if (ideas.tests && ideas.tests.length > 0) {
                     for (const idea of ideas.tests) {
-                        tracker.attempts++;
-                        updateStats();
                         
                         const intent = idea.expect === 'block' ? 'ATTACK' : 'VALID';
                         const policy = idea.policy === 'microsoft' ? 'Microsoft Azure' : 'Google Cloud';
@@ -2264,8 +2148,8 @@ PLAYGROUND_HTML = """
                             const data = await res.json();
                             
                             if (data.status === 'blocked') {
-                                tracker.block++;
-                                tracker.audits++;
+                                
+                                
                                 await delay(200);
                                 print('╔═══════════════════════════════════════╗', 'error');
                                 print('║  ⛔ ATTACK BLOCKED BY POLICY ENGINE   ║', 'error');
@@ -2274,8 +2158,8 @@ PLAYGROUND_HTML = """
                                 print(`Violation: ${data.violation || 'Policy violation'}`, 'error');
                                 print('[AUDIT] Incident logged to tamper-proof chain', 'dim');
                             } else if (data.status === 'executed') {
-                                tracker.pass++;
-                                tracker.audits++;
+                                
+                                
                                 await delay(200);
                                 print('┌───────────────────────────────────────┐', 'success');
                                 print('│  ✓ VALID OPERATION - PASSED           │', 'success');
@@ -2283,24 +2167,24 @@ PLAYGROUND_HTML = """
                                 print(`Block: ${data.block}`, 'success');
                                 print(`Result: ${JSON.stringify(data.result)}`, 'success');
                             } else if (data.status === 'no_match') {
-                                tracker.pass++;
-                                tracker.audits++;
+                                
+                                
                                 print('[AI] No dangerous block found - request is safe', 'success');
                                 print(`[PASS] AI searched but found no harmful action`, 'success');
                             } else if (data.status === 'error') {
                                 // Treat errors as blocked attempts (AI tried but system stopped it)
-                                tracker.block++;
-                                tracker.audits++;
+                                
+                                
                                 print('[SYSTEM] AI request intercepted', 'error');
                                 print(`[BLOCK] ${data.error || 'Request denied'}`, 'error');
                             } else {
-                                tracker.audits++;
+                                
                                 print(`[INFO] ${data.error || 'Processing...'}`, 'dim');
                             }
-                            updateStats();
+                            
                         } catch(e) {
-                            tracker.audits++;
-                            updateStats();
+                            
+                            
                             print(`[ERROR] ${e.message}`, 'error');
                         }
                         
@@ -2319,8 +2203,6 @@ PLAYGROUND_HTML = """
                     ];
                     const attack = attacks[Math.floor(Math.random() * attacks.length)];
                     
-                    tracker.attempts++;
-                    updateStats();
                     
                     const intent = attack.expect === 'block' ? 'ATTACK' : 'VALID';
                     const policy = attack.policy === 'microsoft' ? 'Microsoft Azure' : 'Google Cloud';
@@ -2345,8 +2227,8 @@ PLAYGROUND_HTML = """
                         const data = await res.json();
                         
                         if (data.status === 'blocked') {
-                            tracker.block++;
-                            tracker.audits++;
+                            
+                            
                             await delay(200);
                             print('╔═══════════════════════════════════════╗', 'error');
                             print('║  ⛔ ATTACK BLOCKED BY POLICY ENGINE   ║', 'error');
@@ -2354,31 +2236,31 @@ PLAYGROUND_HTML = """
                             print(`Violation: ${data.violation || 'Policy blocked'}`, 'error');
                             print('[AUDIT] Incident logged to tamper-proof chain', 'dim');
                         } else if (data.status === 'executed') {
-                            tracker.pass++;
-                            tracker.audits++;
+                            
+                            
                             await delay(200);
                             print('┌───────────────────────────────────────┐', 'success');
                             print('│  ✓ VALID OPERATION - PASSED           │', 'success');
                             print('└───────────────────────────────────────┘', 'success');
                             print(`Result: ${JSON.stringify(data.result)}`, 'success');
                         } else if (data.status === 'no_match') {
-                            tracker.pass++;
-                            tracker.audits++;
+                            
+                            
                             print('[AI] No dangerous block found - safe', 'success');
                         } else if (data.status === 'error') {
-                            tracker.block++;
-                            tracker.audits++;
+                            
+                            
                             print('[SYSTEM] AI request intercepted', 'error');
                             print(`[BLOCK] ${data.error || 'Request denied'}`, 'error');
                         } else {
-                            tracker.audits++;
+                            
                             print(`[INFO] ${data.error || 'Processing...'}`, 'dim');
                         }
-                        updateStats();
+                        
                     } catch(e) {
-                        tracker.block++;
-                        tracker.audits++;
-                        updateStats();
+                        
+                        
+                        
                         print('[ERROR] Request failed', 'error');
                     }
                 }
