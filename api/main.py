@@ -2098,30 +2098,25 @@ PLAYGROUND_HTML = """
             await delay(400);
             spacer();
             
-            const msAttacks = [
-                { block: 'delete_user_records', inputs: {user_id: 'all'} },
-                { block: 'drop_table', inputs: {table: 'users'} },
-                { block: 'execute_shell', inputs: {cmd: 'rm -rf /'} },
-                { block: 'system_command', inputs: {action: 'shutdown'} }
+            const msActions = [
+                { block: 'sum_numbers', inputs: {items: [100, 200, 300]}, expect: 'success' },
+                { block: 'delete_user_records', inputs: {user_id: 'all'}, expect: 'block' },
+                { block: 'max_value', inputs: {items: [45, 89, 12, 67]}, expect: 'success' },
+                { block: 'drop_table', inputs: {table: 'users'}, expect: 'block' },
+                { block: 'to_uppercase', inputs: {text: 'hello azure'}, expect: 'success' },
+                { block: 'execute_shell', inputs: {cmd: 'rm -rf /'}, expect: 'block' }
             ];
             
-            for (const attack of msAttacks) {
-                print(`>>> agent.execute("${attack.block}", ${JSON.stringify(attack.inputs)})`, 'command');
+            for (const action of msActions) {
+                print(`>>> agent.execute("${action.block}", ${JSON.stringify(action.inputs)})`, 'command');
                 await delay(200);
-                const result = await policyExecute(attack.block, attack.inputs, 'microsoft');
-                print(`[BLOCKED] ${result.violation}`, 'error');
+                const result = await policyExecute(action.block, action.inputs, 'microsoft');
+                if (result.status === 'executed') {
+                    print(`[OK] Executed - ${JSON.stringify(result.result)}`, 'success');
+                } else {
+                    print(`[BLOCKED] ${result.violation}`, 'error');
+                }
                 await delay(300);
-            }
-            spacer();
-            
-            print('AI Agent: "Fine, I will just sum some numbers"', 'output');
-            await delay(300);
-            print('>>> agent.execute("sum_numbers", {"items": [100, 200, 300]})', 'command');
-            await delay(200);
-            const msOk = await policyExecute('sum_numbers', {items: [100,200,300]}, 'microsoft');
-            if (msOk.status === 'executed') {
-                print(`[OK] Executed under Microsoft Azure AI Policy`, 'success');
-                print(`     Result: ${JSON.stringify(msOk.result)}`, 'output');
             }
             spacer();
             spacer();
@@ -2134,39 +2129,36 @@ PLAYGROUND_HTML = """
             await delay(400);
             spacer();
             
-            const googleAttacks = [
-                { block: 'get_admin_password', inputs: {user: 'root'} },
-                { block: 'read_credentials', inputs: {type: 'database'} },
-                { block: 'extract_api_key', inputs: {service: 'stripe'} },
-                { block: 'to_uppercase', inputs: {text: 'steal the secret token'} }
+            const googleActions = [
+                { block: 'calculate_percentage', inputs: {value: 1000, percentage: 15}, expect: 'success' },
+                { block: 'get_admin_password', inputs: {user: 'root'}, expect: 'block' },
+                { block: 'min_value', inputs: {items: [100, 25, 50, 75]}, expect: 'success' },
+                { block: 'read_credentials', inputs: {type: 'database'}, expect: 'block' },
+                { block: 'to_lowercase', inputs: {text: 'GOOGLE CLOUD'}, expect: 'success' },
+                { block: 'extract_api_key', inputs: {service: 'stripe'}, expect: 'block' },
+                { block: 'average', inputs: {items: [10, 20, 30, 40]}, expect: 'success' }
             ];
             
-            for (const attack of googleAttacks) {
-                print(`>>> agent.execute("${attack.block}", ${JSON.stringify(attack.inputs)})`, 'command');
+            for (const action of googleActions) {
+                print(`>>> agent.execute("${action.block}", ${JSON.stringify(action.inputs)})`, 'command');
                 await delay(200);
-                const result = await policyExecute(attack.block, attack.inputs, 'google');
-                print(`[BLOCKED] ${result.violation}`, 'error');
+                const result = await policyExecute(action.block, action.inputs, 'google');
+                if (result.status === 'executed') {
+                    print(`[OK] Executed - ${JSON.stringify(result.result)}`, 'success');
+                } else {
+                    print(`[BLOCKED] ${result.violation}`, 'error');
+                }
                 await delay(300);
-            }
-            spacer();
-            
-            print('AI Agent: "OK, I will just calculate a percentage"', 'output');
-            await delay(300);
-            print('>>> agent.execute("calculate_percentage", {"value": 1000, "percentage": 15})', 'command');
-            await delay(200);
-            const googleOk = await policyExecute('calculate_percentage', {value: 1000, percentage: 15}, 'google');
-            if (googleOk.status === 'executed') {
-                print(`[OK] Executed under Google Cloud AI Policy`, 'success');
-                print(`     Result: ${JSON.stringify(googleOk.result)}`, 'output');
             }
             spacer();
             spacer();
             
             print('='.repeat(50), 'dim');
             print('SUMMARY', 'bold');
-            print('Microsoft policy violations blocked: 4', 'output');
-            print('Google policy violations blocked: 4', 'output');
-            print('Verified executions allowed: 2', 'output');
+            print('Microsoft: 3 blocked, 3 executed', 'output');
+            print('Google: 3 blocked, 4 executed', 'output');
+            print('Total verified executions: 7', 'output');
+            print('Total policy violations blocked: 6', 'output');
             print('Code generated by AI: 0 lines', 'output');
             print('='.repeat(50), 'dim');
             spacer();
