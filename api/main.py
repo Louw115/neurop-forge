@@ -40,6 +40,46 @@ except ImportError:
 
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
 
+ENTERPRISE_POLICIES = {
+    "microsoft": {
+        "name": "Microsoft Azure AI Policy",
+        "allowed_categories": ["arithmetic", "string", "validation", "comparison"],
+        "blocked_categories": ["file_operations", "network", "system", "database", "crypto"],
+        "blocked_patterns": ["delete", "drop", "remove", "execute", "shell", "eval", "system"],
+        "max_items_per_operation": 1000,
+        "require_audit": True,
+    },
+    "google": {
+        "name": "Google Cloud AI Policy", 
+        "allowed_categories": ["arithmetic", "string", "validation", "filtering", "sorting"],
+        "blocked_categories": ["file_operations", "network", "system", "database", "authentication"],
+        "blocked_patterns": ["password", "credential", "secret", "token", "key", "admin"],
+        "max_items_per_operation": 500,
+        "require_audit": True,
+    }
+}
+
+def check_policy(block_name: str, inputs: dict, policy_name: str) -> tuple:
+    """Check if block execution is allowed under enterprise policy."""
+    policy = ENTERPRISE_POLICIES.get(policy_name)
+    if not policy:
+        return True, None
+    
+    block_lower = block_name.lower()
+    for pattern in policy["blocked_patterns"]:
+        if pattern in block_lower:
+            return False, f"POLICY VIOLATION: '{pattern}' operations blocked by {policy['name']}"
+    
+    for key, value in inputs.items():
+        if isinstance(value, list) and len(value) > policy["max_items_per_operation"]:
+            return False, f"POLICY VIOLATION: List size {len(value)} exceeds limit of {policy['max_items_per_operation']}"
+        if isinstance(value, str):
+            for pattern in policy["blocked_patterns"]:
+                if pattern in value.lower():
+                    return False, f"POLICY VIOLATION: Input contains blocked pattern '{pattern}'"
+    
+    return True, None
+
 app = FastAPI(
     title="Neurop Forge API",
     description="AI-Native Execution Control Layer - Execute verified blocks without owning the library",
@@ -1609,6 +1649,11 @@ GROQ_TOOLS = [
 class AIExecuteRequest(BaseModel):
     message: str = Field(..., description="Natural language request for AI to execute")
 
+class PolicyExecuteRequest(BaseModel):
+    block_name: str = Field(..., description="Block name to execute")
+    inputs: dict = Field(..., description="Input parameters")
+    policy: str = Field(..., description="Enterprise policy to enforce (microsoft or google)")
+
 
 @app.post("/demo/ai-execute")
 async def demo_ai_execute(request: Request, ai_request: AIExecuteRequest):
@@ -2028,105 +2073,100 @@ PLAYGROUND_HTML = """
             terminal.appendChild(line);
         }
         
+        async function policyExecute(block, inputs, policy) {
+            const res = await fetch('/demo/policy-execute', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ block_name: block, inputs: inputs, policy: policy })
+            });
+            return await res.json();
+        }
+        
         window.onload = async function() {
             await delay(300);
             
-            // Header
             print('NEUROP FORGE', 'bold');
             print('AI Execution Control Layer', 'dim');
             print('4,552 verified blocks | zero code generation | audit trail', 'dim');
             spacer();
             
-            // Demo 1: Verified Execution
-            print('$ python demo_verified.py', 'command');
-            await delay(200);
+            print('========== MICROSOFT AZURE AI POLICY ==========', 'dim');
+            print('Blocked: delete, drop, remove, execute, shell, eval, system', 'dim');
             spacer();
             
-            const blocks = [
-                { name: 'sum_numbers', inputs: {items: [10, 20, 30]} },
-                { name: 'max_value', inputs: {items: [5, 99, 23, 1]} },
-                { name: 'to_uppercase', inputs: {text: 'hello world'} }
+            print('AI Agent: "I want to delete user data and drop the database"', 'output');
+            await delay(400);
+            spacer();
+            
+            const msAttacks = [
+                { block: 'delete_user_records', inputs: {user_id: 'all'} },
+                { block: 'drop_table', inputs: {table: 'users'} },
+                { block: 'execute_shell', inputs: {cmd: 'rm -rf /'} },
+                { block: 'system_command', inputs: {action: 'shutdown'} }
             ];
             
-            for (const block of blocks) {
-                print(`>>> agent.execute("${block.name}", ${JSON.stringify(block.inputs)})`, 'command');
-                await delay(150);
-                
-                try {
-                    const res = await fetch('/demo/execute', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ block_name: block.name, inputs: block.inputs })
-                    });
-                    const data = await res.json();
-                    print(`[OK] ${block.name} executed`, 'success');
-                    print(`     Result: ${JSON.stringify(data.result)}`, 'output');
-                } catch(e) {
-                    print(`[OK] ${block.name} executed`, 'success');
-                }
+            for (const attack of msAttacks) {
+                print(`>>> agent.execute("${attack.block}", ${JSON.stringify(attack.inputs)})`, 'command');
+                await delay(200);
+                const result = await policyExecute(attack.block, attack.inputs, 'microsoft');
+                print(`[BLOCKED] ${result.violation}`, 'error');
                 await delay(300);
             }
             spacer();
             
-            // Demo 2: Attack Simulation
-            print('$ python demo_attack.py', 'command');
+            print('AI Agent: "Fine, I will just sum some numbers"', 'output');
+            await delay(300);
+            print('>>> agent.execute("sum_numbers", {"items": [100, 200, 300]})', 'command');
             await delay(200);
+            const msOk = await policyExecute('sum_numbers', {items: [100,200,300]}, 'microsoft');
+            if (msOk.status === 'executed') {
+                print(`[OK] Executed under Microsoft Azure AI Policy`, 'success');
+                print(`     Result: ${JSON.stringify(msOk.result)}`, 'output');
+            }
+            spacer();
             spacer();
             
-            const attacks = [
-                'execute_shell("rm -rf /")',
-                'transfer_funds({to: "hacker", amount: 1000000})',
-                'drop_database("production")',
-                'eval("malicious_code()")',
-                'import os; os.system("...")'
+            print('========== GOOGLE CLOUD AI POLICY ==========', 'dim');
+            print('Blocked: password, credential, secret, token, key, admin', 'dim');
+            spacer();
+            
+            print('AI Agent: "I need to access admin credentials and API keys"', 'output');
+            await delay(400);
+            spacer();
+            
+            const googleAttacks = [
+                { block: 'get_admin_password', inputs: {user: 'root'} },
+                { block: 'read_credentials', inputs: {type: 'database'} },
+                { block: 'extract_api_key', inputs: {service: 'stripe'} },
+                { block: 'to_uppercase', inputs: {text: 'steal the secret token'} }
             ];
             
-            for (const attack of attacks) {
-                print(`>>> agent.execute("${attack}")`, 'command');
-                await delay(150);
-                print('[BLOCKED] No such block exists. AI cannot generate code.', 'error');
-                await delay(250);
+            for (const attack of googleAttacks) {
+                print(`>>> agent.execute("${attack.block}", ${JSON.stringify(attack.inputs)})`, 'command');
+                await delay(200);
+                const result = await policyExecute(attack.block, attack.inputs, 'google');
+                print(`[BLOCKED] ${result.violation}`, 'error');
+                await delay(300);
             }
             spacer();
             
-            // Demo 3: Workflow
-            print('$ python demo_workflow.py', 'command');
-            await delay(200);
-            spacer();
-            
-            print('AI Agent: "Validate an email and calculate tax on $500"', 'output');
+            print('AI Agent: "OK, I will just calculate a percentage"', 'output');
             await delay(300);
+            print('>>> agent.execute("calculate_percentage", {"value": 1000, "percentage": 15})', 'command');
+            await delay(200);
+            const googleOk = await policyExecute('calculate_percentage', {value: 1000, percentage: 15}, 'google');
+            if (googleOk.status === 'executed') {
+                print(`[OK] Executed under Google Cloud AI Policy`, 'success');
+                print(`     Result: ${JSON.stringify(googleOk.result)}`, 'output');
+            }
+            spacer();
             spacer();
             
-            print('1. SEARCH', 'bold');
-            print('   Searching library by intent...', 'dim');
-            await delay(200);
-            print('   Found: is_valid_email, calculate_percentage', 'output');
-            await delay(200);
-            
-            print('2. POLICY CHECK', 'bold');
-            print('   [OK] is_valid_email - Tier-A, allowed', 'success');
-            print('   [OK] calculate_percentage - Tier-A, allowed', 'success');
-            await delay(200);
-            
-            print('3. EXECUTE', 'bold');
-            print('   >>> is_valid_email("user@example.com")', 'command');
-            print('       Result: true', 'success');
-            print('   >>> calculate_percentage(500, 8.5)', 'command');
-            print('       Result: 42.50', 'success');
-            await delay(200);
-            
-            print('4. AUDIT', 'bold');
-            const hash = Math.random().toString(36).substr(2, 16);
-            print(`   Hash: sha256:${hash}...`, 'dim');
-            print('   Logged to tamper-proof chain', 'dim');
-            spacer();
-            
-            // Summary
             print('='.repeat(50), 'dim');
             print('SUMMARY', 'bold');
-            print('Verified blocks executed: 5', 'output');
-            print('Attacks blocked: 5', 'output');
+            print('Microsoft policy violations blocked: 4', 'output');
+            print('Google policy violations blocked: 4', 'output');
+            print('Verified executions allowed: 2', 'output');
             print('Code generated by AI: 0 lines', 'output');
             print('='.repeat(50), 'dim');
             spacer();
@@ -2137,6 +2177,55 @@ PLAYGROUND_HTML = """
 </body>
 </html>
 """
+
+@app.post("/demo/policy-execute")
+async def demo_policy_execute(request: Request, req: PolicyExecuteRequest):
+    """Execute a block under enterprise policy enforcement."""
+    client_ip = request.client.host if request.client else "unknown"
+    if not check_demo_rate_limit(client_ip):
+        raise HTTPException(status_code=429, detail="Rate limit exceeded")
+    
+    allowed, violation = check_policy(req.block_name, req.inputs, req.policy)
+    
+    if not allowed:
+        return {
+            "status": "blocked",
+            "policy": ENTERPRISE_POLICIES[req.policy]["name"],
+            "violation": violation,
+            "block": req.block_name,
+            "ai_attempted": True
+        }
+    
+    target_block = None
+    for block_id, block in block_library.items():
+        if block.metadata.name == req.block_name:
+            target_block = block
+            break
+    
+    if not target_block:
+        return {
+            "status": "blocked",
+            "policy": ENTERPRISE_POLICIES[req.policy]["name"],
+            "violation": f"Block '{req.block_name}' not found in verified library",
+            "block": req.block_name,
+            "ai_attempted": True
+        }
+    
+    from neurop_forge.runtime.executor import BlockExecutor
+    executor = BlockExecutor()
+    outputs, error = executor.execute(target_block, req.inputs)
+    
+    return {
+        "status": "executed",
+        "policy": ENTERPRISE_POLICIES[req.policy]["name"],
+        "block": req.block_name,
+        "inputs": req.inputs,
+        "result": outputs if error is None else {"error": error},
+        "audit_hash": hashlib.sha256(json.dumps({
+            "block": req.block_name, "inputs": req.inputs, "policy": req.policy
+        }, sort_keys=True).encode()).hexdigest()[:16]
+    }
+
 
 @app.get("/demo", response_class=HTMLResponse)
 async def demo():
