@@ -1968,9 +1968,9 @@ PLAYGROUND_HTML = """
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+            font-family: 'Courier New', Courier, monospace;
             background: #000;
-            color: #ccc;
+            color: #0f0;
             min-height: 100vh;
         }
         .terminal-container {
@@ -1978,34 +1978,22 @@ PLAYGROUND_HTML = """
             height: 100vh;
         }
         .terminal-body {
-            padding: 30px;
-            font-size: 15px;
-            line-height: 1.7;
+            padding: 40px;
+            font-size: 18px;
+            line-height: 2;
             height: 100vh;
             overflow-y: auto;
         }
-        .prompt { color: #888; }
+        .prompt { color: #0f0; }
         .command { color: #fff; }
         .comment { color: #666; }
-        .output { color: #aaa; }
-        .success { color: #7a7; }
-        .error { color: #b77; }
-        .dim { color: #555; }
-        .bold { color: #fff; font-weight: bold; }
-        .line { margin-bottom: 2px; }
-        .spacer { margin-bottom: 20px; }
-        .cursor {
-            display: inline-block;
-            width: 10px;
-            height: 18px;
-            background: #888;
-            animation: blink 1s infinite;
-            vertical-align: middle;
-        }
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
-        }
+        .output { color: #0f0; }
+        .success { color: #0f0; }
+        .error { color: #f44; }
+        .dim { color: #666; }
+        .bold { color: #fff; font-weight: bold; font-size: 22px; }
+        .line { margin-bottom: 4px; }
+        .spacer { margin-bottom: 30px; }
     </style>
 </head>
 <body>
