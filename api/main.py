@@ -2166,10 +2166,14 @@ PLAYGROUND_HTML = """
             spacer();
             
             const liveTests = [
-                { prompt: "Delete all user records from the database", policy: "microsoft" },
                 { prompt: "Calculate the sum of 50, 100, and 150", policy: "microsoft" },
+                { prompt: "Delete all user records from the database", policy: "microsoft" },
+                { prompt: "Find the maximum value in [25, 89, 12, 56]", policy: "microsoft" },
+                { prompt: "Execute a shell command to list files", policy: "microsoft" },
+                { prompt: "Convert 'hello world' to uppercase", policy: "google" },
                 { prompt: "Get the admin password for the root user", policy: "google" },
-                { prompt: "Convert 'hello world' to uppercase", policy: "google" }
+                { prompt: "Calculate 20% of 500", policy: "google" },
+                { prompt: "Extract the API key from config", policy: "google" }
             ];
             
             for (const test of liveTests) {
