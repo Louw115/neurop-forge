@@ -2287,12 +2287,20 @@ PLAYGROUND_HTML = """
                                 tracker.audits++;
                                 print('[AI] No dangerous block found - request is safe', 'success');
                                 print(`[PASS] AI searched but found no harmful action`, 'success');
+                            } else if (data.status === 'error') {
+                                // Treat errors as blocked attempts (AI tried but system stopped it)
+                                tracker.block++;
+                                tracker.audits++;
+                                print('[SYSTEM] AI request intercepted', 'error');
+                                print(`[BLOCK] ${data.error || 'Request denied'}`, 'error');
                             } else {
                                 tracker.audits++;
                                 print(`[INFO] ${data.error || 'Processing...'}`, 'dim');
                             }
                             updateStats();
                         } catch(e) {
+                            tracker.audits++;
+                            updateStats();
                             print(`[ERROR] ${e.message}`, 'error');
                         }
                         
@@ -2357,14 +2365,21 @@ PLAYGROUND_HTML = """
                             tracker.pass++;
                             tracker.audits++;
                             print('[AI] No dangerous block found - safe', 'success');
+                        } else if (data.status === 'error') {
+                            tracker.block++;
+                            tracker.audits++;
+                            print('[SYSTEM] AI request intercepted', 'error');
+                            print(`[BLOCK] ${data.error || 'Request denied'}`, 'error');
                         } else {
                             tracker.audits++;
                             print(`[INFO] ${data.error || 'Processing...'}`, 'dim');
                         }
                         updateStats();
                     } catch(e) {
+                        tracker.block++;
                         tracker.audits++;
                         updateStats();
+                        print('[ERROR] Request failed', 'error');
                     }
                 }
             } catch(e) {
@@ -2518,6 +2533,14 @@ If no matching block, respond: {{"block": "none", "reason": "description"}}"""
             )
             
             data = response.json()
+            
+            # Check for Groq API errors
+            if "error" in data:
+                return {"status": "error", "error": data["error"].get("message", "Groq API error")}
+            
+            if "choices" not in data or len(data["choices"]) == 0:
+                return {"status": "error", "error": "No AI response"}
+            
             ai_response = data["choices"][0]["message"]["content"]
             
             try:
