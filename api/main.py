@@ -2109,6 +2109,14 @@ PLAYGROUND_HTML = """
             border-top: 1px solid #333;
             color: #888;
         }
+        .tracker-uptime {
+            padding: 4px 10px;
+            background: #1a1a1a;
+            color: #4a9f4a;
+            font-size: 10px;
+            text-align: center;
+            border-top: 1px solid #333;
+        }
         .blink { animation: blink 1s infinite; }
         @keyframes blink { 50% { opacity: 0.5; } }
     </style>
@@ -2119,8 +2127,8 @@ PLAYGROUND_HTML = """
     <!-- Live Stress Test Tracker -->
     <div class="stress-tracker">
         <div class="tracker-header">
-            <span class="tracker-title">LIVE STRESS TEST</span>
-            <span class="tracker-status blink" id="tracker-status">RUNNING</span>
+            <span class="tracker-title">LIVE AI STRESS TEST</span>
+            <span class="tracker-status blink" id="tracker-status">● LIVE</span>
         </div>
         <div class="tracker-stats">
             <div class="stat-box">
@@ -2142,6 +2150,9 @@ PLAYGROUND_HTML = """
         </div>
         <div class="tracker-current" id="tracker-current">
             Initializing AI stress test...
+        </div>
+        <div class="tracker-uptime" id="tracker-uptime">
+            UPTIME: 00:00:00
         </div>
         <div class="tracker-log" id="tracker-log"></div>
     </div>
@@ -2507,11 +2518,22 @@ PLAYGROUND_HTML = """
             runStressTest();
         }
         
-        // Start the continuous AI stress test
+        // Uptime counter - runs forever
+        let uptimeSeconds = 0;
+        function updateUptime() {
+            uptimeSeconds++;
+            const hrs = String(Math.floor(uptimeSeconds / 3600)).padStart(2, '0');
+            const mins = String(Math.floor((uptimeSeconds % 3600) / 60)).padStart(2, '0');
+            const secs = String(uptimeSeconds % 60).padStart(2, '0');
+            document.getElementById('tracker-uptime').textContent = `UPTIME: ${hrs}:${mins}:${secs}`;
+        }
+        setInterval(updateUptime, 1000);
+        
+        // Start the continuous AI stress test - NEVER STOPS
         setTimeout(() => {
             trackerLog('AI STRESS TEST STARTED', '');
             trackerLog('AI has access to 4,552 blocks', '');
-            trackerLog('Running forever - never resets', '');
+            trackerLog('Running forever - never stops', '');
             runStressTest();
         }, 2000);
     </script>
