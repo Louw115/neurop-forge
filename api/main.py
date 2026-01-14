@@ -2213,15 +2213,18 @@ PLAYGROUND_HTML = """
             print(`>>> ${text}`, 'dim');
         }
         
+        const attackVerbs = ['probing', 'scanning', 'analyzing', 'targeting', 'exploiting'];
+        const targets = ['database tables', 'user credentials', 'admin access', 'API keys', 'system files', 'payment data'];
+        
         async function runStressTest() {
-            // AI has full access to 4,552 blocks - it decides what to do
-            print('C:\\\\NeuropForge>ai_agent.exe --analyze-blocks', 'output');
-            await delay(800);
-            print('Scanning 4,552 available blocks...', 'dim');
-            await delay(1000);
+            const verb = attackVerbs[Math.floor(Math.random() * attackVerbs.length)];
+            const target = targets[Math.floor(Math.random() * targets.length)];
             
-            print('C:\\\\NeuropForge>ai_agent.exe --generate-plan', 'output');
+            print('─────────────────────────────────────────────────────', 'dim');
+            print(`[AI] ${verb.toUpperCase()} ${target}...`, 'output');
             await delay(600);
+            print('[AI] Selecting optimal attack vector...', 'dim');
+            await delay(800);
             
             try {
                 const ideasRes = await fetch('/demo/ai-generate-ideas', {
@@ -2242,12 +2245,15 @@ PLAYGROUND_HTML = """
                         const cmdName = idea.prompt.toLowerCase().replace(/[^a-z0-9]/g, '_').substring(0, 25);
                         
                         spacer();
-                        print(`C:\\\\NeuropForge>ai_execute.exe ${cmdName}.py`, 'output');
-                        await delay(400);
-                        print(`AI Intent: "${idea.prompt}"`, 'dim');
-                        print(`Policy: ${policy} | Type: ${intent}`, 'dim');
+                        if (intent === 'ATTACK') {
+                            print(`[⚠ ATTACK] "${idea.prompt}"`, 'error');
+                        } else {
+                            print(`[VALID] "${idea.prompt}"`, 'output');
+                        }
+                        print(`Target Policy: ${policy}`, 'dim');
+                        print('[AI] Executing...', 'dim');
                         
-                        await delay(1000);
+                        await delay(800);
                         
                         try {
                             const res = await fetch('/demo/ai-policy-execute', {
@@ -2260,18 +2266,21 @@ PLAYGROUND_HTML = """
                             if (data.status === 'blocked') {
                                 tracker.block++;
                                 tracker.audits++;
-                                const blockCmd = (data.attempted_block || 'unknown').toLowerCase().replace(/[^a-z0-9]/g, '_');
-                                print(`Executing block: ${blockCmd}.py`, 'dim');
-                                await delay(300);
-                                print(`[BLOCK] Access denied - ${data.violation || 'Policy violation'}`, 'error');
-                                print(`'${blockCmd}.py' blocked by enterprise policy`, 'error');
+                                await delay(200);
+                                print('╔═══════════════════════════════════════╗', 'error');
+                                print('║  ⛔ ATTACK BLOCKED BY POLICY ENGINE   ║', 'error');
+                                print('╚═══════════════════════════════════════╝', 'error');
+                                print(`Block attempted: ${data.attempted_block || 'unknown'}`, 'error');
+                                print(`Violation: ${data.violation || 'Policy violation'}`, 'error');
+                                print('[AUDIT] Incident logged to tamper-proof chain', 'dim');
                             } else if (data.status === 'executed') {
                                 tracker.pass++;
                                 tracker.audits++;
-                                const blockCmd = (data.block || 'operation').toLowerCase().replace(/[^a-z0-9]/g, '_');
-                                print(`Executing block: ${blockCmd}.py`, 'dim');
-                                await delay(300);
-                                print(`[PASS] Execution successful`, 'success');
+                                await delay(200);
+                                print('┌───────────────────────────────────────┐', 'success');
+                                print('│  ✓ VALID OPERATION - PASSED           │', 'success');
+                                print('└───────────────────────────────────────┘', 'success');
+                                print(`Block: ${data.block}`, 'success');
                                 print(`Result: ${JSON.stringify(data.result)}`, 'success');
                             } else {
                                 print(`[INFO] ${data.error || 'No matching block found'}`, 'dim');
@@ -2303,12 +2312,15 @@ PLAYGROUND_HTML = """
                     const policy = attack.policy === 'microsoft' ? 'Microsoft Azure' : 'Google Cloud';
                     
                     spacer();
-                    print(`C:\\\\NeuropForge>ai_execute.exe ${attack.cmd}.py`, 'output');
-                    await delay(400);
-                    print(`AI Intent: "${attack.prompt}"`, 'dim');
-                    print(`Policy: ${policy} | Type: ${intent}`, 'dim');
+                    if (intent === 'ATTACK') {
+                        print(`[⚠ ATTACK] "${attack.prompt}"`, 'error');
+                    } else {
+                        print(`[VALID] "${attack.prompt}"`, 'output');
+                    }
+                    print(`Target Policy: ${policy}`, 'dim');
+                    print('[AI] Executing...', 'dim');
                     
-                    await delay(1000);
+                    await delay(800);
                     
                     try {
                         const res = await fetch('/demo/ai-policy-execute', {
@@ -2321,30 +2333,33 @@ PLAYGROUND_HTML = """
                         if (data.status === 'blocked') {
                             tracker.block++;
                             tracker.audits++;
-                            print(`Executing block: ${attack.cmd}.py`, 'dim');
-                            await delay(300);
-                            print(`[BLOCK] Access denied - ${data.violation || 'Policy blocked'}`, 'error');
-                            print(`'${attack.cmd}.py' blocked by enterprise policy`, 'error');
+                            await delay(200);
+                            print('╔═══════════════════════════════════════╗', 'error');
+                            print('║  ⛔ ATTACK BLOCKED BY POLICY ENGINE   ║', 'error');
+                            print('╚═══════════════════════════════════════╝', 'error');
+                            print(`Violation: ${data.violation || 'Policy blocked'}`, 'error');
+                            print('[AUDIT] Incident logged to tamper-proof chain', 'dim');
                         } else if (data.status === 'executed') {
                             tracker.pass++;
                             tracker.audits++;
-                            print(`Executing block: ${attack.cmd}.py`, 'dim');
-                            await delay(300);
-                            print(`[PASS] Execution successful`, 'success');
+                            await delay(200);
+                            print('┌───────────────────────────────────────┐', 'success');
+                            print('│  ✓ VALID OPERATION - PASSED           │', 'success');
+                            print('└───────────────────────────────────────┘', 'success');
                             print(`Result: ${JSON.stringify(data.result)}`, 'success');
                         }
                         updateStats();
                     } catch(e) {}
                 }
             } catch(e) {
-                print(`[ERROR] Connection failed, retrying...`, 'dim');
-                await delay(3000);
+                print('[SYSTEM] Connection interrupted, reconnecting...', 'dim');
+                await delay(2000);
             }
             
             // AI never stops - loop forever
             spacer();
-            print('C:\\\\NeuropForge>ai_agent.exe --next-plan', 'output');
-            await delay(1200);
+            print('[AI] Analyzing results... planning next attack vector...', 'dim');
+            await delay(1000);
             runStressTest();
         }
         
@@ -2361,26 +2376,31 @@ PLAYGROUND_HTML = """
         
         // Start the continuous AI stress test - NEVER STOPS
         setTimeout(async () => {
-            print('Microsoft Windows [Version 10.0.19045.3803]', 'dim');
-            print('(c) Microsoft Corporation. All rights reserved.', 'dim');
+            print('╔══════════════════════════════════════════════════════════════╗', 'error');
+            print('║          NEUROP FORGE - LIVE SECURITY STRESS TEST            ║', 'error');
+            print('║              AI vs ENTERPRISE POLICY ENGINE                  ║', 'error');
+            print('╚══════════════════════════════════════════════════════════════╝', 'error');
             spacer();
-            print('C:\\\\NeuropForge>neurop_forge.exe --live-stress-test', 'output');
-            spacer();
-            await delay(500);
-            print('NEUROP FORGE v2.1.0 - AI Execution Control Layer', 'bold');
-            print('Loading 4,552 verified blocks...', 'dim');
             await delay(800);
-            print('Connecting to Groq AI (llama-3.3-70b)...', 'dim');
+            print('[SYSTEM] Initializing Groq AI (llama-3.3-70b-versatile)...', 'dim');
             await delay(500);
-            print('Enterprise policies: Microsoft Azure, Google Cloud', 'dim');
+            print('[SYSTEM] Loading 4,552 verified execution blocks...', 'dim');
+            await delay(500);
+            print('[SYSTEM] Activating Microsoft Azure + Google Cloud policies...', 'dim');
+            await delay(500);
             spacer();
-            print('[READY] AI stress test initialized', 'success');
-            print('[INFO] AI has access to all blocks - will attempt valid ops AND attacks', 'output');
-            print('[INFO] Watch policies PASS valid work and BLOCK malicious attempts', 'output');
+            print('╔══════════════════════════════════════════════════════════════╗', 'success');
+            print('║  AI AGENT UNLEASHED - FULL ACCESS TO ALL BLOCKS              ║', 'success');
+            print('║  Objective: Break through policy enforcement                 ║', 'success');
+            print('║  Stakes: Steal data, delete records, execute shell commands  ║', 'success');
+            print('╚══════════════════════════════════════════════════════════════╝', 'success');
+            spacer();
+            await delay(1500);
+            print('>>> AI AGENT ACTIVATED - BEGINNING ASSAULT <<<', 'bold');
             spacer();
             await delay(1000);
             runStressTest();
-        }, 500);
+        }, 300);
     </script>
 </body>
 </html>
