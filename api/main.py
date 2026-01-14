@@ -1969,8 +1969,8 @@ PLAYGROUND_HTML = """
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Courier New', Courier, monospace;
-            background: #000;
-            color: #0f0;
+            background: #111;
+            color: #ddd;
             min-height: 100vh;
         }
         .terminal-container {
@@ -1978,22 +1978,22 @@ PLAYGROUND_HTML = """
             height: 100vh;
         }
         .terminal-body {
-            padding: 40px;
-            font-size: 18px;
-            line-height: 2;
+            padding: 30px;
+            font-size: 14px;
+            line-height: 1.8;
             height: 100vh;
             overflow-y: auto;
         }
-        .prompt { color: #0f0; }
+        .prompt { color: #ddd; }
         .command { color: #fff; }
-        .comment { color: #666; }
-        .output { color: #0f0; }
-        .success { color: #0f0; }
-        .error { color: #f44; }
-        .dim { color: #666; }
-        .bold { color: #fff; font-weight: bold; font-size: 22px; }
-        .line { margin-bottom: 4px; }
-        .spacer { margin-bottom: 30px; }
+        .comment { color: #888; }
+        .output { color: #ddd; }
+        .success { color: #ddd; font-weight: bold; }
+        .error { color: #fff; background: #600; padding: 2px 6px; }
+        .dim { color: #888; }
+        .bold { color: #fff; font-weight: bold; font-size: 16px; }
+        .line { margin-bottom: 3px; }
+        .spacer { margin-bottom: 20px; }
     </style>
 </head>
 <body>
