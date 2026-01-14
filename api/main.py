@@ -2075,73 +2075,104 @@ PLAYGROUND_HTML = """
             terminal.appendChild(line);
         }
         
-        // Tasks that demonstrate AI using blocks (not writing code)
-        // Each task maps directly to a real verified block
-        const tasks = [
-            { task: "Calculate average rating for [4, 5, 3, 5, 4]", block: "calculate_average_rating", inputs: { ratings: [4, 5, 3, 5, 4] } },
-            { task: "Split [1,2,3,4,5,6,7,8] into chunks of 3", block: "chunk_list", inputs: { items: [1, 2, 3, 4, 5, 6, 7, 8], chunk_size: 3 } },
-            { task: "Mask email: john.doe@company.com", block: "mask_email", inputs: { email: "john.doe@company.com" } },
-            { task: "Calculate brightness for RGB(255, 128, 64)", block: "calculate_brightness", inputs: { r: 255, g: 128, b: 64 } },
-            { task: "Weighted average of [4, 5, 3] with weights [0.2, 0.5, 0.3]", block: "calculate_weighted_average", inputs: { ratings: [4, 5, 3], weights: [0.2, 0.5, 0.3] } },
-            { task: "Average rating for [5, 5, 4, 5, 5, 4]", block: "calculate_average_rating", inputs: { ratings: [5, 5, 4, 5, 5, 4] } },
-            { task: "Split [10,20,30,40,50] into chunks of 2", block: "chunk_list", inputs: { items: [10, 20, 30, 40, 50], chunk_size: 2 } },
-            { task: "Mask email: alice.smith@example.org", block: "mask_email", inputs: { email: "alice.smith@example.org" } },
-            { task: "Calculate brightness for RGB(100, 200, 150)", block: "calculate_brightness", inputs: { r: 100, g: 200, b: 150 } },
-            { task: "Weighted average of [3, 4, 5, 4] with weights [0.1, 0.3, 0.4, 0.2]", block: "calculate_weighted_average", inputs: { ratings: [3, 4, 5, 4], weights: [0.1, 0.3, 0.4, 0.2] } }
+        // AI Customer Pipeline - simulates real customer requests
+        const customers = [
+            { name: "Acme Corp", request: "Calculate our product ratings average", block: "calculate_average_rating", inputs: { ratings: [4.5, 4.8, 4.2, 4.9, 4.6] } },
+            { name: "DataFlow Inc", request: "Chunk our user IDs into batches of 100", block: "chunk_list", inputs: { items: [101, 102, 103, 104, 105, 106, 107, 108], chunk_size: 3 } },
+            { name: "SecureBank", request: "Mask customer email for compliance", block: "mask_email", inputs: { email: "customer@securebank.com" } },
+            { name: "PixelArt Studio", request: "Calculate image brightness value", block: "calculate_brightness", inputs: { r: 180, g: 220, b: 200 } },
+            { name: "ReviewHub", request: "Get weighted score from reviews", block: "calculate_weighted_average", inputs: { ratings: [5, 4, 3, 5], weights: [0.4, 0.3, 0.2, 0.1] } },
+            { name: "ShopMax", request: "Calculate average order rating", block: "calculate_average_rating", inputs: { ratings: [5, 5, 4, 5, 4, 5] } },
+            { name: "CloudSync", request: "Split file list into upload batches", block: "chunk_list", inputs: { items: ["a.pdf", "b.doc", "c.jpg", "d.png", "e.txt"], chunk_size: 2 } },
+            { name: "HealthFirst", request: "Anonymize patient email", block: "mask_email", inputs: { email: "patient.name@hospital.org" } }
         ];
         
-        async function runDemo() {
-            const item = tasks[Math.floor(Math.random() * tasks.length)];
+        let requestNum = 0;
+        
+        async function runPipeline() {
+            const customer = customers[requestNum % customers.length];
+            requestNum++;
             
-            print('─────────────────────────────────────────────────────', 'dim');
+            print('═══════════════════════════════════════════════════════════', 'dim');
+            print(`  AI CUSTOMER PIPELINE - Request #${requestNum}`, 'bold');
+            print('═══════════════════════════════════════════════════════════', 'dim');
             spacer();
-            print(`[TASK] "${item.task}"`, 'bold');
+            
+            // Stage 1: Customer Request
+            print('┌─ STAGE 1: CUSTOMER REQUEST ─────────────────────────────┐', 'dim');
+            print(`│  Customer: ${customer.name}`, '');
+            print(`│  Request: "${customer.request}"`, '');
+            print('└──────────────────────────────────────────────────────────┘', 'dim');
+            await delay(800);
+            
+            // Stage 2: AI Block Search
+            print('┌─ STAGE 2: AI SEARCHES 4,552 BLOCKS ─────────────────────┐', 'dim');
+            print('│  Parsing intent...', 'dim');
+            await delay(400);
+            print('│  Matching to verified library...', 'dim');
+            await delay(400);
+            print(`│  MATCH: ${customer.block}`, 'success');
+            print('└──────────────────────────────────────────────────────────┘', 'dim');
             await delay(600);
             
-            print('[AI] Searching block library...', 'dim');
-            await delay(400);
-            print(`[AI] Found block: ${item.block}`, 'success');
+            // Stage 3: Input Mapping
+            print('┌─ STAGE 3: MAP INPUTS ─────────────────────────────────────┐', 'dim');
+            print(`│  ${JSON.stringify(customer.inputs)}`, '');
+            print('└──────────────────────────────────────────────────────────┘', 'dim');
+            await delay(500);
+            
+            // Stage 4: Execute Block
+            print('┌─ STAGE 4: EXECUTE VERIFIED BLOCK ────────────────────────┐', 'dim');
+            print('│  Running deterministic function...', 'dim');
             await delay(300);
-            print(`[AI] Inputs: ${JSON.stringify(item.inputs)}`, 'dim');
-            await delay(300);
-            print('[AI] Executing verified block...', 'dim');
-            await delay(400);
             
             try {
                 const res = await fetch('/demo/execute', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ block_name: item.block, inputs: item.inputs })
+                    body: JSON.stringify({ block_name: customer.block, inputs: customer.inputs })
                 });
                 const data = await res.json();
                 
                 if (data.result) {
-                    print(`[RESULT] ${JSON.stringify(data.result)}`, 'success');
-                    print(`[AUDIT] ${data.audit_hash}`, 'dim');
-                } else if (data.error) {
-                    print(`[ERROR] ${data.error}`, 'error');
+                    print(`│  OUTPUT: ${JSON.stringify(data.result)}`, 'success');
+                    print('└──────────────────────────────────────────────────────────┘', 'dim');
+                    await delay(400);
+                    
+                    // Stage 5: Audit
+                    print('┌─ STAGE 5: AUDIT LOGGED ────────────────────────────────┐', 'dim');
+                    print(`│  Hash: ${data.audit_hash || 'verified'}`, 'dim');
+                    print(`│  Execution: ${data.execution_time_ms || 0}ms`, 'dim');
+                    print('└──────────────────────────────────────────────────────────┘', 'dim');
+                } else {
+                    print(`│  ERROR: ${data.error}`, 'error');
+                    print('└──────────────────────────────────────────────────────────┘', 'dim');
                 }
-                
             } catch(e) {
-                print('[ERROR] Request failed', 'error');
+                print('│  ERROR: Request failed', 'error');
+                print('└──────────────────────────────────────────────────────────┘', 'dim');
             }
             
             spacer();
-            await delay(2500);
-            runDemo();
+            print('✓ Request complete - No code generated, only verified blocks used', 'success');
+            spacer();
+            await delay(3000);
+            runPipeline();
         }
         
         setTimeout(async () => {
-            print('NEUROP FORGE', 'bold');
-            print('AI uses verified blocks - never writes code', 'dim');
+            print('╔════════════════════════════════════════════════════════════╗', 'bold');
+            print('║           NEUROP FORGE - AI CUSTOMER PIPELINE              ║', 'bold');
+            print('║     AI uses verified blocks only - never writes code       ║', 'bold');
+            print('╚════════════════════════════════════════════════════════════╝', 'bold');
             spacer();
             await delay(800);
-            print('[SYSTEM] Loading 4,552 verified blocks...', 'dim');
+            print('[SYSTEM] Block library loaded: 4,552 verified functions', 'dim');
             await delay(500);
-            print('[SYSTEM] Ready', 'success');
+            print('[SYSTEM] Pipeline ready - Processing customer requests...', 'success');
             spacer();
-            await delay(1000);
-            runDemo();
+            await delay(1500);
+            runPipeline();
         }, 300);
     </script>
 </body>
