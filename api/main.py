@@ -1968,35 +1968,44 @@ PLAYGROUND_HTML = """
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Courier New', Courier, monospace;
-            background: #111;
-            color: #ddd;
+            font-family: 'Consolas', 'Lucida Console', 'Courier New', monospace;
+            background: #0c0c0c;
+            color: #cccccc;
             min-height: 100vh;
         }
         .terminal-container {
             width: 100%;
             height: 100vh;
         }
+        .logo {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            width: 40px;
+            height: 40px;
+        }
         .terminal-body {
-            padding: 30px;
+            padding: 20px;
+            padding-left: 60px;
             font-size: 14px;
-            line-height: 1.8;
+            line-height: 1.4;
             height: 100vh;
             overflow-y: auto;
         }
-        .prompt { color: #ddd; }
-        .command { color: #fff; }
-        .comment { color: #888; }
-        .output { color: #ddd; }
-        .success { color: #ddd; font-weight: bold; }
-        .error { color: #fff; background: #600; padding: 2px 6px; }
-        .dim { color: #888; }
-        .bold { color: #fff; font-weight: bold; font-size: 16px; }
-        .line { margin-bottom: 3px; }
-        .spacer { margin-bottom: 20px; }
+        .line { color: #cccccc; }
+        .prompt { color: #cccccc; }
+        .command { color: #cccccc; }
+        .comment { color: #cccccc; }
+        .output { color: #cccccc; }
+        .success { color: #cccccc; }
+        .error { color: #cccccc; }
+        .dim { color: #cccccc; }
+        .bold { color: #cccccc; }
+        .spacer { margin-bottom: 14px; }
     </style>
 </head>
 <body>
+    <img src="/static/logo.jpg" class="logo" alt="">
     <div class="terminal-container">
         <div class="terminal-body" id="terminal"></div>
     </div>
