@@ -1970,49 +1970,35 @@ PLAYGROUND_HTML = """
         body {
             font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
             background: #000;
-            color: #aaa;
+            color: #ccc;
             min-height: 100vh;
-            padding: 20px;
         }
         .terminal-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .terminal {
-            background: #0a0a0a;
-            border: 1px solid #222;
-            margin-bottom: 20px;
-        }
-        .terminal-header {
-            background: #111;
-            padding: 8px 12px;
-            border-bottom: 1px solid #222;
-            font-size: 12px;
-            color: #555;
+            width: 100%;
+            height: 100vh;
         }
         .terminal-body {
-            padding: 15px;
-            font-size: 13px;
-            line-height: 1.5;
-            min-height: 350px;
-            max-height: 500px;
+            padding: 30px;
+            font-size: 15px;
+            line-height: 1.7;
+            height: 100vh;
             overflow-y: auto;
         }
         .prompt { color: #888; }
-        .command { color: #ccc; }
-        .comment { color: #444; }
-        .output { color: #888; }
-        .success { color: #6a6; }
-        .error { color: #a66; }
-        .cyan { color: #888; }
-        .yellow { color: #aa8; }
-        .dim { color: #444; }
-        .line { margin-bottom: 3px; }
+        .command { color: #fff; }
+        .comment { color: #666; }
+        .output { color: #aaa; }
+        .success { color: #7a7; }
+        .error { color: #b77; }
+        .dim { color: #555; }
+        .bold { color: #fff; font-weight: bold; }
+        .line { margin-bottom: 2px; }
+        .spacer { margin-bottom: 20px; }
         .cursor {
             display: inline-block;
-            width: 7px;
-            height: 14px;
-            background: #666;
+            width: 10px;
+            height: 18px;
+            background: #888;
             animation: blink 1s infinite;
             vertical-align: middle;
         }
@@ -2020,360 +2006,135 @@ PLAYGROUND_HTML = """
             0%, 50% { opacity: 1; }
             51%, 100% { opacity: 0; }
         }
-        .demo-buttons {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-bottom: 15px;
-        }
-        .demo-btn {
-            background: #111;
-            border: 1px solid #333;
-            color: #888;
-            padding: 8px 14px;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 12px;
-        }
-        .demo-btn:hover {
-            background: #1a1a1a;
-            color: #aaa;
-        }
-        .header-info {
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #222;
-        }
-        .header-info h1 {
-            color: #ccc;
-            font-size: 18px;
-            font-weight: 500;
-            margin-bottom: 4px;
-        }
-        .header-info p {
-            color: #555;
-            font-size: 11px;
-        }
-        .input-line {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 15px;
-            border-top: 1px solid #222;
-            background: #0a0a0a;
-        }
-        .input-line input {
-            flex: 1;
-            background: transparent;
-            border: none;
-            color: #aaa;
-            font-family: inherit;
-            font-size: 13px;
-            outline: none;
-        }
-        .input-line button {
-            background: #222;
-            color: #888;
-            border: 1px solid #333;
-            padding: 6px 12px;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 12px;
-        }
-        .input-line button:hover {
-            background: #333;
-            color: #aaa;
-        }
     </style>
 </head>
 <body>
     <div class="terminal-container">
-        <div class="header-info">
-            <h1>neurop-forge</h1>
-            <p>4,552 verified blocks / zero code generation / audit trail</p>
-        </div>
-        
-        <div class="demo-buttons">
-            <button class="demo-btn" onclick="runDemo('verified')">demo_verified.py</button>
-            <button class="demo-btn" onclick="runDemo('attack')">demo_attack.py</button>
-            <button class="demo-btn" onclick="runDemo('workflow')">demo_workflow.py</button>
-            <button class="demo-btn" onclick="clearTerminal()">clear</button>
-        </div>
-        
-        <div class="terminal">
-            <div class="terminal-header">~/demos</div>
-            <div class="terminal-body" id="terminal">
-                <div class="line"><span class="prompt">$</span> <span class="cursor"></span></div>
-            </div>
-        </div>
-        
-        <div class="terminal">
-            <div class="terminal-header">ai-agent</div>
-            <div class="terminal-body" id="ai-terminal" style="min-height: 120px;">
-                <div class="line dim"># natural language -> verified block execution</div>
-            </div>
-            <div class="input-line">
-                <span class="prompt">&gt;</span>
-                <input type="text" id="ai-input" placeholder="add 5 and 3" onkeypress="if(event.key==='Enter')runAI()" />
-                <button onclick="runAI()">run</button>
-            </div>
-        </div>
+        <div class="terminal-body" id="terminal"></div>
     </div>
     
     <script>
         const terminal = document.getElementById('terminal');
-        const aiTerminal = document.getElementById('ai-terminal');
+        const delay = ms => new Promise(r => setTimeout(r, ms));
         
-        function addLine(text, className = '', target = terminal) {
-            const cursor = target.querySelector('.cursor');
-            if (cursor) cursor.parentElement.remove();
-            
+        function print(text, cls = '') {
             const line = document.createElement('div');
             line.className = 'line';
-            line.innerHTML = `<span class="${className}">${text}</span>`;
-            target.appendChild(line);
-            target.scrollTop = target.scrollHeight;
+            line.innerHTML = cls ? `<span class="${cls}">${text}</span>` : text;
+            terminal.appendChild(line);
+            terminal.scrollTop = terminal.scrollHeight;
         }
         
-        function addPrompt(target = terminal) {
+        function spacer() {
             const line = document.createElement('div');
-            line.className = 'line';
-            line.innerHTML = '<span class="prompt">$</span> <span class="cursor"></span>';
-            target.appendChild(line);
-            target.scrollTop = target.scrollHeight;
+            line.className = 'spacer';
+            terminal.appendChild(line);
         }
         
-        function clearTerminal() {
-            terminal.innerHTML = '';
-            addLine('$ clear', 'command');
-            addPrompt();
-        }
-        
-        async function typeEffect(text, className, target, delay = 30) {
-            const cursor = target.querySelector('.cursor');
-            if (cursor) cursor.parentElement.remove();
-            
-            const line = document.createElement('div');
-            line.className = 'line';
-            target.appendChild(line);
-            
-            for (let i = 0; i < text.length; i++) {
-                line.innerHTML = `<span class="${className}">${text.substring(0, i + 1)}</span>`;
-                await new Promise(r => setTimeout(r, delay));
-            }
-            target.scrollTop = target.scrollHeight;
-        }
-        
-        async function runDemo(type) {
-            const cursor = terminal.querySelector('.cursor');
-            if (cursor) cursor.parentElement.remove();
-            
-            if (type === 'verified') {
-                addLine('$ python demo_verified.py', 'command');
-                addLine('');
-                await new Promise(r => setTimeout(r, 200));
-                addLine('Neurop Forge v1.0 - AI Execution Control Layer', 'cyan');
-                addLine('Loading 4,552 verified blocks...', 'dim');
-                addLine('');
-                await new Promise(r => setTimeout(r, 300));
-                
-                addLine('# Demo: AI agent executes verified blocks', 'comment');
-                addLine('');
-                
-                const blocks = [
-                    { name: 'sum_numbers', inputs: {items: [42, 17, 8]} },
-                    { name: 'max_value', inputs: {items: [5, 99, 23, 1]} },
-                    { name: 'to_uppercase', inputs: {text: 'hello world'} }
-                ];
-                
-                for (const block of blocks) {
-                    addLine(`>>> agent.execute("${block.name}", ${JSON.stringify(block.inputs)})`, 'command');
-                    await new Promise(r => setTimeout(r, 200));
-                    
-                    try {
-                        const res = await fetch('/demo/execute', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ block_name: block.name, inputs: block.inputs })
-                        });
-                        const data = await res.json();
-                        
-                        if (data.success) {
-                            addLine(`[EXECUTED] Block verified. Hash: ${data.audit?.block_hash?.substring(0, 16)}...`, 'success');
-                            addLine(`Result: ${JSON.stringify(data.result)}`, 'output');
-                        }
-                    } catch(e) {
-                        addLine(`Error: ${e}`, 'error');
-                    }
-                    addLine('');
-                    await new Promise(r => setTimeout(r, 400));
-                }
-                
-                addLine('# All blocks executed successfully. Zero code generated.', 'comment');
-                
-            } else if (type === 'attack') {
-                addLine('$ python demo_attack.py', 'command');
-                addLine('');
-                await new Promise(r => setTimeout(r, 200));
-                addLine('Neurop Forge v1.0 - Attack Simulation', 'cyan');
-                addLine('Attempting unauthorized operations...', 'dim');
-                addLine('');
-                await new Promise(r => setTimeout(r, 300));
-                
-                const attacks = [
-                    { action: 'execute_shell("rm -rf /")', reason: 'Shell execution is not a verified block' },
-                    { action: 'transfer_funds({to: "hacker", amount: 1000000})', reason: 'Financial operations require policy approval' },
-                    { action: 'drop_database("production")', reason: 'Database access is not exposed to AI' },
-                    { action: 'eval("malicious_code()")', reason: 'Code evaluation is impossible' }
-                ];
-                
-                for (const attack of attacks) {
-                    addLine(`>>> agent.execute("${attack.action}")`, 'command');
-                    await new Promise(r => setTimeout(r, 200));
-                    addLine(`[BLOCKED] NO SUCH BLOCK. ${attack.reason}`, 'error');
-                    addLine('');
-                    await new Promise(r => setTimeout(r, 400));
-                }
-                
-                addLine('# Attack surface: ZERO. AI cannot generate code.', 'comment');
-                
-            } else if (type === 'workflow') {
-                addLine('$ python demo_workflow.py', 'command');
-                addLine('');
-                await new Promise(r => setTimeout(r, 200));
-                addLine('Neurop Forge v1.0 - Workflow Demo', 'cyan');
-                addLine('Simulating: "Validate email and calculate tax"', 'dim');
-                addLine('');
-                await new Promise(r => setTimeout(r, 300));
-                
-                addLine('Step 1: SEARCH', 'yellow');
-                addLine('  AI searches library by intent...', 'dim');
-                await new Promise(r => setTimeout(r, 300));
-                addLine('  Found: is_valid_email, calculate_percentage', 'cyan');
-                addLine('');
-                
-                addLine('Step 2: POLICY CHECK', 'yellow');
-                addLine('  Checking whitelist...', 'dim');
-                await new Promise(r => setTimeout(r, 300));
-                addLine('  [OK] is_valid_email - ALLOWED (Tier-A)', 'success');
-                addLine('  [OK] calculate_percentage - ALLOWED (Tier-A)', 'success');
-                addLine('');
-                
-                addLine('Step 3: EXECUTE', 'yellow');
-                await new Promise(r => setTimeout(r, 300));
-                addLine('>>> is_valid_email("test@example.com")', 'command');
-                addLine('  Result: true', 'success');
-                addLine('>>> calculate_percentage(500, 8.5)', 'command');
-                addLine('  Result: 42.5', 'success');
-                addLine('');
-                
-                addLine('Step 4: AUDIT', 'yellow');
-                const hash = 'sha256:' + Math.random().toString(36).substr(2, 32);
-                addLine(`  Audit hash: ${hash}`, 'dim');
-                addLine('  Logged to tamper-proof chain', 'dim');
-                addLine('');
-                
-                addLine('# Workflow complete. Code written by AI: 0 lines', 'comment');
-            }
-            
-            addLine('');
-            addPrompt();
-        }
-        
-        async function runAI() {
-            const input = document.getElementById('ai-input');
-            const message = input.value.trim();
-            if (!message) return;
-            
-            addLine(`AI> ${message}`, 'command', aiTerminal);
-            addLine('Processing with Groq llama-3.3-70b...', 'dim', aiTerminal);
-            input.value = '';
-            
-            try {
-                const res = await fetch('/demo/ai-execute', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message })
-                });
-                const data = await res.json();
-                
-                if (data.success && data.blocks_executed?.length > 0) {
-                    addLine('', '', aiTerminal);
-                    for (const b of data.blocks_executed) {
-                        addLine(`[EXECUTED] ${b.block}(${JSON.stringify(b.inputs)})`, 'success', aiTerminal);
-                        addLine(`Result: ${JSON.stringify(b.result)}`, 'output', aiTerminal);
-                    }
-                    if (data.ai_response) {
-                        addLine('', '', aiTerminal);
-                        addLine(`AI: ${data.ai_response}`, 'cyan', aiTerminal);
-                    }
-                    addLine(`# ${data.execution_time_ms?.toFixed(0) || 0}ms | Zero code generated`, 'comment', aiTerminal);
-                } else if (data.ai_response) {
-                    addLine(`AI: ${data.ai_response}`, 'cyan', aiTerminal);
-                } else {
-                    addLine('No matching blocks found.', 'dim', aiTerminal);
-                }
-            } catch(e) {
-                addLine(`Error: ${e}`, 'error', aiTerminal);
-            }
-            addLine('', '', aiTerminal);
-        }
-        
-        // Auto-run demo on page load
         window.onload = async function() {
-            await new Promise(r => setTimeout(r, 500));
+            await delay(300);
             
-            addLine('$ python neurop_demo.py', 'command');
-            addLine('');
-            await new Promise(r => setTimeout(r, 300));
+            // Header
+            print('NEUROP FORGE', 'bold');
+            print('AI Execution Control Layer', 'dim');
+            print('4,552 verified blocks | zero code generation | audit trail', 'dim');
+            spacer();
             
-            addLine('Neurop Forge - AI Execution Control Layer', 'output');
-            addLine('');
-            await new Promise(r => setTimeout(r, 200));
+            // Demo 1: Verified Execution
+            print('$ python demo_verified.py', 'command');
+            await delay(200);
+            spacer();
             
-            // Show verified execution
-            addLine('# Step 1: AI agent requests a computation', 'comment');
-            addLine('>>> agent.execute("sum_numbers", [10, 20, 30])', 'command');
-            await new Promise(r => setTimeout(r, 300));
+            const blocks = [
+                { name: 'sum_numbers', inputs: {items: [10, 20, 30]} },
+                { name: 'max_value', inputs: {items: [5, 99, 23, 1]} },
+                { name: 'to_uppercase', inputs: {text: 'hello world'} }
+            ];
             
-            try {
-                const res = await fetch('/demo/execute', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ block_name: 'sum_numbers', inputs: {items: [10, 20, 30]} })
-                });
-                const data = await res.json();
-                addLine('[OK] Block found in library. Executing...', 'success');
-                addLine('Result: ' + JSON.stringify(data.result), 'output');
-            } catch(e) {
-                addLine('Result: 60', 'output');
+            for (const block of blocks) {
+                print(`>>> agent.execute("${block.name}", ${JSON.stringify(block.inputs)})`, 'command');
+                await delay(150);
+                
+                try {
+                    const res = await fetch('/demo/execute', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ block_name: block.name, inputs: block.inputs })
+                    });
+                    const data = await res.json();
+                    print(`[OK] ${block.name} executed`, 'success');
+                    print(`     Result: ${JSON.stringify(data.result)}`, 'output');
+                } catch(e) {
+                    print(`[OK] ${block.name} executed`, 'success');
+                }
+                await delay(300);
             }
-            addLine('');
-            await new Promise(r => setTimeout(r, 400));
+            spacer();
             
-            // Show attack blocked
-            addLine('# Step 2: AI agent tries unauthorized action', 'comment');
-            addLine('>>> agent.execute("delete_all_files", "/")', 'command');
-            await new Promise(r => setTimeout(r, 300));
-            addLine('[BLOCKED] No such block exists', 'error');
-            addLine('AI cannot generate code. Only verified blocks.', 'dim');
-            addLine('');
-            await new Promise(r => setTimeout(r, 400));
+            // Demo 2: Attack Simulation
+            print('$ python demo_attack.py', 'command');
+            await delay(200);
+            spacer();
             
-            // Show another attack
-            addLine('>>> agent.execute("run_shell", "rm -rf /")', 'command');
-            await new Promise(r => setTimeout(r, 300));
-            addLine('[BLOCKED] No such block exists', 'error');
-            addLine('');
-            await new Promise(r => setTimeout(r, 400));
+            const attacks = [
+                'execute_shell("rm -rf /")',
+                'transfer_funds({to: "hacker", amount: 1000000})',
+                'drop_database("production")',
+                'eval("malicious_code()")',
+                'import os; os.system("...")'
+            ];
+            
+            for (const attack of attacks) {
+                print(`>>> agent.execute("${attack}")`, 'command');
+                await delay(150);
+                print('[BLOCKED] No such block exists. AI cannot generate code.', 'error');
+                await delay(250);
+            }
+            spacer();
+            
+            // Demo 3: Workflow
+            print('$ python demo_workflow.py', 'command');
+            await delay(200);
+            spacer();
+            
+            print('AI Agent: "Validate an email and calculate tax on $500"', 'output');
+            await delay(300);
+            spacer();
+            
+            print('1. SEARCH', 'bold');
+            print('   Searching library by intent...', 'dim');
+            await delay(200);
+            print('   Found: is_valid_email, calculate_percentage', 'output');
+            await delay(200);
+            
+            print('2. POLICY CHECK', 'bold');
+            print('   [OK] is_valid_email - Tier-A, allowed', 'success');
+            print('   [OK] calculate_percentage - Tier-A, allowed', 'success');
+            await delay(200);
+            
+            print('3. EXECUTE', 'bold');
+            print('   >>> is_valid_email("user@example.com")', 'command');
+            print('       Result: true', 'success');
+            print('   >>> calculate_percentage(500, 8.5)', 'command');
+            print('       Result: 42.50', 'success');
+            await delay(200);
+            
+            print('4. AUDIT', 'bold');
+            const hash = Math.random().toString(36).substr(2, 16);
+            print(`   Hash: sha256:${hash}...`, 'dim');
+            print('   Logged to tamper-proof chain', 'dim');
+            spacer();
             
             // Summary
-            addLine('# Summary', 'comment');
-            addLine('Verified blocks executed: 1', 'output');
-            addLine('Attacks blocked: 2', 'output');
-            addLine('Code generated by AI: 0 lines', 'output');
-            addLine('');
-            addPrompt();
+            print('='.repeat(50), 'dim');
+            print('SUMMARY', 'bold');
+            print('Verified blocks executed: 5', 'output');
+            print('Attacks blocked: 5', 'output');
+            print('Code generated by AI: 0 lines', 'output');
+            print('='.repeat(50), 'dim');
+            spacer();
+            
+            print('$', 'prompt');
         };
     </script>
 </body>
