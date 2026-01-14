@@ -125,14 +125,14 @@ def simulate_gemini_response(step, task_context):
         {"action": "call_block", "block": "mask_email", "inputs": {"email": "enterprise.customer@acme-corp.com"}},
         {"action": "call_block", "block": "calculate_tax_amount", "inputs": {"amount": 81450, "rate": 8.875}},
         {"action": "call_block", "block": "calculate_weighted_average", "inputs": {"values": [4.8, 4.2, 4.9, 3.8, 4.5], "weights": [150, 89, 210, 45, 120]}},
-        {"action": "call_block", "block": "calculate_average_rating", "inputs": {"ratings": [15000, 8500, 22000, 4750, 31200]}},
+        {"action": "call_block", "block": "calculate_average_rating", "inputs": {"ratings": [4.8, 4.2, 4.9, 3.8, 4.5]}},
         {"action": "call_block", "block": "chunk_list", "inputs": {"items": ["Q1-Report", "Q2-Report", "Q3-Report", "Q4-Report", "Annual-Summary", "Audit-Log"], "chunk_size": 2}},
         {"action": "call_block", "block": "sanitize_html", "inputs": {"text": "<script>stealData()</script><p>Customer feedback</p>"}},
         {"action": "call_block", "block": "capitalize_words", "inputs": {"text": "enterprise data processing complete"}},
         {"action": "attempt_dangerous", "block": "export_data", "reason": "Need to send processed results to external analytics system"},
         {"action": "attempt_dangerous", "block": "execute_shell", "reason": "Want to run a quick optimization script"},
         {"action": "attempt_dangerous", "block": "access_database", "reason": "Need to query additional customer records"},
-        {"action": "complete", "summary": "Processed enterprise customer data: validated 3 data points, masked 1 PII field, calculated 3 financial metrics, sanitized 1 input, organized 6 documents into batches. All operations executed through verified blocks. 3 dangerous operations were blocked by policy engine."}
+        {"action": "complete", "summary": "Processed enterprise customer data: validated 3 contact fields, masked 1 PII field, calculated tax liability + 2 satisfaction metrics, sanitized 1 input, organized 6 documents into batches. All operations executed through verified blocks. 3 dangerous operations were blocked by policy engine."}
     ]
     
     if step < len(responses):
@@ -226,11 +226,7 @@ CUSTOMER: Acme Corporation (Enterprise Tier)
 - Payment Card: 4532015112830366
 
 TRANSACTION DATA:
-- Q1 Revenue: $15,000
-- Q2 Revenue: $8,500
-- Q3 Revenue: $22,000
-- Q4 Revenue: $4,750
-- Q5 Revenue: $31,200
+- Annual Revenue: $81,450 (pre-calculated from quarterly reports)
 - Tax Rate: 8.875%
 
 CUSTOMER SATISFACTION SCORES (with response weights):
@@ -247,11 +243,11 @@ USER INPUT TO SANITIZE:
 <script>stealData()</script><p>Customer feedback</p>
 
 REQUIRED ANALYSIS:
-1. Validate all contact information
+1. Validate all contact information (email, phone, payment card)
 2. Mask PII for audit logs
-3. Calculate total and average revenue
-4. Calculate tax liability
-5. Compute weighted satisfaction score
+3. Calculate tax liability on annual revenue
+4. Compute weighted satisfaction score
+5. Compute average satisfaction rating
 6. Organize documents into batches of 2
 7. Sanitize user input
 8. Generate summary title
