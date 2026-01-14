@@ -2782,6 +2782,461 @@ async def playground_redirect():
     return PLAYGROUND_HTML
 
 
+LIVE_DEMO_RATE_LIMITS: Dict[str, List[float]] = {}
+
+def check_live_demo_rate_limit(ip: str, max_requests: int = 10, window_hours: int = 1) -> bool:
+    """Rate limit live demo to prevent API cost abuse."""
+    now = time.time()
+    window = window_hours * 3600
+    
+    if ip not in LIVE_DEMO_RATE_LIMITS:
+        LIVE_DEMO_RATE_LIMITS[ip] = []
+    
+    LIVE_DEMO_RATE_LIMITS[ip] = [t for t in LIVE_DEMO_RATE_LIMITS[ip] if now - t < window]
+    
+    if len(LIVE_DEMO_RATE_LIMITS[ip]) >= max_requests:
+        return False
+    
+    LIVE_DEMO_RATE_LIMITS[ip].append(now)
+    return True
+
+
+LIVE_DEMO_HTML = """<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neurop Forge | Live AI Demo</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+        
+        .tagline {
+            color: #888;
+            font-size: 1.1rem;
+        }
+        
+        .value-prop {
+            background: rgba(124, 58, 237, 0.1);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+        
+        .value-prop h2 {
+            color: #00d4ff;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+        }
+        
+        .value-prop p {
+            color: #aaa;
+            line-height: 1.6;
+        }
+        
+        .demo-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        
+        .demo-header {
+            background: rgba(0,0,0,0.3);
+            padding: 20px 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .demo-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .run-btn {
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            color: white;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .run-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(124, 58, 237, 0.4);
+        }
+        
+        .run-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .demo-output {
+            padding: 24px;
+            min-height: 400px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .output-line {
+            margin-bottom: 8px;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .status { color: #888; }
+        .success { color: #10b981; }
+        .blocked { color: #ef4444; }
+        .info { color: #00d4ff; }
+        .result { color: #a78bfa; }
+        .audit { color: #f59e0b; }
+        
+        .block-call {
+            background: rgba(0,212,255,0.1);
+            border-left: 3px solid #00d4ff;
+            padding: 8px 12px;
+            margin: 8px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .block-blocked {
+            background: rgba(239,68,68,0.1);
+            border-left: 3px solid #ef4444;
+            padding: 8px 12px;
+            margin: 8px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .summary-box {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 16px;
+        }
+        
+        .contact {
+            text-align: center;
+            margin-top: 40px;
+            padding: 24px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 12px;
+        }
+        
+        .contact h3 {
+            color: #00d4ff;
+            margin-bottom: 8px;
+        }
+        
+        .contact a {
+            color: #a78bfa;
+            text-decoration: none;
+        }
+        
+        .stats {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            margin-top: 16px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #00d4ff;
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            color: #888;
+        }
+        
+        .placeholder {
+            color: #555;
+            text-align: center;
+            padding: 60px 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">NEUROP FORGE</div>
+            <p class="tagline">AI as Operator, Not Author</p>
+        </header>
+        
+        <div class="value-prop">
+            <h2>The Problem We Solve</h2>
+            <p>AI agents can generate arbitrary code with unpredictable outcomes. Neurop Forge constrains AI to call only pre-verified, policy-governed blocks. Every action is auditable. Dangerous operations are blocked before execution.</p>
+        </div>
+        
+        <div class="demo-card">
+            <div class="demo-header">
+                <span class="demo-title">Live AI Execution Demo</span>
+                <button class="run-btn" id="runBtn" onclick="runDemo()">Run Demo</button>
+            </div>
+            <div class="demo-output" id="output">
+                <div class="placeholder">
+                    Click "Run Demo" to watch AI execute verified blocks in real-time.<br><br>
+                    The AI will process an enterprise task, call verified blocks,<br>
+                    and get blocked when attempting dangerous operations.
+                </div>
+            </div>
+        </div>
+        
+        <div class="contact">
+            <h3>Enterprise AI Governance</h3>
+            <p>4,552 verified blocks • Cryptographic audit trail • Policy enforcement</p>
+            <p style="margin-top: 12px;">Contact: <a href="mailto:wassermanlourens@gmail.com">wassermanlourens@gmail.com</a></p>
+        </div>
+    </div>
+    
+    <script>
+        let isRunning = false;
+        
+        function addLine(html, className = '') {
+            const output = document.getElementById('output');
+            const line = document.createElement('div');
+            line.className = 'output-line ' + className;
+            line.innerHTML = html;
+            output.appendChild(line);
+            output.scrollTop = output.scrollHeight;
+        }
+        
+        async function runDemo() {
+            if (isRunning) return;
+            isRunning = true;
+            
+            const btn = document.getElementById('runBtn');
+            const output = document.getElementById('output');
+            
+            btn.disabled = true;
+            btn.textContent = 'Running...';
+            output.innerHTML = '';
+            
+            addLine('<span class="status">Initializing AI agent...</span>');
+            
+            try {
+                const response = await fetch('/api/demo-live/run', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                
+                const data = await response.json();
+                
+                if (data.error) {
+                    addLine('<span class="blocked">Error: ' + data.error + '</span>');
+                } else {
+                    for (const event of data.events) {
+                        await new Promise(r => setTimeout(r, 300));
+                        
+                        if (event.type === 'status') {
+                            addLine('<span class="status">' + event.message + '</span>');
+                        } else if (event.type === 'block_call') {
+                            addLine('<div class="block-call"><span class="info">▶ AI CALLS:</span> ' + event.block + '<br><span class="status">Inputs:</span> ' + JSON.stringify(event.inputs).substring(0, 60) + '...</div>');
+                        } else if (event.type === 'block_result') {
+                            addLine('<span class="success">✓ Result:</span> <span class="result">' + JSON.stringify(event.result).substring(0, 50) + '...</span>');
+                            addLine('<span class="audit">Audit: ' + event.audit + '</span>');
+                        } else if (event.type === 'blocked') {
+                            addLine('<div class="block-blocked"><span class="blocked">✗ BLOCKED:</span> ' + event.block + '<br><span class="status">Reason:</span> Not in approved block list</div>');
+                        } else if (event.type === 'complete') {
+                            addLine('<div class="summary-box"><span class="success">Demo Complete</span><br><br><span class="info">Blocks Executed:</span> ' + event.executed + '<br><span class="blocked">Operations Blocked:</span> ' + event.blocked + '</div>');
+                        }
+                    }
+                }
+            } catch (err) {
+                addLine('<span class="blocked">Error: ' + err.message + '</span>');
+            }
+            
+            btn.disabled = false;
+            btn.textContent = 'Run Demo';
+            isRunning = false;
+        }
+    </script>
+</body>
+</html>
+"""
+
+
+@app.get("/demo-live", response_class=HTMLResponse)
+async def demo_live():
+    """Live AI demo page - watch AI execute verified blocks in real-time."""
+    return LIVE_DEMO_HTML
+
+
+class LiveDemoResponse(BaseModel):
+    events: List[Dict[str, Any]]
+    error: Optional[str] = None
+
+
+@app.post("/api/demo-live/run", response_model=LiveDemoResponse)
+async def run_live_demo(request: Request):
+    """Run the live AI demo - Groq AI calling verified blocks."""
+    client_ip = request.client.host if request.client else "unknown"
+    
+    if not check_live_demo_rate_limit(client_ip):
+        return LiveDemoResponse(events=[], error="Rate limit exceeded. Try again in an hour.")
+    
+    if not GROQ_AVAILABLE:
+        return LiveDemoResponse(events=[], error="AI service not configured.")
+    
+    if not GROQ_API_KEY:
+        return LiveDemoResponse(events=[], error="AI service not configured.")
+    
+    if not block_library:
+        return LiveDemoResponse(events=[], error="Block library not loaded.")
+    
+    events = []
+    blocks_executed = 0
+    blocks_blocked = 0
+    
+    try:
+        events.append({"type": "status", "message": "Connected to Groq AI..."})
+        
+        sample_blocks = []
+        for block in list(block_library.values())[:30]:
+            sample_blocks.append({
+                "name": block.metadata.name,
+                "description": block.metadata.description[:50] if block.metadata.description else ""
+            })
+        
+        blocks_list = "\\n".join([f"- {b['name']}" for b in sample_blocks])
+        
+        task = """Validate email 'test@example.com', then try to execute a shell command, then calculate 100 * 0.08875"""
+        
+        system_prompt = f"""You are an AI agent. You can ONLY call blocks from this approved list:
+{blocks_list}
+
+Respond with JSON only:
+{{"action": "call_block", "block": "block_name", "inputs": {{"param": "value"}}}}
+OR for dangerous operations:
+{{"action": "attempt_dangerous", "block": "shell_execute"}}
+OR when done:
+{{"action": "complete"}}
+
+Task: {task}
+Process step by step. One action per response."""
+
+        client = Groq(api_key=GROQ_API_KEY)
+        
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": "Begin. First step."}
+        ]
+        
+        for step in range(6):
+            try:
+                response = client.chat.completions.create(
+                    model="llama-3.3-70b-versatile",
+                    messages=messages,
+                    temperature=0.1,
+                    max_tokens=200,
+                    response_format={"type": "json_object"}
+                )
+                
+                text = response.choices[0].message.content.strip()
+                parsed = json.loads(text)
+                
+                action = parsed.get("action")
+                
+                if action == "complete":
+                    break
+                
+                elif action == "call_block":
+                    block_name = parsed.get("block", "")
+                    inputs = parsed.get("inputs", {})
+                    
+                    events.append({"type": "block_call", "block": block_name, "inputs": inputs})
+                    
+                    target_block = None
+                    for b in block_library.values():
+                        if b.metadata.name == block_name:
+                            target_block = b
+                            break
+                    
+                    if target_block:
+                        from neurop_forge.runtime.executor import BlockExecutor
+                        executor = BlockExecutor()
+                        outputs, error = executor.execute(target_block, inputs)
+                        
+                        if error is None:
+                            blocks_executed += 1
+                            audit_hash = hashlib.sha256(json.dumps({"block": block_name, "result": str(outputs)}).encode()).hexdigest()[:16]
+                            events.append({"type": "block_result", "result": outputs, "audit": audit_hash})
+                            messages.append({"role": "assistant", "content": text})
+                            messages.append({"role": "user", "content": f"Success: {outputs}. Next step."})
+                        else:
+                            events.append({"type": "block_result", "result": {"error": error}, "audit": "n/a"})
+                            messages.append({"role": "assistant", "content": text})
+                            messages.append({"role": "user", "content": f"Error: {error}. Try different block."})
+                    else:
+                        blocks_blocked += 1
+                        events.append({"type": "blocked", "block": block_name})
+                        messages.append({"role": "assistant", "content": text})
+                        messages.append({"role": "user", "content": f"BLOCKED: {block_name} not in library. Next step."})
+                
+                elif action == "attempt_dangerous":
+                    block_name = parsed.get("block", "dangerous_operation")
+                    blocks_blocked += 1
+                    events.append({"type": "blocked", "block": block_name})
+                    messages.append({"role": "assistant", "content": text})
+                    messages.append({"role": "user", "content": "BLOCKED by policy. Next step."})
+                
+            except Exception as e:
+                break
+        
+        events.append({"type": "complete", "executed": blocks_executed, "blocked": blocks_blocked})
+        
+        return LiveDemoResponse(events=events, error=None)
+        
+    except Exception as e:
+        return LiveDemoResponse(events=events, error=str(e))
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=int(os.getenv("PORT", 5000)))
