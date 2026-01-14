@@ -33,12 +33,22 @@ The library must be present on Render but NOT in your public GitHub repo.
 
 ## Step 3: Environment Variables
 
-Set these in Render dashboard:
+Set these in Render dashboard under "Environment":
 
+**Required:**
 ```
 PYTHON_VERSION=3.11.0
-PORT=10000 (Render assigns this automatically)
 ```
+
+**For Live AI Demo (optional but recommended):**
+```
+GROQ_API_KEY=gsk_your_groq_api_key_here
+```
+
+Get a free Groq API key at: https://console.groq.com/keys
+
+The live demo at `/demo-live` uses Groq AI to demonstrate real-time block execution.
+Without the key, the demo will show "AI service not configured."
 
 ## Step 4: Deploy
 
