@@ -2076,18 +2076,18 @@ PLAYGROUND_HTML = """
         }
         
         // Tasks that demonstrate AI using blocks (not writing code)
-        // Each task maps directly to a block - no AI needed
+        // Each task maps directly to a real verified block
         const tasks = [
-            { task: "Add 150 and 275", block: "add", inputs: { a: 150, b: 275 } },
-            { task: "Multiply 12 by 8", block: "multiply", inputs: { a: 12, b: 8 } },
-            { task: "Convert 'hello world' to uppercase", block: "string_upper", inputs: { text: "hello world" } },
-            { task: "Find the maximum of 10, 45, 23, 89, 12", block: "max", inputs: { a: 45, b: 89 } },
-            { task: "Check if 17 is greater than 10", block: "greater_than", inputs: { a: 17, b: 10 } },
-            { task: "Calculate the square root of 144", block: "sqrt", inputs: { value: 144 } },
-            { task: "Subtract 50 from 200", block: "subtract", inputs: { a: 200, b: 50 } },
-            { task: "Divide 100 by 4", block: "divide", inputs: { a: 100, b: 4 } },
-            { task: "Calculate absolute value of -42", block: "abs", inputs: { value: -42 } },
-            { task: "Raise 2 to the power of 8", block: "power", inputs: { base: 2, exponent: 8 } }
+            { task: "Calculate average rating for [4, 5, 3, 5, 4]", block: "calculate_average_rating", inputs: { ratings: [4, 5, 3, 5, 4] } },
+            { task: "Split [1,2,3,4,5,6,7,8] into chunks of 3", block: "chunk_list", inputs: { items: [1, 2, 3, 4, 5, 6, 7, 8], chunk_size: 3 } },
+            { task: "Mask email: john.doe@company.com", block: "mask_email", inputs: { email: "john.doe@company.com" } },
+            { task: "Calculate brightness for RGB(255, 128, 64)", block: "calculate_brightness", inputs: { r: 255, g: 128, b: 64 } },
+            { task: "Weighted average of [4, 5, 3] with weights [0.2, 0.5, 0.3]", block: "calculate_weighted_average", inputs: { ratings: [4, 5, 3], weights: [0.2, 0.5, 0.3] } },
+            { task: "Average rating for [5, 5, 4, 5, 5, 4]", block: "calculate_average_rating", inputs: { ratings: [5, 5, 4, 5, 5, 4] } },
+            { task: "Split [10,20,30,40,50] into chunks of 2", block: "chunk_list", inputs: { items: [10, 20, 30, 40, 50], chunk_size: 2 } },
+            { task: "Mask email: alice.smith@example.org", block: "mask_email", inputs: { email: "alice.smith@example.org" } },
+            { task: "Calculate brightness for RGB(100, 200, 150)", block: "calculate_brightness", inputs: { r: 100, g: 200, b: 150 } },
+            { task: "Weighted average of [3, 4, 5, 4] with weights [0.1, 0.3, 0.4, 0.2]", block: "calculate_weighted_average", inputs: { ratings: [3, 4, 5, 4], weights: [0.1, 0.3, 0.4, 0.2] } }
         ];
         
         async function runDemo() {
