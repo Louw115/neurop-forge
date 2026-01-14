@@ -2282,8 +2282,14 @@ PLAYGROUND_HTML = """
                                 print('└───────────────────────────────────────┘', 'success');
                                 print(`Block: ${data.block}`, 'success');
                                 print(`Result: ${JSON.stringify(data.result)}`, 'success');
+                            } else if (data.status === 'no_match') {
+                                tracker.pass++;
+                                tracker.audits++;
+                                print('[AI] No dangerous block found - request is safe', 'success');
+                                print(`[PASS] AI searched but found no harmful action`, 'success');
                             } else {
-                                print(`[INFO] ${data.error || 'No matching block found'}`, 'dim');
+                                tracker.audits++;
+                                print(`[INFO] ${data.error || 'Processing...'}`, 'dim');
                             }
                             updateStats();
                         } catch(e) {
@@ -2347,9 +2353,19 @@ PLAYGROUND_HTML = """
                             print('│  ✓ VALID OPERATION - PASSED           │', 'success');
                             print('└───────────────────────────────────────┘', 'success');
                             print(`Result: ${JSON.stringify(data.result)}`, 'success');
+                        } else if (data.status === 'no_match') {
+                            tracker.pass++;
+                            tracker.audits++;
+                            print('[AI] No dangerous block found - safe', 'success');
+                        } else {
+                            tracker.audits++;
+                            print(`[INFO] ${data.error || 'Processing...'}`, 'dim');
                         }
                         updateStats();
-                    } catch(e) {}
+                    } catch(e) {
+                        tracker.audits++;
+                        updateStats();
+                    }
                 }
             } catch(e) {
                 print('[SYSTEM] Connection interrupted, reconnecting...', 'dim');
