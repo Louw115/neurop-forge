@@ -2047,10 +2047,105 @@ PLAYGROUND_HTML = """
         .dim { color: #888888; }
         .bold { color: #cccccc; }
         .spacer { margin-bottom: 14px; }
+        
+        /* Live Stress Test Tracker */
+        .stress-tracker {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            width: 320px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            font-size: 11px;
+            z-index: 1000;
+        }
+        .tracker-header {
+            background: #222;
+            padding: 8px 10px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .tracker-title { color: #888; font-weight: bold; }
+        .tracker-status { color: #4a9f4a; }
+        .tracker-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background: #333;
+            padding: 1px;
+        }
+        .stat-box {
+            background: #1a1a1a;
+            padding: 8px;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #cccccc;
+        }
+        .stat-value.pass { color: #4a9f4a; }
+        .stat-value.block { color: #c44a4a; }
+        .stat-label { color: #666; font-size: 9px; margin-top: 2px; }
+        .tracker-log {
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 6px;
+        }
+        .tracker-line {
+            padding: 3px 4px;
+            border-bottom: 1px solid #222;
+            color: #888;
+            font-size: 10px;
+        }
+        .tracker-line.pass { color: #4a9f4a; }
+        .tracker-line.block { color: #c44a4a; }
+        .tracker-line.planning { color: #888; font-style: italic; }
+        .tracker-current {
+            padding: 6px 10px;
+            background: #222;
+            border-top: 1px solid #333;
+            color: #888;
+        }
+        .blink { animation: blink 1s infinite; }
+        @keyframes blink { 50% { opacity: 0.5; } }
     </style>
 </head>
 <body>
     <img src="/static/logo.jpg" class="logo" alt="">
+    
+    <!-- Live Stress Test Tracker -->
+    <div class="stress-tracker">
+        <div class="tracker-header">
+            <span class="tracker-title">LIVE STRESS TEST</span>
+            <span class="tracker-status blink" id="tracker-status">RUNNING</span>
+        </div>
+        <div class="tracker-stats">
+            <div class="stat-box">
+                <div class="stat-value pass" id="stat-pass">0</div>
+                <div class="stat-label">PASS</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value block" id="stat-block">0</div>
+                <div class="stat-label">BLOCKED</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="stat-audits">0</div>
+                <div class="stat-label">AUDITS</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="stat-attempts">0</div>
+                <div class="stat-label">ATTEMPTS</div>
+            </div>
+        </div>
+        <div class="tracker-current" id="tracker-current">
+            Initializing AI stress test...
+        </div>
+        <div class="tracker-log" id="tracker-log"></div>
+    </div>
+    
     <div class="terminal-container">
         <div class="terminal-body" id="terminal"></div>
     </div>
@@ -2275,6 +2370,103 @@ PLAYGROUND_HTML = """
             
             print('$', 'prompt');
         };
+        
+        // ========== LIVE CONTINUOUS STRESS TEST ==========
+        const tracker = {
+            pass: 0,
+            block: 0,
+            audits: 0,
+            attempts: 0
+        };
+        
+        function updateStats() {
+            document.getElementById('stat-pass').textContent = tracker.pass;
+            document.getElementById('stat-block').textContent = tracker.block;
+            document.getElementById('stat-audits').textContent = tracker.audits;
+            document.getElementById('stat-attempts').textContent = tracker.attempts;
+        }
+        
+        function trackerLog(text, cls = '') {
+            const log = document.getElementById('tracker-log');
+            const line = document.createElement('div');
+            line.className = 'tracker-line ' + cls;
+            line.textContent = text;
+            log.insertBefore(line, log.firstChild);
+            if (log.children.length > 50) log.removeChild(log.lastChild);
+        }
+        
+        function setCurrent(text) {
+            document.getElementById('tracker-current').textContent = text;
+        }
+        
+        async function runStressTest() {
+            const policies = ['microsoft', 'google'];
+            
+            // AI generates a fresh idea each cycle
+            setCurrent('AI planning next attack...');
+            await delay(1500);
+            
+            try {
+                const ideasRes = await fetch('/demo/ai-generate-ideas', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                const ideas = await ideasRes.json();
+                
+                if (ideas.tests && ideas.tests.length > 0) {
+                    for (const idea of ideas.tests) {
+                        tracker.attempts++;
+                        updateStats();
+                        
+                        const intent = idea.expect === 'block' ? 'ATTACK' : 'VALID';
+                        setCurrent(`${intent}: ${idea.prompt.substring(0, 40)}...`);
+                        trackerLog(`[${intent}] ${idea.prompt.substring(0, 50)}`, 'planning');
+                        
+                        await delay(1200);
+                        
+                        try {
+                            const res = await fetch('/demo/ai-policy-execute', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ message: idea.prompt, policy: idea.policy })
+                            });
+                            const data = await res.json();
+                            
+                            if (data.status === 'blocked') {
+                                tracker.block++;
+                                tracker.audits++;
+                                trackerLog(`BLOCK: ${data.attempted_block || 'attack'} - ${data.violation.substring(0, 30)}`, 'block');
+                                setCurrent('Policy blocked attack!');
+                            } else if (data.status === 'executed') {
+                                tracker.pass++;
+                                tracker.audits++;
+                                trackerLog(`PASS: ${data.block} executed`, 'pass');
+                                setCurrent('Valid operation completed');
+                            } else {
+                                trackerLog(`INFO: ${data.error || 'No match'}`, '');
+                            }
+                            updateStats();
+                        } catch(e) {
+                            trackerLog(`ERROR: ${e.message}`, 'block');
+                        }
+                        
+                        await delay(800);
+                    }
+                }
+            } catch(e) {
+                trackerLog(`API Error: ${e.message}`, 'block');
+            }
+            
+            // Loop forever
+            setCurrent('Generating next attack plan...');
+            await delay(2000);
+            runStressTest();
+        }
+        
+        // Start the continuous stress test after 3 seconds
+        setTimeout(() => {
+            runStressTest();
+        }, 3000);
     </script>
 </body>
 </html>
