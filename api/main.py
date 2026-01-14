@@ -2162,8 +2162,13 @@ PLAYGROUND_HTML = """
             spacer();
             
             print('========== LIVE GROQ AI TEST ==========', 'dim');
-            print('Real AI trying to break the system in real-time...', 'dim');
+            print('GOAL: AI will attempt operations under enterprise policies', 'output');
+            print('Some will PASS, some will be BLOCKED by policy rules', 'output');
             spacer();
+            await delay(800);
+            
+            let passCount = 0;
+            let blockCount = 0;
             
             const liveTests = [
                 { prompt: "Calculate the sum of 50, 100, and 150", policy: "microsoft" },
@@ -2177,9 +2182,9 @@ PLAYGROUND_HTML = """
             ];
             
             for (const test of liveTests) {
-                print(`GROQ AI Request: "${test.prompt}"`, 'output');
+                print(`AI Request: "${test.prompt}"`, 'output');
                 print(`Policy: ${test.policy === 'microsoft' ? 'Microsoft Azure' : 'Google Cloud'}`, 'dim');
-                await delay(300);
+                await delay(600);
                 
                 try {
                     const res = await fetch('/demo/ai-policy-execute', {
@@ -2191,10 +2196,12 @@ PLAYGROUND_HTML = """
                     
                     if (data.status === 'blocked') {
                         print(`>>> AI tried: ${data.attempted_block || 'unknown'}`, 'command');
-                        print(`[BLOCKED] ${data.violation}`, 'error');
+                        print(`[BLOCK] ${data.violation}`, 'error');
+                        blockCount++;
                     } else if (data.status === 'executed') {
                         print(`>>> AI called: ${data.block}`, 'command');
-                        print(`[OK] Result: ${JSON.stringify(data.result)}`, 'success');
+                        print(`[PASS] Result: ${JSON.stringify(data.result)}`, 'success');
+                        passCount++;
                     } else if (data.error) {
                         print(`[INFO] ${data.error}`, 'dim');
                     }
@@ -2202,12 +2209,66 @@ PLAYGROUND_HTML = """
                     print(`[ERROR] ${e.message}`, 'error');
                 }
                 spacer();
-                await delay(500);
+                await delay(800);
             }
             
             print('='.repeat(50), 'dim');
             print('LIVE TEST COMPLETE', 'bold');
-            print('AI attempted real actions - policy enforcement worked', 'output');
+            print(`Blocks used: ${passCount + blockCount}`, 'output');
+            print(`[PASS]: ${passCount}`, 'success');
+            print(`[BLOCK]: ${blockCount}`, 'error');
+            print('='.repeat(50), 'dim');
+            spacer();
+            
+            print('========== AI GENERATING OWN IDEAS ==========', 'dim');
+            print('AI will now create its own test ideas...', 'output');
+            spacer();
+            await delay(1000);
+            
+            const aiIdeas = await fetch('/demo/ai-generate-ideas', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            });
+            const ideas = await aiIdeas.json();
+            
+            if (ideas.tests) {
+                for (const idea of ideas.tests) {
+                    print(`AI Idea: "${idea.prompt}"`, 'output');
+                    print(`Expecting: ${idea.expect}`, 'dim');
+                    await delay(600);
+                    
+                    try {
+                        const res = await fetch('/demo/ai-policy-execute', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ message: idea.prompt, policy: idea.policy })
+                        });
+                        const data = await res.json();
+                        
+                        if (data.status === 'blocked') {
+                            print(`>>> AI tried: ${data.attempted_block || 'unknown'}`, 'command');
+                            print(`[BLOCK] ${data.violation}`, 'error');
+                            blockCount++;
+                        } else if (data.status === 'executed') {
+                            print(`>>> AI called: ${data.block}`, 'command');
+                            print(`[PASS] Result: ${JSON.stringify(data.result)}`, 'success');
+                            passCount++;
+                        } else if (data.error) {
+                            print(`[INFO] ${data.error}`, 'dim');
+                        }
+                    } catch(e) {
+                        print(`[ERROR] ${e.message}`, 'error');
+                    }
+                    spacer();
+                    await delay(800);
+                }
+            }
+            
+            print('='.repeat(50), 'dim');
+            print('FINAL RESULTS', 'bold');
+            print(`Total blocks attempted: ${passCount + blockCount}`, 'output');
+            print(`[PASS]: ${passCount}`, 'success');
+            print(`[BLOCK]: ${blockCount}`, 'error');
             print('Code generated by AI: 0 lines', 'output');
             print('='.repeat(50), 'dim');
             spacer();
@@ -2222,6 +2283,56 @@ PLAYGROUND_HTML = """
 class AIPolicyRequest(BaseModel):
     message: str = Field(..., description="Natural language request")
     policy: str = Field(..., description="Enterprise policy to enforce")
+
+@app.post("/demo/ai-generate-ideas")
+async def demo_ai_generate_ideas(request: Request):
+    """AI generates its own test ideas - some to pass, some to get blocked."""
+    client_ip = request.client.host if request.client else "unknown"
+    if not check_demo_rate_limit(client_ip):
+        return {"tests": []}
+    
+    if not GROQ_AVAILABLE or not GROQ_API_KEY:
+        return {"tests": []}
+    
+    try:
+        import httpx
+        
+        prompt = """Generate 6 test ideas for a function block library. Create a JSON array with tests.
+Each test should have: prompt (what to do), policy (microsoft or google), expect (pass or block).
+
+Microsoft blocks: delete, drop, remove, execute, shell, eval, system
+Google blocks: password, credential, secret, token, key, admin
+
+Generate 3 that should PASS (safe math/string operations) and 3 that should be BLOCKED (dangerous operations).
+
+Respond with ONLY valid JSON array:
+[{"prompt": "...", "policy": "microsoft", "expect": "pass"}, ...]"""
+
+        async with httpx.AsyncClient() as client:
+            response = await client.post(
+                "https://api.groq.com/openai/v1/chat/completions",
+                headers={"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"},
+                json={
+                    "model": "llama-3.3-70b-versatile",
+                    "messages": [{"role": "user", "content": prompt}],
+                    "max_tokens": 500,
+                    "temperature": 0.7
+                },
+                timeout=30.0
+            )
+            
+            data = response.json()
+            content = data["choices"][0]["message"]["content"]
+            
+            start = content.find('[')
+            end = content.rfind(']') + 1
+            if start >= 0 and end > start:
+                tests = json.loads(content[start:end])
+                return {"tests": tests[:6]}
+            
+            return {"tests": []}
+    except Exception as e:
+        return {"tests": []}
 
 @app.post("/demo/ai-policy-execute")
 async def demo_ai_policy_execute(request: Request, req: AIPolicyRequest):
