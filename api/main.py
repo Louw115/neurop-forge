@@ -3071,20 +3071,38 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
                 if (data.error) {
                     addLine('<span class="blocked">Error: ' + data.error + '</span>');
                 } else {
+                    const explanations = {
+                        'is_valid_email': 'AI needs to validate an email. Instead of writing regex, it calls a pre-verified block.',
+                        'contains_substring': 'Checking email format using verified string block - no generated code.',
+                        'is_alphabetic': 'Checking character type using verified validation block.',
+                        'multiply': 'Math calculation required. AI uses verified arithmetic - deterministic, auditable.',
+                        'shell_execute': 'AI attempted shell command. BLOCKED - not in approved whitelist.',
+                        'database_access': 'AI attempted database access. BLOCKED by policy engine.',
+                    };
+                    
                     for (const event of data.events) {
-                        await new Promise(r => setTimeout(r, 300));
+                        await new Promise(r => setTimeout(r, 800));
                         
                         if (event.type === 'status') {
                             addLine('<span class="status">' + event.message + '</span>');
+                            await new Promise(r => setTimeout(r, 500));
                         } else if (event.type === 'block_call') {
+                            const explain = explanations[event.block] || 'AI calls a verified block from the library.';
+                            addLine('<span class="status" style="font-style: italic; color: #666;">→ ' + explain + '</span>');
+                            await new Promise(r => setTimeout(r, 600));
                             addLine('<div class="block-call"><span class="info">▶ AI CALLS:</span> ' + event.block + '<br><span class="status">Inputs:</span> ' + JSON.stringify(event.inputs).substring(0, 60) + '...</div>');
                         } else if (event.type === 'block_result') {
+                            await new Promise(r => setTimeout(r, 400));
                             addLine('<span class="success">✓ Result:</span> <span class="result">' + JSON.stringify(event.result).substring(0, 50) + '...</span>');
-                            addLine('<span class="audit">Audit: ' + event.audit + '</span>');
+                            addLine('<span class="audit">Cryptographic Audit Hash: ' + event.audit + ' (tamper-proof)</span>');
                         } else if (event.type === 'blocked') {
-                            addLine('<div class="block-blocked"><span class="blocked">✗ BLOCKED:</span> ' + event.block + '<br><span class="status">Reason:</span> Not in approved block list</div>');
+                            const explain = explanations[event.block] || 'This operation is not in the approved block list.';
+                            addLine('<span class="status" style="font-style: italic; color: #666;">→ ' + explain + '</span>');
+                            await new Promise(r => setTimeout(r, 600));
+                            addLine('<div class="block-blocked"><span class="blocked">✗ POLICY ENGINE BLOCKED:</span> ' + event.block + '<br><span class="status">This is the key differentiator.</span> AI wanted to do this, but Neurop Forge stopped it BEFORE execution.</div>');
                         } else if (event.type === 'complete') {
-                            addLine('<div class="summary-box"><span class="success">Demo Complete</span><br><br><span class="info">Blocks Executed:</span> ' + event.executed + '<br><span class="blocked">Operations Blocked:</span> ' + event.blocked + '</div>');
+                            await new Promise(r => setTimeout(r, 800));
+                            addLine('<div class="summary-box"><span class="success">Demo Complete</span><br><br><span class="info">Verified Blocks Executed:</span> ' + event.executed + ' (all deterministic, all auditable)<br><span class="blocked">Dangerous Operations Blocked:</span> ' + event.blocked + ' (policy enforcement worked)<br><br><span class="status">AI as Operator, Not Author.</span></div>');
                         }
                     }
                 }
@@ -3369,20 +3387,43 @@ MICROSOFT_DEMO_HTML = """
                 if (data.error) {
                     addLine('<span class="blocked">Error: ' + data.error + '</span>');
                 } else {
+                    let blockNum = 0;
+                    const explanations = {
+                        'is_valid_email': 'Copilot needs to validate customer email. Instead of writing regex, it calls a pre-verified block.',
+                        'mask_credit_card': 'Sensitive PII detected. Copilot masks the card number using a verified masking block - no custom code.',
+                        'multiply': 'Tax calculation required. Copilot uses a verified arithmetic block - deterministic, auditable.',
+                        'contains_substring': 'Validating email format by checking for @ symbol using verified string block.',
+                        'is_alphabetic': 'Checking if input contains only letters - verified validation block.',
+                        'database_access': 'Copilot attempted direct database access. BLOCKED by policy engine before execution.',
+                        'shell_execute': 'Copilot attempted shell command. BLOCKED - not in approved whitelist.',
+                        'execute_shell': 'Copilot attempted shell command. BLOCKED - this operation is forbidden.',
+                    };
+                    
                     for (const event of data.events) {
-                        await new Promise(r => setTimeout(r, 350));
+                        await new Promise(r => setTimeout(r, 800));
                         
                         if (event.type === 'status') {
                             addLine('<span class="status">' + event.message + '</span>');
+                            await new Promise(r => setTimeout(r, 600));
+                            addLine('<span class="status">Processing Fortune 500 enterprise compliance task...</span>');
                         } else if (event.type === 'block_call') {
+                            blockNum++;
+                            const explain = explanations[event.block] || 'Copilot calls a verified block from the library.';
+                            addLine('<span class="status" style="font-style: italic; color: #666;">→ ' + explain + '</span>');
+                            await new Promise(r => setTimeout(r, 600));
                             addLine('<div class="block-call"><span class="info">▶ COPILOT CALLS:</span> ' + event.block + '<br><span class="status">Inputs:</span> ' + JSON.stringify(event.inputs).substring(0, 60) + '...</div>');
                         } else if (event.type === 'block_result') {
+                            await new Promise(r => setTimeout(r, 400));
                             addLine('<span class="success">✓ Result:</span> <span class="result">' + JSON.stringify(event.result).substring(0, 50) + '...</span>');
-                            addLine('<span class="audit">Audit: ' + event.audit + '</span>');
+                            addLine('<span class="audit">Cryptographic Audit Hash: ' + event.audit + ' (tamper-proof)</span>');
                         } else if (event.type === 'blocked') {
-                            addLine('<div class="block-blocked"><span class="blocked">✗ POLICY BLOCKED:</span> ' + event.block + '<br><span class="status">Reason:</span> Not in approved block whitelist</div>');
+                            const explain = explanations[event.block] || 'This operation is not in the approved block list.';
+                            addLine('<span class="status" style="font-style: italic; color: #666;">→ ' + explain + '</span>');
+                            await new Promise(r => setTimeout(r, 600));
+                            addLine('<div class="block-blocked"><span class="blocked">✗ POLICY ENGINE BLOCKED:</span> ' + event.block + '<br><span class="status">This is the key differentiator.</span> The AI wanted to do this, but Neurop Forge stopped it BEFORE execution.</div>');
                         } else if (event.type === 'complete') {
-                            addLine('<div class="summary-box"><span class="success">Demo Complete</span><br><br><span class="info">Verified Blocks Executed:</span> ' + event.executed + '<br><span class="blocked">Dangerous Operations Blocked:</span> ' + event.blocked + '</div>');
+                            await new Promise(r => setTimeout(r, 800));
+                            addLine('<div class="summary-box"><span class="success">Demo Complete</span><br><br><span class="info">Verified Blocks Executed:</span> ' + event.executed + ' (all deterministic, all auditable)<br><span class="blocked">Dangerous Operations Blocked:</span> ' + event.blocked + ' (policy enforcement worked)<br><br><span class="status">This is what Copilot looks like with enterprise-grade governance.</span></div>');
                         }
                     }
                 }
@@ -3538,20 +3579,44 @@ GOOGLE_DEMO_HTML = """
                 if (data.error) {
                     addLine('<span class="blocked">Error: ' + data.error + '</span>');
                 } else {
+                    let blockNum = 0;
+                    const explanations = {
+                        'is_valid_email': 'Gemini needs to validate customer email. Instead of generating regex, it calls a pre-verified block.',
+                        'mask_credit_card': 'Sensitive PII detected. Gemini masks the card using a verified block - no generated code.',
+                        'multiply': 'Financial calculation needed. Gemini uses verified arithmetic - deterministic, auditable.',
+                        'contains_substring': 'Checking input format using verified string block.',
+                        'contains_digits': 'Validating phone number contains digits - verified validation block.',
+                        'is_alphabetic': 'Checking character type - verified validation block.',
+                        'external_export': 'Gemini attempted to export data externally. BLOCKED - not in approved whitelist.',
+                        'shell_execute': 'Gemini attempted shell command. BLOCKED by policy engine.',
+                        'database_query': 'Gemini attempted raw database access. BLOCKED - use approved blocks only.',
+                    };
+                    
                     for (const event of data.events) {
-                        await new Promise(r => setTimeout(r, 350));
+                        await new Promise(r => setTimeout(r, 800));
                         
                         if (event.type === 'status') {
                             addLine('<span class="status">' + event.message + '</span>');
+                            await new Promise(r => setTimeout(r, 600));
+                            addLine('<span class="status">Processing enterprise data pipeline for Acme Corp...</span>');
                         } else if (event.type === 'block_call') {
+                            blockNum++;
+                            const explain = explanations[event.block] || 'Gemini calls a verified block from the library.';
+                            addLine('<span class="status" style="font-style: italic; color: #666;">→ ' + explain + '</span>');
+                            await new Promise(r => setTimeout(r, 600));
                             addLine('<div class="block-call"><span class="info">▶ GEMINI CALLS:</span> ' + event.block + '<br><span class="status">Inputs:</span> ' + JSON.stringify(event.inputs).substring(0, 60) + '...</div>');
                         } else if (event.type === 'block_result') {
+                            await new Promise(r => setTimeout(r, 400));
                             addLine('<span class="success">✓ Result:</span> <span class="result">' + JSON.stringify(event.result).substring(0, 50) + '...</span>');
-                            addLine('<span class="audit">Audit: ' + event.audit + '</span>');
+                            addLine('<span class="audit">Cryptographic Audit Hash: ' + event.audit + ' (tamper-proof)</span>');
                         } else if (event.type === 'blocked') {
-                            addLine('<div class="block-blocked"><span class="blocked">✗ POLICY BLOCKED:</span> ' + event.block + '<br><span class="status">Reason:</span> Not in approved block whitelist</div>');
+                            const explain = explanations[event.block] || 'This operation is not in the approved block list.';
+                            addLine('<span class="status" style="font-style: italic; color: #666;">→ ' + explain + '</span>');
+                            await new Promise(r => setTimeout(r, 600));
+                            addLine('<div class="block-blocked"><span class="blocked">✗ POLICY ENGINE BLOCKED:</span> ' + event.block + '<br><span class="status">This is the key differentiator.</span> Gemini wanted to do this, but Neurop Forge stopped it BEFORE execution.</div>');
                         } else if (event.type === 'complete') {
-                            addLine('<div class="summary-box"><span class="success">Demo Complete</span><br><br><span class="info">Verified Blocks Executed:</span> ' + event.executed + '<br><span class="blocked">Dangerous Operations Blocked:</span> ' + event.blocked + '</div>');
+                            await new Promise(r => setTimeout(r, 800));
+                            addLine('<div class="summary-box"><span class="success">Demo Complete</span><br><br><span class="info">Verified Blocks Executed:</span> ' + event.executed + ' (all deterministic, all auditable)<br><span class="blocked">Dangerous Operations Blocked:</span> ' + event.blocked + ' (policy enforcement worked)<br><br><span class="status">This is what Gemini looks like with enterprise-grade governance.</span></div>');
                         }
                     }
                 }
