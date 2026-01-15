@@ -3066,7 +3066,7 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
         }
         
         .output-line {
-            margin-bottom: 6px;
+            margin-bottom: 16px;
             animation: slideIn 0.3s ease;
         }
         
@@ -3087,7 +3087,7 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
             border: 1px solid rgba(34,197,94,0.2);
             border-radius: 8px;
             padding: 12px 16px;
-            margin: 10px 0;
+            margin: 16px 0 24px 0;
         }
         
         .audit-header {
@@ -3145,7 +3145,7 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
             border: 1px solid rgba(255,255,255,0.1);
             border-left: 3px solid #22c55e;
             padding: 14px 18px;
-            margin: 12px 0;
+            margin: 20px 0;
             border-radius: 0 8px 8px 0;
         }
         
@@ -3160,7 +3160,7 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
             border: 1px solid rgba(239,68,68,0.25);
             border-left: 3px solid #ef4444;
             padding: 14px 18px;
-            margin: 12px 0;
+            margin: 20px 0;
             border-radius: 0 8px 8px 0;
         }
         
@@ -3174,7 +3174,7 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
             border: 1px solid rgba(34,197,94,0.2);
             border-radius: 8px;
             padding: 18px;
-            margin-top: 16px;
+            margin-top: 28px;
         }
         
         .footer {
@@ -3770,7 +3770,7 @@ MICROSOFT_DEMO_HTML = """
             border: 1px solid rgba(34,197,94,0.2);
             border-radius: 8px;
             padding: 12px 16px;
-            margin: 10px 0;
+            margin: 16px 0 24px 0;
         }
         .audit-header {
             display: flex;
@@ -3822,7 +3822,7 @@ MICROSOFT_DEMO_HTML = """
             border: 1px solid rgba(255,255,255,0.1);
             border-left: 3px solid #22c55e;
             padding: 14px 18px;
-            margin: 12px 0;
+            margin: 20px 0;
             border-radius: 0 8px 8px 0;
         }
         
@@ -3836,7 +3836,7 @@ MICROSOFT_DEMO_HTML = """
             border: 1px solid rgba(239,68,68,0.25);
             border-left: 3px solid #ef4444;
             padding: 14px 18px;
-            margin: 12px 0;
+            margin: 20px 0;
             border-radius: 0 8px 8px 0;
         }
         
@@ -3850,7 +3850,7 @@ MICROSOFT_DEMO_HTML = """
             border: 1px solid rgba(34,197,94,0.2);
             border-radius: 8px;
             padding: 18px;
-            margin-top: 16px;
+            margin-top: 28px;
         }
         
         .placeholder {
@@ -4289,7 +4289,7 @@ GOOGLE_DEMO_HTML = """
             border: 1px solid rgba(34,197,94,0.2);
             border-radius: 8px;
             padding: 12px 16px;
-            margin: 10px 0;
+            margin: 16px 0 24px 0;
         }
         .audit-header {
             display: flex;
@@ -4341,7 +4341,7 @@ GOOGLE_DEMO_HTML = """
             border: 1px solid rgba(255,255,255,0.1);
             border-left: 3px solid #22c55e;
             padding: 14px 18px;
-            margin: 12px 0;
+            margin: 20px 0;
             border-radius: 0 8px 8px 0;
         }
         
@@ -4355,7 +4355,7 @@ GOOGLE_DEMO_HTML = """
             border: 1px solid rgba(239,68,68,0.25);
             border-left: 3px solid #ef4444;
             padding: 14px 18px;
-            margin: 12px 0;
+            margin: 20px 0;
             border-radius: 0 8px 8px 0;
         }
         
@@ -4369,7 +4369,7 @@ GOOGLE_DEMO_HTML = """
             border: 1px solid rgba(34,197,94,0.2);
             border-radius: 8px;
             padding: 18px;
-            margin-top: 16px;
+            margin-top: 28px;
         }
         
         .placeholder {
