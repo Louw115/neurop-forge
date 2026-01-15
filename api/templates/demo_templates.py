@@ -258,6 +258,29 @@ header {
     border-radius: 0 8px 8px 0;
 }
 
+.block-structure {
+    margin: 8px 0;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+}
+
+.struct-section {
+    margin: 4px 0;
+    color: var(--text-secondary);
+}
+
+.struct-key {
+    color: var(--accent);
+    font-weight: 500;
+}
+
+.hash-preview {
+    color: var(--success);
+}
+
 .block-call .label {
     color: var(--success);
     font-weight: 600;
@@ -521,7 +544,18 @@ def create_microsoft_demo_html() -> str:
                         if (event.type === 'status') {{
                             addLine('<span class="status">' + event.message + '</span>');
                         }} else if (event.type === 'block_call') {{
-                            addLine('<div class="block-call"><span class="label">EXECUTE</span> <span class="name">' + event.block + '</span><div class="inputs">inputs: ' + JSON.stringify(event.inputs) + '</div></div>');
+                            let blockHtml = '<div class="block-call"><span class="label">EXECUTE</span> <span class="name">' + event.block + '</span>';
+                            if (event.block_info) {{
+                                const bi = event.block_info;
+                                blockHtml += '<div class="block-structure">';
+                                blockHtml += '<div class="struct-section"><span class="struct-key">metadata:</span> {{name: "' + bi.metadata.name + '", category: "' + bi.metadata.category + '"}}</div>';
+                                blockHtml += '<div class="struct-section"><span class="struct-key">interface.inputs:</span> ' + JSON.stringify(bi.interface.inputs) + '</div>';
+                                blockHtml += '<div class="struct-section"><span class="struct-key">identity.hash_value:</span> <span class="hash-preview">' + (bi.identity.hash_value || '').substring(0, 16) + '...</span></div>';
+                                blockHtml += '<div class="struct-section"><span class="struct-key">constraints:</span> {{purity: "' + bi.constraints.purity + '", deterministic: ' + bi.constraints.deterministic + '}}</div>';
+                                blockHtml += '</div>';
+                            }}
+                            blockHtml += '<div class="inputs">inputs: ' + JSON.stringify(event.inputs) + '</div></div>';
+                            addLine(blockHtml);
                         }} else if (event.type === 'block_result') {{
                             if (event.success) {{
                                 addLine('<div class="block-result"><span class="ok">OK</span> <span class="value">' + JSON.stringify(event.result) + '</span></div>');
@@ -655,7 +689,18 @@ def create_google_demo_html() -> str:
                         if (event.type === 'status') {{
                             addLine('<span class="status">' + event.message + '</span>');
                         }} else if (event.type === 'block_call') {{
-                            addLine('<div class="block-call"><span class="label">EXECUTE</span> <span class="name">' + event.block + '</span><div class="inputs">inputs: ' + JSON.stringify(event.inputs) + '</div></div>');
+                            let blockHtml = '<div class="block-call"><span class="label">EXECUTE</span> <span class="name">' + event.block + '</span>';
+                            if (event.block_info) {{
+                                const bi = event.block_info;
+                                blockHtml += '<div class="block-structure">';
+                                blockHtml += '<div class="struct-section"><span class="struct-key">metadata:</span> {{name: "' + bi.metadata.name + '", category: "' + bi.metadata.category + '"}}</div>';
+                                blockHtml += '<div class="struct-section"><span class="struct-key">interface.inputs:</span> ' + JSON.stringify(bi.interface.inputs) + '</div>';
+                                blockHtml += '<div class="struct-section"><span class="struct-key">identity.hash_value:</span> <span class="hash-preview">' + (bi.identity.hash_value || '').substring(0, 16) + '...</span></div>';
+                                blockHtml += '<div class="struct-section"><span class="struct-key">constraints:</span> {{purity: "' + bi.constraints.purity + '", deterministic: ' + bi.constraints.deterministic + '}}</div>';
+                                blockHtml += '</div>';
+                            }}
+                            blockHtml += '<div class="inputs">inputs: ' + JSON.stringify(event.inputs) + '</div></div>';
+                            addLine(blockHtml);
                         }} else if (event.type === 'block_result') {{
                             if (event.success) {{
                                 addLine('<div class="block-result"><span class="ok">OK</span> <span class="value">' + JSON.stringify(event.result) + '</span></div>');
@@ -788,7 +833,18 @@ def create_live_demo_html() -> str:
                         if (event.type === 'status') {{
                             addLine('<span class="status">' + event.message + '</span>');
                         }} else if (event.type === 'block_call') {{
-                            addLine('<div class="block-call"><span class="label">EXECUTE</span> <span class="name">' + event.block + '</span><div class="inputs">inputs: ' + JSON.stringify(event.inputs) + '</div></div>');
+                            let blockHtml = '<div class="block-call"><span class="label">EXECUTE</span> <span class="name">' + event.block + '</span>';
+                            if (event.block_info) {{
+                                const bi = event.block_info;
+                                blockHtml += '<div class="block-structure">';
+                                blockHtml += '<div class="struct-section"><span class="struct-key">metadata:</span> {{name: "' + bi.metadata.name + '", category: "' + bi.metadata.category + '"}}</div>';
+                                blockHtml += '<div class="struct-section"><span class="struct-key">interface.inputs:</span> ' + JSON.stringify(bi.interface.inputs) + '</div>';
+                                blockHtml += '<div class="struct-section"><span class="struct-key">identity.hash_value:</span> <span class="hash-preview">' + (bi.identity.hash_value || '').substring(0, 16) + '...</span></div>';
+                                blockHtml += '<div class="struct-section"><span class="struct-key">constraints:</span> {{purity: "' + bi.constraints.purity + '", deterministic: ' + bi.constraints.deterministic + '}}</div>';
+                                blockHtml += '</div>';
+                            }}
+                            blockHtml += '<div class="inputs">inputs: ' + JSON.stringify(event.inputs) + '</div></div>';
+                            addLine(blockHtml);
                         }} else if (event.type === 'block_result') {{
                             if (event.success) {{
                                 addLine('<div class="block-result"><span class="ok">OK</span> <span class="value">' + JSON.stringify(event.result) + '</span></div>');
@@ -912,6 +968,40 @@ LIBRARY_BROWSER_HTML = '''<!DOCTYPE html>
         .block-card:hover {
             border-color: var(--accent);
             transform: translateY(-2px);
+        }
+        
+        .pagination {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            padding: 20px 0;
+        }
+        
+        .page-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--accent);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .page-btn:hover:not(:disabled) {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: var(--accent);
+        }
+        
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .page-info {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
         }
         
         .block-name {
@@ -1142,19 +1232,59 @@ LIBRARY_BROWSER_HTML = '''<!DOCTYPE html>
             }
         }
         
+        const PAGE_SIZE = 100;
+        let currentPage = 0;
+        let currentBlocks = [];
+        
         function renderBlocks(blocks) {
+            currentBlocks = blocks;
+            currentPage = 0;
+            renderPage();
+        }
+        
+        function renderPage() {
             const grid = document.getElementById('blockGrid');
-            if (blocks.length === 0) {
+            if (currentBlocks.length === 0) {
                 grid.innerHTML = '<div class="empty-state">No blocks found</div>';
                 return;
             }
-            grid.innerHTML = blocks.map(block => `
+            
+            const start = currentPage * PAGE_SIZE;
+            const end = Math.min(start + PAGE_SIZE, currentBlocks.length);
+            const pageBlocks = currentBlocks.slice(start, end);
+            const totalPages = Math.ceil(currentBlocks.length / PAGE_SIZE);
+            
+            let html = pageBlocks.map(block => `
                 <div class="block-card" onclick="showBlockDetail('${block.name}')">
                     <div class="block-name">${block.name}</div>
                     <div class="block-category">${block.category || 'general'}</div>
                     <div class="block-desc">${block.description || 'Verified immutable function block'}</div>
                 </div>
             `).join('');
+            
+            if (totalPages > 1) {
+                html += `<div class="pagination">
+                    <button class="page-btn" onclick="prevPage()" ${currentPage === 0 ? 'disabled' : ''}>Previous</button>
+                    <span class="page-info">Page ${currentPage + 1} of ${totalPages} (${currentBlocks.length} blocks)</span>
+                    <button class="page-btn" onclick="nextPage()" ${currentPage >= totalPages - 1 ? 'disabled' : ''}>Next</button>
+                </div>`;
+            }
+            grid.innerHTML = html;
+        }
+        
+        function nextPage() {
+            const totalPages = Math.ceil(currentBlocks.length / PAGE_SIZE);
+            if (currentPage < totalPages - 1) {
+                currentPage++;
+                renderPage();
+            }
+        }
+        
+        function prevPage() {
+            if (currentPage > 0) {
+                currentPage--;
+                renderPage();
+            }
         }
         
         function filterByCategory(category) {
@@ -1191,58 +1321,40 @@ LIBRARY_BROWSER_HTML = '''<!DOCTYPE html>
                 const data = await response.json();
                 const block = data.block;
                 
-                let inputsHtml = '';
-                if (block.inputs && block.inputs.length > 0) {
-                    inputsHtml = block.inputs.map(inp => `<span class="param-tag">${inp.name}: ${inp.type}</span>`).join('');
-                } else {
-                    inputsHtml = '<span class="param-tag">none</span>';
-                }
-                
-                let outputsHtml = '';
-                if (block.outputs && block.outputs.length > 0) {
-                    outputsHtml = block.outputs.map(out => `<span class="param-tag">${out.name}: ${out.type}</span>`).join('');
-                } else {
-                    outputsHtml = '<span class="param-tag">result</span>';
-                }
+                const inputsJson = block.inputs && block.inputs.length > 0 
+                    ? JSON.stringify(block.inputs, null, 2) 
+                    : '[{"name": "input", "data_type": "any"}]';
+                const outputsJson = block.outputs && block.outputs.length > 0 
+                    ? JSON.stringify(block.outputs, null, 2) 
+                    : '[{"name": "result", "data_type": "any"}]';
                 
                 document.getElementById('modalBody').innerHTML = `
                     <div class="detail-section">
-                        <div class="detail-label">Description</div>
-                        <div class="detail-value">${block.description || 'Verified immutable function block'}</div>
+                        <div class="detail-label">NeuropBlock Structure (Read Only)</div>
+                        <pre class="code-block">{
+  "metadata": {
+    "name": "${block.name}",
+    "category": "${block.category || 'general'}",
+    "description": "${(block.description || '').replace(/"/g, '\\"')}"
+  },
+  "interface": {
+    "inputs": ${inputsJson.replace(/\n/g, '\n    ')},
+    "outputs": ${outputsJson.replace(/\n/g, '\n    ')}
+  },
+  "identity": {
+    "hash_value": "${block.hash || ''}"
+  },
+  "constraints": {
+    "purity": "${block.purity || 'pure'}",
+    "deterministic": ${block.deterministic !== false},
+    "thread_safe": ${block.thread_safe !== false}
+  }
+}</pre>
                     </div>
                     
                     <div class="detail-section">
-                        <div class="detail-label">Category</div>
-                        <div class="detail-value">${block.category || 'general'}</div>
-                    </div>
-                    
-                    <div class="detail-section">
-                        <div class="detail-label">Inputs</div>
-                        <div class="input-list">${inputsHtml}</div>
-                    </div>
-                    
-                    <div class="detail-section">
-                        <div class="detail-label">Outputs</div>
-                        <div class="output-list">${outputsHtml}</div>
-                    </div>
-                    
-                    <div class="detail-section">
-                        <div class="detail-label">Cryptographic Identity (SHA-256)</div>
-                        <div class="hash-display">${block.hash || 'Hash not available'}</div>
-                    </div>
-                    
-                    <div class="detail-section">
-                        <div class="detail-label">Implementation (Read Only)</div>
-                        <pre class="code-block">${escapeHtml(block.code || 'Implementation details protected')}</pre>
-                    </div>
-                    
-                    <div class="detail-section">
-                        <div class="detail-label">Constraints</div>
-                        <div class="detail-value">
-                            Purity: ${block.purity || 'pure'} | 
-                            Deterministic: ${block.deterministic !== false ? 'yes' : 'no'} | 
-                            Thread Safe: ${block.thread_safe !== false ? 'yes' : 'no'}
-                        </div>
+                        <div class="detail-label">logic (Implementation)</div>
+                        <pre class="code-block">${escapeHtml(block.code || '# Implementation protected')}</pre>
                     </div>
                 `;
             } catch (err) {

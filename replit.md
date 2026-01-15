@@ -18,12 +18,35 @@ Preferred communication style: Simple, everyday language.
 - **Trust Tiers**: Tier-A blocks are safe for unrestricted AI use; Tier-B blocks require explicit permission
 - **Cryptographic Identity**: Every block has a `hash_value` and `semantic_fingerprint` for verification
 
-### Block Metadata Structure
-Each block JSON contains:
-- **Identity**: Hash algorithm, hash value, semantic fingerprint for immutability verification
-- **Composition**: Compatibility rules for chaining blocks (input/output types, conflicts, dependencies)
-- **Constraints**: Purity level, determinism, thread safety, I/O operations, side effects
-- **Failure Modes**: Exception handling, recovery hints, error conditions
+### Authentic NeuropBlock Format
+Each block is displayed in the authentic NeuropBlock JSON structure:
+```json
+{
+  "metadata": {
+    "name": "block_name",
+    "category": "category",
+    "description": "Block description"
+  },
+  "interface": {
+    "inputs": [{"name": "input", "data_type": "string"}],
+    "outputs": [{"name": "result", "data_type": "string"}]
+  },
+  "identity": {
+    "hash_value": "SHA-256 cryptographic identity"
+  },
+  "constraints": {
+    "purity": "pure",
+    "deterministic": true,
+    "thread_safe": true
+  },
+  "logic": "# Python implementation"
+}
+```
+
+This format is used consistently across:
+- Demo execution events (block_call type)
+- Library browser detail modals
+- API responses
 
 ### Execution Model
 - **Pure Functions**: Most blocks are deterministic, thread-safe, with no side effects

@@ -4696,30 +4696,34 @@ async def get_library_block_detail(block_name: str):
     if block is None:
         raise HTTPException(status_code=404, detail=f"Block '{block_name}' not found")
     
+    def clean_enum(val):
+        s = str(val)
+        return s.split('.')[-1].lower() if '.' in s else s
+    
     inputs = []
     try:
         for inp in block.interface.inputs:
             inp_name = inp.name if hasattr(inp, 'name') else "input"
-            inp_type = str(inp.type.base_type) if hasattr(inp, 'type') and hasattr(inp.type, 'base_type') else "any"
-            inputs.append({"name": inp_name, "type": inp_type})
+            inp_type = clean_enum(inp.data_type) if hasattr(inp, 'data_type') else "any"
+            inputs.append({"name": inp_name, "data_type": inp_type})
     except:
-        inputs = [{"name": "input", "type": "any"}]
+        inputs = [{"name": "input", "data_type": "any"}]
     
     outputs = []
     try:
         for out in block.interface.outputs:
             out_name = out.name if hasattr(out, 'name') else "result"
-            out_type = str(out.type.base_type) if hasattr(out, 'type') and hasattr(out.type, 'base_type') else "any"
-            outputs.append({"name": out_name, "type": out_type})
+            out_type = clean_enum(out.data_type) if hasattr(out, 'data_type') else "any"
+            outputs.append({"name": out_name, "data_type": out_type})
     except:
-        outputs = [{"name": "result", "type": "any"}]
+        outputs = [{"name": "result", "data_type": "any"}]
     
     try:
         code = block.logic
         description = block.metadata.description if hasattr(block.metadata, 'description') else block.metadata.intent
         category = block.metadata.category if hasattr(block.metadata, 'category') else "general"
         hash_value = block.identity.get("hash_value", "") if isinstance(block.identity, dict) else ""
-        purity = str(block.constraints.purity) if hasattr(block.constraints, 'purity') else "pure"
+        purity = clean_enum(block.constraints.purity) if hasattr(block.constraints, 'purity') else "pure"
         deterministic = block.constraints.deterministic if hasattr(block.constraints, 'deterministic') else True
         thread_safe = block.constraints.thread_safe if hasattr(block.constraints, 'thread_safe') else True
     except:
@@ -4851,7 +4855,32 @@ Execute ONE step per response. Be precise with inputs."""
                         from neurop_forge.runtime.executor import BlockExecutor
                         executor = BlockExecutor()
                         coerced_inputs = coerce_block_inputs(target_block, inputs)
-                        events.append({"type": "block_call", "block": block_name, "inputs": coerced_inputs})
+                        
+                        def clean_enum(val):
+                            s = str(val)
+                            return s.split('.')[-1].lower() if '.' in s else s
+                        
+                        block_info = {
+                            "metadata": {
+                                "name": target_block.metadata.name,
+                                "category": target_block.metadata.category,
+                                "description": target_block.metadata.description
+                            },
+                            "interface": {
+                                "inputs": [{"name": inp.name, "data_type": clean_enum(inp.data_type)} for inp in target_block.interface.inputs],
+                                "outputs": [{"name": out.name, "data_type": clean_enum(out.data_type)} for out in target_block.interface.outputs]
+                            },
+                            "identity": {
+                                "hash_value": target_block.identity.get("hash_value", "")
+                            },
+                            "constraints": {
+                                "purity": clean_enum(target_block.constraints.purity),
+                                "deterministic": target_block.constraints.deterministic,
+                                "thread_safe": target_block.constraints.thread_safe
+                            }
+                        }
+                        
+                        events.append({"type": "block_call", "block": block_name, "inputs": coerced_inputs, "block_info": block_info})
                         outputs, error = executor.execute(target_block, coerced_inputs)
                         
                         if error is None:
@@ -5013,7 +5042,32 @@ Execute ONE step per response. Be precise with inputs."""
                         from neurop_forge.runtime.executor import BlockExecutor
                         executor = BlockExecutor()
                         coerced_inputs = coerce_block_inputs(target_block, inputs)
-                        events.append({"type": "block_call", "block": block_name, "inputs": coerced_inputs})
+                        
+                        def clean_enum(val):
+                            s = str(val)
+                            return s.split('.')[-1].lower() if '.' in s else s
+                        
+                        block_info = {
+                            "metadata": {
+                                "name": target_block.metadata.name,
+                                "category": target_block.metadata.category,
+                                "description": target_block.metadata.description
+                            },
+                            "interface": {
+                                "inputs": [{"name": inp.name, "data_type": clean_enum(inp.data_type)} for inp in target_block.interface.inputs],
+                                "outputs": [{"name": out.name, "data_type": clean_enum(out.data_type)} for out in target_block.interface.outputs]
+                            },
+                            "identity": {
+                                "hash_value": target_block.identity.get("hash_value", "")
+                            },
+                            "constraints": {
+                                "purity": clean_enum(target_block.constraints.purity),
+                                "deterministic": target_block.constraints.deterministic,
+                                "thread_safe": target_block.constraints.thread_safe
+                            }
+                        }
+                        
+                        events.append({"type": "block_call", "block": block_name, "inputs": coerced_inputs, "block_info": block_info})
                         outputs, error = executor.execute(target_block, coerced_inputs)
                         
                         if error is None:
