@@ -3946,49 +3946,40 @@ GOOGLE_DEMO_HTML = """
         
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #09090b;
+            background: linear-gradient(135deg, #2a2a2e 0%, #1a1a1e 25%, #22222a 50%, #1e1e24 75%, #2a2a30 100%);
             color: #fafafa;
             min-height: 100vh;
             overflow-x: hidden;
         }
         
-        .bg-grid {
+        .bg-metal {
             position: fixed;
             inset: 0;
             background-image: 
-                linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
-            background-size: 50px 50px;
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255,255,255,0.01) 2px,
+                    rgba(255,255,255,0.01) 4px
+                ),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 100px,
+                    rgba(255,255,255,0.02) 100px,
+                    rgba(255,255,255,0.02) 101px
+                );
             pointer-events: none;
         }
         
-        .bg-glow-1 {
+        .bg-sheen {
             position: fixed;
-            top: -30%;
-            left: -10%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(66,133,244,0.12) 0%, transparent 60%);
-            pointer-events: none;
-        }
-        
-        .bg-glow-2 {
-            position: fixed;
-            top: 20%;
-            right: -15%;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(234,67,53,0.08) 0%, transparent 60%);
-            pointer-events: none;
-        }
-        
-        .bg-glow-3 {
-            position: fixed;
-            bottom: -20%;
-            left: 30%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(52,168,83,0.1) 0%, transparent 60%);
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%);
             pointer-events: none;
         }
         
@@ -4199,84 +4190,78 @@ GOOGLE_DEMO_HTML = """
             to { opacity: 1; transform: translateY(0); }
         }
         
-        .status { color: #71717a; }
-        .success { color: #4ade80; }
-        .blocked { color: #f87171; }
-        .info { color: #60a5fa; }
-        .result { color: #93c5fd; }
-        .audit { color: #fbbf24; font-size: 0.8rem; }
+        .status { color: #a1a1aa; }
+        .success { color: #22c55e; }
+        .blocked { color: #ef4444; }
+        .info { color: #d4d4d8; }
+        .result { color: #e4e4e7; }
+        .audit { color: #a1a1aa; font-size: 0.8rem; }
         
         .audit-box {
-            background: rgba(251,191,36,0.1);
-            border: 1px solid rgba(251,191,36,0.3);
-            border-radius: 8px;
-            padding: 10px 14px;
+            background: rgba(34,197,94,0.08);
+            border: 1px solid rgba(34,197,94,0.25);
+            border-radius: 6px;
+            padding: 8px 14px;
             margin: 8px 0;
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        .audit-box .audit-icon { font-size: 1.1rem; }
         .audit-box .audit-label {
-            color: #fbbf24;
-            font-size: 0.75rem;
+            color: #22c55e;
+            font-size: 0.7rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
         .audit-box .audit-hash {
             font-family: 'JetBrains Mono', monospace;
-            color: #fcd34d;
-            font-size: 0.85rem;
-            background: rgba(0,0,0,0.3);
-            padding: 4px 10px;
+            color: #a1a1aa;
+            font-size: 0.8rem;
+            background: rgba(0,0,0,0.4);
+            padding: 3px 8px;
             border-radius: 4px;
         }
         .block-source {
-            color: #4285f4;
-            font-size: 0.75rem;
-            margin-top: 6px;
-            opacity: 0.8;
+            color: #71717a;
+            font-size: 0.7rem;
+            margin-top: 4px;
         }
         
         .block-call {
-            background: rgba(66,133,244,0.18);
-            border: 1px solid rgba(66,133,244,0.4);
-            border-left: 4px solid #4285f4;
-            padding: 16px 20px;
-            margin: 14px 0;
-            border-radius: 0 10px 10px 0;
-            box-shadow: 0 4px 20px rgba(66,133,244,0.25), inset 0 1px 0 rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-left: 3px solid #22c55e;
+            padding: 14px 18px;
+            margin: 12px 0;
+            border-radius: 0 8px 8px 0;
         }
         
-        .block-call .info {
-            font-size: 0.95rem;
+        .block-call .success {
+            font-size: 0.9rem;
             font-weight: 600;
-            color: #60a5fa;
         }
         
         .block-blocked {
-            background: rgba(234,67,53,0.18);
-            border: 1px solid rgba(234,67,53,0.4);
-            border-left: 4px solid #ea4335;
-            padding: 16px 20px;
-            margin: 14px 0;
-            border-radius: 0 10px 10px 0;
-            box-shadow: 0 4px 20px rgba(234,67,53,0.25), inset 0 1px 0 rgba(255,255,255,0.05);
+            background: rgba(239,68,68,0.08);
+            border: 1px solid rgba(239,68,68,0.25);
+            border-left: 3px solid #ef4444;
+            padding: 14px 18px;
+            margin: 12px 0;
+            border-radius: 0 8px 8px 0;
         }
         
         .block-blocked .blocked {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 600;
         }
         
         .summary-box {
-            background: rgba(52,168,83,0.1);
-            border: 1px solid rgba(52,168,83,0.3);
-            border-radius: 12px;
-            padding: 20px;
+            background: rgba(34,197,94,0.06);
+            border: 1px solid rgba(34,197,94,0.2);
+            border-radius: 8px;
+            padding: 18px;
             margin-top: 16px;
-            box-shadow: 0 4px 20px rgba(52,168,83,0.15);
         }
         
         .placeholder {
@@ -4306,10 +4291,8 @@ GOOGLE_DEMO_HTML = """
     </style>
 </head>
 <body>
-    <div class="bg-grid"></div>
-    <div class="bg-glow-1"></div>
-    <div class="bg-glow-2"></div>
-    <div class="bg-glow-3"></div>
+    <div class="bg-metal"></div>
+    <div class="bg-sheen"></div>
     
     <div class="container">
         <header>
@@ -4412,30 +4395,24 @@ GOOGLE_DEMO_HTML = """
                     };
                     
                     for (const event of data.events) {
-                        await new Promise(r => setTimeout(r, 800));
+                        await new Promise(r => setTimeout(r, 700));
                         
                         if (event.type === 'status') {
                             addLine('<span class="status">' + event.message + '</span>');
-                            await new Promise(r => setTimeout(r, 600));
-                            addLine('<span class="status">Processing enterprise data pipeline for Acme Corp...</span>');
-                        } else if (event.type === 'block_call') {
-                            blockNum++;
-                            const explain = explanations[event.block] || 'Gemini calls a verified block from the library.';
-                            addLine('<span class="status" style="font-style: italic; color: #666;">→ ' + explain + '</span>');
-                            await new Promise(r => setTimeout(r, 600));
-                            addLine('<div class="block-call"><span class="info">▶ GEMINI CALLS:</span> ' + event.block + '<br><span class="status">Inputs:</span> ' + JSON.stringify(event.inputs).substring(0, 60) + '...</div>');
-                        } else if (event.type === 'block_result') {
                             await new Promise(r => setTimeout(r, 400));
-                            addLine('<span class="success">✓ Block executed successfully</span> <span class="result">' + JSON.stringify(event.result).substring(0, 60) + '</span>');
-                            addLine('<div class="audit-box"><span class="audit-icon">🔐</span><span class="audit-label">Cryptographic Audit</span><span class="audit-hash">' + event.audit + '</span><span style="color:#71717a;font-size:0.75rem;">tamper-proof</span></div>');
+                        } else if (event.type === 'block_call') {
+                            addLine('<div class="block-call"><span class="success">EXECUTE</span> <strong>' + event.block + '</strong><br><span class="status">inputs: ' + JSON.stringify(event.inputs).substring(0, 70) + '</span><div class="block-source">source: .neurop_expanded_library/' + event.block + '.json</div></div>');
+                        } else if (event.type === 'block_result') {
+                            await new Promise(r => setTimeout(r, 300));
+                            addLine('<span class="success">OK</span> <span class="result">' + JSON.stringify(event.result).substring(0, 50) + '</span>');
+                            if (event.audit !== 'n/a') {
+                                addLine('<div class="audit-box"><span class="audit-label">AUDIT</span><span class="audit-hash">' + event.audit + '</span></div>');
+                            }
                         } else if (event.type === 'blocked') {
-                            const explain = explanations[event.block] || 'This operation is not in the approved block list.';
-                            addLine('<span class="status" style="font-style: italic; color: #666;">→ ' + explain + '</span>');
-                            await new Promise(r => setTimeout(r, 600));
-                            addLine('<div class="block-blocked"><span class="blocked">✗ POLICY ENGINE BLOCKED:</span> ' + event.block + '<br><span class="status">This is the key differentiator.</span> Gemini wanted to do this, but Neurop Forge stopped it BEFORE execution.</div>');
+                            addLine('<div class="block-blocked"><span class="blocked">BLOCKED</span> <strong>' + event.block + '</strong><br><span class="status">Policy engine denied execution - not in approved library</span></div>');
                         } else if (event.type === 'complete') {
-                            await new Promise(r => setTimeout(r, 800));
-                            addLine('<div class="summary-box"><span class="success">Demo Complete</span><br><br><span class="info">Verified Blocks Executed:</span> ' + event.executed + ' (all deterministic, all auditable)<br><span class="blocked">Dangerous Operations Blocked:</span> ' + event.blocked + ' (policy enforcement worked)<br><br><span class="status">This is what Gemini looks like with enterprise-grade governance.</span></div>');
+                            await new Promise(r => setTimeout(r, 600));
+                            addLine('<div class="summary-box"><span class="success">Complete</span><br><br><span class="status">Blocks executed:</span> <span class="success">' + event.executed + '</span><br><span class="status">Operations blocked:</span> <span class="blocked">' + event.blocked + '</span></div>');
                         }
                     }
                 }
