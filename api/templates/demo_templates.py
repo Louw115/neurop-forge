@@ -231,10 +231,16 @@ header {
     max-height: 600px;
     overflow-y: auto;
     scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     font-family: 'JetBrains Mono', 'Fira Code', monospace;
     font-size: 0.78rem;
     line-height: 1.7;
     background: rgba(0, 0, 0, 0.15);
+}
+
+.demo-output::-webkit-scrollbar {
+    display: none;
 }
 
 .output-line {
