@@ -3037,18 +3037,18 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
             to { opacity: 1; transform: translateY(0); }
         }
         
-        .status { color: #71717a; }
-        .success { color: #4ade80; }
-        .blocked { color: #f87171; }
-        .info { color: #818cf8; }
-        .result { color: #c4b5fd; }
-        .audit { color: #fbbf24; font-size: 0.8rem; }
+        .status { color: #a1a1aa; }
+        .success { color: #22c55e; }
+        .blocked { color: #ef4444; }
+        .info { color: #d4d4d8; }
+        .result { color: #e4e4e7; }
+        .audit { color: #a1a1aa; font-size: 0.8rem; }
         
         .audit-box {
-            background: rgba(251,191,36,0.1);
-            border: 1px solid rgba(251,191,36,0.3);
-            border-radius: 8px;
-            padding: 10px 14px;
+            background: rgba(34,197,94,0.08);
+            border: 1px solid rgba(34,197,94,0.25);
+            border-radius: 6px;
+            padding: 8px 14px;
             margin: 8px 0;
             display: flex;
             align-items: center;
@@ -3056,12 +3056,13 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
         }
         
         .audit-box .audit-icon {
-            font-size: 1.1rem;
+            font-size: 0.9rem;
+            color: #22c55e;
         }
         
         .audit-box .audit-label {
-            color: #fbbf24;
-            font-size: 0.75rem;
+            color: #22c55e;
+            font-size: 0.7rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -3069,57 +3070,54 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
         
         .audit-box .audit-hash {
             font-family: 'JetBrains Mono', monospace;
-            color: #fcd34d;
-            font-size: 0.85rem;
-            background: rgba(0,0,0,0.3);
-            padding: 4px 10px;
+            color: #a1a1aa;
+            font-size: 0.8rem;
+            background: rgba(0,0,0,0.4);
+            padding: 3px 8px;
             border-radius: 4px;
             letter-spacing: 0.02em;
         }
         
         .block-source {
-            color: #6366f1;
-            font-size: 0.75rem;
-            margin-top: 6px;
-            opacity: 0.8;
+            color: #71717a;
+            font-size: 0.7rem;
+            margin-top: 4px;
         }
         
         .block-call {
-            background: rgba(99,102,241,0.15);
-            border: 1px solid rgba(99,102,241,0.4);
-            border-left: 4px solid #818cf8;
-            padding: 16px 20px;
-            margin: 14px 0;
-            border-radius: 0 10px 10px 0;
-            box-shadow: 0 4px 20px rgba(99,102,241,0.2), inset 0 1px 0 rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-left: 3px solid #22c55e;
+            padding: 14px 18px;
+            margin: 12px 0;
+            border-radius: 0 8px 8px 0;
         }
         
         .block-call .info {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 600;
-            color: #a5b4fc;
+            color: #22c55e;
         }
         
         .block-blocked {
-            background: rgba(248,113,113,0.15);
-            border: 1px solid rgba(248,113,113,0.4);
-            border-left: 4px solid #f87171;
-            padding: 16px 20px;
-            margin: 14px 0;
-            border-radius: 0 10px 10px 0;
-            box-shadow: 0 4px 20px rgba(248,113,113,0.2), inset 0 1px 0 rgba(255,255,255,0.05);
+            background: rgba(239,68,68,0.08);
+            border: 1px solid rgba(239,68,68,0.25);
+            border-left: 3px solid #ef4444;
+            padding: 14px 18px;
+            margin: 12px 0;
+            border-radius: 0 8px 8px 0;
         }
         
         .block-blocked .blocked {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 600;
         }
         
         .summary-box {
-            background: rgba(74,222,128,0.08);
-            border: 1px solid rgba(74,222,128,0.2);
-            border-radius: 12px;
-            padding: 20px;
+            background: rgba(34,197,94,0.06);
+            border: 1px solid rgba(34,197,94,0.2);
+            border-radius: 8px;
+            padding: 18px;
             margin-top: 16px;
         }
         
@@ -3294,28 +3292,24 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
                     };
                     
                     for (const event of data.events) {
-                        await new Promise(r => setTimeout(r, 800));
+                        await new Promise(r => setTimeout(r, 700));
                         
                         if (event.type === 'status') {
                             addLine('<span class="status">' + event.message + '</span>');
-                            await new Promise(r => setTimeout(r, 500));
-                        } else if (event.type === 'block_call') {
-                            const explain = explanations[event.block] || 'AI calls a verified block from the library.';
-                            addLine('<span class="status" style="font-style: italic; color: #666;">→ ' + explain + '</span>');
-                            await new Promise(r => setTimeout(r, 600));
-                            addLine('<div class="block-call"><span class="info">▶ AI CALLS:</span> <strong>' + event.block + '</strong><br><span class="status">Inputs:</span> ' + JSON.stringify(event.inputs).substring(0, 80) + '<div class="block-source">📦 Fetched from live library: .neurop_expanded_library/' + event.block + '.json</div></div>');
-                        } else if (event.type === 'block_result') {
                             await new Promise(r => setTimeout(r, 400));
-                            addLine('<span class="success">✓ Block executed successfully</span> <span class="result">' + JSON.stringify(event.result).substring(0, 60) + '</span>');
-                            addLine('<div class="audit-box"><span class="audit-icon">🔐</span><span class="audit-label">Cryptographic Audit</span><span class="audit-hash">' + event.audit + '</span><span style="color:#71717a;font-size:0.75rem;">tamper-proof</span></div>');
+                        } else if (event.type === 'block_call') {
+                            addLine('<div class="block-call"><span class="success">EXECUTE</span> <strong>' + event.block + '</strong><br><span class="status">inputs: ' + JSON.stringify(event.inputs).substring(0, 70) + '</span><div class="block-source">source: .neurop_expanded_library/' + event.block + '.json</div></div>');
+                        } else if (event.type === 'block_result') {
+                            await new Promise(r => setTimeout(r, 300));
+                            addLine('<span class="success">OK</span> <span class="result">' + JSON.stringify(event.result).substring(0, 50) + '</span>');
+                            if (event.audit !== 'n/a') {
+                                addLine('<div class="audit-box"><span class="audit-label">AUDIT</span><span class="audit-hash">' + event.audit + '</span></div>');
+                            }
                         } else if (event.type === 'blocked') {
-                            const explain = explanations[event.block] || 'This operation is not in the approved block list.';
-                            addLine('<span class="status" style="font-style: italic; color: #666;">→ ' + explain + '</span>');
-                            await new Promise(r => setTimeout(r, 600));
-                            addLine('<div class="block-blocked"><span class="blocked">✗ POLICY ENGINE BLOCKED:</span> <strong>' + event.block + '</strong><br><span class="status">This is the key differentiator.</span> AI wanted to do this, but Neurop Forge stopped it BEFORE execution.<div class="block-source" style="color:#f87171;">❌ Not in approved library - execution denied</div></div>');
+                            addLine('<div class="block-blocked"><span class="blocked">BLOCKED</span> <strong>' + event.block + '</strong><br><span class="status">Policy engine denied execution - not in approved library</span></div>');
                         } else if (event.type === 'complete') {
-                            await new Promise(r => setTimeout(r, 800));
-                            addLine('<div class="summary-box"><span class="success" style="font-size:1.1rem;">✓ Demo Complete</span><br><br><span class="info">Verified Blocks Executed:</span> ' + event.executed + ' (from live library)<br><span class="blocked">Dangerous Operations Blocked:</span> ' + event.blocked + ' (policy enforcement)<br><br><span style="color:#a5b4fc;font-size:0.9rem;">All executions cryptographically logged. AI as Operator, Not Author.</span></div>');
+                            await new Promise(r => setTimeout(r, 600));
+                            addLine('<div class="summary-box"><span class="success">Complete</span><br><br><span class="status">Blocks executed:</span> <span class="success">' + event.executed + '</span><br><span class="status">Operations blocked:</span> <span class="blocked">' + event.blocked + '</span></div>');
                         }
                     }
                 }
