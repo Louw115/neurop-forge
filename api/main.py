@@ -25,7 +25,6 @@ from neurop_forge.core.block_schema import NeuropBlock
 from neurop_forge.compliance.audit_chain import AuditChain
 from neurop_forge.compliance.policy_engine import PolicyEngine
 from api.templates.demo_templates import (
-    PREMIUM_LIVE_DEMO_HTML, 
     PREMIUM_MICROSOFT_DEMO_HTML, 
     PREMIUM_GOOGLE_DEMO_HTML,
     LIBRARY_BROWSER_HTML
@@ -3440,140 +3439,9 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
 """
 
 
-@app.get("/demo-live", response_class=HTMLResponse)
-async def demo_live():
-    """Live AI demo page - watch AI execute verified blocks in real-time."""
-    return PREMIUM_LIVE_DEMO_HTML
-
-
 class LiveDemoResponse(BaseModel):
     events: List[Dict[str, Any]]
     error: Optional[str] = None
-
-
-@app.post("/api/demo-live/run", response_model=LiveDemoResponse)
-async def run_live_demo(request: Request):
-    """Run the live AI demo - Gemini AI calling verified blocks."""
-    client_ip = request.client.host if request.client else "unknown"
-    
-    if not check_live_demo_rate_limit(client_ip):
-        return LiveDemoResponse(events=[], error="Rate limit exceeded. Try again in an hour.")
-    
-    if not OPENAI_AVAILABLE or not OPENAI_API_KEY:
-        return LiveDemoResponse(events=[], error="AI service not configured.")
-    
-    if not block_library:
-        return LiveDemoResponse(events=[], error="Block library not loaded.")
-    
-    events = []
-    blocks_executed = 0
-    blocks_blocked = 0
-    
-    try:
-        events.append({"type": "status", "message": "Connected to OpenAI GPT-4o-mini..."})
-        
-        blocks_with_inputs = []
-        for block in list(block_library.values())[:30]:
-            input_names = [i.name for i in block.interface.inputs] if block.interface and block.interface.inputs else []
-            blocks_with_inputs.append(f"- {block.metadata.name}({', '.join(input_names)})")
-        blocks_list = "\n".join(blocks_with_inputs)
-        
-        system_prompt = f"""You can call these blocks:
-{blocks_list}
-
-JSON responses:
-{{"action": "call_block", "block": "mask_email", "inputs": {{"email": "test@example.com"}}}}
-{{"action": "attempt_dangerous", "block": "shell_execute"}}
-{{"action": "complete"}}
-
-DO THESE 4 STEPS IN ORDER:
-1. mask_email with email="user@company.com"
-2. convert_currency with amount=100, rate=1.25
-3. attempt_dangerous with block="shell_execute"
-4. is_valid_uuid_v5 with text="test-string"
-
-Say complete ONLY after all 4 steps. One action per response."""
-
-        client = OpenAI(api_key=OPENAI_API_KEY)
-        messages = [
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": "Begin. First step."}
-        ]
-        
-        for step in range(6):
-            try:
-                response = client.chat.completions.create(
-                    model="gpt-4o-mini",
-                    messages=messages,
-                    temperature=0.1,
-                    max_tokens=200,
-                    response_format={"type": "json_object"}
-                )
-                text = response.choices[0].message.content.strip()
-                parsed = json.loads(text)
-                
-                action = parsed.get("action")
-                
-                if action == "complete":
-                    break
-                
-                elif action == "call_block":
-                    block_name = parsed.get("block", "")
-                    inputs = parsed.get("inputs", {})
-                    
-                    target_block = None
-                    for b in block_library.values():
-                        if b.metadata.name == block_name:
-                            target_block = b
-                            break
-                    
-                    if target_block:
-                        from neurop_forge.runtime.executor import BlockExecutor
-                        executor = BlockExecutor()
-                        coerced_inputs = coerce_block_inputs(target_block, inputs)
-                        events.append({"type": "block_call", "block": block_name, "inputs": coerced_inputs})
-                        outputs, error = executor.execute(target_block, coerced_inputs)
-                        
-                        if error is None:
-                            blocks_executed += 1
-                            full_hash = hashlib.sha256(json.dumps({"block": block_name, "inputs": str(coerced_inputs), "result": str(outputs), "ts": time.time()}).encode()).hexdigest()
-                            events.append({
-                                "type": "block_result", 
-                                "result": outputs, 
-                                "audit": full_hash[:16],
-                                "hash_algo": "SHA-256",
-                                "hash_full": full_hash
-                            })
-                            messages.append({"role": "assistant", "content": text})
-                            messages.append({"role": "user", "content": f"Success: {outputs}. Next step."})
-                        else:
-                            events.append({"type": "block_result", "result": {"error": error}, "audit": "n/a"})
-                            messages.append({"role": "assistant", "content": text})
-                            messages.append({"role": "user", "content": f"Error: {error}. Try different block."})
-                    else:
-                        blocks_blocked += 1
-                        events.append({"type": "blocked", "block": block_name})
-                        messages.append({"role": "assistant", "content": text})
-                        messages.append({"role": "user", "content": f"BLOCKED: {block_name} not in library. Next step."})
-                
-                elif action == "attempt_dangerous":
-                    block_name = parsed.get("block", "dangerous_operation")
-                    blocks_blocked += 1
-                    events.append({"type": "blocked", "block": block_name})
-                    messages.append({"role": "assistant", "content": text})
-                    messages.append({"role": "user", "content": "BLOCKED by policy. Next step."})
-                
-            except Exception as e:
-                print(f"MAIN DEMO STEP ERROR: {e}")
-                break
-        
-        events.append({"type": "complete", "executed": blocks_executed, "blocked": blocks_blocked})
-        
-        return LiveDemoResponse(events=events, error=None)
-        
-    except Exception as e:
-        print(f"MAIN DEMO ERROR: {e}")
-        return LiveDemoResponse(events=events, error=str(e))
 
 
 AI_AVAILABLE_BLOCKS = {
