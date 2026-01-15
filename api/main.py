@@ -5082,7 +5082,7 @@ LIBRARY_STATUS_HTML = """<!DOCTYPE html>
         }
         .logo-tag {
             font-size: 0.65rem;
-            color: #555;
+            color: #ffffff;
             text-align: center;
             margin-top: -8px;
         }
@@ -5345,7 +5345,7 @@ LIBRARY_STATUS_HTML = """<!DOCTYPE html>
     <aside class="sidebar">
         <div class="sidebar-logo">
             <img src="/static/logo.jpg" alt="Neurop Forge">
-            <div class="logo-tag">Execution Control Layer</div>
+            <div class="logo-tag">Neurop Block Library</div>
         </div>
     </aside>
     
