@@ -228,6 +228,9 @@ header {
 .demo-output {
     padding: 20px;
     min-height: 450px;
+    max-height: 600px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
     font-family: 'JetBrains Mono', 'Fira Code', monospace;
     font-size: 0.78rem;
     line-height: 1.7;
