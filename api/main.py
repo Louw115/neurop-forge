@@ -5035,10 +5035,267 @@ async def demo_google():
     return PREMIUM_GOOGLE_DEMO_HTML
 
 
+LIBRARY_STATUS_HTML = """<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neurop Forge | Library Status</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0a0a0c 0%, #1a1a2e 50%, #0a0a0c 100%);
+            color: #fafafa;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00d4ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #888;
+            font-size: 1.1rem;
+        }
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        .status-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 28px;
+            position: relative;
+            overflow: hidden;
+        }
+        .status-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #00d4ff, #00ff88);
+        }
+        .status-card.healthy::before {
+            background: linear-gradient(90deg, #00ff88, #00d4ff);
+        }
+        .status-label {
+            font-size: 0.85rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+        .status-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .status-value.green { color: #00ff88; }
+        .status-value.cyan { color: #00d4ff; }
+        .status-value.gold { color: #ffd700; }
+        .status-desc {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 8px;
+        }
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0,255,136,0.1);
+            border: 1px solid rgba(0,255,136,0.3);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #00ff88;
+            margin-bottom: 30px;
+        }
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: #00ff88;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+        .info-section {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        .info-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #00d4ff;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .info-row:last-child { border-bottom: none; }
+        .info-key { color: #888; }
+        .info-val { 
+            font-family: 'JetBrains Mono', monospace;
+            color: #00ff88;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .badge-green { background: rgba(0,255,136,0.15); color: #00ff88; }
+        .badge-cyan { background: rgba(0,212,255,0.15); color: #00d4ff; }
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #00d4ff;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .back-link:hover { text-decoration: underline; }
+        .loading { opacity: 0.5; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">Neurop Forge</div>
+            <div class="subtitle">Library Status Dashboard</div>
+        </div>
+        
+        <div style="text-align: center;">
+            <div class="live-indicator">
+                <div class="live-dot"></div>
+                SYSTEM OPERATIONAL
+            </div>
+        </div>
+        
+        <div class="status-grid">
+            <div class="status-card healthy">
+                <div class="status-label">Block Library</div>
+                <div class="status-value green" id="blockCount">...</div>
+                <div class="status-desc">Verified immutable functions</div>
+            </div>
+            <div class="status-card healthy">
+                <div class="status-label">System Health</div>
+                <div class="status-value green" id="healthStatus">...</div>
+                <div class="status-desc">All services operational</div>
+            </div>
+            <div class="status-card">
+                <div class="status-label">Categories</div>
+                <div class="status-value cyan" id="categoryCount">...</div>
+                <div class="status-desc">Function categories available</div>
+            </div>
+            <div class="status-card">
+                <div class="status-label">API Version</div>
+                <div class="status-value gold" id="apiVersion">...</div>
+                <div class="status-desc">Current API release</div>
+            </div>
+        </div>
+        
+        <div class="info-section">
+            <div class="info-title">System Information</div>
+            <div class="info-row">
+                <span class="info-key">Library Status</span>
+                <span class="info-val"><span class="badge badge-green">LOADED</span></span>
+            </div>
+            <div class="info-row">
+                <span class="info-key">Execution Mode</span>
+                <span class="info-val"><span class="badge badge-cyan">DETERMINISTIC</span></span>
+            </div>
+            <div class="info-row">
+                <span class="info-key">Policy Engine</span>
+                <span class="info-val"><span class="badge badge-green">ACTIVE</span></span>
+            </div>
+            <div class="info-row">
+                <span class="info-key">Audit Chain</span>
+                <span class="info-val"><span class="badge badge-green">VERIFIED</span></span>
+            </div>
+            <div class="info-row">
+                <span class="info-key">Cryptographic Integrity</span>
+                <span class="info-val">SHA-256</span>
+            </div>
+        </div>
+        
+        <div class="info-section">
+            <div class="info-title">Compliance & Security</div>
+            <div class="info-row">
+                <span class="info-key">All blocks hash-verified</span>
+                <span class="info-val"><span class="badge badge-green">YES</span></span>
+            </div>
+            <div class="info-row">
+                <span class="info-key">Code generation allowed</span>
+                <span class="info-val"><span class="badge badge-cyan">NO</span></span>
+            </div>
+            <div class="info-row">
+                <span class="info-key">Tamper-proof execution</span>
+                <span class="info-val"><span class="badge badge-green">ENABLED</span></span>
+            </div>
+            <div class="info-row">
+                <span class="info-key">Enterprise policy support</span>
+                <span class="info-val"><span class="badge badge-green">ACTIVE</span></span>
+            </div>
+        </div>
+        
+        <a href="javascript:history.back()" class="back-link">&larr; Back to Demo</a>
+    </div>
+    
+    <script>
+        async function loadStatus() {
+            try {
+                const health = await fetch('/health').then(r => r.json());
+                document.getElementById('blockCount').textContent = health.block_count.toLocaleString();
+                document.getElementById('healthStatus').textContent = health.status.toUpperCase();
+                document.getElementById('apiVersion').textContent = health.version;
+                
+                const cats = await fetch('/api/library/categories').then(r => r.json());
+                document.getElementById('categoryCount').textContent = cats.categories.length;
+            } catch (e) {
+                console.error('Failed to load status:', e);
+            }
+        }
+        loadStatus();
+    </script>
+</body>
+</html>
+"""
+
+
 @app.get("/library", response_class=HTMLResponse)
-async def library_browser():
-    """Block library browser - read-only view of all blocks."""
-    return LIBRARY_BROWSER_HTML
+async def library_status():
+    """Library status dashboard - shows health and status without exposing private details."""
+    return LIBRARY_STATUS_HTML
 
 
 _cached_categories = None

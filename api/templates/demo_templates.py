@@ -592,7 +592,7 @@ def create_microsoft_demo_html() -> str:
                 <span>Neurop Forge Block Library</span>
                 <span>4,552 verified functions</span>
                 <span class="lib-status">LOADED</span>
-                <a href="/library" target="_blank" class="browse-link">Browse Library</a>
+                <a href="/library" target="_blank" class="browse-link">Library Status</a>
             </div>
             <div class="demo-output" id="output">
                 <div class="output-line">
@@ -764,7 +764,7 @@ def create_google_demo_html() -> str:
                 <span>Neurop Forge Block Library</span>
                 <span>4,552 verified functions</span>
                 <span class="lib-status">LOADED</span>
-                <a href="/library" target="_blank" class="browse-link">Browse Library</a>
+                <a href="/library" target="_blank" class="browse-link">Library Status</a>
             </div>
             <div class="demo-output" id="output">
                 <div class="output-line">
@@ -933,7 +933,7 @@ def create_live_demo_html() -> str:
                 <span>Neurop Forge Block Library</span>
                 <span>4,552 verified functions</span>
                 <span class="lib-status">LOADED</span>
-                <a href="/library" target="_blank" class="browse-link">Browse Library</a>
+                <a href="/library" target="_blank" class="browse-link">Library Status</a>
             </div>
             <div class="demo-output" id="output">
                 <div class="output-line">
