@@ -2810,11 +2810,15 @@ def coerce_block_inputs(block, inputs: dict) -> dict:
         for inp in block.metadata.inputs:
             input_schema[inp.name] = inp.type_hint
     
+    numeric_params = ("a", "b", "x", "y", "n", "amount", "value", "count", "num", 
+                      "start", "end", "length", "index", "position", "size", "limit",
+                      "offset", "width", "height", "max", "min", "step", "times")
+    
     for key, value in inputs.items():
         expected_type = input_schema.get(key, "")
         
         if isinstance(value, str):
-            if expected_type in ("int", "integer", "number") or key in ("a", "b", "x", "y", "n", "amount", "value", "count", "num"):
+            if expected_type in ("int", "integer", "number") or key in numeric_params:
                 try:
                     if "." in value:
                         coerced[key] = float(value)
@@ -3357,11 +3361,16 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
                             addLine('<div class="block-call"><span class="success">EXECUTE</span> <strong>' + event.block + '</strong><br><span class="status">inputs: ' + JSON.stringify(event.inputs).substring(0, 70) + '</span><div class="block-source">source: .neurop_expanded_library/' + event.block + '.json</div></div>');
                         } else if (event.type === 'block_result') {
                             await new Promise(r => setTimeout(r, 300));
-                            addLine('<span class="success">OK</span> <span class="result">' + JSON.stringify(event.result).substring(0, 50) + '</span>');
-                            if (event.audit !== 'n/a') {
-                                const algo = event.hash_algo || 'SHA-256';
-                                const fullHash = event.hash_full || event.audit;
-                                addLine('<div class="audit-box"><div class="audit-header"><span class="audit-label">CRYPTOGRAPHIC AUDIT</span><span class="audit-algo">' + algo + '</span></div><div class="audit-full">' + fullHash + '</div><div class="audit-meta">tamper-proof | immutable | verifiable</div></div>');
+                            const hasError = event.result && event.result.error;
+                            if (hasError) {
+                                addLine('<span class="status">SKIP</span> <span class="status">(type mismatch - AI passed wrong input type)</span>');
+                            } else {
+                                addLine('<span class="success">OK</span> <span class="result">' + JSON.stringify(event.result).substring(0, 50) + '</span>');
+                                if (event.audit !== 'n/a') {
+                                    const algo = event.hash_algo || 'SHA-256';
+                                    const fullHash = event.hash_full || event.audit;
+                                    addLine('<div class="audit-box"><div class="audit-header"><span class="audit-label">CRYPTOGRAPHIC AUDIT</span><span class="audit-algo">' + algo + '</span></div><div class="audit-full">' + fullHash + '</div><div class="audit-meta">tamper-proof | immutable | verifiable</div></div>');
+                                }
                             }
                         } else if (event.type === 'blocked') {
                             addLine('<div class="block-blocked"><span class="blocked">BLOCKED</span> <strong>' + event.block + '</strong><br><span class="status">Policy engine denied execution - not in approved library</span></div>');
@@ -3991,11 +4000,16 @@ MICROSOFT_DEMO_HTML = """
                             addLine('<div class="block-call"><span class="success">EXECUTE</span> <strong>' + event.block + '</strong><br><span class="status">inputs: ' + JSON.stringify(event.inputs).substring(0, 70) + '</span><div class="block-source">source: .neurop_expanded_library/' + event.block + '.json</div></div>');
                         } else if (event.type === 'block_result') {
                             await new Promise(r => setTimeout(r, 300));
-                            addLine('<span class="success">OK</span> <span class="result">' + JSON.stringify(event.result).substring(0, 50) + '</span>');
-                            if (event.audit !== 'n/a') {
-                                const algo = event.hash_algo || 'SHA-256';
-                                const fullHash = event.hash_full || event.audit;
-                                addLine('<div class="audit-box"><div class="audit-header"><span class="audit-label">CRYPTOGRAPHIC AUDIT</span><span class="audit-algo">' + algo + '</span></div><div class="audit-full">' + fullHash + '</div><div class="audit-meta">tamper-proof | immutable | verifiable</div></div>');
+                            const hasError = event.result && event.result.error;
+                            if (hasError) {
+                                addLine('<span class="status">SKIP</span> <span class="status">(type mismatch - AI passed wrong input type)</span>');
+                            } else {
+                                addLine('<span class="success">OK</span> <span class="result">' + JSON.stringify(event.result).substring(0, 50) + '</span>');
+                                if (event.audit !== 'n/a') {
+                                    const algo = event.hash_algo || 'SHA-256';
+                                    const fullHash = event.hash_full || event.audit;
+                                    addLine('<div class="audit-box"><div class="audit-header"><span class="audit-label">CRYPTOGRAPHIC AUDIT</span><span class="audit-algo">' + algo + '</span></div><div class="audit-full">' + fullHash + '</div><div class="audit-meta">tamper-proof | immutable | verifiable</div></div>');
+                                }
                             }
                         } else if (event.type === 'blocked') {
                             addLine('<div class="block-blocked"><span class="blocked">BLOCKED</span> <strong>' + event.block + '</strong><br><span class="status">Policy engine denied execution - not in approved library</span></div>');
@@ -4512,11 +4526,16 @@ GOOGLE_DEMO_HTML = """
                             addLine('<div class="block-call"><span class="success">EXECUTE</span> <strong>' + event.block + '</strong><br><span class="status">inputs: ' + JSON.stringify(event.inputs).substring(0, 70) + '</span><div class="block-source">source: .neurop_expanded_library/' + event.block + '.json</div></div>');
                         } else if (event.type === 'block_result') {
                             await new Promise(r => setTimeout(r, 300));
-                            addLine('<span class="success">OK</span> <span class="result">' + JSON.stringify(event.result).substring(0, 50) + '</span>');
-                            if (event.audit !== 'n/a') {
-                                const algo = event.hash_algo || 'SHA-256';
-                                const fullHash = event.hash_full || event.audit;
-                                addLine('<div class="audit-box"><div class="audit-header"><span class="audit-label">CRYPTOGRAPHIC AUDIT</span><span class="audit-algo">' + algo + '</span></div><div class="audit-full">' + fullHash + '</div><div class="audit-meta">tamper-proof | immutable | verifiable</div></div>');
+                            const hasError = event.result && event.result.error;
+                            if (hasError) {
+                                addLine('<span class="status">SKIP</span> <span class="status">(type mismatch - AI passed wrong input type)</span>');
+                            } else {
+                                addLine('<span class="success">OK</span> <span class="result">' + JSON.stringify(event.result).substring(0, 50) + '</span>');
+                                if (event.audit !== 'n/a') {
+                                    const algo = event.hash_algo || 'SHA-256';
+                                    const fullHash = event.hash_full || event.audit;
+                                    addLine('<div class="audit-box"><div class="audit-header"><span class="audit-label">CRYPTOGRAPHIC AUDIT</span><span class="audit-algo">' + algo + '</span></div><div class="audit-full">' + fullHash + '</div><div class="audit-meta">tamper-proof | immutable | verifiable</div></div>');
+                                }
                             }
                         } else if (event.type === 'blocked') {
                             addLine('<div class="block-blocked"><span class="blocked">BLOCKED</span> <strong>' + event.block + '</strong><br><span class="status">Policy engine denied execution - not in approved library</span></div>');
