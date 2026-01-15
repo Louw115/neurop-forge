@@ -5056,11 +5056,10 @@ LIBRARY_STATUS_HTML = """<!DOCTYPE html>
             width: 220px;
             background: #0a0a0e;
             border-right: 1px solid rgba(255,255,255,0.06);
-            padding: 24px 0;
+            padding: 30px 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
         }
         .sidebar-logo {
             display: flex;
@@ -5406,7 +5405,6 @@ LIBRARY_STATUS_HTML = """<!DOCTYPE html>
         
     </main>
     
-    <a href="javascript:history.back()" class="back-link">&larr; Back to Demo</a>
     
     <script>
         async function loadStatus() {
