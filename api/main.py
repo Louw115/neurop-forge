@@ -5345,8 +5345,7 @@ LIBRARY_STATUS_HTML = """<!DOCTYPE html>
 <body>
     <aside class="sidebar">
         <div class="sidebar-logo">
-            <img src="/static/logo.png" alt="Neurop Forge" onerror="this.style.display='none'; document.querySelector('.logo-text').style.display='block';">
-            <div class="logo-text" style="display:none;">Neurop Forge</div>
+            <img src="/static/logo.jpg" alt="Neurop Forge">
             <div class="logo-tag">Execution Control Layer</div>
         </div>
     </aside>
@@ -5405,55 +5404,15 @@ LIBRARY_STATUS_HTML = """<!DOCTYPE html>
             </div>
         </div>
         
-        <div class="charts-row">
-            <div class="chart-card">
-                <div class="chart-header">
-                    <span class="chart-title">Blocks per Category</span>
-                    <span class="chart-value" id="apiVersion">v2.0.0</span>
-                </div>
-                <div class="chart-sub">Distribution across 11 categories</div>
-                <div class="bar-chart" id="chart1"></div>
-            </div>
-            <div class="chart-card">
-                <div class="chart-header">
-                    <span class="chart-title">Execution Success Rate</span>
-                    <span class="chart-value">99.9%</span>
-                </div>
-                <div class="chart-sub">Last 24 hours</div>
-                <div class="bar-chart" id="chart2"></div>
-            </div>
-            <div class="chart-card">
-                <div class="chart-header">
-                    <span class="chart-title">Average Response Time</span>
-                    <span class="chart-value">12ms</span>
-                </div>
-                <div class="chart-sub">Per block execution</div>
-                <div class="bar-chart" id="chart3"></div>
-            </div>
-        </div>
     </main>
     
     <a href="javascript:history.back()" class="back-link">&larr; Back to Demo</a>
     
     <script>
-        function generateBars(containerId, count, maxHeight, accentIndex) {
-            const container = document.getElementById(containerId);
-            for (let i = 0; i < count; i++) {
-                const bar = document.createElement('div');
-                bar.className = 'bar' + (i === accentIndex ? ' accent' : '');
-                bar.style.height = (Math.random() * maxHeight + 10) + '%';
-                container.appendChild(bar);
-            }
-        }
-        generateBars('chart1', 24, 90, 18);
-        generateBars('chart2', 24, 95, 22);
-        generateBars('chart3', 24, 70, 15);
-        
         async function loadStatus() {
             try {
                 const health = await fetch('/health').then(r => r.json());
                 document.getElementById('blockCount').textContent = health.block_count.toLocaleString();
-                document.getElementById('apiVersion').textContent = 'v' + health.version;
                 const cats = await fetch('/api/library/categories').then(r => r.json());
                 document.getElementById('categoryCount').textContent = cats.categories.length;
             } catch (e) {}
