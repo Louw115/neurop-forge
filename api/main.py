@@ -3269,10 +3269,37 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
             <p>AI agents can generate arbitrary code with unpredictable outcomes. Neurop Forge constrains AI to call only pre-verified, policy-governed blocks. Every action is auditable. Dangerous operations are blocked before execution.</p>
         </div>
         
+        <div class="instruction-card" style="background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.3); border-radius: 12px; padding: 24px; margin-bottom: 20px;">
+            <h3 style="color: #a5b4fc; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px;">AI INSTRUCTIONS (What the AI Receives)</h3>
+            <div style="background: rgba(0,0,0,0.5); border-radius: 8px; padding: 16px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; line-height: 1.6; color: #e4e4e7;">
+                <span style="color: #71717a;">// Task assigned to AI:</span><br>
+                <span style="color: #22c55e;">DO THESE 4 STEPS IN ORDER:</span><br>
+                1. mask_email with email="user@company.com"<br>
+                2. convert_currency with amount=100, rate=1.25<br>
+                3. <span style="color: #ef4444;">attempt_dangerous</span> with block="shell_execute"<br>
+                4. is_valid_uuid_v5 with text="test-string"<br><br>
+                <span style="color: #71717a;">// AI can ONLY call blocks from approved library</span><br>
+                <span style="color: #71717a;">// AI cannot generate code - must use verified blocks</span>
+            </div>
+        </div>
+        
+        <div class="blocks-card" style="background: rgba(34,197,94,0.06); border: 1px solid rgba(34,197,94,0.2); border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+            <h3 style="color: #22c55e; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px;">AVAILABLE BLOCKS (Constrained Library)</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;">
+                <span style="background: rgba(0,0,0,0.4); padding: 4px 10px; border-radius: 4px; color: #a1a1aa;">mask_email(email)</span>
+                <span style="background: rgba(0,0,0,0.4); padding: 4px 10px; border-radius: 4px; color: #a1a1aa;">convert_currency(amount, rate)</span>
+                <span style="background: rgba(0,0,0,0.4); padding: 4px 10px; border-radius: 4px; color: #a1a1aa;">is_valid_uuid_v5(text)</span>
+                <span style="background: rgba(0,0,0,0.4); padding: 4px 10px; border-radius: 4px; color: #a1a1aa;">format_date_eu(year, month, day)</span>
+                <span style="background: rgba(0,0,0,0.4); padding: 4px 10px; border-radius: 4px; color: #a1a1aa;">days_in_month(year, month)</span>
+                <span style="background: rgba(0,0,0,0.4); padding: 4px 10px; border-radius: 4px; color: #a1a1aa;">+4,546 more verified blocks</span>
+            </div>
+            <div style="color: #52525b; font-size: 0.7rem; margin-top: 10px;">shell_execute, file_delete, database_access = <span style="color: #ef4444;">NOT IN LIBRARY</span></div>
+        </div>
+        
         <div class="demo-card">
             <div class="demo-header">
                 <div class="demo-header-left">
-                    <span class="demo-title">Live AI Execution Demo</span>
+                    <span class="demo-title">Live Execution</span>
                     <span class="live-badge" id="liveBadge" style="display: none;"><span class="live-dot"></span>LIVE</span>
                 </div>
                 <button class="run-btn" id="runBtn" onclick="runDemo()">Run Demo</button>
@@ -3284,9 +3311,9 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
             </div>
             <div class="demo-output" id="output">
                 <div class="placeholder">
-                    Click "Run Demo" to watch AI execute verified blocks in real-time.<br><br>
-                    The AI will process an enterprise task, call verified blocks,<br>
-                    and get blocked when attempting dangerous operations.
+                    Click "Run Demo" to watch the AI execute the task above.<br><br>
+                    Watch how the AI calls verified blocks step-by-step,<br>
+                    and gets <strong>blocked</strong> when attempting shell_execute.
                 </div>
             </div>
         </div>
@@ -3355,10 +3382,9 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
                     liveBadge.style.display = 'none';
                 } else {
                     const explanations = {
-                        'is_valid_email': 'AI needs to validate an email. Instead of writing regex, it calls a pre-verified block.',
-                        'contains_substring': 'Checking email format using verified string block - no generated code.',
-                        'is_alphabetic': 'Checking character type using verified validation block.',
-                        'multiply': 'Math calculation required. AI uses verified arithmetic - deterministic, auditable.',
+                        'mask_email': 'Masking PII. AI uses verified masking block - no custom code.',
+                        'convert_currency': 'Currency conversion. AI uses verified arithmetic - deterministic, auditable.',
+                        'is_valid_uuid_v5': 'UUID validation. AI calls verified validation block.',
                         'shell_execute': 'AI attempted shell command. BLOCKED - not in approved whitelist.',
                         'database_access': 'AI attempted database access. BLOCKED by policy engine.',
                     };
@@ -3934,16 +3960,43 @@ MICROSOFT_DEMO_HTML = """
             </div>
         </div>
         
+        <div class="instruction-card" style="background: rgba(0,120,212,0.08); border: 1px solid rgba(0,188,242,0.3); border-radius: 12px; padding: 24px; margin-bottom: 20px;">
+            <h3 style="color: #00bcf2; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px;">AI INSTRUCTIONS (What Copilot Receives)</h3>
+            <div style="background: rgba(0,0,0,0.5); border-radius: 8px; padding: 16px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; line-height: 1.6; color: #e4e4e7;">
+                <span style="color: #71717a;">// Task assigned to AI:</span><br>
+                <span style="color: #22c55e;">DO THESE 4 STEPS IN ORDER:</span><br>
+                1. mask_email with email="enterprise@contoso.com"<br>
+                2. convert_currency with amount=45000, rate=0.08875<br>
+                3. <span style="color: #ef4444;">attempt_dangerous</span> with block="database_access"<br>
+                4. format_date_eu with year=2026, month=1, day=15<br><br>
+                <span style="color: #71717a;">// AI can ONLY call blocks from approved library</span><br>
+                <span style="color: #71717a;">// AI cannot generate code - must use verified blocks</span>
+            </div>
+        </div>
+        
+        <div class="blocks-card" style="background: rgba(34,197,94,0.06); border: 1px solid rgba(34,197,94,0.2); border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+            <h3 style="color: #22c55e; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px;">AVAILABLE BLOCKS (Constrained Library)</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;">
+                <span style="background: rgba(0,0,0,0.4); padding: 4px 10px; border-radius: 4px; color: #a1a1aa;">mask_email(email)</span>
+                <span style="background: rgba(0,0,0,0.4); padding: 4px 10px; border-radius: 4px; color: #a1a1aa;">convert_currency(amount, rate)</span>
+                <span style="background: rgba(0,0,0,0.4); padding: 4px 10px; border-radius: 4px; color: #a1a1aa;">format_date_eu(year, month, day)</span>
+                <span style="background: rgba(0,0,0,0.4); padding: 4px 10px; border-radius: 4px; color: #a1a1aa;">is_valid_uuid_v5(text)</span>
+                <span style="background: rgba(0,0,0,0.4); padding: 4px 10px; border-radius: 4px; color: #a1a1aa;">days_in_month(year, month)</span>
+                <span style="background: rgba(0,0,0,0.4); padding: 4px 10px; border-radius: 4px; color: #a1a1aa;">+4,546 more verified blocks</span>
+            </div>
+            <div style="color: #52525b; font-size: 0.7rem; margin-top: 10px;">database_access, shell_execute, file_delete = <span style="color: #ef4444;">NOT IN LIBRARY</span></div>
+        </div>
+        
         <div class="demo-card">
             <div class="demo-header">
-                <span class="demo-title">Live Enterprise Demo</span>
+                <span class="demo-title">Live Execution</span>
                 <button class="run-btn" id="runBtn" onclick="runDemo()">Run Demo</button>
             </div>
             <div class="console" id="console">
                 <div class="placeholder">
-                    Click "Run Demo" to watch AI process an enterprise task.<br><br>
-                    The AI will validate data, mask PII, calculate taxes,<br>
-                    and get blocked when attempting dangerous operations.
+                    Click "Run Demo" to watch Copilot execute the task above.<br><br>
+                    Watch how the AI calls verified blocks step-by-step,<br>
+                    and gets <strong>blocked</strong> when attempting database_access.
                 </div>
             </div>
         </div>
@@ -3989,14 +4042,11 @@ MICROSOFT_DEMO_HTML = """
                 } else {
                     let blockNum = 0;
                     const explanations = {
-                        'is_valid_email': 'Copilot needs to validate customer email. Instead of writing regex, it calls a pre-verified block.',
-                        'mask_credit_card': 'Sensitive PII detected. Copilot masks the card number using a verified masking block - no custom code.',
-                        'multiply': 'Tax calculation required. Copilot uses a verified arithmetic block - deterministic, auditable.',
-                        'contains_substring': 'Validating email format by checking for @ symbol using verified string block.',
-                        'is_alphabetic': 'Checking if input contains only letters - verified validation block.',
+                        'mask_email': 'Masking enterprise email. Copilot uses verified PII block - no custom code.',
+                        'convert_currency': 'Tax calculation. Copilot uses verified arithmetic - deterministic, auditable.',
+                        'format_date_eu': 'Date formatting. Copilot calls verified formatting block.',
                         'database_access': 'Copilot attempted direct database access. BLOCKED by policy engine before execution.',
                         'shell_execute': 'Copilot attempted shell command. BLOCKED - not in approved whitelist.',
-                        'execute_shell': 'Copilot attempted shell command. BLOCKED - this operation is forbidden.',
                     };
                     
                     for (const event of data.events) {
@@ -4459,16 +4509,43 @@ GOOGLE_DEMO_HTML = """
             </div>
         </div>
         
+        <div class="instruction-card" style="background: rgba(66,133,244,0.08); border: 1px solid rgba(66,133,244,0.3); border-radius: 12px; padding: 24px; margin-bottom: 20px;">
+            <h3 style="color: #60a5fa; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px;">AI INSTRUCTIONS (What Gemini Receives)</h3>
+            <div style="background: rgba(0,0,0,0.5); border-radius: 8px; padding: 16px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; line-height: 1.6; color: #e4e4e7;">
+                <span style="color: #71717a;">// Task assigned to AI:</span><br>
+                <span style="color: #4ade80;">DO THESE 4 STEPS IN ORDER:</span><br>
+                1. mask_email with email="customer@acme-corp.com"<br>
+                2. days_in_month with year=2026, month=2<br>
+                3. <span style="color: #f87171;">attempt_dangerous</span> with block="data_export"<br>
+                4. is_video_file with filename="report.mp4"<br><br>
+                <span style="color: #71717a;">// AI can ONLY call blocks from approved library</span><br>
+                <span style="color: #71717a;">// AI cannot generate code - must use verified blocks</span>
+            </div>
+        </div>
+        
+        <div class="blocks-card" style="background: rgba(52,168,83,0.06); border: 1px solid rgba(52,168,83,0.2); border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+            <h3 style="color: #4ade80; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px;">AVAILABLE BLOCKS (Constrained Library)</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;">
+                <span style="background: rgba(0,0,0,0.4); padding: 4px 10px; border-radius: 4px; color: #a1a1aa;">mask_email(email)</span>
+                <span style="background: rgba(0,0,0,0.4); padding: 4px 10px; border-radius: 4px; color: #a1a1aa;">days_in_month(year, month)</span>
+                <span style="background: rgba(0,0,0,0.4); padding: 4px 10px; border-radius: 4px; color: #a1a1aa;">is_video_file(filename)</span>
+                <span style="background: rgba(0,0,0,0.4); padding: 4px 10px; border-radius: 4px; color: #a1a1aa;">convert_currency(amount, rate)</span>
+                <span style="background: rgba(0,0,0,0.4); padding: 4px 10px; border-radius: 4px; color: #a1a1aa;">format_date_eu(year, month, day)</span>
+                <span style="background: rgba(0,0,0,0.4); padding: 4px 10px; border-radius: 4px; color: #a1a1aa;">+4,546 more verified blocks</span>
+            </div>
+            <div style="color: #52525b; font-size: 0.7rem; margin-top: 10px;">data_export, shell_execute, file_delete = <span style="color: #f87171;">NOT IN LIBRARY</span></div>
+        </div>
+        
         <div class="demo-card">
             <div class="demo-header">
-                <span class="demo-title">Live Gemini Integration Demo</span>
+                <span class="demo-title">Live Execution</span>
                 <button class="run-btn" id="runBtn" onclick="runDemo()">Run Demo</button>
             </div>
             <div class="console" id="console">
                 <div class="placeholder">
-                    Click "Run Demo" to watch AI process an enterprise data pipeline.<br><br>
-                    The AI will validate contacts, mask PII, calculate financials,<br>
-                    and get blocked when attempting dangerous operations.
+                    Click "Run Demo" to watch Gemini execute the task above.<br><br>
+                    Watch how the AI calls verified blocks step-by-step,<br>
+                    and gets <strong>blocked</strong> when attempting data_export.
                 </div>
             </div>
         </div>
@@ -4514,15 +4591,11 @@ GOOGLE_DEMO_HTML = """
                 } else {
                     let blockNum = 0;
                     const explanations = {
-                        'is_valid_email': 'Gemini needs to validate customer email. Instead of generating regex, it calls a pre-verified block.',
-                        'mask_credit_card': 'Sensitive PII detected. Gemini masks the card using a verified block - no generated code.',
-                        'multiply': 'Financial calculation needed. Gemini uses verified arithmetic - deterministic, auditable.',
-                        'contains_substring': 'Checking input format using verified string block.',
-                        'contains_digits': 'Validating phone number contains digits - verified validation block.',
-                        'is_alphabetic': 'Checking character type - verified validation block.',
-                        'external_export': 'Gemini attempted to export data externally. BLOCKED - not in approved whitelist.',
+                        'mask_email': 'Masking customer email. Gemini uses verified PII block - no generated code.',
+                        'days_in_month': 'Calendar calculation. Gemini uses verified date block - deterministic.',
+                        'is_video_file': 'File type check. Gemini calls verified validation block.',
+                        'data_export': 'Gemini attempted to export data externally. BLOCKED - not in approved whitelist.',
                         'shell_execute': 'Gemini attempted shell command. BLOCKED by policy engine.',
-                        'database_query': 'Gemini attempted raw database access. BLOCKED - use approved blocks only.',
                     };
                     
                     for (const event of data.events) {
