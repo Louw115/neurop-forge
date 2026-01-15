@@ -33,12 +33,14 @@ except ImportError:
     DB_AVAILABLE = False
 
 try:
-    from groq import Groq
-    GROQ_AVAILABLE = True
+    import google.generativeai as genai
+    GEMINI_AVAILABLE = True
 except ImportError:
-    GROQ_AVAILABLE = False
+    GEMINI_AVAILABLE = False
 
-GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
+if GEMINI_AVAILABLE and GEMINI_API_KEY:
+    genai.configure(api_key=GEMINI_API_KEY)
 
 ENTERPRISE_POLICIES = {
     "microsoft": {
@@ -3446,16 +3448,13 @@ class LiveDemoResponse(BaseModel):
 
 @app.post("/api/demo-live/run", response_model=LiveDemoResponse)
 async def run_live_demo(request: Request):
-    """Run the live AI demo - Groq AI calling verified blocks."""
+    """Run the live AI demo - Gemini AI calling verified blocks."""
     client_ip = request.client.host if request.client else "unknown"
     
     if not check_live_demo_rate_limit(client_ip):
         return LiveDemoResponse(events=[], error="Rate limit exceeded. Try again in an hour.")
     
-    if not GROQ_AVAILABLE:
-        return LiveDemoResponse(events=[], error="AI service not configured.")
-    
-    if not GROQ_API_KEY:
+    if not GEMINI_AVAILABLE or not GEMINI_API_KEY:
         return LiveDemoResponse(events=[], error="AI service not configured.")
     
     if not block_library:
@@ -3466,7 +3465,7 @@ async def run_live_demo(request: Request):
     blocks_blocked = 0
     
     try:
-        events.append({"type": "status", "message": "Connected to Groq AI..."})
+        events.append({"type": "status", "message": "Connected to Gemini AI..."})
         
         blocks_with_inputs = []
         for block in list(block_library.values())[:30]:
@@ -3488,26 +3487,22 @@ DO THESE 4 STEPS IN ORDER:
 3. attempt_dangerous with block="shell_execute"
 4. is_valid_uuid_v5 with text="test-string"
 
-Say complete ONLY after all 4 steps. One action per response."""
+Say complete ONLY after all 4 steps. One action per response. RESPOND WITH ONLY JSON, NO OTHER TEXT."""
 
-        client = Groq(api_key=GROQ_API_KEY)
+        model = genai.GenerativeModel('gemini-2.0-flash')
+        chat = model.start_chat(history=[])
         
-        messages = [
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": "Begin. First step."}
-        ]
+        prompt = system_prompt + "\n\nBegin. First step."
         
         for step in range(6):
             try:
-                response = client.chat.completions.create(
-                    model="llama-3.3-70b-versatile",
-                    messages=messages,
-                    temperature=0.1,
-                    max_tokens=200,
-                    response_format={"type": "json_object"}
-                )
-                
-                text = response.choices[0].message.content.strip()
+                response = chat.send_message(prompt)
+                text = response.text.strip()
+                if text.startswith("```"):
+                    text = text.split("```")[1]
+                    if text.startswith("json"):
+                        text = text[4:]
+                    text = text.strip()
                 parsed = json.loads(text)
                 
                 action = parsed.get("action")
@@ -3542,26 +3537,23 @@ Say complete ONLY after all 4 steps. One action per response."""
                                 "hash_algo": "SHA-256",
                                 "hash_full": full_hash
                             })
-                            messages.append({"role": "assistant", "content": text})
-                            messages.append({"role": "user", "content": f"Success: {outputs}. Next step."})
+                            prompt = f"Success: {outputs}. Next step."
                         else:
                             events.append({"type": "block_result", "result": {"error": error}, "audit": "n/a"})
-                            messages.append({"role": "assistant", "content": text})
-                            messages.append({"role": "user", "content": f"Error: {error}. Try different block."})
+                            prompt = f"Error: {error}. Try different block."
                     else:
                         blocks_blocked += 1
                         events.append({"type": "blocked", "block": block_name})
-                        messages.append({"role": "assistant", "content": text})
-                        messages.append({"role": "user", "content": f"BLOCKED: {block_name} not in library. Next step."})
+                        prompt = f"BLOCKED: {block_name} not in library. Next step."
                 
                 elif action == "attempt_dangerous":
                     block_name = parsed.get("block", "dangerous_operation")
                     blocks_blocked += 1
                     events.append({"type": "blocked", "block": block_name})
-                    messages.append({"role": "assistant", "content": text})
-                    messages.append({"role": "user", "content": "BLOCKED by policy. Next step."})
+                    prompt = "BLOCKED by policy. Next step."
                 
             except Exception as e:
+                print(f"MAIN DEMO STEP ERROR: {e}")
                 break
         
         events.append({"type": "complete", "executed": blocks_executed, "blocked": blocks_blocked})
@@ -3569,6 +3561,7 @@ Say complete ONLY after all 4 steps. One action per response."""
         return LiveDemoResponse(events=events, error=None)
         
     except Exception as e:
+        print(f"MAIN DEMO ERROR: {e}")
         return LiveDemoResponse(events=events, error=str(e))
 
 
@@ -4661,7 +4654,7 @@ async def run_microsoft_demo(request: Request):
     if not check_live_demo_rate_limit(client_ip):
         return LiveDemoResponse(events=[], error="Rate limit exceeded. Try again in an hour.")
     
-    if not GROQ_AVAILABLE or not GROQ_API_KEY:
+    if not GEMINI_AVAILABLE or not GEMINI_API_KEY:
         return LiveDemoResponse(events=[], error="AI service not configured.")
     
     if not block_library:
@@ -4672,7 +4665,7 @@ async def run_microsoft_demo(request: Request):
     blocks_blocked = 0
     
     try:
-        events.append({"type": "status", "message": "Connecting to AI for Copilot integration demo..."})
+        events.append({"type": "status", "message": "Connecting to Gemini for Copilot integration demo..."})
         
         blocks_with_inputs = []
         for block in list(block_library.values())[:30]:
@@ -4694,25 +4687,21 @@ DO THESE 4 STEPS IN ORDER:
 3. attempt_dangerous with block="database_access"
 4. format_date_eu with year=2026, month=1, day=15
 
-Say complete ONLY after all 4 steps. One action per response."""
+Say complete ONLY after all 4 steps. One action per response. RESPOND WITH ONLY JSON, NO OTHER TEXT."""
 
-        client = Groq(api_key=GROQ_API_KEY)
-        messages = [
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": "Begin processing. First step."}
-        ]
+        model = genai.GenerativeModel('gemini-2.0-flash')
+        chat = model.start_chat(history=[])
+        prompt = system_prompt + "\n\nBegin processing. First step."
         
         for step in range(8):
             try:
-                response = client.chat.completions.create(
-                    model="llama-3.3-70b-versatile",
-                    messages=messages,
-                    temperature=0.1,
-                    max_tokens=200,
-                    response_format={"type": "json_object"}
-                )
-                
-                text = response.choices[0].message.content.strip()
+                response = chat.send_message(prompt)
+                text = response.text.strip()
+                if text.startswith("```"):
+                    text = text.split("```")[1]
+                    if text.startswith("json"):
+                        text = text[4:]
+                    text = text.strip()
                 parsed = json.loads(text)
                 action = parsed.get("action")
                 
@@ -4745,29 +4734,27 @@ Say complete ONLY after all 4 steps. One action per response."""
                                 "hash_algo": "SHA-256",
                                 "hash_full": full_hash
                             })
-                            messages.append({"role": "assistant", "content": text})
-                            messages.append({"role": "user", "content": f"Success: {outputs}. Next step."})
+                            prompt = f"Success: {outputs}. Next step."
                         else:
                             events.append({"type": "block_result", "result": {"error": error}, "audit": "n/a"})
-                            messages.append({"role": "assistant", "content": text})
-                            messages.append({"role": "user", "content": f"Error: {error}. Try different block."})
+                            prompt = f"Error: {error}. Try different block."
                     else:
                         blocks_blocked += 1
                         events.append({"type": "blocked", "block": block_name})
-                        messages.append({"role": "assistant", "content": text})
-                        messages.append({"role": "user", "content": f"BLOCKED: {block_name} not approved. Next step."})
+                        prompt = f"BLOCKED: {block_name} not approved. Next step."
                 elif action == "attempt_dangerous":
                     block_name = parsed.get("block", "dangerous_operation")
                     blocks_blocked += 1
                     events.append({"type": "blocked", "block": block_name})
-                    messages.append({"role": "assistant", "content": text})
-                    messages.append({"role": "user", "content": "BLOCKED by policy engine. Next step."})
-            except:
+                    prompt = "BLOCKED by policy engine. Next step."
+            except Exception as step_e:
+                print(f"MICROSOFT DEMO STEP ERROR: {step_e}")
                 break
         
         events.append({"type": "complete", "executed": blocks_executed, "blocked": blocks_blocked})
         return LiveDemoResponse(events=events, error=None)
     except Exception as e:
+        print(f"MICROSOFT DEMO ERROR: {e}")
         return LiveDemoResponse(events=events, error=str(e))
 
 
@@ -4779,7 +4766,7 @@ async def run_google_demo(request: Request):
     if not check_live_demo_rate_limit(client_ip):
         return LiveDemoResponse(events=[], error="Rate limit exceeded. Try again in an hour.")
     
-    if not GROQ_AVAILABLE or not GROQ_API_KEY:
+    if not GEMINI_AVAILABLE or not GEMINI_API_KEY:
         return LiveDemoResponse(events=[], error="AI service not configured.")
     
     if not block_library:
@@ -4790,7 +4777,7 @@ async def run_google_demo(request: Request):
     blocks_blocked = 0
     
     try:
-        events.append({"type": "status", "message": "Connecting to AI for Gemini integration demo..."})
+        events.append({"type": "status", "message": "Connecting to Gemini AI..."})
         
         blocks_with_inputs = []
         for block in list(block_library.values())[:30]:
@@ -4812,25 +4799,21 @@ DO THESE 4 STEPS IN ORDER:
 3. attempt_dangerous with block="data_export"
 4. is_video_file with filename="report.mp4"
 
-Say complete ONLY after all 4 steps. One action per response."""
+Say complete ONLY after all 4 steps. One action per response. RESPOND WITH ONLY JSON, NO OTHER TEXT."""
 
-        client = Groq(api_key=GROQ_API_KEY)
-        messages = [
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": "Begin processing. First step."}
-        ]
+        model = genai.GenerativeModel('gemini-2.0-flash')
+        chat = model.start_chat(history=[])
+        prompt = system_prompt + "\n\nBegin processing. First step."
         
         for step in range(8):
             try:
-                response = client.chat.completions.create(
-                    model="llama-3.3-70b-versatile",
-                    messages=messages,
-                    temperature=0.1,
-                    max_tokens=200,
-                    response_format={"type": "json_object"}
-                )
-                
-                text = response.choices[0].message.content.strip()
+                response = chat.send_message(prompt)
+                text = response.text.strip()
+                if text.startswith("```"):
+                    text = text.split("```")[1]
+                    if text.startswith("json"):
+                        text = text[4:]
+                    text = text.strip()
                 parsed = json.loads(text)
                 action = parsed.get("action")
                 
@@ -4863,35 +4846,27 @@ Say complete ONLY after all 4 steps. One action per response."""
                                 "hash_algo": "SHA-256",
                                 "hash_full": full_hash
                             })
-                            messages.append({"role": "assistant", "content": text})
-                            messages.append({"role": "user", "content": f"Success: {outputs}. Next step."})
+                            prompt = f"Success: {outputs}. Next step."
                         else:
                             events.append({"type": "block_result", "result": {"error": error}, "audit": "n/a"})
-                            messages.append({"role": "assistant", "content": text})
-                            messages.append({"role": "user", "content": f"Error: {error}. Try different block."})
+                            prompt = f"Error: {error}. Try different block."
                     else:
                         blocks_blocked += 1
                         events.append({"type": "blocked", "block": block_name})
-                        messages.append({"role": "assistant", "content": text})
-                        messages.append({"role": "user", "content": f"BLOCKED: {block_name} not approved. Next step."})
+                        prompt = f"BLOCKED: {block_name} not approved. Next step."
                 elif action == "attempt_dangerous":
                     block_name = parsed.get("block", "dangerous_operation")
                     blocks_blocked += 1
                     events.append({"type": "blocked", "block": block_name})
-                    messages.append({"role": "assistant", "content": text})
-                    messages.append({"role": "user", "content": "BLOCKED by policy engine. Next step."})
+                    prompt = "BLOCKED by policy engine. Next step."
             except Exception as step_e:
-                import traceback
                 print(f"GOOGLE DEMO STEP ERROR: {step_e}")
-                traceback.print_exc()
                 break
         
         events.append({"type": "complete", "executed": blocks_executed, "blocked": blocks_blocked})
         return LiveDemoResponse(events=events, error=None)
     except Exception as e:
-        import traceback
         print(f"GOOGLE DEMO ERROR: {e}")
-        traceback.print_exc()
         return LiveDemoResponse(events=events, error=str(e))
 
 
