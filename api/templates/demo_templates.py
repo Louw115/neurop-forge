@@ -442,8 +442,104 @@ header {
 """
 
 
+TASK_INPUT_CSS = """
+.task-input-section {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+}
+
+.task-input-section h3 {
+    color: var(--accent);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 12px;
+}
+
+.task-textarea {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.95rem;
+    padding: 14px 16px;
+    resize: vertical;
+    min-height: 80px;
+    line-height: 1.6;
+}
+
+.task-textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent-glow);
+}
+
+.task-textarea::placeholder {
+    color: var(--text-muted);
+}
+
+.preset-tasks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.preset-btn {
+    background: rgba(0, 212, 255, 0.1);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.preset-btn:hover {
+    background: rgba(0, 212, 255, 0.2);
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+.ai-mode-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(34, 197, 94, 0.15);
+    border: 1px solid rgba(34, 197, 94, 0.4);
+    color: #22c55e;
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    margin-left: 12px;
+}
+
+.ai-mode-badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: #22c55e;
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+"""
+
+
 def create_microsoft_demo_html() -> str:
-    """Generate the Microsoft Enterprise Financial Compliance demo."""
+    """Generate the Microsoft Enterprise Financial Compliance demo with REAL AI execution."""
     return f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -452,7 +548,7 @@ def create_microsoft_demo_html() -> str:
     <title>Neurop Forge | Microsoft Enterprise Demo</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <style>{PREMIUM_CSS}</style>
+    <style>{PREMIUM_CSS}{TASK_INPUT_CSS}</style>
 </head>
 <body>
     <div class="bg-gradient"></div>
@@ -469,26 +565,28 @@ def create_microsoft_demo_html() -> str:
             </div>
             <p class="tagline">AI-Native Execution Control Layer</p>
             <div class="company-badge">Microsoft Azure Copilot Integration</div>
+            <div class="ai-mode-badge">LIVE AI</div>
         </header>
         
-        <section class="task-section">
-            <h3>Task Assigned to AI</h3>
-            <p class="task-text">
-                Process the <strong>$2.5M quarterly financial report</strong> for Contoso Corporation. 
-                Mask sensitive executive data, calculate corporate taxes, convert currencies for EU subsidiaries, 
-                and format compliance dates. The AI will also attempt database and shell operations 
-                which <strong>must be blocked</strong> by the policy engine.
-            </p>
+        <section class="task-input-section">
+            <h3>Describe Your Task for AI</h3>
+            <textarea id="taskInput" class="task-textarea" placeholder="Describe what you want the AI to do. GPT-4 will autonomously select and execute verified blocks from the library. Any dangerous operations will be blocked by the policy engine.">Process the $2.5M quarterly financial report for Contoso Corporation. Mask the CFO email cfo@contoso-corp.com and credit card 4532015112830366. Calculate tax at 21% for revenue of $2,500,000. Format the compliance date January 15, 2026 in EU format. Uppercase the report title "quarterly financial report".</textarea>
+            <div class="preset-tasks">
+                <button class="preset-btn" onclick="setTask('financial')">Financial Report</button>
+                <button class="preset-btn" onclick="setTask('pii')">PII Masking</button>
+                <button class="preset-btn" onclick="setTask('analytics')">Data Analytics</button>
+                <button class="preset-btn" onclick="setTask('validation')">Input Validation</button>
+            </div>
         </section>
         
         <div class="demo-card">
             <div class="demo-header">
-                <span class="demo-title">Live Execution Terminal</span>
+                <span class="demo-title">Live AI Execution Terminal</span>
                 <div class="live-badge" id="liveBadge">
                     <div class="live-dot"></div>
                     LIVE
                 </div>
-                <button class="run-btn" id="runBtn" onclick="runDemo()">Run Demo</button>
+                <button class="run-btn" id="runBtn" onclick="runDemo()">Execute with AI</button>
             </div>
             <div class="library-bar">
                 <span>Neurop Forge Block Library</span>
@@ -498,7 +596,7 @@ def create_microsoft_demo_html() -> str:
             </div>
             <div class="demo-output" id="output">
                 <div class="output-line">
-                    <span class="status">Ready. Click "Run Demo" to see AI execute verified blocks while dangerous operations are blocked.</span>
+                    <span class="status">Ready. Type a task above and click "Execute with AI" to watch GPT-4 autonomously select and execute verified blocks.</span>
                 </div>
             </div>
         </div>
@@ -506,6 +604,17 @@ def create_microsoft_demo_html() -> str:
     
     <script>
         let isRunning = false;
+        
+        const presetTasks = {{
+            financial: "Process the $2.5M quarterly financial report for Contoso Corporation. Mask the CFO email cfo@contoso-corp.com and credit card 4532015112830366. Calculate tax at 21% for revenue of $2,500,000. Format the compliance date January 15, 2026 in EU format. Uppercase the report title 'quarterly financial report'.",
+            pii: "Sanitize customer data: mask email john.doe@microsoft.com, mask credit card 4111111111111111, validate the email format, check if customer ID 12345 is a positive number, and format their signup date March 20, 2025 in EU format.",
+            analytics: "Analyze sales data: calculate the sum of sales [15000, 28000, 42000, 18500, 35000], find the maximum sale, calculate the mean value, filter only positive values, and sort them in descending order.",
+            validation: "Validate user inputs: check if email test@example.com is valid format, verify that age 25 is positive, check if user ID 1024 is even, count the words in 'Welcome to our enterprise platform', and trim whitespace from '  user input  '."
+        }};
+        
+        function setTask(type) {{
+            document.getElementById('taskInput').value = presetTasks[type] || '';
+        }}
         
         function addLine(html) {{
             const output = document.getElementById('output');
@@ -520,53 +629,67 @@ def create_microsoft_demo_html() -> str:
             if (isRunning) return;
             isRunning = true;
             
+            const task = document.getElementById('taskInput').value.trim();
+            if (!task) {{
+                alert('Please enter a task for the AI to execute.');
+                isRunning = false;
+                return;
+            }}
+            
             const btn = document.getElementById('runBtn');
             const output = document.getElementById('output');
             const liveBadge = document.getElementById('liveBadge');
             
             btn.disabled = true;
-            btn.textContent = 'Running...';
+            btn.textContent = 'AI Executing...';
             output.innerHTML = '';
             liveBadge.style.display = 'inline-flex';
             
             addLine('<span class="status">Initializing OpenAI GPT-4o-mini connection...</span>');
             
             try {{
-                const response = await fetch('/api/demo/microsoft/run', {{ method: 'POST' }});
+                const response = await fetch('/api/ai-execute', {{
+                    method: 'POST',
+                    headers: {{ 'Content-Type': 'application/json' }},
+                    body: JSON.stringify({{ task: task, policy: 'microsoft', max_steps: 12 }})
+                }});
                 const data = await response.json();
                 
                 if (data.error) {{
                     addLine('<span class="blocked">Error: ' + data.error + '</span>');
                 }} else {{
                     for (const event of data.events) {{
-                        await new Promise(r => setTimeout(r, 600));
+                        await new Promise(r => setTimeout(r, 450));
                         
                         if (event.type === 'status') {{
                             addLine('<span class="status">' + event.message + '</span>');
+                        }} else if (event.type === 'ai_message') {{
+                            addLine('<div class="ai-message"><span class="status">AI: ' + event.content + '</span></div>');
                         }} else if (event.type === 'block_call') {{
                             let blockHtml = '<div class="block-call"><span class="label">EXECUTE</span> <span class="name">' + event.block + '</span>';
-                            if (event.block_info) {{
-                                const bi = event.block_info;
+                            if (event.block_data) {{
+                                const bd = event.block_data;
                                 blockHtml += '<div class="block-structure">';
-                                blockHtml += '<div class="struct-section"><span class="struct-key">metadata:</span> {{name: "' + bi.metadata.name + '", category: "' + bi.metadata.category + '"}}</div>';
-                                blockHtml += '<div class="struct-section"><span class="struct-key">interface.inputs:</span> ' + JSON.stringify(bi.interface.inputs) + '</div>';
-                                blockHtml += '<div class="struct-section"><span class="struct-key">identity.hash_value:</span> <span class="hash-preview">' + (bi.identity.hash_value || '').substring(0, 16) + '...</span></div>';
-                                blockHtml += '<div class="struct-section"><span class="struct-key">constraints:</span> {{purity: "' + bi.constraints.purity + '", deterministic: ' + bi.constraints.deterministic + '}}</div>';
+                                blockHtml += '<div class="struct-section"><span class="struct-key">metadata:</span> {{name: "' + bd.metadata.name + '", category: "' + bd.metadata.category + '"}}</div>';
+                                blockHtml += '<div class="struct-section"><span class="struct-key">interface.inputs:</span> ' + JSON.stringify(bd.interface.inputs) + '</div>';
+                                blockHtml += '<div class="struct-section"><span class="struct-key">identity.hash_value:</span> <span class="hash-preview">' + (bd.identity.hash_value || '') + '</span></div>';
+                                blockHtml += '<div class="struct-section"><span class="struct-key">constraints:</span> {{purity: "' + bd.constraints.purity + '", deterministic: ' + bd.constraints.deterministic + '}}</div>';
+                                blockHtml += '<div class="struct-section"><span class="struct-key">inputs:</span> ' + JSON.stringify(bd.inputs) + '</div>';
                                 blockHtml += '</div>';
                             }}
-                            blockHtml += '<div class="inputs">inputs: ' + JSON.stringify(event.inputs) + '</div></div>';
+                            blockHtml += '</div>';
                             addLine(blockHtml);
                         }} else if (event.type === 'block_result') {{
-                            if (event.success) {{
-                                addLine('<div class="block-result"><span class="ok">OK</span> <span class="value">' + JSON.stringify(event.result) + '</span></div>');
-                                if (event.hash_full) {{
-                                    addLine('<div class="audit-box"><div class="audit-header"><span class="audit-label">Cryptographic Audit</span><span class="audit-algo">SHA-256</span></div><div class="audit-hash">' + event.hash_full + '</div><div class="audit-meta">tamper-proof | immutable | verifiable</div></div>');
-                                }}
-                            }} else {{
-                                addLine('<div class="block-result"><span class="status">SKIP (execution error)</span></div>');
+                            addLine('<div class="block-result"><span class="ok">OK</span> <span class="value">' + JSON.stringify({{result: event.result}}) + '</span></div>');
+                            if (event.hash_full) {{
+                                addLine('<div class="audit-box"><div class="audit-header"><span class="audit-label">Cryptographic Audit</span><span class="audit-algo">' + (event.hash_algo || 'SHA-256') + '</span></div><div class="audit-hash">' + event.hash_full + '</div><div class="audit-meta">tamper-proof | immutable | verifiable</div></div>');
                             }}
+                        }} else if (event.type === 'block_error') {{
+                            addLine('<div class="block-result"><span class="blocked">ERROR: ' + event.error + '</span></div>');
                         }} else if (event.type === 'blocked') {{
                             addLine('<div class="block-blocked"><span class="danger-icon">⛔</span><span class="label">BLOCKED</span><span class="name">' + event.block + '</span><span class="reason">' + (event.reason || 'Operation not in approved library - policy engine denied execution') + '</span></div>');
+                        }} else if (event.type === 'error') {{
+                            addLine('<span class="blocked">System Error: ' + event.message + '</span>');
                         }} else if (event.type === 'complete') {{
                             await new Promise(r => setTimeout(r, 400));
                             addLine('<div class="summary-box"><div class="summary-title">Execution Complete</div><div class="summary-grid"><div class="summary-stat success-stat"><div class="value">' + event.executed + '</div><div class="label">Executed</div></div><div class="summary-stat error-stat"><div class="value">' + event.blocked + '</div><div class="label">Blocked</div></div><div class="summary-stat"><div class="value">' + event.executed + '</div><div class="label">Audit Hashes</div></div><div class="summary-stat"><div class="value">0</div><div class="label">Code Generated</div></div></div></div>');
@@ -579,7 +702,7 @@ def create_microsoft_demo_html() -> str:
             
             liveBadge.style.display = 'none';
             btn.disabled = false;
-            btn.textContent = 'Run Again';
+            btn.textContent = 'Execute with AI';
             isRunning = false;
         }}
     </script>
@@ -588,7 +711,7 @@ def create_microsoft_demo_html() -> str:
 
 
 def create_google_demo_html() -> str:
-    """Generate the Google Cloud Data Pipeline demo."""
+    """Generate the Google Cloud Data Pipeline demo with REAL AI execution."""
     return f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -597,7 +720,7 @@ def create_google_demo_html() -> str:
     <title>Neurop Forge | Google Cloud Demo</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <style>{PREMIUM_CSS}</style>
+    <style>{PREMIUM_CSS}{TASK_INPUT_CSS}</style>
 </head>
 <body>
     <div class="bg-gradient"></div>
@@ -614,26 +737,28 @@ def create_google_demo_html() -> str:
             </div>
             <p class="tagline">AI-Native Execution Control Layer</p>
             <div class="company-badge">Google Cloud Vertex AI Integration</div>
+            <div class="ai-mode-badge">LIVE AI</div>
         </header>
         
-        <section class="task-section">
-            <h3>Task Assigned to AI</h3>
-            <p class="task-text">
-                Process <strong>customer analytics data</strong> for a SaaS analytics dashboard. 
-                Sanitize PII from customer records, validate media uploads, compute tax calculations, 
-                and format dates for international reports. The AI will attempt to access cloud storage 
-                and execute shell commands which <strong>must be blocked</strong> by the policy engine.
-            </p>
+        <section class="task-input-section">
+            <h3>Describe Your Task for AI</h3>
+            <textarea id="taskInput" class="task-textarea" placeholder="Describe what you want the AI to do. GPT-4 will autonomously select and execute verified blocks from the library. Any dangerous operations will be blocked by the policy engine.">Process customer analytics data for a SaaS dashboard. Mask customer email support@google-cloud.com and credit card 5555444433332222. Validate the email format. Calculate the sum of monthly revenue [45000, 52000, 48000, 61000]. Find the maximum value. Format the report date February 28, 2026 in EU format. Uppercase the dashboard title "cloud analytics report".</textarea>
+            <div class="preset-tasks">
+                <button class="preset-btn" onclick="setTask('analytics')">Analytics Pipeline</button>
+                <button class="preset-btn" onclick="setTask('pii')">PII Sanitization</button>
+                <button class="preset-btn" onclick="setTask('validation')">Data Validation</button>
+                <button class="preset-btn" onclick="setTask('aggregation')">Data Aggregation</button>
+            </div>
         </section>
         
         <div class="demo-card">
             <div class="demo-header">
-                <span class="demo-title">Live Execution Terminal</span>
+                <span class="demo-title">Live AI Execution Terminal</span>
                 <div class="live-badge" id="liveBadge">
                     <div class="live-dot"></div>
                     LIVE
                 </div>
-                <button class="run-btn" id="runBtn" onclick="runDemo()">Run Demo</button>
+                <button class="run-btn" id="runBtn" onclick="runDemo()">Execute with AI</button>
             </div>
             <div class="library-bar">
                 <span>Neurop Forge Block Library</span>
@@ -643,7 +768,7 @@ def create_google_demo_html() -> str:
             </div>
             <div class="demo-output" id="output">
                 <div class="output-line">
-                    <span class="status">Ready. Click "Run Demo" to see AI execute verified blocks while dangerous operations are blocked.</span>
+                    <span class="status">Ready. Type a task above and click "Execute with AI" to watch GPT-4 autonomously select and execute verified blocks.</span>
                 </div>
             </div>
         </div>
@@ -651,6 +776,17 @@ def create_google_demo_html() -> str:
     
     <script>
         let isRunning = false;
+        
+        const presetTasks = {{
+            analytics: "Process customer analytics data for a SaaS dashboard. Mask customer email support@google-cloud.com and credit card 5555444433332222. Validate the email format. Calculate the sum of monthly revenue [45000, 52000, 48000, 61000]. Find the maximum value. Format the report date February 28, 2026 in EU format.",
+            pii: "Sanitize user data: mask email admin@cloud-service.io, mask credit card 4000123456789010, validate that the email is properly formatted, check if user ID 99887 is positive, and count the words in 'Google Cloud Platform Analytics Dashboard'.",
+            validation: "Validate incoming API data: check if the request ID 2048 is even, verify that timestamp 1640000000 is positive, validate email format for api-user@test.com, count words in the error message 'Invalid authentication token provided', and trim whitespace from '  request body  '.",
+            aggregation: "Aggregate daily metrics: sum the values [1250, 980, 1450, 2200, 1875], find the maximum daily value, calculate the mean, filter positive values from [100, -50, 200, -30, 150], and sort them in descending order."
+        }};
+        
+        function setTask(type) {{
+            document.getElementById('taskInput').value = presetTasks[type] || '';
+        }}
         
         function addLine(html) {{
             const output = document.getElementById('output');
@@ -665,53 +801,67 @@ def create_google_demo_html() -> str:
             if (isRunning) return;
             isRunning = true;
             
+            const task = document.getElementById('taskInput').value.trim();
+            if (!task) {{
+                alert('Please enter a task for the AI to execute.');
+                isRunning = false;
+                return;
+            }}
+            
             const btn = document.getElementById('runBtn');
             const output = document.getElementById('output');
             const liveBadge = document.getElementById('liveBadge');
             
             btn.disabled = true;
-            btn.textContent = 'Running...';
+            btn.textContent = 'AI Executing...';
             output.innerHTML = '';
             liveBadge.style.display = 'inline-flex';
             
             addLine('<span class="status">Initializing OpenAI GPT-4o-mini connection...</span>');
             
             try {{
-                const response = await fetch('/api/demo/google/run', {{ method: 'POST' }});
+                const response = await fetch('/api/ai-execute', {{
+                    method: 'POST',
+                    headers: {{ 'Content-Type': 'application/json' }},
+                    body: JSON.stringify({{ task: task, policy: 'google', max_steps: 12 }})
+                }});
                 const data = await response.json();
                 
                 if (data.error) {{
                     addLine('<span class="blocked">Error: ' + data.error + '</span>');
                 }} else {{
                     for (const event of data.events) {{
-                        await new Promise(r => setTimeout(r, 600));
+                        await new Promise(r => setTimeout(r, 450));
                         
                         if (event.type === 'status') {{
                             addLine('<span class="status">' + event.message + '</span>');
+                        }} else if (event.type === 'ai_message') {{
+                            addLine('<div class="ai-message"><span class="status">AI: ' + event.content + '</span></div>');
                         }} else if (event.type === 'block_call') {{
                             let blockHtml = '<div class="block-call"><span class="label">EXECUTE</span> <span class="name">' + event.block + '</span>';
-                            if (event.block_info) {{
-                                const bi = event.block_info;
+                            if (event.block_data) {{
+                                const bd = event.block_data;
                                 blockHtml += '<div class="block-structure">';
-                                blockHtml += '<div class="struct-section"><span class="struct-key">metadata:</span> {{name: "' + bi.metadata.name + '", category: "' + bi.metadata.category + '"}}</div>';
-                                blockHtml += '<div class="struct-section"><span class="struct-key">interface.inputs:</span> ' + JSON.stringify(bi.interface.inputs) + '</div>';
-                                blockHtml += '<div class="struct-section"><span class="struct-key">identity.hash_value:</span> <span class="hash-preview">' + (bi.identity.hash_value || '').substring(0, 16) + '...</span></div>';
-                                blockHtml += '<div class="struct-section"><span class="struct-key">constraints:</span> {{purity: "' + bi.constraints.purity + '", deterministic: ' + bi.constraints.deterministic + '}}</div>';
+                                blockHtml += '<div class="struct-section"><span class="struct-key">metadata:</span> {{name: "' + bd.metadata.name + '", category: "' + bd.metadata.category + '"}}</div>';
+                                blockHtml += '<div class="struct-section"><span class="struct-key">interface.inputs:</span> ' + JSON.stringify(bd.interface.inputs) + '</div>';
+                                blockHtml += '<div class="struct-section"><span class="struct-key">identity.hash_value:</span> <span class="hash-preview">' + (bd.identity.hash_value || '') + '</span></div>';
+                                blockHtml += '<div class="struct-section"><span class="struct-key">constraints:</span> {{purity: "' + bd.constraints.purity + '", deterministic: ' + bd.constraints.deterministic + '}}</div>';
+                                blockHtml += '<div class="struct-section"><span class="struct-key">inputs:</span> ' + JSON.stringify(bd.inputs) + '</div>';
                                 blockHtml += '</div>';
                             }}
-                            blockHtml += '<div class="inputs">inputs: ' + JSON.stringify(event.inputs) + '</div></div>';
+                            blockHtml += '</div>';
                             addLine(blockHtml);
                         }} else if (event.type === 'block_result') {{
-                            if (event.success) {{
-                                addLine('<div class="block-result"><span class="ok">OK</span> <span class="value">' + JSON.stringify(event.result) + '</span></div>');
-                                if (event.hash_full) {{
-                                    addLine('<div class="audit-box"><div class="audit-header"><span class="audit-label">Cryptographic Audit</span><span class="audit-algo">SHA-256</span></div><div class="audit-hash">' + event.hash_full + '</div><div class="audit-meta">tamper-proof | immutable | verifiable</div></div>');
-                                }}
-                            }} else {{
-                                addLine('<div class="block-result"><span class="status">SKIP (execution error)</span></div>');
+                            addLine('<div class="block-result"><span class="ok">OK</span> <span class="value">' + JSON.stringify({{result: event.result}}) + '</span></div>');
+                            if (event.hash_full) {{
+                                addLine('<div class="audit-box"><div class="audit-header"><span class="audit-label">Cryptographic Audit</span><span class="audit-algo">' + (event.hash_algo || 'SHA-256') + '</span></div><div class="audit-hash">' + event.hash_full + '</div><div class="audit-meta">tamper-proof | immutable | verifiable</div></div>');
                             }}
+                        }} else if (event.type === 'block_error') {{
+                            addLine('<div class="block-result"><span class="blocked">ERROR: ' + event.error + '</span></div>');
                         }} else if (event.type === 'blocked') {{
                             addLine('<div class="block-blocked"><span class="danger-icon">⛔</span><span class="label">BLOCKED</span><span class="name">' + event.block + '</span><span class="reason">' + (event.reason || 'Operation not in approved library - policy engine denied execution') + '</span></div>');
+                        }} else if (event.type === 'error') {{
+                            addLine('<span class="blocked">System Error: ' + event.message + '</span>');
                         }} else if (event.type === 'complete') {{
                             await new Promise(r => setTimeout(r, 400));
                             addLine('<div class="summary-box"><div class="summary-title">Execution Complete</div><div class="summary-grid"><div class="summary-stat success-stat"><div class="value">' + event.executed + '</div><div class="label">Executed</div></div><div class="summary-stat error-stat"><div class="value">' + event.blocked + '</div><div class="label">Blocked</div></div><div class="summary-stat"><div class="value">' + event.executed + '</div><div class="label">Audit Hashes</div></div><div class="summary-stat"><div class="value">0</div><div class="label">Code Generated</div></div></div></div>');
@@ -724,7 +874,7 @@ def create_google_demo_html() -> str:
             
             liveBadge.style.display = 'none';
             btn.disabled = false;
-            btn.textContent = 'Run Again';
+            btn.textContent = 'Execute with AI';
             isRunning = false;
         }}
     </script>
