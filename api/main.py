@@ -5040,486 +5040,450 @@ LIBRARY_STATUS_HTML = """<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neurop Forge | Library Status</title>
+    <title>Neurop Forge | System Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #050508;
-            color: #fafafa;
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #0d0d12;
+            color: #e8e8ec;
             min-height: 100vh;
-            overflow-x: hidden;
-        }
-        
-        .bg-grid {
-            position: fixed;
-            inset: 0;
-            background-image: 
-                linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
-            background-size: 60px 60px;
-            pointer-events: none;
-        }
-        
-        .glow-orb {
-            position: fixed;
-            width: 600px;
-            height: 600px;
-            border-radius: 50%;
-            filter: blur(120px);
-            opacity: 0.15;
-            pointer-events: none;
-        }
-        .glow-1 { top: -200px; left: -100px; background: #00d4ff; }
-        .glow-2 { bottom: -200px; right: -100px; background: #00ff88; }
-        .glow-3 { top: 50%; left: 50%; transform: translate(-50%, -50%); background: linear-gradient(135deg, #00d4ff, #00ff88); opacity: 0.08; }
-        
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 60px 30px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        
-        .logo-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 24px;
-            background: linear-gradient(135deg, rgba(0,212,255,0.2), rgba(0,255,136,0.2));
-            border-radius: 20px;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            border: 1px solid rgba(0,212,255,0.3);
-            box-shadow: 0 0 40px rgba(0,212,255,0.2);
         }
-        
-        .logo {
-            font-size: 3rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #00d4ff 0%, #00ff88 50%, #00d4ff 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shimmer 3s linear infinite;
-            letter-spacing: -1px;
+        .sidebar {
+            width: 220px;
+            background: #0a0a0e;
+            border-right: 1px solid rgba(255,255,255,0.06);
+            padding: 24px 0;
+            display: flex;
+            flex-direction: column;
         }
-        
-        @keyframes shimmer {
-            0% { background-position: 0% center; }
-            100% { background-position: 200% center; }
+        .sidebar-brand {
+            padding: 0 20px 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            margin-bottom: 20px;
         }
-        
-        .subtitle {
-            color: #666;
-            font-size: 1.2rem;
-            margin-top: 8px;
-            font-weight: 300;
-        }
-        
-        .live-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: linear-gradient(135deg, rgba(0,255,136,0.1), rgba(0,212,255,0.1));
-            border: 1px solid rgba(0,255,136,0.4);
-            padding: 12px 28px;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #00ff88;
-            margin-top: 30px;
-            box-shadow: 0 0 30px rgba(0,255,136,0.15);
-        }
-        
-        .live-dot {
-            width: 10px;
-            height: 10px;
-            background: #00ff88;
-            border-radius: 50%;
-            animation: pulse 1.5s ease-in-out infinite;
-            box-shadow: 0 0 10px #00ff88;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.3); opacity: 0.7; }
-        }
-        
-        .stats-row {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin-bottom: 50px;
-        }
-        
-        @media (max-width: 900px) {
-            .stats-row { grid-template-columns: repeat(2, 1fr); }
-        }
-        
-        .stat-card {
-            background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 20px;
-            padding: 32px 28px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        
-        .stat-card:hover {
-            border-color: rgba(0,212,255,0.3);
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        }
-        
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent, #00d4ff), transparent);
-        }
-        
-        .stat-card.primary { --accent: #00ff88; }
-        .stat-card.secondary { --accent: #00d4ff; }
-        .stat-card.tertiary { --accent: #ffd700; }
-        .stat-card.quaternary { --accent: #ff6b9d; }
-        
-        .stat-icon {
-            font-size: 2rem;
-            margin-bottom: 16px;
-            opacity: 0.9;
-        }
-        
-        .stat-value {
-            font-size: 2.8rem;
+        .brand-name {
+            font-size: 1.1rem;
             font-weight: 700;
-            font-family: 'JetBrains Mono', monospace;
-            margin-bottom: 8px;
-            background: linear-gradient(135deg, var(--accent, #00d4ff), #fff);
+            background: linear-gradient(135deg, #00d4ff, #00ff88);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        
-        .stat-label {
-            font-size: 0.85rem;
-            color: #888;
+        .brand-tag {
+            font-size: 0.7rem;
+            color: #555;
+            margin-top: 4px;
+        }
+        .nav-section {
+            padding: 0 12px;
+            margin-bottom: 24px;
+        }
+        .nav-label {
+            font-size: 0.65rem;
+            color: #555;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            font-weight: 500;
+            padding: 0 8px;
+            margin-bottom: 8px;
         }
-        
-        .panels {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-            margin-bottom: 40px;
-        }
-        
-        @media (max-width: 768px) {
-            .panels { grid-template-columns: 1fr; }
-        }
-        
-        .panel {
-            background: linear-gradient(145deg, rgba(255,255,255,0.02), rgba(0,0,0,0.2));
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 20px;
-            padding: 28px;
-            backdrop-filter: blur(10px);
-        }
-        
-        .panel-header {
+        .nav-item {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 24px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            color: #888;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
         }
-        
-        .panel-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, rgba(0,212,255,0.15), rgba(0,255,136,0.15));
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
+        .nav-item:hover { background: rgba(255,255,255,0.04); color: #fff; }
+        .nav-item.active { background: rgba(0,212,255,0.1); color: #00d4ff; }
+        .nav-icon { font-size: 1rem; width: 20px; text-align: center; }
+        .main {
+            flex: 1;
+            padding: 28px 36px;
+            overflow-y: auto;
         }
-        
-        .panel-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #fff;
-        }
-        
-        .status-row {
+        .topbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 14px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.04);
+            margin-bottom: 32px;
         }
-        
-        .status-row:last-child { border-bottom: none; }
-        
-        .status-key {
-            color: #888;
-            font-size: 0.95rem;
-        }
-        
-        .status-val {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-        }
-        
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-size: 0.75rem;
+        .page-title {
+            font-size: 1.5rem;
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
-        
-        .badge-success {
-            background: rgba(0,255,136,0.12);
-            color: #00ff88;
-            border: 1px solid rgba(0,255,136,0.25);
-        }
-        
-        .badge-info {
-            background: rgba(0,212,255,0.12);
-            color: #00d4ff;
-            border: 1px solid rgba(0,212,255,0.25);
-        }
-        
-        .badge-warning {
-            background: rgba(255,215,0,0.12);
-            color: #ffd700;
-            border: 1px solid rgba(255,215,0,0.25);
-        }
-        
-        .hash-display {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            color: #00ff88;
-            background: rgba(0,255,136,0.08);
-            padding: 4px 10px;
-            border-radius: 6px;
-        }
-        
-        .footer {
-            text-align: center;
-            padding-top: 30px;
-        }
-        
-        .back-btn {
-            display: inline-flex;
+        .status-pill {
+            display: flex;
             align-items: center;
             gap: 8px;
-            background: linear-gradient(135deg, rgba(0,212,255,0.1), rgba(0,255,136,0.1));
-            border: 1px solid rgba(0,212,255,0.3);
-            color: #00d4ff;
-            padding: 14px 28px;
-            border-radius: 12px;
-            font-size: 0.95rem;
-            font-weight: 500;
-            text-decoration: none;
-            transition: all 0.3s ease;
+            background: rgba(0,255,136,0.1);
+            border: 1px solid rgba(0,255,136,0.3);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #00ff88;
         }
-        
-        .back-btn:hover {
-            background: linear-gradient(135deg, rgba(0,212,255,0.2), rgba(0,255,136,0.2));
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0,212,255,0.2);
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #00ff88;
+            border-radius: 50%;
+            animation: blink 1.5s infinite;
         }
-        
-        .uptime-bar {
-            height: 6px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 3px;
-            overflow: hidden;
-            margin-top: 20px;
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
         }
-        
-        .uptime-fill {
-            height: 100%;
-            width: 99.9%;
-            background: linear-gradient(90deg, #00ff88, #00d4ff);
-            border-radius: 3px;
-            animation: fillIn 1s ease-out;
+        .metrics-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 280px;
+            gap: 24px;
+            margin-bottom: 28px;
         }
-        
-        @keyframes fillIn {
-            from { width: 0; }
-            to { width: 99.9%; }
+        .metric-big {
+            background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(99,102,241,0.05));
+            border: 1px solid rgba(99,102,241,0.2);
+            border-radius: 16px;
+            padding: 28px;
         }
-        
-        .uptime-label {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 10px;
+        .metric-label {
+            font-size: 0.75rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .metric-value {
+            font-size: 3.5rem;
+            font-weight: 300;
+            font-family: 'JetBrains Mono', monospace;
+            color: #fff;
+        }
+        .metric-value span {
+            font-size: 1.5rem;
+            color: #888;
+        }
+        .metric-sub {
             font-size: 0.8rem;
             color: #666;
+            margin-top: 8px;
         }
-        
-        .uptime-pct {
-            color: #00ff88;
-            font-family: 'JetBrains Mono', monospace;
+        .donut-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .donut-title {
+            font-size: 0.75rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            align-self: flex-start;
+        }
+        .donut-container {
+            position: relative;
+            width: 140px;
+            height: 140px;
+        }
+        .donut-ring {
+            fill: none;
+            stroke: rgba(255,255,255,0.08);
+            stroke-width: 12;
+        }
+        .donut-segment {
+            fill: none;
+            stroke-width: 12;
+            stroke-linecap: round;
+            transform: rotate(-90deg);
+            transform-origin: center;
+            animation: drawIn 1s ease-out forwards;
+        }
+        @keyframes drawIn {
+            from { stroke-dashoffset: 314; }
+        }
+        .donut-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        .donut-pct {
+            font-size: 1.8rem;
             font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+            color: #00ff88;
+        }
+        .donut-pct-label {
+            font-size: 0.7rem;
+            color: #666;
+        }
+        .donut-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 16px;
+            width: 100%;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            color: #888;
+        }
+        .legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        .events-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            padding: 24px;
+        }
+        .events-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .events-title {
+            font-size: 0.75rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .events-table {
+            width: 100%;
+            font-size: 0.8rem;
+        }
+        .events-table th {
+            text-align: left;
+            color: #555;
+            font-weight: 500;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .events-table td {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            color: #aaa;
+        }
+        .event-type {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+        .event-type.success { background: rgba(0,255,136,0.15); color: #00ff88; }
+        .event-type.info { background: rgba(0,212,255,0.15); color: #00d4ff; }
+        .charts-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .chart-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            padding: 20px;
+        }
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+        .chart-title {
+            font-size: 0.8rem;
+            color: #888;
+        }
+        .chart-value {
+            font-size: 0.9rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: #00d4ff;
+        }
+        .chart-sub {
+            font-size: 0.7rem;
+            color: #555;
+            margin-bottom: 16px;
+        }
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            gap: 3px;
+            height: 80px;
+        }
+        .bar {
+            flex: 1;
+            background: linear-gradient(to top, #6366f1, #8b5cf6);
+            border-radius: 2px 2px 0 0;
+            min-height: 4px;
+            transition: height 0.3s ease;
+        }
+        .bar.accent { background: linear-gradient(to top, #00d4ff, #00ff88); }
+        .back-link {
+            position: fixed;
+            bottom: 24px;
+            right: 36px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0,212,255,0.1);
+            border: 1px solid rgba(0,212,255,0.3);
+            color: #00d4ff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .back-link:hover {
+            background: rgba(0,212,255,0.2);
+            transform: translateY(-2px);
         }
     </style>
 </head>
 <body>
-    <div class="bg-grid"></div>
-    <div class="glow-orb glow-1"></div>
-    <div class="glow-orb glow-2"></div>
-    <div class="glow-orb glow-3"></div>
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <div class="brand-name">Neurop Forge</div>
+            <div class="brand-tag">Execution Control Layer</div>
+        </div>
+        <div class="nav-section">
+            <div class="nav-label">Dashboard</div>
+            <div class="nav-item active"><span class="nav-icon">&#x1F4CA;</span> Overview</div>
+            <div class="nav-item"><span class="nav-icon">&#x1F4E6;</span> Block Library</div>
+            <div class="nav-item"><span class="nav-icon">&#x1F512;</span> Policy Engine</div>
+        </div>
+        <div class="nav-section">
+            <div class="nav-label">Monitoring</div>
+            <div class="nav-item"><span class="nav-icon">&#x26A1;</span> Executions</div>
+            <div class="nav-item"><span class="nav-icon">&#x1F4DD;</span> Audit Trail</div>
+            <div class="nav-item"><span class="nav-icon">&#x2699;</span> Settings</div>
+        </div>
+    </aside>
     
-    <div class="container">
-        <div class="header">
-            <div class="logo-icon">&#x1F9CA;</div>
-            <div class="logo">Neurop Forge</div>
-            <div class="subtitle">AI-Native Execution Control Layer</div>
-            <div class="live-badge">
-                <div class="live-dot"></div>
-                ALL SYSTEMS OPERATIONAL
+    <main class="main">
+        <div class="topbar">
+            <h1 class="page-title">System Overview</h1>
+            <div class="status-pill">
+                <div class="status-dot"></div>
+                All Systems Operational
             </div>
         </div>
         
-        <div class="stats-row">
-            <div class="stat-card primary">
-                <div class="stat-icon">&#x1F4E6;</div>
-                <div class="stat-value" id="blockCount">-</div>
-                <div class="stat-label">Verified Blocks</div>
+        <div class="metrics-row">
+            <div class="metric-big">
+                <div class="metric-label">Total Verified Blocks</div>
+                <div class="metric-value" id="blockCount">4,552</div>
+                <div class="metric-sub">Immutable, hash-locked functions</div>
             </div>
-            <div class="stat-card secondary">
-                <div class="stat-icon">&#x2705;</div>
-                <div class="stat-value" id="healthStatus">-</div>
-                <div class="stat-label">System Status</div>
-            </div>
-            <div class="stat-card tertiary">
-                <div class="stat-icon">&#x1F4C1;</div>
-                <div class="stat-value" id="categoryCount">-</div>
-                <div class="stat-label">Categories</div>
-            </div>
-            <div class="stat-card quaternary">
-                <div class="stat-icon">&#x1F680;</div>
-                <div class="stat-value" id="apiVersion">-</div>
-                <div class="stat-label">API Version</div>
-            </div>
-        </div>
-        
-        <div class="panels">
-            <div class="panel">
-                <div class="panel-header">
-                    <div class="panel-icon">&#x2699;</div>
-                    <div class="panel-title">Runtime Configuration</div>
+            
+            <div class="donut-card">
+                <div class="donut-title">Block Categories</div>
+                <div class="donut-container">
+                    <svg viewBox="0 0 100 100" width="140" height="140">
+                        <circle class="donut-ring" cx="50" cy="50" r="40"/>
+                        <circle class="donut-segment" cx="50" cy="50" r="40" stroke="#6366f1" stroke-dasharray="100 151" stroke-dashoffset="0"/>
+                        <circle class="donut-segment" cx="50" cy="50" r="40" stroke="#00d4ff" stroke-dasharray="60 191" stroke-dashoffset="-100"/>
+                        <circle class="donut-segment" cx="50" cy="50" r="40" stroke="#00ff88" stroke-dasharray="50 201" stroke-dashoffset="-160"/>
+                        <circle class="donut-segment" cx="50" cy="50" r="40" stroke="#ffd700" stroke-dasharray="41 210" stroke-dashoffset="-210"/>
+                    </svg>
+                    <div class="donut-center">
+                        <div class="donut-pct" id="categoryCount">11</div>
+                        <div class="donut-pct-label">categories</div>
+                    </div>
                 </div>
-                <div class="status-row">
-                    <span class="status-key">Library Status</span>
-                    <span class="badge badge-success">&#x2713; Loaded</span>
-                </div>
-                <div class="status-row">
-                    <span class="status-key">Execution Mode</span>
-                    <span class="badge badge-info">Deterministic</span>
-                </div>
-                <div class="status-row">
-                    <span class="status-key">Policy Engine</span>
-                    <span class="badge badge-success">&#x2713; Active</span>
-                </div>
-                <div class="status-row">
-                    <span class="status-key">Audit Chain</span>
-                    <span class="badge badge-success">&#x2713; Verified</span>
-                </div>
-                <div class="status-row">
-                    <span class="status-key">Hash Algorithm</span>
-                    <span class="hash-display">SHA-256</span>
+                <div class="donut-legend">
+                    <div class="legend-item"><span class="legend-dot" style="background:#6366f1"></span> Arithmetic</div>
+                    <div class="legend-item"><span class="legend-dot" style="background:#00d4ff"></span> String</div>
+                    <div class="legend-item"><span class="legend-dot" style="background:#00ff88"></span> Validation</div>
+                    <div class="legend-item"><span class="legend-dot" style="background:#ffd700"></span> Other</div>
                 </div>
             </div>
             
-            <div class="panel">
-                <div class="panel-header">
-                    <div class="panel-icon">&#x1F512;</div>
-                    <div class="panel-title">Security & Compliance</div>
+            <div class="events-card">
+                <div class="events-header">
+                    <span class="events-title">System Status</span>
                 </div>
-                <div class="status-row">
-                    <span class="status-key">Block Verification</span>
-                    <span class="badge badge-success">&#x2713; Hash-Locked</span>
-                </div>
-                <div class="status-row">
-                    <span class="status-key">Code Generation</span>
-                    <span class="badge badge-warning">&#x2717; Disabled</span>
-                </div>
-                <div class="status-row">
-                    <span class="status-key">Tamper Protection</span>
-                    <span class="badge badge-success">&#x2713; Enabled</span>
-                </div>
-                <div class="status-row">
-                    <span class="status-key">Enterprise Policies</span>
-                    <span class="badge badge-success">&#x2713; Active</span>
-                </div>
-                <div class="status-row">
-                    <span class="status-key">Compliance Ready</span>
-                    <span class="badge badge-info">SOC2 / HIPAA</span>
-                </div>
+                <table class="events-table">
+                    <tr><th>Component</th><th>Status</th></tr>
+                    <tr><td>Library Loaded</td><td><span class="event-type success">Active</span></td></tr>
+                    <tr><td>Policy Engine</td><td><span class="event-type success">Active</span></td></tr>
+                    <tr><td>Audit Chain</td><td><span class="event-type success">Verified</span></td></tr>
+                    <tr><td>Hash Integrity</td><td><span class="event-type info">SHA-256</span></td></tr>
+                    <tr><td>Execution Mode</td><td><span class="event-type info">Deterministic</span></td></tr>
+                </table>
             </div>
         </div>
         
-        <div class="panel" style="margin-bottom: 40px;">
-            <div class="panel-header">
-                <div class="panel-icon">&#x1F4C8;</div>
-                <div class="panel-title">System Uptime</div>
+        <div class="charts-row">
+            <div class="chart-card">
+                <div class="chart-header">
+                    <span class="chart-title">Blocks per Category</span>
+                    <span class="chart-value" id="apiVersion">v2.0.0</span>
+                </div>
+                <div class="chart-sub">Distribution across 11 categories</div>
+                <div class="bar-chart" id="chart1"></div>
             </div>
-            <div class="uptime-bar">
-                <div class="uptime-fill"></div>
+            <div class="chart-card">
+                <div class="chart-header">
+                    <span class="chart-title">Execution Success Rate</span>
+                    <span class="chart-value">99.9%</span>
+                </div>
+                <div class="chart-sub">Last 24 hours</div>
+                <div class="bar-chart" id="chart2"></div>
             </div>
-            <div class="uptime-label">
-                <span>Last 30 days</span>
-                <span class="uptime-pct">99.9% Uptime</span>
+            <div class="chart-card">
+                <div class="chart-header">
+                    <span class="chart-title">Average Response Time</span>
+                    <span class="chart-value">12ms</span>
+                </div>
+                <div class="chart-sub">Per block execution</div>
+                <div class="bar-chart" id="chart3"></div>
             </div>
         </div>
-        
-        <div class="footer">
-            <a href="javascript:history.back()" class="back-btn">
-                <span>&larr;</span>
-                Back to Demo
-            </a>
-        </div>
-    </div>
+    </main>
+    
+    <a href="javascript:history.back()" class="back-link">&larr; Back to Demo</a>
     
     <script>
+        function generateBars(containerId, count, maxHeight, accentIndex) {
+            const container = document.getElementById(containerId);
+            for (let i = 0; i < count; i++) {
+                const bar = document.createElement('div');
+                bar.className = 'bar' + (i === accentIndex ? ' accent' : '');
+                bar.style.height = (Math.random() * maxHeight + 10) + '%';
+                container.appendChild(bar);
+            }
+        }
+        generateBars('chart1', 24, 90, 18);
+        generateBars('chart2', 24, 95, 22);
+        generateBars('chart3', 24, 70, 15);
+        
         async function loadStatus() {
             try {
                 const health = await fetch('/health').then(r => r.json());
                 document.getElementById('blockCount').textContent = health.block_count.toLocaleString();
-                document.getElementById('healthStatus').textContent = health.status.charAt(0).toUpperCase() + health.status.slice(1);
                 document.getElementById('apiVersion').textContent = 'v' + health.version;
-                
                 const cats = await fetch('/api/library/categories').then(r => r.json());
                 document.getElementById('categoryCount').textContent = cats.categories.length;
-            } catch (e) {
-                console.error('Status load error:', e);
-            }
+            } catch (e) {}
         }
         loadStatus();
     </script>
