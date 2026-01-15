@@ -633,7 +633,7 @@ def create_microsoft_demo_html() -> str:
             
             const output = document.getElementById('output');
             output.innerHTML = '<div class="output-line"><span class="info">Selected: <strong>' + preset.name + '</strong></span></div>';
-            output.innerHTML += '<div class="output-line" style="margin-top: 8px; padding: 12px; background: rgba(0,0,0,0.3); border-radius: 6px; border-left: 3px solid #4ade80;"><span style="color: #9ca3af; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;">Task given to AI:</span><br><span style="color: #e5e7eb; font-size: 13px; line-height: 1.5;">' + preset.task + '</span></div>';
+            output.innerHTML += '<div class="output-line" style="margin-top: 8px; padding: 12px; background: rgba(0,0,0,0.3); border-radius: 6px; border-left: 3px solid #4ade80;"><span style="color: #9ca3af; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;">Task given to AI:</span><br><span style="color: #b0b8c4; font-size: 13px; line-height: 1.5;">' + preset.task + '</span></div>';
             output.innerHTML += '<div class="output-line" style="margin-top: 4px;"><span style="color: #f59e0b; font-size: 12px;">⚠️ ' + preset.note + '</span></div>';
             
             runDemoWithTask(preset.task);
@@ -815,7 +815,7 @@ def create_google_demo_html() -> str:
             
             const output = document.getElementById('output');
             output.innerHTML = '<div class="output-line"><span class="info">Selected: <strong>' + preset.name + '</strong></span></div>';
-            output.innerHTML += '<div class="output-line" style="margin-top: 8px; padding: 12px; background: rgba(0,0,0,0.3); border-radius: 6px; border-left: 3px solid #4ade80;"><span style="color: #9ca3af; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;">Task given to AI:</span><br><span style="color: #e5e7eb; font-size: 13px; line-height: 1.5;">' + preset.task + '</span></div>';
+            output.innerHTML += '<div class="output-line" style="margin-top: 8px; padding: 12px; background: rgba(0,0,0,0.3); border-radius: 6px; border-left: 3px solid #4ade80;"><span style="color: #9ca3af; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;">Task given to AI:</span><br><span style="color: #b0b8c4; font-size: 13px; line-height: 1.5;">' + preset.task + '</span></div>';
             output.innerHTML += '<div class="output-line" style="margin-top: 4px;"><span style="color: #f59e0b; font-size: 12px;">⚠️ ' + preset.note + '</span></div>';
             
             runDemoWithTask(preset.task);
