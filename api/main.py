@@ -2802,38 +2802,50 @@ def check_live_demo_rate_limit(ip: str, max_requests: int = 10, window_hours: in
 
 
 def coerce_block_inputs(block, inputs: dict) -> dict:
-    """Convert AI-provided string inputs to proper types based on block metadata."""
+    """Convert AI-provided inputs to proper types based on block interface."""
     coerced = {}
     input_schema = {}
     
-    if hasattr(block, 'metadata') and hasattr(block.metadata, 'inputs'):
-        for inp in block.metadata.inputs:
-            input_schema[inp.name] = inp.type_hint
+    if hasattr(block, 'interface') and block.interface and hasattr(block.interface, 'inputs'):
+        for inp in block.interface.inputs:
+            if hasattr(inp, 'name') and hasattr(inp, 'data_type'):
+                input_schema[inp.name] = inp.data_type
     
     numeric_params = ("a", "b", "x", "y", "n", "amount", "value", "count", "num", 
                       "start", "end", "length", "index", "position", "size", "limit",
-                      "offset", "width", "height", "max", "min", "step", "times")
+                      "offset", "width", "height", "max", "min", "step", "times",
+                      "year", "month", "day", "hour", "minute", "second", "rate",
+                      "seed", "k", "chunk_size", "burst_multiplier", "base_rate",
+                      "current", "total", "total_items", "ratings", "weights")
     
     for key, value in inputs.items():
-        expected_type = input_schema.get(key, "")
+        expected_type = input_schema.get(key, "").lower()
         
-        if isinstance(value, str):
-            if expected_type in ("int", "integer", "number") or key in numeric_params:
+        if expected_type in ("int", "integer", "number") or key in numeric_params:
+            if isinstance(value, (int, float)):
+                coerced[key] = int(value) if expected_type in ("int", "integer") else value
+                continue
+            elif isinstance(value, str):
                 try:
-                    if "." in value:
-                        coerced[key] = float(value)
-                    else:
-                        coerced[key] = int(value)
+                    coerced[key] = int(value) if "." not in value else float(value)
                     continue
                 except ValueError:
                     pass
-            elif expected_type in ("float", "decimal"):
+        elif expected_type in ("float", "decimal"):
+            if isinstance(value, (int, float)):
+                coerced[key] = float(value)
+                continue
+            elif isinstance(value, str):
                 try:
                     coerced[key] = float(value)
                     continue
                 except ValueError:
                     pass
-            elif expected_type == "bool":
+        elif expected_type == "bool" or expected_type == "boolean":
+            if isinstance(value, bool):
+                coerced[key] = value
+                continue
+            elif isinstance(value, str):
                 coerced[key] = value.lower() in ("true", "1", "yes")
                 continue
         
