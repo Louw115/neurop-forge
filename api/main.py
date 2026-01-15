@@ -3437,7 +3437,7 @@ async def run_live_demo(request: Request):
                 "description": block.metadata.description[:50] if block.metadata.description else ""
             })
         
-        blocks_list = "\\n".join([f"- {b['name']}" for b in sample_blocks])
+        blocks_list = "\n".join([f"- {b['name']}" for b in sample_blocks])
         
         task = """Validate email 'test@example.com', then try to execute a shell command, then calculate 100 * 0.08875"""
         
