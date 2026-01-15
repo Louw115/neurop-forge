@@ -27,7 +27,8 @@ from neurop_forge.compliance.policy_engine import PolicyEngine
 from api.templates.demo_templates import (
     PREMIUM_LIVE_DEMO_HTML, 
     PREMIUM_MICROSOFT_DEMO_HTML, 
-    PREMIUM_GOOGLE_DEMO_HTML
+    PREMIUM_GOOGLE_DEMO_HTML,
+    LIBRARY_BROWSER_HTML
 )
 
 try:
@@ -4654,6 +4655,96 @@ async def demo_microsoft():
 async def demo_google():
     """Google-themed live demo page."""
     return PREMIUM_GOOGLE_DEMO_HTML
+
+
+@app.get("/library", response_class=HTMLResponse)
+async def library_browser():
+    """Block library browser - read-only view of all blocks."""
+    return LIBRARY_BROWSER_HTML
+
+
+@app.get("/api/library/blocks")
+async def get_library_blocks():
+    """Get all blocks with basic info for the library browser."""
+    blocks = []
+    for hash_id, block in block_library.items():
+        try:
+            name = block.metadata.name if hasattr(block.metadata, 'name') else hash_id
+            if name.startswith('_'):
+                continue
+            category = block.metadata.category if hasattr(block.metadata, 'category') else "general"
+            description = block.metadata.description if hasattr(block.metadata, 'description') else block.metadata.intent
+        except:
+            continue
+        blocks.append({
+            "name": name,
+            "category": category,
+            "description": description
+        })
+    return {"blocks": sorted(blocks, key=lambda x: x["name"]), "count": len(blocks)}
+
+
+@app.get("/api/library/block/{block_name}")
+async def get_library_block_detail(block_name: str):
+    """Get full block details for the detail modal."""
+    block = None
+    for hash_id, b in block_library.items():
+        if b.metadata.name == block_name:
+            block = b
+            break
+    
+    if block is None:
+        raise HTTPException(status_code=404, detail=f"Block '{block_name}' not found")
+    
+    inputs = []
+    try:
+        for inp in block.interface.inputs:
+            inp_name = inp.name if hasattr(inp, 'name') else "input"
+            inp_type = str(inp.type.base_type) if hasattr(inp, 'type') and hasattr(inp.type, 'base_type') else "any"
+            inputs.append({"name": inp_name, "type": inp_type})
+    except:
+        inputs = [{"name": "input", "type": "any"}]
+    
+    outputs = []
+    try:
+        for out in block.interface.outputs:
+            out_name = out.name if hasattr(out, 'name') else "result"
+            out_type = str(out.type.base_type) if hasattr(out, 'type') and hasattr(out.type, 'base_type') else "any"
+            outputs.append({"name": out_name, "type": out_type})
+    except:
+        outputs = [{"name": "result", "type": "any"}]
+    
+    try:
+        code = block.logic
+        description = block.metadata.description if hasattr(block.metadata, 'description') else block.metadata.intent
+        category = block.metadata.category if hasattr(block.metadata, 'category') else "general"
+        hash_value = block.identity.get("hash_value", "") if isinstance(block.identity, dict) else ""
+        purity = str(block.constraints.purity) if hasattr(block.constraints, 'purity') else "pure"
+        deterministic = block.constraints.deterministic if hasattr(block.constraints, 'deterministic') else True
+        thread_safe = block.constraints.thread_safe if hasattr(block.constraints, 'thread_safe') else True
+    except:
+        code = "# Implementation protected"
+        description = "Verified immutable function block"
+        category = "general"
+        hash_value = ""
+        purity = "pure"
+        deterministic = True
+        thread_safe = True
+    
+    return {
+        "block": {
+            "name": block_name,
+            "description": description,
+            "category": category,
+            "inputs": inputs,
+            "outputs": outputs,
+            "hash": hash_value,
+            "code": code,
+            "purity": purity,
+            "deterministic": deterministic,
+            "thread_safe": thread_safe
+        }
+    }
 
 
 @app.post("/api/demo/microsoft/run", response_model=LiveDemoResponse)

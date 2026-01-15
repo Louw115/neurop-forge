@@ -204,13 +204,25 @@ header {
 }
 
 .lib-status {
-    margin-left: auto;
     background: rgba(34, 197, 94, 0.15);
     color: var(--success);
     padding: 3px 10px;
-    border-radius: 100px;
-    font-size: 0.65rem;
-    font-weight: 700;
+}
+
+.browse-link {
+    margin-left: auto;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 3px 12px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.browse-link:hover {
+    background: rgba(0, 212, 255, 0.15);
+    border-color: var(--accent);
 }
 
 .demo-output {
@@ -459,6 +471,7 @@ def create_microsoft_demo_html() -> str:
                 <span>Neurop Forge Block Library</span>
                 <span>4,552 verified functions</span>
                 <span class="lib-status">LOADED</span>
+                <a href="/library" target="_blank" class="browse-link">Browse Library</a>
             </div>
             <div class="demo-output" id="output">
                 <div class="output-line">
@@ -592,6 +605,7 @@ def create_google_demo_html() -> str:
                 <span>Neurop Forge Block Library</span>
                 <span>4,552 verified functions</span>
                 <span class="lib-status">LOADED</span>
+                <a href="/library" target="_blank" class="browse-link">Browse Library</a>
             </div>
             <div class="demo-output" id="output">
                 <div class="output-line">
@@ -724,6 +738,7 @@ def create_live_demo_html() -> str:
                 <span>Neurop Forge Block Library</span>
                 <span>4,552 verified functions</span>
                 <span class="lib-status">LOADED</span>
+                <a href="/library" target="_blank" class="browse-link">Browse Library</a>
             </div>
             <div class="demo-output" id="output">
                 <div class="output-line">
@@ -809,3 +824,447 @@ def create_live_demo_html() -> str:
 PREMIUM_LIVE_DEMO_HTML = create_live_demo_html()
 PREMIUM_MICROSOFT_DEMO_HTML = create_microsoft_demo_html()
 PREMIUM_GOOGLE_DEMO_HTML = create_google_demo_html()
+
+# Library Browser Template
+LIBRARY_BROWSER_HTML = '''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Block Library - Neurop Forge</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        ''' + PREMIUM_CSS + '''
+        
+        .library-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        
+        .library-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .library-count {
+            color: var(--accent);
+            font-size: 0.9rem;
+        }
+        
+        .search-box {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 16px;
+            width: 100%;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        
+        .search-box:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        
+        .category-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .category-tab {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 6px 14px;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .category-tab:hover, .category-tab.active {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .block-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+        
+        .block-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .block-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+        
+        .block-name {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+        }
+        
+        .block-category {
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+        
+        .block-desc {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            line-height: 1.5;
+        }
+        
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: var(--bg-primary);
+        }
+        
+        .modal-title {
+            color: var(--accent);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .modal-close:hover {
+            color: var(--text-primary);
+        }
+        
+        .modal-body {
+            padding: 24px;
+        }
+        
+        .readonly-badge {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--error);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .detail-section {
+            margin-bottom: 20px;
+        }
+        
+        .detail-label {
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 8px;
+        }
+        
+        .detail-value {
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+        
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            line-height: 1.6;
+            overflow-x: auto;
+            color: var(--text-secondary);
+        }
+        
+        .hash-display {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--success);
+            background: rgba(34, 197, 94, 0.1);
+            padding: 8px 12px;
+            border-radius: 6px;
+            word-break: break-all;
+        }
+        
+        .input-list, .output-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .param-tag {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 4px 10px;
+            font-size: 0.75rem;
+            color: var(--accent);
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 60px;
+            color: var(--text-muted);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-gradient"></div>
+    <div class="container">
+        <header>
+            <div class="logo-wrapper">
+                <div class="logo-text">
+                    <span>Neurop</span> <span>Forge</span>
+                </div>
+            </div>
+            <p class="tagline">Block Library Browser</p>
+        </header>
+        
+        <div class="library-header">
+            <div>
+                <div class="library-title">Verified Function Blocks</div>
+                <div class="library-count"><span id="blockCount">Loading...</span> blocks available</div>
+            </div>
+            <span class="readonly-badge">Read Only</span>
+        </div>
+        
+        <input type="text" class="search-box" id="searchInput" placeholder="Search blocks by name or description...">
+        
+        <div class="category-tabs" id="categoryTabs">
+            <button class="category-tab active" data-category="all">All</button>
+        </div>
+        
+        <div class="block-grid" id="blockGrid">
+            <div class="loading">Loading blocks...</div>
+        </div>
+    </div>
+    
+    <div class="modal-overlay" id="blockModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" id="modalTitle">Block Details</div>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let allBlocks = [];
+        let currentCategory = 'all';
+        
+        async function loadBlocks() {
+            try {
+                const response = await fetch('/api/library/blocks');
+                const data = await response.json();
+                allBlocks = data.blocks || [];
+                document.getElementById('blockCount').textContent = allBlocks.length;
+                
+                const categories = [...new Set(allBlocks.map(b => b.category))].sort();
+                const tabsContainer = document.getElementById('categoryTabs');
+                tabsContainer.innerHTML = '<button class="category-tab active" data-category="all">All</button>';
+                categories.forEach(cat => {
+                    const btn = document.createElement('button');
+                    btn.className = 'category-tab';
+                    btn.dataset.category = cat;
+                    btn.textContent = cat;
+                    btn.onclick = () => filterByCategory(cat);
+                    tabsContainer.appendChild(btn);
+                });
+                
+                renderBlocks(allBlocks);
+            } catch (err) {
+                document.getElementById('blockGrid').innerHTML = '<div class="empty-state">Failed to load blocks</div>';
+            }
+        }
+        
+        function renderBlocks(blocks) {
+            const grid = document.getElementById('blockGrid');
+            if (blocks.length === 0) {
+                grid.innerHTML = '<div class="empty-state">No blocks found</div>';
+                return;
+            }
+            grid.innerHTML = blocks.map(block => `
+                <div class="block-card" onclick="showBlockDetail('${block.name}')">
+                    <div class="block-name">${block.name}</div>
+                    <div class="block-category">${block.category || 'general'}</div>
+                    <div class="block-desc">${block.description || 'Verified immutable function block'}</div>
+                </div>
+            `).join('');
+        }
+        
+        function filterByCategory(category) {
+            currentCategory = category;
+            document.querySelectorAll('.category-tab').forEach(tab => {
+                tab.classList.toggle('active', tab.dataset.category === category);
+            });
+            const filtered = category === 'all' ? allBlocks : allBlocks.filter(b => b.category === category);
+            renderBlocks(filtered);
+        }
+        
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            let filtered = allBlocks;
+            if (currentCategory !== 'all') {
+                filtered = filtered.filter(b => b.category === currentCategory);
+            }
+            if (query) {
+                filtered = filtered.filter(b => 
+                    b.name.toLowerCase().includes(query) || 
+                    (b.description && b.description.toLowerCase().includes(query))
+                );
+            }
+            renderBlocks(filtered);
+        });
+        
+        async function showBlockDetail(blockName) {
+            document.getElementById('modalTitle').textContent = blockName;
+            document.getElementById('modalBody').innerHTML = '<div class="loading">Loading block details...</div>';
+            document.getElementById('blockModal').classList.add('active');
+            
+            try {
+                const response = await fetch('/api/library/block/' + encodeURIComponent(blockName));
+                const data = await response.json();
+                const block = data.block;
+                
+                let inputsHtml = '';
+                if (block.inputs && block.inputs.length > 0) {
+                    inputsHtml = block.inputs.map(inp => `<span class="param-tag">${inp.name}: ${inp.type}</span>`).join('');
+                } else {
+                    inputsHtml = '<span class="param-tag">none</span>';
+                }
+                
+                let outputsHtml = '';
+                if (block.outputs && block.outputs.length > 0) {
+                    outputsHtml = block.outputs.map(out => `<span class="param-tag">${out.name}: ${out.type}</span>`).join('');
+                } else {
+                    outputsHtml = '<span class="param-tag">result</span>';
+                }
+                
+                document.getElementById('modalBody').innerHTML = `
+                    <div class="detail-section">
+                        <div class="detail-label">Description</div>
+                        <div class="detail-value">${block.description || 'Verified immutable function block'}</div>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <div class="detail-label">Category</div>
+                        <div class="detail-value">${block.category || 'general'}</div>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <div class="detail-label">Inputs</div>
+                        <div class="input-list">${inputsHtml}</div>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <div class="detail-label">Outputs</div>
+                        <div class="output-list">${outputsHtml}</div>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <div class="detail-label">Cryptographic Identity (SHA-256)</div>
+                        <div class="hash-display">${block.hash || 'Hash not available'}</div>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <div class="detail-label">Implementation (Read Only)</div>
+                        <pre class="code-block">${escapeHtml(block.code || 'Implementation details protected')}</pre>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <div class="detail-label">Constraints</div>
+                        <div class="detail-value">
+                            Purity: ${block.purity || 'pure'} | 
+                            Deterministic: ${block.deterministic !== false ? 'yes' : 'no'} | 
+                            Thread Safe: ${block.thread_safe !== false ? 'yes' : 'no'}
+                        </div>
+                    </div>
+                `;
+            } catch (err) {
+                document.getElementById('modalBody').innerHTML = '<div class="empty-state">Failed to load block details</div>';
+            }
+        }
+        
+        function closeModal() {
+            document.getElementById('blockModal').classList.remove('active');
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        document.getElementById('blockModal').addEventListener('click', (e) => {
+            if (e.target.id === 'blockModal') closeModal();
+        });
+        
+        loadBlocks();
+    </script>
+</body>
+</html>'''
