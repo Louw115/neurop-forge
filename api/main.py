@@ -2801,6 +2801,43 @@ def check_live_demo_rate_limit(ip: str, max_requests: int = 10, window_hours: in
     return True
 
 
+def coerce_block_inputs(block, inputs: dict) -> dict:
+    """Convert AI-provided string inputs to proper types based on block metadata."""
+    coerced = {}
+    input_schema = {}
+    
+    if hasattr(block, 'metadata') and hasattr(block.metadata, 'inputs'):
+        for inp in block.metadata.inputs:
+            input_schema[inp.name] = inp.type_hint
+    
+    for key, value in inputs.items():
+        expected_type = input_schema.get(key, "")
+        
+        if isinstance(value, str):
+            if expected_type in ("int", "integer", "number") or key in ("a", "b", "x", "y", "n", "amount", "value", "count", "num"):
+                try:
+                    if "." in value:
+                        coerced[key] = float(value)
+                    else:
+                        coerced[key] = int(value)
+                    continue
+                except ValueError:
+                    pass
+            elif expected_type in ("float", "decimal"):
+                try:
+                    coerced[key] = float(value)
+                    continue
+                except ValueError:
+                    pass
+            elif expected_type == "bool":
+                coerced[key] = value.lower() in ("true", "1", "yes")
+                continue
+        
+        coerced[key] = value
+    
+    return coerced
+
+
 LIVE_DEMO_HTML = """<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -2814,30 +2851,32 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
         
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #09090b;
+            background: #0a0a0c;
             color: #fafafa;
             min-height: 100vh;
             overflow-x: hidden;
         }
         
-        .bg-grid {
+        .bg-circuit {
             position: fixed;
             inset: 0;
             background-image: 
-                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-            background-size: 60px 60px;
+                linear-gradient(rgba(34,197,94,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(34,197,94,0.03) 1px, transparent 1px),
+                linear-gradient(rgba(34,197,94,0.015) 2px, transparent 2px),
+                linear-gradient(90deg, rgba(34,197,94,0.015) 2px, transparent 2px);
+            background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px;
             pointer-events: none;
         }
         
         .bg-glow {
             position: fixed;
-            top: -50%;
+            top: -30%;
             left: 50%;
             transform: translateX(-50%);
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(34,197,94,0.08) 0%, transparent 70%);
             pointer-events: none;
         }
         
@@ -2888,27 +2927,26 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
         }
         
         .value-prop {
-            background: linear-gradient(135deg, rgba(99,102,241,0.08) 0%, rgba(139,92,246,0.08) 100%);
-            border: 1px solid rgba(99,102,241,0.2);
-            border-radius: 16px;
-            padding: 28px 32px;
-            margin-bottom: 32px;
-            backdrop-filter: blur(10px);
+            background: rgba(34,197,94,0.04);
+            border: 1px solid rgba(34,197,94,0.15);
+            border-radius: 12px;
+            padding: 24px 28px;
+            margin-bottom: 28px;
         }
         
         .value-prop h2 {
-            color: #a5b4fc;
-            font-size: 0.85rem;
+            color: #22c55e;
+            font-size: 0.8rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
         
         .value-prop p {
             color: #a1a1aa;
-            line-height: 1.7;
-            font-size: 0.95rem;
+            line-height: 1.6;
+            font-size: 0.9rem;
         }
         
         .demo-card {
@@ -3045,37 +3083,55 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
         .audit { color: #a1a1aa; font-size: 0.8rem; }
         
         .audit-box {
-            background: rgba(34,197,94,0.08);
-            border: 1px solid rgba(34,197,94,0.25);
-            border-radius: 6px;
-            padding: 8px 14px;
-            margin: 8px 0;
+            background: rgba(34,197,94,0.06);
+            border: 1px solid rgba(34,197,94,0.2);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin: 10px 0;
+        }
+        
+        .audit-header {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            margin-bottom: 8px;
         }
         
-        .audit-box .audit-icon {
-            font-size: 0.9rem;
-            color: #22c55e;
-        }
-        
-        .audit-box .audit-label {
+        .audit-label {
             color: #22c55e;
             font-size: 0.7rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.08em;
         }
         
-        .audit-box .audit-hash {
+        .audit-algo {
             font-family: 'JetBrains Mono', monospace;
-            color: #a1a1aa;
-            font-size: 0.8rem;
+            color: #71717a;
+            font-size: 0.7rem;
             background: rgba(0,0,0,0.4);
-            padding: 3px 8px;
+            padding: 2px 8px;
             border-radius: 4px;
+        }
+        
+        .audit-full {
+            font-family: 'JetBrains Mono', monospace;
+            color: #d4d4d8;
+            font-size: 0.75rem;
+            background: rgba(0,0,0,0.5);
+            padding: 8px 12px;
+            border-radius: 6px;
+            word-break: break-all;
             letter-spacing: 0.02em;
+            border: 1px solid rgba(34,197,94,0.15);
+        }
+        
+        .audit-meta {
+            color: #52525b;
+            font-size: 0.65rem;
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }
         
         .block-source {
@@ -3180,7 +3236,7 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
     </style>
 </head>
 <body>
-    <div class="bg-grid"></div>
+    <div class="bg-circuit"></div>
     <div class="bg-glow"></div>
     
     <div class="container">
@@ -3303,7 +3359,9 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
                             await new Promise(r => setTimeout(r, 300));
                             addLine('<span class="success">OK</span> <span class="result">' + JSON.stringify(event.result).substring(0, 50) + '</span>');
                             if (event.audit !== 'n/a') {
-                                addLine('<div class="audit-box"><span class="audit-label">AUDIT</span><span class="audit-hash">' + event.audit + '</span></div>');
+                                const algo = event.hash_algo || 'SHA-256';
+                                const fullHash = event.hash_full || event.audit;
+                                addLine('<div class="audit-box"><div class="audit-header"><span class="audit-label">CRYPTOGRAPHIC AUDIT</span><span class="audit-algo">' + algo + '</span></div><div class="audit-full">' + fullHash + '</div><div class="audit-meta">tamper-proof | immutable | verifiable</div></div>');
                             }
                         } else if (event.type === 'blocked') {
                             addLine('<div class="block-blocked"><span class="blocked">BLOCKED</span> <strong>' + event.block + '</strong><br><span class="status">Policy engine denied execution - not in approved library</span></div>');
@@ -3427,12 +3485,19 @@ Process step by step. One action per response."""
                     if target_block:
                         from neurop_forge.runtime.executor import BlockExecutor
                         executor = BlockExecutor()
-                        outputs, error = executor.execute(target_block, inputs)
+                        coerced_inputs = coerce_block_inputs(target_block, inputs)
+                        outputs, error = executor.execute(target_block, coerced_inputs)
                         
                         if error is None:
                             blocks_executed += 1
-                            audit_hash = hashlib.sha256(json.dumps({"block": block_name, "result": str(outputs)}).encode()).hexdigest()[:16]
-                            events.append({"type": "block_result", "result": outputs, "audit": audit_hash})
+                            full_hash = hashlib.sha256(json.dumps({"block": block_name, "inputs": str(coerced_inputs), "result": str(outputs), "ts": time.time()}).encode()).hexdigest()
+                            events.append({
+                                "type": "block_result", 
+                                "result": outputs, 
+                                "audit": full_hash[:16],
+                                "hash_algo": "SHA-256",
+                                "hash_full": full_hash
+                            })
                             messages.append({"role": "assistant", "content": text})
                             messages.append({"role": "user", "content": f"Success: {outputs}. Next step."})
                         else:
@@ -3477,7 +3542,7 @@ MICROSOFT_DEMO_HTML = """
         
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #2a2a2e 0%, #1a1a1e 25%, #22222a 50%, #1e1e24 75%, #2a2a30 100%);
+            background: #0a0a0c;
             color: #fafafa;
             min-height: 100vh;
             overflow-x: hidden;
@@ -3701,29 +3766,50 @@ MICROSOFT_DEMO_HTML = """
         .audit { color: #a1a1aa; font-size: 0.8rem; }
         
         .audit-box {
-            background: rgba(34,197,94,0.08);
-            border: 1px solid rgba(34,197,94,0.25);
-            border-radius: 6px;
-            padding: 8px 14px;
-            margin: 8px 0;
+            background: rgba(34,197,94,0.06);
+            border: 1px solid rgba(34,197,94,0.2);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin: 10px 0;
+        }
+        .audit-header {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            margin-bottom: 8px;
         }
-        .audit-box .audit-label {
+        .audit-label {
             color: #22c55e;
             font-size: 0.7rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.08em;
         }
-        .audit-box .audit-hash {
+        .audit-algo {
             font-family: 'JetBrains Mono', monospace;
-            color: #a1a1aa;
-            font-size: 0.8rem;
+            color: #71717a;
+            font-size: 0.7rem;
             background: rgba(0,0,0,0.4);
-            padding: 3px 8px;
+            padding: 2px 8px;
             border-radius: 4px;
+        }
+        .audit-full {
+            font-family: 'JetBrains Mono', monospace;
+            color: #d4d4d8;
+            font-size: 0.75rem;
+            background: rgba(0,0,0,0.5);
+            padding: 8px 12px;
+            border-radius: 6px;
+            word-break: break-all;
+            letter-spacing: 0.02em;
+            border: 1px solid rgba(34,197,94,0.15);
+        }
+        .audit-meta {
+            color: #52525b;
+            font-size: 0.65rem;
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }
         .block-source {
             color: #71717a;
@@ -3907,7 +3993,9 @@ MICROSOFT_DEMO_HTML = """
                             await new Promise(r => setTimeout(r, 300));
                             addLine('<span class="success">OK</span> <span class="result">' + JSON.stringify(event.result).substring(0, 50) + '</span>');
                             if (event.audit !== 'n/a') {
-                                addLine('<div class="audit-box"><span class="audit-label">AUDIT</span><span class="audit-hash">' + event.audit + '</span></div>');
+                                const algo = event.hash_algo || 'SHA-256';
+                                const fullHash = event.hash_full || event.audit;
+                                addLine('<div class="audit-box"><div class="audit-header"><span class="audit-label">CRYPTOGRAPHIC AUDIT</span><span class="audit-algo">' + algo + '</span></div><div class="audit-full">' + fullHash + '</div><div class="audit-meta">tamper-proof | immutable | verifiable</div></div>');
                             }
                         } else if (event.type === 'blocked') {
                             addLine('<div class="block-blocked"><span class="blocked">BLOCKED</span> <strong>' + event.block + '</strong><br><span class="status">Policy engine denied execution - not in approved library</span></div>');
@@ -3945,7 +4033,7 @@ GOOGLE_DEMO_HTML = """
         
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #2a2a2e 0%, #1a1a1e 25%, #22222a 50%, #1e1e24 75%, #2a2a30 100%);
+            background: #0a0a0c;
             color: #fafafa;
             min-height: 100vh;
             overflow-x: hidden;
@@ -4197,29 +4285,50 @@ GOOGLE_DEMO_HTML = """
         .audit { color: #a1a1aa; font-size: 0.8rem; }
         
         .audit-box {
-            background: rgba(34,197,94,0.08);
-            border: 1px solid rgba(34,197,94,0.25);
-            border-radius: 6px;
-            padding: 8px 14px;
-            margin: 8px 0;
+            background: rgba(34,197,94,0.06);
+            border: 1px solid rgba(34,197,94,0.2);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin: 10px 0;
+        }
+        .audit-header {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            margin-bottom: 8px;
         }
-        .audit-box .audit-label {
+        .audit-label {
             color: #22c55e;
             font-size: 0.7rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.08em;
         }
-        .audit-box .audit-hash {
+        .audit-algo {
             font-family: 'JetBrains Mono', monospace;
-            color: #a1a1aa;
-            font-size: 0.8rem;
+            color: #71717a;
+            font-size: 0.7rem;
             background: rgba(0,0,0,0.4);
-            padding: 3px 8px;
+            padding: 2px 8px;
             border-radius: 4px;
+        }
+        .audit-full {
+            font-family: 'JetBrains Mono', monospace;
+            color: #d4d4d8;
+            font-size: 0.75rem;
+            background: rgba(0,0,0,0.5);
+            padding: 8px 12px;
+            border-radius: 6px;
+            word-break: break-all;
+            letter-spacing: 0.02em;
+            border: 1px solid rgba(34,197,94,0.15);
+        }
+        .audit-meta {
+            color: #52525b;
+            font-size: 0.65rem;
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }
         .block-source {
             color: #71717a;
@@ -4405,7 +4514,9 @@ GOOGLE_DEMO_HTML = """
                             await new Promise(r => setTimeout(r, 300));
                             addLine('<span class="success">OK</span> <span class="result">' + JSON.stringify(event.result).substring(0, 50) + '</span>');
                             if (event.audit !== 'n/a') {
-                                addLine('<div class="audit-box"><span class="audit-label">AUDIT</span><span class="audit-hash">' + event.audit + '</span></div>');
+                                const algo = event.hash_algo || 'SHA-256';
+                                const fullHash = event.hash_full || event.audit;
+                                addLine('<div class="audit-box"><div class="audit-header"><span class="audit-label">CRYPTOGRAPHIC AUDIT</span><span class="audit-algo">' + algo + '</span></div><div class="audit-full">' + fullHash + '</div><div class="audit-meta">tamper-proof | immutable | verifiable</div></div>');
                             }
                         } else if (event.type === 'blocked') {
                             addLine('<div class="block-blocked"><span class="blocked">BLOCKED</span> <strong>' + event.block + '</strong><br><span class="status">Policy engine denied execution - not in approved library</span></div>');
@@ -4521,12 +4632,19 @@ One action per response."""
                     if target_block:
                         from neurop_forge.runtime.executor import BlockExecutor
                         executor = BlockExecutor()
-                        outputs, error = executor.execute(target_block, inputs)
+                        coerced_inputs = coerce_block_inputs(target_block, inputs)
+                        outputs, error = executor.execute(target_block, coerced_inputs)
                         
                         if error is None:
                             blocks_executed += 1
-                            audit_hash = hashlib.sha256(json.dumps({"block": block_name, "result": str(outputs)}).encode()).hexdigest()[:16]
-                            events.append({"type": "block_result", "result": outputs, "audit": audit_hash})
+                            full_hash = hashlib.sha256(json.dumps({"block": block_name, "inputs": str(coerced_inputs), "result": str(outputs), "ts": time.time()}).encode()).hexdigest()
+                            events.append({
+                                "type": "block_result", 
+                                "result": outputs, 
+                                "audit": full_hash[:16],
+                                "hash_algo": "SHA-256",
+                                "hash_full": full_hash
+                            })
                             messages.append({"role": "assistant", "content": text})
                             messages.append({"role": "user", "content": f"Success: {outputs}. Next step."})
                         else:
@@ -4634,12 +4752,19 @@ One action per response."""
                     if target_block:
                         from neurop_forge.runtime.executor import BlockExecutor
                         executor = BlockExecutor()
-                        outputs, error = executor.execute(target_block, inputs)
+                        coerced_inputs = coerce_block_inputs(target_block, inputs)
+                        outputs, error = executor.execute(target_block, coerced_inputs)
                         
                         if error is None:
                             blocks_executed += 1
-                            audit_hash = hashlib.sha256(json.dumps({"block": block_name, "result": str(outputs)}).encode()).hexdigest()[:16]
-                            events.append({"type": "block_result", "result": outputs, "audit": audit_hash})
+                            full_hash = hashlib.sha256(json.dumps({"block": block_name, "inputs": str(coerced_inputs), "result": str(outputs), "ts": time.time()}).encode()).hexdigest()
+                            events.append({
+                                "type": "block_result", 
+                                "result": outputs, 
+                                "audit": full_hash[:16],
+                                "hash_algo": "SHA-256",
+                                "hash_full": full_hash
+                            })
                             messages.append({"role": "assistant", "content": text})
                             messages.append({"role": "user", "content": f"Success: {outputs}. Next step."})
                         else:
