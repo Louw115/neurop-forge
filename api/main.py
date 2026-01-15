@@ -33,14 +33,12 @@ except ImportError:
     DB_AVAILABLE = False
 
 try:
-    import google.generativeai as genai
-    GEMINI_AVAILABLE = True
+    from openai import OpenAI
+    OPENAI_AVAILABLE = True
 except ImportError:
-    GEMINI_AVAILABLE = False
+    OPENAI_AVAILABLE = False
 
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
-if GEMINI_AVAILABLE and GEMINI_API_KEY:
-    genai.configure(api_key=GEMINI_API_KEY)
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 
 ENTERPRISE_POLICIES = {
     "microsoft": {
@@ -2821,7 +2819,8 @@ def coerce_block_inputs(block, inputs: dict) -> dict:
                       "current", "total", "total_items", "ratings", "weights")
     
     for key, value in inputs.items():
-        expected_type = input_schema.get(key, "").lower()
+        raw_type = input_schema.get(key, "")
+        expected_type = str(raw_type).lower() if raw_type else ""
         
         if expected_type in ("int", "integer", "number") or key in numeric_params:
             if isinstance(value, (int, float)):
@@ -3454,7 +3453,7 @@ async def run_live_demo(request: Request):
     if not check_live_demo_rate_limit(client_ip):
         return LiveDemoResponse(events=[], error="Rate limit exceeded. Try again in an hour.")
     
-    if not GEMINI_AVAILABLE or not GEMINI_API_KEY:
+    if not OPENAI_AVAILABLE or not OPENAI_API_KEY:
         return LiveDemoResponse(events=[], error="AI service not configured.")
     
     if not block_library:
@@ -3465,7 +3464,7 @@ async def run_live_demo(request: Request):
     blocks_blocked = 0
     
     try:
-        events.append({"type": "status", "message": "Connected to Gemini AI..."})
+        events.append({"type": "status", "message": "Connected to OpenAI GPT-4o-mini..."})
         
         blocks_with_inputs = []
         for block in list(block_library.values())[:30]:
@@ -3487,22 +3486,24 @@ DO THESE 4 STEPS IN ORDER:
 3. attempt_dangerous with block="shell_execute"
 4. is_valid_uuid_v5 with text="test-string"
 
-Say complete ONLY after all 4 steps. One action per response. RESPOND WITH ONLY JSON, NO OTHER TEXT."""
+Say complete ONLY after all 4 steps. One action per response."""
 
-        model = genai.GenerativeModel('gemini-2.0-flash')
-        chat = model.start_chat(history=[])
-        
-        prompt = system_prompt + "\n\nBegin. First step."
+        client = OpenAI(api_key=OPENAI_API_KEY)
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": "Begin. First step."}
+        ]
         
         for step in range(6):
             try:
-                response = chat.send_message(prompt)
-                text = response.text.strip()
-                if text.startswith("```"):
-                    text = text.split("```")[1]
-                    if text.startswith("json"):
-                        text = text[4:]
-                    text = text.strip()
+                response = client.chat.completions.create(
+                    model="gpt-4o-mini",
+                    messages=messages,
+                    temperature=0.1,
+                    max_tokens=200,
+                    response_format={"type": "json_object"}
+                )
+                text = response.choices[0].message.content.strip()
                 parsed = json.loads(text)
                 
                 action = parsed.get("action")
@@ -3537,20 +3538,24 @@ Say complete ONLY after all 4 steps. One action per response. RESPOND WITH ONLY 
                                 "hash_algo": "SHA-256",
                                 "hash_full": full_hash
                             })
-                            prompt = f"Success: {outputs}. Next step."
+                            messages.append({"role": "assistant", "content": text})
+                            messages.append({"role": "user", "content": f"Success: {outputs}. Next step."})
                         else:
                             events.append({"type": "block_result", "result": {"error": error}, "audit": "n/a"})
-                            prompt = f"Error: {error}. Try different block."
+                            messages.append({"role": "assistant", "content": text})
+                            messages.append({"role": "user", "content": f"Error: {error}. Try different block."})
                     else:
                         blocks_blocked += 1
                         events.append({"type": "blocked", "block": block_name})
-                        prompt = f"BLOCKED: {block_name} not in library. Next step."
+                        messages.append({"role": "assistant", "content": text})
+                        messages.append({"role": "user", "content": f"BLOCKED: {block_name} not in library. Next step."})
                 
                 elif action == "attempt_dangerous":
                     block_name = parsed.get("block", "dangerous_operation")
                     blocks_blocked += 1
                     events.append({"type": "blocked", "block": block_name})
-                    prompt = "BLOCKED by policy. Next step."
+                    messages.append({"role": "assistant", "content": text})
+                    messages.append({"role": "user", "content": "BLOCKED by policy. Next step."})
                 
             except Exception as e:
                 print(f"MAIN DEMO STEP ERROR: {e}")
@@ -4654,7 +4659,7 @@ async def run_microsoft_demo(request: Request):
     if not check_live_demo_rate_limit(client_ip):
         return LiveDemoResponse(events=[], error="Rate limit exceeded. Try again in an hour.")
     
-    if not GEMINI_AVAILABLE or not GEMINI_API_KEY:
+    if not OPENAI_AVAILABLE or not OPENAI_API_KEY:
         return LiveDemoResponse(events=[], error="AI service not configured.")
     
     if not block_library:
@@ -4665,7 +4670,7 @@ async def run_microsoft_demo(request: Request):
     blocks_blocked = 0
     
     try:
-        events.append({"type": "status", "message": "Connecting to Gemini for Copilot integration demo..."})
+        events.append({"type": "status", "message": "Connecting to OpenAI for Copilot integration demo..."})
         
         blocks_with_inputs = []
         for block in list(block_library.values())[:30]:
@@ -4687,21 +4692,24 @@ DO THESE 4 STEPS IN ORDER:
 3. attempt_dangerous with block="database_access"
 4. format_date_eu with year=2026, month=1, day=15
 
-Say complete ONLY after all 4 steps. One action per response. RESPOND WITH ONLY JSON, NO OTHER TEXT."""
+Say complete ONLY after all 4 steps. One action per response."""
 
-        model = genai.GenerativeModel('gemini-2.0-flash')
-        chat = model.start_chat(history=[])
-        prompt = system_prompt + "\n\nBegin processing. First step."
+        client = OpenAI(api_key=OPENAI_API_KEY)
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": "Begin processing. First step."}
+        ]
         
         for step in range(8):
             try:
-                response = chat.send_message(prompt)
-                text = response.text.strip()
-                if text.startswith("```"):
-                    text = text.split("```")[1]
-                    if text.startswith("json"):
-                        text = text[4:]
-                    text = text.strip()
+                response = client.chat.completions.create(
+                    model="gpt-4o-mini",
+                    messages=messages,
+                    temperature=0.1,
+                    max_tokens=200,
+                    response_format={"type": "json_object"}
+                )
+                text = response.choices[0].message.content.strip()
                 parsed = json.loads(text)
                 action = parsed.get("action")
                 
@@ -4734,19 +4742,23 @@ Say complete ONLY after all 4 steps. One action per response. RESPOND WITH ONLY 
                                 "hash_algo": "SHA-256",
                                 "hash_full": full_hash
                             })
-                            prompt = f"Success: {outputs}. Next step."
+                            messages.append({"role": "assistant", "content": text})
+                            messages.append({"role": "user", "content": f"Success: {outputs}. Next step."})
                         else:
                             events.append({"type": "block_result", "result": {"error": error}, "audit": "n/a"})
-                            prompt = f"Error: {error}. Try different block."
+                            messages.append({"role": "assistant", "content": text})
+                            messages.append({"role": "user", "content": f"Error: {error}. Try different block."})
                     else:
                         blocks_blocked += 1
                         events.append({"type": "blocked", "block": block_name})
-                        prompt = f"BLOCKED: {block_name} not approved. Next step."
+                        messages.append({"role": "assistant", "content": text})
+                        messages.append({"role": "user", "content": f"BLOCKED: {block_name} not approved. Next step."})
                 elif action == "attempt_dangerous":
                     block_name = parsed.get("block", "dangerous_operation")
                     blocks_blocked += 1
                     events.append({"type": "blocked", "block": block_name})
-                    prompt = "BLOCKED by policy engine. Next step."
+                    messages.append({"role": "assistant", "content": text})
+                    messages.append({"role": "user", "content": "BLOCKED by policy engine. Next step."})
             except Exception as step_e:
                 print(f"MICROSOFT DEMO STEP ERROR: {step_e}")
                 break
@@ -4766,7 +4778,7 @@ async def run_google_demo(request: Request):
     if not check_live_demo_rate_limit(client_ip):
         return LiveDemoResponse(events=[], error="Rate limit exceeded. Try again in an hour.")
     
-    if not GEMINI_AVAILABLE or not GEMINI_API_KEY:
+    if not OPENAI_AVAILABLE or not OPENAI_API_KEY:
         return LiveDemoResponse(events=[], error="AI service not configured.")
     
     if not block_library:
@@ -4777,7 +4789,7 @@ async def run_google_demo(request: Request):
     blocks_blocked = 0
     
     try:
-        events.append({"type": "status", "message": "Connecting to Gemini AI..."})
+        events.append({"type": "status", "message": "Connecting to OpenAI for Gemini integration demo..."})
         
         blocks_with_inputs = []
         for block in list(block_library.values())[:30]:
@@ -4799,21 +4811,24 @@ DO THESE 4 STEPS IN ORDER:
 3. attempt_dangerous with block="data_export"
 4. is_video_file with filename="report.mp4"
 
-Say complete ONLY after all 4 steps. One action per response. RESPOND WITH ONLY JSON, NO OTHER TEXT."""
+Say complete ONLY after all 4 steps. One action per response."""
 
-        model = genai.GenerativeModel('gemini-2.0-flash')
-        chat = model.start_chat(history=[])
-        prompt = system_prompt + "\n\nBegin processing. First step."
+        client = OpenAI(api_key=OPENAI_API_KEY)
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": "Begin processing. First step."}
+        ]
         
         for step in range(8):
             try:
-                response = chat.send_message(prompt)
-                text = response.text.strip()
-                if text.startswith("```"):
-                    text = text.split("```")[1]
-                    if text.startswith("json"):
-                        text = text[4:]
-                    text = text.strip()
+                response = client.chat.completions.create(
+                    model="gpt-4o-mini",
+                    messages=messages,
+                    temperature=0.1,
+                    max_tokens=200,
+                    response_format={"type": "json_object"}
+                )
+                text = response.choices[0].message.content.strip()
                 parsed = json.loads(text)
                 action = parsed.get("action")
                 
@@ -4846,19 +4861,23 @@ Say complete ONLY after all 4 steps. One action per response. RESPOND WITH ONLY 
                                 "hash_algo": "SHA-256",
                                 "hash_full": full_hash
                             })
-                            prompt = f"Success: {outputs}. Next step."
+                            messages.append({"role": "assistant", "content": text})
+                            messages.append({"role": "user", "content": f"Success: {outputs}. Next step."})
                         else:
                             events.append({"type": "block_result", "result": {"error": error}, "audit": "n/a"})
-                            prompt = f"Error: {error}. Try different block."
+                            messages.append({"role": "assistant", "content": text})
+                            messages.append({"role": "user", "content": f"Error: {error}. Try different block."})
                     else:
                         blocks_blocked += 1
                         events.append({"type": "blocked", "block": block_name})
-                        prompt = f"BLOCKED: {block_name} not approved. Next step."
+                        messages.append({"role": "assistant", "content": text})
+                        messages.append({"role": "user", "content": f"BLOCKED: {block_name} not approved. Next step."})
                 elif action == "attempt_dangerous":
                     block_name = parsed.get("block", "dangerous_operation")
                     blocks_blocked += 1
                     events.append({"type": "blocked", "block": block_name})
-                    prompt = "BLOCKED by policy engine. Next step."
+                    messages.append({"role": "assistant", "content": text})
+                    messages.append({"role": "user", "content": "BLOCKED by policy engine. Next step."})
             except Exception as step_e:
                 print(f"GOOGLE DEMO STEP ERROR: {step_e}")
                 break
