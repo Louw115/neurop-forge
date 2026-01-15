@@ -5105,17 +5105,17 @@ LIBRARY_STATUS_HTML = """<!DOCTYPE html>
             display: flex;
             align-items: center;
             gap: 8px;
-            background: rgba(0,255,136,0.1);
-            border: 1px solid rgba(0,255,136,0.3);
+            background: rgba(74,222,128,0.1);
+            border: 1px solid rgba(74,222,128,0.3);
             padding: 8px 16px;
             border-radius: 20px;
             font-size: 0.8rem;
-            color: #00ff88;
+            color: #4ade80;
         }
         .status-dot {
             width: 8px;
             height: 8px;
-            background: #00ff88;
+            background: #4ade80;
             border-radius: 50%;
             animation: blink 1.5s infinite;
         }
@@ -5272,7 +5272,7 @@ LIBRARY_STATUS_HTML = """<!DOCTYPE html>
             font-size: 0.7rem;
             font-weight: 500;
         }
-        .event-type.success { background: rgba(0,255,136,0.15); color: #00ff88; }
+        .event-type.success { background: rgba(74,222,128,0.15); color: #4ade80; }
         .event-type.info { background: rgba(0,212,255,0.15); color: #00d4ff; }
         .charts-row {
             display: grid;
