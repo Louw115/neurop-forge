@@ -24,6 +24,11 @@ from pydantic import BaseModel, Field
 from neurop_forge.core.block_schema import NeuropBlock
 from neurop_forge.compliance.audit_chain import AuditChain
 from neurop_forge.compliance.policy_engine import PolicyEngine
+from api.templates.demo_templates import (
+    PREMIUM_LIVE_DEMO_HTML, 
+    PREMIUM_MICROSOFT_DEMO_HTML, 
+    PREMIUM_GOOGLE_DEMO_HTML
+)
 
 try:
     import psycopg2
@@ -3437,7 +3442,7 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
 @app.get("/demo-live", response_class=HTMLResponse)
 async def demo_live():
     """Live AI demo page - watch AI execute verified blocks in real-time."""
-    return LIVE_DEMO_HTML
+    return PREMIUM_LIVE_DEMO_HTML
 
 
 class LiveDemoResponse(BaseModel):
@@ -4642,13 +4647,13 @@ GOOGLE_DEMO_HTML = """
 @app.get("/demo/microsoft", response_class=HTMLResponse)
 async def demo_microsoft():
     """Microsoft-themed live demo page."""
-    return MICROSOFT_DEMO_HTML
+    return PREMIUM_MICROSOFT_DEMO_HTML
 
 
 @app.get("/demo/google", response_class=HTMLResponse)
 async def demo_google():
     """Google-themed live demo page."""
-    return GOOGLE_DEMO_HTML
+    return PREMIUM_GOOGLE_DEMO_HTML
 
 
 @app.post("/api/demo/microsoft/run", response_model=LiveDemoResponse)
