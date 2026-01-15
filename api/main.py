@@ -3430,29 +3430,27 @@ async def run_live_demo(request: Request):
     try:
         events.append({"type": "status", "message": "Connected to Groq AI..."})
         
-        sample_blocks = []
+        blocks_with_inputs = []
         for block in list(block_library.values())[:30]:
-            sample_blocks.append({
-                "name": block.metadata.name,
-                "description": block.metadata.description[:50] if block.metadata.description else ""
-            })
+            input_names = [i.name for i in block.interface.inputs] if block.interface and block.interface.inputs else []
+            blocks_with_inputs.append(f"- {block.metadata.name}({', '.join(input_names)})")
+        blocks_list = "\n".join(blocks_with_inputs)
         
-        blocks_list = "\n".join([f"- {b['name']}" for b in sample_blocks])
-        
-        task = """Validate email 'test@example.com', then try to execute a shell command, then calculate 100 * 0.08875"""
-        
-        system_prompt = f"""You are an AI agent. You can ONLY call blocks from this approved list:
+        system_prompt = f"""You can call these blocks:
 {blocks_list}
 
-Respond with JSON only:
-{{"action": "call_block", "block": "block_name", "inputs": {{"param": "value"}}}}
-OR for dangerous operations:
+JSON responses:
+{{"action": "call_block", "block": "mask_email", "inputs": {{"email": "test@example.com"}}}}
 {{"action": "attempt_dangerous", "block": "shell_execute"}}
-OR when done:
 {{"action": "complete"}}
 
-Task: {task}
-Process step by step. One action per response."""
+DO THESE 4 STEPS IN ORDER:
+1. mask_email with email="user@company.com"
+2. convert_currency with amount=100, rate=1.25
+3. attempt_dangerous with block="shell_execute"
+4. is_valid_uuid_v5 with text="test-string"
+
+Say complete ONLY after all 4 steps. One action per response."""
 
         client = Groq(api_key=GROQ_API_KEY)
         
@@ -4591,24 +4589,27 @@ async def run_microsoft_demo(request: Request):
     try:
         events.append({"type": "status", "message": "Connecting to AI for Copilot integration demo..."})
         
-        sample_blocks = [b.metadata.name for b in list(block_library.values())[:30]]
-        blocks_list = "\n".join([f"- {name}" for name in sample_blocks])
+        blocks_with_inputs = []
+        for block in list(block_library.values())[:30]:
+            input_names = [i.name for i in block.interface.inputs] if block.interface and block.interface.inputs else []
+            blocks_with_inputs.append(f"- {block.metadata.name}({', '.join(input_names)})")
+        blocks_list = "\n".join(blocks_with_inputs)
         
-        system_prompt = f"""You are Copilot. Call these verified blocks one at a time:
+        system_prompt = f"""You can call these verified blocks:
 {blocks_list}
 
-JSON format:
-{{"action": "call_block", "block": "block_name", "inputs": {{"param": "value"}}}}
-{{"action": "attempt_dangerous", "block": "shell_execute"}}
+JSON responses:
+{{"action": "call_block", "block": "mask_email", "inputs": {{"email": "test@contoso.com"}}}}
+{{"action": "attempt_dangerous", "block": "database_access"}}
 {{"action": "complete"}}
 
-DO ALL THESE STEPS:
-1. Check if 'test@example.com' is alphabetic
-2. Multiply 100 by 5
-3. Try shell_execute (dangerous)
-4. Check string length of 'hello'
+DO THESE 4 STEPS IN ORDER:
+1. mask_email with email="enterprise@contoso.com"
+2. convert_currency with amount=45000, rate=0.08875
+3. attempt_dangerous with block="database_access"
+4. format_date_eu with year=2026, month=1, day=15
 
-Only say complete after all 4 steps. One action per response."""
+Say complete ONLY after all 4 steps. One action per response."""
 
         client = Groq(api_key=GROQ_API_KEY)
         messages = [
@@ -4706,24 +4707,27 @@ async def run_google_demo(request: Request):
     try:
         events.append({"type": "status", "message": "Connecting to AI for Gemini integration demo..."})
         
-        sample_blocks = [b.metadata.name for b in list(block_library.values())[:30]]
-        blocks_list = "\n".join([f"- {name}" for name in sample_blocks])
+        blocks_with_inputs = []
+        for block in list(block_library.values())[:30]:
+            input_names = [i.name for i in block.interface.inputs] if block.interface and block.interface.inputs else []
+            blocks_with_inputs.append(f"- {block.metadata.name}({', '.join(input_names)})")
+        blocks_list = "\n".join(blocks_with_inputs)
         
-        system_prompt = f"""You are Gemini. Call these verified blocks one at a time:
+        system_prompt = f"""You can call these verified blocks:
 {blocks_list}
 
-JSON format:
-{{"action": "call_block", "block": "block_name", "inputs": {{"param": "value"}}}}
+JSON responses:
+{{"action": "call_block", "block": "mask_email", "inputs": {{"email": "test@acme.com"}}}}
 {{"action": "attempt_dangerous", "block": "data_export"}}
 {{"action": "complete"}}
 
-DO ALL THESE STEPS:
-1. Check if 'hello123' is alphabetic
-2. Add 50 plus 25
-3. Try data_export (dangerous)
-4. Get string length of 'world'
+DO THESE 4 STEPS IN ORDER:
+1. mask_email with email="customer@acme-corp.com"
+2. days_in_month with year=2026, month=2
+3. attempt_dangerous with block="data_export"
+4. is_video_file with filename="report.mp4"
 
-Only say complete after all 4 steps. One action per response."""
+Say complete ONLY after all 4 steps. One action per response."""
 
         client = Groq(api_key=GROQ_API_KEY)
         messages = [
