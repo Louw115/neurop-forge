@@ -5059,50 +5059,34 @@ LIBRARY_STATUS_HTML = """<!DOCTYPE html>
             padding: 24px 0;
             display: flex;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
-        .sidebar-brand {
-            padding: 0 20px 24px;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-            margin-bottom: 20px;
+        .sidebar-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
         }
-        .brand-name {
-            font-size: 1.1rem;
+        .sidebar-logo img {
+            width: 120px;
+            height: auto;
+            opacity: 0.95;
+        }
+        .logo-text {
+            font-size: 1rem;
             font-weight: 700;
             background: linear-gradient(135deg, #00d4ff, #00ff88);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-align: center;
         }
-        .brand-tag {
-            font-size: 0.7rem;
-            color: #555;
-            margin-top: 4px;
-        }
-        .nav-section {
-            padding: 0 12px;
-            margin-bottom: 24px;
-        }
-        .nav-label {
+        .logo-tag {
             font-size: 0.65rem;
             color: #555;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            padding: 0 8px;
-            margin-bottom: 8px;
+            text-align: center;
+            margin-top: -8px;
         }
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 12px;
-            border-radius: 8px;
-            color: #888;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .nav-item:hover { background: rgba(255,255,255,0.04); color: #fff; }
-        .nav-item.active { background: rgba(0,212,255,0.1); color: #00d4ff; }
-        .nav-icon { font-size: 1rem; width: 20px; text-align: center; }
         .main {
             flex: 1;
             padding: 28px 36px;
@@ -5360,21 +5344,10 @@ LIBRARY_STATUS_HTML = """<!DOCTYPE html>
 </head>
 <body>
     <aside class="sidebar">
-        <div class="sidebar-brand">
-            <div class="brand-name">Neurop Forge</div>
-            <div class="brand-tag">Execution Control Layer</div>
-        </div>
-        <div class="nav-section">
-            <div class="nav-label">Dashboard</div>
-            <div class="nav-item active"><span class="nav-icon">&#x1F4CA;</span> Overview</div>
-            <div class="nav-item"><span class="nav-icon">&#x1F4E6;</span> Block Library</div>
-            <div class="nav-item"><span class="nav-icon">&#x1F512;</span> Policy Engine</div>
-        </div>
-        <div class="nav-section">
-            <div class="nav-label">Monitoring</div>
-            <div class="nav-item"><span class="nav-icon">&#x26A1;</span> Executions</div>
-            <div class="nav-item"><span class="nav-icon">&#x1F4DD;</span> Audit Trail</div>
-            <div class="nav-item"><span class="nav-icon">&#x2699;</span> Settings</div>
+        <div class="sidebar-logo">
+            <img src="/static/logo.png" alt="Neurop Forge" onerror="this.style.display='none'; document.querySelector('.logo-text').style.display='block';">
+            <div class="logo-text" style="display:none;">Neurop Forge</div>
+            <div class="logo-tag">Execution Control Layer</div>
         </div>
     </aside>
     
