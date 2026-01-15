@@ -3098,7 +3098,7 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
         }
         
         .audit-label {
-            color: #22c55e;
+            color: #c0c0c0;
             font-size: 0.7rem;
             font-weight: 600;
             text-transform: uppercase;
@@ -3779,7 +3779,7 @@ MICROSOFT_DEMO_HTML = """
             margin-bottom: 8px;
         }
         .audit-label {
-            color: #22c55e;
+            color: #c0c0c0;
             font-size: 0.7rem;
             font-weight: 600;
             text-transform: uppercase;
@@ -4298,7 +4298,7 @@ GOOGLE_DEMO_HTML = """
             margin-bottom: 8px;
         }
         .audit-label {
-            color: #22c55e;
+            color: #c0c0c0;
             font-size: 0.7rem;
             font-weight: 600;
             text-transform: uppercase;
