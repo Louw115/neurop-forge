@@ -3604,8 +3604,8 @@ AI_AVAILABLE_BLOCKS = {
     "sort_ascending": {"description": "Sort a list in ascending order", "inputs": [{"name": "items", "type": "array"}]},
     "sort_descending": {"description": "Sort a list in descending order", "inputs": [{"name": "items", "type": "array"}]},
     "calculate_percentage": {"description": "Calculate what percentage one number is of another", "inputs": [{"name": "part", "type": "number"}, {"name": "whole", "type": "number"}]},
-    "round_to_decimal": {"description": "Round a number to specified decimal places", "inputs": [{"name": "value", "type": "number"}, {"name": "decimals", "type": "integer"}]},
     "absolute_value": {"description": "Get absolute value of a number", "inputs": [{"name": "value", "type": "number"}]},
+    "square_root": {"description": "Calculate the square root of a non-negative number", "inputs": [{"name": "value", "type": "number"}]},
 }
 
 DANGEROUS_OPERATIONS = [
