@@ -2861,16 +2861,17 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
         }
         
         .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            width: 48px;
+            height: 48px;
             border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 1.2rem;
             box-shadow: 0 0 30px rgba(99,102,241,0.4);
+        }
+        
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
         }
         
         .logo {
@@ -3089,7 +3090,7 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
     <div class="container">
         <header>
             <div class="logo-wrapper">
-                <div class="logo-icon">N</div>
+                <div class="logo-icon"><img src="/static/logo.jpg" alt="Neurop Forge"></div>
                 <div class="logo">Neurop Forge</div>
             </div>
             <p class="tagline">AI as Operator, Not Author</p>
@@ -3413,16 +3414,17 @@ MICROSOFT_DEMO_HTML = """
         }
         
         .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #00bcf2, #0078d4);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 1.2rem;
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
             box-shadow: 0 0 30px rgba(0,120,212,0.5);
+        }
+        
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
         }
         
         .logo {
@@ -3651,7 +3653,7 @@ MICROSOFT_DEMO_HTML = """
     <div class="container">
         <header>
             <div class="logo-wrapper">
-                <div class="logo-icon">N</div>
+                <div class="logo-icon"><img src="/static/logo.jpg" alt="Neurop Forge"></div>
                 <div class="logo">Neurop Forge</div>
             </div>
             <p class="tagline">AI as Operator, Not Author</p>
@@ -3868,17 +3870,18 @@ GOOGLE_DEMO_HTML = """
         }
         
         .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #4285f4, #34a853, #fbbc05, #ea4335);
+            width: 48px;
+            height: 48px;
             border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 1.2rem;
             box-shadow: 0 0 30px rgba(66,133,244,0.4);
             animation: glow 3s ease-in-out infinite;
+        }
+        
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
         }
         
         @keyframes glow {
@@ -4136,7 +4139,7 @@ GOOGLE_DEMO_HTML = """
     <div class="container">
         <header>
             <div class="logo-wrapper">
-                <div class="logo-icon">N</div>
+                <div class="logo-icon"><img src="/static/logo.jpg" alt="Neurop Forge"></div>
                 <div class="logo">Neurop Forge</div>
             </div>
             <p class="tagline">AI as Operator, Not Author</p>
