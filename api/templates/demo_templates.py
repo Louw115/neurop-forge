@@ -1159,6 +1159,78 @@ LIBRARY_BROWSER_HTML = '''<!DOCTYPE html>
             padding: 60px;
             color: var(--text-muted);
         }
+        .category-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+        
+        .category-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.15);
+        }
+        
+        .category-icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+        
+        .category-name {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            text-transform: capitalize;
+        }
+        
+        .category-count {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 20px;
+            color: var(--accent);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-bottom: 20px;
+        }
+        
+        .back-btn:hover {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: var(--accent);
+        }
+        
+        .view-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .view-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-transform: capitalize;
+        }
+        
+        .view-count {
+            color: var(--accent);
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
@@ -1181,14 +1253,22 @@ LIBRARY_BROWSER_HTML = '''<!DOCTYPE html>
             <span class="readonly-badge">Read Only</span>
         </div>
         
-        <input type="text" class="search-box" id="searchInput" placeholder="Search blocks by name or description...">
-        
-        <div class="category-tabs" id="categoryTabs">
-            <button class="category-tab active" data-category="all">All</button>
+        <div id="categoryView">
+            <div class="block-grid" id="categoryGrid">
+                <div class="loading">Loading categories...</div>
+            </div>
         </div>
         
-        <div class="block-grid" id="blockGrid">
-            <div class="loading">Loading blocks...</div>
+        <div id="blocksView" style="display: none;">
+            <button class="back-btn" onclick="showCategories()">← Back to Categories</button>
+            <div class="view-header">
+                <div class="view-title" id="categoryTitle">Category</div>
+                <div class="view-count"><span id="categoryBlockCount">0</span> blocks</div>
+            </div>
+            <input type="text" class="search-box" id="searchInput" placeholder="Search blocks in this category...">
+            <div class="block-grid" id="blockGrid">
+                <div class="loading">Loading blocks...</div>
+            </div>
         </div>
     </div>
     
@@ -1204,60 +1284,92 @@ LIBRARY_BROWSER_HTML = '''<!DOCTYPE html>
     </div>
     
     <script>
-        let allBlocks = [];
-        let currentCategory = 'all';
+        let allCategories = [];
+        let currentCategoryBlocks = [];
+        let currentCategory = null;
         
-        async function loadBlocks() {
+        const categoryIcons = {
+            'arithmetic': '🔢',
+            'string': '📝',
+            'validation': '✅',
+            'collection': '📦',
+            'transformation': '🔄',
+            'comparison': '⚖️',
+            'filtering': '🔍',
+            'sorting': '📊',
+            'aggregation': '📈',
+            'utility': '🛠️',
+            'general': '⚙️'
+        };
+        
+        async function loadCategories() {
             try {
-                const response = await fetch('/api/library/blocks');
+                const response = await fetch('/api/library/categories');
                 const data = await response.json();
-                allBlocks = data.blocks || [];
-                document.getElementById('blockCount').textContent = allBlocks.length;
-                
-                const categories = [...new Set(allBlocks.map(b => b.category))].sort();
-                const tabsContainer = document.getElementById('categoryTabs');
-                tabsContainer.innerHTML = '<button class="category-tab active" data-category="all">All</button>';
-                categories.forEach(cat => {
-                    const btn = document.createElement('button');
-                    btn.className = 'category-tab';
-                    btn.dataset.category = cat;
-                    btn.textContent = cat;
-                    btn.onclick = () => filterByCategory(cat);
-                    tabsContainer.appendChild(btn);
-                });
-                
-                renderBlocks(allBlocks);
+                allCategories = data.categories || [];
+                document.getElementById('blockCount').textContent = data.total || 0;
+                renderCategories();
+            } catch (err) {
+                document.getElementById('categoryGrid').innerHTML = '<div class="empty-state">Failed to load categories</div>';
+            }
+        }
+        
+        function renderCategories() {
+            const grid = document.getElementById('categoryGrid');
+            grid.innerHTML = allCategories.map(cat => `
+                <div class="category-card" onclick="loadCategoryBlocks('${cat.name}')">
+                    <div class="category-icon">${categoryIcons[cat.name] || '📁'}</div>
+                    <div class="category-name">${cat.name}</div>
+                    <div class="category-count">${cat.count} blocks</div>
+                </div>
+            `).join('');
+        }
+        
+        let totalBlocks = 0;
+        let totalPages = 0;
+        
+        async function loadCategoryBlocks(category, page = 0) {
+            currentCategory = category;
+            currentPage = page;
+            document.getElementById('categoryView').style.display = 'none';
+            document.getElementById('blocksView').style.display = 'block';
+            document.getElementById('categoryTitle').textContent = category;
+            document.getElementById('blockGrid').innerHTML = '<div class="loading">Loading blocks...</div>';
+            
+            try {
+                const response = await fetch('/api/library/blocks?category=' + encodeURIComponent(category) + '&page=' + page + '&limit=' + PAGE_SIZE);
+                const data = await response.json();
+                currentCategoryBlocks = data.blocks || [];
+                totalBlocks = data.total || 0;
+                totalPages = data.total_pages || 1;
+                document.getElementById('categoryBlockCount').textContent = totalBlocks;
+                renderBlocksPage();
             } catch (err) {
                 document.getElementById('blockGrid').innerHTML = '<div class="empty-state">Failed to load blocks</div>';
             }
         }
         
-        const PAGE_SIZE = 100;
-        let currentPage = 0;
-        let currentBlocks = [];
-        
-        function renderBlocks(blocks) {
-            currentBlocks = blocks;
-            currentPage = 0;
-            renderPage();
+        function showCategories() {
+            document.getElementById('categoryView').style.display = 'block';
+            document.getElementById('blocksView').style.display = 'none';
+            document.getElementById('searchInput').value = '';
+            currentCategory = null;
+            currentSearch = '';
         }
         
-        function renderPage() {
+        const PAGE_SIZE = 50;
+        let currentPage = 0;
+        
+        function renderBlocksPage() {
             const grid = document.getElementById('blockGrid');
-            if (currentBlocks.length === 0) {
+            if (currentCategoryBlocks.length === 0) {
                 grid.innerHTML = '<div class="empty-state">No blocks found</div>';
                 return;
             }
             
-            const start = currentPage * PAGE_SIZE;
-            const end = Math.min(start + PAGE_SIZE, currentBlocks.length);
-            const pageBlocks = currentBlocks.slice(start, end);
-            const totalPages = Math.ceil(currentBlocks.length / PAGE_SIZE);
-            
-            let html = pageBlocks.map(block => `
+            let html = currentCategoryBlocks.map(block => `
                 <div class="block-card" onclick="showBlockDetail('${block.name}')">
                     <div class="block-name">${block.name}</div>
-                    <div class="block-category">${block.category || 'general'}</div>
                     <div class="block-desc">${block.description || 'Verified immutable function block'}</div>
                 </div>
             `).join('');
@@ -1265,7 +1377,7 @@ LIBRARY_BROWSER_HTML = '''<!DOCTYPE html>
             if (totalPages > 1) {
                 html += `<div class="pagination">
                     <button class="page-btn" onclick="prevPage()" ${currentPage === 0 ? 'disabled' : ''}>Previous</button>
-                    <span class="page-info">Page ${currentPage + 1} of ${totalPages} (${currentBlocks.length} blocks)</span>
+                    <span class="page-info">Page ${currentPage + 1} of ${totalPages} (${totalBlocks} blocks)</span>
                     <button class="page-btn" onclick="nextPage()" ${currentPage >= totalPages - 1 ? 'disabled' : ''}>Next</button>
                 </div>`;
             }
@@ -1273,43 +1385,57 @@ LIBRARY_BROWSER_HTML = '''<!DOCTYPE html>
         }
         
         function nextPage() {
-            const totalPages = Math.ceil(currentBlocks.length / PAGE_SIZE);
             if (currentPage < totalPages - 1) {
-                currentPage++;
-                renderPage();
+                if (currentSearch) {
+                    searchCategoryBlocks(currentCategory, currentSearch, currentPage + 1);
+                } else {
+                    loadCategoryBlocks(currentCategory, currentPage + 1);
+                }
             }
         }
         
         function prevPage() {
             if (currentPage > 0) {
-                currentPage--;
-                renderPage();
+                if (currentSearch) {
+                    searchCategoryBlocks(currentCategory, currentSearch, currentPage - 1);
+                } else {
+                    loadCategoryBlocks(currentCategory, currentPage - 1);
+                }
             }
         }
         
-        function filterByCategory(category) {
-            currentCategory = category;
-            document.querySelectorAll('.category-tab').forEach(tab => {
-                tab.classList.toggle('active', tab.dataset.category === category);
-            });
-            const filtered = category === 'all' ? allBlocks : allBlocks.filter(b => b.category === category);
-            renderBlocks(filtered);
-        }
+        let searchTimeout = null;
+        let currentSearch = '';
         
         document.getElementById('searchInput').addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase();
-            let filtered = allBlocks;
-            if (currentCategory !== 'all') {
-                filtered = filtered.filter(b => b.category === currentCategory);
-            }
-            if (query) {
-                filtered = filtered.filter(b => 
-                    b.name.toLowerCase().includes(query) || 
-                    (b.description && b.description.toLowerCase().includes(query))
-                );
-            }
-            renderBlocks(filtered);
+            const query = e.target.value.trim();
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                currentSearch = query;
+                searchCategoryBlocks(currentCategory, query, 0);
+            }, 300);
         });
+        
+        async function searchCategoryBlocks(category, search, page) {
+            currentPage = page;
+            document.getElementById('blockGrid').innerHTML = '<div class="loading">Searching...</div>';
+            
+            try {
+                let url = '/api/library/blocks?category=' + encodeURIComponent(category) + '&page=' + page + '&limit=' + PAGE_SIZE;
+                if (search) {
+                    url += '&search=' + encodeURIComponent(search);
+                }
+                const response = await fetch(url);
+                const data = await response.json();
+                currentCategoryBlocks = data.blocks || [];
+                totalBlocks = data.total || 0;
+                totalPages = data.total_pages || 1;
+                document.getElementById('categoryBlockCount').textContent = totalBlocks + (search ? ' matching' : ' blocks');
+                renderBlocksPage();
+            } catch (err) {
+                document.getElementById('blockGrid').innerHTML = '<div class="empty-state">Failed to load blocks</div>';
+            }
+        }
         
         async function showBlockDetail(blockName) {
             document.getElementById('modalTitle').textContent = blockName;
@@ -1376,7 +1502,7 @@ LIBRARY_BROWSER_HTML = '''<!DOCTYPE html>
             if (e.target.id === 'blockModal') closeModal();
         });
         
-        loadBlocks();
+        loadCategories();
     </script>
 </body>
 </html>'''

@@ -4663,25 +4663,65 @@ async def library_browser():
     return LIBRARY_BROWSER_HTML
 
 
-@app.get("/api/library/blocks")
-async def get_library_blocks():
-    """Get all blocks with basic info for the library browser."""
-    blocks = []
+@app.get("/api/library/categories")
+async def get_library_categories():
+    """Get all categories with block counts - instant load for category-first view."""
+    category_counts = {}
     for hash_id, block in block_library.items():
         try:
             name = block.metadata.name if hasattr(block.metadata, 'name') else hash_id
             if name.startswith('_'):
                 continue
             category = block.metadata.category if hasattr(block.metadata, 'category') else "general"
+            category_counts[category] = category_counts.get(category, 0) + 1
+        except:
+            continue
+    
+    categories = [{"name": cat, "count": count} for cat, count in sorted(category_counts.items())]
+    total = sum(c["count"] for c in categories)
+    return {"categories": categories, "total": total}
+
+
+@app.get("/api/library/blocks")
+async def get_library_blocks(category: str = None, page: int = 0, limit: int = 50, search: str = None):
+    """Get blocks, optionally filtered by category and search term with server-side pagination."""
+    blocks = []
+    search_lower = search.lower() if search else None
+    
+    for hash_id, block in block_library.items():
+        try:
+            name = block.metadata.name if hasattr(block.metadata, 'name') else hash_id
+            if name.startswith('_'):
+                continue
+            block_category = block.metadata.category if hasattr(block.metadata, 'category') else "general"
+            if category and block_category != category:
+                continue
             description = block.metadata.description if hasattr(block.metadata, 'description') else block.metadata.intent
+            
+            if search_lower:
+                if search_lower not in name.lower() and search_lower not in (description or '').lower():
+                    continue
         except:
             continue
         blocks.append({
             "name": name,
-            "category": category,
+            "category": block_category,
             "description": description
         })
-    return {"blocks": sorted(blocks, key=lambda x: x["name"]), "count": len(blocks)}
+    
+    sorted_blocks = sorted(blocks, key=lambda x: x["name"])
+    total = len(sorted_blocks)
+    start = page * limit
+    end = min(start + limit, total)
+    paged_blocks = sorted_blocks[start:end]
+    
+    return {
+        "blocks": paged_blocks,
+        "count": len(paged_blocks),
+        "total": total,
+        "page": page,
+        "total_pages": max(1, (total + limit - 1) // limit)
+    }
 
 
 @app.get("/api/library/block/{block_name}")
