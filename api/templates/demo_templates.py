@@ -569,13 +569,12 @@ def create_microsoft_demo_html() -> str:
         </header>
         
         <section class="task-input-section">
-            <h3>Describe Your Task for AI</h3>
-            <textarea id="taskInput" class="task-textarea" placeholder="Describe what you want the AI to do. GPT-4 will autonomously select and execute verified blocks from the library. Any dangerous operations will be blocked by the policy engine.">Process the $2.5M quarterly financial report for Contoso Corporation. Mask the CFO email cfo@contoso-corp.com and credit card 4532015112830366. Calculate tax at 21% for revenue of $2,500,000. Format the compliance date January 15, 2026 in EU format. Uppercase the report title "quarterly financial report".</textarea>
+            <h3>Select a Demo Scenario</h3>
             <div class="preset-tasks">
-                <button class="preset-btn" onclick="setTask('financial')">Financial Report</button>
-                <button class="preset-btn" onclick="setTask('pii')">PII Masking</button>
-                <button class="preset-btn" onclick="setTask('analytics')">Data Analytics</button>
-                <button class="preset-btn" onclick="setTask('validation')">Input Validation</button>
+                <button class="preset-btn" onclick="runPreset('analytics')">Analytics Pipeline</button>
+                <button class="preset-btn" onclick="runPreset('pii')">PII Sanitization</button>
+                <button class="preset-btn" onclick="runPreset('validation')">Data Validation</button>
+                <button class="preset-btn" onclick="runPreset('aggregation')">Data Aggregation</button>
             </div>
         </section>
         
@@ -586,7 +585,6 @@ def create_microsoft_demo_html() -> str:
                     <div class="live-dot"></div>
                     LIVE
                 </div>
-                <button class="run-btn" id="runBtn" onclick="runDemo()">Execute with AI</button>
             </div>
             <div class="library-bar">
                 <span>Neurop Forge Block Library</span>
@@ -596,7 +594,7 @@ def create_microsoft_demo_html() -> str:
             </div>
             <div class="demo-output" id="output">
                 <div class="output-line">
-                    <span class="status">Ready. Type a task above and click "Execute with AI" to watch GPT-4 autonomously select and execute verified blocks.</span>
+                    <span class="status">Select a demo scenario above to watch GPT-4o-mini autonomously select and execute verified blocks.</span>
                 </div>
             </div>
         </div>
@@ -606,14 +604,33 @@ def create_microsoft_demo_html() -> str:
         let isRunning = false;
         
         const presetTasks = {{
-            financial: "Process the $2.5M quarterly financial report for Contoso Corporation. Mask the CFO email cfo@contoso-corp.com and credit card 4532015112830366. Calculate tax at 21% for revenue of $2,500,000. Format the compliance date January 15, 2026 in EU format. Uppercase the report title 'quarterly financial report'.",
-            pii: "Sanitize customer data: mask email john.doe@microsoft.com, mask credit card 4111111111111111, validate the email format, check if customer ID 12345 is a positive number, and format their signup date March 20, 2025 in EU format.",
-            analytics: "Analyze sales data: calculate the sum of sales [15000, 28000, 42000, 18500, 35000], find the maximum sale, calculate the mean value, filter only positive values, and sort them in descending order.",
-            validation: "Validate user inputs: check if email test@example.com is valid format, verify that age 25 is positive, check if user ID 1024 is even, count the words in 'Welcome to our enterprise platform', and trim whitespace from '  user input  '."
+            analytics: {{
+                name: "Analytics Pipeline",
+                task: "Analyze enterprise sales data: calculate the sum of quarterly sales [125000, 280000, 420000, 185000, 350000], find the maximum sale, calculate the mean value, filter only positive values, and sort them in descending order."
+            }},
+            pii: {{
+                name: "PII Sanitization", 
+                task: "Sanitize customer PII data: mask email john.doe@microsoft.com, mask credit card 4111111111111111, validate the email format is correct, check if customer ID 12345 is a positive number, and format their signup date March 20, 2025 in EU format."
+            }},
+            validation: {{
+                name: "Data Validation",
+                task: "Validate user inputs for compliance: check if email test@example.com is valid format, verify that age 25 is positive, check if user ID 1024 is even, reverse the string 'enterprise', and uppercase the department name 'finance'."
+            }},
+            aggregation: {{
+                name: "Data Aggregation",
+                task: "Aggregate financial metrics: calculate the sum of revenue [45000, 52000, 48000, 61000, 55000], find the minimum and maximum values, calculate the mean, filter positive numbers, and sort in ascending order."
+            }}
         }};
         
-        function setTask(type) {{
-            document.getElementById('taskInput').value = presetTasks[type] || '';
+        function runPreset(type) {{
+            if (isRunning) return;
+            const preset = presetTasks[type];
+            if (!preset) return;
+            
+            const output = document.getElementById('output');
+            output.innerHTML = '<div class="output-line"><span class="info">Selected: <strong>' + preset.name + '</strong></span></div>';
+            
+            runDemoWithTask(preset.task);
         }}
         
         function addLine(html) {{
@@ -625,24 +642,13 @@ def create_microsoft_demo_html() -> str:
             output.scrollTop = output.scrollHeight;
         }}
         
-        async function runDemo() {{
+        async function runDemoWithTask(task) {{
             if (isRunning) return;
             isRunning = true;
             
-            const task = document.getElementById('taskInput').value.trim();
-            if (!task) {{
-                alert('Please enter a task for the AI to execute.');
-                isRunning = false;
-                return;
-            }}
-            
-            const btn = document.getElementById('runBtn');
             const output = document.getElementById('output');
             const liveBadge = document.getElementById('liveBadge');
             
-            btn.disabled = true;
-            btn.textContent = 'AI Executing...';
-            output.innerHTML = '';
             liveBadge.style.display = 'inline-flex';
             
             addLine('<span class="status">Initializing OpenAI GPT-4o-mini connection...</span>');
@@ -701,8 +707,6 @@ def create_microsoft_demo_html() -> str:
             }}
             
             liveBadge.style.display = 'none';
-            btn.disabled = false;
-            btn.textContent = 'Execute with AI';
             isRunning = false;
         }}
     </script>
@@ -741,13 +745,12 @@ def create_google_demo_html() -> str:
         </header>
         
         <section class="task-input-section">
-            <h3>Describe Your Task for AI</h3>
-            <textarea id="taskInput" class="task-textarea" placeholder="Describe what you want the AI to do. GPT-4 will autonomously select and execute verified blocks from the library. Any dangerous operations will be blocked by the policy engine.">Process customer analytics data for a SaaS dashboard. Mask customer email support@google-cloud.com and credit card 5555444433332222. Validate the email format. Calculate the sum of monthly revenue [45000, 52000, 48000, 61000]. Find the maximum value. Format the report date February 28, 2026 in EU format. Uppercase the dashboard title "cloud analytics report".</textarea>
+            <h3>Select a Demo Scenario</h3>
             <div class="preset-tasks">
-                <button class="preset-btn" onclick="setTask('analytics')">Analytics Pipeline</button>
-                <button class="preset-btn" onclick="setTask('pii')">PII Sanitization</button>
-                <button class="preset-btn" onclick="setTask('validation')">Data Validation</button>
-                <button class="preset-btn" onclick="setTask('aggregation')">Data Aggregation</button>
+                <button class="preset-btn" onclick="runPreset('analytics')">Analytics Pipeline</button>
+                <button class="preset-btn" onclick="runPreset('pii')">PII Sanitization</button>
+                <button class="preset-btn" onclick="runPreset('validation')">Data Validation</button>
+                <button class="preset-btn" onclick="runPreset('aggregation')">Data Aggregation</button>
             </div>
         </section>
         
@@ -758,7 +761,6 @@ def create_google_demo_html() -> str:
                     <div class="live-dot"></div>
                     LIVE
                 </div>
-                <button class="run-btn" id="runBtn" onclick="runDemo()">Execute with AI</button>
             </div>
             <div class="library-bar">
                 <span>Neurop Forge Block Library</span>
@@ -768,7 +770,7 @@ def create_google_demo_html() -> str:
             </div>
             <div class="demo-output" id="output">
                 <div class="output-line">
-                    <span class="status">Ready. Type a task above and click "Execute with AI" to watch GPT-4 autonomously select and execute verified blocks.</span>
+                    <span class="status">Select a demo scenario above to watch GPT-4o-mini autonomously select and execute verified blocks.</span>
                 </div>
             </div>
         </div>
@@ -778,14 +780,33 @@ def create_google_demo_html() -> str:
         let isRunning = false;
         
         const presetTasks = {{
-            analytics: "Process customer analytics data for a SaaS dashboard. Mask customer email support@google-cloud.com and credit card 5555444433332222. Validate the email format. Calculate the sum of monthly revenue [45000, 52000, 48000, 61000]. Find the maximum value. Format the report date February 28, 2026 in EU format.",
-            pii: "Sanitize user data: mask email admin@cloud-service.io, mask credit card 4000123456789010, validate that the email is properly formatted, check if user ID 99887 is positive, and count the words in 'Google Cloud Platform Analytics Dashboard'.",
-            validation: "Validate incoming API data: check if the request ID 2048 is even, verify that timestamp 1640000000 is positive, validate email format for api-user@test.com, count words in the error message 'Invalid authentication token provided', and trim whitespace from '  request body  '.",
-            aggregation: "Aggregate daily metrics: sum the values [1250, 980, 1450, 2200, 1875], find the maximum daily value, calculate the mean, filter positive values from [100, -50, 200, -30, 150], and sort them in descending order."
+            analytics: {{
+                name: "Analytics Pipeline",
+                task: "Process cloud analytics data: calculate the sum of API calls [12500, 28000, 42000, 18500], find the maximum value, calculate the mean, filter only positive values, and sort them in descending order."
+            }},
+            pii: {{
+                name: "PII Sanitization",
+                task: "Sanitize user data: mask email admin@cloud-service.io, mask credit card 4000123456789010, validate that the email is properly formatted, check if user ID 99887 is positive, and count the words in 'Google Cloud Platform Analytics Dashboard'."
+            }},
+            validation: {{
+                name: "Data Validation",
+                task: "Validate incoming API data: check if request ID 2048 is even, verify that timestamp 1640000000 is positive, validate email format for api-user@test.com, reverse the string 'cloudapi', and uppercase the status 'active'."
+            }},
+            aggregation: {{
+                name: "Data Aggregation",
+                task: "Aggregate daily metrics: sum the values [1250, 980, 1450, 2200, 1875], find the maximum and minimum values, calculate the mean, filter positive numbers, and sort in ascending order."
+            }}
         }};
         
-        function setTask(type) {{
-            document.getElementById('taskInput').value = presetTasks[type] || '';
+        function runPreset(type) {{
+            if (isRunning) return;
+            const preset = presetTasks[type];
+            if (!preset) return;
+            
+            const output = document.getElementById('output');
+            output.innerHTML = '<div class="output-line"><span class="info">Selected: <strong>' + preset.name + '</strong></span></div>';
+            
+            runDemoWithTask(preset.task);
         }}
         
         function addLine(html) {{
@@ -797,24 +818,13 @@ def create_google_demo_html() -> str:
             output.scrollTop = output.scrollHeight;
         }}
         
-        async function runDemo() {{
+        async function runDemoWithTask(task) {{
             if (isRunning) return;
             isRunning = true;
             
-            const task = document.getElementById('taskInput').value.trim();
-            if (!task) {{
-                alert('Please enter a task for the AI to execute.');
-                isRunning = false;
-                return;
-            }}
-            
-            const btn = document.getElementById('runBtn');
             const output = document.getElementById('output');
             const liveBadge = document.getElementById('liveBadge');
             
-            btn.disabled = true;
-            btn.textContent = 'AI Executing...';
-            output.innerHTML = '';
             liveBadge.style.display = 'inline-flex';
             
             addLine('<span class="status">Initializing OpenAI GPT-4o-mini connection...</span>');
@@ -873,8 +883,6 @@ def create_google_demo_html() -> str:
             }}
             
             liveBadge.style.display = 'none';
-            btn.disabled = false;
-            btn.textContent = 'Execute with AI';
             isRunning = false;
         }}
     </script>
