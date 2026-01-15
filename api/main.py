@@ -3367,7 +3367,7 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
                             addLine('<div class="block-blocked"><span class="blocked">BLOCKED</span> <strong>' + event.block + '</strong><br><span class="status">Policy engine denied execution - not in approved library</span></div>');
                         } else if (event.type === 'complete') {
                             await new Promise(r => setTimeout(r, 600));
-                            addLine('<div class="summary-box"><span class="success">Complete</span><br><br><span class="status">Blocks executed:</span> <span class="success">' + event.executed + '</span><br><span class="status">Operations blocked:</span> <span class="blocked">' + event.blocked + '</span></div>');
+                            addLine('<div class="summary-box"><span class="success">Complete</span><br><br><span class="status">Blocks executed:</span> <span class="success">' + event.executed + '</span><br><span class="status">Operations blocked:</span> <span class="blocked">' + event.blocked + '</span><br><span class="status">Audit hashes:</span> <span class="info">' + event.executed + '</span><br><span class="status">Code generated:</span> <span class="info">0</span></div>');
                         }
                     }
                 }
@@ -4001,7 +4001,7 @@ MICROSOFT_DEMO_HTML = """
                             addLine('<div class="block-blocked"><span class="blocked">BLOCKED</span> <strong>' + event.block + '</strong><br><span class="status">Policy engine denied execution - not in approved library</span></div>');
                         } else if (event.type === 'complete') {
                             await new Promise(r => setTimeout(r, 600));
-                            addLine('<div class="summary-box"><span class="success">Complete</span><br><br><span class="status">Blocks executed:</span> <span class="success">' + event.executed + '</span><br><span class="status">Operations blocked:</span> <span class="blocked">' + event.blocked + '</span></div>');
+                            addLine('<div class="summary-box"><span class="success">Complete</span><br><br><span class="status">Blocks executed:</span> <span class="success">' + event.executed + '</span><br><span class="status">Operations blocked:</span> <span class="blocked">' + event.blocked + '</span><br><span class="status">Audit hashes:</span> <span class="info">' + event.executed + '</span><br><span class="status">Code generated:</span> <span class="info">0</span></div>');
                         }
                     }
                 }
@@ -4522,7 +4522,7 @@ GOOGLE_DEMO_HTML = """
                             addLine('<div class="block-blocked"><span class="blocked">BLOCKED</span> <strong>' + event.block + '</strong><br><span class="status">Policy engine denied execution - not in approved library</span></div>');
                         } else if (event.type === 'complete') {
                             await new Promise(r => setTimeout(r, 600));
-                            addLine('<div class="summary-box"><span class="success">Complete</span><br><br><span class="status">Blocks executed:</span> <span class="success">' + event.executed + '</span><br><span class="status">Operations blocked:</span> <span class="blocked">' + event.blocked + '</span></div>');
+                            addLine('<div class="summary-box"><span class="success">Complete</span><br><br><span class="status">Blocks executed:</span> <span class="success">' + event.executed + '</span><br><span class="status">Operations blocked:</span> <span class="blocked">' + event.blocked + '</span><br><span class="status">Audit hashes:</span> <span class="info">' + event.executed + '</span><br><span class="status">Code generated:</span> <span class="info">0</span></div>');
                         }
                     }
                 }
