@@ -3695,6 +3695,39 @@ MICROSOFT_DEMO_HTML = """
         .result { color: #7dd3fc; }
         .audit { color: #fbbf24; font-size: 0.8rem; }
         
+        .audit-box {
+            background: rgba(251,191,36,0.1);
+            border: 1px solid rgba(251,191,36,0.3);
+            border-radius: 8px;
+            padding: 10px 14px;
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .audit-box .audit-icon { font-size: 1.1rem; }
+        .audit-box .audit-label {
+            color: #fbbf24;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .audit-box .audit-hash {
+            font-family: 'JetBrains Mono', monospace;
+            color: #fcd34d;
+            font-size: 0.85rem;
+            background: rgba(0,0,0,0.3);
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+        .block-source {
+            color: #00bcf2;
+            font-size: 0.75rem;
+            margin-top: 6px;
+            opacity: 0.8;
+        }
+        
         .block-call {
             background: rgba(0,188,242,0.18);
             border: 1px solid rgba(0,188,242,0.4);
@@ -3878,8 +3911,8 @@ MICROSOFT_DEMO_HTML = """
                             addLine('<div class="block-call"><span class="info">▶ COPILOT CALLS:</span> ' + event.block + '<br><span class="status">Inputs:</span> ' + JSON.stringify(event.inputs).substring(0, 60) + '...</div>');
                         } else if (event.type === 'block_result') {
                             await new Promise(r => setTimeout(r, 400));
-                            addLine('<span class="success">✓ Result:</span> <span class="result">' + JSON.stringify(event.result).substring(0, 50) + '...</span>');
-                            addLine('<span class="audit">Cryptographic Audit Hash: ' + event.audit + ' (tamper-proof)</span>');
+                            addLine('<span class="success">✓ Block executed successfully</span> <span class="result">' + JSON.stringify(event.result).substring(0, 60) + '</span>');
+                            addLine('<div class="audit-box"><span class="audit-icon">🔐</span><span class="audit-label">Cryptographic Audit</span><span class="audit-hash">' + event.audit + '</span><span style="color:#71717a;font-size:0.75rem;">tamper-proof</span></div>');
                         } else if (event.type === 'blocked') {
                             const explain = explanations[event.block] || 'This operation is not in the approved block list.';
                             addLine('<span class="status" style="font-style: italic; color: #666;">→ ' + explain + '</span>');
@@ -4179,6 +4212,39 @@ GOOGLE_DEMO_HTML = """
         .result { color: #93c5fd; }
         .audit { color: #fbbf24; font-size: 0.8rem; }
         
+        .audit-box {
+            background: rgba(251,191,36,0.1);
+            border: 1px solid rgba(251,191,36,0.3);
+            border-radius: 8px;
+            padding: 10px 14px;
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .audit-box .audit-icon { font-size: 1.1rem; }
+        .audit-box .audit-label {
+            color: #fbbf24;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .audit-box .audit-hash {
+            font-family: 'JetBrains Mono', monospace;
+            color: #fcd34d;
+            font-size: 0.85rem;
+            background: rgba(0,0,0,0.3);
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+        .block-source {
+            color: #4285f4;
+            font-size: 0.75rem;
+            margin-top: 6px;
+            opacity: 0.8;
+        }
+        
         .block-call {
             background: rgba(66,133,244,0.18);
             border: 1px solid rgba(66,133,244,0.4);
@@ -4366,8 +4432,8 @@ GOOGLE_DEMO_HTML = """
                             addLine('<div class="block-call"><span class="info">▶ GEMINI CALLS:</span> ' + event.block + '<br><span class="status">Inputs:</span> ' + JSON.stringify(event.inputs).substring(0, 60) + '...</div>');
                         } else if (event.type === 'block_result') {
                             await new Promise(r => setTimeout(r, 400));
-                            addLine('<span class="success">✓ Result:</span> <span class="result">' + JSON.stringify(event.result).substring(0, 50) + '...</span>');
-                            addLine('<span class="audit">Cryptographic Audit Hash: ' + event.audit + ' (tamper-proof)</span>');
+                            addLine('<span class="success">✓ Block executed successfully</span> <span class="result">' + JSON.stringify(event.result).substring(0, 60) + '</span>');
+                            addLine('<div class="audit-box"><span class="audit-icon">🔐</span><span class="audit-label">Cryptographic Audit</span><span class="audit-hash">' + event.audit + '</span><span style="color:#71717a;font-size:0.75rem;">tamper-proof</span></div>');
                         } else if (event.type === 'blocked') {
                             const explain = explanations[event.block] || 'This operation is not in the approved block list.';
                             addLine('<span class="status" style="font-style: italic; color: #666;">→ ' + explain + '</span>');
