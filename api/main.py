@@ -4880,12 +4880,18 @@ Say complete ONLY after all 4 steps. One action per response."""
                     events.append({"type": "blocked", "block": block_name})
                     messages.append({"role": "assistant", "content": text})
                     messages.append({"role": "user", "content": "BLOCKED by policy engine. Next step."})
-            except:
+            except Exception as step_e:
+                import traceback
+                print(f"GOOGLE DEMO STEP ERROR: {step_e}")
+                traceback.print_exc()
                 break
         
         events.append({"type": "complete", "executed": blocks_executed, "blocked": blocks_blocked})
         return LiveDemoResponse(events=events, error=None)
     except Exception as e:
+        import traceback
+        print(f"GOOGLE DEMO ERROR: {e}")
+        traceback.print_exc()
         return LiveDemoResponse(events=events, error=str(e))
 
 
