@@ -69,6 +69,14 @@ class BlockExecutor:
         from datetime import datetime, date, timedelta
         from typing import Any, Dict, List, Optional, Tuple
         
+        def round_to_cents(amount: float) -> float:
+            """Round amount to nearest cent."""
+            return round(amount, 2)
+        
+        def round_to_precision(value: float, decimals: int) -> float:
+            """Round value to specified decimal places."""
+            return round(value, decimals)
+        
         self._execution_namespace = {
             "math": math,
             "re": re,
@@ -113,6 +121,8 @@ class BlockExecutor:
             "True": True,
             "False": False,
             "None": None,
+            "round_to_cents": round_to_cents,
+            "round_to_precision": round_to_precision,
         }
     
     def execute(

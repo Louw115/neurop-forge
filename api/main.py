@@ -3681,7 +3681,14 @@ def build_openai_tools():
 
 def format_block_for_display(block, inputs, result, exec_time):
     """Format a block execution for display in the terminal."""
-    hash_value = block.identity.hash_value if hasattr(block.identity, 'hash_value') else "unknown"
+    hash_value = "unknown"
+    if hasattr(block, 'identity') and block.identity:
+        if isinstance(block.identity, dict):
+            hash_value = block.identity.get('hash_value') or block.identity.get('semantic_fingerprint') or "unknown"
+        elif hasattr(block.identity, 'hash_value') and block.identity.hash_value:
+            hash_value = block.identity.hash_value
+        elif hasattr(block.identity, 'semantic_fingerprint') and block.identity.semantic_fingerprint:
+            hash_value = block.identity.semantic_fingerprint
     
     input_defs = []
     if block.interface and block.interface.inputs:
@@ -3694,7 +3701,7 @@ def format_block_for_display(block, inputs, result, exec_time):
     return {
         "metadata": {"name": block.metadata.name, "category": block.metadata.category},
         "interface": {"inputs": input_defs},
-        "identity": {"hash_value": hash_value[:16] + "..."},
+        "identity": {"hash_value": hash_value},
         "constraints": {"purity": purity, "deterministic": block.constraints.deterministic},
         "inputs": inputs,
         "result": result
