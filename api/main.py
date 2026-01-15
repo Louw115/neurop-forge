@@ -2986,19 +2986,34 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
         .audit { color: #fbbf24; font-size: 0.8rem; }
         
         .block-call {
-            background: rgba(99,102,241,0.1);
-            border-left: 2px solid #6366f1;
-            padding: 12px 16px;
-            margin: 10px 0;
-            border-radius: 0 8px 8px 0;
+            background: rgba(99,102,241,0.15);
+            border: 1px solid rgba(99,102,241,0.4);
+            border-left: 4px solid #818cf8;
+            padding: 16px 20px;
+            margin: 14px 0;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 4px 20px rgba(99,102,241,0.2), inset 0 1px 0 rgba(255,255,255,0.05);
+        }
+        
+        .block-call .info {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #a5b4fc;
         }
         
         .block-blocked {
-            background: rgba(248,113,113,0.1);
-            border-left: 2px solid #f87171;
-            padding: 12px 16px;
-            margin: 10px 0;
-            border-radius: 0 8px 8px 0;
+            background: rgba(248,113,113,0.15);
+            border: 1px solid rgba(248,113,113,0.4);
+            border-left: 4px solid #f87171;
+            padding: 16px 20px;
+            margin: 14px 0;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 4px 20px rgba(248,113,113,0.2), inset 0 1px 0 rgba(255,255,255,0.05);
+        }
+        
+        .block-blocked .blocked {
+            font-size: 0.95rem;
+            font-weight: 600;
         }
         
         .summary-box {
@@ -3564,27 +3579,43 @@ MICROSOFT_DEMO_HTML = """
         .audit { color: #fbbf24; font-size: 0.8rem; }
         
         .block-call {
-            background: rgba(0,188,242,0.1);
-            border-left: 2px solid #00bcf2;
-            padding: 12px 16px;
-            margin: 10px 0;
-            border-radius: 0 8px 8px 0;
+            background: rgba(0,188,242,0.18);
+            border: 1px solid rgba(0,188,242,0.4);
+            border-left: 4px solid #00bcf2;
+            padding: 16px 20px;
+            margin: 14px 0;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 4px 20px rgba(0,188,242,0.25), inset 0 1px 0 rgba(255,255,255,0.05);
+        }
+        
+        .block-call .info {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #38bdf8;
         }
         
         .block-blocked {
-            background: rgba(248,113,113,0.1);
-            border-left: 2px solid #f87171;
-            padding: 12px 16px;
-            margin: 10px 0;
-            border-radius: 0 8px 8px 0;
+            background: rgba(248,113,113,0.18);
+            border: 1px solid rgba(248,113,113,0.4);
+            border-left: 4px solid #f87171;
+            padding: 16px 20px;
+            margin: 14px 0;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 4px 20px rgba(248,113,113,0.25), inset 0 1px 0 rgba(255,255,255,0.05);
+        }
+        
+        .block-blocked .blocked {
+            font-size: 0.95rem;
+            font-weight: 600;
         }
         
         .summary-box {
-            background: rgba(74,222,128,0.08);
-            border: 1px solid rgba(74,222,128,0.2);
+            background: rgba(74,222,128,0.1);
+            border: 1px solid rgba(74,222,128,0.3);
             border-radius: 12px;
             padding: 20px;
             margin-top: 16px;
+            box-shadow: 0 4px 20px rgba(74,222,128,0.15);
         }
         
         .placeholder {
@@ -4031,27 +4062,43 @@ GOOGLE_DEMO_HTML = """
         .audit { color: #fbbf24; font-size: 0.8rem; }
         
         .block-call {
-            background: rgba(66,133,244,0.1);
-            border-left: 2px solid #4285f4;
-            padding: 12px 16px;
-            margin: 10px 0;
-            border-radius: 0 8px 8px 0;
+            background: rgba(66,133,244,0.18);
+            border: 1px solid rgba(66,133,244,0.4);
+            border-left: 4px solid #4285f4;
+            padding: 16px 20px;
+            margin: 14px 0;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 4px 20px rgba(66,133,244,0.25), inset 0 1px 0 rgba(255,255,255,0.05);
+        }
+        
+        .block-call .info {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #60a5fa;
         }
         
         .block-blocked {
-            background: rgba(234,67,53,0.1);
-            border-left: 2px solid #ea4335;
-            padding: 12px 16px;
-            margin: 10px 0;
-            border-radius: 0 8px 8px 0;
+            background: rgba(234,67,53,0.18);
+            border: 1px solid rgba(234,67,53,0.4);
+            border-left: 4px solid #ea4335;
+            padding: 16px 20px;
+            margin: 14px 0;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 4px 20px rgba(234,67,53,0.25), inset 0 1px 0 rgba(255,255,255,0.05);
+        }
+        
+        .block-blocked .blocked {
+            font-size: 0.95rem;
+            font-weight: 600;
         }
         
         .summary-box {
-            background: rgba(52,168,83,0.08);
-            border: 1px solid rgba(52,168,83,0.2);
+            background: rgba(52,168,83,0.1);
+            border: 1px solid rgba(52,168,83,0.3);
             border-radius: 12px;
             padding: 20px;
             margin-top: 16px;
+            box-shadow: 0 4px 20px rgba(52,168,83,0.15);
         }
         
         .placeholder {
