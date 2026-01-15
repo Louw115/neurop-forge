@@ -3483,8 +3483,6 @@ Process step by step. One action per response."""
                     block_name = parsed.get("block", "")
                     inputs = parsed.get("inputs", {})
                     
-                    events.append({"type": "block_call", "block": block_name, "inputs": inputs})
-                    
                     target_block = None
                     for b in block_library.values():
                         if b.metadata.name == block_name:
@@ -3495,6 +3493,7 @@ Process step by step. One action per response."""
                         from neurop_forge.runtime.executor import BlockExecutor
                         executor = BlockExecutor()
                         coerced_inputs = coerce_block_inputs(target_block, inputs)
+                        events.append({"type": "block_call", "block": block_name, "inputs": coerced_inputs})
                         outputs, error = executor.execute(target_block, coerced_inputs)
                         
                         if error is None:
@@ -4640,7 +4639,6 @@ One action per response."""
                 elif action == "call_block":
                     block_name = parsed.get("block", "")
                     inputs = parsed.get("inputs", {})
-                    events.append({"type": "block_call", "block": block_name, "inputs": inputs})
                     
                     target_block = None
                     for b in block_library.values():
@@ -4652,6 +4650,7 @@ One action per response."""
                         from neurop_forge.runtime.executor import BlockExecutor
                         executor = BlockExecutor()
                         coerced_inputs = coerce_block_inputs(target_block, inputs)
+                        events.append({"type": "block_call", "block": block_name, "inputs": coerced_inputs})
                         outputs, error = executor.execute(target_block, coerced_inputs)
                         
                         if error is None:
@@ -4760,7 +4759,6 @@ One action per response."""
                 elif action == "call_block":
                     block_name = parsed.get("block", "")
                     inputs = parsed.get("inputs", {})
-                    events.append({"type": "block_call", "block": block_name, "inputs": inputs})
                     
                     target_block = None
                     for b in block_library.values():
@@ -4772,6 +4770,7 @@ One action per response."""
                         from neurop_forge.runtime.executor import BlockExecutor
                         executor = BlockExecutor()
                         coerced_inputs = coerce_block_inputs(target_block, inputs)
+                        events.append({"type": "block_call", "block": block_name, "inputs": coerced_inputs})
                         outputs, error = executor.execute(target_block, coerced_inputs)
                         
                         if error is None:
