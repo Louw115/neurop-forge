@@ -569,7 +569,7 @@ def create_microsoft_demo_html() -> str:
         </header>
         
         <section class="task-input-section">
-            <h3>Select a Demo Scenario</h3>
+            <h3>Select Live Demo Scenario</h3>
             <div class="preset-tasks">
                 <button class="preset-btn" onclick="runPreset('analytics')">Analytics Pipeline</button>
                 <button class="preset-btn" onclick="runPreset('pii')">PII Sanitization</button>
@@ -594,7 +594,7 @@ def create_microsoft_demo_html() -> str:
             </div>
             <div class="demo-output" id="output">
                 <div class="output-line">
-                    <span class="status">Select a demo scenario above to watch GPT-4o-mini autonomously select and execute verified blocks.</span>
+                    <span class="status">Select a live demo scenario above to watch GPT-4o-mini autonomously select and execute verified blocks.</span>
                 </div>
             </div>
         </div>
@@ -751,7 +751,7 @@ def create_google_demo_html() -> str:
         </header>
         
         <section class="task-input-section">
-            <h3>Select a Demo Scenario</h3>
+            <h3>Select Live Demo Scenario</h3>
             <div class="preset-tasks">
                 <button class="preset-btn" onclick="runPreset('analytics')">Analytics Pipeline</button>
                 <button class="preset-btn" onclick="runPreset('pii')">PII Sanitization</button>
@@ -776,7 +776,7 @@ def create_google_demo_html() -> str:
             </div>
             <div class="demo-output" id="output">
                 <div class="output-line">
-                    <span class="status">Select a demo scenario above to watch GPT-4o-mini autonomously select and execute verified blocks.</span>
+                    <span class="status">Select a live demo scenario above to watch GPT-4o-mini autonomously select and execute verified blocks.</span>
                 </div>
             </div>
         </div>
