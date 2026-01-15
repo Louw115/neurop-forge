@@ -2807,97 +2807,150 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neurop Forge | Live AI Demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
-            color: #e0e0e0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #09090b;
+            color: #fafafa;
             min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+        
+        .bg-glow {
+            position: fixed;
+            top: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%);
+            pointer-events: none;
         }
         
         .container {
-            max-width: 900px;
+            position: relative;
+            max-width: 860px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 60px 24px;
         }
         
         header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 48px;
+        }
+        
+        .logo-wrapper {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            box-shadow: 0 0 30px rgba(99,102,241,0.4);
         }
         
         .logo {
-            font-size: 2.5rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #00d4ff, #7c3aed);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+            color: #fafafa;
         }
         
         .tagline {
-            color: #888;
-            font-size: 1.1rem;
+            color: #71717a;
+            font-size: 1rem;
+            font-weight: 500;
         }
         
         .value-prop {
-            background: rgba(124, 58, 237, 0.1);
-            border: 1px solid rgba(124, 58, 237, 0.3);
-            border-radius: 12px;
-            padding: 24px;
+            background: linear-gradient(135deg, rgba(99,102,241,0.08) 0%, rgba(139,92,246,0.08) 100%);
+            border: 1px solid rgba(99,102,241,0.2);
+            border-radius: 16px;
+            padding: 28px 32px;
             margin-bottom: 32px;
+            backdrop-filter: blur(10px);
         }
         
         .value-prop h2 {
-            color: #00d4ff;
-            font-size: 1.1rem;
+            color: #a5b4fc;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
             margin-bottom: 12px;
         }
         
         .value-prop p {
-            color: #aaa;
-            line-height: 1.6;
+            color: #a1a1aa;
+            line-height: 1.7;
+            font-size: 0.95rem;
         }
         
         .demo-card {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(24,24,27,0.8);
+            border: 1px solid rgba(63,63,70,0.5);
             border-radius: 16px;
             overflow: hidden;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
         }
         
         .demo-header {
-            background: rgba(0,0,0,0.3);
-            padding: 20px 24px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.4);
+            padding: 20px 28px;
+            border-bottom: 1px solid rgba(63,63,70,0.5);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
         
         .demo-title {
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: 600;
+            color: #e4e4e7;
         }
         
         .run-btn {
-            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
             color: white;
             border: none;
-            padding: 12px 32px;
+            padding: 10px 24px;
             border-radius: 8px;
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.2s;
+            font-family: inherit;
+            box-shadow: 0 0 20px rgba(99,102,241,0.3);
         }
         
         .run-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(124, 58, 237, 0.4);
+            transform: translateY(-1px);
+            box-shadow: 0 0 30px rgba(99,102,241,0.5);
         }
         
         .run-btn:disabled {
@@ -2907,77 +2960,67 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
         }
         
         .demo-output {
-            padding: 24px;
-            min-height: 400px;
-            font-family: 'SF Mono', 'Fira Code', monospace;
-            font-size: 0.9rem;
-            line-height: 1.6;
+            padding: 24px 28px;
+            min-height: 380px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            line-height: 1.7;
+            background: rgba(0,0,0,0.3);
         }
         
         .output-line {
-            margin-bottom: 8px;
-            animation: fadeIn 0.3s ease;
+            margin-bottom: 6px;
+            animation: slideIn 0.3s ease;
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateX(-10px); }
-            to { opacity: 1; transform: translateX(0); }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
-        .status { color: #888; }
-        .success { color: #10b981; }
-        .blocked { color: #ef4444; }
-        .info { color: #00d4ff; }
-        .result { color: #a78bfa; }
-        .audit { color: #f59e0b; }
+        .status { color: #71717a; }
+        .success { color: #4ade80; }
+        .blocked { color: #f87171; }
+        .info { color: #818cf8; }
+        .result { color: #c4b5fd; }
+        .audit { color: #fbbf24; font-size: 0.8rem; }
         
         .block-call {
-            background: rgba(0,212,255,0.1);
-            border-left: 3px solid #00d4ff;
-            padding: 8px 12px;
-            margin: 8px 0;
+            background: rgba(99,102,241,0.1);
+            border-left: 2px solid #6366f1;
+            padding: 12px 16px;
+            margin: 10px 0;
             border-radius: 0 8px 8px 0;
         }
         
         .block-blocked {
-            background: rgba(239,68,68,0.1);
-            border-left: 3px solid #ef4444;
-            padding: 8px 12px;
-            margin: 8px 0;
+            background: rgba(248,113,113,0.1);
+            border-left: 2px solid #f87171;
+            padding: 12px 16px;
+            margin: 10px 0;
             border-radius: 0 8px 8px 0;
         }
         
         .summary-box {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.3);
+            background: rgba(74,222,128,0.08);
+            border: 1px solid rgba(74,222,128,0.2);
             border-radius: 12px;
             padding: 20px;
             margin-top: 16px;
         }
         
-        .contact {
+        .footer {
             text-align: center;
-            margin-top: 40px;
-            padding: 24px;
-            background: rgba(255,255,255,0.02);
-            border-radius: 12px;
+            margin-top: 48px;
+            padding: 32px;
+            border-top: 1px solid rgba(63,63,70,0.3);
         }
         
-        .contact h3 {
-            color: #00d4ff;
-            margin-bottom: 8px;
-        }
-        
-        .contact a {
-            color: #a78bfa;
-            text-decoration: none;
-        }
-        
-        .stats {
+        .footer-stats {
             display: flex;
-            gap: 24px;
             justify-content: center;
-            margin-top: 16px;
+            gap: 48px;
+            margin-bottom: 24px;
         }
         
         .stat {
@@ -2985,27 +3028,55 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
         }
         
         .stat-value {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            color: #00d4ff;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .stat-label {
-            font-size: 0.85rem;
-            color: #888;
+            font-size: 0.8rem;
+            color: #71717a;
+            margin-top: 4px;
+        }
+        
+        .footer p {
+            color: #52525b;
+            font-size: 0.9rem;
+        }
+        
+        .footer a {
+            color: #a5b4fc;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .footer a:hover {
+            color: #c7d2fe;
         }
         
         .placeholder {
-            color: #555;
+            color: #52525b;
             text-align: center;
-            padding: 60px 20px;
+            padding: 80px 20px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.8;
         }
     </style>
 </head>
 <body>
+    <div class="bg-grid"></div>
+    <div class="bg-glow"></div>
+    
     <div class="container">
         <header>
-            <div class="logo">NEUROP FORGE</div>
+            <div class="logo-wrapper">
+                <div class="logo-icon">N</div>
+                <div class="logo">Neurop Forge</div>
+            </div>
             <p class="tagline">AI as Operator, Not Author</p>
         </header>
         
@@ -3028,10 +3099,22 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
             </div>
         </div>
         
-        <div class="contact">
-            <h3>Enterprise AI Governance</h3>
-            <p>4,552 verified blocks • Cryptographic audit trail • Policy enforcement</p>
-            <p style="margin-top: 12px;">Contact: <a href="mailto:wassermanlourens@gmail.com">wassermanlourens@gmail.com</a></p>
+        <div class="footer">
+            <div class="footer-stats">
+                <div class="stat">
+                    <div class="stat-value">4,552</div>
+                    <div class="stat-label">Verified Blocks</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">100%</div>
+                    <div class="stat-label">Auditable</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Generated Code</div>
+                </div>
+            </div>
+            <p>Contact: <a href="mailto:wassermanlourens@gmail.com">wassermanlourens@gmail.com</a></p>
         </div>
     </div>
     
@@ -3262,81 +3345,314 @@ MICROSOFT_DEMO_HTML = """
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neurop Forge - Microsoft Demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            color: #e0e0e0; 
-            min-height: 100vh; 
-            padding: 40px 20px;
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0a0f;
+            color: #fafafa;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
-        .container { max-width: 900px; margin: 0 auto; }
-        .header { text-align: center; margin-bottom: 40px; }
-        .logo { font-size: 2.5rem; font-weight: 700; background: linear-gradient(90deg, #00bcf2, #0078d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: 2px; }
-        .tagline { color: #888; font-size: 1.1rem; margin-top: 10px; }
-        .target-badge { display: inline-block; background: rgba(0, 188, 242, 0.15); border: 1px solid #00bcf2; color: #00bcf2; padding: 8px 16px; border-radius: 20px; font-size: 0.9rem; margin-top: 15px; }
-        .card { background: rgba(255,255,255,0.03); border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); padding: 30px; margin-bottom: 25px; }
-        .card-title { color: #00bcf2; font-size: 1.2rem; margin-bottom: 15px; font-weight: 600; }
-        .value-prop { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px; }
-        .value-item { background: rgba(0, 188, 242, 0.05); padding: 15px; border-radius: 8px; border-left: 3px solid #00bcf2; }
-        .value-item h4 { color: #00bcf2; margin-bottom: 8px; font-size: 0.95rem; }
-        .value-item p { color: #aaa; font-size: 0.85rem; line-height: 1.5; }
-        .demo-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; }
-        .demo-title { font-size: 1.3rem; font-weight: 600; }
-        .run-btn { background: linear-gradient(135deg, #00bcf2, #0078d4); color: white; border: none; padding: 12px 28px; border-radius: 8px; font-size: 1rem; cursor: pointer; transition: all 0.3s; font-weight: 600; }
-        .run-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0, 188, 242, 0.3); }
-        .run-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-        .console { background: #0d1117; border-radius: 8px; padding: 20px; font-family: 'Consolas', 'Monaco', monospace; font-size: 0.9rem; min-height: 300px; max-height: 500px; overflow-y: auto; border: 1px solid #30363d; }
-        .console-line { margin-bottom: 8px; line-height: 1.6; }
+        
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(0,188,242,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,188,242,0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+        }
+        
+        .bg-glow {
+            position: fixed;
+            top: -40%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(0,120,212,0.2) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        
+        .container {
+            position: relative;
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        
+        .logo-wrapper {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #00bcf2, #0078d4);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            box-shadow: 0 0 30px rgba(0,120,212,0.5);
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: #fafafa;
+        }
+        
+        .tagline {
+            color: #71717a;
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+        
+        .target-badge {
+            display: inline-block;
+            background: rgba(0,120,212,0.15);
+            border: 1px solid rgba(0,188,242,0.4);
+            color: #00bcf2;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .value-card {
+            background: rgba(0,120,212,0.06);
+            border: 1px solid rgba(0,188,242,0.15);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 28px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .value-card h2 {
+            color: #00bcf2;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 14px;
+        }
+        
+        .value-card > p {
+            color: #a1a1aa;
+            line-height: 1.7;
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+        
+        .feature {
+            background: rgba(0,0,0,0.3);
+            padding: 18px 20px;
+            border-radius: 10px;
+            border-left: 2px solid #00bcf2;
+        }
+        
+        .feature h4 {
+            color: #e4e4e7;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        
+        .feature p {
+            color: #71717a;
+            font-size: 0.82rem;
+            line-height: 1.5;
+        }
+        
+        .demo-card {
+            background: rgba(18,18,24,0.9);
+            border: 1px solid rgba(63,63,70,0.5);
+            border-radius: 16px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.6);
+        }
+        
+        .demo-header {
+            background: rgba(0,0,0,0.5);
+            padding: 20px 28px;
+            border-bottom: 1px solid rgba(63,63,70,0.5);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .demo-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #e4e4e7;
+        }
+        
+        .run-btn {
+            background: linear-gradient(135deg, #00bcf2, #0078d4);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+            box-shadow: 0 0 25px rgba(0,120,212,0.4);
+        }
+        
+        .run-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 0 35px rgba(0,188,242,0.5);
+        }
+        
+        .run-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .console {
+            padding: 24px 28px;
+            min-height: 340px;
+            max-height: 450px;
+            overflow-y: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            line-height: 1.7;
+            background: rgba(0,0,0,0.4);
+        }
+        
+        .console-line {
+            margin-bottom: 6px;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .status { color: #71717a; }
         .success { color: #4ade80; }
         .blocked { color: #f87171; }
         .info { color: #00bcf2; }
-        .status { color: #888; }
-        .audit { color: #a855f7; font-size: 0.8rem; }
-        .result { color: #60a5fa; }
-        .block-call { background: rgba(0, 188, 242, 0.1); padding: 10px; border-radius: 6px; margin: 8px 0; border-left: 3px solid #00bcf2; }
-        .block-blocked { background: rgba(248, 113, 113, 0.1); padding: 10px; border-radius: 6px; margin: 8px 0; border-left: 3px solid #f87171; }
-        .summary-box { background: rgba(74, 222, 128, 0.1); padding: 15px; border-radius: 8px; border: 1px solid rgba(74, 222, 128, 0.3); margin-top: 15px; }
-        .placeholder { color: #555; text-align: center; padding: 60px 20px; }
-        .contact { margin-top: 30px; text-align: center; color: #666; font-size: 0.9rem; }
-        .contact a { color: #00bcf2; text-decoration: none; }
+        .result { color: #7dd3fc; }
+        .audit { color: #fbbf24; font-size: 0.8rem; }
+        
+        .block-call {
+            background: rgba(0,188,242,0.1);
+            border-left: 2px solid #00bcf2;
+            padding: 12px 16px;
+            margin: 10px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .block-blocked {
+            background: rgba(248,113,113,0.1);
+            border-left: 2px solid #f87171;
+            padding: 12px 16px;
+            margin: 10px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .summary-box {
+            background: rgba(74,222,128,0.08);
+            border: 1px solid rgba(74,222,128,0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 16px;
+        }
+        
+        .placeholder {
+            color: #52525b;
+            text-align: center;
+            padding: 70px 20px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #52525b;
+            font-size: 0.9rem;
+        }
+        
+        .footer a {
+            color: #00bcf2;
+            text-decoration: none;
+        }
+        
+        @media (max-width: 600px) {
+            .features { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
+    <div class="bg-grid"></div>
+    <div class="bg-glow"></div>
+    
     <div class="container">
-        <div class="header">
-            <div class="logo">NEUROP FORGE</div>
-            <div class="tagline">AI as Operator, Not Author</div>
-            <div class="target-badge">Microsoft Azure AI / GitHub Copilot Integration</div>
-        </div>
+        <header>
+            <div class="logo-wrapper">
+                <div class="logo-icon">N</div>
+                <div class="logo">Neurop Forge</div>
+            </div>
+            <p class="tagline">AI as Operator, Not Author</p>
+            <div class="target-badge">Microsoft Azure AI / GitHub Copilot</div>
+        </header>
         
-        <div class="card">
-            <div class="card-title">The Copilot Enhancement Opportunity</div>
-            <p style="color: #aaa; line-height: 1.7;">AI agents can generate arbitrary code with unpredictable outcomes. Neurop Forge constrains AI to call only pre-verified, policy-governed blocks. Every action is auditable. Dangerous operations are blocked before execution.</p>
-            <div class="value-prop">
-                <div class="value-item">
+        <div class="value-card">
+            <h2>The Copilot Enhancement Opportunity</h2>
+            <p>AI agents can generate arbitrary code with unpredictable outcomes. Neurop Forge constrains AI to call only pre-verified, policy-governed blocks. Every action is auditable. Dangerous operations are blocked before execution.</p>
+            <div class="features">
+                <div class="feature">
                     <h4>Controlled Execution</h4>
                     <p>AI calls verified blocks - never generates arbitrary code</p>
                 </div>
-                <div class="value-item">
+                <div class="feature">
                     <h4>Enterprise Compliance</h4>
                     <p>SOC 2, HIPAA, PCI-DSS ready with cryptographic audit</p>
                 </div>
-                <div class="value-item">
+                <div class="feature">
                     <h4>Policy Enforcement</h4>
                     <p>Dangerous operations blocked before execution</p>
                 </div>
-                <div class="value-item">
+                <div class="feature">
                     <h4>Deterministic Outcomes</h4>
                     <p>Same inputs = same outputs, every time</p>
                 </div>
             </div>
         </div>
         
-        <div class="card">
-            <div class="demo-area">
-                <div class="demo-title">Live Enterprise Demo</div>
+        <div class="demo-card">
+            <div class="demo-header">
+                <span class="demo-title">Live Enterprise Demo</span>
                 <button class="run-btn" id="runBtn" onclick="runDemo()">Run Demo</button>
             </div>
             <div class="console" id="console">
@@ -3348,7 +3664,7 @@ MICROSOFT_DEMO_HTML = """
             </div>
         </div>
         
-        <div class="contact">
+        <div class="footer">
             Contact: Lourens Wasserman | <a href="mailto:wassermanlourens@gmail.com">wassermanlourens@gmail.com</a>
         </div>
     </div>
@@ -3448,63 +3764,341 @@ GOOGLE_DEMO_HTML = """
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neurop Forge - Google Demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: 'Google Sans', 'Roboto', Arial, sans-serif; 
-            background: linear-gradient(135deg, #1a1a2e 0%, #1e1e3f 50%, #2d2d5a 100%);
-            color: #e0e0e0; 
-            min-height: 100vh; 
-            padding: 40px 20px;
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #09090b;
+            color: #fafafa;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
-        .container { max-width: 900px; margin: 0 auto; }
-        .header { text-align: center; margin-bottom: 40px; }
-        .logo { font-size: 2.5rem; font-weight: 700; background: linear-gradient(90deg, #4285f4, #34a853, #fbbc05, #ea4335); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: 2px; }
-        .tagline { color: #888; font-size: 1.1rem; margin-top: 10px; }
-        .target-badge { display: inline-block; background: rgba(66, 133, 244, 0.15); border: 1px solid #4285f4; color: #4285f4; padding: 8px 16px; border-radius: 20px; font-size: 0.9rem; margin-top: 15px; }
-        .card { background: rgba(255,255,255,0.03); border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); padding: 30px; margin-bottom: 25px; }
-        .card-title { color: #4285f4; font-size: 1.2rem; margin-bottom: 15px; font-weight: 600; }
-        .problem-solution { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .problem { background: rgba(234, 67, 53, 0.08); padding: 20px; border-radius: 8px; border-left: 3px solid #ea4335; }
-        .solution { background: rgba(52, 168, 83, 0.08); padding: 20px; border-radius: 8px; border-left: 3px solid #34a853; }
-        .problem h4 { color: #ea4335; margin-bottom: 12px; }
-        .solution h4 { color: #34a853; margin-bottom: 12px; }
-        .problem ul, .solution ul { list-style: none; color: #aaa; font-size: 0.9rem; line-height: 1.8; }
-        .problem li:before { content: "✗ "; color: #ea4335; }
-        .solution li:before { content: "✓ "; color: #34a853; }
-        .demo-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; }
-        .demo-title { font-size: 1.3rem; font-weight: 600; }
-        .run-btn { background: linear-gradient(135deg, #4285f4, #34a853); color: white; border: none; padding: 12px 28px; border-radius: 8px; font-size: 1rem; cursor: pointer; transition: all 0.3s; font-weight: 600; }
-        .run-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(66, 133, 244, 0.3); }
-        .run-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-        .console { background: #0d1117; border-radius: 8px; padding: 20px; font-family: 'Roboto Mono', 'Consolas', monospace; font-size: 0.9rem; min-height: 300px; max-height: 500px; overflow-y: auto; border: 1px solid #30363d; }
-        .console-line { margin-bottom: 8px; line-height: 1.6; }
-        .success { color: #34a853; }
-        .blocked { color: #ea4335; }
-        .info { color: #4285f4; }
-        .status { color: #888; }
-        .audit { color: #a855f7; font-size: 0.8rem; }
-        .result { color: #60a5fa; }
-        .block-call { background: rgba(66, 133, 244, 0.1); padding: 10px; border-radius: 6px; margin: 8px 0; border-left: 3px solid #4285f4; }
-        .block-blocked { background: rgba(234, 67, 53, 0.1); padding: 10px; border-radius: 6px; margin: 8px 0; border-left: 3px solid #ea4335; }
-        .summary-box { background: rgba(52, 168, 83, 0.1); padding: 15px; border-radius: 8px; border: 1px solid rgba(52, 168, 83, 0.3); margin-top: 15px; }
-        .placeholder { color: #555; text-align: center; padding: 60px 20px; }
-        .contact { margin-top: 30px; text-align: center; color: #666; font-size: 0.9rem; }
-        .contact a { color: #4285f4; text-decoration: none; }
-        @media (max-width: 600px) { .problem-solution { grid-template-columns: 1fr; } }
+        
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+        }
+        
+        .bg-glow-1 {
+            position: fixed;
+            top: -30%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(66,133,244,0.12) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        
+        .bg-glow-2 {
+            position: fixed;
+            top: 20%;
+            right: -15%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(234,67,53,0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        
+        .bg-glow-3 {
+            position: fixed;
+            bottom: -20%;
+            left: 30%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(52,168,83,0.1) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        
+        .container {
+            position: relative;
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        
+        .logo-wrapper {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #4285f4, #34a853, #fbbc05, #ea4335);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            box-shadow: 0 0 30px rgba(66,133,244,0.4);
+            animation: glow 3s ease-in-out infinite;
+        }
+        
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 30px rgba(66,133,244,0.4); }
+            33% { box-shadow: 0 0 30px rgba(52,168,83,0.4); }
+            66% { box-shadow: 0 0 30px rgba(234,67,53,0.4); }
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(90deg, #4285f4, #34a853, #fbbc05, #ea4335);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .tagline {
+            color: #71717a;
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+        
+        .target-badge {
+            display: inline-block;
+            background: rgba(66,133,244,0.12);
+            border: 1px solid rgba(66,133,244,0.3);
+            color: #60a5fa;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .compare-card {
+            background: rgba(24,24,27,0.6);
+            border: 1px solid rgba(63,63,70,0.4);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 28px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .compare-card h2 {
+            color: #e4e4e7;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 20px;
+        }
+        
+        .compare-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .problem {
+            background: rgba(234,67,53,0.06);
+            border: 1px solid rgba(234,67,53,0.15);
+            padding: 24px;
+            border-radius: 12px;
+        }
+        
+        .solution {
+            background: rgba(52,168,83,0.06);
+            border: 1px solid rgba(52,168,83,0.15);
+            padding: 24px;
+            border-radius: 12px;
+        }
+        
+        .problem h4 {
+            color: #f87171;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 14px;
+        }
+        
+        .solution h4 {
+            color: #4ade80;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 14px;
+        }
+        
+        .problem ul, .solution ul {
+            list-style: none;
+            color: #a1a1aa;
+            font-size: 0.85rem;
+            line-height: 2;
+        }
+        
+        .problem li::before {
+            content: "✗ ";
+            color: #f87171;
+        }
+        
+        .solution li::before {
+            content: "✓ ";
+            color: #4ade80;
+        }
+        
+        .demo-card {
+            background: rgba(18,18,24,0.9);
+            border: 1px solid rgba(63,63,70,0.5);
+            border-radius: 16px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.6);
+        }
+        
+        .demo-header {
+            background: rgba(0,0,0,0.5);
+            padding: 20px 28px;
+            border-bottom: 1px solid rgba(63,63,70,0.5);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .demo-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #e4e4e7;
+        }
+        
+        .run-btn {
+            background: linear-gradient(135deg, #4285f4, #34a853);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+            box-shadow: 0 0 25px rgba(52,168,83,0.3);
+        }
+        
+        .run-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 0 35px rgba(66,133,244,0.5);
+        }
+        
+        .run-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .console {
+            padding: 24px 28px;
+            min-height: 340px;
+            max-height: 450px;
+            overflow-y: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            line-height: 1.7;
+            background: rgba(0,0,0,0.4);
+        }
+        
+        .console-line {
+            margin-bottom: 6px;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .status { color: #71717a; }
+        .success { color: #4ade80; }
+        .blocked { color: #f87171; }
+        .info { color: #60a5fa; }
+        .result { color: #93c5fd; }
+        .audit { color: #fbbf24; font-size: 0.8rem; }
+        
+        .block-call {
+            background: rgba(66,133,244,0.1);
+            border-left: 2px solid #4285f4;
+            padding: 12px 16px;
+            margin: 10px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .block-blocked {
+            background: rgba(234,67,53,0.1);
+            border-left: 2px solid #ea4335;
+            padding: 12px 16px;
+            margin: 10px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .summary-box {
+            background: rgba(52,168,83,0.08);
+            border: 1px solid rgba(52,168,83,0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 16px;
+        }
+        
+        .placeholder {
+            color: #52525b;
+            text-align: center;
+            padding: 70px 20px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #52525b;
+            font-size: 0.9rem;
+        }
+        
+        .footer a {
+            color: #60a5fa;
+            text-decoration: none;
+        }
+        
+        @media (max-width: 600px) {
+            .compare-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
+    <div class="bg-grid"></div>
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+    <div class="bg-glow-3"></div>
+    
     <div class="container">
-        <div class="header">
-            <div class="logo">NEUROP FORGE</div>
-            <div class="tagline">AI as Operator, Not Author</div>
+        <header>
+            <div class="logo-wrapper">
+                <div class="logo-icon">N</div>
+                <div class="logo">Neurop Forge</div>
+            </div>
+            <p class="tagline">AI as Operator, Not Author</p>
             <div class="target-badge">Google DeepMind / Gemini Integration</div>
-        </div>
+        </header>
         
-        <div class="card">
-            <div class="card-title">The Problem We Solve</div>
-            <div class="problem-solution">
+        <div class="compare-card">
+            <h2>The Problem We Solve</h2>
+            <div class="compare-grid">
                 <div class="problem">
                     <h4>Current AI Agents</h4>
                     <ul>
@@ -3526,9 +4120,9 @@ GOOGLE_DEMO_HTML = """
             </div>
         </div>
         
-        <div class="card">
-            <div class="demo-area">
-                <div class="demo-title">Live Gemini Integration Demo</div>
+        <div class="demo-card">
+            <div class="demo-header">
+                <span class="demo-title">Live Gemini Integration Demo</span>
                 <button class="run-btn" id="runBtn" onclick="runDemo()">Run Demo</button>
             </div>
             <div class="console" id="console">
@@ -3540,7 +4134,7 @@ GOOGLE_DEMO_HTML = """
             </div>
         </div>
         
-        <div class="contact">
+        <div class="footer">
             Contact: Lourens Wasserman | <a href="mailto:wassermanlourens@gmail.com">wassermanlourens@gmail.com</a>
         </div>
     </div>
