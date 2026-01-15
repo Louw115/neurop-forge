@@ -4592,7 +4592,7 @@ async def run_microsoft_demo(request: Request):
         events.append({"type": "status", "message": "Connecting to AI for Copilot integration demo..."})
         
         sample_blocks = [b.metadata.name for b in list(block_library.values())[:30]]
-        blocks_list = "\\n".join([f"- {name}" for name in sample_blocks])
+        blocks_list = "\n".join([f"- {name}" for name in sample_blocks])
         
         task = """Enterprise compliance task for Fortune 500 customer:
 1. Validate email 'enterprise@contoso.com'
@@ -4711,7 +4711,7 @@ async def run_google_demo(request: Request):
         events.append({"type": "status", "message": "Connecting to AI for Gemini integration demo..."})
         
         sample_blocks = [b.metadata.name for b in list(block_library.values())[:30]]
-        blocks_list = "\\n".join([f"- {name}" for name in sample_blocks])
+        blocks_list = "\n".join([f"- {name}" for name in sample_blocks])
         
         task = """Enterprise data pipeline for Acme Corp:
 1. Validate email 'customer@acme-corp.com'
