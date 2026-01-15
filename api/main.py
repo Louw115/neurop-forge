@@ -4663,9 +4663,14 @@ async def library_browser():
     return LIBRARY_BROWSER_HTML
 
 
-@app.get("/api/library/categories")
-async def get_library_categories():
-    """Get all categories with block counts - instant load for category-first view."""
+_cached_categories = None
+
+def _compute_category_cache():
+    """Compute category counts once at first request."""
+    global _cached_categories
+    if _cached_categories is not None:
+        return _cached_categories
+    
     category_counts = {}
     for hash_id, block in block_library.items():
         try:
@@ -4679,28 +4684,34 @@ async def get_library_categories():
     
     categories = [{"name": cat, "count": count} for cat, count in sorted(category_counts.items())]
     total = sum(c["count"] for c in categories)
-    return {"categories": categories, "total": total}
+    _cached_categories = {"categories": categories, "total": total}
+    return _cached_categories
 
 
-@app.get("/api/library/blocks")
-async def get_library_blocks(category: str = None, page: int = 0, limit: int = 50, search: str = None):
-    """Get blocks, optionally filtered by category and search term with server-side pagination."""
-    blocks = []
-    search_lower = search.lower() if search else None
+@app.get("/api/library/categories")
+async def get_library_categories():
+    """Get all categories with block counts - cached for instant load."""
+    return _compute_category_cache()
+
+
+_cached_blocks_by_category = {}
+
+def _get_blocks_for_category(category: str):
+    """Get cached sorted blocks for a category."""
+    global _cached_blocks_by_category
+    if category in _cached_blocks_by_category:
+        return _cached_blocks_by_category[category]
     
+    blocks = []
     for hash_id, block in block_library.items():
         try:
             name = block.metadata.name if hasattr(block.metadata, 'name') else hash_id
             if name.startswith('_'):
                 continue
             block_category = block.metadata.category if hasattr(block.metadata, 'category') else "general"
-            if category and block_category != category:
+            if block_category != category:
                 continue
             description = block.metadata.description if hasattr(block.metadata, 'description') else block.metadata.intent
-            
-            if search_lower:
-                if search_lower not in name.lower() and search_lower not in (description or '').lower():
-                    continue
         except:
             continue
         blocks.append({
@@ -4710,10 +4721,26 @@ async def get_library_blocks(category: str = None, page: int = 0, limit: int = 5
         })
     
     sorted_blocks = sorted(blocks, key=lambda x: x["name"])
-    total = len(sorted_blocks)
+    _cached_blocks_by_category[category] = sorted_blocks
+    return sorted_blocks
+
+
+@app.get("/api/library/blocks")
+async def get_library_blocks(category: str = None, page: int = 0, limit: int = 50, search: str = None):
+    """Get blocks, optionally filtered by category and search term with server-side pagination."""
+    if not category:
+        return {"blocks": [], "count": 0, "total": 0, "page": 0, "total_pages": 1}
+    
+    all_blocks = _get_blocks_for_category(category)
+    
+    if search:
+        search_lower = search.lower()
+        all_blocks = [b for b in all_blocks if search_lower in b["name"].lower() or search_lower in (b.get("description") or "").lower()]
+    
+    total = len(all_blocks)
     start = page * limit
     end = min(start + limit, total)
-    paged_blocks = sorted_blocks[start:end]
+    paged_blocks = all_blocks[start:end]
     
     return {
         "blocks": paged_blocks,
