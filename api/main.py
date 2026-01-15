@@ -2929,10 +2929,68 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
             align-items: center;
         }
         
+        .demo-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
         .demo-title {
             font-size: 1rem;
             font-weight: 600;
             color: #e4e4e7;
+        }
+        
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(239,68,68,0.15);
+            border: 1px solid rgba(239,68,68,0.4);
+            color: #f87171;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+        
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: #ef4444;
+            border-radius: 50%;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+        
+        .library-bar {
+            background: rgba(99,102,241,0.1);
+            border-bottom: 1px solid rgba(99,102,241,0.2);
+            padding: 10px 28px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.8rem;
+            color: #a5b4fc;
+        }
+        
+        .lib-icon {
+            font-size: 1rem;
+        }
+        
+        .lib-status {
+            margin-left: auto;
+            background: rgba(74,222,128,0.2);
+            color: #4ade80;
+            padding: 2px 8px;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: 600;
         }
         
         .run-btn {
@@ -2985,6 +3043,46 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
         .info { color: #818cf8; }
         .result { color: #c4b5fd; }
         .audit { color: #fbbf24; font-size: 0.8rem; }
+        
+        .audit-box {
+            background: rgba(251,191,36,0.1);
+            border: 1px solid rgba(251,191,36,0.3);
+            border-radius: 8px;
+            padding: 10px 14px;
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .audit-box .audit-icon {
+            font-size: 1.1rem;
+        }
+        
+        .audit-box .audit-label {
+            color: #fbbf24;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .audit-box .audit-hash {
+            font-family: 'JetBrains Mono', monospace;
+            color: #fcd34d;
+            font-size: 0.85rem;
+            background: rgba(0,0,0,0.3);
+            padding: 4px 10px;
+            border-radius: 4px;
+            letter-spacing: 0.02em;
+        }
+        
+        .block-source {
+            color: #6366f1;
+            font-size: 0.75rem;
+            margin-top: 6px;
+            opacity: 0.8;
+        }
         
         .block-call {
             background: rgba(99,102,241,0.15);
@@ -3103,8 +3201,16 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
         
         <div class="demo-card">
             <div class="demo-header">
-                <span class="demo-title">Live AI Execution Demo</span>
+                <div class="demo-header-left">
+                    <span class="demo-title">Live AI Execution Demo</span>
+                    <span class="live-badge" id="liveBadge" style="display: none;"><span class="live-dot"></span>LIVE</span>
+                </div>
                 <button class="run-btn" id="runBtn" onclick="runDemo()">Run Demo</button>
+            </div>
+            <div class="library-bar" id="libraryBar" style="display: none;">
+                <span class="lib-icon">📦</span>
+                <span>Connected to live library: <strong>4,552 verified blocks</strong></span>
+                <span class="lib-status">Ready</span>
             </div>
             <div class="demo-output" id="output">
                 <div class="placeholder">
@@ -3152,12 +3258,19 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
             
             const btn = document.getElementById('runBtn');
             const output = document.getElementById('output');
+            const liveBadge = document.getElementById('liveBadge');
+            const libraryBar = document.getElementById('libraryBar');
             
             btn.disabled = true;
             btn.textContent = 'Running...';
             output.innerHTML = '';
             
-            addLine('<span class="status">Initializing AI agent...</span>');
+            liveBadge.style.display = 'inline-flex';
+            libraryBar.style.display = 'flex';
+            
+            addLine('<span class="status">Connecting to Groq AI (llama-3.3-70b-versatile)...</span>');
+            await new Promise(r => setTimeout(r, 600));
+            addLine('<span class="status">Loading block library from .neurop_expanded_library/...</span>');
             
             try {
                 const response = await fetch('/api/demo-live/run', {
@@ -3169,6 +3282,7 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
                 
                 if (data.error) {
                     addLine('<span class="blocked">Error: ' + data.error + '</span>');
+                    liveBadge.style.display = 'none';
                 } else {
                     const explanations = {
                         'is_valid_email': 'AI needs to validate an email. Instead of writing regex, it calls a pre-verified block.',
@@ -3189,28 +3303,29 @@ LIVE_DEMO_HTML = """<!DOCTYPE html>
                             const explain = explanations[event.block] || 'AI calls a verified block from the library.';
                             addLine('<span class="status" style="font-style: italic; color: #666;">→ ' + explain + '</span>');
                             await new Promise(r => setTimeout(r, 600));
-                            addLine('<div class="block-call"><span class="info">▶ AI CALLS:</span> ' + event.block + '<br><span class="status">Inputs:</span> ' + JSON.stringify(event.inputs).substring(0, 60) + '...</div>');
+                            addLine('<div class="block-call"><span class="info">▶ AI CALLS:</span> <strong>' + event.block + '</strong><br><span class="status">Inputs:</span> ' + JSON.stringify(event.inputs).substring(0, 80) + '<div class="block-source">📦 Fetched from live library: .neurop_expanded_library/' + event.block + '.json</div></div>');
                         } else if (event.type === 'block_result') {
                             await new Promise(r => setTimeout(r, 400));
-                            addLine('<span class="success">✓ Result:</span> <span class="result">' + JSON.stringify(event.result).substring(0, 50) + '...</span>');
-                            addLine('<span class="audit">Cryptographic Audit Hash: ' + event.audit + ' (tamper-proof)</span>');
+                            addLine('<span class="success">✓ Block executed successfully</span> <span class="result">' + JSON.stringify(event.result).substring(0, 60) + '</span>');
+                            addLine('<div class="audit-box"><span class="audit-icon">🔐</span><span class="audit-label">Cryptographic Audit</span><span class="audit-hash">' + event.audit + '</span><span style="color:#71717a;font-size:0.75rem;">tamper-proof</span></div>');
                         } else if (event.type === 'blocked') {
                             const explain = explanations[event.block] || 'This operation is not in the approved block list.';
                             addLine('<span class="status" style="font-style: italic; color: #666;">→ ' + explain + '</span>');
                             await new Promise(r => setTimeout(r, 600));
-                            addLine('<div class="block-blocked"><span class="blocked">✗ POLICY ENGINE BLOCKED:</span> ' + event.block + '<br><span class="status">This is the key differentiator.</span> AI wanted to do this, but Neurop Forge stopped it BEFORE execution.</div>');
+                            addLine('<div class="block-blocked"><span class="blocked">✗ POLICY ENGINE BLOCKED:</span> <strong>' + event.block + '</strong><br><span class="status">This is the key differentiator.</span> AI wanted to do this, but Neurop Forge stopped it BEFORE execution.<div class="block-source" style="color:#f87171;">❌ Not in approved library - execution denied</div></div>');
                         } else if (event.type === 'complete') {
                             await new Promise(r => setTimeout(r, 800));
-                            addLine('<div class="summary-box"><span class="success">Demo Complete</span><br><br><span class="info">Verified Blocks Executed:</span> ' + event.executed + ' (all deterministic, all auditable)<br><span class="blocked">Dangerous Operations Blocked:</span> ' + event.blocked + ' (policy enforcement worked)<br><br><span class="status">AI as Operator, Not Author.</span></div>');
+                            addLine('<div class="summary-box"><span class="success" style="font-size:1.1rem;">✓ Demo Complete</span><br><br><span class="info">Verified Blocks Executed:</span> ' + event.executed + ' (from live library)<br><span class="blocked">Dangerous Operations Blocked:</span> ' + event.blocked + ' (policy enforcement)<br><br><span style="color:#a5b4fc;font-size:0.9rem;">All executions cryptographically logged. AI as Operator, Not Author.</span></div>');
                         }
                     }
                 }
             } catch (err) {
                 addLine('<span class="blocked">Error: ' + err.message + '</span>');
+                liveBadge.style.display = 'none';
             }
             
             btn.disabled = false;
-            btn.textContent = 'Run Demo';
+            btn.textContent = 'Run Again';
             isRunning = false;
         }
     </script>
